@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="jifen" extends="default" namespace="/jifen">
+    <default-interceptor-ref name="adminStack"/>
+      
+       <action name="jifenbudeng" class="com.changpeng.jifen.action.JifenbudengAction">
+       	  <result name="input" type="dispatcher">/jifen/jifenbudeng.jsp</result>
+       </action>  
+       <action name="jifenbudengDelete" class="com.changpeng.jifen.action.JifenbudengDeleteAction">
+     
+       </action> 
+       <action name="jifenbudengList" class="com.changpeng.jifen.action.JifenbudengListAction">
+       	 	<interceptor-ref name="hibernateSessionStack"/>
+       	  <result name="success" type="dispatcher">/jifen/jifenbudengList.jsp</result>
+       </action> 
+       <action name="jifenQuery" class="com.changpeng.jifen.action.JifenQueryAction">
+             	<interceptor-ref name="hibernateSessionStack"/>
+       	  <result name="success" type="dispatcher">/jifen/jifenQuery.jsp</result>
+       </action> 
+       
+       <action name="provinceUnionJifenStatic" class="com.changpeng.jifen.action.ProvinceUnionJifenStaticAction">
+          <interceptor-ref name="hibernateSessionStack"/>
+       	  <result name="success" type="dispatcher">/jifen/provinceUnionJifenStatic.jsp</result>
+       </action> 
+       <action name="officeJifenStatic" class="com.changpeng.jifen.action.OfficeJifenStaticAction">
+             	<interceptor-ref name="hibernateSessionStack"/>
+       	  		<result name="success" type="dispatcher">/jifen/officeJifenStatic.jsp</result>
+       </action> 
+            <action name="cityUnionJifenStatic" class="com.changpeng.jifen.action.CityUnionJifenStaticAction">
+             	<interceptor-ref name="hibernateSessionStack"/>
+       	  <result name="success" type="dispatcher">/jifen/cityUnionJifenStatic.jsp</result>
+       </action> 
+            <action name="globalsJifenStatic" class="com.changpeng.jifen.action.GlobalsJifenStaticAction">
+             	<interceptor-ref name="hibernateSessionStack"/>
+       	  <result name="success" type="dispatcher">/jifen/globalsJifenStatic.jsp</result>
+       </action> 
+       
+         <action name="videoLookPre" class="com.changpeng.jifen.action.VideoLookPreAction">
+             	  <result name="success" type="dispatcher">/jifen/videoLookPre.jsp</result>
+       </action> 
+       
+       
+        <action name="jifenStaticsQuery" class="com.changpeng.jifen.action.JifenStaticsQueryAction">
+        	
+       	  <result name="globals" type="redirect">/jifen/globalsJifenStatic.pl</result>
+       	   <result name="office" type="redirect">/jifen/officeJifenStatic.pl</result>
+       	    <result name="city" type="redirect">/jifen/cityUnionJifenStatic.pl</result>
+       	     <result name="province" type="redirect">/jifen/provinceUnionJifenStatic.pl</result>
+       </action> 
+     
+     
+   </package>
+  
+</struts>

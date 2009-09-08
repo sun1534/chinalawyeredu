@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="forum" extends="default" namespace="/forum">
+    <default-interceptor-ref name="adminStack"/>
+      
+       <action name="forumList" class="com.changpeng.forum.action.ForumListAction">
+       	  <result name="success" type="dispatcher">/forum/forumList.jsp</result>
+       </action>  
+       
+       <!--新增一个帖子,显示这个帖子，如果是回帖，显示主题帖和所有的回帖-->
+       <action name="forumCreate" class="com.changpeng.forum.action.ForumCreateAction">
+       	  <result name="success" type="redirect">/forum/forumView.pl?mainforumid=${mainforumid}</result>
+       	  <result name="input" type="dispatcher">/forum/forumCreate.jsp</result>
+       </action> 
+     <!-- 删除帖子-->
+        <action name="forumDelete" class="com.changpeng.forum.action.ForumDeleteAction">
+       	  <result name="list" type="redirect">/forum/forumList.pl</result>
+       	  <result name="view" type="redirect">/forum/forumView.pl?mainforumid=${mainforumid}</result>
+       </action> 
+        <action name="forumView" class="com.changpeng.forum.action.ForumViewAction">
+       	  <result name="success" type="dispatcher">/forum/forumView.jsp</result>
+       </action> 
+     
+   </package>
+   
+   <package name="forumajax" extends="defaultajax" namespace="/forumajax">
+       <default-interceptor-ref name="visitStack"/>
+   	 
+   	   <!--更新律师的卡号和发卡时间-->
+   	  
+   </package>
+</struts>

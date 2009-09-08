@@ -1,0 +1,1 @@
+update lawyers a inner join sys_unionparams b on a.directunion=b.groupid set a.dabiaofen=b.dabiaofen

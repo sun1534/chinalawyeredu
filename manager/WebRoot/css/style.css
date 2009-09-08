@@ -1,0 +1,355 @@
+@charset "utf-8";
+/* CSS Document */
+body{ font-family:"宋体"; font-size:12px;line-height:150%; color:#333; background:#fff; text-align:left; margin:0; padding:0;}
+
+form,p,h1,h2,h3,h4,ul,li{margin:0;padding:0;}
+ul,li{ list-style:none;}
+.c{clear:both;height:0;font-size:1px;line-height:0px;}
+img{ border:none;}
+.hide{ display:none;}
+.pl75{ padding-left:75px;}
+.pl43{ padding-left:43px;}
+.pl52{ padding-left:52px;}
+.tal{text-align:left;}
+.tar{ text-align:right;}
+.w100{ width:100px;}
+.left{float:left;}
+.right{ float:right;}
+
+.frame_all{width:800px; height:515px; padding-top:15px;margin:10px;background: #ccc; border:1px solid #666;}
+	.frame_flow{width:100%; padding-top:5px;}
+	.flow_form,.flow_img{width:730px;height:30px;padding-top:10px;margin:5px;border: 1px solid #666;}
+	.flow_form span{float:left; margin-right:10px;}
+	.flow_img{width:100%;height:30px;padding-top:10px;margin:5px;border: 1px solid #666;}
+	.flow_img_con{width:auto;height:auto;margin:10px auto;}
+
+.flow_form_w600{width:590px;height:53px;margin:5px;border:1px solid #666;}
+	.flow_form_w600 p{width:560px;margin:3px 0 0 10px;padding:0px;float:left;}
+	.flow_form_w600 span{float:left; margin-right:10px;}
+
+/**登录
+.loging_bg{background:url(images/login_bg.jpg) no-repeat;padding:60px 0 0 280px;width:299px;height:188px;margin:0 auto 0 auto;text-align:right;margin-top:50px;}
+.loging_bg form p{;width:220px;line-height:34px;float:left;margin-bottom:8px;}
+.loging_bg form input{;width:150px;}
+.loging_bg form input.btn{;width:125px;height:40px;border:0;padding-right:30px;background:none;}
+.loging_bg form input.yz{;width:85px;}
+
+.loging_bg{margin:0 auto;width:615px;height:350px;background:url(/images/bg.png) no-repeat;_background:url(); _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/bg.png');}
+**/
+
+
+
+.table_gw{height:355px;width:710px;overflow:scroll;}
+.text_con{width:365px;height:25px;font-weight:bold;text-align:left;margin-left:5px;}
+
+/*表格*/
+
+table.normal{width:100%;border-collapse:collapse;border:solid #ddd;border-width:1px 1px 0 1px;font-size:12px;margin:5px;}
+table.normal th,table.normal td{border-bottom:1px solid #ddd;border-right:1px solid #ddd;border-width:0 1px 1px 0;padding:6px;text-align:left;}
+table.normal th{background:#ddd;color:#555;font-weight:bolder;border-right:1px solid #fff;}
+table.normal b {color:#ff0000;font-weight:normal}
+table.normal a{color:#10B2B0;text-decoration:none}
+table.normal a:hover{color:#000;text-decoration:none}
+table.normal tr.tb_header {background:#cccccc;color:#555;font-weight:bolder}
+table.normal tr.tb_header2 {background:#F0F0F0;color:#555;font-weight:normal;text-align:right}
+table.normal tr.g {background:#F1F1F1}
+table.normal tr.total {font-weight:bolder}
+table.normal tr.more {font-weight:normal;color:#8D8D8D}
+table.normal td.right {text-align:right}
+/**按钮**/
+.btn,.searchbtn{background:#f2fddf; font-weight:bold;line-height:23px;text-align:center; color:#62ca17; border-left:1px solid #98ec4c;border-top:1px solid #98ec4c;border-right:1px solid #4da300;border-bottom:1px solid #4da300; cursor:pointer; height:23px; vertical-align:middle;}
+.searchbtn{ padding:0px; margin-top:-5px;}
+.pbtn{ padding:10px 0 0px 0; text-align:center;}
+/**文本输入框**/
+.intxt{ border:1px solid #b2b2b2; height:20px; line-height:20px; vertical-align:middle;}
+#container{text-align:left;}
+#sidebar{width:206px;float:left; text-align:left;}
+#mainContent{width:100%;}
+/**页头**/
+#header{ height:69px;background:url(images/bg_head.jpg) no-repeat #73b445;border-bottom:1px solid #ccc;}
+#header .userinfo{text-align:right; padding:10px 10px 0 0; color:#fff;}
+#header a{color:#fff;text-decoration:none;}
+#header a:hover{ color:#ccc;text-decoration:none;}
+/**左边菜单**/
+/**侧栏**/
+#sidebar{text-align:left;padding-top:10px;background:#f3fef7;}
+.sec_menu {background:#ccc;overflow:hidden;}
+.menu_title {cursor: pointer;background-image: url(images/title_bg.jpg) no-repeat;text-indent: 30px;height: 32px;width: 206px;}
+.menu_title span {font-weight: bold; left: 8px;color:#39867b;position: elative;top:2px}
+.menu_title2 span {font-weight: bold; left: 8px;color:#f90;position:relative;top:2px}
+/**点击收缩**/
+.mainswitch-body{height:100%;widows:9px;margin:0; padding:0; background:url(images/bg_04.gif) repeat-y left top;}
+.mainswitch{widows:9px;margin:0;padding-top:200px;text-align:left;}
+
+
+
+/**查询**/
+.search{width:735px;_width:725px;height:37px;background:#f0fde6;border:1px solid #0C0;margin:5px 0px;padding:10px 0px 0px 10px;}
+.hint{width:350px; height:100px; border:3px solid #d2f3b8; margin:20px auto; padding:25px 10px;text-align:center;}
+.clear {clear:both;margin:0;padding:0;}/*清除浮动*/
+.search_a{width:735px;_width:725px;height:37px;background:#f0fde6;border:1px solid #0C0;margin:5px 0px;padding:10px 0px 0px 10px;}
+.search_a tr td,.search_a tr{text-align:left;}
+/**欢迎首页**/
+.welcome {padding-left:10px;width:700px;height:auto;float:left;}
+.w_img{	width:700px;height:85px;padding-top:10px;text-align:left;}
+.w_img img{padding:3px;border:1px solid #ccc;float:left;margin-right: 25px;}
+
+.welcome_title {font-size:12px;font-weight:bold;color:#f60;margin:5px 0;}
+.welcome_name{font-size:14px;font-weight:bold;margin-bottom:15px;}
+.welcome_name span{font-size:12px;color:#999; font-weight:normal;}
+
+.welcome_right {height:auto;width:600px;margin-left:80px;*margin-left:-50px;margin-top:-20px;margin-bottom:10px;}
+.welcome_right ul{padding-left:10px;height:auto;width:500px;text-align:left;}
+.welcome_right ul li{width:100px;line-height:22px;float:left;margin:2px 5px;background: url(images/ico_05.jpg) no-repeat;padding-left:17px;}
+.welcome_right ul li.title{width:450px;line-height:30px;text-indent:2px;float:left;margin:0;font-size:12px;font-weight:bold;color:#235c28;background:none;}
+
+.w_right {height:auto;width:600px;margin-left:95px;*margin-left:-20px;_margin-left:80px;margin-bottom:15px;}
+.w_right ul{margin:0;height:auto;width:520px;text-align:left;}
+.w_right ul li{width:590px;line-height:22px;float:left;padding-left:7px; border-bottom:1px solid #ccc;text-indent:10px; color:#000;}
+.w_right ul li.title{width:590px;line-height:30px;font-size:12px;font-weight:bold;color:#000;border:none;background: url(images/title2.jpg) no-repeat;text-indent: 10px;}
+
+
+.s_box{width:735px; height:25px;border:1px solid #999; margin-bottom:5px;}
+.s_input_size {padding:3px 0px 2px 3px; margin-top:3px;width:120px;height:14px;border:1px solid #CCC;}
+.s_select_size,.bj_select_size {padding:0px; margin:0px;width:110px;_width:105px;height:22px;border:1px solid #CCC;}
+.bj_select_size {width:90px;}
+.oper_search{margin-right:20px; font-size:12px;}/*路径查询部分*/
+
+
+.supplier{margin-top:20px; width:250px; text-align:left;}
+.supplier li {height:32px; padding-left:30px; font-size:14px; text-align:left;}
+.supplier li.bn {padding-left:130px;}
+.li_t{width:100px;text-align:right; float:left;}
+.li_c{width:500px;text-align:left; }
+.input_size {padding:4px 0px 2px 3px; margin:0px; width:150px; height:16px; border:1px solid #CCC;}
+.select_size {padding:0px; margin:0px; width:120px; height:25px; border:1px solid #CCC;}
+.h3title{width:98%; height:15px; background:#eee; margin:5px; padding:5px; text-align:left; font-weight:bolder;}
+.information{width:430px;height:auto; margin:20px auto; text-align:left;}
+/***** tab *****/
+#Tab3{width:99%;margin:0px;padding:0px;margin:10px auto;}
+.Menubox {width:100%;height:28px;line-height:28px;background-image: url(../css/images/1340.gif);}
+.Menubox ul{margin:0px;padding:0px;}
+.Menubox li{float:left;display:block;cursor:pointer;width:114px;text-align:center;color:#949694;font-weight:bold;}
+.Menubox li.hover{padding:0px;background:#fff;width:116px;border:1px solid #A8C29F; border-bottom:none;background:url(../css/images/9070.gif);color:#739242;font-weight:bold;height:27px;line-height:27px;}
+.Contentbox{clear:both;margin-top:0px;border-top:1px solid #A8C29F;border-top:none;height:auto;text-align:left;padding-top:8px;}
+/***** 翻页条 *****/
+.page{ width:90%;text-align:right; padding-top:10px; color:#2076c7; clear:both; zoom:1; margin:0 auto;}
+.page a,.page a:visited{ color:#585858;}
+.page span{ color:#2076c7;}
+/**主要内容**/
+.oper{ text-align:left;font-size:14px;margin:10px;line-height:27px;background:url(images/bg_oper.gif) repeat-x left bottom;}
+.oper a{ color:#2ea300;}
+.oper a:hover{ color:#f60;}
+.tablelist,
+.tablebox{ text-align:left;}
+.tablelist,.tablebox{ padding:0 10px; color:#666;}
+.tablelist table{ background:#f9f9f9; width:97%;}
+.tablelist .table-tit{ height:24px;background:#f6ffb8}
+.tablelist a{ color:#000;}
+.tablelist a:hover{ color:#f60;}
+.tablelist .cG,.tablebox .cG{ color:#50a603;}
+.tablelist .cR,.tablebox .cR{ color:#f00;}
+.tablelist th,.tablelist td{text-align:center;}
+.tablelist td{ padding:6px 0;}
+.tablelist .odd,.tablebox .odd{background:#eee;}
+.tablelist .bottomborder,.tablebox .bottomborder{}
+.tablelist .bottomborder td ,.tablebox .bottomborder td {border-bottom:1px #999 solid;}
+.tablelist tbody th{font-weight:normal;}
+.tablebox td{ padding:5px;}
+.tablebox { padding:10px 26px;}
+.tablebox table input,.tablebox table textarea{ vertical-align:middle;}
+.tablebox table{ border:1px solid #ccc;}
+.tablebox .pbtn{ padding:10px 0 10px 0; text-align:center;}
+.tablebox .pbtn .btn{ margin:0 5px;}
+
+/**upload上传文件**/
+.upload{width:650px;height:200px;border:1px solid #ccc;margin:15px auto;text-align:left;}
+.upload table td{height:36px;border-bottom: #ccc 1px dashed;text-indent: 15px;}
+.up_title{width:635px;height:21px;padding:3px 0 0 15px;background:url(../css/images/title-bg1.gif) repeat-x #ccc;font-weight:bold;color:#3fa600;}
+
+
+/**footer**/
+#footer{ background:#f9fff3; height:32px; line-height:32px; font-family:Verdana, Geneva, sans-serif; border-top:1px solid #ddfdc3;}
+/*提示信息*/
+/*box-orange*/
+.box-orange { border: 1px solid #FFCC00;padding:10px 10px 0 45px;margin:20px auto;background: #FFFFCC url(images/box_orange.gif) 10px 6px no-repeat; text-align:left;width:600px;}
+.box-orange h4 { font-size: 12px;color:#FF9900; font-weight: bolder;}
+.box-orange .box-content {line-height:160%}
+.box-orange .box-content p {color:#000;font-weight:normal}
+.box-orange .box-content span {float:right; margin-left:10px; }
+.box-orange .box-content .fm{margin:0; padding:0; font-size:12px;}
+.box-orange .box-content .fm em {font-size:12px;color:#666666;}
+.box-orange .box-content .fm p {margin: 3px 0 3px 0;border-bottom:0px solid #ddd;padding:3px 0 3px 10px;font-size:12px;}
+.box-orange .box-content .fm p span {width:60px;float:left;font-size:12px}
+.box-orange .box-content .fm p input {font-size:12px}
+.box-orange .box-content .fm h2 {font-size:12px;color:#8d8d8d;padding:0;margin-top:10px}
+.box-orange a:link {color:#ff7200}
+.box-orange a:hover {color:#ff7200}
+/* box-red */
+.box-red { border:1px solid #DD3C10;padding:10px 10px 0 45px;margin:20px auto;color:#000;background:#FFEBE8 url(images/box_red.gif) 10px 6px no-repeat;text-align:left;width:600px;}
+.box-red h4 {font-size:12px;font-weight:bolder;color:#DE3C10}
+.box-red .box-content span {float:right; margin-left:10px}
+.box-red .box-content p {font-weight:normal;line-height:170%;color:#000}
+.box-red .box-content ul {list-style:circle;margin-left:16px;margin-top:10px}
+.box-red .box-content ul li {line-height:170%}
+/* box-green */
+.box-green { border: 1px solid #6CB53D;padding:10px 10px 0 45px;margin:20px auto;background: #E9FAE7 url(images/box_green.gif) 10px 6px no-repeat; text-align:left;width:600px;}
+.box-green h4 { font-size: 12px; font-weight: bolder;color:#006600}
+.box-green .box-content p {font-weight:normal;color:#000}
+.box-green .box-content span {float:right; margin-left:10px; }
+/* box-grey */ 
+.box-grey { border: 1px solid #CCCCCC;padding:10px 10px 0 45px;margin:20px auto;background: #F1F1F1 url(images/box_grey.gif) 10px 6px no-repeat; text-align:left;width:600px;}
+.box-grey h4 { font-size: 12px; font-weight: bolder;color:#333333}
+.box-grey .box-content p {font-weight:normal;color:#8D8D8D}
+.box-grey .box-content span {float:right; margin-left:10px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* map */ 
+
+.map_table_box{ width:650px;margin:0 auto;}
+.map_table_box p{width:600px;margin-left:10px;font-weight:bold;}
+.map_table_box p span a{font-weight:normal;text-decoration:none;}
+
+
+
+
+
+.map{ width:388px; height:307px;background:url(images/map/Noname.gif) no-repeat; overflow:hidden; position:absolute; z-index:0;}
+.map ul{ width:388px; height:307px; overflow:hidden;}
+/* .map ul li{padding:0px;margin:0px;display:block;overflow:hidden; position:relative; z-index:1;text-indent:3px;}*/ 
+.map ul li{padding:0px;margin:0px;display:block;overflow:hidden; position:absolute; z-index:1;text-indent:3px;}
+.map ul li a{ display:block;color:#000;}
+.map ul li a:hover{ display:block;color:#fff;text-decoration:none;}
+
+/*共34个省 */
+
+	/*黑龙江 */
+	.map ul li.hlj{ width:41px; height:15px;top:42px;left:330px;}
+	.map ul li.hlj a:hover{background:url(images/map/txtbg.gif) no-repeat left -17px;display:block;}
+	/*吉林 */
+	.map ul li.jl{ width:32px; height:15px;top:75px;left:332px;}
+	.map ul li.jl a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/*了宁 */
+	.map ul li.ln{ width:32px; height:15px;top:91px;left:313px;}
+	.map ul li.ln a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/*新疆 */
+	.map ul li.xj{ width:32px; height:15px; top:92px;left:76px;}
+	.map ul li.xj a:hover{background:url(images/map/txtbg.gif) no-repeat;display:block;}
+	/*北京 */
+	.map ul li.bj{ width:32px; height:15px; top:96px;left:278px;}
+	.map ul li.bj a:hover{background:url(images/map/txtbg.gif) no-repeat;display:block;}
+
+
+	/*内蒙古 */
+	.map ul li.nmg{ width:41px; height:15px;top:100px;left:221px;}
+	.map ul li.nmg a:hover{background:url(images/map/txtbg.gif) no-repeat left -17px;display:block;}
+	/* 河北 */
+	.map ul li.hb{ width:32px; height:15px;top:117px;left:270px;}
+	.map ul li.hb a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 天津 */
+	.map ul li.tj{ width:32px; height:15px;top:117px;left:303px;}
+	.map ul li.tj a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 宁夏 */
+	.map ul li.nx{ width:32px; height:15px; top:120px;left:207px;}
+	.map ul li.nx a:hover{background:url(images/map/txtbg.gif) no-repeat;display:block;}
+	/* 山西 */
+	.map ul li.sx{ width:32px; height:15px;top:135px;left:250px;}
+	.map ul li.sx a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+
+
+	/* 山东 */
+	.map ul li.sd{ width:31px; height:15px;top:143px;left:287px;}
+	.map ul li.sd a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 甘肃 */
+	.map ul li.gs{ width:32px; height:15px;top:148px;left:198px;}
+	.map ul li.gs a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 青海 */
+	.map ul li.qh{ width:32px; height:15px;top:150px;left:137px;}
+	.map ul li.qh a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 河南 */
+	.map ul li.hn{ width:32px; height:15px;top:158px;left:261px;}
+	.map ul li.hn a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 江苏 */
+	.map ul li.js{ width:32px; height:15px;top:160px;left:315px;}
+	.map ul li.js a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+
+
+
+	/* 陕西 */
+	.map ul li.sx2{ width:32px; height:15px;top:168px;left:227px;}
+	.map ul li.sx2 a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 西藏 */
+	.map ul li.cx{ width:32px; height:15px;top:179px;left:80px;}
+	.map ul li.cx a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 上海 */
+	.map ul li.sh{ width:32px; height:15px;top:178px;left:338px;}
+	.map ul li.sh a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 安徽 */
+	.map ul li.ah{ width:32px; height:15px;top:182px;left:291px;}
+	.map ul li.ah a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 四川 */
+	.map ul li.sc{ width:32px; height:15px;top:184px;left:178px;}
+	.map ul li.sc a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+
+
+	/* 湖北 */
+	.map ul li.hb2{ width:32px; height:15px;top:187px;left:256px;}
+	.map ul li.hb2 a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 重庆 */
+	.map ul li.zq{ width:32px; height:15px;top:196px;left:211px;}
+	.map ul li.zq a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 浙江 */
+	.map ul li.zj{ width:32px; height:15px;top:199px;left:326px;}
+	.map ul li.zj a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 江西 */
+	.map ul li.jx{ width:32px; height:15px;top:206px;left:280px;}
+	.map ul li.jx a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 湖南 */
+	.map ul li.hn2{ width:32px; height:15px;top:216px;left:254px;}
+	.map ul li.hn2 a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+
+
+
+	/* 福建 */
+	.map ul li.fj{ width:32px; height:15px;top:222px;left:307px;}
+	.map ul li.fj a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 贵州 */
+	.map ul li.gz{ width:32px; height:15px;top:225px;left:214px;}
+	.map ul li.gz a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 云南 */
+	.map ul li.yn{ width:32px; height:15px;top:241px;left:169px;}
+	.map ul li.yn a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 广东 */
+	.map ul li.gd{ width:32px; height:15px;top:242px;left:269px;}
+	.map ul li.gd a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 台湾 */
+	.map ul li.tw{ width:32px; height:15px;top:249px;left:344px;}
+	.map ul li.tw a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+
+
+
+
+	/* 广西 */
+	.map ul li.gx{ width:32px; height:15px;top:251px;left:226px;}
+	.map ul li.gx a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 香港 */
+	.map ul li.hk{ width:32px; height:15px;top:258px;left:296px;}
+	.map ul li.hk a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 澳门 */
+	.map ul li.am{ width:32px; height:15px;top:270px;left:268px;}
+	.map ul li.am a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+	/* 海南 */
+	.map ul li.hn3{ width:32px; height:15px;top:285px;left:224px;}
+	.map ul li.hn3 a:hover{background:url(images/map/txtbg.gif) no-repeat left 0px;display:block;}
+

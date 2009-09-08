@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<!-- Some or all of these can be flipped to true for debugging -->
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.configuration.xml.reload" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.action.extension" value="pl" />
+    <constant name="struts.locale" value="zh_CN" />
+	
+	<!-- 可以将其修改为css_xhtml -->
+	<constant name="struts.ui.theme" value="xhtml" />
+		<!--<constant name="struts.multipart.saveDir" value="xhtml" />-->
+
+    <include file="com/changpeng/system/struts-system.xml" />
+    <include file="com/changpeng/lawyers/struts-lawyers.xml" />
+    <include file="com/changpeng/forum/struts-forum.xml" />
+    <include file="com/changpeng/lessons/struts-lessons.xml" />
+     <include file="com/changpeng/articles/struts-articles.xml" />
+          <include file="com/changpeng/jifen/struts-jifen.xml" />
+   	<package name="default" extends="struts-default">
+     	<interceptors>
+			<interceptor name="userverify" class="com.changpeng.common.interceptor.UserVerifyInterceptor"/>
+			<interceptor name="uservisit"  class="com.changpeng.common.interceptor.UserVisitInterceptor"/>
+			<interceptor name="hibernateSession"  class="com.changpeng.common.interceptor.SpringHibernateSessionInterceptor"/>
+    		<interceptor-stack name="hibernateSessionStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+		    	<interceptor-ref name="defaultStack"/>
+		    	<interceptor-ref name="hibernateSession"/>
+			</interceptor-stack>
+    		<interceptor-stack name="adminStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="verifyStack">
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="success" type="dispatcher">/common/message.jsp</result>
+		    <result name="message" type="dispatcher">/common/message.jsp</result>
+			<result name="error" type="dispatcher">/common/error.jsp</result>
+			<result name="login" type="redirect">/common/index.pl</result>
+			<result name="pasivelogin" type="redirect"><!-- /common/index.pl --> /common/passivelogin.jsp </result>
+			<result name="noright" type="dispatcher">/common/noright.jsp</result>
+			<result name="sqlexception" type="dispatcher">/common/exception.jsp</result>
+			<result name="exception" type="dispatcher">/common/exception.jsp</result>
+			<result name="serviceexception" type="dispatcher">/common/exception.jsp</result>
+		</global-results>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+            <exception-mapping result="serviceexception" exception="com.changpeng.common.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>
+
+
+        <!-- 之前为staticParams，应该不行，因为我在这里将数据送入了session，必须要有那个session的拦截器 -->
+		<action name="validateCode" class="com.changpeng.common.verifycode.ValidateImgAction">
+		    <interceptor-ref name="defaultStack"/>  
+			<param name="width">60</param>
+			<param name="height">20</param>
+			<param name="fontSize">16</param>
+			<param name="codeLength">4</param>
+			<!--disturbType的值为0，1，2，分别为不绘制干扰线，简单干扰线和复杂干扰线-->
+			<param name="disturbType">0</param>
+			<result name="success" type="stream">
+			<param name="contentType">image/jpeg</param>
+			</result>
+		</action> 
+	</package>
+	<!--json形式的action-->
+	<package name="defaultajax" extends="json-default">
+        <interceptors>
+			<interceptor name="userverify" class="com.changpeng.common.interceptor.UserVerifyInterceptor"/>
+			<interceptor name="uservisit"  class="com.changpeng.common.interceptor.UserVisitInterceptor"/>
+			<interceptor name="hibernateSession"  class="com.changpeng.common.interceptor.SpringHibernateSessionInterceptor"/>
+            <interceptor-stack name="hibernateSessionStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+		    	<interceptor-ref name="hibernateSession"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+    		<interceptor-stack name="adminStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="verifyStack">
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<!--
+			<interceptor-stack name="sessionStack">
+				<interceptor-ref name="hibernatesession"/>
+                <interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>  
+			-->
+		</interceptors>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+            <exception-mapping result="serviceexception" exception="com.changpeng.common.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>
+    </package>
+    
+    <!--登录啊退出啊密码修改等等-->
+    <package name="common" extends="default" namespace="/common">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 登录,默认为name='success' type='dispatch' -->
+		<action name="login" class="com.changpeng.common.action.UserLoginAction">
+		    <interceptor-ref name="visitStack"/>  
+    		<result name="success" type="redirect">/index/index.pl</result><!-- 进入系统首页 -->
+			<result name="pasiveloginsuccess" type="redirect">/index/workspace.pl</result><!-- 进入系统首页 -->
+		</action> 
+		
+		
+		<action name="loginFromWeb" class="com.changpeng.common.action.UserLoginFromWebSiteAction">
+		    <interceptor-ref name="visitStack"/>  
+    		<result name="success" type="redirect">/index/index.pl</result><!-- 进入系统首页 -->
+		</action> 
+		
+		
+		<action name="logout" class="com.changpeng.common.action.UserLogoutAction">
+		    <interceptor-ref name="adminStack"/>  
+			<result name="success" type="redirect">/common/index.pl</result><!-- 跳转到登录页面 -->
+		</action> 
+		
+		<action name="passwdChange" class="com.changpeng.common.action.PasswordChangedAction">
+		    <interceptor-ref name="adminStack"/>  
+		    <result name="input"  type="dispatcher">/common/passwdChange.jsp</result>
+		    
+			<!--<result name="success" type="dispatcher">/common/message.jsp</result> 提示密码修改成功 -->
+		</action>  
+		<!--系统访问,实现一些数据的初始化工作-->
+        <action name="index" class="com.changpeng.common.action.IndexAction">
+		    <interceptor-ref name="visitStack"/>  
+			<result name="success" type="dispatcher">/common/login.jsp</result><!-- 提示密码修改成功 -->
+		</action> 
+	</package>
+	
+	<package name="index" extends="default" namespace="/index">
+       <default-interceptor-ref name="adminStack"/>
+       <action name="index" class="com.changpeng.index.IndexPageAction">
+          <result name="success" type="dispatcher">/index/index.jsp</result>	
+       </action>
+        <action name="top" class="com.changpeng.index.IndexPageAction" method="top">
+          <result name="top" type="dispatcher">/index/top.jsp</result>	
+       </action>
+        <action name="left" class="com.changpeng.index.IndexPageAction" method="left">
+          <result name="left" type="dispatcher">/index/left.jsp</result>	
+       </action>
+       <action name="workspace" class="com.changpeng.index.MyWorkspacePageAction">
+       		<interceptor-ref name="hibernateSessionStack"/>
+          <result name="success" type="dispatcher">/index/workspace.jsp</result>	
+       </action> 
+        <action name="goodLessonList" class="com.changpeng.index.GoodLessonListAction">
+          <result name="success" type="dispatcher">/index/goodLessonList.jsp</result>	
+       </action> 
+        <action name="indexForum" class="com.changpeng.index.IndexForumAction">
+          <result name="success" type="dispatcher">/index/indexForum.jsp</result>	
+       </action> 
+        <action name="staticsView" class="com.changpeng.index.StaticsViewAction">
+          <result name="success" type="dispatcher">/index/staticsView.jsp</result>	
+       </action> 
+    </package>
+   <!-- 
+    <package name="indexajax" extends="defaultajax" namespace="/indexajax">
+       <default-interceptor-ref name="visitStack"/>
+    </package>
+    -->
+	<package name="commonajax" extends="defaultajax" namespace="/commonajax">
+       <default-interceptor-ref name="visitStack"/>
+           <action name="ajaxlogout" class="com.changpeng.common.action.UserLogoutAjaxAction">
+           <result name="success" type="json"></result>
+   	   </action>
+    </package>
+	
+</struts>

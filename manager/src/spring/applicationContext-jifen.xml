@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="lawyerlessonxfDAO" class="com.changpeng.jifen.dao.LawyerlessonxfDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="lxnetrecsDAO"
+		class="com.changpeng.jifen.dao.LxnetrecsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="lxskrecsDAO"
+		class="com.changpeng.jifen.dao.LxskrecsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="jifenbudengService"
+		class="com.changpeng.jifen.service.JifenbudengService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+		<property name="lawyerlessonxfDAO">
+			<ref bean="lawyerlessonxfDAO" />
+		</property>
+		<property name="lawyersDAO">
+			<ref bean="lawyersDAO" />
+		</property> 
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+	<bean id="lawyerlessonxfService"
+		class="com.changpeng.jifen.service.LawyerlessonxfService">
+		<property name="lawyerlessonxfDAO">
+			<ref bean="lawyerlessonxfDAO" />
+		</property>
+		<property name="lawyersDAO">
+			<ref bean="lawyersDAO" />
+		</property>
+	
+	</bean>
+	<bean id="lxnetrecsService"
+		class="com.changpeng.jifen.service.LxnetrecsService">
+		<property name="lxnetrecsDAO">
+			<ref bean="lxnetrecsDAO" />
+		</property>
+				<property name="lawyerlessonxfDAO">
+			<ref bean="lawyerlessonxfDAO" />
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="lxskrecsService"
+		class="com.changpeng.jifen.service.LxskrecsService">
+		<property name="lxskrecsDAO">
+			<ref bean="lxskrecsDAO" />
+		</property>
+		<property name="lawyerlessonxfDAO">
+			<ref bean="lawyerlessonxfDAO" />
+		</property> 
+		
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+	
+</beans>

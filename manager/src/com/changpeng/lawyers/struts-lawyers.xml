@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="lawyers" extends="default" namespace="/lawyers">
+    <default-interceptor-ref name="adminStack"/>
+       <action name="lawyersList" class="com.changpeng.lawyers.action.LawyersListAction">
+			
+			<result name="success" type="dispatcher">/lawyers/lawyersList.jsp</result>
+       </action>
+          <!--   <action name="lawyersCreate" class="com.changpeng.lawyers.action.LawyersCreateAction">
+			<result name="input" type="dispatcher">/lawyers/lawyersCreate.jsp</result>
+       </action>
+<action name="lawyersEdit" class="com.changpeng.lawyers.action.LawyersEditAction">
+			<result name="input" type="dispatcher">/lawyers/lawyersEdit.jsp</result>
+       </action> -->  
+       <action name="lawyersCreateEditPre" class="com.changpeng.lawyers.action.LawyersCreateEditAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/> 
+			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>
+       </action>
+         <action name="lawyersCreateEdit" class="com.changpeng.lawyers.action.LawyersCreateEditAction">
+			
+			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>
+       </action>
+           <action name="lawyersChangeOffice" class="com.changpeng.lawyers.action.LawyersChangeOfficeAction">
+			
+			<result name="input" type="dispatcher">/lawyers/lawyersChangeOffice.jsp</result>
+       </action>
+        <action name="lawyersChangeOfficePre" class="com.changpeng.lawyers.action.LawyersChangeOfficeAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/> 
+			<result name="input" type="dispatcher">/lawyers/lawyersChangeOffice.jsp</result>
+       </action>
+       <action name="lawyersDelete" class="com.changpeng.lawyers.action.LawyersDeleteAction">
+       </action> 
+       <!-- add -->
+		<action name="lawyerView" class="com.changpeng.lawyers.action.LawyerViewAction">
+			<result name="success" type="dispatcher">lawyersView.jsp</result>
+       </action>
+   </package>
+   
+   <package name="lawyersajax" extends="defaultajax" namespace="/lawyersajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   
+   	  
+   </package>
+</struts>
