@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Lessonscore" table="lessonscore">
+        <id name="lessonscoreid" type="int">
+            <column name="lessonscoreid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="lessons" class="com.changpeng.models.Lessons" fetch="select">
+        	<!-- <many-to-one name="lessons" class="com.changpeng.models.Lessons" update="false" insert="false" fetch="select">-->
+            <column name="lessonid" not-null="true" />
+        </many-to-one>
+        <property name="score" type="byte">
+            <column name="score" not-null="true">
+                <comment>'1&#228;&#184;?&#136;&#172;2&#232;&#190;&#131;&#229;&#165;&#189;3&#229;&#190;&#136;&#229;&#165;&#189;'</comment>
+            </column>
+        </property>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true">
+                <comment>
+                &#232;&#175;&#132;&#228;&#187;&#183;&#232;&#191;&#153;&#228;&#184;&#170;&#232;&#175;&#190;&#231;&#168;&#139;&#231;&#154;&#132;&#229;&#190;&#139;&#229;&#184;?</comment>
+            </column>
+        </property>
+        <property name="scoretime" type="timestamp">
+            <column name="scoretime" length="0" not-null="true">
+                <comment>
+                &#232;&#175;&#132;&#228;&#187;&#183;&#232;&#191;&#153;&#228;&#184;&#170;&#232;&#175;&#190;&#231;&#168;&#139;&#231;&#154;&#132;&#230;&#151;&#182;&#233;&#151;?</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

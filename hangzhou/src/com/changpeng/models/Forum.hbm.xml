@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Forum" table="forum">
+        <id name="forumid" type="int">
+            <column name="forumid" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="80" />
+        </property>
+        <property name="createuser" type="string">
+            <column name="createuser" length="20" not-null="true" />
+        </property>
+            <property name="forumcontent" type="string">
+            <column name="forumcontent" length="2000"/>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="ismain" type="java.lang.Boolean">
+            <column name="ismain">
+                <comment>&#230;&#152;&#175;&#229;&#144;&#166;&#228;&#184;&#187;&#233;&#162;&#152;&#229;&#184;?</comment>
+            </column>
+        </property>
+        <property name="delflag" type="java.lang.Boolean">
+            <column name="delflag">
+           
+            </column>
+        </property>
+        <property name="lastupdate" type="timestamp">
+            <column name="lastupdate" length="0" not-null="true">
+                <comment>&#230;&#156;?&#191;&#145;&#229;&#155;&#158;&#229;&#184;&#150;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="mainforum" type="java.lang.Integer">
+            <column name="mainforum">
+                <comment>
+                &#232;&#191;&#153;&#228;&#184;&#170;&#229;&#184;&#150;&#229;&#173;&#144;&#229;&#175;&#185;&#229;&#186;&#148;&#231;&#154;&#132;&#228;&#184;&#187;&#233;&#162;&#152;&#229;&#184;&#150;</comment>
+            </column>
+        </property>
+        <property name="replycount" type="int">
+            <column name="replycount" not-null="true">
+                <comment>&#230;&#128;&#187;&#232;&#174;&#161;&#229;&#155;&#158;&#229;&#164;&#141;&#230;&#149;?</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

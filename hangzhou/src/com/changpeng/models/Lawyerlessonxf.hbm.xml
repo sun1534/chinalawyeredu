@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Lawyerlessonxf" table="lawyerlessonxf" >
+        <id name="xfid" type="int">
+            <column name="xfid" />
+            <generator class="identity" />
+        </id>
+     <!--   <property name="userid" type="long">
+            <column name="userid" not-null="true" />
+        </property>
+        -->
+
+        <many-to-one name="lawer" class="com.changpeng.models.system.SysUser" fetch="join" lazy="false">
+            <column name="userid" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        
+       
+
+        <property name="lessonid" type="java.lang.Integer">
+            <column name="lessonid"  />
+        </property>
+         <property name="wareid" type="java.lang.Integer">
+            <column name="wareid"  />
+        </property>
+        <property name="budengid" type="java.lang.Integer">
+            <column name="budengid" />
+        </property> 
+                <property name="title" type="string">
+            <column name="title" length="50" />
+        </property>
+        
+        <property name="learnmode" type="string">
+            <column name="learnmode" length="20" not-null="true" />
+        </property>
+        <property name="pxdate" type="string">
+            <column name="pxdate" length="20" />
+        </property>
+               <property name="remarks" type="string">
+            <column name="remarks" length="1000" />
+        </property>
+        <property name="pxreqminutes" type="java.lang.Float">
+            <column name="pxreqminutes" precision="12" scale="0">
+                <comment>
+                &#231;&#189;&#145;&#228;&#184;&#138;&#230;&#136;&#150;&#231;&#142;&#176;&#229;&#156;&#186;&#232;&#175;&#190;&#228;&#187;&#182;&#233;&#156;&#128;&#232;&#166;&#129;&#231;&#154;&#132;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="pxminutes" type="java.lang.Float">
+            <column name="pxminutes" precision="12" scale="0">
+                <comment>
+                &#231;&#189;&#145;&#228;&#184;&#138;&#230;&#136;&#150;&#232;&#175;&#190;&#228;&#187;&#182;&#229;&#159;&#185;&#232;&#174;&#173;&#228;&#189;&#191;&#231;&#148;&#168;&#231;&#154;&#132;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="pxxf" type="java.lang.Float">
+            <column name="pxxf" precision="12" scale="0" not-null="true">
+                <comment>&#232;&#142;&#183;&#229;&#190;&#151;&#231;&#154;&#132;&#229;&#173;&#166;&#229;&#136;?</comment>
+            </column>
+        </property>
+                <property name="lastupdate" type="timestamp">
+            <column name="lastupdate" length="0" not-null="true" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

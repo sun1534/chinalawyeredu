@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="arrange.title">
+        <field-validator type="requiredstring">
+            <message>请输入标题!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">40</param>
+            <message><![CDATA[ 标题长度必须小于22个汉字!]]></message>
+        </field-validator>
+    </field>
+ 
+      <field name="arrange.arrangend">
+        <field-validator type="requiredstring">
+            <message>请设置活动截止时间!</message>
+        </field-validator>
+        
+    </field>
+     <field name="arrange.content">
+        <field-validator type="requiredstring">
+            <message>请输入正文内容!</message>
+        </field-validator>
+    </field>
+    <field name="arrange.maxpersons">
+        <field-validator type="int">
+            <message>人数限制必须为数字形式！</message>
+        </field-validator>
+    </field>
+ 	<validator type="regex">
+        <param name="fieldName">arrange.arrangend</param>
+        <param name="expression">
+            <![CDATA[^(\d){4}(-)(\d){2}(-)(\d){2}$]]>
+        </param>
+        <message>活动截止时间必须为2008-05-23的形式！</message>
+    </validator>
+</validators>

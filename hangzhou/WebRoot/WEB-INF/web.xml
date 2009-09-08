@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>执业律师继续教育培训系统-DEMO演示版</display-name>
+	<!-- Spring ApplicationContext配置文件的路径可使用通配符，多个路径用逗号分隔,此参数用于后面的Spring-Context loader -->
+	<context-param>   
+		<param-name>contextConfigLocation</param-name>   
+		<param-value>classpath:spring/*.xml</param-value>   
+    </context-param>  
+    <!--Spring ApplicationContext 载入 -->
+    <listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- 著名 Character Encoding filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<!--Hibernate Open Session in View Filter
+	这里只对那个elearningInterface有效
+	-->
+	<filter>
+		<filter-name>hibernateFilter</filter-name>
+		<filter-class>
+			org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.FilterDispatcher
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2-cleanup</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ActionContextCleanUp
+		</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!--
+	这个filter只对elearningInterface有效，对其他都不起作用
+	-->
+   <filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+	<url-pattern>/elearningInter*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2-cleanup</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <!-- ExtremeTable 导出Excel和Pdf的Filter 
+    -->
+	<!--
+		<filter>   
+		<filter-name>eXtremeExport</filter-name>   
+		<filter-class>org.extremecomponents.table.filter.ExportFilter</filter-class>   
+		</filter>
+	-->
+	<!-- Spring 刷新Introspector防止内存泄露 -->
+	<listener>
+		<listener-class>
+			org.springframework.web.util.IntrospectorCleanupListener
+		</listener-class>
+	</listener>
+	<!-- 用户会话的listener -->
+	<listener>
+		<listener-class>
+			com.changpeng.common.listener.UserSessionListener
+		</listener-class>
+	</listener>
+	<!-- 系统启动的初始化动作 -->
+	<listener>
+		<listener-class>
+			com.changpeng.common.listener.WebContextListener
+		</listener-class>
+	</listener>
+
+	<!-- session超时定义,单位为分钟 
+	-->
+	
+	
+	<servlet>
+		<servlet-name>elearningInterface</servlet-name>
+		<servlet-class>com.changpeng.service.ElearningInterfaceServlet</servlet-class>
+	</servlet>
+	
+		<servlet>
+		<servlet-name>Connector</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.connector.ConnectorServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>SimpleUploader</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.uploader.SimpleUploaderServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFile</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFile</param-name>
+			<param-value>php|php3|php5|phtml|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|dll|reg|cgi</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsImage</param-name>
+			<param-value>jpg|gif|jpeg|png|bmp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsImage</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFlash</param-name>
+			<param-value>swf|fla</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFlash</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+<servlet-mapping>
+    <servlet-name>elearningInterface</servlet-name>
+    <url-pattern>/elearningInterface</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Connector</servlet-name>
+    <url-pattern>/editor/filemanager/browser/default/connectors/jsp/connector</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SimpleUploader</servlet-name>
+    <url-pattern>/editor/filemanager/upload/simpleuploader</url-pattern>
+  </servlet-mapping>  
+
+	
+	<session-config>
+		<session-timeout>240</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

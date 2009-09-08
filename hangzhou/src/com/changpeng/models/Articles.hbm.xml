@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Articles" table="Articles" >
+        <id name="articleid" type="int">
+            <column name="articleid" />
+            <generator class="identity" />
+        </id>
+        <property name="type" type="int">
+            <column name="type" not-null="true">
+            	<comment>1是重要通知2是系统帮助</comment>
+            </column>
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="45" not-null="true" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="65535" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" length="5" />
+        </property>
+                <property name="toshouye" type="java.lang.Boolean">
+            <column name="toshouye" length="1" />
+        </property>
+        
+                <property name="listorder" type="int">
+            <column name="listorder" length="3" />
+        </property>
+        
+
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="createuserid" type="long">
+            <column name="createuserid" not-null="true" />
+        </property>
+          <property name="createuser" type="string">
+            <column name="createuser" length="25" not-null="true"  />
+        </property>
+     
+    </class>
+</hibernate-mapping>

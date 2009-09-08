@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Arrangesignup" table="arrangesignup" >
+        <id name="signupid" type="int">
+            <column name="signupid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="arrange" class="com.changpeng.models.Arrange" fetch="select">
+            <column name="arrangeid" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="arrangeperson" type="string">
+            <column name="arrangeperson" length="35"/>
+        </property>
+        <property name="gender" type="string">
+            <column name="gender" length="5" />
+        </property>
+        <property name="birthday" type="string">
+            <column name="birthday" length="10" />
+        </property>
+        <property name="minzu" type="string">
+            <column name="minzu" length="20" />
+        </property>
+        <property name="policy" type="string">
+            <column name="policy" length="20" />
+        </property>
+        <property name="granduatedate" type="string">
+            <column name="granduatedate" length="10" />
+        </property>
+        <property name="shixizhenghao" type="string">
+            <column name="shixizhenghao" length="20" />
+        </property>
+        <property name="shixidate" type="string">
+            <column name="shixidate" length="10" />
+        </property>
+        <property name="zigezhenghao" type="string">
+            <column name="zigezhenghao" length="20" />
+        </property>
+        <property name="zigedate" type="string">
+            <column name="zigedate" length="10" />
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="30" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="40" />
+        </property>
+        <property name="career" type="string">
+            <column name="career" length="65535" />
+        </property>
+        <property name="createuser" type="string">
+            <column name="createuser" length="25" not-null="true" />
+        </property>
+              <property name="groupid" type="int">
+            <column name="groupid" not-null="true" />
+        </property>
+         <property name="groupname" type="string">
+            <column name="groupname" length="50"  />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+                <property name="lawerno" type="string">
+            <column name="lawerno" length="25" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="150" />
+        </property>
+    </class>
+</hibernate-mapping>

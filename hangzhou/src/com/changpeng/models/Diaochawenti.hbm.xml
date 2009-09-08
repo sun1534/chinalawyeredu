@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Diaochawenti" table="diaochawenti">
+        <id name="wentiid" type="int">
+            <column name="wentiid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="diaocha" class="com.changpeng.models.Diaocha" fetch="select">
+            <column name="diaochaid" precision="10" scale="0"  not-null="true">
+                <comment>&#229;&#175;&#185;&#229;&#186;&#148;&#229;&#147;&#170;&#228;&#184;&#170;&#232;&#176;&#131;&#230;&#159;&#165;</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="diaochatype" class="com.changpeng.models.Diaochatype" fetch="select">
+            <column name="typeid" precision="10" scale="0"/>
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" length="200" not-null="true">
+                <comment>&#233;&#151;&#174;&#233;&#162;&#152;&#231;&#154;&#132;&#229;&#144;&#141;&#231;&#167;?</comment>
+            </column>
+        </property>
+        <property name="wentileixing" type="int">
+            <column name="wentileixing" not-null="true">
+                <comment>
+                &#233;&#151;&#174;&#233;&#162;&#152;&#231;&#154;&#132;&#231;&#177;&#187;&#229;&#158;?&#229;&#141;&#149;&#233;?2&#229;&#164;&#154;&#233;?3&#229;&#141;&#149;&#232;&#190;&#147;&#229;&#133;&#165;&#230;&#161;&#134;4&#229;&#164;&#154;&#232;&#190;&#147;&#229;&#133;&#165;&#230;&#161;&#134;5&#229;&#136;&#134;&#233;&#161;&#181;&#231;&#172;?</comment>
+            </column>
+        </property>
+        <!--property name="options" type="string">
+            <column name="options" length="20">
+                <comment>
+                &#229;&#175;&#185;&#228;&#186;&#142;1&#229;&#146;?,&#230;&#152;&#175;&#229;&#144;&#166;&#232;&#190;&#147;&#229;&#133;&#165;&#229;&#133;&#182;&#228;&#187;&#150;&#229;&#134;&#133;&#229;&#174;&#185;,&#229;&#175;&#185;&#228;&#186;&#142;3,&#232;&#190;&#147;&#229;&#133;&#165;&#229;&#173;&#151;&#230;&#149;&#176;,&#229;&#175;&#185;&#228;&#186;&#142;4,&#233;&#153;&#144;&#229;&#136;&#182;&#232;&#161;&#140;&#230;&#149;&#176;</comment>
+            </column>
+        </property-->
+        <property name="isbixu" type="java.lang.Boolean">
+            <column name="isbixu">
+                <comment>&#230;&#152;&#175;&#229;&#144;&#166;&#229;&#191;&#133;&#231;&#173;&#148;&#233;&#162;&#152;&#231;&#155;&#174;</comment>
+            </column>
+        </property>
+        <!--property name="islogic"  type="java.lang.Boolean">
+            <column name="islogic">
+                <comment>
+                &#230;&#152;&#175;&#229;&#144;&#166;&#233;&#128;&#187;&#232;&#190;&#145;&#233;&#128;&#137;&#233;&#161;&#185;,&#228;&#185;&#159;&#229;&#176;&#177;&#230;&#152;&#175;&#230;&#160;&#185;&#230;&#141;&#174;&#231;&#173;&#148;&#233;&#162;&#152;&#230;&#131;&#133;&#229;&#134;?&#232;&#189;&#172;&#229;&#144;&#145;&#229;&#136;&#176;&#229;&#147;&#170;&#228;&#184;&#170;&#233;&#162;&#152;&#231;&#155;?</comment>
+            </column>
+        </property-->
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="createuser" type="string">
+            <column name="createuser" length="20" not-null="true" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="400">
+                <comment>&#233;&#162;&#152;&#231;&#155;&#174;&#231;&#154;&#132;&#229;&#133;&#182;&#228;&#187;&#150;&#232;&#175;&#180;&#230;&#152;?</comment>
+            </column>
+        </property>
+        <set name="diaochaoptions" inverse="true" order-by="optionid">
+            <key>
+                <column name="wentiid" not-null="true">
+                    <comment>&#229;&#175;&#185;&#229;&#186;&#148;&#229;&#147;&#170;&#228;&#184;&#170;&#233;&#151;&#174;&#233;&#162;&#152;</comment>
+                </column>
+            </key>
+            <one-to-many class="com.changpeng.models.Diaochaoption" />
+        </set>
+         <set name="diaochareplys" inverse="true" order-by="replyid">
+            <key>
+                <column name="wentiid" not-null="true">
+                    <comment>&#229;&#175;&#185;&#229;&#186;&#148;&#229;&#147;&#170;&#228;&#184;&#170;&#233;&#151;&#174;&#233;&#162;&#152;</comment>
+                </column>
+            </key>
+            <one-to-many class="com.changpeng.models.Diaochareply" />
+        </set>
+    </class>
+</hibernate-mapping>

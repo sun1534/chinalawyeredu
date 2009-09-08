@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Arrange" table="arrange">
+        <id name="arrangeid" type="int">
+            <column name="arrangeid" />
+            <generator class="identity" />
+        </id>
+        <property name="arrangetype" type="byte">
+            <column name="arrangetype" not-null="true" />
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="45" not-null="true" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="65535" />
+        </property>
+        <property name="arrangend" type="string">
+            <column name="arrangend" length="10" />
+        </property>
+        <property name="maxpersons" type="java.lang.Short">
+            <column name="maxpersons" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="createuser" type="long">
+            <column name="createuser" not-null="true" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="100" />
+        </property>
+        <set name="arrangesignups" inverse="true">
+            <key>
+                <column name="arrangeid" not-null="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Arrangesignup" />
+        </set>
+    </class>
+</hibernate-mapping>

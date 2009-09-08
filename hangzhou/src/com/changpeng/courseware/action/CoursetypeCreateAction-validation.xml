@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="type.typename">
+        <field-validator type="requiredstring">
+            <message>请输入课件类别!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">100</param>
+            <message><![CDATA[ 课件类别长度必须小于50个汉字或100个字母!]]></message>
+        </field-validator>
+    </field>
+</validators>

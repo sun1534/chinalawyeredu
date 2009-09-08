@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+
+	<field name="articles.title">
+        <field-validator type="requiredstring">
+            <message>请输入正文标题!</message>
+        </field-validator>
+    </field>
+    <field name="articles.content">
+        <field-validator type="requiredstring">
+            <message>请输入正文内容!</message>
+        </field-validator>
+    </field>
+</validators>

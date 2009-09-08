@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Jifenbudeng" table="jifenbudeng" >
+        <id name="budengid" type="int">
+            <column name="budengid" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="45" />
+        </property>
+        <property name="budengdate" type="string">
+            <column name="budengdate" length="12" not-null="true" />
+        </property>
+        <!--<property name="userid" type="long">
+            <column name="userid" not-null="true" />
+        </property>
+        -->
+        <many-to-one name="lawer" class="com.changpeng.models.system.SysUser" not-null="true">
+           <column name="userid" />
+        </many-to-one>
+        
+        <property name="lawerno" type="string">
+            <column name="lawerno" length="25" not-null="true" />
+        </property>
+        <property name="xuefen" type="java.lang.Float">
+            <column name="xuefen" precision="10" scale="2" not-null="true" />
+        </property>
+        <property name="createuser" type="string">
+            <column name="createuser" length="20" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

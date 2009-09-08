@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Lessonbaoming" table="lessonbaoming">
+        <id name="baomingid" type="int">
+            <column name="baomingid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="lessons" class="com.changpeng.models.Lessons" fetch="select">
+            <column name="lessonid" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="userid" type="int">
+            <column name="userid" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
