@@ -306,6 +306,7 @@ public class WebSiteTransfer {
 			rususer.setDescription(staff.getDescription());
 			rususer.setRoleid(6);
 			rususer.setServicedomain(group.getCorporationid());
+			rususer.setServicehour(101);
 
 			String flag = info.getDataType();
 			if (flag != null && flag.equalsIgnoreCase("inserted") || flag.equalsIgnoreCase("updated")) {
@@ -424,7 +425,7 @@ public class WebSiteTransfer {
 			rususer.setDescription(staff.getDescription());
 			rususer.setRoleid(6);
 			rususer.setServicedomain(group.getParentid());
-
+			rususer.setServicehour(100);
 			String flag = info.getDataType();
 			if (flag != null && flag.equalsIgnoreCase("inserted") || flag.equalsIgnoreCase("updated")) {
 				LOG.info("isnew:::" + isnew + ",flag::" + flag);
