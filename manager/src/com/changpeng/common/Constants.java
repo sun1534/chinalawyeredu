@@ -62,4 +62,5 @@ public class Constants {
 	public static String DEFAULT_TOP_BAR_PIC;
 	//反问的url是什么
 
+	public static String PHOTO_SAVE_PATH;
 }

@@ -80,8 +80,7 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 				int index = fileName.lastIndexOf(".");
 				String name = System.currentTimeMillis() + fileName.substring(index);
 
-				String indexDir = ServletActionContext.getServletContext().getRealPath(
-						"/lawyerphotos/" + lawyers.getDirectunion() + "/");
+				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + lawyers.getDirectunion() + "/";
 				File filedir = new File(indexDir);
 
 				if (!filedir.exists()) {
@@ -93,7 +92,7 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 				upload.renameTo(file);
 
 				debug("=================" + indexDir);
-				lawyers.setPhoto(name);
+				lawyers.setPhoto(lawyers.getDirectunion()+"/"+name);
 				lawyers.setPhotoname(fileName);
 			} catch (Exception e) {
 				debug("照片上传失败..." + e);
