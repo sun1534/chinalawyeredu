@@ -65,9 +65,9 @@ if(confirm("确定要删除掉这个信息吗")){
         <TD align="center" background="../imagesa/top-bg1.gif" >创建者</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">回复数</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">最近更新时间</TD>
-
+<s:if test="hasright">
          <TD align="center" background="../imagesa/top-bg1.gif">删除</TD>
-
+</s:if>
       </tr>
       
 <s:iterator value="page.items" status="stat">
@@ -77,9 +77,12 @@ if(confirm("确定要删除掉这个信息吗")){
         <TD class="tab_content" align="center">${createuser}</TD>
         <TD class="tab_content" align="center">${replycount}</TD>
         <TD class="tab_content" align="center">
-        	${lastupdate}
+        <s:date name="lastupdate" format="yyyy-MM-dd HH:mm"/>
+       
         </TD>
+        <s:if test="hasright">
      	<TD class="tab_content" align="center"><a href="#" onclick="deleteit('${forumid}')">删除</a></TD>
+        </s:if>
          </TR>
      </s:iterator> 
      

@@ -152,7 +152,7 @@ function getCities(vallll){
 	                <s:else>&nbsp;
 	                </s:else>
 	                </TD>
-							<TD class="tab_content" align="center">${lessondate}</TD>
+							<TD class="tab_content" align="center">   <s:date name="lessondate" format="yyyy-MM-dd HH:mm"/></TD>
                      <TD class="tab_content" align="center">
 
                               <s:property value="@com.changpeng.system.util.CommonDatas@groups[groupid]"/>

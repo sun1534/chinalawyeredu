@@ -73,7 +73,10 @@ function fanye(str){
 <s:iterator value="page.items" status="stat">
       <TR>
         <TD class="tab_content" align="left">${title}</TD>
-        <TD class="tab_content" align="center">${learnmode}</TD>
+        <TD class="tab_content" align="center">
+        <s:property value="@com.changpeng.jifen.util.CommonDatas@LEARNMODE[learnmode]"/>
+   
+        </TD>
         <TD class="tab_content" align="center">${pxdate}</TD>
         <TD class="tab_content" align="center">${pxreqminutes} </TD>
         <TD class="tab_content" align="center">${pxminutes}</TD>

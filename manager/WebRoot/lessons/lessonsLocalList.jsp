@@ -125,7 +125,8 @@ function deleteid(lessonid){
 							</TD>
 	                
 							<TD class="tab_content" align="center">
-                             ${lessondate}
+                         
+                             <s:date name="lessondate" format="yyyy-MM-dd HH:mm"/>
                               
 							</TD>
   <TD class="tab_content" align="center">

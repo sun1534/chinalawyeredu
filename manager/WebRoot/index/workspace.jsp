@@ -75,7 +75,7 @@ $("#staticid").load("staticsView.pl?now="+new Date().getTime());
       <tr>
         <td class="tab_content1" align="left"><a href="../lessons/lessonsView.pl?lessonid=${lessonid}">&nbsp;&nbsp;${title}</a></td>
         <td class="tab_content1" align="center">${teachers}</td>
-        <td class="tab_content1" align="center">${lessondate}</td>
+        <td class="tab_content1" align="center"><s:date name="lessondate" format="yyyy-MM-dd HH:mm"/></td>
      <!-- <td class="tab_content1" align="center">${lessonaddress}</td> -->
         <td class="tab_content1" align="center">${xuefen}</td>
         <td class="tab_content1" align="center">

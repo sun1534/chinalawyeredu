@@ -128,11 +128,11 @@
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>所： </b></td>                   
-        <td align="left" bgcolor="#F2F8FF">${jifenstatics.allusers}  </td>  
+        <td align="left" bgcolor="#F2F8FF">${sysgroup.groupname}  </td>  
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>人：</b> </td>                   
-        <td align="left" bgcolor="#F2F8FF">${sysgroup.usercnts}</td>
+        <td align="left" bgcolor="#F2F8FF">${jifenstatics.allusers}</td>
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>管： </b> </td>                  
@@ -144,7 +144,7 @@
         </td>
       </tr>
       <tr>
-        <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>区： </b>   </td>                
+        <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>址： </b>   </td>                
         <td align="left" bgcolor="#F2F8FF">${group.address}</td>
       </tr>
       <tr>
