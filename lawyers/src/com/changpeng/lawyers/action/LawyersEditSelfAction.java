@@ -108,12 +108,13 @@ public class LawyersEditSelfAction extends AbstractAction {
 	@Override
 	public String input() throws Exception {
 
-		BasicService bservice = (BasicService) this.getBean("basicService");
-		lawyers = (Lawyers) bservice.get(Lawyers.class, this.getLoginUser().getLawyerid());
+//		BasicService bservice = (BasicService) this.getBean("basicService");
+//		lawyers = (Lawyers) bservice.get(Lawyers.class, this.getLoginUser().getLawyerid());
+	lawyers=this.getLoginUser();
 		if(lawyers.getZhiyedate()!=null)
 			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
 		com.changpeng.common.CommonDatas.getGroups();
-		set("lawyers", lawyers);
+//		set("lawyers", lawyers);
 
 		return INPUT;
 	}
@@ -122,8 +123,8 @@ public class LawyersEditSelfAction extends AbstractAction {
 
 	public Lawyers getLawyers() {
 		if (lawyers == null)
-			lawyers = (Lawyers) this.get("lawyers");
-
+//			lawyers = (Lawyers) this.get("lawyers");
+lawyers=this.getLoginUser();
 		return this.lawyers;
 	}
 
