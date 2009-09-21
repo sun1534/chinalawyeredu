@@ -151,6 +151,11 @@ public class WebContextListener implements ServletContextListener {
 			if (CommonDatas.SysParameter.containsKey("startyear")) {
 				Constants.START_YER = Integer.parseInt(CommonDatas.SysParameter.get("startyear").toString());
 			}
+			if (CommonDatas.SysParameter.containsKey("photosavepath")) {
+				Constants.PHOTO_SAVE_PATH =CommonDatas.SysParameter.get("photosavepath").toString();
+					if(Constants.PHOTO_SAVE_PATH .endsWith("/"))
+						Constants.PHOTO_SAVE_PATH =Constants.PHOTO_SAVE_PATH +"/";	
+			}
 			if (CommonDatas.SysParameter.containsKey("havelocal")) {
 				if (CommonDatas.SysParameter.get("havelocal").toString().equals("true")
 						|| CommonDatas.SysParameter.get("havelocal").toString().equals("false"))
