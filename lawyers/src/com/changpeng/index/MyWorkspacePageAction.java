@@ -64,7 +64,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 		com.changpeng.common.CommonDatas.getGroups();
 
 		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
-		this.lawyers = this.getLoginUser();
+		this.lawyers = (Lawyers)basicService.get(Lawyers.class, this.getLoginUser().getLawyerid());
 		// 根据查询的年来查,默认为当前时间所在的积分年
 
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());

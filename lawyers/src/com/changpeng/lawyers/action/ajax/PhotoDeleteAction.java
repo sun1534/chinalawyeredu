@@ -57,7 +57,7 @@ public class PhotoDeleteAction  extends AbstractAction {
 	
 		if(photo!=null&&!"".equals(photo)){
 			try{
-				File _file=new File( com.changpeng.common.Constants.PHOTO_SAVE_PATH +lawyers.getDirectunion()+"/"+photo);
+				File _file=new File( com.changpeng.common.Constants.PHOTO_SAVE_PATH +photo);
 				FileUtils.forceDelete(_file);
 			}catch(IOException e){
 				_LOG.error("删除律师照片失败："+e);

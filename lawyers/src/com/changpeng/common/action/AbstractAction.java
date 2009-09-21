@@ -238,7 +238,7 @@ public abstract class AbstractAction extends ActionSupport {
 		}
 		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
 	}
-	public String getLogoPath() {
+	public String getLogopath() {
 		return com.changpeng.common.Constants.LOGO_PATH;
 	}
 
