@@ -78,7 +78,7 @@ if(confirm("确定要删除掉这个信息吗")){
      </s:iterator> 
      
       
-      <tr background-color="#F1F1ED">
+      <tr style="background-color=#F1F1ED">
         <td  colspan="7" align="center">&nbsp;
           	
        </td>

@@ -107,7 +107,7 @@ return;
             <td align="right" class="tab_content1">您在律协执业日期: </td>
           <td class="tab_content1">
            
-            <jscalendar:jscalendar name="lawyers.zhiyedate" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
+            <jscalendar:jscalendar name="lawyers.zhiyedatestr" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
             </td>
         </tr>
 		<tr>
@@ -128,7 +128,7 @@ return;
           
            <s:file name="upload" cssClass="text1"/>
            <br><font color="#FF0000">
-           请提供标准2寸身份证相片，长宽大小控制在300*200以内
+          请提供标准2寸身份证相片,照片格式为:宽为120像素,高为160像素
            </font>
             </td>
         </tr>

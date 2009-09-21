@@ -35,6 +35,7 @@ public class Lawyers implements java.io.Serializable {
 	private int directunion; // 直属律协
 	private int provinceunion; // 省律协
 	private Date zhiyedate;
+	private String zhiyedatestr;
 	private String photo;
 	private String photoname;
 	private String specility;
@@ -505,6 +506,20 @@ public class Lawyers implements java.io.Serializable {
 	 */
 	public void setSystemno(String systemno) {
 		this.systemno = systemno;
+	}
+
+	/**
+	 * @return the zhiyedatestr
+	 */
+	public String getZhiyedatestr() {
+		return zhiyedatestr;
+	}
+
+	/**
+	 * @param zhiyedatestr the zhiyedatestr to set
+	 */
+	public void setZhiyedatestr(String zhiyedatestr) {
+		this.zhiyedatestr = zhiyedatestr;
 	}
 
 }

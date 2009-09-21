@@ -5,6 +5,8 @@
 package com.changpeng.lawyers.action;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +26,7 @@ import com.changpeng.models.Lawyers;
  */
 public class LawyersEditSelfAction extends AbstractAction {
 	private static Log _LOG = LogFactory.getLog(LawyersEditSelfAction.class);
-
+	private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	public LawyersEditSelfAction() {
 
 	}
@@ -40,6 +42,18 @@ public class LawyersEditSelfAction extends AbstractAction {
 		com.changpeng.common.BasicService bs = (com.changpeng.common.BasicService) this.getBean("basicService");
 		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
 
+		if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
+		{
+			try{
+				Date date=df.parse(lawyers.getZhiyedatestr());
+				lawyers.setZhiyedate(date);
+			}catch(Exception e){
+				this.message="执业日期输入不对,请重新输入:"+lawyers.getZhiyedatestr();
+				return "message";
+			}
+		}
+		
+		
 		// if (lawyers.getTheoffice() == 0) {
 		// this.message = "必须选择所在的事务所,请返回";
 		// return "message";
@@ -98,7 +112,8 @@ public class LawyersEditSelfAction extends AbstractAction {
 
 		BasicService bservice = (BasicService) this.getBean("basicService");
 		lawyers = (Lawyers) bservice.get(Lawyers.class, this.getLoginUser().getLawyerid());
-
+		if(lawyers.getZhiyedate()!=null)
+			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
 		com.changpeng.common.CommonDatas.getGroups();
 		set("lawyers", lawyers);
 
