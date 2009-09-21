@@ -130,7 +130,7 @@
       		 <img src="../imagesa/none.jpg" width="106"/>       
       	</s:if>
       	<s:else>
-      		<img src="../lawyerphotos/${lawyers.directunion}/${lawyers.photo}" width="106"/>    
+      		<img src="${logopath}/${lawyers.photo}" width="106"/>    
       	</s:else>        <br/> <b>您好，${lawyers.lawyername} 律师</b> </td>
       </tr>
       <tr>

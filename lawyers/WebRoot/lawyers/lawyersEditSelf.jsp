@@ -119,9 +119,10 @@ return;
          <tr> 
           <td align="right" class="tab_content1">您的照片: </td>
           <td class="tab_content">
+        
           <s:if test="lawyers.photo!=null&&!lawyers.photo.equals(\"\")">
           <div id="imgdiv">
-          <img src="../lawyerphotos/${lawyers.directunion}/${lawyers.photo}" width="150"/>
+          <img src="${logopath }/${lawyers.photo}" width="150"/>
           <a href="#" onclick="deletephoto('${lawyerid}')"/>删除照片</a>
           </div>
           </s:if>
