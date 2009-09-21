@@ -74,7 +74,7 @@ ${groupname}
             </td>
         </tr>
  <tr> 
-            <td align="right" class="tab_content1"><%=com.changpeng.common.Constants.LOCATION%>执业日期: </td>
+            <td align="right" class="tab_content1">所在律协执业日期: </td>
           <td class="tab_content1">
            
            ${sysUser.zhiyedate}
