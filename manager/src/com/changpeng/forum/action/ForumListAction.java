@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.models.Forum;
+import com.changpeng.models.SysGroup;
 
 /**
  * 
@@ -24,6 +25,10 @@ public class ForumListAction extends AbstractListAction {
 
 	}
 
+	private boolean hasright;
+	public boolean getHasright(){
+		return hasright;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,6 +37,12 @@ public class ForumListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
+		SysGroup group=this.getLoginUser().getSysGroup();
+		if(group!=null&&group.getGrouptype()==1)
+			hasright=false;
+		else
+			hasright=true;
+		
 		// TODO Auto-generated method stub
 		BasicService basic = (BasicService) getBean("basicService");
 		DetachedCriteria detachedCriteria = DetachedCriteria

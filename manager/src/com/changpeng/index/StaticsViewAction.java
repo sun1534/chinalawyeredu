@@ -52,7 +52,7 @@ public class StaticsViewAction extends AbstractAction {
 
 		if (sysgroup == null || sysgroup.getGrouptype() > 3) {// 系统管理员层级
 			
-			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "01-01");
+			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
 			this.lawyerscnt=lawyersservice.getFieldLawyerCnt(null, 0);
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(),null,0);
 			 this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
@@ -78,7 +78,7 @@ public class StaticsViewAction extends AbstractAction {
 		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "cityid",sysgroup.getGroupid());
 
 		} else if (sysgroup.getGrouptype() == 3) {// 省级律协
-			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "01-01");
+			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "provinceid",
 					sysgroup.getGroupid());
 		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "provinceid",sysgroup.getGroupid());

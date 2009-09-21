@@ -9,6 +9,8 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.PaginationSupport;
+import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lessons.dao.LessonsDAO;
 import com.changpeng.lessons.util.Lessonstatics;
@@ -32,7 +35,7 @@ import com.changpeng.models.SysUser;
  * 
  */
 public class LessonsService extends BasicService {
-
+	private static Log _LOG = LogFactory.getLog(AbstractAction.class);
 	private LessonsDAO lessonsDAO;
 
 	// private PlatformTransactionManager transactionManager;
@@ -159,15 +162,16 @@ public class LessonsService extends BasicService {
 		String sql = "";
 
 		if (field != null && !field.equals("")) {
-			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(lessondate) between "
+			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(createtime) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") and " + field + "=" + fieldvalue
 					+ " group by lessonstyle";
 		} else {
-			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(lessondate) between "
+			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(createtime) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") group by lessonstyle";
 
 		}
-
+		
+		_LOG.debug("getFiledLessons:"+sql);
 		Lessonstatics statics = new Lessonstatics();
 
 		List tongjilist = lessonsDAO.findBySqlQuery(sql);

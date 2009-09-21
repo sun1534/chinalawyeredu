@@ -29,10 +29,10 @@ public class IndexForumAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		BasicService bs=(BasicService)this.getBean("basicService");
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Forum.class).add(Restrictions.eq("ismain", true));
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Forum.class).add(Restrictions.eq("ismain", true)).add(Restrictions.eq("provinceid",this.getLoginUser().getProvinceid()));
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
-		PaginationSupport page = bs.findPageByCriteria(detachedCriteria, 10, 1);
+		PaginationSupport page = bs.findPageByCriteria(detachedCriteria, 6, 1);
 		this.forumList = page.getItems();
 		return SUCCESS;
 	}

@@ -103,7 +103,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 		//		
 
 		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
-		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 10,
+		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 6,
 				1, null, null);
 
 		this.lessonList = page.getItems();

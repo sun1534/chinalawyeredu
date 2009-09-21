@@ -4,8 +4,9 @@
 package com.changpeng.lawyers.action;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.util.Date;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +27,7 @@ import com.changpeng.models.SysUnionparams;
  */
 public class LawyersCreateEditAction extends AbstractAction {
 	private static Log _LOG = LogFactory.getLog(LawyersCreateEditAction.class);
-
+private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	public LawyersCreateEditAction() {
 
 		this.datavisible = new DataVisible();
@@ -44,6 +45,19 @@ public class LawyersCreateEditAction extends AbstractAction {
 			this.message = "必须选择所在的事务所,请返回";
 			return "message";
 		}
+		
+if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
+{
+	try{
+		Date date=df.parse(lawyers.getZhiyedatestr());
+		lawyers.setZhiyedate(date);
+	}catch(Exception e){
+		this.message="执业日期输入不对,请重新输入:"+lawyers.getZhiyedatestr();
+		return "message";
+	}
+}
+		
+		
 		LawyersService bs = (LawyersService) this.getBean("lawyersService");
 		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
 		lawyers.setDirectunion(this.datavisible.getCityid());
@@ -141,6 +155,8 @@ public class LawyersCreateEditAction extends AbstractAction {
 			this.datavisible.setCityid(lawyers.getDirectunion());
 			this.datavisible.setOfficeid(lawyers.getTheoffice());
 			this.datavisible.setProvinceid(lawyers.getProvinceunion());
+			if(lawyers.getZhiyedate()!=null)
+			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
 
 		}
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);

@@ -7,25 +7,25 @@ package com.changpeng.jifen.service;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.PaginationSupport;
+import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.jifen.dao.LawyerlessonxfDAO;
 import com.changpeng.jifen.util.Jifenstatics;
 import com.changpeng.jifen.util.LearnmodeStatics;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
-import com.changpeng.models.Lessons;
 
 /**
  * @author 华锋 2008-5-4 下午11:55:50
  * 
  */
 public class LawyerlessonxfService extends BasicService {
-
+	private static Log _LOG = LogFactory.getLog(AbstractAction.class);
 	private LawyerlessonxfDAO lawyerlessonxfDAO;
 	private LawyersDAO lawyersDAO;
 
@@ -149,6 +149,7 @@ public class LawyerlessonxfService extends BasicService {
 		LearnmodeStatics statics = new LearnmodeStatics();
 		
 		
+	_LOG.debug("getFiledLearnmode::"+sql);
 		
 
 		List tongjilist = lawyerlessonxfDAO.findBySqlQuery(sql);
@@ -157,14 +158,16 @@ public class LawyerlessonxfService extends BasicService {
 
 		for (int i = 0; i < tongjilength; i++) {
 			Object[] obj = (Object[]) tongjilist.get(i);
+			_LOG.debug("obj[0]:"+obj[0]+"-===>obj[1]:"+obj[1]);
 			int learnmode = Integer.parseInt(obj[0].toString());
 			if (learnmode == 1) {
 				statics.setLocal(Integer.parseInt(obj[1].toString()));
-			} else if (learnmode == 1) {
+			} else if (learnmode == 2) {
 				statics.setVideo(Integer.parseInt(obj[1].toString()));
-			} else if (learnmode == 1) {
+				_LOG.debug("video::"+statics.getVideo());
+			} else if (learnmode == 3) {
 				statics.setWenbenkejian(Integer.parseInt(obj[1].toString()));
-			} else if (learnmode == 1) {
+			} else if (learnmode == 4) {
 				statics.setBudeng(Integer.parseInt(obj[1].toString()));
 			}
 		}
