@@ -47,14 +47,18 @@ public class LawyerLoginLogService extends BasicService {
 	public void updateLogoutInfo(int loginid, String remarks) throws ServiceException {
 		try {
 			LawyerLoginlog log = (LawyerLoginlog) basicDAO.get(LawyerLoginlog.class, loginid);
-
-			LOG.debug("log=========" + log);
-			Timestamp loginTime = log.getLoginTime();
 			long now = System.currentTimeMillis();
+			LOG.debug("log=========" + log);
+			if(log!=null){
+			Timestamp loginTime = log.getLoginTime();
+			
 			long login = loginTime.getTime();
+			log.setInSysTime((int) (now - login) / 1000);
+			}else
+				log.setInSysTime(0);
 			log.setLogoutTime(new java.sql.Timestamp(now));
 			log.setRemarks(remarks);
-			log.setInSysTime((int) (now - login) / 1000);
+		
 			basicDAO.update(log);
 		} catch (Exception e) {
 			throw new ServiceException(e);
