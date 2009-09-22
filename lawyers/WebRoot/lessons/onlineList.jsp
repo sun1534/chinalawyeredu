@@ -45,12 +45,13 @@ function fanye(str){
 function refreshscore(lessonid,score){
 	if(score!=0){ 
 		 var now=new Date().getTime();
-$.ajax({
-	    type: "POST",
-	    url:"../lessonajax/refreshScore.pl",
-	    data: "now="+now+"&lessonid="+lessonid+"&score="+score,
-	    success:function(data){
-            var res=eval('(' + data.responseText + ')');
+$.getJSON(
+	   "../lessonajax/refreshScore.pl",
+	   { "now":now,"lessonid":lessonid,"score":score},
+	    function(res){
+	
+         //   var res=eval( data);
+     //   alert(res.lessonid);
             var lessonid=res.lessonid;
  	        var now=new Date().getTime();
             var _url="../lessons/lessonsVote.pl?now="+now+"&lessonid="+lessonid;
@@ -60,7 +61,7 @@ $.ajax({
                 alert(res.msg);
               window.showModalDialog(_url,"律协在线培训","dialogHeight:260px;dialogWidth:405px;center:yes");
            }
-	    }});
+	    });
        
 	}
 }
