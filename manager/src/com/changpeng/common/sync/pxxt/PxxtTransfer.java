@@ -119,6 +119,8 @@ public class PxxtTransfer {
 			lawyers.setTheoffice(theoffice);
 			lawyers.setWorktime(person.getJoinDate());
 			lawyers.setZhiyedate(person.getJoinDate());
+			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
+			lawyers.setStatus(Integer.parseInt(person.getPersonStatus()));
 			
 			String image="";
 			if(person.getFilename()!=null&&!person.getFilename().equals("")&&!person.getFilename().equalsIgnoreCase("null")){

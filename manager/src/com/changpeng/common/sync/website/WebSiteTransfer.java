@@ -61,7 +61,11 @@ public class WebSiteTransfer {
 			// staff.setser(Integer.parseInt(person.getRoleCode()));
 			staff.setStafftype(4);// stafftype=2 是管理员 stafftype=4 是律师
 			// staff.setStatusid(Integer.parseInt(person.getPersonStatus()));
-			staff.setStatusid(2);
+//			staff.setStatusid(2);
+			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
+			staff.setStatusid(Integer.parseInt(person.getPersonStatus()));
+			else
+				staff.setStatusid(2);
 
 			user.setBirthday(new java.sql.Timestamp(System.currentTimeMillis()));
 			user.setAddress(person.getAddress());
@@ -93,7 +97,16 @@ public class WebSiteTransfer {
 			user.setSpeciality(person.getSpeciality());
 			user.setStaffid(staff.getStaffid());
 			user.setStaffname(staff.getStaffname());
-			user.setStatusid(2);
+			user.setEducationname(Distionary.KNOWLEDGE.get(person.getKnowlegeCode()));
+		    user.setNation(Distionary.NATION.get(person.getNationId()));
+		    user.setEducationid(Integer.parseInt(person.getKnowlegeCode()));
+//			user.setStatusid(2);
+			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
+		    	user.setStatusid(Integer.parseInt(person.getPersonStatus()));
+			else
+				user.setStatusid(2);
+				
+			
 			user.setRoleid(5);
 			user.setUniversity(person.getGraduateSchool());
 			user.setUserid(staff.getStaffid());
@@ -101,6 +114,7 @@ public class WebSiteTransfer {
 			user.setDescription(staff.getDescription());
 			user.setServicedomain(group.getParentid());
 			user.setServicehour(Long.parseLong(person.getRoleCode()));
+			
 
 			String image = "";
 			if (person.getFilename() != null && !person.getFilename().equals("")
