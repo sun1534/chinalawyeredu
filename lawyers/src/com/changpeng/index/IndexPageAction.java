@@ -47,6 +47,9 @@ public class IndexPageAction extends AbstractAction {
 	public String left() throws Exception {
 
 		this.lawyer = this.getLoginUser();
+		if(this.lawyer.getProvinceunion()==22){ //广西的不能修改密码
+			this.canChangePass=false;
+		}
 		return "left";
 	}
 	private Lawyers lawyer;
@@ -57,5 +60,8 @@ public class IndexPageAction extends AbstractAction {
 	public String getTopbarpic(){
 		return com.changpeng.common.Constants.TOP_BAR_PIC;
 	}
-	
+	private boolean canChangePass=true;
+	public boolean getCanChangePass(){
+		return this.canChangePass;
+	}
 }
