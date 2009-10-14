@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<!-- Some or all of these can be flipped to true for debugging -->
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="true" />
+	<constant name="struts.action.extension" value="action" />
+    <constant name="struts.locale" value="zh_CN"/>
+	<constant name="struts.multipart.maxSize" value="5024000"/>  
+	<constant name="struts.ui.theme" value="xhtml" />
+	<!-- 可以将其修改为css_xhtml -->
+	
+	
+	<include file="com/sxit/system/struts-system.xml" />
+    <include file="com/sxit/common/struts-common.xml" />
+    <include file="com/sxit/log/struts-log.xml" />
+  
+	<package name="default" extends="struts-default">
+     	<interceptors>
+			<interceptor name="userverify" class="com.sxit.common.interceptor.UserVerifyInterceptor"/>
+			<interceptor name="uservisit"  class="com.sxit.common.interceptor.UserVisitInterceptor"/>
+			<interceptor name="hibernateSession"  class="com.sxit.common.interceptor.SpringHibernateSessionInterceptor"/>
+    		<interceptor-stack name="hibernateSessionStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+		    	<interceptor-ref name="defaultStack"/>
+		    	<interceptor-ref name="hibernateSession"/>
+			</interceptor-stack>
+    		<interceptor-stack name="adminStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="verifyStack">
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="success" type="dispatcher">/common/message.jsp</result>
+		    <result name="message" type="dispatcher">/common/message.jsp</result>
+			<result name="error" type="dispatcher">/common/message.jsp</result>
+			<result name="login" type="redirect">/common/index.action</result>
+			<result name="pasivelogin" type="dispatcher">/common/passivelogin.jsp </result>
+			<result name="noright" type="dispatcher">/common/noright.jsp</result>
+			<result name="sqlexception" type="dispatcher">/common/exception.jsp</result>
+			<result name="exception" type="dispatcher">/common/exception.jsp</result>
+			<result name="serviceexception" type="dispatcher">/common/exception.jsp</result>
+		</global-results>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+            <exception-mapping result="serviceexception" exception="com.sxit.common.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>
+
+
+        <!-- 之前为staticParams，应该不行，因为我在这里将数据送入了session，必须要有那个session的拦截器 -->
+		<action name="validateCode" class="com.sxit.common.verifycode.ValidateImgAction">
+		    <interceptor-ref name="defaultStack"/>  
+			<param name="width">60</param>
+			<param name="height">20</param>
+			<param name="fontSize">16</param>
+			<param name="codeLength">4</param>
+			<!--disturbType的值为0，1，2，分别为不绘制干扰线，简单干扰线和复杂干扰线-->
+			<param name="disturbType">0</param>
+			<result name="success" type="stream">
+			<param name="contentType">image/jpeg</param>
+			</result>
+		</action> 
+	</package>
+	<!--json形式的action-->
+	<package name="defaultajax" extends="json-default">
+        <interceptors>
+			<interceptor name="userverify" class="com.sxit.common.interceptor.UserVerifyInterceptor"/>
+			<interceptor name="uservisit"  class="com.sxit.common.interceptor.UserVisitInterceptor"/>
+			<interceptor name="hibernateSession"  class="com.sxit.common.interceptor.SpringHibernateSessionInterceptor"/>
+            <interceptor-stack name="hibernateSessionStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+		    	<interceptor-ref name="hibernateSession"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+    		<interceptor-stack name="adminStack">
+		    	<interceptor-ref name="uservisit"/>
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="verifyStack">
+		    	<interceptor-ref name="userverify"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+			<interceptor-stack name="visitStack">
+		    	<interceptor-ref name="uservisit"/>
+			    <interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+            <exception-mapping result="serviceexception" exception="com.sxit.common.exception.ServiceException"></exception-mapping>
+        </global-exception-mappings>
+    </package>
+</struts>

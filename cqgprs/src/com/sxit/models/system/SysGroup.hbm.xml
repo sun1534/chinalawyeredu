@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.system.SysGroup" table="SYS_GROUP" dynamic-update="true">
+
+        <id name="groupid" type="int">
+            <column name="GROUPID" precision="5" scale="0" />
+      <!-- <generator class="identity" />-->
+          <generator class="sequence">
+            <param name="sequence">jf_sequence</param>
+            </generator>
+        </id>
+        
+        <property name="parentid" type="int">
+            <column name="PARENTID" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="grouplevel" type="short">
+            <column name="GROUPLEVEL" precision="3" scale="0" not-null="true" />
+        </property>
+        <property name="groupenname" type="string">
+            <column name="GROUPENNAME" length="50" />
+        </property>
+        <property name="groupname" type="string">
+            <column name="GROUPNAME" length="100" not-null="true" />
+        </property>
+        <property name="contacter" type="string">
+            <column name="CONTACTER" length="20" />
+        </property>
+        <property name="phone" type="string">
+            <column name="PHONE" length="20" />
+        </property>
+        <property name="fax" type="string">
+            <column name="FAX" length="20" />
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="200" />
+        </property>
+        <property name="delflag" type="boolean">
+            <column name="DELFLAG" precision="1" scale="0">
+                <comment>是否删除，1删除0没删</comment>
+            </column>
+        </property>
+        <property name="createuser" type="string">
+            <column name="CREATEUSER" length="20" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="7" />
+        </property>
+        <set name="sysUsers" inverse="true" lazy="true">
+            <key>
+                <column name="GROUPID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.sxit.models.system.SysUser" />
+        </set>
+    </class>
+</hibernate-mapping>

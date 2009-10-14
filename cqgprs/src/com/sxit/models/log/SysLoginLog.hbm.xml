@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.log.SysLoginLog" table="SYS_LOGINLOG" >
+        <id name="loginid" type="int">
+            <column name="loginid" precision="10" scale="0" />
+      <!-- <generator class="identity" />-->
+          <generator class="sequence">
+            <param name="sequence">jf_sequence</param>
+            </generator>
+        </id>
+        <property name="userid" type="int">
+            <column name="userid" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="loginTime" type="timestamp">
+            <column name="loginTime"  length="10" not-null="true" />
+        </property>
+        <property name="logoutTime" type="timestamp">
+            <column name="logoutTime" length="10" />
+        </property>
+        <property name="loginip" type="string">
+            <column name="loginip" length="20" not-null="true" />
+        </property>
+        <!--
+        <property name="loginCount" type="short">
+            <column name="loginCount" precision="5" scale="0" />
+        </property>
+        -->
+        <property name="islast" type="boolean">
+            <column name="islast" precision="1" scale="0"/>
+        </property>
+        <property name="inSysTime" type="int">
+            <column name="inSysTime"  precision="10" scale="0"  />
+        </property>
+        <property name="contextid" type="string">
+            <column name="contextid"  length="30"/>
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="100"/>
+        </property>
+        <property name="loginremarks" type="string">
+            <column name="loginremarks" length="100" />
+        </property>
+              <property name="username" type="string">
+            <column name="username" length="20"/>
+        </property>
+        
+     </class>
+</hibernate-mapping>

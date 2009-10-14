@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.system.SysRight" table="SYS_RIGHT" >
+        <id name="rightcode" type="string">
+            <column name="RIGHTCODE" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="rightname" type="string">
+            <column name="RIGHTNAME" length="20" not-null="true">
+                <comment>功能名称</comment>
+            </column>
+        </property>
+          <property name="parentcode" type="string">
+            <column name="PARENTCODE" length="20">
+                <comment>模块代码，所在的功能或者模块</comment>
+            </column>
+        </property>
+        
+        <property name="logflag" type="boolean">
+            <column name="LOGFLAG" precision="1" scale="0">
+                <comment>是否记录日志1记录0不记录</comment>
+            </column>
+        </property>
+      
+        <property name="ismenu" type="boolean">
+            <column name="ISMENU" precision="1" scale="0">
+                <comment>是否菜单链接对应的功能</comment>
+            </column>
+        </property>
+        <property name="iscommon" type="boolean">
+             <column name="ISCOMMON" precision="1" scale="0">
+                <comment>
+                是否公用功能</comment>
+            </column>
+        </property>
+       
+        <property name="grade" type="byte">
+            <column name="GRADE" precision="2" scale="0">
+                <comment>
+                级别,实际上相当于将菜单部分也囊括了进来，到时一一对应好就ok</comment>
+            </column>
+        </property>
+        <property name="orderid" type="byte">
+            <column name="ORDERID" precision="2" scale="0">
+                <comment>显示顺序,对menulevel和parentid都相同的起作用</comment>
+            </column>
+        </property>
+        <property name="imageurl" type="string">
+            <column name="IMAGEURL" length="100">
+                <comment>对应的图标</comment>
+            </column>
+        </property>
+        <property name="linkurl" type="string">
+            <column name="LINKURL" length="100">
+                <comment>链接地址</comment>
+            </column>
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="200">
+                <comment>描述内容</comment>
+            </column>
+        </property>
+        <property name="opentarget" type="string">
+            <column name="OPENTARGET" length="20">
+                <comment>在哪个frame中打开</comment>
+            </column>
+        </property>
+        
+        <set name="sysUsers" inverse="true" table="SYS_USER_RIGHTS">
+            <key>
+                <column name="RIGHTCODE" length="15" not-null="true">
+                    <comment>某人拥有的功能代码</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="com.sxit.models.system.SysUser">
+                <column name="USERID" precision="10" scale="0" not-null="true">
+                    <comment>对应sys_user中的userid</comment>
+                </column>
+            </many-to-many>
+        </set>
+       
+        
+        <!-- 获得menu的时候,就获得所有的menus -->
+        <set name="sysRoles" inverse="true" table="SYS_ROLE_RIGHTS">
+            <key>
+                <column name="RIGHTCODE" length="20" not-null="true">
+                    <comment></comment>
+                </column>
+            </key>
+            <many-to-many entity-name="com.sxit.models.system.SysRole">
+                <column name="ROLEID" precision="10" scale="0" not-null="true">
+                    <comment></comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

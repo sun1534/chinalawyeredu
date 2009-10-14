@@ -1,0 +1,41 @@
+html {height:100%;background:url(../images/bg.gif) repeat-x left top;}
+body{height:100%;font:12px/1.5 Tahoma, Helvetica, Arial, sans-serif;overflow:hidden;}
+#leftmenu {width:165px;height:100%;overflow:hidden;margin:0 auto;}
+#leftmenu h2{height:23px;line-height:23px;display:none;border:1px solid #A7A7A7;margin-top:10px;text-indent:26px; background:url(../images/menubg.gif) repeat-x 0px 0px;color:#1E4B7E;font-weight:bold;}
+/*
+#menuWarp{width:155px;padding:5px;margin-top:10px;}
+#menuWarp ul{padding:1px;display:none;}
+#menuWarp h3 {width:153px;border:1px solid #EAEAEA;cursor:pointer;text-indent:20px;font-weight:bold;color:#003366;overflow:hidden;line-height:25px;height:25px;overflow:hidden;margin-top:5px;background:#eee url(../images/menuh3bg.jpg) repeat-x 0px 0px;}
+#menuWarp h3.over {color:#0095C4;background:url(../images/menuh3bg_.jpg) repeat-x 0px 0px;border:1px solid #54B8F6;}
+#menuWarp h3 a {font-weight:bold;color:#003366;text-decoration:none;}
+#menuWarp ul{overflow:hidden;border-left:1px solid #EAEAEA;border-right:1px solid #EAEAEA;border-bottom:1px solid #EAEAEA;background:url(../images/submbg.jpg) repeat-x left top;}
+#menuWarp ul li {line-height:24px;height:24px;overflow:hidden;margin-top:1px;text-indent:15px;}
+#menuWarp ul li a {overflow:hidden;display:block;text-decoration:none;color:#000;height:24px;font-family:simsum;}
+#menuWarp ul li a:hover {background:#eee;overflow:hidden;display:block;text-decoration:none;color:#ff6600;}
+#menuWarp ul li #aNow {overflow:hidden;text-decoration:none;color:#444;background:#F7F8FC ;}
+#menuWarp ul li #aNow:hover {overflow:hidden;text-decoration:none;color:#FF6600; background:#eee;}
+*/
+.Menu{width:155px;padding:5px;margin-top:10px;}
+.Menu ul{padding:1px;display:none;}
+.Menu h3 {width:153px;border:1px solid #EAEAEA;cursor:pointer;text-indent:20px;font-weight:bold;color:#003366;overflow:hidden;line-height:25px;height:25px;overflow:hidden;margin-top:5px;background:#eee url(../images/menuh3bg.jpg) repeat-x 0px 0px;}
+.Menu h3.over {color:#0095C4;background:url(../images/menuh3bg_.jpg) repeat-x 0px 0px;border:1px solid #54B8F6;}
+.Menu h3 a {font-weight:bold;color:#003366;text-decoration:none;}
+.Menu ul{overflow:hidden;border-left:1px solid #EAEAEA;border-right:1px solid #EAEAEA;border-bottom:1px solid #EAEAEA;background:url(../images/submbg.jpg) repeat-x left top;}
+.Menu ul li {line-height:24px;height:24px;overflow:hidden;margin-top:1px;text-indent:15px;}
+.Menu ul li a {overflow:hidden;display:block;text-decoration:none;color:#000;height:24px;font-family:simsum;}
+.Menu ul li a:hover {background:#eee;overflow:hidden;display:block;text-decoration:none;color:#ff6600;}
+.Menu ul li #aNow {overflow:hidden;text-decoration:none;color:#444;background:#F7F8FC ;}
+.Menu ul li #aNow:hover {overflow:hidden;text-decoration:none;color:#FF6600; background:#eee;}
+.Menu h3.now_h3 {color:#0095C4;background:url(../images/menuh3bg_.jpg) repeat-x 0px 0px;border:1px solid #54B8F6;}
+html {
+scrollbar-3dlight-color:#009FEF;
+scrollbar-highlight-color:#b6dad2;
+scrollbar-face-color:#009FEF;
+scrollbar-arrow-color:#b6dad2;
+scrollbar-shadow-color:#b6dad2;
+scrollbar-darkshadow-color:#009FEF;
+scrollbar-track-color:#FDFDFD;
+
+}
+
+.current {color:blue}

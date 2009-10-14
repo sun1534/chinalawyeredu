@@ -1,0 +1,194 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+body {overflow-y:auto; overflow-x:hidden}
+body {padding:0; margin:0; font: 12px/1.5 sinsum, Tahoma, Helvetica, Arial, sans-serif;color:#1E4B7E;background:url(../images/bg.gif) repeat-x left top;}
+
+.navigation {}
+	.innavigation {padding:10px 15px 0 15px;background:url(../images/bg.gif) repeat-x left top;}
+	.navlist {padding-left:10px;line-height:24px;height:24px;border:1px solid #EAEAEA;background:url(../images/menubg.gif) repeat-x 0 0;}
+	.navlist span {background:url(../images/dot.gif) no-repeat left center;padding-left:15px;}
+	.navlist a {font-weight:bold;}
+
+.main {padding:5px 0 0 0;}
+.inmain {padding:5px 15px 10px 15px;overflow:auto;}
+.wrap {margin:0;text-align:left;}
+
+.searchTab{background:#ECF5FD url(../images/menubg.gif) repeat-x  left top;
+border:1px solid #9FB4C8;margin-bottom:10px;padding:2px 5px 2px 10px;}
+
+.operate{background:transparent url(../images/menubg.gif) repeat-x  left top;
+border-bottom:1px solid #CCCCCC;margin-bottom:10px;padding:2px 5px 2px 10px;}
+
+.operateInfo{background:transparent url(../images/menubg.gif) repeat-x  left top;
+border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height:24px;}
+.operateInfo a{margin-left:10px;}
+
+.searchTab table {}
+.searchTab table tbody {}
+.searchTab table tbody tr {}
+.searchTab table tbody tr td{padding:0 5px;}
+
+
+
+
+.tablist {border:1px solid #9FB4C8;padding:1px;margin-bottom:10px;}
+	.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelistbg.gif) repeat-x left top;}
+	.tableBox .checkbox {background:none;}
+	.tableBox .tbcheckbox {width:12px;}
+	.tableBox .tboperation {text-align:center;}
+	.tableBox tbody tr td,
+	.tableBox tfoot tr td{height:30px;}
+	.tableBox thead {}
+	.tableBox thead tr {}
+	.tableBox thead tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:25px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
+	.tableBox tbody {}
+	.tableBox tbody tr {}
+	.tableBox tbody tr td {border-bottom:1px solid #EAEAEA;background:#FDFDFD;color:#000;background:url(../images/line.jpg) repeat-y -2px top;padding-left:5px;}
+						.link {color:#1E4B7E;text-decoration:none;}
+						.link:hover {color:#444;text-decoration:underline;}
+	.tableBox tbody tr td.fOdd {background-color:#F2F9FD;}
+	.tableBox tbody tr td.current {background-color:#E1F2FB;border-bottom:1px solid #9FB4C8;}
+	.tableBox tbody tr td.normal {background-color:#FDFDFD;border-bottom:1px solid #CCCCCC;}
+	/*
+	.tableBox tfoot {display:none;}
+	.tableBox tfoot tr {}
+	.tableBox tfoot tr td {height:1px;overflow:hidden;line-height:0px;font-size:0px;padding:0;}
+	*/
+	.tableBox tfoot tr td {height:26px;padding-left:10px;}
+	.tableBox tfoot tr td  .selectInfo {color:#000;}
+	.tableBox tfoot tr td  .selectInfo b{color:#ff6600;margin:0 3px;}
+
+		.toggleDate,
+		.toggleDate_,
+		.toggleDate__ {overflow:hidden;padding-left:10px;}
+
+		.toggleDate {background:url(../images/toggleDate.gif) no-repeat left 0px ;color:#1E4B7E;}
+		.toggleDate:hover {background:url(../images/toggleDate.gif) no-repeat left -14px ;color:#666;}
+
+		.toggleDate_ {background:url(../images/toggleDate.gif) no-repeat left -28px ;color:#1E4B7E;}
+		.toggleDate_:hover {background:url(../images/toggleDate.gif) no-repeat left -28px ;color:#666;}
+
+		.toggleDate__ {background:url(../images/toggleDate.gif) no-repeat left -43px ;color:#1E4B7E;}
+		.toggleDate__:hover {background:url(../images/toggleDate.gif) no-repeat left -43px ;color:#666;}
+
+.operateTab {padding:10px;border-top:1px solid #9FB4C8;margin-bottom:10px;background:url(../images/bg.gif) repeat-x left top;}
+	.operateTabInfo {padding:5px;text-indent:15px;border-bottom:1px solid #ff6600;color:#ff6600;margin-bottom:10px;}
+	.operateTabBox {width:100%;border-collapse:collapse;background:#F2F8FE;margin-bottom:10px;border:1px solid #ddd;}
+	.operateTabBox td {padding:5px 0 5px 5px;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
+	.operateTabBox .fname {color:#000;text-align:right;background:#E3F3FC;}
+
+	/*.operateTabBox .fOdd {background-color:#F2F9FD;}
+	.operateTabBox .fEven {background-color:#fefefe;}
+	*/
+
+	 .nowInfo {border:1px solid #ccc;background:url(../images/bg.gif) repeat-x left top;margin-bottom:10px;}
+	 .nowInfo h2{background:url(../images/menubg.gif) repeat-x  left top;border-bottom:1px solid #ccc;line-height:24px;font-weight:bold;text-indent:10px;}
+	 .nowInfo  ul {padding:10px 10px 10px 20px;}
+	 .nowInfo  ul li {}
+	 .nowInfo  ul li a{color:#444;text-decoration:none;}
+	 .nowInfo  ul li a b {text-decoration:underline;margin:0 2px;color:#ff6600;}
+	 .nowInfo  ul li a:hover{color:#1E4B7E;text-decoration:none;}
+
+	 .sysinfo {border:1px solid #ccc;}
+	 .sysinfo h2 {background:url(../images/menubg.gif) repeat-x  left top;border-bottom:1px solid #ccc;line-height:24px;font-weight:bold;text-indent:10px;}
+			.sysinfocon {padding:10px;}
+			.sysinfocon * {color:#ff6600;}
+
+	.copyright {border-top:1px solid #ccc;height:19px;line-height:19px;text-align:center;overflow:hidden;}
+
+.fcenter {text-align:center;}
+.fleft {text-align:left;}
+.fright {text-align:right;}
+.w30 {width:30px;}
+.w40 {width:40px;}
+.w50 {width:50px;}
+.w60 {width:60px;}
+.w80 {width:80px;}
+.w100 {width:100px;}
+.w120 {width:120px;}
+.w150 {width:150px;}
+.w200 {width:200px;}
+.w220 {width:220px;}
+.w250 {width:250px;}
+.w300 {width:300px;}
+.w350 {width:350px;}
+.w400 {width:400px;}
+.w450 {width:450px;}
+
+/* 操作 按钮*/
+
+
+.btnSubmit {border:1px solid #A7A7A7;padding:2px 2px 0;display:inline-block;font-family:"宋体";overflow:hidden;color:#003366;}
+.btnCancel {border:1px solid #ccc;padding:2px 2px 0;display:inline-block;font-family:"宋体";overflow:hidden;color:#999;}
+.btnBack {border:1px solid #ccc;padding:2px 2px 0;display:inline-block;font-family:"宋体";overflow:hidden;color:#999;}
+input,button {background:url(../images/bgGray.gif) repeat-x center top;}
+
+
+
+.txt,.sel {border-top:1px solid #7C7C7C;border-left:1px solid #7C7C7C;border-right:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;padding:1px 2px;background:#fff;}
+
+
+
+/* 操作 链接*/
+
+.help,
+.blank,
+.tdAdd,
+.tdAccept,
+.tdNoAccept,
+.tdLocked,
+.tdEdit,
+.tdRefresh,
+.tdPrint,
+.tdView,
+.tdDelete{text-decoration:none;display:inline-block;padding:0;line-height:1.23;overflow:hidden;vertical-align:middle;}
+
+.helo:hover,
+.blank:hover,
+.tdAdd:hover,
+.tdAccept:hover,
+.tdNoAccept:hover,
+.tdLocked:hover,
+.tdEdit:hover,
+.tdRefresh:hover,
+.tdPrint:hover,
+.tdView:hover,
+.tdDelete:hover{text-decoration:none;color:#D62302;}
+
+.toggle {color:#717171;text-decoration:none;}
+.toggle:hover {color:#717171;text-decoration:none;}
+.toggle img {text-decoration:none;display:inline-block;padding:0;line-height:1.23;overflow:hidden;vertical-align:middle;color:#000;background:url(../images/toggle.gif) no-repeat 0 0;}
+
+.toggle_ {color:#717171;text-decoration:none;}
+.toggle_:hover {color:#717171;text-decoration:none;}
+.toggle_ img {text-decoration:none;display:inline-block;padding:0;line-height:1.23;overflow:hidden;vertical-align:middle;color:#000;background:url(../images/toggle.gif) no-repeat 0 -12px;}
+
+
+.help {color:#B40006;}
+.blank {color:#000;}
+.tdAdd {color:#000;}
+.tdAccept {color:#2F8A2F;}
+.tdNoAccept {color:#E8864C;}
+.tdLocked {color:#9E3C02;}
+.tdEdit {color:#676767;}
+.tdRefresh {color:#002780;}
+.tdPrint {color:#B40006;}
+.tdView {color:#505050;}
+.tdDelete {color:#002780;}
+.cR{color:red;}
+
+.help img {color:#000;background:url(../images/help.gif) no-repeat 0 0;}
+.blank img {color:#000;background:url(../images/external.png) no-repeat 0 0;}
+.tdPrint img {color:#000;background:url(../images/print.gif) no-repeat 0 0;}
+.tdAdd img {color:#000;background:url(../images/add.gif) no-repeat 0 0;}
+.tdAccept img {color:#2F8A2F;background:url(../images/accept.gif) no-repeat 0 -2px;}
+.tdNoAccept img {color:#E8864C;background:url(../images/noaccept.gif) no-repeat 0 -2px;}
+.tdLocked img {color:#9E3C02;background: url(../images/locked.gif) no-repeat 0 -2px;}
+.tdEdit img {color:#676767;background:url(../images/edit.gif) no-repeat 0 0;}
+.tdRefresh img {color:#002780;background:url(../images/refresh.gif) no-repeat 0 0;}
+.tdView img {color:#002780;background:url(../images/view.gif) no-repeat 0 0;}
+.tdDelete img {color:#002780;background:url(../images/delete.gif) no-repeat 0 -2px;}

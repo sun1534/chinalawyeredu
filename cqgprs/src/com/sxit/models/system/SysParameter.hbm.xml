@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.system.SysParameter" table="SYS_PARAMETER" >
+        <comment>系统参数表</comment>
+        <id name="paramname" type="string">
+            <column name="paramname" length="20"/>
+            <generator class="assigned" />
+        </id>
+        <property name="paramvalue" type="string">
+            <column name="paramvalue" length="50" not-null="true">
+                <comment>参数值</comment>
+            </column>
+        </property>
+
+            <property name="typeid" type="int">
+            <column name="typeid" precision="5" scale="0"/>
+        </property>
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="300">
+                <comment>参数描述</comment>
+            </column>
+        </property>
+
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="7">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+       
+        <!--希望到时候能将OpenSessionInViewFilter搞定,到时候就取消lazy=false这个-->
+      
+    </class>
+</hibernate-mapping>
