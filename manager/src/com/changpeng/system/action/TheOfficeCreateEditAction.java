@@ -4,9 +4,12 @@
 
 package com.changpeng.system.action;
 
+import java.io.File;
+
 import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.models.OfficeProperties;
 import com.changpeng.models.SysGroup;
 import com.changpeng.system.util.CommonDatas;
 
@@ -61,10 +64,41 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 
 		sysGroup.setParentid(datavisible.getCityid());
 		sysGroup.setDirectgroup(datavisible.getProvinceid());
-		
+
 		sysGroup.setGrouplevel(grouplevel);
 		sysGroup.setDelflag(false);
-		
+	
+		if (upload != null && upload.length() != 0) {
+			try {
+
+				if (upload.length() > 1000 * 1024) {
+					debug("删除上传图片成功否:" + upload.delete());
+					this.message = "上传的图片大小超出了规定的最大大小1000K，请重新选择";
+
+					return "message";
+				}
+				int index = fileName.lastIndexOf(".");
+				String name = System.currentTimeMillis() + fileName.substring(index);
+
+				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + "office/";
+				File filedir = new File(indexDir);
+
+				if (!filedir.exists()) {
+					boolean s = filedir.mkdirs();
+					debug("文件路径:::" + indexDir + "创建成功..." + s);
+				}
+
+				File file = new File(indexDir + System.getProperty("file.separator") + name);
+				upload.renameTo(file);
+
+				debug("=================" + indexDir);
+				properties.setPhoto("office/" + name);
+				properties.setFilename(fileName);
+			} catch (Exception e) {
+				debug("照片上传失败..." + e);
+//				e.printStackTrace();
+			}
+		}
 
 		if (!isedit) {
 			sysGroup.setCreatetype(1);
@@ -72,10 +106,21 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 			sysGroup.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			sysGroup.setSystemno(System.currentTimeMillis() / 1000 + "");
 			bservice.save(sysGroup);
+
 			this.message = "事务所信息新增成功";
 		} else {
 			bservice.update(sysGroup);
 			this.message = "事务所信息修改成功";
+		}
+
+		if (!propertiesedit) {
+		System.out.println(properties);
+			properties.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			properties.setCreateusername(this.getLoginUser().getUsername());
+			properties.setGroupid(sysGroup.getGroupid());
+			bservice.save(properties);
+		} else {
+			bservice.update(properties);
 		}
 
 		this.nextPage = "theOfficeList.pl";
@@ -88,11 +133,10 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 
 	@Override
 	public String input() throws Exception {
-		
+
 		sysGroup = (SysGroup) bservice.get(SysGroup.class, groupid);
-	
-		
-	
+
+		properties = (OfficeProperties) bservice.get(OfficeProperties.class, groupid);
 
 		if (this.sysGroup == null) {
 			sysGroup = new SysGroup();
@@ -111,16 +155,34 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 
 			isedit = true;
 		}
+		if (properties == null) {
+			properties = new OfficeProperties();
+			propertiesedit = false;
+		} else {
+			propertiesedit = true;
+		}
 		datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		set("sysGroup", sysGroup);
+		set("properties", properties);
 
 		return INPUT;
 	}
 
 	private boolean isedit = false;
+	private boolean propertiesedit = false;
+	private OfficeProperties properties;
 
 	private int groupid;
+
+	/**
+	 * @return the properties
+	 */
+	public OfficeProperties getProperties() {
+		if (properties == null)
+			properties = (OfficeProperties) this.get("properties");
+		return properties;
+	}
 
 	/**
 	 * @return the groupid
@@ -150,5 +212,39 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 	 */
 	public void setIsedit(boolean isedit) {
 		this.isedit = isedit;
+	}
+
+	private File upload;
+	private String fileName;
+
+	public String getUploadFileName() {
+		return fileName;
+	}
+
+	public void setUploadFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public File getUpload() {
+		return upload;
+	}
+
+	public void setUpload(File upload) {
+		this.upload = upload;
+	}
+
+	/**
+	 * @return the propertiesedit
+	 */
+	public boolean getPropertiesedit() {
+		return propertiesedit;
+	}
+
+	/**
+	 * @param propertiesedit
+	 *            the propertiesedit to set
+	 */
+	public void setPropertiesedit(boolean propertiesedit) {
+		this.propertiesedit = propertiesedit;
 	}
 }

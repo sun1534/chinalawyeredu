@@ -21,7 +21,7 @@ import com.changpeng.system.service.SysUserService;
 public class SysGroupManagerCreateEditAction extends AbstractListAction {
 
 	private SysUser sysUser;
-
+	private String oldloginname;
 	public SysUser getSysUser() {
 		if (sysUser == null)
 			this.sysUser = (SysUser) get("sysUser");
@@ -76,6 +76,13 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 			this.opResult = "管理员" + super.getLoginUser().getUsername() + "新增了用户" + sysUser.getUsername();
 			this.message = "管理员信息新增成功";
 		} else {
+			
+			SysUser olduser=service.getSysUserByLoginname(sysUser.getLoginname()) ;
+			if(olduser!=null&&sysUser.getLoginname().equals(oldloginname)){
+				this.message = "对不起，您输入的帐号【" + sysUser.getLoginname() + "】已经被他人使用。";
+				return "message";
+			}
+			
 			this.message = "管理员信息修改成功";
 			bs.update(sysUser);
 			this.opResult = "管理员" + super.getLoginUser().getUsername() + "修改了用户" + sysUser.getUsername();
@@ -100,8 +107,10 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 		if (sysuser == null) { // 要新增的
 			sysuser = new SysUser();
 			isedit = false;
+			this.oldloginname="";
 		} else {
 			isedit = true;
+			this.oldloginname=sysuser.getLoginname();
 		}
 
 		set("sysUser", sysuser);
@@ -167,6 +176,20 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 	 */
 	public void setIsedit(boolean isedit) {
 		this.isedit = isedit;
+	}
+
+	/**
+	 * @return the oldloginname
+	 */
+	public String getOldloginname() {
+		return oldloginname;
+	}
+
+	/**
+	 * @param oldloginname the oldloginname to set
+	 */
+	public void setOldloginname(String oldloginname) {
+		this.oldloginname = oldloginname;
 	}
 
 }

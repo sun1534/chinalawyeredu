@@ -82,6 +82,9 @@ public class TheOfficeListAction extends AbstractListAction {
 		if (groupname != null && !"".equals(groupname)) {
 			detachedCriteria.add(Restrictions.like("groupname", groupname.trim(), MatchMode.ANYWHERE));
 		}
+		if (groupenname != null && !"".equals(groupenname)) {
+			detachedCriteria.add(Restrictions.like("groupenname", groupenname.trim(), MatchMode.ANYWHERE));
+		}
 
 		if (datavisible.getProvinceid() != 0) {
 			detachedCriteria.add(Restrictions.eq("directgroup", datavisible.getProvinceid()));

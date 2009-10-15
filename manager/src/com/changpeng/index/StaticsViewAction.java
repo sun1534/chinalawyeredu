@@ -11,6 +11,7 @@ import com.changpeng.jifen.util.LearnmodeStatics;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.lessons.util.Lessonstatics;
+import com.changpeng.models.OfficeProperties;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 import com.changpeng.models.SysUser;
@@ -63,6 +64,9 @@ public class StaticsViewAction extends AbstractAction {
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, params.getNianshen());
 			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), params
 					.getDabiaofen(), "officeid", sysgroup.getGroupid());
+			OfficeProperties properties= (OfficeProperties)basicService.get(OfficeProperties.class, sysgroup.getGroupid());
+			this.officelogo=properties.getPhoto();
+			
 
 		} else if (sysgroup.getGrouptype() == 2) {// 市级律协
 			SysUnionparams params = sysgroup.getSysUnionparams();
@@ -92,7 +96,7 @@ public class StaticsViewAction extends AbstractAction {
 		return SUCCESS;
 	}
 	
-	
+	private String officelogo;
 	private int lawyerscnt;
 
 	private JifenTime jifentime;
@@ -139,6 +143,13 @@ public class StaticsViewAction extends AbstractAction {
 	 */
 	public int getLawyerscnt() {
 		return lawyerscnt;
+	}
+
+	/**
+	 * @return the officelogo
+	 */
+	public String getOfficelogo() {
+		return officelogo;
 	}
 
 }

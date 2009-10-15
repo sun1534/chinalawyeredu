@@ -89,7 +89,7 @@ public class WebSiteTransfer {
 			user.setNickname(person.getPersonName());
 			// user.setPassword(person.getIdentityCard());
 			user.setPassword(com.changpeng.common.util.MD5.md5(person.getIdentityCard()));
-			user.setPhoneno(person.getHomeTelephone());
+			user.setPhoneno(person.getOfficeTelephone());
 			user.setPoliticsid(Integer.parseInt(person.getPoliticsCode()));
 			user.setPostalcode(person.getPost());
 			user.setResidentplace(person.getAddress());
@@ -100,6 +100,11 @@ public class WebSiteTransfer {
 			user.setEducationname(Distionary.KNOWLEDGE.get(person.getKnowlegeCode()));
 		    user.setNation(Distionary.NATION.get(person.getNationId()));
 		    user.setEducationid(Integer.parseInt(person.getKnowlegeCode()));
+		    user.setUniversity(person.getGraduateSchool());
+//		    user.setPhoneno(person.getOfficeTelephone());
+		    user.setSpeciality(person.getSpeciality());
+		    user.setMemo(person.getBusSpeciality1());
+		    
 //			user.setStatusid(2);
 			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
 		    	user.setStatusid(Integer.parseInt(person.getPersonStatus()));
@@ -108,7 +113,7 @@ public class WebSiteTransfer {
 				
 			
 			user.setRoleid(5);
-			user.setUniversity(person.getGraduateSchool());
+//			user.setUniversity(person.getGraduateSchool());
 			user.setUserid(staff.getStaffid());
 			user.setUsername(staff.getStaffname());
 			user.setDescription(staff.getDescription());

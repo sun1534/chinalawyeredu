@@ -1,3 +1,9 @@
+import java.sql.Connection;
+import java.sql.Statement;
+
+import com.changpeng.common.sync.DBUtils;
+import java.sql.ResultSet;
+
 /**
  * test.java */
 
@@ -13,51 +19,23 @@ public class test {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-//		System.out.println(System.currentTimeMillis() / 1000);
-		
-		System.out.println(com.changpeng.common.util.MD5.md5("123456"));
-		// TODO Auto-generated method stub
-		// Calendar calendar = Calendar.getInstance();
-		// int nowmonth = calendar.get(Calendar.MONTH) + 1;
-		// int nowday = calendar.get(Calendar.DATE);
-		// int nowyear = calendar.get(Calendar.YEAR);
-		//		
-		// String nianshen = "05-30";
-		// int index = nianshen.indexOf("-");
-		// int shenmonth = Integer.parseInt(nianshen.substring(0, index));
-		// int shenday = Integer.parseInt(nianshen.substring(index + 1));
-		//		
-		// System.out.println(nowmonth);
-		// System.out.println(nowday);
-		// System.out.println(nowyear);
-		//		
-		// System.out.println(shenmonth);
-		//		
-		// System.out.println(shenday);
-		//
-		//		
-		//		
-		// System.out.println(nowmonth * 100 + nowday);
-		// System.out.println(shenmonth * 100 + shenday);
-
-		// BasicDAO bd=(BasicDAO)Globals.getMainBean("basicDAO");
-		// bd.findByQuery("select distinct a.lessons from Lessonshared a where
-		// 1=1 and a.lessons.deleteflag=false", 15, 1);
-
-		// SysUser s=new SysUser();
-		// s.setProvinceid(1);
-		// s.setCityid(3);
-		// s.setOfficeid(32);
-		//		
-		// Class c=s.getClass();
-		// // Field f=c.getField("officeid");
-		//		
-		//	
-		// System.out.println( PropertyUtils.getSimpleProperty(s, "officeid"));
-		// System.out.println( PropertyUtils.getProperty(s, "officeid"));
-
-		// System.out.println(f.get);
-
+		java.io.PrintWriter logerror = new java.io.PrintWriter(new java.io.FileOutputStream("c:\\a.sql", true), true);
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		String sql="select  GRADUATE_SCHOOL,CERTIFICATE_NO,OFFICE_TELEPHONE,SPECIALITY,BUS_SPECIALITY1 from t_person_info where data_type='inserted'";
+		Connection con=DBUtils.getOracleCon();
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery(sql);
+		while(rs.next()){
+			String school=rs.getString("GRADUATE_SCHOOL")==null?"":rs.getString("GRADUATE_SCHOOL");
+				String phone=rs.getString("OFFICE_TELEPHONE")==null?"":rs.getString("OFFICE_TELEPHONE");
+				String spe=rs.getString("SPECIALITY")==null?"":rs.getString("SPECIALITY");
+				String memo=rs.getString("BUS_SPECIALITY1")==null?"":rs.getString("BUS_SPECIALITY1");
+			String s="update trususer set University='"+school+"',Phoneno='"+phone+"',Speciality='"+spe+"',Memo='"+memo+"' where licenceno='"+rs.getString("CERTIFICATE_NO")+"';";
+			System.out.println(s);
+			logerror.println(s);
+		}
+		logerror.flush();
+		logerror.close();
 	}
 
 }

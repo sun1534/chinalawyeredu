@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.common.util.MD5;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysUser;
 
@@ -52,9 +53,9 @@ public class PasswordResetAction extends AbstractAction {
 				
 			} else {
 				SysUser sysuser = (SysUser) basicService.get(SysUser.class, userid);
-				//String md5pass = MD5.md5(newpass);
+				String md5pass = MD5.md5(newpass);
 				// user.setPassword(md5pass+(user.getPasskey()==null?"":user.getPasskey()));
-				sysuser.setPassword(newpass);
+				sysuser.setPassword(md5pass);
 				basicService.update(sysuser);
 				this.opResult = sysuser.getUsername() + "的密码重置为" + newpass;
 			}
