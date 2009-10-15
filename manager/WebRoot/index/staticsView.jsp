@@ -124,7 +124,13 @@
         <b>证：</b></td>
         <td align="left" bgcolor="#F2F8FF"> ${sysgroup.groupenname} </td>      
         <td width="120" rowspan="7" align="center" valign="middle" bgcolor="#F2F8FF" >
-          <img src="../imagesa/none.jpg" width="106"/>        </td>
+        <s:if test="officelogo==null||officelogo.equals(\"\")">
+          <img src="../imagesa/none.jpg" width="106"/>        
+          </s:if>
+          <s:else>
+          <img src="${logopath}${officelogo}" width="106"/>
+          </s:else>
+          </td>
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>所： </b></td>                   

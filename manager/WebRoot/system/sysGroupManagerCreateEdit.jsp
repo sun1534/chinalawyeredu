@@ -10,7 +10,9 @@
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <jscalendar:head/>
 <script language="javascript">
-
+<s:if test="isedit">
+var oldloginname="${oldloginname}";
+</s:if>
 function checkLoginname(loginname){	
 
 	if((loginname == null) || (loginname.length == 0)){
@@ -20,11 +22,16 @@ function checkLoginname(loginname){
 	var now=new Date().getTime();
 	var url="../systemajax/checkLoginname.pl";
    $.getJSON(url, { "loginname": loginname,"now":now}, function(json){
-
-     if(json.isrepeat == true){
+<s:if test="isedit">
+     if(json.isrepeat == true&&loginname!=oldloginname){
+     </s:if>
+     <s:else>
+       if(json.isrepeat == true){
+     </s:else>
    		$("#checkloginname").html("<font color='red'>对不起，您输入的帐号【"+json.loginname+"】已经被他人使用，请选择其他名字后再试。</font>");
    		$("#save").attr("disabled",true);
    }else{
+    $("#checkloginname").html("不为空且长度不超过15个字符");
 	    $("#save").attr("disabled",false);
    }
 });
@@ -77,6 +84,7 @@ body {
           <td class="tab_content1">
           <s:hidden name="isedit"/>
           <s:hidden name="groupid"/>
+          <s:hidden name="oldloginname"/>
           ${groupname}
           
           </td>
@@ -89,13 +97,14 @@ body {
             <s:textfield name="sysUser.username" size="15" maxlength="15" cssClass="text1" required="true"/>
               <span class="hint">不为空且长度不超过7个汉字</span> </td>
         </tr>
-        <s:if test="!isedit">
+        
         <tr>
             <td align="right" class="tab_content1"> 登录名称: </td>
           <td class="tab_content1">
             <s:textfield name="sysUser.loginname" size="15" maxlength="15" cssClass="text1" onblur="checkLoginname(this.value)" required="true"/>
               <span class="hint" id="checkloginname">不为空且长度不超过15个字符</span> </td>
         </tr>
+        <s:if test="!isedit">
         <tr>
             <td align="right" class="tab_content"> 登录密码: </td>
           <td class="tab_content">
@@ -111,14 +120,7 @@ body {
           </td>
         </tr>
         </s:if>
-        <s:else>
-          <tr>
-            <td align="right" class="tab_content1"> 登录名称: </td>
-          <td class="tab_content1">
-            <s:textfield name="sysUser.loginname" size="15" maxlength="15" cssClass="text1" readonly="true"/>
-              <span class="hint" id="checkloginname">不能修改</span> </td>
-        </tr>
-        </s:else>
+     
 		
 		<tr>
             <td align="right" class="tab_content"> 电话号码: </td>

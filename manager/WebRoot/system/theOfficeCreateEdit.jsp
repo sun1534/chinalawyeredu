@@ -43,7 +43,21 @@ function getOffices(vallll){
 }); 
   }
 }
-
+function deletephoto(groupid){
+if(confirm("您确实要删除这个LOGO吗?")){
+var url="../systemajax/photoDelete.pl";
+  $.getJSON(url, { "groupid":groupid,"now":new Date().getTime()}, function(json){
+     if(json.success == "true"){
+   		$("#imgdiv").empty();
+      }else{
+	   alert("照片删除失败");
+      }
+   });
+}
+else{
+return;
+}
+}
 </script>
 
 </head>
@@ -62,7 +76,7 @@ function getOffices(vallll){
 			align="center" class="border-table">
 	<tr>		
     <td>
-    <s:form name="form1" action="theOfficeCreateEdit" method="post" validate="true">
+    <s:form name="form1" action="theOfficeCreateEdit" method="post" validate="true" enctype="multipart/form-data">
      <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
@@ -104,6 +118,9 @@ function getOffices(vallll){
               <s:hidden name="datavisible.cityid"/>
                </s:else>
             <s:hidden name="isedit"/>
+             <s:hidden name="propertiesedit"/>
+             <s:hidden name="properties.filename"/>
+            
           </td>
         </tr>
        
@@ -125,7 +142,22 @@ function getOffices(vallll){
             <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1"/>
           </td>
         </tr>
-       
+         <tr> 
+          <td align="right" class="tab_content1">事务所LOGO: </td>
+          <td class="tab_content">
+          <s:if test="propertiesedit&&properties.photo!=null&&!properties.photo.equals(\"\")">
+          <div id="imgdiv">
+          <img src="${logopath}${properties.photo}" width="150"/>
+          <a href="#" onclick="deletephoto('${properties.groupid}')"/>删除照片</a>
+          </div>
+          </s:if>
+          
+           <s:file name="upload" cssClass="text1"/>
+              <br><font color="#FF0000">
+        上传照片大小不能超过1M
+           </font>
+            </td>
+        </tr>
            
      
         <tr>
