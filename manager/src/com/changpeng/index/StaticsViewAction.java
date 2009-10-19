@@ -65,6 +65,7 @@ public class StaticsViewAction extends AbstractAction {
 			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), params
 					.getDabiaofen(), "officeid", sysgroup.getGroupid());
 			OfficeProperties properties= (OfficeProperties)basicService.get(OfficeProperties.class, sysgroup.getGroupid());
+			if(properties!=null)
 			this.officelogo=properties.getPhoto();
 			
 
