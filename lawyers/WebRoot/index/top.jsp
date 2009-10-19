@@ -43,8 +43,10 @@ function exitform(){
          	<form name="form1" method="post" action="../common/logout.pl" target="_top">
           <td height="26"  align="right">
                  <a href="../index/workspace.pl" target="mainFrame">返回首页</a> ｜
+                 <s:if test="lawyer.provinceunion!=22">
                  <a href="../common/passwdChange!input.pl" target="mainFrame">修改密码</a> ｜
-                  <s:if test="lawyers.roleid!=null&&lawyers.roleid==1">
+                 </s:if>
+                  <s:if test="lawyer.roleid!=null&&lawyer.roleid==1">
                  <a href="../shouce/lawyers.html" target="_blank"> 操作手册</a> ｜
                  </s:if>
                  <s:if test="isofficeadminer">

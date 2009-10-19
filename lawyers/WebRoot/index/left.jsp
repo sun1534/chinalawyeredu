@@ -93,7 +93,7 @@ function makeMenu() {
 		    d.add("sys","0","系统管理");
 		     d.add("helpList","sys","系统帮助","../articles/helpList.pl?type=2","","mainFrame");
 		    d.add("notifyList","sys","重要通知","../articles/notifyList.pl?type=1","","mainFrame");
-		    <s:if test="canChangePass">
+		 <s:if test="lawyer.provinceunion!=22">
 		    d.add("passwd","sys","密码修改","../common/passwdChange!input.pl","","mainFrame");
 		</s:if>
 	
