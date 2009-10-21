@@ -161,20 +161,5 @@ public abstract class StatAction extends AbstractListAction {
 		this.flashby = flashby;
 	}
 
-	/*
-	 * 得到当前日期的前一天
-	 */
-	protected Date getPrevDate() {
-		return getPrevCountDate(1);
-	}
-	/*
-	 * 得到当前日期的前一天
-	 */
-	protected Date getPrevCountDate(int days) {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, 0-days);
-		Date d = new Date();
-		d.setTime(c.getTimeInMillis());
-		return d;
-	}
+	
 }

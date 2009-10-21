@@ -1,5 +1,7 @@
 package com.sxit.common.action;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -241,7 +243,22 @@ public abstract class AbstractAction extends ActionSupport  {
 	static {
 		com.sxit.system.util.CommonDatas.getUsers();
 		com.sxit.system.util.CommonDatas.getGroups();
-
-
+	}
+	
+	/*
+	 * 得到当前日期的前一天
+	 */
+	protected Date getPrevDate() {
+		return getPrevCountDate(1);
+	}
+	/*
+	 * 得到当前日期的前一天
+	 */
+	protected Date getPrevCountDate(int days) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 0-days);
+		Date d = new Date();
+		d.setTime(c.getTimeInMillis());
+		return d;
 	}
 }

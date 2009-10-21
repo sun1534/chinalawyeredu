@@ -52,10 +52,10 @@ public class StatService {
 	 * @param to
 	 * @return
 	 */
-	public List getDaysTotalStream(Date from, Date to) {
+	public List getDaysTotalStream(Date start, Date end) {
 		String sql = "select sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) as ALLVOLUME,STATTIME  from  STAT_SGSN where STATTIME between ? and ? and dayflag=1 group by STATTIME";
-		int _from = (int) (from.getTime() / 1000);
-		int _to = (int) to.getTime() / 1000;
+		int _from = (int) (start.getTime() / 1000);
+		int _to = (int) end.getTime() / 1000;
 		Object[] args = new Object[] { _from, _to };
 		int[] argTypes = new int[] { Types.INTEGER, Types.INTEGER };
 		Object object = jdbcTemplate.query(sql, args, argTypes, new ResultSetExtractor() {
