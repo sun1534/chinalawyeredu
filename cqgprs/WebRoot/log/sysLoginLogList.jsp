@@ -5,15 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
- <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
  <title>${sysName}-管理员登录日志</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
- <script language="javascript">
+ <script type="text/javascript">
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit()

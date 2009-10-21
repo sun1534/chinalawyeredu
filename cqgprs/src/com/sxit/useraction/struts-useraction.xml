@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="useraction" extends="default" namespace="/useraction">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+		   <action name="hightStreamUser" class="com.sxit.useraction.action.HightStreamUserAction">
+          <result name="success" type="dispatcher">/useraction/hightStreamUser.jsp</result>	
+       </action>
+     <action name="raduiasErrors" class="com.sxit.useraction.action.RaduiasErrorsAction">
+          <result name="success" type="dispatcher">/useraction/raduiasErrors.jsp</result>	
+       </action>
+       <action name="userPdpErrorAll" class="com.sxit.useraction.action.UserPdpErrorAllAction">
+          <result name="success" type="dispatcher">/useraction/userPdpErrorAll.jsp</result>	
+       </action>
+      
+        <action name="roamErros" class="com.sxit.useraction.action.RoamErrosAction">
+          <result name="success" type="dispatcher">/useraction/roamErros.jsp</result>	
+       </action>
+         <action name="errorApns" class="com.sxit.useraction.action.ErrorApnsction">
+          <result name="success" type="dispatcher">/useraction/errorApns.jsp</result>	
+       </action>
+         <action name="userPdpErrorTopList" class="com.sxit.useraction.action.UserPdpErrorTopListAction">
+          <result name="success" type="dispatcher">/useraction/userPdpErrorTopList.jsp</result>	
+       </action>
+       
+      
+    </package>
+	
+	
+</struts>

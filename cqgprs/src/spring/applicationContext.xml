@@ -57,6 +57,12 @@
         </property> 
     </bean>      
  
+ <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+</bean>
+ 
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">           
           <property name="sessionFactory">           
               <ref bean="sessionFactory"/>           
@@ -73,6 +79,13 @@
     <bean id="basicService" class="com.sxit.common.BasicService">           
           <property name="basicDAO">           
               <ref bean="basicDAO"/>           
+          </property>           
+    </bean> 
+    
+    
+        <bean id="statService" class="com.sxit.stat.service.StatService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
           </property>           
     </bean> 
     

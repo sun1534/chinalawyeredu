@@ -45,7 +45,7 @@
         <action name="left" class="com.sxit.index.IndexPageAction" method="left">
           <result name="left" type="dispatcher">/index/left.jsp</result>	
        </action>
-       <action name="workspace" class="com.sxit.index.MyWorkspacePageAction">
+       <action name="allview" class="com.sxit.index.MyWorkspacePageAction">
        		<interceptor-ref name="hibernateSessionStack"/>
           <result name="success" type="dispatcher">/index/workspace.jsp</result>	
        </action> 

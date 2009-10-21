@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	  <!--登录啊退出啊密码修改等等-->
+    <package name="stat" extends="default" namespace="/stat">
+    
+    <result-types>
+            <result-type name="ofc" class="com.sxit.common.FlashChartResult"/>
+        </result-types>
+       
+    	<default-interceptor-ref name="visitStack"/>
+    	 <global-results>
+          <result name="ofc" type="ofc"></result>	
+        </global-results>
+		<!-- 总流量分析 -->
+	 <action name="stream" class="com.sxit.stat.action.StreamAction">
+          <result name="success" type="dispatcher">/stat/stream.jsp</result>	
+           <result name="excel" type="dispatcher">/stat/stream_excel.jsp</result>	
+       </action>
+     <action name="stream23g" class="com.sxit.stat.action.Stream23gAction">
+           <result name="success" type="dispatcher">/stat/stream23g.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/stream23g_excel.jsp</result>	
+       </action>
+       <action name="sgsnStream" class="com.sxit.stat.action.SgsnStreamAction">
+           <result name="success" type="dispatcher">/stat/sgsnStream.jsp</result>	
+           <result name="excel" type="dispatcher">/stat/sgsnStream_excel.jsp</result>	
+       </action>
+       <action name="sgsnStream23g" class="com.sxit.stat.action.SgsnStream23gAction">
+           <result name="success" type="dispatcher">/stat/sgsnStream23g.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/sgsnStream23g_excel.jsp</result>	
+       </action>
+       <action name="staticAPN" class="com.sxit.stat.action.StaticAPNAction">
+           <result name="success" type="dispatcher">/stat/staticAPN.jsp</result>	
+           <result name="excel" type="dispatcher">/stat/staticAPN_excel.jsp</result>	
+       </action>
+       <action name="staticAPNCell" class="com.sxit.stat.action.StaticAPNCellAction">
+           <result name="success" type="dispatcher">/stat/staticAPNCell.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/staticAPNCell_excel.jsp</result>	
+       </action>
+       <action name="staticAPNTime" class="com.sxit.stat.action.StaticAPNTimeAction">
+           <result name="success" type="dispatcher">/stat/staticAPNTime.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/staticAPNTime_excel.jsp</result>	
+       </action>
+       
+        <action name="streamBscRnc" class="com.sxit.stat.action.StreamBscRncAction">
+           <result name="success" type="dispatcher">/stat/streamBscRnc.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/streamBscRnc_excel.jsp</result>	
+       </action>
+       
+        <action name="streamCell" class="com.sxit.stat.action.StreamCellAction">
+           <result name="success" type="dispatcher">/stat/streamCell.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/streamCell_excel.jsp</result>	
+       </action>
+       
+        <action name="streamCellTime" class="com.sxit.stat.action.StreamCellTimeAction">
+          <result name="success" type="dispatcher">/stat/streamCellTime.jsp</result>	
+           <result name="excel" type="dispatcher">/stat/streamCellTime_excel.jsp</result>	
+       </action>
+   	
+    </package>
+	
+	
+</struts>

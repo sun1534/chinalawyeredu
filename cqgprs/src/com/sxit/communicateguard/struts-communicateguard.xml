@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="communicateguard" extends="default" namespace="/communicateguard">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+		   <action name="noGuard" class="com.sxit.communicateguard.action.NoGuardAction">
+          <result name="success" type="dispatcher">/communicateguard/noGuard.jsp</result>	
+       </action>
+     <action name="cellGuard" class="com.sxit.communicateguard.action.CellGuardAction">
+          <result name="success" type="dispatcher">/communicateguard/cellGuard.jsp</result>	
+       </action>
+    
+      
+    </package>
+	
+	
+</struts>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="tradeCustomer" extends="default" namespace="/tradeCustomer">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+		   <action name="tradeCustomerAll" class="com.sxit.tradeCustomer.action.TradeCustomerAllAction">
+          <result name="success" type="dispatcher">/tradeCustomer/tradeCustomerAll.jsp</result>	
+       </action>
+     <action name="exceptionApns" class="com.sxit.tradeCustomer.action.ExceptionApnsAction">
+          <result name="success" type="dispatcher">/tradeCustomer/exceptionApns.jsp</result>	
+       </action>
+       <action name="exceptionUsers" class="com.sxit.tradeCustomer.action.ExceptionUsersAction">
+          <result name="success" type="dispatcher">/tradeCustomer/exceptionUsers.jsp</result>	
+       </action>
+      
+             <action name="importantCells" class="com.sxit.tradeCustomer.action.ImportantCellsAction">
+          <result name="success" type="dispatcher">/tradeCustomer/importantCells.jsp</result>	
+       </action>
+       
+              <action name="staticBy24Hours" class="com.sxit.tradeCustomer.action.StaticBy24HoursAction">
+          <result name="success" type="dispatcher">/tradeCustomer/staticBy24Hours.jsp</result>	
+       </action>
+       
+          
+    </package>
+	
+	
+</struts>

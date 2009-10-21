@@ -8,14 +8,15 @@ package com.sxit.common.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * 
  * @author HuaFeng
  * @version 1.0
  */
 public class NumberUtil {
-	private static final char chars[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
+	private static final char chars[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
+			'F' };
+
 	/**
 	 * 
 	 * @param b
@@ -48,8 +49,9 @@ public class NumberUtil {
 	 * @return
 	 */
 	public static long bytes2long(byte mybytes[]) {
-		long tmp = (0xff & mybytes[0]) << 56 | (0xff & mybytes[1]) << 48 | (0xff & mybytes[2]) << 40 | (0xff & mybytes[3]) << 32
-				| (0xff & mybytes[4]) << 24 | (0xff & mybytes[5]) << 16 | (0xff & mybytes[6]) << 8 | 0xff & mybytes[7];
+		long tmp = (0xff & mybytes[0]) << 56 | (0xff & mybytes[1]) << 48 | (0xff & mybytes[2]) << 40
+				| (0xff & mybytes[3]) << 32 | (0xff & mybytes[4]) << 24 | (0xff & mybytes[5]) << 16
+				| (0xff & mybytes[6]) << 8 | 0xff & mybytes[7];
 		return tmp;
 	}
 
@@ -158,18 +160,23 @@ public class NumberUtil {
 			}
 		}
 	}
-	public static boolean isNumeric(String str)
-	{
-	    Pattern pattern = Pattern.compile("[0-9]*");
-	    Matcher isNum = pattern.matcher(str);
-	    if( !isNum.matches() ) {
-	       return false;
-	    }
-	    return true;
+
+	public static boolean isNumeric(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		Matcher isNum = pattern.matcher(str);
+		if (!isNum.matches()) {
+			return false;
+		}
+		return true;
 	}
+
+	
+
 	public static void main(String args[]) {
-		System.out.println(reversensquare(15, 2));
-		System.out.println(reversensquare(13, 2));
-		System.out.println(reversensquare(17, 2));
+		// System.out.println(reversensquare(15, 2));
+		// System.out.println(reversensquare(13, 2));
+		// System.out.println(reversensquare(17, 2));
+	
 	}
+
 }

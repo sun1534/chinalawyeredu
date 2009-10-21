@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="query" extends="default" namespace="/query">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+		   <action name="queryByMobile" class="com.sxit.query.action.QueryByMobileAction">
+          <result name="success" type="dispatcher">/query/queryByMobile.jsp</result>	
+       </action>
+     <action name="queryByCell" class="com.sxit.query.action.QueryByCellAction">
+          <result name="success" type="dispatcher">/query/queryByCell.jsp</result>	
+       </action>
+       <action name="queryByAPN" class="com.sxit.query.action.QueryByAPNAction">
+          <result name="success" type="dispatcher">/query/queryByAPN.jsp</result>	
+       </action>
+      
+    </package>
+	
+	
+</struts>

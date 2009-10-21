@@ -21,6 +21,13 @@
 	<include file="com/sxit/system/struts-system.xml" />
     <include file="com/sxit/common/struts-common.xml" />
     <include file="com/sxit/log/struts-log.xml" />
+        <include file="com/sxit/stat/struts-stat.xml" />
+     <include file="com/sxit/alert/struts-alert.xml" />
+     <include file="com/sxit/communicateguard/struts-communicateguard.xml" />
+     <include file="com/sxit/netquality/struts-netquality.xml" />
+     <include file="com/sxit/query/struts-query.xml" />
+     <include file="com/sxit/tradeCustomer/struts-tradeCustomer.xml" />
+     <include file="com/sxit/useraction/struts-useraction.xml" />
   
 	<package name="default" extends="struts-default">
      	<interceptors>

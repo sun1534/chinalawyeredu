@@ -29,8 +29,13 @@
 	<classpathentry kind="lib" path="lib/struts2-pell-multipart-plugin-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-spring-plugin-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/xwork-2.0.4.jar"/>
-	<classpathentry kind="lib" path="lib/jofc2-1.0-0.jar"/>
+	<classpathentry kind="lib" path="lib/jofc2-1.0-0.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/E:/GRGZ/cl/ofc/jofc2-1.0-0/doc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/jsonplugin-0.32.jar"/>
 	<classpathentry kind="lib" path="D:/javalib/classes12.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.3.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
