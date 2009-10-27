@@ -1,5 +1,6 @@
 package com.changpeng.common.action;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -64,6 +65,15 @@ public abstract class AbstractAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		
+//		Cookie[] cookies = ServletActionContext.getRequest().getCookies();
+//
+//		int length = cookies == null ? 0 : cookies.length;
+//		for (int i = 0; i < length; i++) {
+//			_LOG.debug(cookies[i].getName() + "=>" + cookies[i].getValue() + "=>" + cookies[i].getDomain() + "=>"
+//					+ cookies[i].getPath());
+//		}
+		_LOG.debug("REFERER:"+ServletActionContext.getRequest().getHeader("REFERER"));
 		userIp = getIpAddr(ServletActionContext.getRequest());
 		getDomain(ServletActionContext.getRequest());
 

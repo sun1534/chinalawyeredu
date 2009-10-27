@@ -169,14 +169,19 @@ public class SysUserService {
 
 			sysUser = sysUserDAO.getSysUserByLoginname(loginName);
 			int i = -1;
-			if (sysUser != null) {// i<0的话,登录错误
+			if (sysUser!=null) {// i<0的话,登录错误
 				// 得到rightcodelist
-				i = sysUser.getUserid();
-				// sysUser = sysUserDAO.getSysUser();// 登录成功了，获取其他信息等
-				LOG.debug("部门:" + sysUser.getSysGroup());
+		
+				i=sysUser.getUserid();
+				// LOG.debug("部门:" + sysUser.getSysGroup());
 				LOG.debug("角色:" + sysUser.getSysRole());
-				LOG.debug("角色可见性:" + sysUser.getSysRole().getSysRoleVisibles());
-				LOG.debug("权限:" + sysUser.getSysRights());
+				if (sysUser.getSysRole() != null)
+					LOG.debug("角色可见性::" + sysUser.getSysRole().getSysRoleVisibles());
+				if (sysUser.getSysGroup() != null) {
+					LOG.debug("部门参数::" + sysUser.getSysGroup().getSysUnionparams());
+				}
+
+				// LOG.debug("权限:" + sysUser.getSysRights());
 				// 登录的时候获取下来与这个用户相关的一些数据下来
 				if (sysUser.getLoginname().equals("admin")) {
 					List<SysRight> userMenus = new ArrayList<SysRight>();

@@ -45,7 +45,7 @@ public class PxxtTransfer {
 
 	public static void syncLawyers(PersonInfo person)throws Exception {
 		
-		if(person.getPersonCode().equals("7")){
+		if(person.getRoleCode().equals("7")){
 			LOG.warn("实习人员,不进行同步!"+person.getPersonName());
 			return;
 		}

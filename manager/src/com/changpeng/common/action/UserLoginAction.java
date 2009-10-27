@@ -51,27 +51,30 @@ public class UserLoginAction extends AbstractAction {
 	 */
 	@Override
 	protected String go() throws Exception {
-//		String today = df.format(new java.util.Date());
+		// String today = df.format(new java.util.Date());
 		ActionContext ctx = ActionContext.getContext();
 		String contextid = ctx.getApplication().get("CONTEXTID").toString();
-//		HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+		// HttpServletRequest request = (HttpServletRequest)
+		// ctx.get(ServletActionContext.HTTP_REQUEST);
 		HttpServletResponse response = (HttpServletResponse) ctx.get(ServletActionContext.HTTP_RESPONSE);
+		HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+
 		String _remoteAddr = this.getIpAddr();
 		this.nextPage = "index.pl";
 		Object obj = get(Constants.VALIDATE_CODE);
 		LOG.debug("===================验证码:::" + obj);
 		// 验证码为空
-//		if (!_remoteAddr.startsWith("127.0.0")) {
-//			if (obj == null) {
-//				message = "验证码已经过期,请返回重新输入";
-//				return Constants.ACTION_MESSAGE;
-//			}
-//			// 输入的验证码不符合要求
-//			if (!((String) obj).equals(randnum)) {
-//				message = "您输入的验证码错误,请返回重新输入";
-//				return Constants.ACTION_MESSAGE;
-//			}
-//		}
+		// if (!_remoteAddr.startsWith("127.0.0")) {
+		// if (obj == null) {
+		// message = "验证码已经过期,请返回重新输入";
+		// return Constants.ACTION_MESSAGE;
+		// }
+		// // 输入的验证码不符合要求
+		// if (!((String) obj).equals(randnum)) {
+		// message = "您输入的验证码错误,请返回重新输入";
+		// return Constants.ACTION_MESSAGE;
+		// }
+		// }
 		// 根据loginname得到用户个人信息
 		// SysUserDAO dao=new SysUserDAO();
 		SysUserService userService = (SysUserService) getBean("sysUserService");
@@ -126,13 +129,35 @@ public class UserLoginAction extends AbstractAction {
 		LOG.debug("系统每次启动后的标志ID:" + contextid);
 
 		if (savecookie) {
-			Cookie cookie = new Cookie(Constants.COOKIE_LOGINNAME, this.loginname);
+			// Cookie cookie = new Cookie(Constants.COOKIE_LOGINNAME,
+			// this.loginname);
 
+			// cookie.setMaxAge(Integer.MAX_VALUE);
+			// Cookie passwd = new Cookie(Constants.COOKIE_PASSWORD,
+			// this.password);
+			// passwd.setMaxAge(Integer.MAX_VALUE);
+			// response.addCookie(cookie);
+			// response.addCookie(passwd);
+			Cookie cookie = new Cookie("autologin", this.loginname + "," + this.password);
 			cookie.setMaxAge(Integer.MAX_VALUE);
-			Cookie passwd = new Cookie(Constants.COOKIE_PASSWORD, this.password);
-			passwd.setMaxAge(Integer.MAX_VALUE);
+			cookie.setPath("/");
+			cookie.setDomain("all.lawyeredu.com");
 			response.addCookie(cookie);
-			response.addCookie(passwd);
+
+		} 
+		else {// 如果cookie存在就要删掉
+			Cookie[] cookies = request.getCookies();
+
+			int length = cookies == null ? 0 : cookies.length;
+			for (int i = 0; i < length; i++) {
+				LOG.debug(cookies[i].getName() + "=>" + cookies[i].getValue() + "=>" + cookies[i].getDomain() + "=>"
+						+ cookies[i].getPath());
+				if (cookies[i].getName().equals("autologin")) {
+					cookies[i].setMaxAge(0);
+					response.addCookie(cookies[i]);//清空这个cookie
+				}
+				
+			}
 		}
 
 		if (pasivelogin != null && pasivelogin.equals("true")) {

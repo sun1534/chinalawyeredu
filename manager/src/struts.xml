@@ -145,7 +145,7 @@
 		
 		<action name="logout" class="com.changpeng.common.action.UserLogoutAction">
 		    <interceptor-ref name="adminStack"/>  
-			<result name="success" type="redirect">/common/index.pl</result><!-- 跳转到登录页面 -->
+			<result name="success" type="redirect">/common/index.pl?action=logout</result><!-- 跳转到登录页面 -->
 		</action> 
 		
 		<action name="passwdChange" class="com.changpeng.common.action.PasswordChangedAction">
@@ -157,7 +157,9 @@
 		<!--系统访问,实现一些数据的初始化工作-->
         <action name="index" class="com.changpeng.common.action.IndexAction">
 		    <interceptor-ref name="visitStack"/>  
-			<result name="success" type="dispatcher">/common/login.jsp</result><!-- 提示密码修改成功 -->
+			<result name="login" type="dispatcher">/common/login.jsp</result><!-- 提示密码修改成功 -->
+			<result name="toindex" type="redirect">/index/index.pl</result><!-- 提示密码修改成功 -->
+	
 		</action> 
 	</package>
 	
