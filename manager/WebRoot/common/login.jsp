@@ -115,7 +115,7 @@ function submitForm(e){
           <tr>
             <td class="tab_content" align="right"><s:checkbox name="savecookie"/>              </td>
             <td colspan="2" class="tab_content"> 
-            记住帐号
+            自动登录
             </td>
           </tr>
           <tr>

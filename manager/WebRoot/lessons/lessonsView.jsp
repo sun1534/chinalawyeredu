@@ -82,18 +82,18 @@ body {
 		<div class="comment">${replycontent}</div>
 		<hr width="95%" align="center"/>
 		</s:iterator>
-		<!-- 
-		<s:form name="form1" method="post" action="replyCreate" >
-		<input type="hidden" name="lessonid" value="${lesson.lessonid}">
-		<div style="padding-left:15px">
-		<FCK:editor id="replycontent" height="200" width="80%"
-			skinPath="../editor/skins/default/"
-			basePath="../" toolbarSet="Basic"
-			>
-		</FCK:editor>	
-		</div>
-		<div style="padding-left:300px"><input type=submit value="发表评论" class="button"/></div>
-		</s:form>	
-		-->	
+		<% 
+	//	<s:form name="form1" method="post" action="replyCreate" >
+	//	<input type="hidden" name="lessonid" value="${lesson.lessonid}">
+	//	<div style="padding-left:15px">
+	//	<FCK:editor id="replycontent" height="200" width="80%"
+	//		skinPath="../editor/skins/default/"
+	//		basePath="../" toolbarSet="Basic"
+	//		>
+	//	</FCK:editor>	
+//		</div>
+	//	<div style="padding-left:300px"><input type=submit value="发表评论" class="button"/></div>
+	//	</s:form>	
+		%>	
 	</body>
 </html>
