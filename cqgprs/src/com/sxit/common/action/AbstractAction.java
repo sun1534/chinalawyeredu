@@ -4,13 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -154,10 +149,10 @@ public abstract class AbstractAction extends ActionSupport  {
 	 * @return
 	 */
 	protected Object getBean(String name) {
-		// Globals globals = new Globals();
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		return wac.getBean(name);
-		// return globals.getBean(name);
+//		 Globals globals = new Globals();
+//		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+//		return wac.getBean(name);
+		 return Globals.getBean(name);
 	}
 
 	protected SysUser getLoginUser() {

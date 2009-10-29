@@ -14,8 +14,8 @@ import java.text.DecimalFormat;
  */
 public class NumberUtil {
 
-	private final static DecimalFormat nf = new DecimalFormat("###,##0.00");
-	private final static DecimalFormat nff = new DecimalFormat("###,##0.00%");
+	private final static DecimalFormat nf = new DecimalFormat("#####0.00");
+	private final static DecimalFormat nff = new DecimalFormat("#####0.00%");
 
 	public static String toMoney(String s) {
 		if (s == null || s.equals("")) {
@@ -72,7 +72,7 @@ public class NumberUtil {
     }
     
     
-//    public static void main(String args[]){
-//    	System.out.println(toMoney(((double)2/(double)23)));
-//    }
+    public static void main(String args[]){
+    	System.out.println(toMoney((234234234)));
+    }
 }

@@ -44,10 +44,9 @@ public class BasicSetService {
 	 * 
 	 * @return
 	 */
-	private int getTodayAddCell() {
-		Date date = this.getPrevDate();
-
-		String sql = "select count(*) from set_cellid where updatetime= and lastopt='add'";
+	public int getTotalCells() {
+		
+		String sql = "select count(*) from set_cellid where lastopt!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -56,8 +55,8 @@ public class BasicSetService {
 	 * 
 	 * @return
 	 */
-	private int getTodayAddApn() {
-		String sql = "select count(*) from set_apn where updatetime= and lastopt='add'";
+	public int getTotalApns() {
+		String sql = "select count(*) from set_apn where lastopt!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -66,8 +65,8 @@ public class BasicSetService {
 	 * 
 	 * @return
 	 */
-	private int getTodayAddBsc() {
-		String sql = "select count(*) from set_bscid where updatetime= and lastopt='add'";
+	public int getTotalBscs() {
+		String sql = "select count(*) from set_bscid where lastopt!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -76,10 +75,54 @@ public class BasicSetService {
 	 * 
 	 * @return
 	 */
-	private int getTodayAddLink() {
-		String sql = "select count(*) from set_bscid where updatetime= and lastopt='add'";
+	public int getTotalLinks() {
+		String sql = "select count(*) from set_bscid where lastopt!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
+	
+	/**
+	 * 得到前1天新增的cell个数
+	 * 
+	 * @return
+	 */
+	public int getTodayAddCell() {
+		Date date = this.getPrevDate();
+
+		String sql = "select count(*) from set_cellid where updatetime= and lastopt=0";
+		return jdbcTemplate.queryForInt(sql);
+	}
+
+	/**
+	 * 得到前1天新增的apn个数
+	 * 
+	 * @return
+	 */
+	public int getTodayAddApn() {
+		String sql = "select count(*) from set_apn where updatetime= and lastopt=0";
+		return jdbcTemplate.queryForInt(sql);
+	}
+
+	/**
+	 * 得到前1天新增的bsc个数
+	 * 
+	 * @return
+	 */
+	public int getTodayAddBsc() {
+		String sql = "select count(*) from set_bscid where updatetime= and lastopt=0";
+		return jdbcTemplate.queryForInt(sql);
+	}
+
+	/**
+	 * 得到前1天新增的link个数
+	 * 
+	 * @return
+	 */
+	public int getTodayAddLink() {
+		String sql = "select count(*) from set_bscid where updatetime= and lastopt=0";
+		return jdbcTemplate.queryForInt(sql);
+	}
+	
+	
 
 	/*
 	 * 得到当前日期的前一天

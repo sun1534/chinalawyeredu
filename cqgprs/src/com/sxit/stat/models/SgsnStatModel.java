@@ -65,7 +65,7 @@ public class SgsnStatModel {
 	 * @return
 	 */
 	public float getTotalStreamStr(){
-		double d = ((double) totalStream) / (1024 * 1024);
+		double d = ((double) totalStream) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
 		return Float.parseFloat(totalStreamStr);
 	}
@@ -75,7 +75,7 @@ public class SgsnStatModel {
 	 * @return the averageStream
 	 */
 	public float getAverageStreamStr() {
-		float f= ((float) totalStream) / (1024 * totalUser);
+		float f= ((float) totalStream) / ( totalUser);
 		String averageStreamStr= NumberUtil.toMoney(f);
 		return Float.parseFloat(averageStreamStr);
 	}
@@ -85,7 +85,7 @@ public class SgsnStatModel {
 	 * @return the averageStream
 	 */
 	public float getAverageStream() {
-		float f= ((float) totalStream) / (1024 * totalUser);
+		float f= ((float) totalStream) / ( totalUser);
 		String averageStreamStr= NumberUtil.toMoney(f);
 		return Float.parseFloat(averageStreamStr);
 	}
@@ -133,10 +133,19 @@ public class SgsnStatModel {
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
 	}
-	/**
-	 * @return the nettype
-	 */
 	public String getNettype() {
+		if(nettype==null||nettype.equals(""))
+			return "未知";
+		if(nettype.equals("1")){
+			return "WLAN";
+		}
+		else if(nettype.equals("2")){
+			return "GSM";
+
+		}
+		else if(nettype.equals("3")){
+			return "TD";
+	    }else 
 		return nettype;
 	}
 	/**

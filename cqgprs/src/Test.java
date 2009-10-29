@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.util.Date;
 
 import jofc2.model.Chart;
 import jofc2.model.Text;
@@ -122,7 +123,12 @@ public class Test {
 	public static void main(String[] args) throws Exception {
 	
 //		piechart();
-		linechart();
+//		linechart();
+		
+		Date date=new Date();
+		date.setTime(1256547508L*1000);
+		
+		System.out.println(date.toLocaleString());
 		
 		System.out.println(System.getProperty("file.encoding"));
 		

@@ -6,7 +6,8 @@ package com.sxit.useraction.action;
 import com.sxit.common.action.AbstractAction;
 
 /**
- * SGSN-2/3G流量分析
+ * 
+ * 高流量用户排名,从mobile分APN统计表中拿数据
  * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 

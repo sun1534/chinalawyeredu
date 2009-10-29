@@ -3,16 +3,15 @@
  */
 package com.sxit.stat.action;
 
-
 /**
  * 这里要分页啊
  * 
  * APN业务统计
+ * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
 public class StaticAPNAction extends StatAction {
-	
 
 	/*
 	 * (non-Javadoc)
@@ -21,14 +20,20 @@ public class StaticAPNAction extends StatAction {
 	 */
 	@Override
 	protected String go() throws Exception {
-		if(startDate==null){
-			startDate=getPrevDate();
-			this.start=df.format(startDate);
+		if (startDate == null) {
+			startDate = getPrevDate();
+			this.start = df.format(startDate);
 		}
-		
-		this.page=statservice.getApnDayStat(startDate,pageNo,pageSize);
-		
+
+		this.page = statservice.getApnDayStat(startDate, pageNo, pageSize);
+		if (resultType.equals("list"))
+			return SUCCESS;
+
+		else if (resultType.equals("excel")) {
+			this.page = statservice.getApnDayStat(startDate, 1, Integer.MAX_VALUE);
+			return "excel";
+		}
 		return SUCCESS;
 	}
-	
+
 }

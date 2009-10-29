@@ -2,6 +2,7 @@
 
 package com.sxit.common.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;

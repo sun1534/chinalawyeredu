@@ -50,7 +50,7 @@ public abstract class StatAction extends AbstractListAction {
 	 *            the start to set
 	 */
 	public void setStart(String start) {
-		if (start != null && start.equals("")) {
+		if (start != null && !start.equals("")) {
 			try {
 				this.startDate = df.parse(start);
 			} catch (Exception e) {
@@ -72,7 +72,7 @@ public abstract class StatAction extends AbstractListAction {
 	 *            the end to set
 	 */
 	public void setEnd(String end) {
-		if (end != null && end.equals("")) {
+		if (end != null && !end.equals("")) {
 			try {
 				this.endDate = df.parse(end);
 			} catch (Exception e) {
@@ -110,7 +110,7 @@ public abstract class StatAction extends AbstractListAction {
 	/**
 	 * 显示饼图?柱状图还是线图还是其他的?
 	 */
-	protected String flashType = "line";
+	protected String flashType = "bar";
 	/**
 	 * 根据什么维度来产生图形
 	 */
@@ -143,6 +143,7 @@ public abstract class StatAction extends AbstractListAction {
 	 *            the flashType to set
 	 */
 	public void setFlashType(String flashType) {
+		System.out.println("flashType==="+flashType);
 		this.flashType = flashType;
 	}
 

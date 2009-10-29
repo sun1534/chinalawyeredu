@@ -25,7 +25,12 @@ public class StreamCellTimeAction extends StatAction {
 			startDate=getPrevDate();
 			this.end=df.format(startDate);
 		}
+		
 		this.celltimelist = statservice.getCellDayTimeStat(startDate, cellid);
+		if(resultType.equals("list"))
+		return SUCCESS;
+		else if(resultType.equals("excel"))
+			return "excel";
 		return SUCCESS;
 	}
 

@@ -23,7 +23,18 @@ public class StreamCellAction extends StatAction {
 			startDate=super.getPrevDate();
 			this.start=df.format(startDate);
 		}
-		this.page=statservice.getCellDayStat(startDate, pageNo, pageSize);
+		
+		
+		
+		if (resultType.equals("list")){
+			this.page=statservice.getCellDayStat(startDate, pageNo, pageSize);
+			return SUCCESS;
+		}
+
+		else if (resultType.equals("excel")){
+		    this.page=statservice.getCellDayStat(startDate, 1, Integer.MAX_VALUE);
+			return "excel";
+		}
 		
 		return SUCCESS;
 	}

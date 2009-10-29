@@ -32,7 +32,7 @@ public class ApnStatModel {
 		 * @return
 		 */
 		public float getTotalStreamStr(){
-			double d = ((double) totalStream) / (1024 * 1024);
+			double d = ((double) totalStream) / (1024);
 			String totalStreamStr= NumberUtil.toMoney(d);
 			return Float.parseFloat(totalStreamStr);
 		}
@@ -42,7 +42,7 @@ public class ApnStatModel {
 		 * @return the averageStream
 		 */
 		public float getAverageStreamStr() {
-			float f= ((float) totalStream) / (1024 * totalUser);
+			float f= ((float) totalStream) / (totalUser);
 			String averageStreamStr= NumberUtil.toMoney(f);
 			return Float.parseFloat(averageStreamStr);
 		}
@@ -52,7 +52,7 @@ public class ApnStatModel {
 		 * @return the averageStream
 		 */
 		public float getAverageStream() {
-			float f= ((float) totalStream) / (1024 * totalUser);
+			float f= ((float) totalStream) / (totalUser);
 			String averageStreamStr= NumberUtil.toMoney(f);
 			return Float.parseFloat(averageStreamStr);
 		}

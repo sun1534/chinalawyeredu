@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sxit.common.action.AbstractAction;
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.stat.service.StatService;
 
 /**
@@ -32,10 +33,17 @@ public class MyWorkspacePageAction extends AbstractAction {
 	protected String go()throws Exception
 	{
 		
+		BasicSetService service=(BasicSetService)this.getBean("basicSetService");
+		
 		Date end=super.getPrevDate();
 		Date start=super.getPrevCountDate(3);
 		
-		
+		this.newaddapn=service.getTodayAddApn();
+		this.newaddbsc=service.getTodayAddBsc();
+		this.newaddcell=service.getTodayAddCell();
+		this.totalapn=service.getTotalApns();
+		this.totalbsc=service.getTotalBscs();
+		this.totalcell=service.getTotalCells();
 		
 		
 		com.sxit.stat.service.StatService statservice=(StatService)getBean("statService");
@@ -62,5 +70,78 @@ public class MyWorkspacePageAction extends AbstractAction {
 		return total23glist;
 	}
 	
+	private int newaddcell;
+	private int totalcell;
+	private int newaddapn;
+	private int totalapn;
+	private int newaddbsc;
+	private int totalbsc;
+	
+	private int exceptioncell;
+	private int exceptionapn;
+	private int exceptionbsc;
+
+	/**
+	 * @return the exceptioncell
+	 */
+	public int getExceptioncell() {
+		return exceptioncell;
+	}
+
+	/**
+	 * @return the exceptionapn
+	 */
+	public int getExceptionapn() {
+		return exceptionapn;
+	}
+
+	/**
+	 * @return the exceptionbsc
+	 */
+	public int getExceptionbsc() {
+		return exceptionbsc;
+	}
+
+	/**
+	 * @return the newaddcell
+	 */
+	public int getNewaddcell() {
+		return newaddcell;
+	}
+
+	/**
+	 * @return the totalcell
+	 */
+	public int getTotalcell() {
+		return totalcell;
+	}
+
+	/**
+	 * @return the newaddapn
+	 */
+	public int getNewaddapn() {
+		return newaddapn;
+	}
+
+	/**
+	 * @return the totalapn
+	 */
+	public int getTotalapn() {
+		return totalapn;
+	}
+
+	/**
+	 * @return the newaddbsc
+	 */
+	public int getNewaddbsc() {
+		return newaddbsc;
+	}
+
+	/**
+	 * @return the totalbsc
+	 */
+	public int getTotalbsc() {
+		return totalbsc;
+	}
 	
 }

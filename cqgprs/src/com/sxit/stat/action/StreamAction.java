@@ -35,6 +35,8 @@ public class StreamAction extends StatAction {
 	 */
 	@Override
 	protected String go() throws Exception {
+//		System.out.println(startDate+"=========="+start);
+		
 		if(startDate==null){
 			startDate=super.getPrevCountDate(PREV_DAYS);
 			this.start=df.format(startDate);
@@ -43,6 +45,9 @@ public class StreamAction extends StatAction {
 			endDate=getPrevDate();
 			this.end=df.format(endDate);
 		}
+		
+		System.out.println("======================================"+flashType);
+		
 		
 		streamlist = statservice.getDaysTotalStream(startDate, endDate);
 		if (resultType.equals("list"))
@@ -102,7 +107,7 @@ public class StreamAction extends StatAction {
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
@@ -156,7 +161,7 @@ public class StreamAction extends StatAction {
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
