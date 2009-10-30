@@ -5,6 +5,7 @@ package com.sxit.netquality.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,9 +29,23 @@ import com.sxit.netquality.models.Sgsn;
  * 
  */
 public class BasicSetService {
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private JdbcTemplate jdbcTemplate;
 
+	private long getDayStartTime(Date date){
+		try{
+		String datestr=df.format(date);
+		String startstr=datestr+" 00:00:00";
+		Date start=dfyyyyMmddHHmmss.parse(startstr);
+		return start.getTime();
+		}catch(Exception e){
+			e.printStackTrace();
+			return System.currentTimeMillis();
+		}
+	}
+	
 	/**
 	 * @param jdbcTemplate
 	 *            the jdbcTemplate to set
@@ -46,7 +61,7 @@ public class BasicSetService {
 	 */
 	public int getTotalCells() {
 		
-		String sql = "select count(*) from set_cellid where lastopt!=2";
+		String sql = "select count(*) from set_cell where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -56,7 +71,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTotalApns() {
-		String sql = "select count(*) from set_apn where lastopt!=2";
+		String sql = "select count(*) from set_apn where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -66,7 +81,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTotalBscs() {
-		String sql = "select count(*) from set_bscid where lastopt!=2";
+		String sql = "select count(*) from set_bsc where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -76,7 +91,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTotalLinks() {
-		String sql = "select count(*) from set_bscid where lastopt!=2";
+		String sql = "select count(*) from set_bsc where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 	
@@ -87,8 +102,13 @@ public class BasicSetService {
 	 */
 	public int getTodayAddCell() {
 		Date date = this.getPrevDate();
+		
+		long start=getDayStartTime(date);
+		long end=start+24*60*60*1000L;
+		
+		
 
-		String sql = "select count(*) from set_cellid where updatetime= and lastopt=0";
+		String sql = "select count(*) from set_cell where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -98,7 +118,11 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddApn() {
-		String sql = "select count(*) from set_apn where updatetime= and lastopt=0";
+		Date date = this.getPrevDate();
+		
+		long start=getDayStartTime(date);
+		long end=start+24*60*60*1000L;
+		String sql = "select count(*) from set_apn where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -108,7 +132,11 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddBsc() {
-		String sql = "select count(*) from set_bscid where updatetime= and lastopt=0";
+		Date date = this.getPrevDate();
+		
+		long start=getDayStartTime(date);
+		long end=start+24*60*60*1000L;
+		String sql = "select count(*) from set_bsc where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -118,7 +146,11 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddLink() {
-		String sql = "select count(*) from set_bscid where updatetime= and lastopt=0";
+		Date date = this.getPrevDate();
+		
+		long start=getDayStartTime(date);
+		long end=start+24*60*60*1000L;
+		String sql = "select count(*) from set_bsc where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 	
@@ -144,10 +176,10 @@ public class BasicSetService {
 
 	public PaginationSupport getCells(int pageNo, int pageSize) {
 
-		String countsql = "select count(*) from set_cellid";
+		String countsql = "select count(*) from set_cell";
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select * from  set_cellid order by CELLID) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select * from  set_cell where opttype!=2 order by CELLID) a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -179,7 +211,7 @@ public class BasicSetService {
 		String countsql = "select count(*) from set_apn";
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select * from  set_apn order by APNNI) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select * from  set_apn where opttype!=2 order by APNNI) a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -212,7 +244,7 @@ public class BasicSetService {
  */
 	public List getBsces() {
 
-		String sql = "select * from  SET_BSCID order by BSCID";
+		String sql = "select * from  SET_BSC  where opttype!=2  order by BSCID";
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {

@@ -31,7 +31,7 @@ public class NumberUtil {
 	public static String toMoney(double d) {
 		try {
 			if(d==0)
-				return "";
+				return "0.00";
 			return nf.format(d);
 		} catch (Exception e) {
 			return String.valueOf(d);

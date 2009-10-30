@@ -88,6 +88,12 @@
               <ref bean="jdbcTemplate"/>           
           </property>           
     </bean> 
+         <bean id="basicSetService" class="com.sxit.netquality.service.BasicSetService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+    
     
      <bean id="timerTask" class="com.sxit.common.ScheduleTask">
     </bean>
