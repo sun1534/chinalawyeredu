@@ -37,17 +37,17 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
       <tr>
-        <td colspan="5" align="center" bgcolor="#FFFF00"><b>${start}-${end }2/3G流量分析流量分析</b></td>
+        <td colspan="5" align="center" bgcolor="#FFFF00"><b>${start}/${end }之2/3G流量分析</b></td>
       </tr>
       <tr>
      <th>日期</th>
                           <th>用户类型</th>
-                          <th>总流量（M）></th>
+                          <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+      <s:iterator value="streamlist" status="stat">
       <tr>
      
 

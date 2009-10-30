@@ -41,12 +41,12 @@ th
       </tr>
       <tr>
                           <th>日期</th>
-                           <th>总流量（M）></th>
+                           <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+      <s:iterator value="streamlist" status="stat">
       <tr>
      
 

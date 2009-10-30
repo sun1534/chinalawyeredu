@@ -37,20 +37,21 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
       <tr>
-        <td colspan="5" align="center" bgcolor="#FFFF00"><b>${start}CELL流量分析</b></td>
+        <td colspan="7" align="center" bgcolor="#FFFF00"><b>${start}CELL流量分析</b></td>
       </tr>
       <tr>
+        <th>小区编码</th>
                           <th>类型</th>
                          <th>BSC/RNC编码</th>
                           <th>归属SGSN</th>
-                           <th>总流量（M）></th>
+                           <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>
       <tbody>
       <s:iterator value="page.items" status="stat">
       <tr>
-     
+        <td class="listline2">${cellid}</td>
      <td class="listline2">${nettype }</td>
                           <td class="listline2">${bscrncid}</td>
                           <td class="listline2">${sgsnid}</td>

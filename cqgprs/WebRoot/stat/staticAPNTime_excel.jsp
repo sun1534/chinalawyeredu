@@ -37,11 +37,11 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}${apnid }分时段统计</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之APN<${apnid }>分时段统计</b></td>
   </tr>
       <tr>
                          <th>时间段</th>
-                          <th>总流量（M）></th>
+                          <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>

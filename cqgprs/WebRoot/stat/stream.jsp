@@ -30,7 +30,14 @@ function queryit(){
   document.form1.submit();
 }
 function imageit(){
+ if(ishide){
   $("#imageopton").show();
+  ishide=false;
+  }else{
+  $("#imageopton").hide();
+      $("#imgreport").hide();
+  ishide=true;
+  }
 }
 var ishide=true;
 $(document).ready(function(){
@@ -39,21 +46,14 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
- if(ishide){
-   ishide=false;
+
    $("#imgreport").show();
-   $("#flashconfirm").attr("value","取  消");
-   var flashType=$("#flashType").val();
-   var flashby=$("#flashby").val();
-   var url="stream.action?resultType=flash&flashby="+flashby+"&flashType="+flashType;
+   var flashType=$("#flashTypes").val();
+   var flashby=$("#flashbys").val();
+   var url="stream.action?flashby="+flashby+"%26resultType=flash%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
- }
-else{
-    ishide=true;
-    $("#imgreport").hide();
-    $("#flashconfirm").attr("value","确  定");
-  }
+
 }
 
 </script>
@@ -83,8 +83,8 @@ else{
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
-								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
-								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
+								   <s:select name="flashTypes" id="flashTypes" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
+								   <s:select name="flashbys" id="flashbys" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
 								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
 								 </td>
 								</tr>
@@ -111,7 +111,7 @@ else{
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="page.items" status="status">
+                        <s:iterator value="streamlist" status="status">
                         <tr>
                           <td>${date}</td>
                           <td>${totalStreamStr }</td>
@@ -131,12 +131,13 @@ else{
 			  
                     </table>
 			  </div>
-
+<!-- 
 				<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>
 					</div>
+					 -->
 				</div>
 			</div>
 		</div>

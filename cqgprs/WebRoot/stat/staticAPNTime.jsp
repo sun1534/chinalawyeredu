@@ -30,7 +30,14 @@ function queryit(){
   document.form1.submit();
 }
 function imageit(){
+ if(ishide){
   $("#imageopton").show();
+  ishide=false;
+  }else{
+  $("#imageopton").hide();
+      $("#imgreport").hide();
+  ishide=true;
+  }
 }
 var ishide=true;
 $(document).ready(function(){
@@ -39,21 +46,14 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
- if(ishide){
-   ishide=false;
+
    $("#imgreport").show();
-   $("#flashconfirm").attr("value","取  消");
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="staticAPNTime.action?resultType=flash&flashby="+flashby+"&flashType="+flashType;
+   var url="staticAPNTime.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
- }
-else{
-    ishide=true;
-    $("#imgreport").hide();
-    $("#flashconfirm").attr("value","确  定");
-  }
+
 }
 
 </script>
@@ -79,6 +79,7 @@ else{
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>APN编号：<s:textfield name="apnid" size="8" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -99,12 +100,21 @@ else{
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
+				    <s:if test="start!=null&&!start.equals(\"\")&&apnid!=null&&!apnid.equals(\"\")">
+				  	<table class="tableBox">
+                        	<thead>
+								<tr>
+									<th>${start }之APN<${apnid }>分时流量分析</th>
+                                 </tr>
+                            </thead>
+                        </table>
+                        </s:if>
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
                        
                           <th>时间段</th>
-                            <th>总流量（M）</th>
+                          <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
                         

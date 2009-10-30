@@ -37,7 +37,7 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}SGSN-2/3G流量分析</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之SGSN-2/3G流量分析</b></td>
   </tr>
       <tr>
      

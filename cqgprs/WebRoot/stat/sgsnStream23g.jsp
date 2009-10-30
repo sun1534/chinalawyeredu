@@ -30,7 +30,14 @@ function queryit(){
   document.form1.submit();
 }
 function imageit(){
+ if(ishide){
   $("#imageopton").show();
+  ishide=false;
+  }else{
+  $("#imageopton").hide();
+      $("#imgreport").hide();
+  ishide=true;
+  }
 }
 var ishide=true;
 $(document).ready(function(){
@@ -39,21 +46,13 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
- if(ishide){
-   ishide=false;
-   $("#imgreport").show();
    $("#flashconfirm").attr("value","取  消");
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="sgsnStream23g.action?resultType=flash&flashby="+flashby+"&flashType="+flashType;
+   var url="sgsnStream23g.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
- }
-else{
-    ishide=true;
-    $("#imgreport").hide();
-    $("#flashconfirm").attr("value","确  定");
-  }
+
 }
 
 </script>

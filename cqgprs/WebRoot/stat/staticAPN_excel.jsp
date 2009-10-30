@@ -46,7 +46,7 @@ th
                           <th>APN编码</th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
-                          <th>总流量（M）></th>
+                          <th>总流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>
