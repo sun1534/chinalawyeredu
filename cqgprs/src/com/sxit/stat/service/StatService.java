@@ -19,7 +19,7 @@ import com.sxit.common.PaginationSupport;
 import com.sxit.stat.models.ApnCellStatModel;
 import com.sxit.stat.models.ApnStatModel;
 import com.sxit.stat.models.BsnRncStatModel;
-import com.sxit.stat.models.CellDayStat;
+import com.sxit.stat.models.CellStatModel;
 import com.sxit.stat.models.SgsnStatModel;
 import com.sxit.stat.models.TotalModel;
 
@@ -31,7 +31,7 @@ public class StatService {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
-	private static final DateFormat dftime = new java.text.SimpleDateFormat("HH:mm");
+	private static final DateFormat dftime = new java.text.SimpleDateFormat("HH:00");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	
@@ -45,8 +45,6 @@ public class StatService {
 			e.printStackTrace();
 			return System.currentTimeMillis();
 		}
-		
-		
 	}
 	
 	
@@ -307,7 +305,7 @@ public class StatService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					CellDayStat model = new CellDayStat();
+					CellStatModel model = new CellStatModel();
 					int usercount = rs.getInt("USERCOUNT");
 					long all = rs.getLong("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
@@ -355,7 +353,7 @@ public class StatService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					CellDayStat model = new CellDayStat();
+					CellStatModel model = new CellStatModel();
 					int usercount = rs.getInt("USERCOUNT");
 					long all = rs.getLong("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
@@ -457,7 +455,7 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public List getApnDayTimeStat(Date date, String apnid) {
+	public List getApnDayTimeStat(final Date date, String apnid) {
 		String sql = "select APNNI,STATTIME,USERCOUNT,ALLVOLUME from  STAT_APN where STATTIME between ? and ? and APNNI=? and dayflag=0 order by STATTIME";
 //		int _date = (int) (date.getTime() / 1000);
 		
@@ -479,13 +477,13 @@ public class StatService {
 					long all = rs.getLong("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
-					Date date = new Date();
-					date.setTime(stattime * 1000);
+					Date _date = new Date();
+					_date.setTime(stattime * 1000);
 					model.setTotalStream(all);
 					model.setTotalUser(usercount);
 					model.setDate(df.format(date));
 					// model.setSgsnid(sgsnid);
-					model.setDatetime(dftime.format(date));
+					model.setDatetime(dftime.format(_date));
 					model.setApnid(rs.getString("APNNI"));
 					list.add(model);
 				}

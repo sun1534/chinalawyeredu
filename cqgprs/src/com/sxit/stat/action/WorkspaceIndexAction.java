@@ -147,14 +147,17 @@ public class WorkspaceIndexAction extends StatAction {
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
+//		title.setStyle("{font-size:14px;font-weight:bold}");
+		title.setStyle("{font-size:14px;}");
 
-		if (flashby.equals("total"))
+		if (flashby.equals("total")){
 			title.setText("最近3天总流量情况(M)");
+		}
 		else if (flashby.equals("average")) {
-			title.setText("最近3天平均流量情况(K)");
+			title.setText("最近3天平均流量情况(K)");		    
+
 		} else if (flashby.equals("user")) {
-			title.setText("最近3天总用户数情况");
+			title.setText("最近3天总用户数情况");		    
 		}
 
 		flashChart.setTitle(title);

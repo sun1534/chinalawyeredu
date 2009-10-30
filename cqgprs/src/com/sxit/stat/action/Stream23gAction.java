@@ -65,7 +65,7 @@ public class Stream23gAction extends StatAction {
 //		return SUCCESS;
 	}
 	
-	private String nettype;
+	private String nettype="gsm";
 	
 
 	private List streamlist;
@@ -83,7 +83,7 @@ public class Stream23gAction extends StatAction {
 		for (int i = 0; i < len; i++) {
 			TotalModel stat = (TotalModel) streamlist.get(i);
 
-			if (stat.getNettype().equals(nettype)) {
+			if (stat.getNettype().equalsIgnoreCase(nettype)) {
 				// 总流量
 				float value = 0;
 				// 总流量
@@ -115,12 +115,12 @@ public class Stream23gAction extends StatAction {
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
-		if (nettype.equals("")) {
+		title.setStyle("{font-size:14px}");
+		if (nettype.equals("gsm")) {
 			if (flashby.equals("total"))
 				title.setText(start + "至" + end + "各SGSN总流量分析(GSM)");
 			else if (flashby.equals("average")) {
@@ -151,7 +151,7 @@ public class Stream23gAction extends StatAction {
 		for (int i = 0; i < len; i++) {
 			TotalModel stat = (TotalModel) streamlist.get(i);
 
-			if (stat.getNettype().equals(nettype)) {
+			if (stat.getNettype().equalsIgnoreCase(nettype)) {
 				// 总流量
 				float value = 0;
 				// 总流量
@@ -183,13 +183,12 @@ public class Stream23gAction extends StatAction {
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
-		if (nettype.equals("")) {
-			if (flashby.equals("total"))
+		title.setStyle("{font-size:14px}");
+		if (nettype.equals("gsm")) {			if (flashby.equals("total"))
 				title.setText(start + "至" + end + "各SGSN总流量分析(GSM)");
 			else if (flashby.equals("average")) {
 				title.setText(start + "至" + end + "各SGSN平均流量分析(GSM)");

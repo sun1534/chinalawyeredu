@@ -28,6 +28,8 @@ import com.sxit.stat.util.StatUtil;
  */
 public class StreamAction extends StatAction {
 
+
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -46,9 +48,6 @@ public class StreamAction extends StatAction {
 			this.end=df.format(endDate);
 		}
 		
-		System.out.println("======================================"+flashType);
-		
-		
 		streamlist = statservice.getDaysTotalStream(startDate, endDate);
 		if (resultType.equals("list"))
 			return SUCCESS;
@@ -66,7 +65,6 @@ public class StreamAction extends StatAction {
 			this.message = "返回数据类型错误";
 			return "message";
 		}
-
 	}
 
 	private Chart lineChart() {
@@ -111,7 +109,7 @@ public class StreamAction extends StatAction {
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
+		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
 			title.setText(start + "至" + end + "总流量分析");
 		else if (flashby.equals("average")) {
@@ -165,7 +163,7 @@ public class StreamAction extends StatAction {
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
+		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
 			title.setText(start + "至" + end + "各SGSN总流量分析");
@@ -184,5 +182,8 @@ public class StreamAction extends StatAction {
 	public List getStreamlist() {
 		return this.streamlist;
 	}
+
+
+
 
 }

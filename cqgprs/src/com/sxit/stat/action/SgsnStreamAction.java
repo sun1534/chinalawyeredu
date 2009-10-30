@@ -105,17 +105,17 @@ else if(flashby.equals("user"))
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
+		title.setStyle("{font-size:14px}");
 		if (flashby.equals("total"))
-			title.setText(start + "至" + end + "各SGSN总流量分析");
+			title.setText(start +"各SGSN总流量分析");
 		else if (flashby.equals("average")) {
-			title.setText(start + "至" + end + "各SGSN平均流量分析");
+			title.setText(start + "各SGSN平均流量分析");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "至" + end + "各SGSN总用户数分析");
+			title.setText(start + "各SGSN总用户数分析");
 		}
 		flashChart.setTitle(title);
 
@@ -161,18 +161,18 @@ else if(flashby.equals("user"))
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps); // 最小值加一个步长
+		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
-		title.setStyle("font-size:16px,font:bold");
+		title.setStyle("{font-size:14px}");
 		
 			if (flashby.equals("total"))
-				title.setText(start + "至" + end + "各SGSN总流量分析");
+				title.setText(start +  "各SGSN总流量分析");
 			else if (flashby.equals("average")) {
-				title.setText(start + "至" + end + "各SGSN平均流量分析");
+				title.setText(start +  "各SGSN平均流量分析");
 			} else if (flashby.equals("user")) {
-				title.setText(start + "至" + end + "各SGSN总用户数分析");
+				title.setText(start +  "各SGSN总用户数分析");
 			}
 
 		flashChart.setTitle(title);

@@ -128,6 +128,7 @@ public abstract class StatAction extends AbstractListAction {
 	 *            the resultType to set
 	 */
 	public void setResultType(String resultType) {
+		System.out.println("resultType=="+resultType);
 		this.resultType = resultType;
 	}
 

@@ -14,7 +14,7 @@ import com.sxit.system.util.NumberUtil;
  * Oct 16, 2009-5:03:50 PM
  *
  */
-public class CellDayStat {
+public class CellStatModel {
 
 	private String bscrncid;
 private String sgsnid;
