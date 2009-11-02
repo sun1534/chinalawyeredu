@@ -102,7 +102,8 @@ public class JifenQueryAction extends AbstractListAction {
 		Date _from = temp;
 		Date _end = dftime.parse(end + " 23:59:59");
 
-		detachedCriteria.add(Restrictions.between("lastupdate", _from, _end));
+//		detachedCriteria.add(Restrictions.between("lastupdate", _from, _end));
+		detachedCriteria.add(Restrictions.eq("theyear",year));
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
 		this.page = basicService.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, pageNo);
@@ -119,8 +120,9 @@ public class JifenQueryAction extends AbstractListAction {
 //			detachedCriteria.setProjection(Projections.projectionList().add(Projections.sum("pxxf")).add(Projections.groupProperty("learnmode")))
 //					.add(Restrictions.eq("lawer.userid", userid)).add(Restrictions.between("lastupdate", _from, _end));
 //		}
-		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a,sys_user b where a.userid=b.userid and b.userid="+userid+" and (UNIX_TIMESTAMP(a.lastupdate) between "+_from.getTime()/1000 + " and " + _end.getTime()/1000 + ") group by a.learnmode";
-		
+//		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a,sys_user b where a.userid=b.userid and b.userid="+userid+" and (UNIX_TIMESTAMP(a.lastupdate) between "+_from.getTime()/1000 + " and " + _end.getTime()/1000 + ") group by a.learnmode";
+		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a,sys_user b where a.userid=b.userid and b.userid="+userid+" and theyear="+year+" group by a.learnmode";
+
 //		tongjilist = basicService.findAllByCriteria(detachedCriteria);
 		List tongjilist = basicService.findBySqlQuery(adminsql);
 		int tongjilength=tongjilist==null?0:tongjilist.size();
