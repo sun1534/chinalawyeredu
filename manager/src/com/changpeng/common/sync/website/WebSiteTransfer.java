@@ -63,7 +63,7 @@ public class WebSiteTransfer {
 			// staff.setStatusid(Integer.parseInt(person.getPersonStatus()));
 //			staff.setStatusid(2);
 			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
-			staff.setStatusid(Integer.parseInt(person.getPersonStatus()));
+		    	staff.setStatusid(Integer.parseInt(person.getPersonStatus()));
 			else
 				staff.setStatusid(2);
 
