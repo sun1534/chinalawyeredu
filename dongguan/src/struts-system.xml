@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="system" extends="default" namespace="/system">
+    <default-interceptor-ref name="adminStack"/>
+       <action name="sysUserList" class="com.changpeng.system.action.SysUserListAction">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="success" type="dispatcher">/system/sysUserList.jsp</result>
+       </action>
+       <action name="sysUserCreate" class="com.changpeng.system.action.SysUserCreateAction">
+			<result name="input" type="dispatcher">/system/sysUserCreate.jsp</result>
+       </action>
+       <action name="sysUserEdit" class="com.changpeng.system.action.SysUserEditAction">
+			<result name="input" type="dispatcher">/system/sysUserEdit.jsp</result>
+       </action>
+               <action name="sysUserEditPre" class="com.changpeng.system.action.SysUserEditAction" method="input">
+				<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/sysUserEdit.jsp</result>
+       </action>
+       <action name="sysUserDelete" class="com.changpeng.system.action.SysUserDeleteAction">
+       </action>      	
+       
+         <action name="lawyerList" class="com.changpeng.system.action.LawyerListAction">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="success" type="dispatcher">/system/lawyerList.jsp</result>
+       </action>
+       <action name="lawyerCreate" class="com.changpeng.system.action.LawyerCreateAction">
+			<result name="input" type="dispatcher">/system/lawyerCreate.jsp</result>
+       </action>
+       <action name="lawyerEdit" class="com.changpeng.system.action.LawyerEditAction">
+			<result name="input" type="dispatcher">/system/lawyerEdit.jsp</result>
+       </action>
+              <action name="lawyerView" class="com.changpeng.system.action.LawyerViewAction">
+              		<interceptor-ref name="hibernateSessionStack"/>
+			<result name="success" type="dispatcher">/system/lawyerView.jsp</result>
+       </action>
+       
+       <action name="lawyerEditPre" class="com.changpeng.system.action.LawyerEditAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/lawyerEdit.jsp</result>
+       </action>
+         <action name="lawyerEditSelfPre" class="com.changpeng.system.action.LawyerEditSelfAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="lawyer" type="dispatcher">/system/lawyerEditSelf.jsp</result>
+			<result name="adminer" type="dispatcher">/system/lawyerEditSelfAdminer.jsp</result>
+       </action>
+         <action name="lawyerEditSelf" class="com.changpeng.system.action.LawyerEditSelfAction">
+			<result name="input" type="dispatcher">/system/lawyerEditSelf.jsp</result>
+       </action>
+       <action name="lawyerDelete" class="com.changpeng.system.action.LawyerDeleteAction">
+       </action>      	
+       	
+	   <!--共用的success和error页面-->	
+
+       <action name="sysUserRight" class="com.changpeng.system.action.SysUserRightAction">
+			<result name="input" type="dispatcher">/system/sysUserRight.jsp</result>
+       </action>
+       <action name="sysUserRightPre" class="com.changpeng.system.action.SysUserRightAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/sysUserRight.jsp</result>
+       </action>
+       <action name="sysUserRole" class="com.changpeng.system.action.SysUserRoleAction">
+		  <result name="input" type="dispatcher">/system/sysUserRole.jsp</result>
+       </action>
+       <action name="sysUserRolePre" class="com.changpeng.system.action.SysUserRoleAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+		  <result name="input" type="dispatcher">/system/sysUserRole.jsp</result>
+       </action>
+       
+       <!--角色管理-->
+        <action name="sysRoleList" class="com.changpeng.system.action.SysRoleListAction">
+			<result name="success" type="dispatcher">/system/sysRoleList.jsp</result>
+       </action>
+       
+       <action name="sysRoleCreate" class="com.changpeng.system.action.SysRoleCreateAction">
+			<result name="input" type="dispatcher">/system/sysRoleCreate.jsp</result>
+       </action>
+
+       <action name="sysRoleEdit" class="com.changpeng.system.action.SysRoleEditAction">
+			<result name="input" type="dispatcher">/system/sysRoleEdit.jsp</result>
+       </action>
+               <action name="sysRoleDelete" class="com.changpeng.system.action.SysRoleDeleteAction">
+       </action>
+        <action name="sysRoleRight" class="com.changpeng.system.action.SysRoleRightAction">
+			<result name="input" type="dispatcher">/system/sysRoleRight.jsp</result>
+       </action>
+        <action name="sysRoleRightPre" class="com.changpeng.system.action.SysRoleRightAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/sysRoleRight.jsp</result>
+       </action>
+       <!--部门管理-->
+        <action name="sysGroupList" class="com.changpeng.system.action.SysGroupListAction">
+			<result name="success" type="dispatcher">/system/sysGroupList.jsp</result>
+       </action>
+       <action name="sysGroupCreate" class="com.changpeng.system.action.SysGroupCreateAction">
+			<result name="input" type="dispatcher">/system/sysGroupCreate.jsp</result>
+		    <result name="toparent" type="dispatcher">/common/message2parent.jsp</result>
+       </action>
+       
+        <action name="sysGroupCreatePre" class="com.changpeng.system.action.SysGroupCreateAction" method="input">
+			<result name="input" type="dispatcher">/system/sysGroupCreate.jsp</result>
+	    </action>
+       
+       <action name="sysGroupEdit" class="com.changpeng.system.action.SysGroupEditAction">
+			<result name="input" type="dispatcher">/system/sysGroupEdit.jsp</result>
+       </action>
+       <action name="sysGroupDelete" class="com.changpeng.system.action.SysGroupDeleteAction">
+       </action>   
+        <action name="sysGroupTree" class="com.changpeng.system.action.SysGroupTreeAction">
+			<result name="success" type="dispatcher">/system/sysGroupTree.jsp</result>
+       </action>
+           <action name="sysGroupManager" class="com.changpeng.system.action.SysGroupManagerAction">
+			<result name="success" type="dispatcher">/system/sysGroupManager.jsp</result>
+       </action>
+       
+       
+        <!--参数管理-->
+       <action name="sysParameterList" class="com.changpeng.system.action.SysParameterListAction">
+			<result name="success" type="dispatcher">/system/sysParameterList.jsp</result>
+       </action>
+       <action name="sysParameterCreate" class="com.changpeng.system.action.SysParameterCreateAction">
+			<result name="input" type="dispatcher">/system/sysParameterCreate.jsp</result>
+       </action>
+       <action name="sysParameterEdit" class="com.changpeng.system.action.SysParameterEditAction">
+			<result name="input" type="dispatcher">/system/sysParameterEdit.jsp</result>
+       </action>
+       <action name="sysParameterDelete" class="com.changpeng.system.action.SysParameterDeleteAction">
+       </action>  
+       
+        
+       
+       <!--操作日志查询-->
+        <action name="sysOperLogList" class="com.changpeng.system.action.SysOperLogListAction">
+			<result name="success" type="dispatcher">/system/sysOperLogList.jsp</result>
+       </action>
+       <!--登录日志查询-->
+        <action name="sysLoginLogList" class="com.changpeng.system.action.SysLoginLogListAction">
+			<result name="success" type="dispatcher">/system/sysLoginLogList.jsp</result>
+        </action>
+        
+               <!--培训系统之律师卡号管理-->
+        <action name="lawerCardNoList" class="com.changpeng.system.action.LawerCardNoListAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="success" type="dispatcher">/system/lawerCardNoList.jsp</result>
+        </action>
+        
+        
+        
+        
+   </package>
+   
+   <package name="systemajax" extends="defaultajax" namespace="/systemajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   <action name="jsontest" class="com.changpeng.system.action.ajax.JSONExample">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <action name="getRightChild" class="com.changpeng.system.action.ajax.GetRightChildAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <!--更新律师的卡号和发卡时间-->
+   	   <action name="lawerChangeCardNo" class="com.changpeng.system.action.ajax.LawerChangeCardNoAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	      	   <action name="passwordReset" class="com.changpeng.system.action.ajax.PasswordResetAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <action name="checkLoginname" class="com.changpeng.system.action.ajax.CheckLoginnameAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	      	   <action name="checkCardno" class="com.changpeng.system.action.ajax.CheckCardnoAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	 
+   	 	<action name="photoDelete" class="com.changpeng.system.action.ajax.PhotoDeleteAction">
+			<result name="success" type="json"></result>
+   	   </action> 
+   </package>
+</struts>

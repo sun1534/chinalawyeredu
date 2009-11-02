@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="courseware" extends="default"
+		namespace="/courseware">
+		<default-interceptor-ref name="adminStack" />
+		<action name="coursetypeList"
+			class="com.changpeng.courseware.action.CoursetypeListAction">
+			<result name="success" type="dispatcher">
+				/courseware/coursetypeList.jsp
+			</result>
+		</action>
+		<action name="coursetypeCreate"
+			class="com.changpeng.courseware.action.CoursetypeCreateAction">
+			<result name="input" type="dispatcher">
+				/courseware/coursetypeCreate.jsp
+			</result>
+		</action>
+		<action name="coursetypeEdit"
+			class="com.changpeng.courseware.action.CoursetypeEditAction">
+			<result name="input" type="dispatcher">
+				/courseware/coursetypeEdit.jsp
+			</result>
+		</action>
+		<action name="coursetypeDelete" class="com.changpeng.courseware.action.CoursetypeDeleteAction">
+		
+		</action>
+
+		<action name="coursewareList"
+			class="com.changpeng.courseware.action.CoursewareListAction">
+			<result name="success" type="dispatcher">
+				/courseware/coursewareList.jsp
+			</result>
+		</action>
+		<action name="coursewareCreate"
+			class="com.changpeng.courseware.action.CoursewareCreateAction">
+			<result name="input" type="dispatcher">
+				/courseware/coursewareCreate.jsp
+			</result>
+		</action>
+		<action name="coursewareEdit"
+			class="com.changpeng.courseware.action.CoursewareEditAction">
+			<result name="input" type="dispatcher">
+				/courseware/coursewareEdit.jsp
+			</result>
+		</action>
+		<action name="coursewareDelete"
+			class="com.changpeng.courseware.action.CoursewareDeleteAction">
+		</action>
+		
+		<action name="courseViewList"
+			class="com.changpeng.courseware.action.CourseViewListAction">
+			<result name="typelist" type="dispatcher">
+				/courseware/typelistView.jsp
+			</result>
+			<result name="warelist" type="dispatcher">
+				/courseware/warelistView.jsp
+			</result>
+		</action>
+		<action name="coursewareView"
+			class="com.changpeng.courseware.action.CoursewareViewAction">
+			<result name="success" type="dispatcher">
+				/courseware/coursewareView.jsp
+			</result>
+		</action>
+	</package>
+	
+	<package name="wareajax" extends="defaultajax" namespace="/wareajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   <action name="wareLook" class="com.changpeng.courseware.action.ajax.CoursewareLookAction">
+	
+			<result name="success" type="json"></result>
+   	   </action>
+   </package>
+</struts>

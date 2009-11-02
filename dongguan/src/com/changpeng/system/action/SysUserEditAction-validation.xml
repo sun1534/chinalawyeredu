@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="groupname">
+                <field-validator type="requiredstring">
+                  <message>请选择部门！</message>
+                </field-validator>
+	</field>
+	<field name="sysUser.username">
+                <field-validator type="requiredstring">
+                  <message>请输入此用户的姓名！</message>
+                </field-validator>
+              
+	</field>
+	<field name="sysUser.loginname">
+                <field-validator type="requiredstring">
+                  <message>请输入此用户的系统登录名！</message>
+                </field-validator>
+                <!--<field-validator type="stringlength">
+                  <param name="minLength">1</param>
+                  <param name="maxLength">100</param>
+                  <message><![CDATA[ 客户名称不能多于50个汉字 100个字母!]]></message>
+                </field-validator>-->
+	</field>
+
+</validators>

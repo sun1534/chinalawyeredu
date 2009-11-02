@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.system.SysLog" table="SYS_Log" >
+        <id name="logid" type="int">
+            <column name="logid" precision="10" scale="0" />
+            <generator class="identity" />
+        </id>
+        <property name="userid" type="int">
+            <column name="userid" precision="10" scale="0"/>
+        </property>
+        <property name="loginid" type="int">
+            <column name="loginid" precision="10" scale="0"/>
+        </property>
+        <property name="module" type="string">
+            <column name="module" length="20"/>
+        </property>
+        <property name="rightCode" type="string">
+            <column name="rightCode" length="20"/>
+        </property>
+           <property name="opTime" type="timestamp">
+            <column name="opTime"  length="10" not-null="true" />
+        </property>
+        <property name="opResult" type="string">
+            <column name="opResult" length="500"/>
+        </property>
+     </class>
+</hibernate-mapping>
