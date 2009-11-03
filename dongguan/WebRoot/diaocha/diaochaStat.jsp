@@ -114,10 +114,9 @@ function div(a,b){
 								<label class="ms-hidden">
 									答复百分比
 								</label>
-								<s:set name="rate" value="0" />
+								<s:set name="rate" value="0.0" />
 								<s:if test="diaochareplys.size()!=0">
-								<s:set name="rate" value="replycount*100/diaochareplys.size()" />
-								</s:if>
+<s:set name="rate" value="@com.changpeng.diaocha.util.ReplyView@toMoney(replycount*100.0/diaochareplys.size())" />								</s:if>
 								<s:property value="#rate" />%
 								&nbsp;
 							</td>
