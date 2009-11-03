@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Lessons" table="lessons">
+        <id name="lessonid" type="int">
+            <column name="lessonid" />
+            <generator class="assigned" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="100" not-null="true">
+                <comment>&#229;&#159;&#185;&#232;&#174;&#173;&#230;&#160;&#135;&#233;&#162;&#152;</comment>
+            </column>
+        </property>
+        <property name="lessonstate" type="java.lang.Byte">
+            <column name="lessonstate" />
+        </property>
+        <property name="teachers" type="string">
+            <column name="teachers" length="45">
+                <comment>&#229;&#159;&#185;&#232;&#174;&#173;&#232;&#128;&#129;&#229;&#184;&#136;</comment>
+            </column>
+        </property>
+        <property name="lessontype" type="java.lang.Byte">
+            <column name="lessontype" />
+        </property>
+        <property name="xuefen" type="java.lang.Float">
+            <column name="xuefen" precision="12" scale="0" />
+        </property>
+        <property name="lessondate" type="string">
+            <column name="lessondate" length="16">
+                <comment>&#232;&#175;&#190;&#231;&#168;&#139;&#231;&#138;&#182;&#230;?</comment>
+            </column>
+        </property>
+        <property name="lessonend" type="string">
+            <column name="lessonend" length="16">
+                <comment>&#231;&#187;&#147;&#230;&#157;&#159;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="lessonaddress" type="string">
+            <column name="lessonaddress" length="45">
+                <comment>&#229;&#188;?&#167;&#139;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="lessoncontent" type="string">
+            <column name="lessoncontent" length="65535">
+                <comment>?&#195;&#160;?&#206;&#188;?&#195;&#169;&#195;&#169;&#195;&#188;</comment>
+            </column>
+        </property>
+        <property name="kaoqinshichang" type="java.lang.Float">
+            <column name="kaoqinshichang" precision="12" scale="0">
+                <comment>&#232;&#128;&#131;&#229;&#139;&#164;&#230;&#151;&#182;&#233;&#149;&#191;</comment>
+            </column>
+        </property>
+        <property name="isalert" type="java.lang.Boolean">
+            <column name="isalert">
+                <comment>&#230;&#152;&#175;&#229;&#144;&#166;&#230;&#143;&#144;&#233;&#134;&#146;</comment>
+            </column>
+        </property>
+        <property name="maxpersons" type="java.lang.Short">
+            <column name="maxpersons">
+                <comment>&#230;&#156;?&#164;&#167;&#230;&#138;&#165;&#229;&#144;&#141;&#230;&#149;?</comment>
+            </column>
+        </property>
+        <property name="notexistfen" type="java.lang.Float">
+            <column name="notexistfen" precision="12" scale="0">
+                <comment>
+                &#230;&#138;&#165;&#228;&#186;&#134;&#229;&#144;&#141;&#228;&#184;&#141;&#229;&#142;&#187;&#233;&#157;&#160;&#229;&#164;&#154;&#229;&#176;&#145;&#229;&#136;?</comment>
+            </column>
+        </property>
+        <property name="onlinefile" type="string">
+            <column name="onlinefile" length="55">
+                <comment>&#229;&#156;&#168;&#231;&#186;&#191;&#230;&#150;&#135;&#228;&#187;&#182;</comment>
+            </column>
+        </property>
+        <property name="fenshuoff" type="string">
+            <column name="fenshuoff" length="8">
+                <comment>&#231;&#189;&#145;&#228;&#184;&#138;&#229;&#159;&#185;&#232;&#174;&#173;&#230;&#137;&#147;&#230;&#138;&#152;&#230;&#131;&#133;&#229;&#134;&#181;</comment>
+            </column>
+        </property>
+        <property name="createuser" type="long">
+            <column name="createuser" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="isbixiu" type="java.lang.Boolean">
+            <column name="isbixiu">
+                <comment>&#230;&#152;&#175;&#229;&#144;&#166;&#229;&#191;&#133;&#228;&#191;&#174;</comment>
+            </column>
+        </property>
+        <property name="minrate" type="string">
+            <column name="minrate" length="8" />
+        </property>
+        <property name="baomingshu" type="java.lang.Short">
+            <column name="baomingshu">
+                <comment>&#230;&#128;&#187;&#232;&#174;&#161;&#230;&#138;&#165;&#229;&#144;&#141;&#228;&#186;&#186;&#228;&#186;&#139;</comment>
+            </column>
+        </property>
+        
+        <property name="attach" type="string">
+            <column name="attach" length="200">
+            </column>
+        </property>
+        
+        <set name="lessonscores" inverse="true">
+            <key>
+                <column name="lessonid" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Lessonscore" />
+        </set>
+        <set name="lessonbaomings" inverse="true">
+            <key>
+                <column name="lessonid" not-null="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Lessonbaoming" />
+        </set>
+        <set name="lessonreplys" inverse="true" order-by="replyid">
+            <key>
+                <column name="lessonid" not-null="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Lessonreply" />
+        </set>
+                <!--<set name="lessonxf" inverse="true">
+            <key>
+                <column name="lessonid" not-null="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Lawyerlessonxf" />
+        </set>-->
+        
+    </class>
+</hibernate-mapping>

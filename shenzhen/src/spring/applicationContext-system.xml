@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<bean id="sysUserDAO" class="com.changpeng.system.dao.SysUserDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="sysRightDAO"
+		class="com.changpeng.system.dao.SysRightDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sysGroupDAO"
+		class="com.changpeng.system.dao.SysGroupDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sysLogDAO" class="com.changpeng.system.dao.SysLogDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="sysLoginLogDAO"
+		class="com.changpeng.system.dao.SysLoginLogDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<bean id="sysRoleDAO" class="com.changpeng.system.dao.SysRoleDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="sysUserService"
+		class="com.changpeng.system.service.SysUserService">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="sysUserDAO">
+			<ref bean="sysUserDAO" />
+		</property>
+		<property name="sysRightDAO">
+			<ref bean="sysRightDAO" />
+		</property>
+		<property name="sysRoleDAO">
+			<ref bean="sysRoleDAO" />
+		</property>
+	</bean>
+	<bean id="sysLogService"
+		class="com.changpeng.system.service.SysLogService">
+		<property name="sysLogDAO">
+			<ref bean="sysLogDAO" />
+		</property>
+	</bean>
+	<bean id="sysLoginLogService"
+		class="com.changpeng.system.service.SysLoginLogService">
+		<property name="sysLoginLogDAO">
+			<ref bean="sysLoginLogDAO" />
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+	<bean id="sysGroupService"
+		class="com.changpeng.system.service.SysGroupService">
+			<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="sysGroupDAO">
+			<ref bean="sysGroupDAO" />
+		</property>
+	</bean>
+	<bean id="sysRightService"
+		class="com.changpeng.system.service.SysRightService">
+		<property name="sysRightDAO">
+			<ref bean="sysRightDAO" />
+		</property>
+	</bean>
+	<bean id="sysRoleService"
+		class="com.changpeng.system.service.SysRoleService">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="sysRoleDAO">
+			<ref bean="sysRoleDAO" />
+		</property>
+		<property name="sysRightDAO">
+			<ref bean="sysRightDAO" />
+		</property>
+	</bean>
+</beans>

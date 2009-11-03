@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Diaocha" table="diaocha">
+        <id name="diaochaid" type="int">
+            <column name="diaochaid" />
+            <generator class="identity" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="100" not-null="true">
+                <comment>&#232;&#176;&#131;&#230;&#159;&#165;&#229;&#144;</comment>
+            </column>
+        </property>
+        <property name="createuser" type="string">
+            <column name="createuser" length="20" not-null="true" />
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="shuoming" type="string">
+            <column name="shuoming" length="65535" not-null="true">
+                <comment>&#232;&#176;&#131;&#230;&#159;&#165;&#231;&#154;&#132;&#232;&#175;&#180;&#230;&#152;?</comment>
+            </column>
+        </property>
+       
+       <property name="state" type="int">
+            <column name="state" not-null="true">
+            </column>
+        </property>
+        
+        <property name="replycount" type="int">
+            <column name="replycount" not-null="true">
+                <comment>&#231;&#173;&#148;&#229;&#164;&#141;&#231;&#154;&#132;&#230;&#149;&#176;&#233;&#135;?</comment>
+            </column>
+        </property>
+         <set name="diaochatypes" inverse="true" order-by="typeid">
+            <key>
+                <column name="diaochaid" not-null="true" />
+            </key>
+            <one-to-many class="com.changpeng.models.Diaochatype" />
+        </set>
+        <set name="diaochawentis" inverse="true" order-by="listorder,wentileixing">
+            <key>
+                <column name="diaochaid" not-null="true">
+                    <comment>&#229;&#175;&#185;&#229;&#186;&#148;&#229;&#147;&#170;&#228;&#184;&#170;&#232;&#176;&#131;&#230;&#159;&#165;</comment>
+                </column>
+            </key>
+            <one-to-many class="com.changpeng.models.Diaochawenti" />
+        </set>
+    </class>
+</hibernate-mapping>

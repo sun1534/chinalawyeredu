@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="wenti.title">
+        <field-validator type="requiredstring">
+            <message>请输入问题!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="maxLength">200</param>
+            <message><![CDATA[ 问题长度必须小于200个汉字或200个字母!]]></message>
+        </field-validator>
+    </field>
+    
+     <field name="wenti.remarks">
+        <field-validator type="stringlength">
+            <param name="maxLength">400</param>
+            <message><![CDATA[ 问题说明长度必须小于200个汉字或400个字母!]]></message>
+        </field-validator>
+    </field>
+</validators>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="groupname">
+                <field-validator type="requiredstring">
+                  <message>请选择部门！</message>
+                </field-validator>
+	</field>
+	<field name="sysUser.lawerno">
+                <field-validator type="requiredstring">
+                  <message>请输入此律师的姓名！</message>
+                </field-validator>
+              
+	</field>
+	<field name="sysUser.lawerno">
+                <field-validator type="requiredstring">
+                  <message>请输入此律师的执业资格证号！</message>
+                </field-validator>
+
+	</field>
+	<field name="sysUser.certno">
+                <field-validator type="requiredstring">
+                  <message>请输入此律师的身份证号码！</message>
+                </field-validator>
+                <field-validator type="stringlength">
+                  <param name="minLength">5</param>
+                  <param name="maxLength">20</param>
+                  <message><![CDATA[ 身份证长度必须介于5到20之间!]]></message>
+                </field-validator>
+              
+	</field>
+		<field name="sysUser.cardno">
+                 <field-validator type="stringlength">
+                  <param name="minLength">0</param>
+                  <param name="maxLength">15</param>
+                  <message><![CDATA[ 培训卡号长度必须小于15!]]></message>
+                </field-validator>
+	</field>
+
+</validators>

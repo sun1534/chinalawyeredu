@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="articles" extends="default" namespace="/articles">
+    <default-interceptor-ref name="adminStack"/>
+      
+       <action name="articlesList" class="com.changpeng.articles.action.ArticlesListAction">
+       	  <result name="success" type="dispatcher">/articles/articlesList.jsp</result>
+       </action>  
+
+       <action name="articlesCreateEdit" class="com.changpeng.articles.action.ArticlesCreateEditAction">
+       	  <result name="success" type="redirect">/articles/articlesList.pl?type=${type}</result>
+       	  <result name="input" type="dispatcher">/articles/articlesCreateEdit.jsp</result>
+       </action> 
+     
+        <action name="articlesDelete" class="com.changpeng.articles.action.ArticlesDeleteAction">
+       	  <result name="list" type="redirect">/articles/articlesList.pl</result>
+        </action> 
+        <action name="articlesView" class="com.changpeng.articles.action.ArticlesViewAction">
+       	  <result name="success" type="dispatcher">/articles/articlesView.jsp</result>
+       </action> 
+   </package>
+   
+   <package name="articlesajax" extends="defaultajax" namespace="/articlesajax">
+       <default-interceptor-ref name="visitStack"/>
+          <action name="setshouye" class="com.changpeng.articles.action.ajax.SetshouyeAction">
+       	  <result name="success" type="json"/>
+       </action> 
+          <action name="changeorder" class="com.changpeng.articles.action.ajax.ChangeorderAction">
+       	  <result name="success" type="json"/>
+       </action> 
+       
+   </package>
+</struts>

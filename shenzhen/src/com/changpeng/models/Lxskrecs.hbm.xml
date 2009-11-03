@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Lxskrecs" table="lxskrecs">
+        <id name="skrecid" type="int">
+            <column name="skrecid" />
+            <generator class="identity" />
+        </id>
+        <property name="kahao" type="string">
+            <column name="kahao" length="25" not-null="true" />
+        </property>
+        <property name="lessonid" type="int">
+            <column name="lessonid" not-null="true" />
+        </property>
+        <property name="timelong" type="float">
+            <column name="timelong" precision="10" scale="1"/>
+        </property>
+        <property name="skdate" type="string">
+            <column name="skdate" length="20" not-null="true">
+                <comment>&#229;&#136;&#183;&#229;&#141;&#161;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+        <property name="skmode" type="string">
+            <column name="skmode" length="20" not-null="true">
+                <comment>&#229;&#136;&#183;&#229;&#141;&#161;&#231;&#154;&#132;&#230;&#150;&#185;&#229;&#188;?</comment>
+            </column>
+        </property>
+        <property name="ischeck" type="string">
+            <column name="ischeck" length="2" not-null="true">
+                <comment>
+                &#230;&#152;&#175;&#229;&#144;&#166;&#230;&#163;?&#159;&#165;&#228;&#186;&#134;&#239;&#188;&#140;&#231;&#174;&#151;&#228;&#186;&#134;&#231;&#167;&#175;&#229;&#136;&#134;&#228;&#186;&#134;&#239;&#188;&#140;y&#231;&#174;&#151;&#228;&#186;&#134;n&#230;&#178;&#161;&#231;&#174;&#151;</comment>
+            </column>
+        </property>
+        <property name="uploadtime" type="timestamp">
+            <column name="uploadtime" length="0" not-null="true">
+                <comment>&#230;&#149;&#176;&#230;&#141;&#174;&#228;&#184;&#138;&#228;&#188;&#160;&#230;&#151;&#182;&#233;&#151;&#180;</comment>
+            </column>
+        </property>
+                 <property name="remarks" type="string">
+            <column name="remarks" length="65535">
+            
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>
