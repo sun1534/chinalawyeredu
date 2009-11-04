@@ -14,12 +14,10 @@ import com.sxit.system.util.NumberUtil;
  * Oct 16, 2009-5:03:50 PM
  *
  */
-public class BsnRncStatModel {
+public class BsnRncStatModel extends StatModel {
 
 	private String bscrncid;
 	private String sgsnid;
-	private long totalStream;
-	private int totalUser;
 	
 	/**
 	 * 网络类型,td,gsm等
@@ -28,36 +26,7 @@ public class BsnRncStatModel {
 	private String date;
 	private String datetime;
 	
-	/**
-	 * 以兆为单位
-	 * @return
-	 */
-	public float getTotalStreamStr(){
-		double d = ((double) totalStream) / (1024);
-		String totalStreamStr= NumberUtil.toMoney(d);
-		return Float.parseFloat(totalStreamStr);
-	}
 	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStreamStr() {
-		float f= ((float) totalStream) / (totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
-	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStream() {
-		float f= ((float) totalStream) / ( totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
-
 	/**
 	 * @return the bscrncid
 	 */
@@ -72,33 +41,7 @@ public class BsnRncStatModel {
 		this.bscrncid = bscrncid;
 	}
 
-	/**
-	 * @return the totalStream
-	 */
-	public long getTotalStream() {
-		return totalStream;
-	}
-
-	/**
-	 * @param totalStream the totalStream to set
-	 */
-	public void setTotalStream(long totalStream) {
-		this.totalStream = totalStream;
-	}
-
-	/**
-	 * @return the totalUser
-	 */
-	public int getTotalUser() {
-		return totalUser;
-	}
-
-	/**
-	 * @param totalUser the totalUser to set
-	 */
-	public void setTotalUser(int totalUser) {
-		this.totalUser = totalUser;
-	}
+	
 
 	public String getNettype() {
 		if(nettype==null||nettype.equals(""))

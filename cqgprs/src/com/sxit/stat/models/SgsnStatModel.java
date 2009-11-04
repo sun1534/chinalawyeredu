@@ -14,15 +14,13 @@ import com.sxit.system.util.NumberUtil;
  * Oct 16, 2009-5:03:50 PM
  *
  */
-public class SgsnStatModel {
+public class SgsnStatModel extends StatModel  {
 
 	private String sgsnid;
 	/**
 	 * 覆盖范围
 	 */
 	private String sgsnArea;
-	private long totalStream;
-	private int totalUser;
 	
 	/**
 	 * 网络类型,td,gsm等
@@ -54,41 +52,7 @@ public class SgsnStatModel {
 	public void setSgsnArea(String sgsnArea) {
 		this.sgsnArea = sgsnArea;
 	}
-	/**
-	 * @return the tatalStream
-	 */
-	public long getTotalStream() {
-		return totalStream;
-	}
-	/**
-	 * 以兆为单位
-	 * @return
-	 */
-	public float getTotalStreamStr(){
-		double d = ((double) totalStream) / (1024);
-		String totalStreamStr= NumberUtil.toMoney(d);
-		return Float.parseFloat(totalStreamStr);
-	}
 	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStreamStr() {
-		float f= ((float) totalStream) / ( totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
-	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStream() {
-		float f= ((float) totalStream) / ( totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
 	
 	/**
 	 * @param tatalStream the tatalStream to set
@@ -97,18 +61,7 @@ public class SgsnStatModel {
 		this.totalStream = totalStream;
 	}
 
-	/**
-	 * @return the totalUser
-	 */
-	public int getTotalUser() {
-		return totalUser;
-	}
-	/**
-	 * @param totalUser the totalUser to set
-	 */
-	public void setTotalUser(int totalUser) {
-		this.totalUser = totalUser;
-	}
+	
 	/**
 	 * @return the date
 	 */

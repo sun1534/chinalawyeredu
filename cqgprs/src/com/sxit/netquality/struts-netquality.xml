@@ -33,9 +33,40 @@
          <action name="error38" class="com.sxit.netquality.action.Error38Action">
           <result name="success" type="dispatcher">/netquality/error38.jsp</result>	
        </action>
-      
-      
-    </package>
+       
+        <action name="mobileList" class="com.sxit.netquality.action.MobileListAction">
+          <result name="success" type="dispatcher">/netquality/mobileList.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/mobileList_excel.jsp</result>	
+       </action>
+         <action name="mobileCreateEdit" class="com.sxit.netquality.action.MobileCreateEditAction">
+          <result name="success" type="dispatcher">/netquality/mobileCreateEdit.jsp</result>	
+       </action>
+        <action name="cellList" class="com.sxit.netquality.action.CellListAction">
+          <result name="success" type="dispatcher">/netquality/cellList.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/cellList_excel.jsp</result>	
+        </action>
+        <action name="apnList" class="com.sxit.netquality.action.ApnListAction">
+          <result name="success" type="dispatcher">/netquality/apnList.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/apnList_excel.jsp</result>	
+       </action>
+       
+       
+       
+   </package>
+	    <package name="netqualityajax" extends="defaultajax" namespace="/netqualityajax">
+	       <default-interceptor-ref name="visitStack"/>
+	
+	   	   <action name="setApnFocus" class="com.sxit.netquality.action.ajax.SetApnFocusAction">
+			<result name="success" type="json"></result>
+   	   </action>
+	    <action name="setCellFocus" class="com.sxit.netquality.action.ajax.SetCellFocusAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	      <action name="mobileDelete" class="com.sxit.netquality.action.ajax.MobileDeleteAction">
+			<result name="success" type="json"></result>
+       </action>
+   	   	   	 
+	</package>
 	
 	
 </struts>

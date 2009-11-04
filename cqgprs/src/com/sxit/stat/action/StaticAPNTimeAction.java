@@ -36,6 +36,8 @@ public class StaticAPNTimeAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
+		
+	
 		apntimelist = statservice.getApnDayTimeStat(startDate, apnid);
 		if (resultType.equals("list"))
 			return SUCCESS;

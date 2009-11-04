@@ -14,7 +14,7 @@ import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
 
-import com.sxit.stat.models.TotalModel;
+import com.sxit.stat.models.TotalStatModel;
 import com.sxit.stat.util.StatUtil;
 
 /**
@@ -113,7 +113,7 @@ public class WorkspaceIndexAction extends StatAction {
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
 		int len = streamlist.size();
 		for (int i = 0; i < len; i++) {
-			TotalModel stat = (TotalModel) streamlist.get(i);
+			TotalStatModel stat = (TotalStatModel) streamlist.get(i);
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))

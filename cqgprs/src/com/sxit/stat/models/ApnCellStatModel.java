@@ -9,12 +9,10 @@ import com.sxit.system.util.NumberUtil;
  * @author 华锋 Oct 19, 2009-10:37:32 PM
  * 
  */
-public class ApnCellStatModel {
+public class ApnCellStatModel extends StatModel  {
 	private String apnid;
 
 	private String cellid;
-	private long totalStream;
-	private int totalUser;
 
 	/**
 	 * 某天的数据
@@ -25,65 +23,9 @@ public class ApnCellStatModel {
 	 */
 	private String datetime;
 
-	/**
-	 * 以兆为单位
-	 * @return
-	 */
-	public float getTotalStreamStr(){
-		double d = ((double) totalStream) / (1024);
-		String totalStreamStr= NumberUtil.toMoney(d);
-		return Float.parseFloat(totalStreamStr);
-	}
 	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStreamStr() {
-		float f= ((float) totalStream) / (totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
+
 	
-	/**
-	 * 得到平均流量,单位为k
-	 * @return the averageStream
-	 */
-	public float getAverageStream() {
-		float f= ((float) totalStream) / (totalUser);
-		String averageStreamStr= NumberUtil.toMoney(f);
-		return Float.parseFloat(averageStreamStr);
-	}
-
-	/**
-	 * @return the totalStream
-	 */
-	public long getTotalStream() {
-		return totalStream;
-	}
-
-	/**
-	 * @param totalStream
-	 *            the totalStream to set
-	 */
-	public void setTotalStream(long totalStream) {
-		this.totalStream = totalStream;
-	}
-
-	/**
-	 * @return the totalUser
-	 */
-	public int getTotalUser() {
-		return totalUser;
-	}
-
-	/**
-	 * @param totalUser
-	 *            the totalUser to set
-	 */
-	public void setTotalUser(int totalUser) {
-		this.totalUser = totalUser;
-	}
 
 	/**
 	 * @return the date

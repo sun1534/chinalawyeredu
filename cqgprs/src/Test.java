@@ -125,14 +125,21 @@ public class Test {
 //		piechart();
 //		linechart();
 		
-		Date date=new Date();
-		date.setTime(1256787292L*1000);
+//		Date date=new Date();
+//		date.setTime(1256787292L*1000);
+//		
+//		System.out.println(date.toLocaleString());
+//		
+//		System.out.println(System.getProperty("file.encoding"));
+//		
+//		System.out.println("中文");
 		
-		System.out.println(date.toLocaleString());
+		java.text.DateFormat df=new java.text.SimpleDateFormat("HH:00");
+		System.out.println(df.format(new Date()));
 		
-		System.out.println(System.getProperty("file.encoding"));
-		
-		System.out.println("中文");
+	
+			System.out.println(System.currentTimeMillis()/1000);
+
 
 	}
 

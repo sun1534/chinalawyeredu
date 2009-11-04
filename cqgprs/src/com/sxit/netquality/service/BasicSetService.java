@@ -9,11 +9,17 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sxit.common.PaginationSupport;
 import com.sxit.netquality.models.Apn;
@@ -32,20 +38,34 @@ public class BasicSetService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	public static Map<String, Cell> ALL_CELLS = new LinkedHashMap<String, Cell>();
+
+	public static List<Cell> ALL_CELL_LIST = new ArrayList<Cell>();
+	public static List<Apn> ALL_APN_LIST = new ArrayList<Apn>();
+
+	public static Map<String, Apn> ALL_APNS = new LinkedHashMap<String, Apn>();
+	public static Map<String, BscRnc> ALL_BSCS = new LinkedHashMap<String, BscRnc>();
+	public static Map<String, Sgsn> ALL_SGSNS = new LinkedHashMap<String, Sgsn>();
+
+	public static Map<String, String> CELL_BSC = new LinkedHashMap<String, String>();
+	public static Map<String, String> BSC_SGSN = new LinkedHashMap<String, String>();
+
+	private static long updatetime = 0L;
+
 	private JdbcTemplate jdbcTemplate;
 
-	private long getDayStartTime(Date date){
-		try{
-		String datestr=df.format(date);
-		String startstr=datestr+" 00:00:00";
-		Date start=dfyyyyMmddHHmmss.parse(startstr);
-		return start.getTime();
-		}catch(Exception e){
+	private long getDayStartTime(Date date) {
+		try {
+			String datestr = df.format(date);
+			String startstr = datestr + " 00:00:00";
+			Date start = dfyyyyMmddHHmmss.parse(startstr);
+			return start.getTime();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return System.currentTimeMillis();
 		}
 	}
-	
+
 	/**
 	 * @param jdbcTemplate
 	 *            the jdbcTemplate to set
@@ -60,7 +80,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTotalCells() {
-		
+
 		String sql = "select count(*) from set_cell where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
@@ -94,7 +114,7 @@ public class BasicSetService {
 		String sql = "select count(*) from set_bsc where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
-	
+
 	/**
 	 * 得到前1天新增的cell个数
 	 * 
@@ -102,13 +122,12 @@ public class BasicSetService {
 	 */
 	public int getTodayAddCell() {
 		Date date = this.getPrevDate();
-		
-		long start=getDayStartTime(date);
-		long end=start+24*60*60*1000L;
-		
-		
 
-		String sql = "select count(*) from set_cell where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
+		long start = getDayStartTime(date);
+		long end = start + 24 * 60 * 60 * 1000L;
+
+		String sql = "select count(*) from set_cell where updatetime between " + start / 1000 + " and " + end / 1000
+				+ " and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -119,10 +138,11 @@ public class BasicSetService {
 	 */
 	public int getTodayAddApn() {
 		Date date = this.getPrevDate();
-		
-		long start=getDayStartTime(date);
-		long end=start+24*60*60*1000L;
-		String sql = "select count(*) from set_apn where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
+
+		long start = getDayStartTime(date);
+		long end = start + 24 * 60 * 60 * 1000L;
+		String sql = "select count(*) from set_apn where updatetime between " + start / 1000 + " and " + end / 1000
+				+ " and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -133,10 +153,11 @@ public class BasicSetService {
 	 */
 	public int getTodayAddBsc() {
 		Date date = this.getPrevDate();
-		
-		long start=getDayStartTime(date);
-		long end=start+24*60*60*1000L;
-		String sql = "select count(*) from set_bsc where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
+
+		long start = getDayStartTime(date);
+		long end = start + 24 * 60 * 60 * 1000L;
+		String sql = "select count(*) from set_bsc where updatetime between " + start / 1000 + " and " + end / 1000
+				+ " and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -147,14 +168,13 @@ public class BasicSetService {
 	 */
 	public int getTodayAddLink() {
 		Date date = this.getPrevDate();
-		
-		long start=getDayStartTime(date);
-		long end=start+24*60*60*1000L;
-		String sql = "select count(*) from set_bsc where updatetime between "+start/1000+" and "+end/1000+" and opttype=0";
+
+		long start = getDayStartTime(date);
+		long end = start + 24 * 60 * 60 * 1000L;
+		String sql = "select count(*) from set_bsc where updatetime between " + start / 1000 + " and " + end / 1000
+				+ " and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
-	
-	
 
 	/*
 	 * 得到当前日期的前一天
@@ -174,14 +194,24 @@ public class BasicSetService {
 		return d;
 	}
 
-	public PaginationSupport getCells(int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, int pageNo, int pageSize) {
+		String countsql = "";
+		String sql = "";
 
-		String countsql = "select count(*) from set_cell";
-		int totalCount = jdbcTemplate.queryForInt(countsql);
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select * from  set_cell where opttype!=2 order by CELLID) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+		if (cellid != null && !cellid.equals("")) {
 
+			countsql = "select count(*) from set_cell where opttype!=2 and cellid='" + cellid + "'";
+			sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 and cellid='"
+					+ cellid + "' order by CELLID) a where rownum<=" + (startIndex + pageSize) + ") where rn>="
+					+ startIndex;
+		} else {
+			countsql = "select count(*) from set_cell where opttype!=2 ";
+			sql = "select * from(select a.*,rownum rn from(select * from set_cell	 where opttype!=2 order by CELLID) a where rownum<="
+					+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+		}
+
+		int totalCount = jdbcTemplate.queryForInt(countsql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
@@ -190,29 +220,97 @@ public class BasicSetService {
 					model.setBscrncid(rs.getString("BSCID"));
 					model.setCellid(rs.getString("CELLID"));
 					model.setCellname(rs.getString("CELLNAME"));
-					model.setLastopt(rs.getString(""));
+					model.setLastopt(rs.getString("OPTTYPE"));
 					Date date = new Date();
-					date.setTime(rs.getInt("UPDATETIME") * 1000);
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
-					model.setLastopt(rs.getString(""));
 					list.add(model);
 				}
 				return list;
 			}
 		});
 		List list = (List) object;
+		// getAllCells();
+		// int totalCount = ALL_CELL_LIST.size();
+		// int startIndex = (pageNo - 1) * pageSize;
+		// List<Cell> list = new ArrayList<Cell>();
+		// for (int i = startIndex; i < totalCount && i < startIndex + pageSize;
+		// i++) {
+		// list.add(ALL_CELL_LIST.get(i));
+		// }
 		// PaginationSupport ps=new PaginationSupport();
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
 
-	public PaginationSupport getApns(int pageNo, int pageSize) {
+	private void getAllCells() {
+		String sql = "select * from  set_cell where opttype!=2 order by CELLID";
+		jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// List list = new ArrayList();
+				ALL_CELLS.clear();
+				CELL_BSC.clear();
+				ALL_CELL_LIST.clear();
+				while (rs.next()) {
+					Cell model = new Cell();
+					model.setBscrncid(rs.getString("BSCID"));
+					model.setCellid(rs.getString("CELLID"));
+					model.setCellname(rs.getString("CELLNAME"));
+					model.setLastopt(rs.getString("OPTTYPE"));
+					Date date = new Date();
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setLastupdate(date);
+					// list.add(model);
+					ALL_CELL_LIST.add(model);
+					ALL_CELLS.put(rs.getString("CELLID"), model);
+					CELL_BSC.put(rs.getString("CELLID"), rs.getString("BSCID"));
+				}
+				return null;
+			}
+		});
 
-		String countsql = "select count(*) from set_apn";
-		int totalCount = jdbcTemplate.queryForInt(countsql);
+	}
+
+	private void getAllApns() {
+		String sql = "select * from  set_apn where opttype!=2 order by APNNI";
+		jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// List list = new ArrayList();
+				ALL_APNS.clear();
+				ALL_APN_LIST.clear();
+				while (rs.next()) {
+					Apn model = new Apn();
+					model.setApnid(rs.getString("APNNI"));
+					model.setApnname(rs.getString("APNNAME"));
+					model.setUsercorp(rs.getString("apnconector"));
+					model.setUserphone(rs.getString("apnconector"));
+
+					model.setLastopt(rs.getString("opttype"));
+					Date date = new Date();
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setLastupdate(date);
+					ALL_APN_LIST.add(model);
+					ALL_APNS.put(rs.getString("APNNI"), model);
+				}
+				return null;
+			}
+		});
+
+	}
+
+	public PaginationSupport getApns(String apnid, int pageNo, int pageSize) {
+
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select * from  set_apn where opttype!=2 order by APNNI) a where rownum<="
+		String countsql = "select count(*) from set_apn where opttype!=2";
+		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 order by APNNI) a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+		if (!(apnid == null || apnid.equals(""))) {
+
+			countsql = "select count(*) from set_apn where opttype!=2 and	 apnni='" + apnid + "'";
+			sql = "select * from(select a.*,rownum rn from(select * from set_apn where opttype!=2 and apnni='" + apnid
+					+ "' order by APNNI) a where rownum<=" + (startIndex + pageSize) + ")	 where rn>=" + startIndex;
+		}
+		int totalCount = jdbcTemplate.queryForInt(countsql);
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -221,13 +319,13 @@ public class BasicSetService {
 					Apn model = new Apn();
 					model.setApnid(rs.getString("APNNI"));
 					model.setApnname(rs.getString("APNNAME"));
-					model.setUsercorp(rs.getString(""));
-					model.setUserphone(rs.getString(""));
-					model.setLastopt(rs.getString(""));
+					model.setUsercorp(rs.getString("apnconector"));
+					model.setUserphone(rs.getString("apnconector"));
+					model.setLastopt(rs.getString("opttype"));
 					Date date = new Date();
-					date.setTime(rs.getInt("UPDATETIME") * 1000);
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
-					model.setLastopt(rs.getString(""));
+
 					list.add(model);
 				}
 				return list;
@@ -237,59 +335,92 @@ public class BasicSetService {
 		// PaginationSupport ps=new PaginationSupport();
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
+		// getAllApns();
+		// int totalCount = ALL_APN_LIST.size();
+		// int startIndex = (pageNo - 1) * pageSize;
+		// List<Apn> list = new ArrayList<Apn>();
+		// for (int i = startIndex; i < totalCount && i < startIndex + pageSize;
+		// i++) {
+		// list.add(ALL_APN_LIST.get(i));
+		// }
+		// // PaginationSupport ps=new PaginationSupport();
+		// PaginationSupport ps = new PaginationSupport(list, totalCount,
+		// pageSize, startIndex);
+		// return ps;
 	}
-/**
- * 
- * @return
- */
-	public List getBsces() {
+
+	/**
+	 * 
+	 * @return
+	 */
+	private void getBsces() {
 
 		String sql = "select * from  SET_BSC  where opttype!=2  order by BSCID";
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-				List list = new ArrayList();
+
+				ALL_BSCS.clear();
+				BSC_SGSN.clear();
 				while (rs.next()) {
 					BscRnc model = new BscRnc();
 					model.setBscrncid(rs.getString("BSCID"));
 					model.setName(rs.getString("BSCNAME"));
-					model.setNettype(rs.getString("NETTYPE"));
+					// model.setNettype(rs.getString("NETTYPE"));
 					model.setSgsnid(rs.getString("SGSNID"));
-					model.setLastopt(rs.getString(""));
+					model.setLastopt(rs.getString("OPTTYPE"));
 					Date date = new Date();
-					date.setTime(rs.getInt("UPDATETIME") * 1000);
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
-					model.setLastopt(rs.getString(""));
-					list.add(model);
+
+					ALL_BSCS.put(rs.getString("BSCID"), model);
+					BSC_SGSN.put(rs.getString("BSCID"), rs.getString("SGSNID"));
 				}
-				return list;
+				return null;
 			}
 		});
-		List list = (List) object;
-		return list;
+
 	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	public List getSgsns() {
+	private void getSgsns() {
 
 		String sql = "select * from  SET_SGSN order by sgsnid";
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 
+				ALL_SGSNS.clear();
+				while (rs.next()) {
+					Sgsn model = new Sgsn();
+					model.setSgsnid(rs.getString("SGSNID"));
+					// model.setSgsnarea(rs.getString("sgsnarea"));
+					model.setLastopt(rs.getString("OPTTYPE"));
+					Date date = new Date();
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setLastupdate(date);
+
+					ALL_SGSNS.put(rs.getString("SGSNID"), model);
+				}
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * 得到重点小区
+	 * 
+	 * @return
+	 */
+	public List getFocusCellids() {
+		String sql = "select CELLID from  SET_CELL_FOCUS ";
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					Sgsn model = new Sgsn();
-				
-					model.setSgsnid(rs.getString("SGSNID"));
-					model.setSgsnarea(rs.getString("sgsnarea"));
-					model.setLastopt(rs.getString(""));
-					Date date = new Date();
-					date.setTime(rs.getInt("UPDATETIME") * 1000);
-					model.setLastupdate(date);
-					model.setLastopt(rs.getString(""));
-					list.add(model);
+					list.add(rs.getString("CELLID"));
 				}
 				return list;
 			}
@@ -297,4 +428,111 @@ public class BasicSetService {
 		List list = (List) object;
 		return list;
 	}
+
+	/**
+	 * 设置重点小区
+	 * 
+	 * @param isset
+	 */
+	@Transactional
+	public void setFocusCell(String all, String selected) {
+		StringTokenizer st = new StringTokenizer(all, ",");
+		String sql = "";
+		while (st.hasMoreTokens()) {
+			String cellid = st.nextToken();
+			sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "'";
+			jdbcTemplate.execute(sql);
+		}
+
+		st = new StringTokenizer(selected, ",");
+		long now=System.currentTimeMillis()/1000;
+		while (st.hasMoreTokens()) {
+			String cellid = st.nextToken();
+			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE) values('" + cellid
+					+ "',null,"+now+",1)";
+
+			jdbcTemplate.execute(sql);
+		}
+	}
+
+	/**
+	 * 设置重点apn
+	 * 
+	 * @param isset
+	 */
+	public void setFocusApn(String all, String selected) {
+		StringTokenizer st = new StringTokenizer(all, ",");
+		String sql = "";
+		while (st.hasMoreTokens()) {
+			String apnni = st.nextToken();
+			sql = "delete from SET_APN_FOCUS where APNNI ='" + apnni + "'";
+			jdbcTemplate.execute(sql);
+		}
+
+		st = new StringTokenizer(selected, ",");
+long now=System.currentTimeMillis()/1000;
+		while (st.hasMoreTokens()) {
+			String apnni = st.nextToken();
+			sql = "insert into SET_APN_FOCUS(APNNI,APNNAME,UPDATETIME,ISACTIVE) values('" + apnni + "',null,"+now+",1)";
+
+			jdbcTemplate.execute(sql);
+		}
+
+	}
+
+	/**
+	 * 设置需要跟踪的号码
+	 * 
+	 * @param mobile
+	 * @param isset
+	 */
+	public void setFocusMobile(String mobile, boolean isset) {
+		String sql = "";
+		if (!isset) {
+			sql = "delete from SET_MOBILE_FOCUS where mobile='" + mobile + "'";
+		} else {
+			sql = "insert into SET_MOBILE_FOCUS(mobile) values('" + mobile + "')";
+		}
+		jdbcTemplate.execute(sql);
+
+	}
+
+	/**
+	 * 得到重点apn编号,和那个普通的进行匹配，如果是重点小区的话，就打勾
+	 * 
+	 * @return
+	 */
+	public List getFocusApns() {
+		String sql = "select APNNI from  SET_APN_FOCUS ";
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					list.add(rs.getString("APNNI"));
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
+	}
+
+	public void getAllSets() {
+		long now = System.currentTimeMillis();
+
+		if (now - updatetime > 12 * 60 * 60 * 1000) {
+			_LOG.info("从数据库里面取的数据");
+			getSgsns();
+			getBsces();
+			getAllCells();
+			getAllApns();
+
+			updatetime = now;
+		} else {
+			_LOG.info("从缓存里面取的数据");
+		}
+	}
+
+	private static Log _LOG = LogFactory.getLog(BasicSetService.class);
+
 }

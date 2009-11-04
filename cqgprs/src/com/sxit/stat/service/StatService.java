@@ -21,7 +21,7 @@ import com.sxit.stat.models.ApnStatModel;
 import com.sxit.stat.models.BsnRncStatModel;
 import com.sxit.stat.models.CellStatModel;
 import com.sxit.stat.models.SgsnStatModel;
-import com.sxit.stat.models.TotalModel;
+import com.sxit.stat.models.TotalStatModel;
 
 /**
  * @author 华锋 Oct 16, 2009-4:54:14 PM
@@ -76,7 +76,7 @@ public class StatService {
 //		int _from = (int) (start.getTime() / 1000);
 //		int _to = (int) end.getTime() / 1000;
 		
-		System.out.println(sql);
+//		System.out.println(sql);
 
 		Object[] args = new Object[] { _from, _to };
 		int[] argTypes = new int[] { Types.INTEGER, Types.INTEGER };
@@ -85,9 +85,9 @@ public class StatService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					TotalModel model = new TotalModel();
+					TotalStatModel model = new TotalStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 //					Date date = new Date();
 //					date.setTime(stattime * 1000);
@@ -123,9 +123,9 @@ public class StatService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					TotalModel model = new TotalModel();
+					TotalStatModel model = new TotalStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 					String type = rs.getString("NETTYPE");
 //					Date date = new Date();
@@ -163,7 +163,7 @@ public class StatService {
 				while (rs.next()) {
 					SgsnStatModel model = new SgsnStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
 					String sgsnid = rs.getString("SGSNID");
 //					Date date = new Date();
@@ -203,7 +203,7 @@ public class StatService {
 				while (rs.next()) {
 					SgsnStatModel model = new SgsnStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
 					String sgsnid = rs.getString("SGSNID");
 //					Date date = new Date();
@@ -250,7 +250,7 @@ public class StatService {
 				while (rs.next()) {
 					BsnRncStatModel model = new BsnRncStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 					String sgsnid = rs.getString("SGSNID");
 					Date date = new Date();
@@ -307,7 +307,7 @@ public class StatService {
 				while (rs.next()) {
 					CellStatModel model = new CellStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
 //					Date date = new Date();
@@ -355,7 +355,7 @@ public class StatService {
 				while (rs.next()) {
 					CellStatModel model = new CellStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
 					Date date = new Date();
@@ -422,7 +422,7 @@ public class StatService {
 				while (rs.next()) {
 					ApnStatModel model = new ApnStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
 //					Date date = new Date();
@@ -474,7 +474,7 @@ public class StatService {
 				while (rs.next()) {
 					ApnStatModel model = new ApnStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
 					Date _date = new Date();
@@ -512,7 +512,7 @@ public class StatService {
 				while (rs.next()) {
 					ApnCellStatModel model = new ApnCellStatModel();
 					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
+					double all = rs.getDouble("ALLVOLUME");
 //					int stattime = rs.getInt("STATTIME");
 					// String sgsnid=rs.getString("SGSNID");
 //					Date date = new Date();

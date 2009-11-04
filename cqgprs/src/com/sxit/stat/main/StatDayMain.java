@@ -60,7 +60,7 @@ public class StatDayMain {
 			System.out.println("获取的数据库连接为空,退出Exit");
 			System.exit(1);
 		}
-		System.out.println("获取到了数据库连接OKOK..."+);
+		System.out.println("获取到了数据库连接OKOK...");
 		Calendar calendar = Calendar.getInstance();
 		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
 		if(weekday==1)//周日
