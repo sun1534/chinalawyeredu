@@ -329,8 +329,7 @@ public class OrgOfficeInfo {
 	
 //	机构编号(流水号)	ORG_ID	VARCHAR2(20)	Y		
 //	机构类型	ORG_TYPE	VARCHAR2(10)		0：省内机构；1：省外机构；2：国外机构；3：其他机构；	
-//	执业状态	CUR_STATUS	VARCHAR2(10)		0:正常；
-//	6:注销	
+//	执业状态	CUR_STATUS	VARCHAR2(10)		0:正常；6:注销	
 //	机构名称	ORG_NAME	VARCHAR2(100)		//	
 //	主管部门	MASTER_DEPT	VARCHAR2(20)		//	
 //	办公电话	OFFICE_PHONE	VARCHAR2(15)	//		

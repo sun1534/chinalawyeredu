@@ -201,7 +201,15 @@ public class WebSiteTransfer {
 			group.setParentid(parentId);
 			group.setContactertel(org.getOfficePhone());
 			group.setTypeid(2);
-			group.setStatusid(2);
+			group.setCorpaddr(org.getAddress());
+	
+			int statusid=2;
+			if(org.getCurStatus().equals("0"))
+				statusid=2;
+			else
+				statusid=Integer.parseInt(org.getCurStatus());
+			group.setStatusid(statusid);
+			
 			String flag = org.getDataType();
 
 			if (flag != null && flag.equalsIgnoreCase("inserted") || flag.equalsIgnoreCase("updated")) {
