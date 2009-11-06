@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="filemanage" extends="commondefault" namespace="/filemanage" >
+		
+<!--        <action name="uploadfile" class="com.changpeng.sns.filemanage.action.VideoDirlistAction">-->
+<!--            <interceptor-ref name="fileUpload">-->
+<!--				<param name="maximumSize">5024000</param>-->
+<!--			</interceptor-ref>-->
+<!--			<interceptor-ref name="visitStack" />-->
+<!--			-->
+<!--			<result name="success"  type="freemarker">/upload/uploadsuccess.ftl</result>-->
+<!--      		<result name="input"  type="freemarker">/photo/uploadphoto.ftl</result>-->
+<!--      		<result name="result" type="freemarker">/common/result.ftl</result>-->
+<!--        </action>-->
+
+		<!-- 目录列表 -->
+        <action name="dirlist" class="com.changpeng.sns.filemanage.action.DirlistAction">
+			<result name="success"  type="freemarker">/filemanage/dirlist.ftl</result>
+        </action>
+        
+        <!-- 创建目录 -->
+        <action name="createdir" class="com.changpeng.sns.filemanage.action.CreateDirAction">
+			<result name="input" type="freemarker">/filemanage/createdir.ftl</result>
+            <result name="success" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <!-- 编辑目录 -->
+        <action name="editdir" class="com.changpeng.sns.filemanage.action.EditDirAction">
+			<result name="input" type="freemarker">/filemanage/editDir.ftl</result>
+            <result name="success" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <!-- 文件列表 -->
+        <action name="filelist" class="com.changpeng.sns.filemanage.action.FilelistAction">
+			<result name="success" type="freemarker">/filemanage/filelist.ftl</result>
+        </action>
+        
+        <!-- 上传文件 -->
+        <action name="uploadfile" class="com.changpeng.sns.filemanage.action.UploadFileAction">
+      		<result name="input"  type="freemarker">/filemanage/uploadfile.ftl</result>
+      		<result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+        <action name="filedel" class="com.changpeng.sns.filemanage.action.FileDelAction">
+      		<result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+        <action name="dirdel" class="com.changpeng.sns.filemanage.action.DirDelAction">
+      		<result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+    </package>
+</struts>

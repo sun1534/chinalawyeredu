@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="home" extends="commondefault" namespace="/home">   
+	      
+         <action name="home" class="com.changpeng.core.home.HomeAction">
+            <result name="success" type="freemarker">/home/index.ftl</result>
+         </action>
+		<action name="messageCountShow" class="com.changpeng.core.home.MessageCountShowAction">
+            <result name="success" type="freemarker">/home/messageCountShow.ftl</result>
+         </action>
+        <action name="notice" class="com.changpeng.core.home.NoticeAction">
+            <result name="success" type="freemarker">/home/notice.ftl</result>
+        </action>
+        
+        <action name="myshow" class="com.changpeng.core.home.MyshowAction">
+            <result name="success" type="freemarker">/home/myshow.ftl</result>
+        </action>
+        <action name="entshow" class="com.changpeng.core.home.EntshowAction">
+            <result name="success" type="freemarker">/home/entshow.ftl</result>
+        </action>
+        
+        <action name="newsindex" class="com.changpeng.core.home.NewsindexAction">
+            <result name="success" type="freemarker">/home/newsindex.ftl</result>
+        </action>
+        
+        
+        <action name="myshowlist" class="com.changpeng.core.home.MyshowListAction">
+            <result name="success" type="freemarker">/home/myshowlist.ftl</result>
+        </action>
+        <action name="entlist" class="com.changpeng.core.home.EntListAction">
+            <result name="success" type="freemarker">/home/entlist.ftl</result>
+        </action>
+        <action name="productlist" class="com.changpeng.core.home.ProductListAction">
+            <result name="success" type="freemarker">/home/productlist.ftl</result>
+        </action>
+        <action name="productindex" class="com.changpeng.core.home.ProductindexAction">
+            <result name="success" type="freemarker">/home/productindex.ftl</result>
+        </action>
+        <action name="huodongindex" class="com.changpeng.core.home.HuodongindexAction">
+            <result name="success" type="freemarker">/home/huodongindex.ftl</result>
+        </action>
+        <action name="shihuiindex" class="com.changpeng.core.home.ShihuiindexAction">
+            <result name="success" type="freemarker">/home/shihuiindex.ftl</result>
+        </action>
+        <action name="redianindex" class="com.changpeng.core.home.RedianindexAction">
+            <result name="success" type="freemarker">/home/redianindex.ftl</result>
+        </action>
+        <action name="adview" class="com.changpeng.core.home.AdViewAction">
+            <result name="success" type="freemarker">/home/adview.ftl</result>
+        </action>
+        <action name="infoQuery" class="com.changpeng.core.home.InfoQueryAction">
+            <result name="user" type="freemarker">/home/userQuery.ftl</result>
+             <result name="product" type="freemarker">/home/productlist.ftl</result>
+              <result name="info" type="freemarker">/home/newsQuery.ftl</result>
+         </action>
+         <action name="partnerindex" class="com.changpeng.core.home.PartnerIndexAction">
+            <result name="success" type="freemarker">/home/partnerindex.ftl</result>
+         </action>
+         <action name="about" class="com.changpeng.core.home.AboutAction">
+            <result name="success" type="freemarker">/about/info.ftl</result>
+         </action>
+         
+         <action name="shichuang" class="com.changpeng.core.home.ShichuangAction">
+            <result name="success" type="freemarker">/home/shichuang.ftl</result>
+         </action>	
+         
+         	 <action name="infoView" class="com.changpeng.core.home.InfoViewAction">
+            <result name="success" type="freemarker">/home/infoView.ftl</result>
+         </action>	
+         
+         <action name="partnerlist" class="com.changpeng.core.home.PartnerListAction">
+            <result name="success" type="freemarker">/home/partnerlist.ftl</result>
+        </action>
+    </package>
+</struts>

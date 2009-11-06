@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="diary" extends="commondefault" namespace="/diary">
+		<action name="diarylist" class="com.changpeng.sns.diary.action.DiaryListAction">
+			<result name="success" type="freemarker">/diary/diarylist.ftl</result>
+			<result name="friendpage" type="freemarker">/diary/diaryfriendlist.ftl</result>
+		</action>
+
+		<action name="viewDiary" class="com.changpeng.sns.diary.action.ViewDiaryAction">
+			<result name="success" type="freemarker">/diary/viewdiary.ftl</result>
+			<result name="friendpage" type="freemarker">/diary/viewfrienddiary.ftl</result>
+		</action>
+
+		<action name="deleteDiary" class="com.changpeng.sns.diary.action.DeleteProDiaryAction">
+			<result name="success" type="freemarker">/common/message.ftl</result>
+		</action>
+		
+		<action name="addDProiary" class="com.changpeng.sns.diary.action.AddProDiaryAction">
+			<result name="adddir" type="freemarker">/diary/AddProDiary.ftl</result>
+			<result name="success" type="redirect">/diary/diarylist.action?pageNo=1</result>
+		</action>
+		
+		<action name="editProDiary" class="com.changpeng.sns.diary.action.EditProDiaryAction">
+			<result name="updatediary" type="freemarker">/diary/EditProDiary.ftl</result>
+			<result name="curruserid" type="freemarker">/diary/viewProdiary.ftl</result>
+			<result name="success" type="redirect">/diary/diarylist.action</result>
+		</action>
+
+		<action name="proDiaryandReply" class="com.changpeng.sns.diary.action.ProDiaryandReplyList">
+
+			<result name="success" type="freemarker">/diary/viewProdiary.ftl</result>
+			<result name="addReplyDiary" type="freemarker">/diary/viewProdiary.ftl</result>
+			<result name="retply" type="freemarker">/diary/replDiaryList.ftl</result>
+			<result name="curr" type="freemarker">/diary/viewProdiary_c.ftl</result>
+			<result name="error" type="freemarker">/common/message.ftl</result>
+		</action>
+		<action name="addDiaryReply"
+			class="com.changpeng.sns.diary.action.AddProDiaryReplyAction">
+			
+			<result name="success" type="freemarker">/diary/friendReplyDiaryList.ftl</result>
+			<result name="friend" type="freemarker">/diary/friendReplyDiaryList.ftl</result>
+		</action>
+
+		<action name="deleteDiaryReply"
+			class="com.changpeng.sns.diary.action.DeleteProDiaryReplyAction">
+			<result name="successli" type="redirect">diary/viewDiary.action?diaryid=${diaryid}&amp;diarytypeId=${id}</result>
+		</action>
+
+		<action name="addProDiaryType"
+			class="com.changpeng.sns.diary.action.AddProDiaryTypeAction">
+			<result name="success" type="freemarker">/common/message.ftl</result>
+		</action>
+
+		<action name="proFriendDiaryList"
+			class="com.changpeng.sns.diary.action.ProFriendDiaryAction">
+			
+			<result name="success" type="freemarker">
+				/diary/ProFriendDiaryList.ftl
+			</result>
+			<result name="message" type="freemarker">
+				/common/message.ftl
+			</result>
+		</action>
+		<action name="proFriendDiaryReply"
+			class="com.changpeng.sns.diary.action.ProFriendDiaryReplyAction">
+			
+			<result name="success" type="freemarker">
+				/diary/viewFriendProdiary.ftl
+			</result>
+			<result name="reply" type="freemarker">
+				/diary/friendReplyDiaryList.ftl
+			</result>
+			<result name="diary" type="freemarker">
+			  /diary/viewFriendProdiary_c.ftl
+			</result>
+		</action>
+		<action name="uploadpic" class="com.changpeng.sns.diary.action.UploadPicAction">
+			<result name="success" type="freemarker">/common/result.ftl</result>
+		</action>
+	</package>
+</struts>

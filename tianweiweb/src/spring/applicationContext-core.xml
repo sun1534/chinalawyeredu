@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	
+	
+	<bean id="uservisitService" class="com.changpeng.core.service.UservisitService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+	<bean id="userService" class="com.changpeng.core.service.UserService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	<bean id="progressService" class="com.changpeng.core.service.ProgressService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+		<bean id="userPersonalService" class="com.changpeng.core.service.UserPersonalService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+		<bean id="userDetailService" class="com.changpeng.core.service.UserDetailService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+	<bean id="systemMessageService" class="com.changpeng.core.service.SystemMessageService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+	<bean id="generalmessageService" class="com.changpeng.core.service.GeneralmessageService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+	<bean id="friendService" class="com.changpeng.core.service.FriendService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+		<property name="systemMessageService">
+			<ref bean="systemMessageService" />
+		</property>
+        <property name="userService">
+			<ref bean="userService" />
+		</property>
+	</bean>
+	<bean id="infoService" class="com.changpeng.core.service.InfoService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+</beans>

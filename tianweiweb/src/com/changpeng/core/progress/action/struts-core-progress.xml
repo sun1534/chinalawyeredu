@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="progress" extends="commondefault" namespace="/progress">
+		<action name="publishlist" class="com.changpeng.core.progress.action.PublishListAction">
+			<result name="success" type="freemarker">/progress/publishlist.ftl</result>
+		</action>
+		<action name="progresslist" class="com.changpeng.core.progress.action.ProgressListAction">
+			<result name="success" type="freemarker">/progress/progresslist.ftl</result>
+		</action>
+		<action name="paylist" class="com.changpeng.core.progress.action.PayListAction">
+			<result name="success" type="freemarker">/progress/paylist.ftl</result>
+			<result name="payshow" type="redirect">/progress/pay.html</result>
+		</action>
+		<action name="pay" class="com.changpeng.core.progress.action.PayAction">
+			<result name="success" type="freemarker">/progress/pay.ftl</result>
+			<result name="payshow" type="redirect">/progress/pay.html</result>
+		</action>
+		
+		<action name="tenpay" class="com.changpeng.core.progress.action.PayTenpayAction">
+			<result name="success" type="redirect">${requestUrl}</result>
+		</action>
+		<action name="payresult" class="com.changpeng.core.progress.action.PayResultAction">
+			<result name="success" type="dispatcher">/progress/payresult.jsp</result>
+		</action>
+		<action name="showpayresult" class="com.changpeng.core.progress.action.ShowPayResultAction">
+			<result name="success" type="freemarker">/common/plainmsg.ftl</result>
+		</action>
+		
+		<!-- 产品订购 -->
+		<action name="orderproduct" class="com.changpeng.core.progress.action.OrderProductAction">
+			<result name="success" type="freemarker">/common/message.ftl</result>
+		</action>
+		
+		<!-- 查看订购 -->
+		<action name="publishview" class="com.changpeng.core.progress.action.PublishViewAction">
+			<result name="success" type="freemarker">/progress/publishview.ftl</result>
+		</action>
+		
+		<!-- 添加照片列表 -->
+		<action name="addphotolist" class="com.changpeng.core.progress.action.AddPhotoListAction">
+			<result name="success" type="freemarker">/progress/addphotolist.ftl</result>
+		</action>
+		
+		<!-- 添加文章列表 -->
+		<action name="adddiarylist" class="com.changpeng.core.progress.action.AddDiaryListAction">
+			<result name="success" type="freemarker">/progress/adddiarylist.ftl</result>
+		</action>
+		
+		<!-- 添加音频视频列表 -->
+		<action name="addaudiolist" class="com.changpeng.core.progress.action.AddAudioListAction">
+			<result name="success" type="freemarker">/progress/addaudiolist.ftl</result>
+		</action>
+		
+		<!-- 添加照片 -->
+		<action name="addselectphoto" class="com.changpeng.core.progress.action.AddSelectPhotoAction">
+			<result name="success" type="freemarker">/progress/addphotolist.ftl</result>
+		</action>
+		
+		<!-- 添加文章 -->
+		<action name="addselectdiary" class="com.changpeng.core.progress.action.AddSelectDiaryAction">
+			<result name="success" type="freemarker">/progress/adddiarylist.ftl</result>
+		</action>
+		<!-- 添加音频视频 -->
+		<action name="addselectaudio" class="com.changpeng.core.progress.action.AddSelectAudioAction">
+			<result name="success" type="freemarker">/progress/addphotolist.ftl</result>
+		</action>
+		
+		
+		<action name="productlist" class="com.changpeng.core.progress.action.ProductListAction">
+			<result name="success" type="freemarker">/progress/productlist.ftl</result>
+		</action>
+		
+		<action name="publishfile" class="com.changpeng.core.progress.action.PublishFileAction">
+      		<result name="input"  type="freemarker">/progress/publishfile.ftl</result>
+      		<result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <action name="contentdel" class="com.changpeng.core.progress.action.ContentDelAction">
+      		<result name="success" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <action name="unorder" class="com.changpeng.core.progress.action.UnOrderAction">
+      		<result name="success" type="freemarker">/common/result.ftl</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!--  service层配置 -->
+	<bean id="proDiaryService" class="com.changpeng.sns.diary.service.ProDiaryService">
+	<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	  <property name="userService">
+	     <ref bean="userService"/>
+	  </property>
+	  <property name="friendService">
+	   <ref bean="friendService"/>
+	  </property>
+	</bean>
+	
+	<bean id="proDiaryReplyService" class="com.changpeng.sns.diary.service.ProDiaryReplyService">
+	  <property name="diaryService">
+	   <ref bean="proDiaryService"/>
+	  </property>
+	  <property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+	
+	<bean id="proDiaryTypeService" class="com.changpeng.sns.diary.service.ProDiaryTypeService">
+	  <property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
+</beans>

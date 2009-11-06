@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="userpage" extends="commondefault" namespace="/userpage">         
+         <action name="index" class="com.changpeng.core.userpage.IndexAction">
+            <result name="success" type="freemarker">/userpage/index.ftl</result>
+         </action>
+         
+         <action name="photolist" class="com.changpeng.core.userpage.PhotoListAction">
+            <result name="success" type="freemarker">/userpage/photolist.ftl</result>
+         </action>
+         <action name="infolist" class="com.changpeng.core.userpage.InfoListAction">
+            <result name="success" type="freemarker">/userpage/infolist.ftl</result>
+         </action>
+         <action name="infoview" class="com.changpeng.core.userpage.InfoViewAction">
+            <result name="success" type="freemarker">/userpage/infoview.ftl</result>
+         </action>
+         
+    </package>
+</struts>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="user" extends="commondefault" namespace="/user">
+		<!-- 更新个人信息 -->
+		<action name="userbaseview" class="com.changpeng.core.user.action.UserbaseViewAction">
+			
+			<result name="success" type="freemarker">/user/userbase.ftl</result>
+		</action>
+		<action name="userbaseupdate" class="com.changpeng.core.user.action.UserbaseUpdateAction">
+			<result name="success" type="freemarker">/common/message.ftl</result>
+		</action>
+		<!-- 密码修改 -->
+		<action name="userpassword" class="com.changpeng.core.user.action.UserPasswordAction">
+            <result name="success" type="freemarker">/user/userpassword.ftl</result>
+        </action>
+         <action name="userpasswordupdate" class="com.changpeng.core.user.action.UserPasswordUpdateAction">
+            <result name="success" type="freemarker">/common/message.ftl</result>
+        </action>
+        
+        <!-- 头像 -->
+        <action name="userimages" class="com.changpeng.core.user.action.UserPicAction">
+			<interceptor-ref name="fileUpload">
+<!--				 配置允许上传的文件类型，多个用","分隔 -->
+				<param name="allowedTypes"></param>
+<!--				 配置允许上传的文件大小，单位字节 -->
+				<param name="maximumSize">5024000</param>
+			</interceptor-ref>
+			<interceptor-ref name="visitStack" />
+			<param name="savePath">/upload</param>
+			<result name="input" type="freemarker">/user/userpic.ftl</result>
+<!--			<result name="success" type="freemarker">/user/userpic.ftl</result>-->
+			<result name="success" type="freemarker">/user/picture.ftl</result>
+		</action>
+		
+		<action name="picturelist" class="com.changpeng.core.user.action.UserPhotoListAction">
+            <result name="success" type="freemarker">/user/picturelist.ftl</result>
+        </action> 
+        <action name="userpicture" class="com.changpeng.core.user.action.UserPhotoAjaxAction">
+            <result name="success" type="freemarker">/user/picture.ftl</result>
+        </action> 
+        <action name="picturecut" class="com.changpeng.core.user.action.UserPicCutAction">
+        	<param name="savePath">/upload</param>
+            <result name="success" type="redirect">/user/userimages!input.action?rnd=${rnd}</result>
+<!--			<result name="success" type="redirect">/home/home.action</result>-->
+        </action>
+        
+        <action name="userlogo" class="com.changpeng.core.user.action.UserLogoAction">
+			<interceptor-ref name="fileUpload">
+<!--				 配置允许上传的文件类型，多个用","分隔 -->
+				<param name="allowedTypes"></param>
+<!--				 配置允许上传的文件大小，单位字节 -->
+				<param name="maximumSize">5024000</param>
+			</interceptor-ref>
+			<interceptor-ref name="visitStack" />
+			<param name="savePath">/upload</param>
+			<result name="input" type="freemarker">/user/userlogo.ftl</result>
+			<result name="success" type="freemarker">/user/userlogo.ftl</result>
+		</action>
+		
+		<!-- 申请认证 -->
+		<action name="verifyapply" class="com.changpeng.core.user.action.VerifyApplyAction">
+            <result name="success" type="freemarker">/common/message.ftl</result>
+            <result name="input" type="freemarker">/user/verify.ftl</result>
+        </action>
+        <!-- 发送认证请求 -->
+		<action name="sendverifyapply" class="com.changpeng.core.user.action.SendVerifyApplyAction">
+            <result name="success" type="freemarker">/common/message.ftl</result>
+            <result name="input" type="freemarker">/user/verify.ftl</result>
+        </action>
+        
+        <action name="safepwd" class="com.changpeng.core.user.action.SafePwdAction">
+            <result name="success" type="freemarker">/common/message.ftl</result>
+            <result name="input" type="freemarker">/user/safepwd.ftl</result>
+        </action>
+    </package>
+</struts>

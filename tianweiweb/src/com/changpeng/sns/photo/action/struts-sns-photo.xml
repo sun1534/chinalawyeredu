@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="photo" extends="commondefault" namespace="/photo" >
+		<action name="indexshow" class="com.changpeng.sns.photo.action.IndexShow">
+            <result name="success" type="freemarker">/photo/indexshow.ftl</result>
+		</action>
+		
+		<action name="albumlist" class="com.changpeng.sns.photo.action.AlbumListAction">
+            <result name="success" type="freemarker">/photo/albumlist.ftl</result>
+        </action>
+        
+        <action name="viewalbumlist" class="com.changpeng.sns.photo.action.ViewAlbumListAction">
+            <result name="success" type="freemarker">/photo/viewalbumlist.ftl</result>
+        </action>
+        
+        <action name="friendphotolist" class="com.changpeng.sns.photo.action.FriendPhotoListAction">
+            <result name="success" type="freemarker">/photo/friendphoto.ftl</result>
+        </action>
+        
+        <action name="createalbum" class="com.changpeng.sns.photo.action.CreateAlbumAction">
+			<result name="input" type="freemarker">/photo/createAlbum.ftl</result>
+            <result name="success" type="freemarker">/photo/albumlist_ajax.ftl</result>
+        </action>
+        
+        <action name="editalbum" class="com.changpeng.sns.photo.action.EditAlbumAction">
+			<result name="input" type="freemarker">/photo/editAlbum.ftl</result>
+            <result name="success" type="freemarker">/photo/albumlist_ajax.ftl</result>
+        </action>
+        
+        <action name="delalbum" class="com.changpeng.sns.photo.action.DelAlbumAction">
+            <result name="success" type="freemarker">/photo/albumlist_ajax.ftl</result>
+        </action>
+        
+        <action name="delphoto" class="com.changpeng.sns.photo.action.DelPhotoAction">
+            <result name="success" type="freemarker">/photo/albumlist_ajax.ftl</result>
+            <result name="input" type="freemarker">/photo/delphoto.ftl</result>
+            <result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <action name="editphoto" class="com.changpeng.sns.photo.action.EditPhotoAction">
+        </action>
+        
+        <action name="photolist" class="com.changpeng.sns.photo.action.PhotoListAction">
+            <result name="success" type="freemarker">/photo/photolist.ftl</result>
+        </action>
+        
+        <action name="showphoto" class="com.changpeng.sns.photo.action.ShowPhotoAction">
+            <result name="success" type="freemarker">/photo/showPhoto.ftl</result>
+             <result name="del" type="freemarker">/photo/delviewphotoshow.ftl</result>
+        </action>
+        
+        <action name="selectalbum" class="com.changpeng.sns.photo.action.SelectAlbumAction">
+            <result name="success" type="freemarker">/photo/selectalbum.ftl</result>
+        </action>
+        
+        <action name="viewphotolist" class="com.changpeng.sns.photo.action.ViewPhotoListAction">
+            <result name="success" type="freemarker">/photo/viewphotolist.ftl</result>
+            <result name="forbid" type="freemarker">/photo/forbidviewphotoshow.ftl</result>
+        </action>
+        
+        <action name="viewshowphoto" class="com.changpeng.sns.photo.action.ViewShowPhotoAction">
+            <result name="success" type="freemarker">/photo/viewshowPhoto.ftl</result>
+            <result name="del" type="freemarker">/photo/delviewphotoshow.ftl</result>
+            <result name="forbid" type="freemarker">/photo/forbidviewphotoshow.ftl</result>
+        </action>
+        
+        <action name="uploadphoto" class="com.changpeng.sns.photo.action.UploadPhotoAction">
+      <!--      <interceptor-ref name="fileUpload">
+				<param name="maximumSize">5024000</param>
+			</interceptor-ref>
+			<interceptor-ref name="visitStack" />
+			
+			<param name="savePath">/upload</param>
+			
+			<result name="success"  type="freemarker">/upload/uploadsuccess.ftl</result> --> 
+      		<result name="input"  type="freemarker">/photo/uploadphoto.ftl</result>
+      		<result name="result" type="freemarker">/common/result.ftl</result>
+        </action>
+        
+        <action name="setfront" class="com.changpeng.sns.photo.action.SetFrontAction">
+            <result name="success" type="freemarker">/photo/setfront_ajax.ftl</result>
+        </action>
+        
+        
+        <action name="updatephoto" class="com.changpeng.sns.photo.action.Updatephoto">
+            <result name="input" type="freemarker">/photo/albumedit.ftl</result>
+            
+        </action>
+        
+        <action name="addcomment" class="com.changpeng.sns.photo.action.AddCommentAction">
+            <result name="success" type="freemarker">/photo/photocomment.ftl</result>
+        </action>
+        
+        <action name="getcomment" class="com.changpeng.sns.photo.action.GetCommentAction">
+            <result name="success" type="freemarker">/photo/photocomment.ftl</result>
+        </action>
+        
+        <action name="delcomment" class="com.changpeng.sns.photo.action.DelCommentAction">
+            <result name="success" type="freemarker">/photo/photocomment.ftl</result>
+        </action>
+        
+    </package>
+</struts>

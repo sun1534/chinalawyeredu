@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="news" extends="commondefault" namespace="/news">   
+	   
+        <action name="viewnews" class="com.changpeng.core.news.action.ViewNewsAction">
+            <result name="success" type="freemarker">/news/viewnews.ftl</result>
+        </action>
+        
+        <action name="newslist" class="com.changpeng.core.news.action.NewsListAction">
+            <result name="success" type="freemarker">/news/newslist.ftl</result>
+        </action>
+    </package>
+</struts>

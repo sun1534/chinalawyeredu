@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="userwall" extends="commondefault" namespace="/message">
+		<action name="leavemessagelist" class="com.changpeng.sns.userwall.action.LeaveMessageListAction">
+			
+			<result name="success" type="freemarker">/message/leavemessagelist.ftl</result>
+			<result name="SUCCESS1" type="freemarker">/message/leavemessagecommlist.ftl</result>
+		</action>
+		<action name="indexaddmessage" class="com.changpeng.sns.userwall.action.IndexAddMessageAction">
+			
+			<result name="success" type="freemarker">/common/message.ftl</result>
+		</action>
+		<action name="delleavemessage" class="com.changpeng.sns.userwall.action.LeaveMessageDeleteAction">
+			
+			<result name="success" type="redirect">/message/leavemessagelist.action?viewUserid=${viewUserid}</result>
+			<result name="home" type="redirect">/home/home.action?viewUserid=${viewUserid}</result>
+		</action>
+		<action name="leavemessage" class="com.changpeng.sns.userwall.action.LeaveMessageAddAction">
+			
+			<result name="input" type="freemarker">/message/leavemessagelist.ftl</result>
+			<result name="success" type="redirect">/message/leavemessagelist.action?viewUserid=${viewUserid}</result>
+		</action>
+          
+		<action name="homeleveamessage" class="com.changpeng.sns.userwall.action.IndexLeaveMessageAction">
+			
+			<result name="success" type="freemarker">/message/leavemessagehome.ftl</result>
+		</action>
+	</package>
+</struts>

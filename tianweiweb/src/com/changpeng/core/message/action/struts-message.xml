@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="message" extends="commondefault" namespace="/message">
+	<action name="messagecenter" class="com.changpeng.core.message.action.MsgCenterAction">
+
+            <result name="success" type="freemarker">/message/messagecenter.ftl</result>
+		</action>
+		<action name="sendMessage" class="com.changpeng.core.message.action.MsgSendAction">
+			
+			<result name="input" type="freemarker">/message/sendmessage.ftl</result>
+            <result name="success" type="redirect">/message/shortmessagelist.action?type=2</result>
+         </action>
+                  
+         <action name="shortmessagelist" class="com.changpeng.core.message.action.MsgListAction">
+         	
+            <result name="success" type="freemarker">/message/msglist.ftl</result>
+         </action> 
+         
+         <action name="shortmessagelist" class="com.changpeng.core.message.action.MsgListAction">
+         	
+            <result name="success" type="freemarker">/message/msglist.ftl</result>
+         </action> 
+         
+         <action name="backMessageaction" class="com.changpeng.core.message.action.MsgReplyAction">
+         	
+            <result name="success" type="redirect">/message/shortmessagelist.action?sendtype=2</result>
+            <result name="input" type="freemarker">/message/backmessage.ftl</result>
+         </action> 
+         
+       
+         <action name="deleteshortmessage" class="com.changpeng.core.message.action.MsgDeleteAction">
+         	
+            <result name="success" type="redirect">/message/shortmessagelist.action?type=${sendtype}</result>
+         </action>
+         
+		 <!--  显示系统消息       -->
+         <action name="systemmessagelist" class="com.changpeng.core.message.action.MsgSysListAction">
+         	
+            <result name="success" type="freemarker">/message/systemmessage.ftl</result>
+         </action>
+         
+         <!--  删除系统消息       -->
+         <action name="deletesystemmessage" class="com.changpeng.core.message.action.MsgSysDeleteAction">
+            <result name="success" type="redirect">/message/systemmessagelist.action</result>
+         </action>
+
+
+		<action name="sendsmsMessageinput" class="com.changpeng.core.message.action.SendSmsMessageinputAction">
+            <result name="success" type="freemarker">/message/sendsmsmessage.ftl</result>
+         </action>
+	</package>
+</struts>

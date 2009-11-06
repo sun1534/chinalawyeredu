@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.changpeng.core.model.SysParameter"
+    table="sys_parameter" dynamic-update="true"
+>
+
+    <id
+        name="paramname"
+        type="string"
+        column="PARAMNAME"
+    >
+       <generator class="assigned" />
+    </id>
+
+    <property
+        name="paramvalue"
+        type="java.lang.String"
+        column="PARAMVALUE"
+        length="60000"
+    />
+
+</class>
+</hibernate-mapping>

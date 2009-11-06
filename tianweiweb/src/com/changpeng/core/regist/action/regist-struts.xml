@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	<package name="regist" extends="commondefault" namespace="/regist">
+		
+		 <action name="regist" class="com.changpeng.core.regist.action.RegistAction">
+            <result name="success" type="freemarker">/regist/message.ftl</result>
+			<result name="error" type="freemarker">/regist/message.ftl</result>    
+			<result name="input" type="freemarker">/regist/regist.ftl</result>    
+         </action>
+	
+		
+		<action name="findpwd" class="com.changpeng.core.regist.action.FindpwdAction">
+            <result name="success" type="freemarker">/regist/message.ftl</result>
+            <result name="input" type="freemarker">/regist/getquestion.ftl</result>      
+        </action>
+        <action name="checkdata" class="com.changpeng.core.regist.action.CheckdataAction">
+        </action>
+    </package>
+</struts>

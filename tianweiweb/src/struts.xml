@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- Some or all of these can be flipped to true for debugging -->
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.multipart.maxSize" value="209715200" />  
+	<package name="commondefault" extends="struts-default">
+		<interceptors>
+			<!-- 操作拦截器 -->
+			<interceptor name="operateInteceptor" class="com.changpeng.common.interceptor.OperateInteceptor" />
+			<interceptor-stack name="visitStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="operateInteceptor" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="visitStack"/>  
+		<global-results>
+			<result name="login" type="redirect">/index.html</result>
+			<result name="message" type="freemarker">/common/message.ftl</result>
+			<result name="plainmsg" type="freemarker">/common/plainmsg.ftl</result>
+			<result name="error" type="freemarker">/common/message.ftl</result>
+		 	<result name="exceptionPage" type="redirect">/error/error.html</result> 
+		 	<result name="input" type="redirect">/error/error.html</result>
+		 	<result name="result" type="freemarker">/common/result.ftl</result>
+		</global-results>
+		
+		<global-exception-mappings>
+             <exception-mapping name="exceptionPage" exception="java.lang.Exception" result="exceptionPage"/>
+        </global-exception-mappings>
+       
+	</package>
+ 	
+ 	<!-- ajax取json数据 -->
+ 	<package name="json" extends="json-default" namespace="/json">
+        <action name="getmember" class="com.changpeng.common.action.GetMemberAction">
+        	<interceptor-ref name="defaultStack"/>
+            <result type="json" />
+        </action>
+        <action name="getClsPrt" class="com.changpeng.common.action.GetMemberAction">
+			<interceptor-ref name="defaultStack" />
+			<param name="type">2</param>
+			<result type="json" />
+		</action>
+    </package>
+
+    <package name="common" extends="commondefault" namespace="/common">
+         <action name="login" class="com.changpeng.common.action.LoginAction">
+            
+         	<result name="success" type="redirect">../home/home.action</result>
+         	<result name="relogin" type="dispatcher">../common/login.jsp</result>
+         </action>
+		  <action name="loginOut" class="com.changpeng.common.action.LoginOutAction">
+            <result name="success" type="redirect">../index.html</result>
+         </action>
+    </package>
+
+	<include file="com/changpeng/core/message/action/struts-message.xml" />
+	
+	<include file="com/changpeng/core/home/struts-core-home.xml" />
+	
+	<include file="com/changpeng/core/user/action/struts-core-user.xml" />
+	
+	<include file="com/changpeng/sns/userwall/action/struts-userwall.xml" />
+	
+	<include file="com/changpeng/core/regist/action/regist-struts.xml" />
+	
+	<include file="com/changpeng/core/friend/action/struts-friend.xml" />
+	
+	<include file="com/changpeng/core/progress/action/struts-core-progress.xml" />
+	
+	<include file="com/changpeng/sns/diary/action/struts-diary.xml" />
+	
+	<include file="com/changpeng/sns/photo/action/struts-sns-photo.xml" />
+
+	<include file="com/changpeng/global/action/about-struts.xml"/>
+	
+	<include file="com/changpeng/sns/filemanage/action/struts-sns-filemanage.xml" />
+	
+	<include file="com/changpeng/core/userpage/struts-core-userpage.xml" />
+	
+	<include file="com/changpeng/core/news/action/struts-core-news.xml" />
+	
+</struts>

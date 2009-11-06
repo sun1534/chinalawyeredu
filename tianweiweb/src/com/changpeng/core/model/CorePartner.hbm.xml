@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.changpeng.core.model.CorePartner"
+    table="core_partner" dynamic-update="true"
+>
+
+    <id
+        name="id"
+        type="int"
+        column="id"
+    >
+       <generator class="identity" />
+    </id>
+
+    <property name="name" type="java.lang.String" column="name" length="50"/>
+    <property name="logo" type="java.lang.String" column="logo" length="100"/>
+    <property name="url" type="java.lang.String" column="url" length="100"/>
+    <property name="description" type="java.lang.String" column="description" length="1000"/>
+   
+    
+    <property name="status" type="int" column="status" precision="10"/>
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TsysUser -->
+
+
+</class>
+</hibernate-mapping>
