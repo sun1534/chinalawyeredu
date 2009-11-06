@@ -1,0 +1,51 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*基本资料*/
+.title-parentsinfo{ margin-bottom:10px; }
+.parentsminbox{ margin-top:10px;}
+.parentsinfo-box .title-h h3 span{ color:#666;}
+.parentsinfo-box .title-h h3 i{ color:#F00;}
+.chlidBaseinfo {margin:10px 0;border:1px solid #85CCF8;padding:5px 10px;color:#999999;}
+.chlidBaseinfo  ul {padding-top:5px;}
+.chlidBaseinfo ul li {line-height:24px;}
+.chlidBaseinfo ul li a {color:#0094A6;margin:0 2px;}
+.chlidBaseinfo  b{color:#FF8400;;margin:0 2px;}
+.chlidBaseinfo h4{border-bottom:1px solid #85CCF8;line-height:24px;}
+
+/*联系方式*/
+.parents-contact{}
+.parents-contact{ margin-bottom:10px;}
+
+/*更新头像*/
+.updateimg{}
+.updateimg{ margin-bottom:10px;}
+.form-left{ width:200px; float:left;}
+.headimg{ font-size:14px; font-weight:bold; border-bottom:1px solid #D8DFEA; padding:5px 0;}
+.headimg b {color:#FF8400;;margin:0 2px;}
+.img-tip{ color:#808080; padding:5px 0 10px;}
+.img-tip a{color:#0094A6;margin:0 4px;}
+.form-right{ float:right; width:470px; padding-left:10px;}
+.form-right p{ padding:5px 0 10px;}
+.fm{ padding:14px 0 20px;}
+.spe-warning{ background:#F1F1F1; text-indent:24px;color:#FF0000;font-weight:bold;}
+.updateimg-in{}
+
+/*密码修改*/
+.psw-info{}
+.psw-mod{ margin-bottom:10px;}
+.psw-left,.psw-right{ float:left; width:340px;}
+.psw-right{ margin-left:10px;}
+
+/*隐私设置*/
+.pp-info{}
+.headimg span{ font-size:12px; color:#666; font-weight:normal; padding-left:5px;}
+.privacyin{ margin-bottom:20px;}
+#baseadmininfo.form .privacyin .odd .fname{ width:120px;}
+#baseadmininfo.form .privacyin .even .fname{ width:120px;}
+#baseadmininfo.form .privacyin span.fvalue{ padding-left:130px;}
+#baseadmininfo.form div span.pp-add{ padding-left:130px;}
+.sq-tips{margin-left:10px;color:#808080;}
+
+.cc-info {}
+.ch-info {}

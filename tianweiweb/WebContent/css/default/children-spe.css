@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+
+/****特长培养****/
+.children-spe{}
+.children-spe .title-h a{color:#fff;}
+.children-spe .Tips{margin:10px 0;}
+.spe-management a{color:#0094A6;}
+
+.specialty{margin:10px 0;border:1px solid #87CEFA;padding:10px;}
+.specialty .form fieldset {border:0;}
+.addsy input{border:1px solid #7F9DB9;}
+input{border-style:solid;border-width:1px;border-color:#264F6E #DDDDDD #DDDDDD #264F6E ;}
+
+.search{padding:8px 0 8px 15px;}
+.otherchild .train h3 {background:#F0F7E6;}
+.otherchild .listpage {padding:5px 0;text-align:right;}
+
+.spe-othermain .title-info{border:0;}
+.spe-othermain .speother-in{border:1px solid #87CEFA;padding:10px;}
+.spe-othermain .form fieldset{border:0;}
+.children-spe .listpage{padding:5px;text-align:right;}
+
+.contentmain-body {margin-bottom:10px;}
+.contentmain-body .train {border-bottom:1px dashed #CCC;margin:10px auto;overflow:hidden;padding:0 0 10px;width:650px;}
+.contentmain-body h3 {line-height:22px;}
+.contentmain-body .train h3 {color:#000000;font-size:14px;
+font-weight:bold;height:24px;margin-bottom:10px;padding-left:20px;}
+.contentmain-body .train h3 span {float:right;font-size:12px;font-weight:normal;margin:-20px 20px 0 0;}
+.contentmain-body .train dl {overflow:hidden;width:650px;}
+.contentmain-body .train dt {float:left;margin-right:10px;}
+.contentmain-body .train dt p img {border:1px solid #CCC;padding:4px;}
+.contentmain-body .train dd p {line-height:22px;}
+.contentmain-body .train dd {float:left;width:500px;}
+.contentmain-body a{color:#0094A6;text-decoration:none;}
+.contentmain-body .train dd p strong {font-weight:bold;}
+.contentmain-body dl.itembox {margin:5px 0;overflow:hidden;width:700px;}
+.contentmain-body .itembox dt {float:left;height:110px;margin-right:10px;text-align:center;width:130px;}
+.contentmain-body .itembox dt img {border:1px solid #CCC;height:80px;padding:4px;width:80px;}
+.contentmain-body .itembox dd {float:left;width:550px;}
+.contentmain-body .itembox dd p.tit {border-bottom:1px solid #CCCCCC;padding:4px;}
+.contentmain-body .itembox dd p {line-height:18px;margin-bottom:5px;}
+.contentmain-body .itembox dd p strong {color:#0094A6;font-weight:bold;}
+.contentmain-body .itembox dd .txt {float:left;}
+
+.msgcom {overflow:hidden;width:100%;}
+.msgcom dl {overflow:hidden;width:100%;}
+.msgcom dt {float:left;height:90px;margin-right:10px;text-align:center;width:18%;}
+.msgcom dt img {border:1px solid #CCC;height:80px;padding:2px;width:80px;}
+.msgcom dd {float:right;line-height:22px;width:79%;}
+.msgcom dd span.name {width:70%;}
+.msgcom dd span {float:left;}
+.msgcom dd span.time {font-size:11px;}
+.msgcom dd a {text-decoration:none;}
+
+.new-spe{padding:10px;}
+.middle{display:block; border-style: solid; border-color: rgb(170, 170, 170); border-top: 3px solid rgb(170, 170, 170); border-left: 3px solid rgb(170, 170, 170);
+border-bottom: 3px solid rgb(170, 170, 170); margin: 0pt; padding: 0pt; z-index: 1001; width: 35%; top: 200px; left: 400px; color: rgb(0, 0, 0);
+cursor: default; background-color: rgb(255, 255, 255); text-align: center; position: fixed;_position:absolute;_top:500px;_left:550px;}
+body{height:100%;_position:relative;}
+

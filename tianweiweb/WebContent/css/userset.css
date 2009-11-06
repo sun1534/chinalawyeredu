@@ -1,0 +1,160 @@
+@charset "utf-8";
+/**
+Style for jiaxq.
+update:2008-12-06
+author:heye (AT) ekuaike.com
+ **/
+
+@import url("common/global.css");
+@import url("common/fucnav.css");
+
+
+/* 隐私设置*/
+.secret{ width:auto; overflow:hidden; margin:10px auto; }
+.secretop{ width:546px; height:28px; overflow:hidden; border:1px solid #bbb; padding:1px;}
+.secretop h3{ width:470px; height:28px; overflow:hidden; background:#fff4c9 url(../images/userset/dot.gif) 10px no-repeat; font-size:14px; color:#000; padding-left:36px; line-height:28px; float:left;}
+.secretop span{ width:40px; height:28px; overflow:hidden; background:#fff4c9; line-height:28px; float:left;}
+.secretop span a{ color:#cc6100; font-weight:bold;}
+.secretboxa{ width:500px; overflow:hidden; margin:0 auto;}
+.secretboxa h3{ width:500px; height:30px; overflow:hidden; line-height:30px; font-size:12px; font-weight:normal; color:#cc6100; margin-top:20px;}
+.secretboxa p{ width:500px; height:30px; overflow:hidden; line-height:30px;}
+.secretboxa p span{ width:200px; height:30px; overflow:hidden; text-align:right; margin-right:10px; display:table-cell; float:left;}
+.secretboxa p select{ margin-top:8px;}
+.secretboxa button{ width:93px; height:23px; overflow:hidden; background:url(../images/icon/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer; margin:10px 0 0 150px;}
+.secretboxb{ width:500px; overflow:hidden; margin:0 auto;}
+.secretboxb h3{ width:500px; height:30px; overflow:hidden; line-height:30px; font-size:12px; font-weight:normal; color:#cc6100; margin-top:20px;}
+.secretboxb p{ width:410px; height:30px; overflow:hidden; line-height:30px; padding-left:160px;}
+.secretboxb p span{ width:30px; height:30px; overflow:hidden; text-align:right; margin-right:10px; display:table-cell; float:left; text-align:center;}
+.secretboxb p input{ margin-top:10px;_margin-top:4px;}
+.secretboxb button{ width:93px; height:23px; overflow:hidden; background:url(../images/icon/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer; margin:10px 0 0 160px;}
+
+.mainrboxa{ width:500px; margin:20px auto;}
+.mainrboxa p{ width:500px; height:50px; overflow:hidden; line-height:30px;}
+.mainrboxa p span{ width:90px; height:50px; display:table-cell; float:left; text-align:right; margin-right:10px;}
+.mainrboxa p .inputxt{ width:300px; height:14px; overflow:hidden; background:#fff; border:1px solid #ccc; padding:2px; font-family:Verdana, Arial, Helvetica, sans-serif; margin-top:8px;_margin-top:4px;}
+.mainrboxa p select{ margin-top:8px;}
+.mainrboxa button{width:93px; height:23px; overflow:hidden; background:url(../images/userset/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer; margin:10px 0 0 100px;}
+
+/* 个性签名*/
+.mainrboxb{ width:500px; margin:20px auto;}
+.mainrboxb p{ width:500px; height:150px; overflow:hidden; line-height:30px;}
+.mainrboxb p span{ width:90px; height:50px; display:table-cell; float:left; text-align:right; margin-right:10px;}
+.mainrboxb p .textbox{ width:300px; height:120px; overflow:hidden; background:#fff; border:1px solid #ccc; padding:2px; font-family:Verdana, Arial, Helvetica, sans-serif; }
+.mainrboxb button{width:93px; height:23px; overflow:hidden; background:url(../images/userset/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer; margin:10px 0 0 100px;}
+
+/* 上传头像*/
+.mainrboxc{margin:5px auto;text-align:left;}
+.old{ width:200px; height:200px; overflow:hidden; float:left; margin-right:20px; }
+.old h3{ width:200px; height:30px; line-height:30px; font-size:14px; color:#000; border-bottom:1px solid #ccc;}
+.old p{ width:200px; height:100px; text-align:center; margin-top:10px;}
+.old p img{ width:80px; height:80px; overflow:hidden; vertical-align:middle;}
+.new{ width:330px; height:200px; overflow:hidden; float:left;}
+.new h3{ width:330px; height:30px; line-height:30px; font-size:14px; color:#000; border-bottom:1px solid #ccc; margin-bottom:10px;}
+.new h4{ width:330px; height:30px; line-height:30px; font-size:12px; color:#000; font-weight:normal; margin-bottom:5px;}
+.new strong{ width:330px; height:30px; line-height:30px; font-weight:bold;}
+.new p .inputxt{ width:120px; height:14px; overflow:hidden; background:#fff; border:1px solid #ccc; padding:2px; font-family:Verdana, Arial, Helvetica, sans-serif; margin-top:8px;_margin-top:4px; }
+.new button{width:93px; height:23px; overflow:hidden; background:url(../images/userset/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer; margin-top:10px}
+.img_h3{font-size:13px;font-weight:bold;display:block; border-bottom:1px solid #ccc;}
+
+.mainrboxc em{color:#f60; line-height:20px;}
+.photo_cl{width:230px;height:auto;float:left;}
+.photo_cl p{ text-align:center;}
+.photo_cl a{ color:#F00; font-weight:bold;}
+.photo_c2{width:400px;height:auto;margin-right:20px;float:right;}
+.photo_c2 span{line-height: normal;}
+.photo_c2 span.text{width:300px;height:auto;color:#F00; line-height:20px;}
+
+.main_photolist{list-style:none;margin:0 auto;}
+.main_photolist li{width:110px;float:left;text-align:center;margin:5px 7px 10px 0;}
+.main_photolist li img{padding:3px; border:1px solid #ccc;}
+.main_photolist li span{text-align:center;}
+/* 密码修改 */
+.mmgl_c1{width:330px;height:auto;float:left;}
+.mmgl_c2{width:330px;height:auto;float:right;}
+
+.mmgl_h3{font-size:13px;font-weight:bold;display:block; border-bottom:1px solid #ccc;margin-bottom:10px;}
+
+/* 隐私设置 */
+.yx_h3{font-size:13px;font-weight:bold;display:block; border-bottom:1px solid #ccc;margin:20px 0px 10px 0px;}
+.yx_h3 span{ font-style:normal; font-size:12px;font-weight: normal;margin-left:20px;color:#999;}
+
+
+/* 通用页头 */
+.mainrtop_u{height:31px;*height:29px;background:url(../images/icon/btn_bg02.gif) repeat-x bottom;margin:20px 0 5px 0;}
+.mainrtop_u ul{width:680px; height:26px;overflow:;*overflow:hidden; padding:3px 0px 0px 5px}
+.mainrtop_u ul li{ background:#cecfce; overflow:hidden; line-height:22px; float:left; text-align:center; margin-right:10px; font-size:14px; font-weight:bold;}
+.mainrtop_u ul li a{ display:block; color:#666; padding:2px 7px; border-left:1px solid #cecfce; border-top:1px solid #cecfce; border-right:1px solid #cecfce; }
+.mainrtop_u ul li a:hover{ text-decoration:none; color:#f60;background:#fff; border-left:1px solid #cecfce; border-top:1px solid #cecfce; border-right:1px solid #cecfce;  }
+.mainrtop_u ul li.nonce{ border-left:1px solid #cecfce; border-top:1px solid #cecfce; border-right:1px solid #cecfce; border-bottom:1px solid #fff; background:#fff;}
+.mainrtop_u ul li.nonce a{ border:0;background:#fff; }
+.mainrtop_u ul li.nonce a:hover{ border:0;}
+
+
+
+.userinterest_child {font-weight:bold;font-size:14px;line-height:26px;padding-left:20px;}
+.doubelChild {border:1px solid #CECFCE;padding:10px;}
+.doubelChild li{padding:10px;}
+.doubelChild li a{}
+.doubelChild li span{font-weight:bold;font-size:14px;color:#FF6600;margin:0 5px;}
+
+
+button 按钮
+---------------------------*/
+input.normal {color:#666666;border-top: 1px solid #7c7c7c;border-left: 1px solid #7c7c7c;border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;;padding:5px 2px;font-size: 12px;font-family: 'lucida grande',tahoma}
+input.button {padding:4px 14px;font-size:14px}
+input.blue {border:4px solid #CCCCCC;background:#3399CC;color:#FFFFFF}
+input.orange {border:4px solid #CCCCCC;background:#FF4500;color:#FFFFFF}
+
+
+.i-button {cursor:pointer;border:none;background:url(../images/tmp/button_orange.gif) no-repeat;font-size:14px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0;}
+.n-button {cursor:pointer;border:none;background:url(../images/tmp/button_grey.gif) no-repeat;font-size:14px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0;}
+.s-button {cursor:pointer;border:none;background:url(../images/tmp/button_special.gif) no-repeat;font-size:12px;height:26px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#900;}
+.b-button {cursor:pointer;border:none;background:url(../images/tmp/button_back.gif) no-repeat;font-size:12px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#000;}
+.d-button {cursor:pointer;border:none;background:url(../images/tmp/button_delete.gif) no-repeat;font-size:12px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#000;}
+
+input.w2 {background-position:left top;width:81px}
+input.w3 {background-position:left -35px;width:95px}
+input.w4 {background-position:left -70px;width:111px}
+input.w5 {background-position:left -105px;width:127px}
+input.w6 {background-position:left -140px;width:143px}
+input.w7 {background-position:left -175px;width:159px}
+input.w8 {background-position:left -210px;width:175px}
+input.w13{background-position:left -245px;width:250px}
+
+button.w2 {background-position:left top;width:81px}
+button.w3 {background-position:left -35px;width:95px}
+button.w4 {background-position:left -70px;width:111px}
+button.w5 {background-position:left -105px;width:127px}
+button.w6 {background-position:left -140px;width:143px}
+button.w7 {background-position:left -175px;width:159px}
+
+
+.i-button {cursor:pointer;border:none;background:url(../images/tmp/button_orange.gif) no-repeat;font-size:14px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0;}
+.n-button {cursor:pointer;border:none;background:url(../images/tmp/button_grey.gif) no-repeat;font-size:14px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0;}
+.s-button {cursor:pointer;border:none;background:url(../images/tmp/button_special.gif) no-repeat;font-size:12px;height:26px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#900;}
+.b-button {cursor:pointer;border:none;background:url(../images/tmp/button_back.gif) no-repeat;font-size:12px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#000;}
+.d-button {cursor:pointer;border:none;background:url(../images/tmp/button_delete.gif) no-repeat;font-size:12px;height:32px;font-weight:bolder;margin-right:10px;text-indent:16px;padding:0; color:#000;}
+
+
+input.w2 {background-position:left top;width:81px}
+input.w3 {background-position:left -35px;width:95px}
+input.w4 {background-position:left -70px;width:111px}
+input.w5 {background-position:left -105px;width:127px}
+input.w6 {background-position:left -140px;width:143px}
+input.w7 {background-position:left -175px;width:159px}
+input.w8 {background-position:left -210px;width:175px}
+input.w13{background-position:left -245px;width:250px}
+
+button.w2 {background-position:left top;width:81px}
+button.w3 {background-position:left -35px;width:95px}
+button.w4 {background-position:left -70px;width:111px}
+button.w5 {background-position:left -105px;width:127px}
+button.w6 {background-position:left -140px;width:143px}
+button.w7 {background-position:left -175px;width:159px}
+button.w8 {background-position:left -210px;width:175px}
+button.w13{background-position:left -245px;width:250px}
+
+
+
+
+

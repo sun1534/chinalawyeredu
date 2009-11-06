@@ -1,0 +1,107 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+
+.tab-normal {}
+.tab-normal-tag { height:26px;position:relative;background:#E9E9E9 url(shim.gif) 0px 25px repeat-x;}
+.tab-normal-tag .toogle {position:absolute; right:10px;top:7px;cursor:pointer;}
+.tab-normal-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-normal-tag ul li {float:left}
+.tab-normal-tag ul li a {background:#CCCCCC;padding:3px 12px;display:block;margin:0 0 0 5px;border-top:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC}
+.tab-normal-tag ul li a:hover {padding:3px 12px;margin:0 0 0 5px;display:block;background:#CCCCCC;color:#FFFFFF}
+.tab-normal-tag ul li.current a {background:#FFFFFF;display:block;border-top:1px solid #CCCCCC;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;color:#333333}
+.tab-normal-tag ul li.current a:hover {background:#FFFFFF;color:#000000}
+.tab-normal-con {border-width:0 1px 1px 1px;border-style:solid;border-color:#CCCCCC;padding:10px;}
+
+.tab-blue {}
+.tab-blue-tag {height:26px;position:relative;background:#66CCFF url(shim_blue.gif) 0px 25px repeat-x; }
+.tab-blue-tag a,.tab-blue-tag a:hover {text-decoration:none}
+.tab-blue-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-blue-tag .toogle {position:absolute; right:10px;top:7px;cursor:pointer;}
+.tab-blue-tag ul li {float:left}
+.tab-blue-tag ul li a {border:none;background:url(../images/tab_background.gif) left -37px no-repeat;display:block;padding:0;margin:0 0 0 5px;color:#E9E9E9}
+.tab-blue-tag ul li a span {background:url(../images/tab_background.gif) right -111px no-repeat;display:block;padding:3px 12px;margin:0}
+.tab-blue-tag ul li a:hover {border:none;background:url(../images/tab_background.gif) left -37px no-repeat;margin:0 0 0 5px;padding:0;display:block;color:#FFFFFF}
+.tab-blue-tag ul li a:hover span {background:url(../images/tab_background.gif) right -111px no-repeat;margin:0;padding:3px 12px;display:block;color:#FFFFFF}
+.tab-blue-tag ul li.current a {background:url(../images/tab_background.gif) left top no-repeat;display:block;color:#333333;margin:0 0 0 5px;}
+.tab-blue-tag ul li.current a span{background:url(../images/tab_background.gif) right -74px no-repeat;color:#333333;}
+.tab-blue-tag ul li.current a:hover {background:url(../images/tab_background.gif) left top no-repeat;color:#333333;}
+.tab-blue-tag ul li.current a:hover span {background:url(../images/tab_background.gif) right -74px no-repeat;color:#333333}
+.tab-blue-con { border-width:0 1px 1px 1px;border-style:solid;border-color:#0A9DCE;padding:10px;}
+
+
+.tab-orange {}
+.tab-orange-tag {height:26px;position:relative;background:#FF9900 url(shim_orange.gif) 0px 25px repeat-x;  }
+.tab-orange-tag a,.tab-orange-tag a:hover {text-decoration:none}
+.tab-orange-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-orange-tag .toogle {position:absolute; right:10px;top:7px;cursor:pointer;}
+.tab-orange-tag ul li {float:left}
+.tab-orange-tag ul li a {border:none;background:url(../images/tab_background-orange.gif) left -37px no-repeat;display:block;padding:0;margin:0 0 0 5px;color:#E9E9E9}
+.tab-orange-tag ul li a span {background:url(../images/tab_background-orange.gif) right -111px no-repeat;display:block;padding:3px 12px;margin:0}
+.tab-orange-tag ul li a:hover {border:none;background:url(../images/tab_background-orange.gif) left -37px no-repeat;margin:0 0 0 5px;padding:0;display:block;color:#FFFFFF}
+.tab-orange-tag ul li a:hover span {background:url(../images/tab_background-orange.gif) right -111px no-repeat;margin:0;padding:3px 12px;display:block;color:#FFFFFF}
+.tab-orange-tag ul li.current a {background:url(../images/tab_background-orange.gif) left top no-repeat;display:block;color:#333333}
+.tab-orange-tag ul li.current a span{background:url(../images/tab_background-orange.gif) right -74px no-repeat;color:#333333}
+.tab-orange-tag ul li.current a:hover {background:url(../images/tab_background-orange.gif) left top no-repeat;color:#333333;display:block}
+.tab-orange-tag ul li.current a:hover span {background:url(../images/tab_background-orange.gif) right -74px no-repeat;color:#333333;display:block}
+.tab-orange-con { border-width:0 1px 1px 1px;border-style:solid;border-color:#FF9900;padding:10px;}
+
+
+.tab-green-tag {}
+.tab-green-tag {height:26px;position:relative;background:#84BE42 url(shim_green.gif) 0px 25px repeat-x; }
+.tab-green-tag a,.tab-green-tag a:hover {text-decoration:none}
+.tab-green-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-green-tag .toogle {position:absolute; right:10px;top:7px;cursor:pointer;}
+.tab-green-tag ul li {float:left}
+.tab-green-tag ul li a {border:none;background:url(../images/tab_background-green.gif) left -37px no-repeat;display:block;padding:0;margin:0 0 0 5px;color:#E9E9E9}
+.tab-green-tag ul li a span {background:url(../images/tab_background-green.gif) right -111px no-repeat;display:block;padding:3px 12px;margin:0}
+.tab-green-tag ul li a:hover {border:none;background:url(../images/tab_background-green.gif) left -37px no-repeat;margin:0 0 0 5px;padding:0;display:block;color:#FFFFFF}
+.tab-green-tag ul li a:hover span {background:url(../images/tab_background-green.gif) right -111px no-repeat;margin:0;padding:3px 12px;display:block;color:#FFFFFF}
+.tab-green-tag ul li.current a {background:url(../images/tab_background-green.gif) left top no-repeat;color:#333333}
+.tab-green-tag ul li.current a span{background:url(../images/tab_background-green.gif) right -74px no-repeat;color:#333333}
+.tab-green-tag ul li.current a:hover {background:url(../images/tab_background-green.gif) left top no-repeat;color:#333333}
+.tab-green-tag ul li.current a:hover span {background:url(../images/tab_background-green.gif) right -74px no-repeat;color:#333333}
+.tab-green-con { border-width:0 1px 1px 1px;border-style:solid;border-color:#84BE42;padding:10px;}
+
+
+.tab-light-orange{}
+.tab-light-orange-tag {height:26px;position:relative;background:#FFF9DF url(shim_light_orange.gif) 0px 25px repeat-x; }
+.tab-light-orange-tag a,.tab-light-orange-tag a:hover {text-decoration:none}
+.tab-light-orange-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-light-orange-tag .toogle {position:absolute; right:10px;top:7px;cursor:pointer;}
+.tab-light-orange-tag ul li {float:left}
+.tab-light-orange-tag ul li a {border:none;background:url(../images/tab_background-lit-oran.gif) left -37px no-repeat;display:block;padding:0;margin:0 0 0 5px;color:#CC9933}
+.tab-light-orange-tag ul li a span {background:url(../images/tab_background-lit-oran.gif) right -111px no-repeat;display:block;padding:5px 9px;margin:0}
+.tab-light-orange-tag ul li a:hover {border:none;background:url(../images/tab_background-lit-oran.gif) left -37px no-repeat;margin:0 0 0 5px;padding:0;display:block;color:#996600}
+.tab-light-orange-tag ul li a:hover span {background:url(../images/tab_background-lit-oran.gif) right -111px no-repeat;margin:0;padding:5px 9px;display:block;color:#996600}
+.tab-light-orange-tag ul li.current a {background:url(../images/tab_background-lit-oran.gif) left top no-repeat;color:#333333}
+.tab-light-orange-tag ul li.current a span{background:url(../images/tab_background-lit-oran.gif) right -74px no-repeat;color:#333333}
+.tab-light-orange-tag ul li.current a:hover {background:url(../images/tab_background-lit-oran.gif) left top no-repeat;color:#333333}
+.tab-light-orange-tag ul li.current a:hover span {background:url(../images/tab_background-lit-oran.gif) right -74px no-repeat;color:#333333}
+.tab-light-orange-tag ul li.toggle {background:none;float:right;border:none;padding:4px 9px}
+.tab-light-orange-tag ul li.toggle a {background:none;border:none}
+.tab-light-orange-tag ul li.toggle a:hover {border:none;background:none}
+.tab-light-orange-con { border-width:0 1px 1px 1px;border-style:solid;border-color:#F7EBB5;padding:10px;}
+
+.tab-light-orange-add{}
+.tab-light-orange-add-tag {height:26px;position:relative;background:#FFF9DF url(shim_light_orange.gif) 0px 25px repeat-x; }
+.tab-light-orange-add-tag a,.tab-light-orange-add-tag a:hover {text-decoration:none}
+.tab-light-orange-add-tag ul {height:22px;width:100%; overflow:hidden;  position:absolute; left:0px;bottom:0px;}
+.tab-light-orange-add-tag .toogle {display:none; }
+.tab-light-orange-add-tag a.addLi {float:right;position:absolute; right:10px;top:7px;cursor:pointer}
+.tab-light-orange-add-tag ul li {float:left}
+.tab-light-orange-add-tag ul li a {border:none;background:url(../images/tab_background-lit-oran.gif) left -37px no-repeat;display:block;padding:0;margin:0 0 0 5px;color:#CC9933}
+.tab-light-orange-add-tag ul li a span {background:url(../images/tab_background-lit-oran.gif) right -111px no-repeat;display:block;padding:5px 9px;margin:0}
+.tab-light-orange-add-tag ul li a:hover {border:none;background:url(../images/tab_background-lit-oran.gif) left -37px no-repeat;margin:0 0 0 5px;padding:0;display:block;color:#996600}
+.tab-light-orange-add-tag ul li a:hover span {background:url(../images/tab_background-lit-oran.gif) right -111px no-repeat;margin:0;padding:5px 9px;display:block;color:#996600}
+.tab-light-orange-add-tag ul li.current a {background:url(../images/tab_background-lit-oran.gif) left top no-repeat;color:#333333}
+.tab-light-orange-add-tag ul li.current a span{background:url(../images/tab_background-lit-oran.gif) right -74px no-repeat;color:#333333}
+.tab-light-orange-add-tag ul li.current a:hover {background:url(../images/tab_background-lit-oran.gif) left top no-repeat;color:#333333}
+.tab-light-orange-add-tag ul li.current a:hover span {background:url(../images/tab_background-lit-oran.gif) right -74px no-repeat;color:#333333}
+.tab-light-orange-add-tag ul li.toggle {background:none;float:right;border:none;padding:4px 9px}
+.tab-light-orange-add-tag ul li.toggle a {background:none;border:none}
+.tab-light-orange-add-tag ul li.toggle a:hover {border:none;background:none}
+.tab-light-orange-add-con { border-width:0 1px 1px 1px;border-style:solid;border-color:#F7EBB5;padding:10px;}

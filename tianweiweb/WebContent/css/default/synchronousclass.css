@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.synchronous-class .title-h a{color:#fff;}
+.synchronous-class .Tips{margin:10px 0;}
+.sy-class .list{margin:10px 0;}
+.sy-class .list table{margin:0 auto;}
+.sy-main{padding:0 5px;}
+.sy-main .form fieldset{padding:10px;border:1px solid #85CCF8;margin:10px 0;}
+.sy-main .title-info{padding-left:0;border:0;}
+.sy-main a{text-decoration:none;color:#0094A6;}
+.sy-border{border:1px solid #85CCF8;padding:10px;}
+.sy-border .listpage{padding:5px 0;text-align:right;}
+.sy-class table{font-size:12px;}
+.sy-in{border:1px solid #85CCF8;width:99%;}
+.sy-in .contentbox p{padding:10px;}
+.noborder{border:0;}
+

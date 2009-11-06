@@ -1,0 +1,38 @@
+
+/*sidebar-menu 侧边*/
+#sidebar-t{}
+#sidebar-s{}
+#sidebar-p{}
+.in-sidebar {padding-bottom:20px;background:url(../images/home/bgsider.gif) no-repeat -210px bottom;}
+.sidebar-menu {}
+.in-sidebar-menu {width:180px;padding:15px 15px 5px 15px;background:url(../images/home/bgsider.gif) no-repeat left top}
+.in-sidebar-menu h3 {text-align:right;height:26px;line-height:26px;margin-bottom:15px;color:#FF8400;background:url(../images/home/icosider.gif) no-repeat 0px -197px;}
+.in-sidebar-menu h3 strong {float:left;color:#0A808A;font-weight:bold;padding-left:20px;}
+.in-sidebar-menu p {font-weight:bold;line-height:24px;text-indent:8px;}
+.in-sidebar-menu .sidebar-zone {}
+.in-sidebar-menu .sidebar-zone li {margin-top:2px;height:24px;line-height:24px;overflow:hidden;}
+.in-sidebar-menu .sidebar-zone li a {display:block;border:1px solid #fff;line-height:22px;color:#000;padding-left:30px;text-decoration:none;}
+.in-sidebar-menu .sidebar-zone li a:hover {display:block;border:1px solid #eee;line-height:22px;}
+.in-sidebar-menu .sidebar-zone li.current a {display:block;border:1px solid #eee;line-height:22px;}
+
+.s1 { background:url(../images/home/icosider.gif) no-repeat 6px 2px; }
+.s2 {background:url(../images/home/icosider.gif) no-repeat 6px -26px; }
+.s3 {background:url(../images/home/icosider.gif) no-repeat 6px -54px; }
+.s4 {background:url(../images/home/icosider.gif) no-repeat 6px -82px; }
+.s5 {background:url(../images/home/icosider.gif) no-repeat 6px -110px; }
+.s6 {background:url(../images/home/icosider.gif) no-repeat 6px -138px; }
+.s7 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s8 {background:url(../images/home/icosider.gif) no-repeat 6px -110px; }
+.s9 {background:url(../images/home/icosider.gif) no-repeat 6px -110px}
+.s10 {background:url(../images/home/icosider.gif) no-repeat 6px -82px; }
+.s11 {background:url(../images/home/icosider.gif) no-repeat 6px -82px; }
+.s12 {background:url(../images/home/icosider.gif) no-repeat 6px -82px; }
+.s13 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s14 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s15 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s16 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s17 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+.s18 {background:url(../images/home/icosider.gif) no-repeat 6px -166px; }
+
+.bookedresouce {margin-top:10px;padding:5px;width:200px;height:61px;background:url(../images/home/bgsider.gif) no-repeat -210px top;}
+.bookedresouce a {width:200px;height:61px;display:block;text-indent:-999em;}

@@ -1,0 +1,32 @@
+/*博客*/
+.blogbox {}
+		.creatblog {background:#FFFFFF url(images/pub/join.png) no-repeat scroll left top;color:#FFFFFF;display:block; font-size:12px; font-weight:bold; height:26px; line-height:26px; position:absolute;right:0px;top:0px; text-align:center; text-decoration:none; width:86px;}
+	.bloglist {padding:10px;}
+	.bloglist .list {border-bottom:1px solid #DDDDDD;margin-bottom:5px;padding-bottom:5px;}
+	.bloglist .list h4 {color:#000000; font-size:14px; font-weight:bold;text-decoration:none;}
+	.bloglist .list h4 a {color:#000000; font-size:14px; font-weight:bold;text-decoration:none;}
+	.bloglist .list h4 a:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo {padding:5px 0;}
+	.bloglist .list .writeinfo .author{margin-right:5px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .writeinfo .author:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .school{margin:0 5px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .writeinfo .school:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .msg{height:13px;color:#0094A6; text-decoration:none;margin:0 5px;}
+	.bloglist .list .writeinfo .msg:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .time {color:#999;}
+	.bloglist .list .writeinfo .time a {color:#0094A6;margin:0 3px;text-decoration:none;}
+	.bloglist .list .writeinfo .time a:hover {color:#000;margin:0 3px;text-decoration:none;}
+	.bloglist .list .intro {padding-bottom:5px;}
+	.bloglist .list .intro p{color:#333;}
+	.bloglist .list .blog-op {}
+	.bloglist .list .blog-op a {margin-right:10px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .blog-op a:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .blog-op a i {font-style:normal;color:#FF6600;}
+	.bloglist .blogpager {text-align:right;padding:10px 0;}
+.writeblog {}
+.writeblog h4{ 	background-color:#D8EAC9; color:#85CCF8; font-weight:bold; line-height:22px; padding-left:10px; }
+
+.blogbox .relationinfo{width:auto;}
+.blogdes {}
+.blogdes .replaylist {padding:0;}
+.bloglist .list .time i {font-style:normal;color:#FF6600;}

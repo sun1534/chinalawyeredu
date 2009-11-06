@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+/****家长课堂****/
+.jiazhangketang .title-h a{color:#fff;}
+.jzktbox .formop{margin-right:30px;margin-bottom:10px;}
+.jzktbox .content-body{border:1px solid #85CCF8;width:98%}
+.jiazhangketang .title-info{border:0;}
+.jzkt-content .content-body{margin:10px 0;padding:5px;}
+.jiazhangketang .list table{font-size:12px;}
+.jiazhangketang .relationinfodes .list table{margin:0 auto;width:97%;}

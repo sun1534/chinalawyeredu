@@ -1,0 +1,1 @@
+<#escape x as (x)!"">${(userinfo.newsysmescount)?default("0")},${(userinfo.newcommescount)?default("0")},${(userinfo.newmescount)?default("0")}</#escape>

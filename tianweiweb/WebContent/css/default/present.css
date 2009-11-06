@@ -1,0 +1,44 @@
+/*礼物*/
+.presentbox {}
+.presentbox .title-info {margin-bottom:10px;}
+.presentbox .sendmepresent {border:1px solid #E6E6E6;
+margin-bottom:10px;}
+.presentbox .birthday {border:1px solid #E6E6E6;
+margin-bottom:10px;}
+.presentbox div .info {padding:10px;}
+.presentbox div .info dl {overflow:hidden; padding-bottom:10px;}
+.presentbox div .info dl dt.img {float:left;width:65px;}
+.presentbox div .info dl dt.img a{border:1px solid #AAAEB1;display:block;height:61px;margin:0 auto;padding:1px;width:61px;}
+.presentbox div .info dl dt.img a:hover{border:1px solid #222;}
+.presentbox div .info dl dd.status {margin-left:75px;}
+.presentbox div .info dl dd.status em {font-weight:bold;}
+.presentbox div .info dl dd a{color:#0094A6;text-decoration:none;margin-right:4px;}
+.presentbox div .info dl dd a:hover{color:#0094A6;text-decoration:none;}
+.presentbox div .info dl dd.others {margin-left:75px;}
+.presentbox div .info dl dd.days {margin-left:75px;}
+
+.sendbox {border:1px solid #85CCF8;padding:10px;}
+.sendbox p{padding:5px 0;margin-bottom:10px;}
+.sendbox p strong{padding-left:10px;font-weight:bold;}
+.sendbox p.sendto{background-color:#D8EAC9 }
+.sendbox p.sendselect{background-color:#EDEDED }
+.sendbox p.sendto label {color:#85CCF8;font-weight:bold;}
+.tokenbox {}
+.presentmsg {margin-top:10px;}
+.presentmsg h3 {background:#D8EAC9 ;font-weight:bold; line-height:30px; padding-left:10px;}
+.presentlist .choosepresent {margin-top:10px;}
+.presentlist .list {padding:10px;}
+.presentlist .list ul {clear:both;}
+.presentlist .list ul li {float:left;width:16.4%;text-align:center;margin-bottom:10px;}
+.receivedbox {padding:10px;}
+.receivedbox .list {}
+.receivedbox .list dl {float:left;border:1px solid #ddd;margin-bottom:4px;width:110px;height:145px;overflow:hidden;padding:5px 2px 0 2px;margin-left:4px;text-align:center;}
+.receivedbox .list dl dt {}
+.receivedbox .list dl dd{}
+.receivedbox .list dl dd a{margin-right:5px;color:#0094A6;text-decoration:none;}
+.receivedbox .list dl dd a:hover{color:#000;text-decoration:none;}
+.receivedbox .list dl dd.name{}
+.receivedbox .list dl dd.op{}
+.receivedbox .list dl dd.time{color:#999;font-size:11px;}
+.receivedbox .list dl dd .delpresent{}
+.receivedbox .list dl dd .delpresent span{}

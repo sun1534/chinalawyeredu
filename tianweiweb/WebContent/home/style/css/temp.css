@@ -1,0 +1,47 @@
+body {padding:0; margin:0; font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif;}
+	.temp {width:475px;padding:10px;}
+	.temp a {text-decoration:none;}
+	.temp a:hover {text-decoration:underline;color:#000;}
+		.tinfo {}
+		.tfrfriend {}
+		.tblog {}
+		.talbums {}
+		.tgift {}
+		.tvote {}
+		.tbook {}
+		.tactive {}
+		.titem {padding-bottom:9px;padding-top:5px;border-bottom:1px solid #ECEFF5;}
+		.titem a {margin:0 2px;}
+		.titem a.tall {display:inline-block;color:#000000}
+		.ico{float:left;width:20px;padding-top:3px;;}
+		.ico em {width:16px;height:16px;display:inline-block;}
+		.t0{background:url(../images/home/homeico.gif) no-repeat 0px -167px;}
+		.t1{background:url(../images/home/homeico.gif) no-repeat 0px -138px;;}
+		.t2{background:url(../images/home/homeico.gif) no-repeat 0px -48px;;}
+		.t3{background:url(../images/home/homeico.gif) no-repeat 0px -107px;;}
+		.t4{background:url(../images/home/homeico.gif) no-repeat 0px -198px;;}
+		.t5{background:url(../images/home/homeico.gif) no-repeat 0px -78px;;}
+		.t6{background:url(../images/home/homeico.gif) no-repeat 0px -224px;;}
+		.t7{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.t8{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.t9{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.t10{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.t11{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.t12{background:url(../images/home/homeico.gif) no-repeat 0px -167px;;}
+		.tm{float:left;width:365px;}
+		.tm .tn {float:left;line-height:22px;}
+		.tm .tc {line-height:22px;clear:both;}
+		.tm .ta{color:#000000;}
+		.tm .tan{color:#000000;}
+		.tm .tan1{color:#000000;}
+		.tm .tan2{color:#000000;}
+		.tm .tn .st{font-style:normal;color:#999;padding:0 2px;}
+		.tm .p{border:1px solid #AAAEB1;display:inline-block;height:48px;margin-left:4px;padding:1px;width:48px;}
+		.tt{float:right;width:85px;padding-left:5px;padding-top:4px;color:#999999;font-family:Arial;font-size:10px;text-align:right;}
+		.c{clear:both;}
+		.clearfix{content:"";display:block;clear:both;zoom:1;}
+	    .talbumslist {}
+	    .talbumslist a{}
+		.talbumslist a img{border:1px solid #AAAEB1;padding:1px;}
+	    .talbumslist a:hover img{border:1px solid #222;}
+		.pbook {color:#808080 }

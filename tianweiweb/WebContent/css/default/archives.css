@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+/****孩子档案****/
+.archives .Tips{margin:10px 0;}
+
+.archives .title-h h3 a{color:#fff;}
+.contentmain-body .title-info{padding:5px 0 0;}
+.contentmain-body .title-info{margin-bottom:10px;}
+
+.archives-box {width:100%;overflow:hidden;}
+.contentmain-body .itembox dd p b{color:#000;}
+.contentmain-body a{color:#0094A6;text-decoration:none;}
+.itembox input{border-color:#7C7C7C #DDDDDD #DDDDDD #7C7C7C;
+border-style:solid;border-width:1px;color:#666666;font-size:12px;
+height:16px;line-height:16px;padding:1px 3px;}
+.contentmain-body td {font-size:12px;}
+
+.archives .Tips{margin:10px 0;}
+.popbox {text-align:center;}

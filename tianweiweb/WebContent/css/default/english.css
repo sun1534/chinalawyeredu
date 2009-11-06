@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+
+.english{width:560px;height:148px;
+	margin: 5px auto;padding:15px 10px 0 160px;color:#000;
+	overflow:hidden;clear:both;background: url(../images/englishcompete/ebn.jpg) no-repeat;}
+.english h3{font-size:12px;font-weight:bold;}
+.english p{line-height:170%;text-indent:25px;}
+.english p a{font-weight:bold;color: #F00;text-decoration:none;}
+.english p :hover{font-weight:bold;color: #F60;text-decoration:none;}
+.pm{width:200px; margin-top:10px;overflow:hidden;}
+
+.smtxt_top{width:690px; height:70px;padding:72px 20px 0 20px; text-indent:28px;line-height:22px;background: url(../images/englishcompete/smtxt_top.jpg) no-repeat; color:#000;}
+.smtxt_box{width:690px;height:auto;padding:10px 20px;background:#f4f7e9;color:#000;overflow: hidden;}
+.smtxt_box table tr td {line-height: 150%;letter-spacing: 0.1em;}
+.smtxt_box table tr td p {text-indent: 40px;}
+
+.smtxt_box table tr td h1 {font-weight:bold;font-size:16px;color:#f00;margin:0;padding:0;}
+.smtxt_box table tr td h2 {font-weight: bold;font-size: 14px;}
+.smtxt_box table tr td em {font-size: 12px;font-weight: bold;color:#03F;}
+.smtxt_box table tr td .wd_time {font-weight: bold;color:#F00;}
+.smtxt_box table tr td .wd_title {margin:15px 0;font-weight: bold;color:#026a0e;}
+.smtxt_box table tr td .wd_title2 {margin:5px;color:#740270;}
+.smtxt_box table tr td a {font-weight: bold;color: #F00;text-decoration: none;}
+.smtxt_box_bg{background:#f4f7e9 url(../images/englishcompete/smtxt_top.jpg) no-repeat;}
+
+
+
+
+.Econ-body{ width:495px; overflow:hidden;}
+	.Econ-body ul.photo{ width:495px; padding:10px 0; overflow:hidden; text-align:center;}
+	.Econ-body .photo li{ width:80px; height:80px; overflow:hidden; padding:4px; border:1px solid #ccc; float:left; margin:0 10px 0 20px;_margin:0 10px 0 15px;}
+	.Econ-body .photo li img{ border:0;}
+	.Econ-body ul.present{ width:495px; padding:10px 0; overflow:hidden;}
+	.Econ-body .present li{ width:100px; height:120px; overflow:hidden; float:left; margin:0 10px 0 10px; text-align:center;}
+	.Econ-body .present li img{ border:0;}
+	.Econ-body ul.news{ padding:10px; overflow:hidden;}
+	.Econ-body .news li{ border-bottom:1px dotted #ccc;background:url(../images/ico/dot.gif) no-repeat 0px 10px; line-height:1.5; padding:5px 0px 5px 10px;}
+	.Econ-body .news li a{ color:#0f9649; text-decoration:none;margin:0 2px; }
+	.Econ-body .news li span{ color:#ccc;}
+	.Econ-body .news li img{ margin-left:5px; }
+	.Econ-body ul.txtlink{ width:475px; padding:10px; overflow:hidden;}
+	.Econ-body .txtlink li{ width:475px; border-bottom:1px dotted #ccc; background:url(../images/ico/dot.gif) no-repeat 0px 10px; line-height:1.5; padding:5px 0px 5px 10px;}}
+
+
+/*修改资料*/
+.EditProfile {margin-bottom:20px;}
+	.EditProfile fieldset{border:1px solid #85CCF8; padding:10px;}
+	.EditProfile legend {font-size:14px; margin-bottom:10px; padding:5px;}
+	.EditProfile p {padding:5px 20px;color:#000;}
+	.EditProfile em {color:#f00;}
+	.EditProfile p.put {background:#D8EAC9;}
+	.EditProfile p .put_btn {width:200px;padding:5px 2px;font-size: 12px;margin-right:20px;border-top: 1px solid #7c7c7c;border-left: 1px solid #7c7c7c;border-right:1px solid #ddd;border-bottom: 1px solid #ddd;}
+	.EditProfile select {width:200px;}
+	.EditProfile span {display:inline-block; width:80px; text-align:right;}
+	.EditProfile .w300 {width:300px;}
+
+
+.sidepanel-body table td{padding:6px;border-bottom:1px solid #ccc;}
+.sidepanel-body table {margin-bottom:5px;}
+
+
+
+
+

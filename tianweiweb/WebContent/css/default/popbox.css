@@ -1,0 +1,62 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+
+.popbox {overflow:auto;}
+.popbox .pophead {background:#F1F1F1;border-bottom:1px solid #cccccc;height:28px;}
+.popbox .pophead .in-pophead {padding:2px 5px;overflow:auto;text-align:right;}
+.popbox .pophead .in-pophead h4 {float:left;padding-top:3px;}
+.popbox .pophead .in-pophead span.popheadinfo {float:left;padding:2px;margin-left:5px;}
+.popbox .pophead .in-pophead span.popCLose {}
+.popbox .pophead .in-pophead span.popCLose a {margin-top:4px;}
+.popbox .popmain {overflow:auto;}
+.popbox .popmain .in-popmain{padding:5px;overflow:auto;position:relative;}
+.popbox .popfoot {background:#F1F1F1;line-height:31px;height:31px;}
+.popbox .popfoot .in-popfoot {padding:2px;text-align:right;line-height:27px;}
+.popbox .popfoot .in-popfoot button {float:left;}
+.popbox .popfoot .in-popfoot span {padding:2px 5px;}
+.popbox .popfoot .in-popfoot span a{color:#F9942C;}
+
+/*注册 弹出层*/
+.in-popmain .lists{clear:both;overflow:auto;margin-bottom:5px;}
+.in-popmain .select-list-t{height:22px;border-bottom:1px solid #dddddd;text-align:right;}
+.in-popmain .select-list-t h5 {font-weight:bold; line-height:20px; text-align:center; width:60px;float:left;}
+.in-popmain .select-list-t a {}
+.in-popmain .select-list{overflow:auto;}
+
+.in-popmain .select-list ul {overflow:auto;padding:1px;clear:both;}
+.in-popmain .select-list ul li {margin:1px;display:inline-block;width:80px;float:left;border:1px solid #ffffff;}
+.in-popmain .select-list ul li a {color:#333;line-height:16px;}
+.in-popmain .select-list ul li.current {background-color:#C9FFCA;border:1px solid #006600 ;}
+.in-popmain .select-list ul li.current a {color:#008000;font-weight:bold;}
+
+/* 添加好友*/
+.addfriendhead {line-height:20px;color:#ff6600;background-color:#F1F1F1;padding:0 10px;}
+.addimg {padding:10px 5px;overflow:auto;}
+.addimg dl {}
+.addimg dl dt {float:left;width:70px;margin:0 5px;}
+.addimg dl dt a {width:61px;height:61px;display:block;padding:1px;border:1px solid #AAAEB1}
+.addimg dl dt a:hover {border:1px solid #222222;}
+.addimg dl dd{float:left;width:290px;}
+.addimg dl dd textarea{color:#808080;}
+.addfriendBtn {float:right;margin-top:3px;}
+.addfriendBtn button {margin-left:8px;}
+.addtxt {text-align:center;color:#5273BD;}
+.addtxt a {margin:0 2px;color:#FF6600;}
+
+/*好友申请*/
+.ppfriendhead {line-height:20px;color:#ff6600;background-color:#F1F1F1;text-indent:1em;}
+.appimg {padding:10px 5px;overflow:auto;border-bottom:1px solid #ddd;}
+.appimg dl {}
+.appimg dl dt {float:left;width:70px;margin:0 5px;}
+.appimg dl dt a {width:61px;height:61px;display:block;padding:1px;border:1px solid #AAAEB1}
+.appimg dl dt a:hover {border:1px solid #222222;}
+.appimg dl dd{float:left;width:290px;}
+.appimg dl dd p {line-height:22px;}
+.appimg dl dd p button {margin-right:8px;}
+.appimg dl dd p a {color:#FF6600;margin-right:5px;}
+.appfriendBtn {float:right;margin-top:3px;margin-right:3px;}
+

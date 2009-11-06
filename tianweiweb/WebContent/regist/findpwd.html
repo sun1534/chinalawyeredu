@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/base/jquery.js"></script>
+<script src="../js/base/jquery.form.js" language="javascript" type="text/javascript"></script>
+<script src="../js/base/jquery.blockUI.js" language="javascript" type="text/javascript"></script>
+<script src="../js/home.js" language="javascript" type="text/javascript"></script>
+<script src="../js/regist.js" language="javascript" type="text/javascript"></script>
+<script type="text/javascript" src="../js/login.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<title>	欢迎来到深圳市天威广告有限公司网站</title>
+</head>
+
+<body>
+<div id="main">
+	<div id="top">
+	<div id="topl">
+		  <div id="logo"><img src="../images/logo.jpg" /></div>
+		  <div id="login">
+			   <form id="loginform" action="../common/login.action" method="post">
+				<dl class="nologin">
+					<dt>用户名：</dt>
+					<dd><input name="loginname" type="text" class="textfield"/></dd>
+					<dt>密　码：</dt>
+					<dd><input name="password" type="password" class="textfield"/></dd>
+					<dt>验证码：</dt>
+					<dd><input name="verifycode" type="text" class="textfield3" onkeydown="if(event.keyCode==13)stlogin()" size="4" />
+			    <img src="../verify/VerifyCode.jsp" id="imgObj" align="top" onclick="changeImg()" /></dd>
+					<dt><input type="reset" value="注 册" onclick="document.location='../regist/regist!input.action'" class="btn3"/></dt>
+					<dd><input type="button" onclick="stlogin()" value="登 陆" class="btn"/><a href="../regist/findpwd.html" class="findpws">忘记密码</a></dd>
+				</dl>
+		      </form>
+		  </div>
+			<span class="menu"><a href="../home/home.action" >首页<br />
+			Main</a></span>
+	</div>
+	<div id="topr">
+		<span class="toptext">
+		<!--<iframe src="http://www.7stk.com/1/6/sina.htm" frameborder="0" width="117" height="37" marginheight="0" marginwidth="0" scrolling="no"></iframe>-->
+		<a id="tq"></a>
+		<!--<a href="#">深圳
+		<input name="Input" type="image" disabled="disabled" src="../images/rainy.gif" align="bottom" />
+		阵雨 气温27-32度 2009年7月28日</a>
+		-->
+		<a href="#" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage(document.location.href);event.returnValue=false;">
+		<input name="Input2" type="image" disabled="disabled" src="../images/home.gif" align="bottom" />
+		设为首页</a>
+		<input name="Input3" type="image" disabled="disabled" src="../images/add.gif" align="bottom" />
+		<a href="#" onclick="javascript:window.external.addFavorite(document.location.href,'天威广告')">加入收藏</a>			</span>
+		<div class="clear"></div>
+		<div id="flash">
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="680" height="170">
+          <param name="movie" value="../images/top.swf" />
+          <param name="quality" value="high" />
+          <embed src="../images/top.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="680" height="170"></embed>
+		  </object>
+		</div>
+		<div class="clear"></div>
+		<div class="topmenu">
+			<a href="../home/about.action?type=adagent">广告代理</a>&nbsp;&nbsp;
+			<a href="../home/about.action?type=videoshop">影视工作室</a> &nbsp;&nbsp;
+			<a href="../home/productlist.action">产品服务</a>&nbsp;&nbsp;
+			<a href="../home/about.action?type=cooper">合作加盟</a> &nbsp;&nbsp;
+			<a href="../home/about.action?type=onlinehelp">在线帮助</a>
+		</div>
+	</div>
+</div>
+<div id="bannal">
+	<div id="scroll">
+		<marquee scrollamount="5" onMouseOver="stop()" onMouseOut="start()" id="noticediv">
+		</marquee>
+	</div>
+
+	<form action="infoQuery.action" method="post">
+	<span class="search">搜索&nbsp;&nbsp;
+	<select name="typeid">
+	  <option value="2">搜产品</option>
+	  <option value="5">搜活动</option>
+	</select>
+	<input type="text" id="keyword" class="textfield4" name="keyword" value="请输入关键字" onfocus="clicksearch();"/>
+	&nbsp;&nbsp;<input type="submit" class="btn2" value="GO!" />&nbsp;&nbsp;<a href="#">高级搜索</a>
+	</span>
+	</form>
+</div>
+<script>
+function clicksearch(){
+	if($("#keyword").val()=="请输入关键字"){
+		$("#keyword").attr("value","");
+	}
+}
+</script>
+
+
+	<div class="navguild"><span><a href="../home/home.action">首页</a>->找回密码</span></div>
+
+	<div class="intro">
+	<div class="introl"><img src="../images/law.jpg"  /></div>
+	<div class="regmain">
+	 <table width="500" border="0" cellspacing="10" cellpadding="5">
+      <tr>
+        <td width="64">帐　号：</td>
+        <td width="315"><label>
+          <input type="text" name="username" id="username" class="regtxt"/>
+        </label></td>
+        <td width="21">&nbsp;</td>
+      </tr>
+      <tr>
+      <div class="b d1" id="questionidiv"></div>
+      </tr>
+      <tr>
+        <td width="64">&nbsp;</td>
+        <td width="315"><label>
+           <input type="button" value=" 提 交 " onclick="findback()" class="submitBtn" />
+        </label> <label><input type="reset" value=" 取 消 "  class="cancerBtn"/></label></td>
+        <td width="21">&nbsp;</td>
+      </tr>
+
+
+    </table>
+	</div>
+
+<div class="clear"></div>
+
+<div id="bottom">
+
+ <div class="friendlinks">
+	 友情链接：<a href="#">天威视讯</a> | <a href="#">天威宽频</a> | <a href="#">天威网络电视</a> | <a href="#">深圳迪威特</a> | <a href="#">深圳电视台</a><br />
+  </div>
+ <div class="other">
+	 <a href="#">关于我们</a> | <a href="#">法律声明</a> |  <a href="#">服务条款</a> |  <a href="#">联系我们</a> |  <a href="#">网站地图</a> |  <a href="#">人才招聘</a>
+	<br />
+	深圳市天威广告有限公司版权所有 Copyright @ 2009 www.TOPWAY-ad.com All Rights Reserved
+	<br />
+	ICP证号：粤ICP备09851114号 深圳市天威广告有限公司网站</span>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
+<script>
+function findback(){
+	//$("#username").attr("readonly","true");
+	if($("#username").attr("readonly")){
+		$.ajax({
+	        type: "POST",
+	        url:"findpwd.action",
+	        data:"username=" + $("#username").attr("value")+"&answer="+$("#answer").attr("value"),
+	        success:function(data){
+	        	$.blockUI({message:data});
+	     }});
+		return;
+	}
+	$.ajax({
+        type: "POST",
+        url:"findpwd!input.action",
+        data:"username=" + $("#username").attr("value"),
+        success:function(data){
+
+        	if(data.length<20){
+            	alert(data);
+        	}else{
+        		$("#username").attr("readonly","true");
+        		$("#questionidiv").html(data);
+        	}
+     }});
+}
+</script>

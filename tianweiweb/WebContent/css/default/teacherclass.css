@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+
+.teacherclass .title-h a{color:#fff;}
+.teacherclass .Tips{margin:10px 0;}
+.teacherclass .title-info{border:0;}
+.tclassmain {border:1px solid #6CB53D;padding:5px;}
+.tclassmain .form fieldset{border:0;}
+.tclassmain .listpage{padding:5px;text-align:right;}
+#baseadmininfo .fdborder{border:1px solid #6CB53D;}
+a{color:#0094A6;}
+
+
+
+.classroombox {width:745px;}
+.classroombox .title-h {}
+.classroombox .title-info {margin-bottom:10px;}
+.classroombox .classesinfo {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classroombox .classesinfo .info {padding:8px;}
+.classroombox .classesinfo .info p {line-height:22px;}
+.classroombox .classesinfo .info p.itps { margin-top:5px;padding-left:23px;background:url(../images/ico/appicons.jpg) no-repeat left -92px; color:#666;}
+.classroombox .nextclassesinfo  {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classroombox .nextclassesinfo .nextinfo {padding:10px;}
+.classroombox .nextclassesinfo .nextinfo ol {}
+.classroombox .nextclassesinfo .nextinfo ol li {color:#000;font-family:"宋体";line-height:22px;}
+.classroombox .nextclassesinfo .nextinfo ol li a{color:#000;text-decoration:none;}
+.classroombox .nextclassesinfo .nextinfo ol li a:hover {text-decoration:none;}
+
+
+
+
+
+.myclasslist{padding:10px;}
+.myclasslist h3#movementico{margin-bottom:10px;background:#D8EAC9 url(../images/home/homeico.gif) no-repeat 10px 10px;}
+.myclasslist h3#msgico{background:#D8EAC9 url(../images/home/homeico.gif) no-repeat 10px -14px;}
+.myclasslist h3{line-height:30px;font-weight:bold;padding-left:30px;background:#D8EAC9 url(../images/home/homeico.gif) no-repeat 10px -14px;}
+.myclasslist h3 a {text-indent:-999em;width:10px;height:12px;overflow:hidden;float:right;margin-right:10px;margin-top:-20px;}
+.myclasslist h3 a.up {background:url(../images/updown.gif) no-repeat left -12px;}
+.myclasslist h3 a.down {background:url(../images/updown.gif) no-repeat left top;}
+
+
+.sink{ padding-left:15px;}
+.sink ul{}
+.sink ul li{ width:80px; height:22px; margin-right:10px;float:left;}
+
+.Character_s{}
+.Character_s li{float:left;margin-right:10px;padding:0 5px;}
+.Character_s li a {color: #060; text-decoration:none;}
+
+.Character_s li.current{border-bottom:2px solid #006600; }
+.Character_s li.current a{color:#666; }
+
+.Character_list{ margin:10px;}
+.Character_list ul{}
+.Character_list ul li{width:80px; margin-right:10px;float:left; line-height:23px;}
+.Character_list ul li input {margin-right:3px;}
+.Character_h{ display:block; width:100px; padding:0 5px;line-height:25px;}
+
+/*肖凯明 修改*/
+.teacher-class {margin-bottom:10px;}
+/*日期选中*/
+.selectedlistday {background-color:#87CEFA;}
+.selectedlistday  a{color:#fff; text-decoration:none;font-weight:bold;}
+.listtitle {background:#D8EAC9;line-height:24px;}
+.listtitle a {color:#000; text-decoration:none;}
+.listtitle a:hover {color:#000; text-decoration:none;}
+
+
+
+
+
+
+
+
+

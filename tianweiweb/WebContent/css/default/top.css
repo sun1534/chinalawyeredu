@@ -1,0 +1,42 @@
+.doc .wrap {}
+.doc .wrap .hd {height:57px;}
+.doc .wrap .bd {background:#FFFFFF;}
+.doc .ft {}
+
+.in-hd h1 {width:210px;margin-top:6px;height:50px;position:relative;float:left;/*background:url(../images/pub/logo-wrap.gif) no-repeat left top;*/}
+.in-hd h1 a {left:21px; position:absolute; top:2px;width:167px;height:50px;}
+.in-hd .navlogin {width:750px;float:right;}
+.in-hd .navlogin .navlogin {}
+
+/*快速登陆*/
+.quickLogin {float:left;width:740px;padding-left:10px;text-align:right;line-height:14px;padding-bottom:5px;overflow:hidden;}
+.in-quickLogin {}
+.in-quickLogin .login-out {height:100%;position:relative;  }
+.in-quickLogin .login-out .login-form {}
+.in-quickLogin .login-out .login-form ul {line-height:22px;overflow:hidden;}
+.in-quickLogin .login-out .login-form ul li {float:right;margin-left:5px;border-right:1px solid #ddd;margin-right:-1px;}
+.in-quickLogin .login-out .login-form ul li img {float:left;margin-right:5px; }
+.in-quickLogin .login-out .login-form ul li a {float:left;margin-right:5px;color:#f60; }
+.in-quickLogin .login-out .login-form ul li.help a {color:#000;text-decoration:none;margin:0 2px;}
+.in-quickLogin .login-out .user-info {}
+.in-quickLogin .login-out .user-info a {color:#000;text-decoration:none;margin:0 2px; }
+.in-quickLogin .login-in {}
+.in-quickLogin .login-in .user-info {float:left;}
+.in-quickLogin .login-in .user-info a {color:#000000;text-decoration:none; margin:0 2px;  }
+.in-quickLogin .login-in .user-info b {color:#FF6600;margin-right:5px;}
+
+
+.txt-login {background:#FFFFFF;border:1px solid #A5AFB2;height:14px; overflow:hidden; padding:2px;}
+.btnlogin {border:0;background:url(../images/btn_login.gif) no-repeat 0px 0px; width:40px;height:20px;color:#fff; font-weight:bold;cursor:pointer;  }
+
+
+	/*访问他人主页*/
+	.s-sub {width:515px;height:47px;margin-bottom:10px;background:#fff url(../images/default/s-sub.gif) no-repeat left top;}
+	.s-sub .in-s-sub {padding-top:15px;}
+		.in-s-sub ul{padding-left:35px;}
+		.in-s-sub ul li{float:left;margin-right:30px;}
+		.in-s-sub ul li a{color:#51AC41;font-weight:bold;text-decoration:none;}
+		.in-s-sub ul li a span{}
+
+	.userinfolist_ dl .userop_msg , .userinfolist_ dl .userop_hello {display:block;width:54px;height:16px;line-height:16px;background:url(../images/default/msghellobg.gif) no-repeat left top;color:#fff;text-decoration:none;text-indent:13px;margin-top:5px}
+	.userinfolist_ dl .userop_msg:hover , .userinfolist_ dl .userop_hello:hover {color:#fff;text-decoration:none;}

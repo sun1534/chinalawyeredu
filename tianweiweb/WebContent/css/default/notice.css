@@ -1,0 +1,31 @@
+/*Author:Kevin XiaoEmail:kevin_218@163.comWeb:www.bluekevin.comMsn:xiao-kevin@hotmail.com*/
+
+.Notice-orange { background:#FFFFCC;border:1px solid #FFCC00;}
+.Notice-red { background:#FFEBE8;border:1px solid #DD3C10;}
+.Notice-gray { background:#F1F1F1;border:1px solid #CCCCCC;}
+.Notice-green {background:#E7F8DB;border:1px solid #87CEFA;}
+
+.Notice-orange h4 { background:url(../images/tips.gif) no-repeat 0px 0px;color:#FF9900;}
+.Notice-red h4 { background:url(../images/tips.gif) no-repeat 0px -98px;color:#DE3C10;}
+.Notice-gray h4 { background:url(../images/tips.gif) no-repeat 0px -32px;color:#333333;}
+.Notice-green h4 { background:url(../images/home/icosider.gif) no-repeat 0px -236px;color:#000;}
+
+.Notice {margin-bottom:10px;}
+.Notice .InNotice {padding:5px 0px;position:relative;}
+.Notice .InNotice h4 {line-height:24px;padding-left:30px;font-weight:bold;}
+.InNotice .NoticeHead {padding:0 5px;}
+.InNotice .NoticeCLose {position:absolute;right:10px;top:10px;}
+.InNotice .NoticeCLose a {text-indent:-999em;width:10px;height:12px;display:block;}
+.InNotice .NoticeCLose a.up {background:url(../images/updown.gif) no-repeat left -12px;}
+.InNotice .NoticeCLose a.down {background:url(../images/updown.gif) no-repeat left top;}
+.Notice .InNotice .NoticeCon {position:relative;border-top:1px solid #C0E5A7;}
+.Notice .InNotice .NoticeCon p{padding-left:30px;line-height:22px;}
+
+#closeNotice {position:absolute;right:10px;bottom:5px;}
+
+
+/*公告列表*/
+.new-Notice {padding-left:30px;}
+.new-Notice li {font-family:"宋体";color:#000;line-height:22px;}
+.new-Notice li a {color:#0094A6;text-decoration:none;margin:0 3px;}
+.new-Notice li a:hover {color:#4B4B4B;text-decoration:none;}

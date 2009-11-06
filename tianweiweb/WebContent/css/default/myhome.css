@@ -1,0 +1,590 @@
+body {padding:0; margin:0; font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif;}
+
+/*快速登陆*/
+.quickLogin {/*float:right;width:500px;text-align:right;*/line-height:14px;padding-bottom:5px;overflow:hidden;}
+.login-out {height:100%;position:relative;  }
+.login-out .login-form {}
+.login-out .login-form ul {line-height:22px;overflow:hidden;}
+.login-out .login-form ul li {float:right;margin-left:5px;border-right:1px solid #ddd;margin-right:-1px;}
+.login-out .login-form ul li img {float:left;margin-right:5px; }
+.login-out .login-form ul li a {float:left;margin-right:5px;color:#f60; }
+.login-out .login-form ul li.help a {color:#000;text-decoration:none;margin:0 2px;}
+.login-out .user-info {text-align:right;}
+.login-out .user-info a {color:#000;text-decoration:none;margin:0 2px; }
+.login-in {padding:0 0 0 10px;}
+.login-in .user-info {float:left;}
+.login-in .user-info b {color:#FF6600;margin-right:5px;}
+.txt-login {background:#FFFFFF;border:1px solid #A5AFB2;height:14px; overflow:hidden; padding:2px;}
+.btnlogin {border:0;background:url(../images/btn_login.gif) no-repeat 0px 0px; width:40px;height:20px;color:#fff; font-weight:bold;cursor:pointer;  }
+.user-info #topsysmsg {color:#FF6600;text-decoration:none;font-weight:bold;}
+.user-info #topshortmsg {color:#FF6600;text-decoration:none;font-weight:bold;}
+.user-info #topreply {color:#FF6600;text-decoration:none;font-weight:bold;}
+.user-info .help {}
+.user-info .loginout {color:#FF6600;text-decoration:none;;}
+.in-quickLogin .user-info-op {float:right;}
+.in-quickLogin .user-info-op  a {color:#000000;text-decoration:none; margin:0 2px;  }
+
+
+
+/*
+我的主页结束
+
+
+/*我的好友*/
+.friendbox {width:745px;}
+.friendbox .searchuser {padding-left:5px;width:230px;position:absolute;right:0;top:-6px;width:220px;}
+.friendbox .friendinfo {padding:10px 0;}
+.friendbox .friendinfo .friendgroups {width:148px;float:left;border:1px solid #85CCF8;}
+.friendbox .friendinfo .friendgroups h3 {padding-left:10px;color:#85CCF8;font-weight:bold;line-height:28px;background-color:#D8EAC9;}
+.friendbox .friendinfo .friendgroups .friendgroups-zone {padding-bottom:10px;background-color:#F8FEF7;}
+									 .friendgroups-zone h4 {padding-left:10px;color:#888;line-height:22px;background-color:#F0F7E6;}
+									 .friendgroups-zone ul {padding:10px 0px 20px 10px;}
+									 /*好友分组修改删除*/
+									 .friendgroups-zone ul li a {display:inline-block;width:119px;height:18px;overflow:hidden;}
+									 .friendgroups-zone ul li .opeditfriendli {}
+									 .friendgroups-zone ul li .opeditfriendli em {margin-left:20px;cursor:pointer;text-decoration:none;}
+									 .friendgroups-zone ul .liover{}
+									 .friendgroups-zone ul li {}
+									 .friendgroups-zone ul li a.f-orange {color:#FF6600;margin:0;}
+									 .friendgroups-zone .creatgroups {padding-left:10px;}
+.friendbox .friendinfo .friendlist {width:595px;float:left;}
+.friendpage {text-align:right;}
+.friendbox .friendinfo .friendlist .listinfo {margin-top:5px;padding:10px;border:1px solid #E6E6E6}
+.friendbox .friendinfo .friendlist .listinfo dl {width:573px;height:119px;margin-top:9px;border-bottom:1px solid #ddd;}
+.friendbox .friendinfo .friendlist .listinfo dl dt {float:left;width:108px;}
+.friendbox .friendinfo .friendlist .listinfo dl .img a {width:96px;display:block;height:96px;padding:1px;border:1px solid #AAAEB1}
+.friendbox .friendinfo .friendlist .listinfo dl .img a:hover {border:1px solid #222}
+.friendbox .friendinfo .friendlist .listinfo dl .img a img{}
+.friendbox .friendinfo .friendlist .listinfo dl dd {float:left;width:455px;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt {}
+.friendbox .friendinfo .friendlist .listinfo dl .txt h4 {text-align:right;border-bottom:1px solid #ddd;padding-bottom:2px;line-height:22px;height:22px;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt h4 strong {float:left;color:#85CCF8;font-size:14px;font-weight:bold;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .edit-group {color:#FF6600;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .frienddes {float:left;clear:both;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .frienddes p {line-height:22px;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .frienddes p strong {font-weight:bold;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .frienddes p a{margin:0 4px;color:#0094A6;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop {float:right;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop a{display:block;color:#0094A6;line-height:22px;}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop a.op-go {}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop a.op-send {}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop a.op-hello {}
+.friendbox .friendinfo .friendlist .listinfo dl .txt .friendop a.op-del {}
+
+
+/*可能认识的人*/
+.friendbox .mbmbfriendinfo .friendlist .listinfo {margin-top:5px;padding:10px;border:1px solid #E6E6E6}
+.friendbox .mbfriendinfo .friendlist .listinfo dl {width:362px;float:left;height:119px;margin-top:9px;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl dt {float:left;width:108px;text-align:center;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .img a.p {width:96px;display:block;height:96px;padding:1px;border:1px solid #AAAEB1}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .img a.p:hover {border:1px solid #222}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .img a img{}
+.friendbox .mbfriendinfo .friendlist .listinfo dl dd {float:left;width:244px;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt {}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt h4 {text-align:right;border-bottom:1px solid #ddd;padding-bottom:2px;line-height:22px;height:22px;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt h4 strong {float:left;color:#85CCF8;font-size:14px;font-weight:bold;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt .edit-group {color:#FF6600;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt .frienddes {float:left;clear:both;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt .frienddes p {line-height:22px;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt .frienddes p strong {font-weight:bold;}
+.friendbox .mbfriendinfo .friendlist .listinfo dl .txt .frienddes p a{margin:0 4px;color:#0094A6;}
+
+.increatgroups {text-align:left;padding-left:20px;}
+.increatgroups a {color:#0094A6;margin:0 4px;}
+
+/*最近访问的朋友*/
+.mbfriendinfo {}
+.visitfriends {}
+.visitfriends .visitfriends-list{padding:0 10px;}
+.screenfrient {background-color:#D8EAC9;padding:5px 10px;}
+.screenfrient span {float:left;color:#85CCF8;font-weight:bold;}
+.screenfrient ul {display:inline-block;height:16px;}
+.screenfrient ul li {float:left;margin-right:10px;padding:0 5px;}
+.screenfrient ul li.current {background-color:#fefefe;border-bottom:2px solid #006600;}
+.screenfrient ul li.current a{color:#008000;font-weight:bold;text-decoration:none;}
+.screenfrient ul li.current a:hover{color:#000;font-weight:bold;text-decoration:none;}
+.screenfrient ul li a{color:#333;text-decoration:none;}
+.screenfrient ul li a:hover{color:#000;text-decoration:none;}
+.mbfriendinfo .listinfo  {padding:0 10px;}
+.visitfriends-list ul {width:90px;float:left;display:block;margin-bottom:5px;}
+.visitfriends-list ul li {text-align:center;}
+.visitfriends-list ul li.u-head {padding:1px 0;height:65px;}
+.visitfriends-list ul li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+.visitfriends-list ul li.u-head a:hover {border:1px solid #222222;}
+.visitfriends-list ul li.u-head a img {}
+.visitfriends-list ul li.u-add-name {line-height:20px;overflow:hidden;}
+.visitfriends-list ul li.u-add-name .u-add {}
+.visitfriends-list ul li.u-add-name .u-add a {text-decoration:none;}
+.visitfriends-list ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.visitfriends-list ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;display:block;}
+.visitfriends-list ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+.visitfriends-list ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+/**查找好友*moondy*/
+.friend_search {margin-bottom:20px;}
+.friend_search fieldset{border:1px solid #85CCF8; padding:10px;}
+.friend_search legend {font-size:14px; margin-bottom:10px; padding:5px;}
+.friend_search p {padding:8px 20px;}
+.friend_search p.put {background:#D8EAC9;}
+.friend_search p .put_btn {width:200px; margin-right:20px; border:1px solid #85CCF8;}
+.friend_search select {width:200px;}
+.friend_search span {display:inline-block; width:80px; text-align:right;}
+/*
+好友结束
+*/
+
+/*班级*/
+.m-h{text-align:right;padding:0px 10px;background:#fff url(../images/pub/line.png) no-repeat center bottom;height:28px;}
+.m-h h3 {float:left;font-weight:bold;line-height:28px;color:#85CCF8;}
+.m-h span {display:inline-block;padding:3px 0;}
+.m-h span a{color:#000000;text-decoration:none;padding-left:8px;background:#fff url(../images/home/more.gif) no-repeat left 4px;}
+.m-h span a:hover {color:#0094A6;text-decoration:none;}
+.classesbox {width:745px;}
+.classesbox .title-h {}
+.classesbox .title-info {margin-bottom:10px;}
+.classesbox .classesinfo {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classesbox .classesinfo .info {padding:10px;}
+.classesbox .classesinfo .info p {line-height:22px;}
+.classesbox .nextclassesinfo  {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classesbox .nextclassesinfo .nextinfo {padding:10px;}
+.classesbox .nextclassesinfo .nextinfo ol {}
+.classesbox .nextclassesinfo .nextinfo ol li {color:#000;font-family:"宋体";line-height:22px;}
+.classesbox .nextclassesinfo .nextinfo ol li a{color:#000;text-decoration:none;}
+.classesbox .nextclassesinfo .nextinfo ol li a:hover {text-decoration:none;}
+
+/*班级成员*/
+.classeslistbox {}
+.classeslistbox .classeslist-group {border:1px solid #85CCF8;
+float:left;
+width:148px;}
+.classeslistbox .classeslist-group h4{background-color:#D8EAC9; color:#85CCF8; font-weight:bold; line-height:28px; padding-left:10px;}
+.classeslistbox .classeslist-group p{background-color:#F0F7E6; color:#888888; line-height:22px; padding-left:10px;}
+.classeslistbox .classeslist-group ul {padding:10px 0 20px 10px;}
+.classeslistbox .classeslist-group ul li {height:22px;}
+.classeslistbox .classeslist-group ul li a{}
+.classeslistbox .classeslist-info {float:left;width:595px;}
+.classeslistbox .classeslist-info .classespage {text-align:right;}
+.classeslistbox .classeslist-info .listinfo {border:1px solid #E6E6E6;margin-top:5px;padding:10px;width:573px;}
+.classeslistbox .classeslist-info .listinfo ul.relogin {width:118px;float:left;display:block;margin-bottom:5px;}
+.classeslistbox .classeslist-info .listinfo ul.relogin * {-moz-opacity: 0.6;opacity:.60;filter: alpha(opacity=60);}
+.classeslistbox .classeslist-info .listinfo ul {width:110px;float:left;height:110px;display:block;margin-bottom:5px;}
+.classeslistbox .classeslist-info .listinfo ul li {text-align:center;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head {padding:1px 0;height:65px;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a:hover {border:1px solid #222222;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a img {}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name {line-height:20px;overflow:hidden;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add {}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add a {text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+
+/*班级管理*/
+.classesadminbox {}
+.classesadminbox .apptoadmin {border:1px solid #85CCF8;padding:10px;}
+.classesadminbox .apptoadmin p{line-height:24px;color:#999;}
+.classesadminbox .apptoadmin p .adminname {margin:0 4px;color:#0094A6;}
+.classesadminbox .apptoadmin p .adminapp {font-size:14px;margin-left:4px;font-weight:bold;color:#FF8400;}
+
+.staffinfo {padding:5px 0;}
+.staffinfo ul.relogin {float:left;display:inline-block;margin-bottom:5px;}
+.staffinfo ul.relogin * {-moz-opacity: 0.6;opacity:.60;filter: alpha(opacity=60);}
+.staffinfo ul {_width:65px;_height:118px;float:left;margin-right:10px;min-height:120px;display:inline-block;;margin-bottom:5px;}
+.staffinfo ul li {text-align:center;}
+.staffinfo ul li.u-head {padding:1px 0;height:65px;}
+.staffinfo ul li.u-head a {width:60px;height:60px;display:inline-block;padding:1px;border:1px solid #AAAEB1}
+.staffinfo ul li.u-head a:hover {border:1px solid #222222;}
+.staffinfo ul li.u-head a img {}
+.staffinfo ul li.u-add-name {line-height:20px;overflow:hidden;}
+.staffinfo ul li.u-add-name .u-add {}
+.staffinfo ul li.u-add-name .u-add a {text-decoration:none;}
+.staffinfo ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.staffinfo ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+.staffinfo ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+.staffinfo ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+
+/**班级结束*/
+
+
+/*圈子*/
+.relationbox {}
+.relationbox .title-info{margin-bottom:10px;;}
+	.relationinfo {width:513px;border:1px solid #85CCF8;}
+	.relationinfo  .relationcategory{}
+	.relationinfo  .relationcategory h3 {padding-left:10px;line-height:24px;background:#D8EAC9;font-weight:bold;}
+	.relationinfo  .relationcategory .list {padding:10px;}
+	.relationinfo  .relationcategory .list ul {overflow:auto;}
+	.relationinfo  .relationcategory .list ul li {float:left;text-indent:10px;;display:inline;width:117px;padding:2px;margin-left:2px;border-bottom:2px solid #fff;color:#999;}
+	.relationinfo  .relationcategory .list ul li a {color:#000;text-decoration:none;}
+	.relationinfo  .relationcategory .list ul li.current {background-color:#D8EAC9;border-bottom:2px solid #006600;color:#999;}
+	.relationinfo  .relationcategory .list ul li.current a {text-decoration:none;color:#008000;font-weight:bold;margin-right:4px;}
+	.relationinfo  .hotrelation{}
+	.relationinfo  .hotrelation h3 {padding-left:10px;line-height:24px;background:#D8EAC9;}
+	.relationinfo  .hotrelation h3 strong {color:#008000;font-weight:bold;}
+	.relationinfo  .hotrelation h3 span {color:#999;margin-left:10px;}
+	.relationinfo  .hotrelation h3 span i{color:#ff6666;margin-right:5px;}
+	.relationinfo  .hotrelation .list {padding-bottom:10px;}
+	.relationinfo  .hotrelation .list ul {margin:10px 10px 0px 10px;border-bottom:1px solid #ddd;}
+	.relationinfo  .hotrelation .list ul li {padding-bottom:10px;height:80px;}
+	.relationinfo  .hotrelation .list ul li .img{float:left;width:65px;text-align:center;}
+	.relationinfo  .hotrelation .list ul li .img a.pic{border:1px solid #AAAEB1;display:block;height:60px;margin:0 auto;padding:1px;width:60px;}
+	.relationinfo  .hotrelation .list ul li .img a.pic:hover{border:1px solid #222;}
+	.relationinfo  .hotrelation .list ul li .img a.imgname{color:#0094A6;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .img a.imgname:hover{color:#000;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .txt{float:left;width:416px;padding-left:10px;}
+	.relationinfo  .hotrelation .list ul li .txt h4 {text-align:right;border-bottom:1px solid #eee;padding-bottom:4px;}
+	.relationinfo  .hotrelation .list ul li .txt h4 a{float:left;font-weight:bold;color:#000000;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .txt h4 a:hover{color:#000;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .txt span{color:#999999;}
+	.relationinfo  .hotrelation .list ul li .txt span i{font-size:11px;color:#999;font-style:normal;}
+	.relationinfo  .hotrelation .list ul li .txt p{}
+	.relationinfo  .hotrelation .list ul li .txt p.liststaffposts{color:#999999;}
+	.relationinfo  .hotrelation .list ul li .txt p.liststaffposts a {color:#0094A6;margin-right:4px;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .txt p.liststaffposts a:hover {color:#000;text-decoration:none;}
+	.relationinfo  .hotrelation .list ul li .txt p.postscon{color:#8E8E8E;line-height:20px;}
+	.relationarea {}
+	.relationarea .searchrelation {background:#F0F7E6;border:1px solid #E6E6E6;margin-bottom:10px;}
+	.relationarea .searchrelation .form {padding:10px 5px 10px 10px ;}
+	.relationarea .createrelation {text-align:center;line-height:45px;margin-bottom:10px;}
+	.relationarea .createrelation a{width:157px;display:block;margin:0 auto;color:#fff;font-weight:bold;font-size:28px;text-decoration:none;line-height:44px;height:44px;background:url(../images/pub/create.png) no-repeat left top;}
+	.relationarea .hotpostrelation {border:1px solid #E6E6E6;margin-bottom:10px;}
+	.relationarea .hotpostrelation .listinfo {padding:10px;}
+	.relationarea .hotpostrelation .listinfo ol {background:#fff url(../images/pub/no.gif) no-repeat left 4.5px;}
+	.relationarea .hotpostrelation .listinfo ol li {line-height:20px;padding-left:15px;height:20px;overflow:hidden;}
+	.relationarea .hotpostrelation .listinfo ol li a{color:#0094A6;text-decoration:none;}
+	.relationarea .hotpostrelation .listinfo ol li a:hover{color:#000;text-decoration:none;}
+	.relationarea .hotuserrelation {border:1px solid #E6E6E6;margin-bottom:10px;}
+	.relationarea .hotuserrelation .listinfo {padding:0 10px 10px 10px;}
+	.relationarea .hotuserrelation .listinfo ol {background:#fff url(../images/pub/no.gif) no-repeat left 4.5px;}
+	.relationarea .hotuserrelation .listinfo ol li {line-height:20px;padding-left:15px;text-align:right;}
+	.relationarea .hotuserrelation .listinfo ol li span{color:#999;}
+	.relationarea .hotuserrelation .listinfo ol li em{float:left;margin-left:4px;}
+	.relationarea .hotuserrelation .listinfo ol li a{float:left;color:#0094A6;text-decoration:none;}
+	.relationarea .hotuserrelation .listinfo ol li a:hover{color:#000;text-decoration:none;}
+	.relationarea .hotuserrelation .listinfo h5 {text-align:right;line-height:24px;}
+	.relationarea .hotuserrelation .listinfo h5 em{float:left;font-weight:bold;}
+	.relationarea .hotuserrelation .listinfo h5 span{color:#999;font-weight:bold;}
+
+
+/*圈子帖子*/
+.relationinfodes {}
+.relationinfodes h2{background:#D8EAC9;line-height:24px;padding-left:10px;font-weight:bold;}
+.relationinfodes h3{margin:10px;background:#D8EAC9;line-height:24px;padding-left:10px;color:#008000;font-weight:bold;}
+.relationinfodes h3 span {color:#999;font-weight:normal;}
+.relationinfodes p{padding:0 10px;text-indent:2em;line-height:22px;}
+.relationinfodes .list{padding:0 10px;}
+.relationinfodes .list table {margin-bottom:10px;}
+.relationinfodes .list table thead tr{background:#F0F7E6;}
+.relationinfodes .list table thead tr th {padding-left:4px;font-weight:bold;color:#86CDF9;line-height:26px;}
+.relationinfodes .list table tbody tr td {padding-left:4px;line-height:24px;}
+.relationinfodes .list table tbody tr {background:url(../images/pub/line.png) repeat-x  left bottom}
+.relationinfodes .list table tbody tr td a {color:#0094A6;text-decoration:none;}
+.relationinfodes .list table tbody tr td a:hover {color:#0094A6;text-decoration:none;}
+.relationinfodes .list .listpage {text-align:right;padding:5px 0;}
+
+
+.relationauthor {border:1px solid #E6E6E6;margin-bottom:10px;}
+.relationauthor .info {padding:10px;}
+.relationauthor .info dl {width:203px;}
+.relationauthor .info dl dt.img {float:left;width:65px;}
+.relationauthor .info dl dt.img a{border:1px solid #AAAEB1;display:block;height:60px;margin:0 auto;padding:1px;width:60px;}
+.relationauthor .info dl dt.img a:hover{border:1px solid #222;}
+.relationauthor .info dl dd.status {margin-left:75px;}
+.relationauthor .info dl dd.status a{color:#0094A6;text-decoration:none;margin-right:4px;}
+.relationauthor .info dl dd.status a:hover{color:#0094A6;text-decoration:none;}
+.relationauthor .info dl dd.other {}
+.relationauthor .info dl dd.other p{}
+.relationauthor .info dl dd.other p strong{font-weight:bold;display:inline-block;float:left;}
+.relationauthor .info dl dd.other p span{display:block;margin-left:75px;}
+
+.relationintro {border:1px solid #E6E6E6;margin-bottom:10px;padding-bottom:10px;}
+.relationintro p {padding:10px;}
+.relationintro a.joins{margin:0 auto;display:block;width:86px;height:26px;font-weight:bold;text-align:center;text-decoration:none;line-height:26px;color:#fff;font-size:12px;background:#fff url(../images/pub/join.png) no-repeat left top;}
+.relationintro a.adminjoinrelation{margin-left:60px;}
+
+.relationstaff {border:1px solid #E6E6E6;margin-bottom:10px;}
+.relationstaff .list {padding:10px;}
+.relationstaff .list ul {width:33.2%;float:left;display:block;margin-bottom:5px;}
+.relationstaff .list ul li {text-align:center;}
+.relationstaff .list ul li.u-head {padding:1px 0;height:65px;}
+.relationstaff .list ul li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+.relationstaff .list ul li.u-head a:hover {border:1px solid #222222;}
+.relationstaff .list ul li.u-head a img {}
+.relationstaff .list ul li.u-add-name {line-height:20px;overflow:hidden;}
+.relationstaff .list ul li.u-add-name .u-add {}
+.relationstaff .list ul li.u-add-name .u-add a {text-decoration:none;}
+.relationstaff .list ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.relationstaff .list ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+.relationstaff .list ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+
+/*圈子成员*/
+.relationlistbox {}
+.relationlistbox .title-h {}
+.relationlistbox .title-h h3{}
+.relationlistbox .title-h h3 span{color:#ddd;margin-left:10px;}
+.relationlistbox .stafflist {padding:10px;}
+.relationlistbox .stafflist h4 {display:none;}
+.relationlistbox .stafflist h5 {border-bottom:1px solid #E3E3E3;font-weight:bold;height:24px;width:100%;line-height:24px;position:relative;}
+.relationlistbox .stafflist h5 span {position:absolute;right:10px;top:0px;}
+.relationlistbox .stafflist h5 span a {color:#0094A6;text-decoration:none;}
+.relationlistbox .stafflist h5 span a:hover {color:#000000;text-decoration:none;}
+	.createstaff {padding:5px 0;}
+	.stafftec {padding:5px 0}
+	.staffstu {padding:5px 0}
+	.staffpar {padding:5px 0}
+	.stafflist div ul.list {margin-right:10px;}
+	.stafflist div ul.list {width:65px;float:left;display:block;margin-bottom:5px;}
+	.stafflist div ul.list li {text-align:center;}
+	.stafflist div ul.list li.u-head {padding:1px 0;height:65px;}
+	.stafflist div ul.list li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+	.stafflist div ul.list li.u-head a:hover {border:1px solid #222222;}
+	.stafflist div ul.list li.u-head a img {}
+	.stafflist div ul.list li.u-add-name {line-height:20px;overflow:hidden;}
+	.stafflist div ul.list li.u-add-name .u-add {}
+	.stafflist div ul.list li.u-add-name .u-add a {color:#0094A6;text-decoration:none;}
+	.stafflist div ul.list li.u-add-name .u-add a:hover {color:#000;text-decoration:none;}
+	.stafflist div ul.list li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+	.stafflist div ul.list li.u-add-name .add-name:hover {color:#000;text-decoration:none;}
+
+/*话题帖子*/
+.relationreplybox {}
+.relationreplybox h2{background:#D8EAC9;line-height:24px;padding-left:10px;font-weight:bold;}
+.replaylistform h3{margin:10px 0;background:#D8EAC9;line-height:24px;padding-left:10px;color:#008000;font-weight:bold;}
+.relationreplybox h3{margin:10px;background:#D8EAC9;line-height:24px;padding-left:10px;color:#008000;font-weight:bold;}
+.relationreplybox h3 span {color:#999;font-weight:normal;}
+	.relationreply {padding:0 10px;}
+	.relationreply dl {}
+	.relationreply dl dt {float:left;width:65px;}
+	.relationreply dl dt a{border:1px solid #AAAEB1;display:block;height:60px;margin:0 auto;padding:1px;width:60px;}
+	.relationreply dl dt a:hover{border:1px solid #222;}
+
+	.relationreply dl dd {margin-left:75px;padding-bottom:4px;}
+	.relationreply dl dd h5 {color:#000000;font-size:14px;font-weight:bold;}
+	.relationreply dl dd a{color:#0094A6;text-decoraTion:none;}
+	.relationreply dl dd a:hover{color:#000;text-decoraTion:none;}
+	.relationreply .replycon {margin-left:75px;border-top:1px solid #ddd;}
+	.relationreply p {line-height:22px;padding:5px 0;}
+	.relationreply .time {margin-left:75px;}
+	.relationreply .time em {font-size:11px;color:#999;}
+
+.replaylist {padding:0 10px;}
+.replaylist .replaytotle {text-align:right;background-color:#EDEDED;color:#008000;;line-height:24px;padding-left:10px;}
+.replaylist .replaytotle span {float:left;;}
+.replaylist .replaytotle a {color:#FF6600;padding-right:10px;}
+
+.replaylistform .form {padding-left:10px;padding-bottom:10px;}
+
+/*我的圈子*/
+.myrelationzone {margin-bottom:10px;border:1px solid #E6E6E6;}
+.myrelationzone .info {padding:10px;}
+.myrelationzone .info  ul li {float:left;display:inline;width:96px;padding:2px;border-bottom:2px solid #fff;color:#999;}
+.myrelationzone .info  ul li a {color:#000;text-decoration:none;}
+.myrelationzone .info  ul li.current {background-color:#D8EAC9;border-bottom:2px solid #006600;color:#999;}
+.myrelationzone .info  ul li.current a {text-decoration:none;color:#008000;font-weight:bold;margin-right:4px;}
+
+/*博客
+.blogbox {}
+		.creatblog {background:#FFFFFF url(../images/pub/join.png) no-repeat scroll left top;color:#FFFFFF;display:block; font-size:12px; font-weight:bold; height:26px; line-height:26px; position:absolute;right:0px;top:0px; text-align:center; text-decoration:none; width:86px;}
+	.bloglist {padding:10px;}
+	.bloglist .list {border-bottom:1px solid #DDDDDD;margin-bottom:5px;padding-bottom:5px;}
+	.bloglist .list h4 {}
+	.bloglist .list h4 a {color:#000000; font-size:14px; font-weight:bold;text-decoration:none;}
+	.bloglist .list h4 a:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo {padding:5px 0;}
+	.bloglist .list .writeinfo .author{margin-right:5px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .writeinfo .author:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .school{margin:0 5px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .writeinfo .school:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .msg{height:13px;color:#0094A6; text-decoration:none;margin:0 5px;}
+	.bloglist .list .writeinfo .msg:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .writeinfo .time {color:#999;}
+	.bloglist .list .intro {padding-bottom:5px;}
+	.bloglist .list .intro p{color:#333;}
+	.bloglist .list .blog-op {}
+	.bloglist .list .blog-op a {margin-right:10px;color:#0094A6; text-decoration:none;}
+	.bloglist .list .blog-op a:hover {color:#000;;text-decoration:none;}
+	.bloglist .list .blog-op a i {font-style:normal;color:#FF6600;}
+	.bloglist .blogpager {text-align:right;padding:10px 0;}
+.writeblog {}
+.writeblog h4{ 	background-color:#D8EAC9; color:#85CCF8; font-weight:bold; line-height:22px; padding-left:10px; }
+
+.blogbox .relationinfo{width:auto;}
+.blogdes {}
+.blogdes .replaylist {padding:0;}
+.bloglist .list .time i {font-style:normal;color:#FF6600;}
+
+*/
+/*礼物*/
+/*.presentbox {}
+.presentbox .title-info {margin-bottom:10px;}
+.presentbox .sendmepresent {border:1px solid #E6E6E6;
+margin-bottom:10px;}
+.presentbox .birthday {border:1px solid #E6E6E6;
+margin-bottom:10px;}
+.presentbox div .info {padding:10px;}
+.presentbox div .info dl {}
+.presentbox div .info dl dt.img {float:left;width:65px;}
+.presentbox div .info dl dt.img a{border:1px solid #AAAEB1;display:block;height:60px;margin:0 auto;padding:1px;width:60px;}
+.presentbox div .info dl dt.img a:hover{border:1px solid #222;}
+.presentbox div .info dl dd.status {margin-left:75px;}
+.presentbox div .info dl dd a{color:#0094A6;text-decoration:none;margin-right:4px;}
+.presentbox div .info dl dd a:hover{color:#0094A6;text-decoration:none;}
+.presentbox div .info dl dd.others {margin-left:75px;}
+.presentbox div .info dl dd.days {margin-left:75px;}
+
+.sendbox {border:1px solid #85CCF8;padding:10px;}
+.sendbox p{padding:5px 0;margin-bottom:10px;}
+.sendbox p strong{padding-left:10px;font-weight:bold;}
+.sendbox p.sendto{background-color:#D8EAC9 }
+.sendbox p.sendselect{background-color:#EDEDED }
+
+.tokenbox {}
+.presentmsg {margin-top:10px;}
+.presentmsg h3 {background:#D8EAC9 ;font-weight:bold; line-height:30px; padding-left:10px;}
+.presentlist .choosepresent {margin-top:10px;}
+
+.presentlist .list {padding:10px;}
+.presentlist .list ul {}
+.presentlist .list ul li {float:left;width:16.6%;text-align:center;margin-bottom:10px;}
+
+.receivedbox {padding:10px;}
+.receivedbox .list {}
+.receivedbox .list dl {float:left;border:1px solid #ddd;margin-bottom:4px;width:110px;height:130px;padding:5px 2px 0 2px;margin-left:4px;text-align:center;}
+.receivedbox .list dl dt {}
+.receivedbox .list dl dd{}
+.receivedbox .list dl dd a{margin-right:5px;color:#0094A6;text-decoration:none;}
+.receivedbox .list dl dd a:hover{color:#000;text-decoration:none;}
+.receivedbox .list dl dd.name{}
+.receivedbox .list dl dd.op{}
+.receivedbox .list dl dd.time{color:#999;font-size:11px;}
+.receivedbox .list dl dd .delpresent{}
+.receivedbox .list dl dd .delpresent span{}
+*/
+
+/*投票*/
+.votebox {}
+.votebox .goodvote {padding:10px;}
+.votebox .goodvote .list{}
+		 .goodvote .list .item{width:495px;position:relative;;border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:10px;}
+		 .goodvote .list .item .name{width:65px;position:absolute;left:0px;top:0px;text-align:center;}
+		 .goodvote .list .item .name a.pic{border:1px solid #AAAEB1; display:block; height:60px; margin:0 auto; padding:1px; width:60px;}
+		 .goodvote .list .item .name a.pic:hover{border:1px solid #222;}
+		 .goodvote .list .item .name a.author{color:#0094A6;text-decoration:none;}
+		 .goodvote .list .item .name a.author:hover{color:#000;text-decoration:none;}
+		 .goodvote .list .item .info {padding:0px 100px 0px 75px;width:320px;height:auto !important; height:110px; min-height:110px;}
+		 .goodvote .list .item .info h4 {line-height:22px;}
+		 .goodvote .list .item .info h4 a{color:#000000;font-weight:bold;font-size:14px;margin-right:10px;text-decoration:none;}
+		 .goodvote .list .item .info h4 a:hover{color:#000;text-decoration:none;}
+		 .goodvote .list .item .info h4 span {color:#999;font-size:11px;display:block;}
+		 .goodvote .list .item .info ul {}
+		 .goodvote .list .item .info ul.radioico li {background:#fff url(../images/pub/voteico.gif) no-repeat left -18px;}
+		 .goodvote .list .item .info ul.checkico li {background:#fff url(../images/pub/voteico.gif) no-repeat left 5px}
+		 .goodvote .list .item .info ul li{padding-left:15px;line-height:20px;}
+		 .goodvote .list .item .info ul li input{color:#fff;background-color:#fff;}
+		 .goodvote .list .item .info ul li span{margin-left:5px;}
+		 .goodvote .list .item .goview {width:100px;position:absolute;right:0px;top:0px}
+		 .goodvote .list .item .goview p {width:86px;height:70px;margin:0 auto;text-align:center;font-weight:bold;color:#86CDF9;line-height:24px;background:#fff url(../images/pub/voteno.gif) no-repeat left top;}
+		 .goodvote .list .item .goview p span {display:block;padding:10px 0;line-height:20px;}
+		 .goodvote .list .item .goview a  {background:#FFFFFF url(../images/pub/join.png) no-repeat scroll left top; color:#FFFFFF; display:block; font-size:12px; font-weight:bold; height:26px; line-height:26px; margin:5px auto 0 auto; text-align:center; text-decoration:none; width:86px;}
+	.createvote {padding:10px;}
+	.createvote a{background:url(../images/pub/create.png) no-repeat scroll left top; color:#FFFFFF; display:block; font-size:24px; font-weight:bold;text-align:center; height:44px; line-height:44px; margin:0 auto; text-decoration:none; width:157px;;}
+	.hotvote {border:1px solid #E6E6E6; margin-bottom:10px;}
+	.hotvote .list {padding:10px;;}
+	.hotvote .list  ol {background:#fff url(../images/pub/no.gif) no-repeat left 5px;}
+	.hotvote .list  ol li {line-height:20px;padding-left:15px; height:20px; overflow:hidden;}
+	.hotvote .list  ol li a{color:#0094A6;text-decoration:none;}
+	.hotvote .list  ol li a:hover{color:#000;text-decoration:none;}
+/*发起投票*/
+.creatvotebox {padding:10px;}
+
+/*我的投票*/
+.myvote {}
+.votebox .myvote {padding:10px;}
+.votebox .myvote .list{}
+		 .myvote .list .item{width:495px;position:relative;border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:10px;}
+		 .myvote .list .item .voteico{width:65px;position:absolute;left:0px;top:0px;text-align:center;}
+		 .myvote .list .item .info {padding:0px 100px 0px 75px;width:320px;height:110px;}
+		 .myvote .list .item .info h4 {line-height:22px;}
+		 .myvote .list .item .info h4 a{color:#000000;font-weight:bold;font-size:14px;margin-right:10px;text-decoration:none;}
+		 .myvote .list .item .info h4 a:hover{color:#000;text-decoration:none;}
+		 .myvote .list .item .info h4 span {color:#333;display:block;}
+		 .myvote .list .item .info h4 span i{margin-left:5px;color:#999;font-size:11px;font-style:normal;}
+		 .myvote .list .item .info ul {}
+		 .myvote .list .item .info ul li{line-height:20px;}
+		 .myvote .list .item .info ul li span{}
+		 .myvote .list .item .info ul li i{margin-left:5px;color:#999;font-size:11px;font-style:normal;}
+		 .myvote .list .item .info ul li .voteed{color:#FF8400;}
+		 .myvote .list .item .info ul li .voteed a{color:#0094A6;text-decoration:none;margin:0 4px;}
+		 .myvote .list .item .goview {width:100px;position:absolute;right:0px;top:0px}
+		 .myvote .list .item .goview p {width:86px;height:70px;margin:0 auto;text-align:center;font-weight:bold;color:#86CDF9;line-height:24px;background:#fff url(../images/pub/voteno.gif) no-repeat left top;}
+		 .myvote .list .item .goview p span {display:block;padding:10px 0;line-height:20px;}
+		 .myvote .list .item .goview a  {background:#FFFFFF url(../images/pub/join.png) no-repeat scroll left top; color:#FFFFFF; display:block; font-size:12px; font-weight:bold; height:26px; line-height:26px; margin:5px auto 0 auto; text-align:center; text-decoration:none; width:86px;}
+
+/*投票信息*/
+.startvote{padding:10px 0;}
+.startvote .goview {}
+.startvote .goview p {float:left;width:86px;height:70px;margin:0 auto;text-align:center;font-weight:bold;color:#86CDF9;line-height:24px;background:#fff url(../images/pub/voteno.gif) no-repeat left top;}
+.startvote .goview p span {display:block;padding:10px 0;line-height:20px;}
+.startvote .goview .voteintro {margin-left:100px}
+.startvote .goview .voteintro h4 {font-size:14px;font-weight:bold;padding-bottom:5px;}
+.startvote .goview .voteintro .author {color:#0094A6;text-decoration:none;}
+.startvote .goview .voteintro em {color:#999;font-size:11px;}
+.startvote .goview .voteintro a {color:#0094A6;text-decoration:none;}
+.startvote .votelist {}
+.startvote .votelist .voteitem {padding:10px 0;}
+.startvote .votelist .voteitem dl {border-bottom:1px solid #ddd;}
+.startvote .votelist .voteitem dl dt {font-size:14px;color:#404040;}
+.startvote .votelist .voteitem dl dt input{margin-right:5px;}
+.startvote .votelist .voteitem dl dd{margin-right:5px;}
+.startvote .votelist .voteitem dl dd .votepre { float:left;margin-right:10px; height:6px; border:1px solid #838583; margin-top:5px; overflow:hidden; background:#F2F2F2; padding:1px; width:400px;}
+.startvote .votelist .voteitem dl dd .votepre span {background:transparent url(../images/home/perbg.gif) repeat-x scroll left top; display:block; height:6px; line-height:6px;}
+.startvote .votelist .votenote {color:#FF8400;line-height:30px;font-size:14px;}
+.startvote .votelist .votenote a{color:#0094A6;text-decoration:none;margin:0 4px}
+.startvote .votelist .votenote a:hover{color:#000;text-decoration:none;}
+.vote_item_box {width:70%; margin:0 auto;}
+.vote_state li {line-height:25px; color:#666; border-bottom:1px solid #CCC;}
+.vote_state li a {color:#0094A6; text-decoration:none; padding:0 15px;}
+.vote_state li a:hover {color:#0094A6; text-decoration:none;}
+.voteinfo {margin-top:10px;margin-bottom:10px;}
+.voteinfo h4{background:#D8EAC9;line-height:24px;text-indent:10px;font-weight:bold;}
+.voteinfo fieldset{border:1px solid #85CCF8; padding:10px;}
+.voteinfo legend {padding:5px;}
+.voteinfo textarea {width:98%; margin:0 0 10px 0px;}
+.votebtn {padding-left:110px;padding-top:10px;}
+
+
+/*流利之星*/
+.liulistar {margin-bottom:10px;}
+/*宠物排行榜*/
+.paihang {margin-bottom:10px;}
+	.in-newslists {border:1px solid #E6E6E6;}
+	.in-newslists .m-h {border-bottom:1px solid #E3E3E3; margin:0 10px; text-align:right;}
+	.in-newslists .m-h h3{color:#85CCF8; float:left; font-weight:bold; line-height:28px;}
+	.in-newslists .listitems {margin-top:5px; overflow:auto; padding:5px;}
+	.listitems table.listtable {border:1px solid #C0E5A7;border-collapse:collapse;}
+	.listitems table.listtable td {border-bottom:1px solid #E6E6E6;text-indent:5px;padding:5px 0;}
+	.listitems table.listtable th {background-color:#F0FBE8 ;border-bottom:1px solid #C0E5A7;text-indent:5px;font-weight:bold;padding:5px 0;}
+
+/*首页公告广告*/
+.topNoticeGG {text-align:center;}
+.topNoticeGG a{margin:0 auto;text-align:center;}
+
+/*删除提示btn*/
+.popboxbtn {text-align:center;}
+
+/*礼物留言*/
+.Mymsg textarea{width:98%;}
+
+/*礼物*/
+.mag_wrap {}
+
+/*流利英语 *iddd*  在线阅读*/
+.spokenlist .title-h , .iqddbox .title-h ,.onlineread .title-h  {margin-bottom:10px;}
+
+/*博客分类管理*/
+.blogcategory {padding:10px;}
+.categoryedit {margin-top:10px;line-height:30px;height:30px;background-color:#F8F8F8;padding:0px 10px;clear:both;}
+.categoryname {float:left;}
+.categoryop {float:right;}
+.categoryop a {color:#0094A6;}

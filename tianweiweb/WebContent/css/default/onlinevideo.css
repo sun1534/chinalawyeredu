@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+
+/****在线视频主页****/
+.onlinevideo {}
+.onlinevideo .title-info {padding-top:0px;padding-left:0px;border-bottom:0;}
+.onlinevideo .relationinfo{padding-bottom:10px;}
+.title-h h3 a{color:#FEFEFE;}
+.onlinev-body .addsy{padding:10px;}
+.onlinevideo .title-h{margin-bottom:10px;}
+.relationinfo{border:0;}
+.onlinev-body{border:1px solid #85CCF8;}
+.list table{font-size:12px;}
+.listinfo a{color:#0094A6;text-decoration:none;}
+.listinfo table{color:#999;font-size:12px;}
+.listinfo table td {height:24px; overflow:hidden;}
+.onlinev-body .formop{padding-right:15px;}
+
+/****BBC情景教学资源****/
+.onlinevideo-morebbc .title-h{margin-bottom:10px;}
+
+/****播放视频****/
+.videoplay{border:1px solid #85CCF8;padding:5px;}
+.videoplaybox p{line-height:22px;}
+.main-vo{padding-bottom:20px;}
+.videoplaybox .introduction{padding-bottom:20px;}
+.media dt{text-align:center;}
+.vd-in{background:#F0FBE8;padding:5px;white-space:nowrap;width:67px;}
+.main-vo table{border:1px solid #C0E5A7;font-size:12px;width:98%;margin:0 auto;}
+.main-vo table td{padding-left:5px;padding-right:5px;}

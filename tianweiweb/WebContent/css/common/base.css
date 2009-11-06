@@ -1,0 +1,155 @@
+@charset "utf-8";
+/**
+Style for jiaxq.
+update:2008-12-04
+author:heye (AT) ekuaike.com
+ **/
+
+/* 头部导航 */
+.header{ width:950px; height:60px; overflow:hidden;}
+.header p{ width:930px; height:17px; text-align:right; padding-right:20px; line-height:17px;}
+.top{ width:950px; height:43px; overflow:hidden; background:url(../images/icon/nav_bg.gif) repeat-x;}
+.logo{ width:186px; height:43px; overflow:hidden; background:url(../images/icon/logo.gif) no-repeat; float:left; margin-right:80px;}
+.logo a{ width:186px; height:43px; display:block; text-indent:-9999px;}
+.nav{ width:400px; height:43px; float:left; margin-right:40px;}
+.nav ul{ width:400px; height:20px; margin-top:11px;}
+.nav ul li{ width:70px; height:20px; line-height:20px; overflow:hidden; float:left; margin-right:30px;}
+.nav ul li a{ width:70px; height:20px; display:block; text-indent:-9999px;}
+.nav ul li.zy{ background:url(../images/icon/zy.gif) no-repeat;}
+.nav ul li.xxzx{ background:url(../images/icon/xxzx.gif) no-repeat;}
+.nav ul li.hy{ background:url(../images/icon/hy.gif) no-repeat;}
+.nav ul li.bjzy{ background:url(../images/icon/bjzy.gif) no-repeat;}
+.search{ width:220px; height:20px; overflow:hidden; margin-top:10px;}
+.search input{ width:120px; height:14px; background:#fff; padding:2px; border:1px solid #db5e16;}
+.search button{ width:46px; height:17px; overflow:hidden; background:url(../images/icon/search.gif) no-repeat; text-indent:-9999px; border:0; cursor:pointer;}
+
+/* 布局 */
+.main{ width:950px; overflow:hidden;}
+.mainc{ width:745px; overflow:hidden; float:left;}
+.sidel{ width:200px; overflow:hidden; margin-right:5px; float:left;}
+.sidec{ width:510px; overflow:hidden; margin-right:5px; float:left;}
+.sider{ width:230px; overflow:hidden; float:left;}
+
+/* channel */
+.channel{ width:198px; height:349 overflow:hidden; background:#fde9c8 url(../images/icon/channel_bg.gif) top center no-repeat; border-left:1px solid #af5754; border-right:1px solid #af5754; border-bottom:1px solid #af5754; padding:20px 0 10px; margin-bottom:5px;}
+.channel ul{ width:180px; height:350px; overflow:hidden; margin:0 auto;}
+.channel ul li{ width:180px; height:44px; overflow:hidden; margin-bottom:5px; border-bottom:1px dashed #fff;}
+.channel ul li a{ width:180px; height:45px; display:block; text-indent:-9999px;}
+.channel ul li.lsbk{ background:url(../images/icon/lsbk.gif) no-repeat;}
+.channel ul li.jzbk{ background:url(../images/icon/jzbk.gif) no-repeat;}
+.channel ul li.xsrj{ background:url(../images/icon/xsrj.gif) no-repeat;}
+.channel ul li.zp{ background:url(../images/icon/zp.gif) no-repeat;}
+.channel ul li.lw{ background:url(../images/icon/lw.gif) no-repeat;}
+.channel ul li.tp{ background:url(../images/icon/tp.gif) no-repeat;}
+.channel ul li.aw{ background:url(../images/icon/aw.gif) no-repeat;}
+.channel ul li.qz{ background:url(../images/icon/qz.gif) no-repeat;}
+.channel ul li.fx{ background:url(../images/icon/fx.gif) no-repeat;}
+
+/* 老师登录*/
+.teacher_logo{ width:200px; height:50px; overflow:hidden; background:url(../images/common/teacher/logo.gif) no-repeat; text-indent:-9999px;}
+.teachernav{ width:198px; height:300px; overflow:hidden; border:1px solid #af5754; margin-bottom:5px;}
+.teachernav ul{ width:198px; height:278px; background:#fef8e1;}
+.teachernav ul li{ width:198px; height:39px; border-bottom:1px dashed #af5754; line-height:39px; font-size:14px; text-align:center;}
+.teachernav ul li a{ width:198px; height:39px; display:block; color:#000;}
+.teachernav ul li.jfk{ background:url(../images/common/teacher/jfk.gif) 30px center no-repeat;}
+.teachernav ul li.jfk a:hover{background:#fcdfb0 url(../images/common/teacher/jfk.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav ul li.msgzs{ background:url(../images/common/teacher/msgzs.gif) 30px center no-repeat;}
+.teachernav ul li.msgzs a:hover{background:#fcdfb0 url(../images/common/teacher/msgzs.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav ul li.tbkt{ background:url(../images/common/teacher/tbkt.gif) 30px center no-repeat;}
+.teachernav ul li.tbkt a:hover{background:#fcdfb0 url(../images/common/teacher/tbkt.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav ul li.xsda{ background:url(../images/common/teacher/xsda.gif) 30px center no-repeat;}
+.teachernav ul li.xsda a:hover{background:#fcdfb0 url(../images/common/teacher/xsda.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav ul li.zyfz{ background:url(../images/common/teacher/zyfz.gif) 30px center no-repeat;}
+.teachernav ul li.zyfz a:hover{background:#fcdfb0 url(../images/common/teacher/zyfz.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav ul li.llky{ background:url(../images/common/teacher/llky.gif) 30px center no-repeat;}
+.teachernav ul li.llky a:hover{background:#fcdfb0 url(../images/common/teacher/llky.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav p{ width:188px; height:22px; line-height:22px; text-align:right; padding-right:10px;}
+.teachernav ul li.pxzy{ background:url(../images/common/teacher/pxzy.gif) 30px center no-repeat;}
+.teachernav ul li.pxzy a:hover{background:#fcdfb0 url(../images/common/teacher/pxzy.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.teachernav p{ width:188px; height:22px; line-height:22px; text-align:right; padding-right:10px;}
+
+/* 家长登录*/
+.parent_logo{ width:200px; height:50px; overflow:hidden; background:url(../images/common/parent/logo.gif) no-repeat; text-indent:-9999px;}
+.parentnav{ width:198px; height:300px; overflow:hidden; border:1px solid #af5754; margin-bottom:5px;}
+.parentnav ul{ width:198px; height:278px; background:#fef8e1;}
+.parentnav ul li{ width:198px; height:39px; border-bottom:1px dashed #af5754; line-height:39px; font-size:14px; text-align:center;}
+.parentnav ul li a{ width:198px; height:39px; display:block; color:#000;}
+.parentnav ul li.tbkt{ background:url(../images/common/parent/tbkt.gif) 30px center no-repeat;}
+.parentnav ul li.tbkt a:hover{background:#fcdfb0 url(../images/common/parent/tbkt.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.kjxz{ background:url(../images/common/parent/kjxz.gif) 30px center no-repeat;}
+.parentnav ul li.kjxz a:hover{background:#fcdfb0 url(../images/common/parent/kjxz.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.klxx{ background:url(../images/common/parent/klxx.gif) 30px center no-repeat;}
+.parentnav ul li.klxx a:hover{background:#fcdfb0 url(../images/common/parent/klxx.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.msgzs{ background:url(../images/common/parent/msgzs.gif) 30px center no-repeat;}
+.parentnav ul li.msgzs a:hover{background:#fcdfb0 url(../images/common/parent/msgzs.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.hzda{ background:url(../images/common/parent/hzda.gif) 30px center no-repeat;}
+.parentnav ul li.hzda a:hover{background:#fcdfb0 url(../images/common/parent/hzda.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.llky{ background:url(../images/common/parent/llky.gif) 30px center no-repeat;}
+.parentnav ul li.llky a:hover{background:#fcdfb0 url(../images/common/parent/llky.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav ul li.pxzy{ background:url(../images/common/parent/pxzy.gif) 30px center no-repeat;}
+.parentnav ul li.pxzy a:hover{background:#fcdfb0 url(../images/common/parent/pxzy.gif) 30px center no-repeat;; font-weight:bold; color:#d50707; text-decoration:none;}
+.parentnav p{ width:188px; height:22px; line-height:22px; text-align:right; padding-right:10px;}
+
+
+/* 学生登录*/
+.student_logo{ width:200px; height:50px; overflow:hidden; background:url(../images/common/student/logo.gif) no-repeat; text-indent:-9999px;}
+.studentnav{ width:198px; height:180px; overflow:hidden; border:1px solid #af5754; margin-bottom:5px;}
+.studentnav ul{ width:198px; height:158px; background:#fef8e1;}
+.studentnav ul li{ width:198px; height:39px; border-bottom:1px dashed #af5754; line-height:39px; font-size:14px; text-align:center;}
+.studentnav ul li a{ width:198px; height:39px; display:block; color:#000;}
+.studentnav ul li.klxx{ background:url(../images/common/student/klxx.gif) 30px center no-repeat;}
+.studentnav ul li.klxx a:hover{background:#fcdfb0 url(../images/common/student/klxx.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav ul li.zhq{ background:url(../images/common/student/zhq.gif) 30px center no-repeat;}
+.studentnav ul li.zhq a:hover{background:#fcdfb0 url(../images/common/student/zhq.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav ul li.tbkt{ background:url(../images/common/student/tbkt.gif) 30px center no-repeat;}
+.studentnav ul li.tbkt a:hover{background:#fcdfb0 url(../images/common/student/tbkt.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav ul li.wdda{ background:url(../images/common/student/wdda.gif) 30px center no-repeat;}
+.studentnav ul li.wdda a:hover{background:#fcdfb0 url(../images/common/student/wdda.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav ul li.kljj{ background:url(../images/common/student/kljj.gif) 30px center no-repeat;}
+.studentnav ul li.kljj a:hover{background:#fcdfb0 url(../images/common/student/kljj.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav ul li.llky{ background:url(../images/common/student/llky.gif) 30px center no-repeat;}
+.studentnav ul li.llky a:hover{background:#fcdfb0 url(../images/common/student/llky.gif) 30px center no-repeat; font-weight:bold; color:#d50707; text-decoration:none;}
+.studentnav p{ width:188px; height:22px; line-height:22px; text-align:right; padding-right:10px;}
+
+/** 版权所有 **/
+.footer{ width:748px; height:33px; overflow:hidden; background:#fff8df; border:1px solid #af5754; margin:5px 0; line-height:33px; padding:0 100px; color:#000;}
+.footer span{ float:left; margin-right:40px;}
+.footer span a{ color:#000; text-decoration:none;}
+
+/***** 清除浮动 *****/
+.clear{ clear:both; font-size:0;}
+
+/***** 遮罩样式 *****/
+.overshadow{ top:0; left:0; background:url(../images/icon/overshadow.png); width:100%; height:100%; z-index:0; position:fixed!important;position:absolute;_top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ?
+documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2); }
+* html .overshadow { background:none fixed; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale, src="../images/icon/overshadow.png");}
+.overshadow iframe{ background:none; opacity: 0; -moz-opacity:0; filter: alpha(opacity=0);}
+
+/***** 弹出窗口 *****/
+.popbox{ width:356px; height:246px; overflow:hidden; background:#fff; top:35%; left:35%; position:absolute; z-index:1; border:2px solid #000; text-align:left; margin-left:0!important;margin-top:-75px!important;margin-top:0px; position:fixed!important;position:absolute;_top:expression(eval(document.compatMode &&document.compatMode=='CSS1Compat') ?documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 :document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);}
+* html .popbox{margin-top:0px!important;}
+.popboxtop{ width:356px; height:26px; overflow:hidden; background:url(../images/icon/popboxtop_bg.gif) repeat-x;}
+.popboxtop h3{ width:300px; height:26px; line-height:26px; font-size:12px; font-weight:bold; float:left; color:#d50707; padding-left:20px;}
+.popboxtop span{ width:20px; height:26px; overflow:hidden; background:url(../images/icon/close.gif) right center no-repeat; float:left;}
+.popboxtop span a{ width:20px; height:26px; display:block; text-indent:-9999px;}
+.popboxbody{ width:296px; height:147px; overflow:hidden; padding:15px 30px; }
+.popboxbody p{ width:296px; line-height:22px; font-size:14px;}
+.popboxfoot{ width:326px; height:33px; overflow:hidden; background:url(../images/icon/popboxfoot_bg.gif) repeat-x; padding:10px 0 0 30px;}
+.popboxfoot p{ width:326px;}
+.popboxfoot button{width:48px; height:23px; overflow:hidden; background:url(../images/icon/btn_bg.gif) repeat-x; text-align:center; line-height:23px; border:1px solid #999; color:#fff; cursor:pointer;}
+.popboxfoot button:hover{ background:#d66c27; color:#fff; border-top:1px solid #999; border-right:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #999;}
+
+/***** 翻页条 *****/
+.page{ text-align:right; padding-top:10px; color:#2076c7; clear:both; zoom:1;}
+.page a,.page a:visited{ color:#585858;}
+.page span{ color:#2076c7;}
+
+
+
+
+
+
+
+
+
+

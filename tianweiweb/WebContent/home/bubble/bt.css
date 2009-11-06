@@ -1,0 +1,10 @@
+.tooltip{
+width: 200px; color:#000;
+font:lighter 12px/1.3 Arial,sans-serif;
+text-decoration:none;text-align:center; }
+
+.tooltip span.top{padding: 30px 8px 10px;
+    background: url(bt.gif) no-repeat top}
+
+.tooltip b.bottom{padding:15px 8px 15px;color: #548912;
+    background: url(bt.gif) no-repeat bottom}

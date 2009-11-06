@@ -1,0 +1,301 @@
+/*通用*/
+body,iframe,form,input,select,marquee{
+  	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+a{
+	text-decoration: none;
+	}
+img{
+	border:none;
+	margin:0px;
+	padding:0px;
+	display:inline;
+	}
+.clear{
+	clear:both;
+	}
+#main{
+	width:930px;
+	height:auto;
+	margin:auto;
+	border-left:#000000 solid 1px;
+	border-right:#000000 solid 1px;
+	}
+/*顶部*/
+#top{
+	width:auto;
+	height:240px;}
+#topl{
+	width:250px;
+	height:240px;
+	float:left;
+	background:url(../images/topl.jpg);
+	}
+#logo{
+	width:auto;
+	height:100px;
+	float:left;
+	padding-left:12px;
+	padding-top:25px;
+	}
+#login{
+	float:left;
+	width:160px;
+	padding-left:20px;
+	padding-top:22px;
+	*padding-top:25px!important;
+	line-height:22px;
+	}
+#login  input{
+*margin-top:2px;
+*vertical-align:middle;
+
+}
+.textfield,.textfield2{
+	width:70px;
+	height:14px;
+	border:solid 1px #bbbbbb;
+	background:#FFFFFF;}
+.textfield3{
+	width:40px;
+	height:14px;
+	border:solid 1px  #bbbbbb;
+	background:#FFFFFF;
+	}
+.btn{
+	width:42px;
+	height:25px;
+	color:#ffffff;
+	background: url(../images/btn.jpg);
+	border:none;
+	}
+.btn3{
+	width:42px;
+	height:25px;
+	color:#ffffff;
+	background: url(../images/btn3.jpg);
+	border:none;
+	}
+.menu{
+	float:right;
+	display:block;
+	padding-top:30px;
+	padding-right:3px;
+	font-size:20px;
+	font-family:"黑体";
+	}
+.menu a:link,.menu a:visited,.menu a:active{
+	color:#FFFFFF;
+	}
+.menu a:hover{
+	color:#FFFF00;
+	}
+#topr{
+	float:right;
+	width:auto;
+	height:240px;
+	}
+.toptext{
+	float:left;
+	width:675px;
+	height:20px;
+	background:url(../images/toptext.jpg);
+	display:block;
+	text-align:right;
+	padding-top:10px;
+	padding-right:5px;
+	}
+.toptext a {
+	color:#000;
+	}
+#flash{
+	float:left;
+	display:block;
+	height:170px;
+	padding:0px;
+	margin:0px;
+	}
+.topmenu{
+	float:left;
+	width:660px;
+	height:30px;
+	padding-top:10px;
+	padding-right:20px;
+	background:url(../images/topmenu.jpg);
+	text-align:right;
+	display:block;
+	font-family:"黑体";
+	font-size:20px;
+	}
+.topmenu a:link,.topmenu a:visited,.topmenu a:active{
+	color:#FFFFFF;
+	}
+.topmenu a:hover{
+	color:#FFFF00;
+	}
+/*滚动和搜索*/
+#bannal{
+	height:45px;
+	width:930px;
+	float:left;
+	background:url(../images/nr.jpg);
+	}
+#scroll{
+	width:330px;
+	padding-top:18px;
+	padding-right:10px;
+	padding-left:10px;
+	float:left;
+	}
+#scroll a,#search a{
+	color:#000000;
+	}
+.search{
+	float:right;
+	padding-left:10px;
+	padding-top:10px;
+	font-size:12px;
+	color:#000;
+	display:block;
+	padding-right:15px;
+	}
+.search a{
+	color:#000;
+	}
+.search .btn2{
+	width:60px;
+	height:29px;
+	color:#fff;
+	background: url(../images/btn2.jpg);
+	border:none;
+	font-size:14px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	vertical-align:middle;
+	}
+.textfield4{
+	width:280px;
+	background:#FFF;
+	height:15px;
+	border:solid 1px #bbbbbb;
+	padding-left:5px;
+	}
+select{
+	width:60px;
+	background:#fff;
+	*vertical-align:middle;
+	border:solid 1px #bbbbbb;
+	}
+/*内容*/
+#nr{
+	width:930px;
+	height:350px;
+	background:#FFF;
+	}
+#nrl{
+	width:350px;
+	float:left;
+	height:auto;
+	}
+.hy{
+	float:left;
+	height:75px;
+	width:340px;
+	text-align:right;
+	background:url(../images/hy.jpg);
+	display:block;
+	font-size:16px;
+	font-family:"黑体";
+	color:#FFFFFF;
+	padding-top:50px;
+	padding-right:10px;
+	line-height:22px;
+	}
+.hy a{
+	color:#FFCC00;
+	}
+.hd{
+	float:left;
+	height:225px;
+	width:350px;
+	text-align:right;
+	background:url(../images/hd.jpg);
+	display:block;
+	}
+#nrr{
+	float:right;
+	width:580px;
+	height:250px;
+	}
+.video{
+	background:url(../images/video.jpg) no-repeat;
+	width:562px;
+	height:337px;
+	margin-top:8px;
+	margin-left:8px;
+	}
+.media{
+	width:423px;
+	height:336px;
+	float:left;
+	margin-top:2px;
+	background:url(../images/media.jpg);
+	}
+.dh{
+	float:right;
+	display:block;
+	}
+/*广告位*/
+#ad{
+	width:930px;
+	height:105px;
+	padding-top:5px;
+	background:#FFFFFF;
+	float:left;
+	}
+.adl{
+	float:left;
+	width:235px;
+	padding-left:8px;
+	display:block;
+	}
+.adr{
+	display:block;
+	padding-right:10px;
+	float:right;
+	}
+/*合作伙伴*/
+#friend{
+	width:850px;
+	*width:870px!important;
+	height:300px;
+	*height:288px!important;
+	background:url(../images/friend.jpg);
+	float:left;
+	padding-left:80px;
+	*padding-top:12px!important;
+	*padding-left:60px!important;
+	}
+#friend ul{
+	width:auto;
+	height:auto;
+	}
+#friend li{
+	list-style:none;
+	width:130px;
+	float:left;
+	margin-left:24px;
+	margin-top:5px;
+	}
+/*底部*/
+#bottom{
+height:155px;
+width:930px;
+background:url(../images/bottom.jpg);
+text-align:center;
+	}
+#bottom a{
+	color:#000;
+	}

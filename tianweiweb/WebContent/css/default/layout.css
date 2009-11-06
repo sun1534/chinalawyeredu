@@ -1,0 +1,63 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+
+.clear {clear:both;line-height:0px;height:0px;width:0px;font-size:0px;overflow:hidden;visibility:hidden;}
+.hidden {display:none;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+
+
+#doc-p {}
+#doc-t {}
+#doc-s {}
+
+.doc {width:100%;margin:0 auto;padding-bottom:10px;}
+.doc .wrap {width:100%;}
+.doc .wrap .hd {margin:5px 0;}
+.doc .wrap .hd .in-hd {width:980px;margin:0 auto;}
+.doc .wrap .bd {margin-bottom:10px;}
+.doc .wrap .bd .in-bd{width:980px;margin:0 auto;}
+.sidebar {float:left;width:210px;padding-top:10px;}
+.sidebar .in-sidebar{}
+.sidebar .active-marketing{padding-top:10px;}
+.main {float:right;width:700px;}
+.main .in-main {padding-top:10px;}
+.main  .col{width:515px;float:left;}
+.main  .col-side{width:225px;float:right;padding-left:5px;}
+.other {clear:both;}
+.other .in-other {}
+.doc .ft {height:29px;background:url(../images/ft.gif) no-repeat center top;}
+.doc .ft .copyright {width:920px;margin:0px auto;height:21px;padding-top:8px;}
+.doc .ft .copyright a{color:#4B4B4B;text-decoration:none;}
+.doc .ft .copyright a:hover{color:#000000;text-decoration:none;}
+.doc .ft .copyright ul {overflow:hidden;}
+.doc .ft .copyright ul li {float:left;margin:0px 5px 0px -1px;padding:0px 3px 0px 7px;line-height:14px;overflow:hidden;border-left:1px solid #4B4B4B;}
+.doc .ft .copyright ul li.inc {float:right;padding:0 5px;line-height:1.23;margin-left:-1px;border-left:none;}
+
+.doc .wrap .hd .in-hd ,
+.doc .wrap .bd .in-bd ,
+.doc .ft {width:920px;margin:0 auto;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+﻿
+/* add by stephen 2008-10-16*/
+.uploadBar {
+	display:block;
+	width: 0px;
+	height: 5px;
+	border: solid 1px #445566;
+	background-color: #85CCF8;
+	overflow:hidden;
+}
+

@@ -1,0 +1,9 @@
+.demo2 {margin:20px auto;text-align:center;overflow:hidden;width:400px; border:2px solid #ccc; }
+.news-mod{ width:400px; margin:0 auto; position:relative; float:left;text-align:left;  }
+.news-mod h3{padding:5px 10px;border-bottom:1px solid #000;font-size:12px;}
+.news-mod .more{ top:5px; right:10px;  position:absolute; }
+.news-mod .news-content{padding:0 10px; }
+.news-mod .news-content  ul {}
+.news-mod .news-content  ul li {text-align:right; padding:2px 0px; }
+.news-mod .news-content  ul li a {float:left; color:#000; }
+.news-mod .news-content  ul li span {color:#ccc;}

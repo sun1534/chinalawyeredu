@@ -1,0 +1,33 @@
+.bj-menu { width: 210px;  }
+
+.bj-menu .left { width: 10px;float: left;}
+.bj-menu .right { width:210px; float:right;}
+
+#bj-menu-t.left{background-color: #85CCF8; height:280px}
+#bj-menu-g.left{background-color: #85CCF8; height:430px;}
+#bj-menu-s.left{background-color: #85CCF8; height:294px;}
+
+.bj-menu h3 { padding:5px 0px; font-size:12px; text-align:center; }
+.bj-menu h3 strong{font-weight:bold;color:#FF6600;}
+
+.bj-menu .jiazh {background: url(../images/bj-menu/jz_03.jpg) no-repeat;height: 33px;width: 210px; text-indent:55px;font-size: 13px;line-height: 33px; font-weight:bold; }
+
+.bj-menu .title{ background:url(../images/bj-menu/lt_bg2.gif) no-repeat; width:167px; height:22px; line-height:22px; padding-left:41px; font-size:14px; color:#5B615F; display:block;  }
+
+.bj-menu ul{ margin:0px; padding:0px; border:1px #85CCF8 solid; margin-top:5px; }
+.bj-menu ul li{ margin:0px; padding:0px; list-style: none;  font-size:12px; height:25px; line-height:22px; width:167px; margin-left:15px;  text-align:30px; }
+.bj-menu ul li a{ text-decoration: none; color:#082B6F;  }
+.bj-menu ul li ul{ margin:0px; padding:0px; padding-top:5px; border:none;  }
+.bj-menu ul li ul li{ margin:0px; padding:0px; height:25px; line-height:22px; margin-left:10px; text-indent:25px;}
+.bj-menu ul li ul li a{ text-decoration: none; }
+.bj-menu a{ text-decoration: none; color:#5B615F;}
+.bj-menu a:hover{ text-decoration: none; color:#85CCF8;}
+
+.clear{ clear:both;}
+
+.xia{background: url(../images/bj-menu/lt_bg3.gif) no-repeat; width:167px; height:22px; line-height:22px; padding-left:41px; font-size:14px; color:#5B615F; display:block;}
+.shang{background: url(../images/bj-menu/lt_bg1.gif) no-repeat; width:167px; height:22px; line-height:22px; padding-left:41px; font-size:14px; color:#5B615F; display:block; }
+
+.s_xia{background:url(../images/bj-menu/st_bg3_5.gif) no-repeat; margin:0px; padding:0px; windth:167px; height:21px; display:block; }
+.s_shang{background:url(../images/bj-menu/st_bg3_5_1.gif) no-repeat; margin:0px; padding:0px; width:167px; height:21px; }
+#tt li{background: url(../images/bj-menu/kuang1.gif) no-repeat;}

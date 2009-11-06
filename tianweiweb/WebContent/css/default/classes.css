@@ -1,0 +1,102 @@
+/*班级*/
+.m-h{text-align:right;padding:0px 10px;background:#fff url(../images/pub/line.png) no-repeat center bottom;height:28px;}
+.m-h h3 {float:left;font-weight:bold;line-height:28px;color:#85CCF8;}
+.m-h span {display:inline-block;padding:3px 0;}
+.m-h span a{color:#000000;text-decoration:none;padding-left:8px;background:#fff url(../images/home/more.gif) no-repeat left 4px;}
+.m-h span a:hover {color:#0094A6;text-decoration:none;}
+.classesbox {width:745px;}
+.classesbox .title-h {}
+.classesbox .title-info {margin-bottom:10px;}
+.classesbox .classesinfo {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classesbox .classesinfo .info {padding:10px;}
+.classesbox .classesinfo .info p {line-height:22px;}
+.classesbox .nextclassesinfo  {border:1px solid #E6E6E6;margin-bottom:10px;}
+.classesbox .nextclassesinfo .nextinfo {padding:10px;}
+.classesbox .nextclassesinfo .nextinfo ol {}
+.classesbox .nextclassesinfo .nextinfo ol li {color:#000;font-family:"宋体";line-height:22px;}
+.classesbox .nextclassesinfo .nextinfo ol li a{color:#000;text-decoration:none;}
+.classesbox .nextclassesinfo .nextinfo ol li a:hover {text-decoration:none;}
+
+/*班级成员*/
+.classeslistbox {}
+.classeslistbox .classeslist-group {border:1px solid #85CCF8;float:left;width:148px;}
+.classeslistbox .classeslist-group h4{background-color:#D8EAC9; color:#85CCF8; font-weight:bold; line-height:28px; padding-left:10px;}
+.classeslistbox .classeslist-group p{background-color:#F0F7E6; color:#888888; line-height:22px; padding-left:10px;}
+.classeslistbox .classeslist-group ul {padding:10px 0 20px 10px;}
+.classeslistbox .classeslist-group ul li {height:22px;}
+.classeslistbox .classeslist-group ul li a{}
+.classeslistbox .classeslist-info {float:left;width:595px;}
+.classeslistbox .classeslist-info .classespage {text-align:right;}
+.classeslistbox .classeslist-info .listinfo {border:1px solid #E6E6E6;margin-top:5px;padding:10px;width:573px;}
+.classeslistbox .classeslist-info .listinfo ul.relogin {width:118px;float:left;display:block;margin-bottom:5px;}
+.classeslistbox .classeslist-info .listinfo ul.relogin * {-moz-opacity: 0.6;opacity:.60;filter: alpha(opacity=60);}
+.classeslistbox .classeslist-info .listinfo ul {width:110px;float:left;height:110px;display:block;margin-bottom:5px;}
+.classeslistbox .classeslist-info .listinfo ul li {text-align:center;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head {padding:1px 0;height:65px;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a:hover {border:1px solid #222222;}
+.classeslistbox .classeslist-info .listinfo ul li.u-head a img {}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name {line-height:20px;overflow:hidden;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add {}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add a {text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+.classeslistbox .classeslist-info .listinfo ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+/* 班主任 */
+.classeslistbox .classeslist-info .tutor {border-bottom:1px solid #ccc;margin-bottom:10px;}
+	.classeslistbox .classeslist-info .tutor ul.relogin {width:118px;float:left;display:block;margin-bottom:5px;}
+	.classeslistbox .classeslist-info .tutor ul.relogin * {-moz-opacity: 0.6;opacity:.60;filter: alpha(opacity=60);}
+	.classeslistbox .classeslist-info .tutor ul {width:150px;float:left;height:110px;display:block;margin-bottom:5px;}
+	.classeslistbox .classeslist-info .tutor ul li {text-align:center;}
+	.classeslistbox .classeslist-info .tutor ul li span {font-weight:bold;}
+	.classeslistbox .classeslist-info .tutor ul li.u-head {padding:1px 0;height:65px;}
+	.classeslistbox .classeslist-info .tutor ul li.u-head a {margin:0 auto;width:60px;height:60px;display:block;padding:1px;border:1px solid #AAAEB1}
+	.classeslistbox .classeslist-info .tutor ul li.u-head a:hover {border:1px solid #222222;}
+	.classeslistbox .classeslist-info .tutor ul li.u-head a img {}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name {line-height:20px;overflow:hidden;}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name .u-add {}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name .u-add a {text-decoration:none;}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name .u-add a:hover {text-decoration:none;}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+	.classeslistbox .classeslist-info .tutor ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+	.classeslistbox .classeslist-info .tutor ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+
+
+
+
+/*班级管理*/
+.classesadminbox {}
+.classesadminbox .apptoadmin {border:1px solid #85CCF8;padding:10px;}
+.classesadminbox .apptoadmin p{line-height:24px;color:#999;}
+.classesadminbox .apptoadmin p .adminname {margin:0 4px;color:#0094A6;}
+.classesadminbox .apptoadmin p .adminapp {font-size:14px;margin-left:4px;font-weight:bold;color:#FF8400;}
+
+.baseadmininfo {padding:0 20px;}
+.basestaffinfo h3 {font-weight:bold;line-height:24px;border-bottom:1px solid #E3E3E3;}
+.basestaffinfo .staffinfo {}
+.basestaffinfo h4 {margin-bottom:1px;font-weight:bold;line-height:24px;border-bottom:1px solid #E3E3E3;}
+.basestaffinfo h4 span {float:left;}
+.basestaffinfo {padding:0 20px}
+.privacy {padding:0 20px}
+.delstaff {}
+.delstaff a{color:#ff6600;}
+
+.staffinfo {padding:5px 0;}
+.staffinfo ul.relogin {float:left;display:inline-block;margin-bottom:5px;}
+.staffinfo ul.relogin * {-moz-opacity: 0.6;opacity:.60;filter: alpha(opacity=60);}
+.staffinfo ul {_width:65px;_height:118px;float:left;margin-right:10px;min-height:120px;display:inline-block;;margin-bottom:5px;}
+.staffinfo ul li {text-align:center;}
+.staffinfo ul li.u-head {padding:1px 0;height:65px;}
+.staffinfo ul li.u-head a {width:60px;height:60px;display:inline-block;padding:1px;border:1px solid #AAAEB1}
+.staffinfo ul li.u-head a:hover {border:1px solid #222222;}
+.staffinfo ul li.u-head a img {}
+.staffinfo ul li.u-add-name {line-height:20px;overflow:hidden;}
+.staffinfo ul li.u-add-name .u-add {}
+.staffinfo ul li.u-add-name .u-add a {text-decoration:none;}
+.staffinfo ul li.u-add-name .u-add a:hover {text-decoration:none;}
+.staffinfo ul li.u-add-name .add-name {color:#0094A6;text-decoration:none;}
+.staffinfo ul li.u-add-name .add-name:hover {color:#0094A6;text-decoration:none;}
+.staffinfo ul li.u-time {line-height:20px;overflow:hidden;color:#999999;}
+
+/**班级结束*/

@@ -1,0 +1,40 @@
+/*打招呼*/
+.msghello {width:745px;}
+.msghello .in-msghello {}
+.msghello .in-msghello .msghello-h {}
+.msghello .in-msghello .msghello-h h3 {font-weight:bold;font-size:14px;line-height:24px;color:#fefefe;background-color:#87CEFA;padding-left:10px;border-bottom:1px solid #87CEFA;}
+.msghello .in-msghello .msghello-list {}
+.msghello .in-msghello .hello-info {text-align:right;border-bottom:1px solid #85CCF8;padding-top:10px;padding-left:10px;}
+.msghello .in-msghello .hello-info h4  {margin-left:10px;font-weight:bold;float:left;width:90px;color:#666;border-width:1px 1px 0px 1px;border-style:solid;border-color:#ccc;text-align:center;}
+.msghello .in-msghello .hello-info h4 span {}
+.msghello .in-msghello .hello-info h4 span a {color:#222;}
+.msghello .in-msghello .hello-list {}
+.msghello .in-msghello .hello-list ul {padding:10px 0;}
+.msghello .in-msghello .hello-list ul li {padding:5px 10px;border-bottom:1px solid #ddd;height:65px;}
+.msghello .in-msghello .hello-list ul li .img {float:left;margin-right:20px;width:61px;height:61px;display:block;padding:1px;border:1px solid #AAAEB1;}
+.msghello .in-msghello .hello-list ul li .img:hover {border:1px solid #222222;}
+.msghello .in-msghello .hello-list ul li .info {padding:0 10px;float:left;padding-top:10px;}
+.msghello .in-msghello .hello-list ul li .info img{margin:0 10px;}
+.msghello .in-msghello .hello-list ul li .time {float:left;line-height:60px;color:#999;width:200px;text-indent:60px;}
+.msghello .in-msghello .hello-list ul li .del-hello {float:right;padding-top:25px;}
+.msghello .in-msghello .hello-list ul li .replay-hello {float:right;padding-right:15px;padding-top:25px;}
+.msghello .in-msghello .hello-list ul li .replay-hello a{color:#3760B2;}
+.msghello .in-msghello .hello-list ul li .del-hello a{}
+
+.helloBoxlist {text-align:left;}
+.helloBoxlist ul {overflow:auto;padding:1px;clear:both;}
+.helloBoxlist ul li {margin:1px;display:inline-block;width:80px;_float:left;*float:left;border:1px solid #ffffff;}
+.helloBoxlist ul li a {color:#333;text-decoration:none;}
+.helloBoxlist ul li a:hoover {color:#333;text-decoration:none;}
+.helloBoxlist ul li.current {background-color:#E7F3DF;border:1px solid #C8C8C8 ;text-decoration:none;}
+.helloBoxlist li.current a {color:#000;font-weight:bold;text-decoration:none;;}
+.helloBoxlist li.current a:hover {color:#000;font-weight:bold;text-decoration:none;;}
+
+.hello-info .movement {overflow:auto;width:600px;float:left;}
+.hello-info .movement-tag {float:left;margin-left:10px;}
+.hello-info .movement-tag ul {}
+.hello-info .delall{position:relative;z-index:1}
+
+/*tab tag*/
+
+.red {color:#ff6600;font-weight:bold;}

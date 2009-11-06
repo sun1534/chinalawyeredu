@@ -1,0 +1,13 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+.pager {line-height:1.23}
+.pager a , .pager a:hover {text-decoration:none;color:#80C374;margin:0 4px}
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {display:inline-block;padding:3px 5px;border:1px solid #CCCCCC;background:#F1F1F1}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager a.page-move,.pager a.page-move:hover {color:#80C374; }
+.pager a:hover {border:1px solid #c3c3c3;color:#FFA583}
+.pager span.page-current {background:#80C374;color:#FFFFFF;border:1px solid #85CCF8;margin:0 0 0 4px}

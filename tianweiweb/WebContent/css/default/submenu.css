@@ -1,0 +1,11 @@
+.dropmenu li{ width: 100px; float: left;text-align:center;}
+.dropmenu li.submenu { width: 100px; float: left;text-align:center;position:relative;}
+.dropmenu li.submenu a { display: block;color:#000;background-color:#ddd;border:1px solid #eee;text-decoration:none;}
+.dropmenu li.submenu a:hover {background-color:#eee;}
+.dropmenu li.submenu ul {display:none;padding:1px;border:1px solid #ddd;width:140px;position:absolute;left:0px;top:18px}
+.dropmenu li.submenu:hover ul {display:block;height:auto;background-color:normal;}
+.dropmenu li.submenu ul li {overflow:hidden;line-height:22px;width:100%;display:block;}
+.dropmenu li.submenu ul li a {height:22px;color:#999;overflow:hidden;background-color:#fff;}
+.dropmenu li.submenu ul li a:hover { background-color:#000;color:#fff; }
+.dropmenu ul li a:hover {background-color:#000;}
+.dropmenu a {text-decoration: none;}

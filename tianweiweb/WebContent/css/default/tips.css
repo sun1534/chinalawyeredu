@@ -1,0 +1,39 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+
+/*normal tips*/
+.Tips-orange { background:#FFFFCC;border:1px solid #FFCC00;}
+.Tips-red { background:#FFEBE8;border:1px solid #DD3C10;}
+.Tips-gray { background:#F1F1F1;border:1px solid #CCCCCC;}
+.Tips-green {background:#E9FAE7;border:1px solid #6CB53D;}
+.Tips-normal { background:#EFEFEF;border:1px solid #DEDEDE;padding:4px;}
+.Tips-normal-y { background:#FFFFCC;border:1px solid #DEDEDE;}
+.Tips-normal-ok { background:#C9FFCA;border:1px solid #349534;color:#008000;}
+.Tips-normal-error {background:#F7CBCA;border:1px solid #CC0000;color:#CC0000;}
+
+.Tips-orange h4 { background:url(../images/tips.gif) no-repeat 0px 0px;color:#FF9900;}
+.Tips-red h4 { background:url(../images/tips.gif) no-repeat 0px -98px;color:#DE3C10;}
+.Tips-gray h4 { background:url(../images/tips.gif) no-repeat 0px -32px;color:#333333;}
+.Tips-green h4 { background:url(../images/tips.gif) no-repeat 0px -64px;color:#006600;}
+
+.Tips {}
+.Tips .InTips {padding:10px;}
+.Tips .InTips h4 {line-height:24px;padding-left:30px;font-weight:bold;}
+#Tips .InTips h4 {padding:0;}
+.Tips .InTips .TipsCon {}
+.Tips .InTips .TipsCon p{padding-left:30px;}
+#Tips .InTips .TipsCon p{padding:0;}
+.Tips .InTips .TipsCon .TipsConbtn {text-align:center;}
+
+.Tips-normal .TipsCon {color:#222222;}
+.Tips-normal-y .TipsCon {padding-left:15px;color:#222222; background:#FFFFCC url(../images/tipsnormal.gif) no-repeat 0px -76px;}
+.Tips-normal-ok .TipsCon {padding-left:15px;color:#008000; background:#C9FFCA url(../images/tipsnormal.gif) no-repeat 0px -37px;}
+.Tips-normal-error .TipsCon {padding-left:15px;color:#CC0000;background:#F7CBCA  url(../images/tipsnormal.gif) no-repeat 0px 2px;}
+
+
+.popboxbtn {text-align:center;}
+/*fly tips*/
