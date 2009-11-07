@@ -10,12 +10,15 @@
 		<!-- 总流量分析 -->
 		   <action name="queryByMobile" class="com.sxit.query.action.QueryByMobileAction">
           <result name="success" type="dispatcher">/query/queryByMobile.jsp</result>	
+          <result name="excel" type="dispatcher">/query/queryByMobile_excel.jsp</result>
        </action>
      <action name="queryByCell" class="com.sxit.query.action.QueryByCellAction">
           <result name="success" type="dispatcher">/query/queryByCell.jsp</result>	
+          <result name="excel" type="dispatcher">/query/queryByCell_excel.jsp</result>
        </action>
        <action name="queryByAPN" class="com.sxit.query.action.QueryByAPNAction">
           <result name="success" type="dispatcher">/query/queryByAPN.jsp</result>	
+           <result name="excel" type="dispatcher">/query/queryByAPN_excel.jsp</result>
        </action>
       
     </package>
