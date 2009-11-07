@@ -38,6 +38,7 @@ public class FlashChartResult extends StrutsResultSupport {
 //		String json=chart.toDebugString();
 		response.setContentLength(json.getBytes(ENCODING).length);
 		PrintWriter out = response.getWriter();
+		System.out.println(chart.toDebugString());
 		out.print(json);
 		out.flush();
 		out.close();

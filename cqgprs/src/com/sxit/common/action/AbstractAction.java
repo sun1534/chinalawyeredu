@@ -256,4 +256,23 @@ public abstract class AbstractAction extends ActionSupport  {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
+	
+	/**
+	 * 显示什么类型的结果,excel的形式?flash图表?还是普通的数据
+	 */
+	protected String resultType = "list";
+
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * @param resultType the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
 }
