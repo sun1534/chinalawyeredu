@@ -35,26 +35,33 @@ public class StreamCellTimeAction extends StatAction {
 
 		if (startDate == null) {
 			startDate = getPrevDate();
-			this.end = df.format(startDate);
+			this.start = df.format(startDate);
 		}
 
-		this.celltimelist = statservice.getCellDayTimeStat(startDate, cellid);
-		if (resultType.equals("list"))
-			return SUCCESS;
-		else if (resultType.equals("excel"))
-			return "excel";
-		else if (resultType.equals("flash")) {
+		
+		System.out.println(resultType+"==="+cellid);
+		
+		if (cellid != null && !cellid.equals("")) {
+			this.celltimelist = statservice.getCellDayTimeStat(startDate, cellid);
+			if (resultType.equals("list"))
+				return SUCCESS;
+			else if (resultType.equals("excel"))
+				return "excel";
+			else if (resultType.equals("flash")) {
 
-			if (flashType.equals("bar")) { // 产生柱状图
-				this.flashChart = barChart();
-			} else { // 产生线图
-				this.flashChart = lineChart();
+				if (flashType.equals("bar")) { // 产生柱状图
+					this.flashChart = barChart();
+				} else { // 产生线图
+					this.flashChart = lineChart();
+				}
+				return "ofc";
+			} else {
+				this.message = "返回数据类型错误";
+				return "message";
 			}
-			return "ofc";
-		} else {
-			this.message = "返回数据类型错误";
-			return "message";
-		}
+		} else
+			return SUCCESS;
+
 	}
 
 	private String cellid;
@@ -104,7 +111,7 @@ public class StreamCellTimeAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getDatetime());
+			label.setText(stat.getDatetime());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -126,9 +133,9 @@ public class StreamCellTimeAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "之" + cellid + "分时总流量分析");
+			title.setText(start + "之" + cellid + "分时总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之" + cellid + "分时平均流量分析");
+			title.setText(start + "之" + cellid + "分时平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "之" + cellid + "分时用户数分析");
 		}
@@ -159,7 +166,7 @@ public class StreamCellTimeAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getDatetime());
+			label.setText(stat.getDatetime());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 
@@ -181,9 +188,9 @@ public class StreamCellTimeAction extends StatAction {
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start + "之" + cellid + "分时总流量分析");
+			title.setText(start + "之" + cellid + "分时总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之" + cellid + "分时平均流量分析");
+			title.setText(start + "之" + cellid + "分时平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "之" + cellid + "分时用户数分析");
 		}

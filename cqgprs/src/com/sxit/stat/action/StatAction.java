@@ -18,6 +18,8 @@ import com.sxit.common.action.AbstractListAction;
  * 
  */
 public abstract class StatAction extends AbstractListAction {
+protected	jofc2.model.axis.Label.Rotation ration=	jofc2.model.axis.Label.Rotation.DIAGONAL;
+
 	private static Log _LOG = LogFactory.getLog(StatAction.class);
 
 	protected com.sxit.stat.service.StatService statservice;
@@ -103,10 +105,7 @@ public abstract class StatAction extends AbstractListAction {
 	protected static java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	protected static java.text.DateFormat dftime = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	/**
-	 * 显示什么类型的结果,excel的形式?flash图表?还是普通的数据
-	 */
-	protected String resultType = "list";
+	
 	/**
 	 * 显示饼图?柱状图还是线图还是其他的?
 	 */
@@ -116,21 +115,7 @@ public abstract class StatAction extends AbstractListAction {
 	 */
 	protected String flashby = "total";
 
-	/**
-	 * @return the resultType
-	 */
-	public String getResultType() {
-		return resultType;
-	}
-
-	/**
-	 * @param resultType
-	 *            the resultType to set
-	 */
-	public void setResultType(String resultType) {
-		System.out.println("resultType=="+resultType);
-		this.resultType = resultType;
-	}
+	
 
 	/**
 	 * @return the flashType

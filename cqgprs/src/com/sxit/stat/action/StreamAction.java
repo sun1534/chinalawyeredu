@@ -13,6 +13,7 @@ import jofc2.model.axis.XAxisLabels;
 import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
+import jofc2.model.elements.Tooltip;
 
 import com.sxit.stat.models.TotalStatModel;
 import com.sxit.stat.util.StatUtil;
@@ -93,6 +94,10 @@ public class StreamAction extends StatAction {
 			xlables.addLabels(label);
 
 		}
+//		c2.setDotSize(500);
+//		c2.setTooltip("#val#M");
+		
+//		System.out.println("=================================");
 
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
@@ -100,7 +105,9 @@ public class StreamAction extends StatAction {
 		jofc2.model.axis.XAxis xaxis = new XAxis();
 		xaxis.setXAxisLabels(xlables); // 显示横坐标
 		flashChart.setXAxis(xaxis);
-
+//	Tooltip tip=new Tooltip();
+//	
+//	flashChart.setTooltip(tip);
 		jofc2.model.axis.YAxis yaxis = new YAxis();
 
 		double steps = StatUtil.steps(max, min, 10);
@@ -111,9 +118,9 @@ public class StreamAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "至" + end + "总流量分析");
+			title.setText(start + "至" + end + "总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "至" + end + "平均流量分析");
+			title.setText(start + "至" + end + "平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "至" + end + "总用户数分析");
 		}

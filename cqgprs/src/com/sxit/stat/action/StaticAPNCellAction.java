@@ -36,6 +36,7 @@ public class StaticAPNCellAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
+		if(apnid!=null&&!apnid.equals("")){
 		apncelllist = statservice.getApnCellDayStat(startDate, apnid);
 		if (resultType.equals("list"))
 			return SUCCESS;
@@ -53,6 +54,8 @@ public class StaticAPNCellAction extends StatAction {
 			this.message = "返回数据类型错误";
 			return "message";
 		}
+		}else
+			return SUCCESS;
 	}
 
 	private List apncelllist;
@@ -103,7 +106,7 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -125,9 +128,9 @@ public class StaticAPNCellAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析");
+			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析");
+			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "之APN编号" + apnid + "各CELL总用户数分析");
 		}
@@ -158,7 +161,7 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 
@@ -180,9 +183,9 @@ public class StaticAPNCellAction extends StatAction {
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析");
+			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析");
+			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "之APN编号" + apnid + "各CELL总用户数分析");
 		}

@@ -38,7 +38,7 @@ public class StreamCellAction extends StatAction {
 			startDate=super.getPrevDate();
 			this.start=df.format(startDate);
 		}
-		
+		this.pageSize=15;
 		if (resultType.equals("list")){
 			this.page=statservice.getCellDayStat(startDate, pageNo, pageSize);
 			return SUCCESS;
@@ -50,7 +50,7 @@ public class StreamCellAction extends StatAction {
 		}
 		
 		else if (resultType.equals("flash")) {
-			this.page=statservice.getCellDayStat(startDate, 1, pageSize);
+			this.page=statservice.getCellDayStat(startDate,pageNo, pageSize);
 			celllist=page.getItems();
 			
 			if (flashType.equals("bar")) { // 产生柱状图
@@ -87,7 +87,7 @@ public class StreamCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -109,9 +109,9 @@ public class StreamCellAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "各CELL流量分析");
+			title.setText(start + "各CELL流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "各CELL平均流量分析");
+			title.setText(start + "各CELL平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "各CELL总用户数分析");
 		}
@@ -142,7 +142,7 @@ public class StreamCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 

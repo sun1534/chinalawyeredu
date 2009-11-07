@@ -107,7 +107,7 @@ public class SgsnStream23gAction extends StatAction {
 					max = value;
 				c2.addValues(value);
 				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getSgsnid());
+				label.setText(stat.getSgsnid());label.setRotation(ration);
 				xlables.addLabels(label);
 			}
 		}
@@ -131,18 +131,18 @@ public class SgsnStream23gAction extends StatAction {
 
 		if (nettype.equals("gsm")) {
 			if (flashby.equals("total"))
-				title.setText(start + "各SGSN总流量分析(GSM)");
+				title.setText(start + "各SGSN总流量分析(GSM)（M）");
 			
 			else if (flashby.equals("average")) {
-				title.setText(start + "各SGSN平均流量分析(GSM)");
+				title.setText(start + "各SGSN平均流量分析(GSM)（K）");
 			} else if (flashby.equals("user")) {
 				title.setText(start + "各SGSN总用户数分析(GSM)");
 			}
 		} else {
 			if (flashby.equals("total"))
-				title.setText(start + "各SGSN总流量分析(TD)");
+				title.setText(start + "各SGSN总流量分析(TD)（M）");
 			else if (flashby.equals("average")) {
-				title.setText(start + "各SGSN平均流量分析(TD)");
+				title.setText(start + "各SGSN平均流量分析(TD)（K）");
 			} else if (flashby.equals("user")) {
 				title.setText(start + "各SGSN总用户数分析(TD)");
 			}
@@ -176,7 +176,7 @@ public class SgsnStream23gAction extends StatAction {
 					max = value;
 				c2.addValues(value);
 				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getSgsnid());
+				label.setText(stat.getSgsnid());label.setRotation(ration);
 				xlables.addLabels(label);
 			}
 		}

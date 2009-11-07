@@ -48,7 +48,7 @@ private List apnlist;
 			return "excel";
 		}	
 		else if (resultType.equals("flash")) {
-			this.page=statservice.getCellDayStat(startDate, 1, pageSize);
+			this.page=statservice.getApnDayStat(startDate, pageNo, pageSize);
 			apnlist=page.getItems();
 			
 			if (flashType.equals("bar")) { // 产生柱状图
@@ -84,7 +84,7 @@ private List apnlist;
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getApnid());
+			label.setText(stat.getApnid());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -106,11 +106,11 @@ private List apnlist;
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "各CELL流量分析");
+			title.setText(start + "各APN总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "各CELL平均流量分析");
+			title.setText(start + "各APN平均流量分析（K）");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "各CELL总用户数分析");
+			title.setText(start + "各APN总用户数分析");
 		}
 		flashChart.setTitle(title);
 
@@ -139,7 +139,7 @@ private List apnlist;
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getApnid());
+			label.setText(stat.getApnid());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 
@@ -161,9 +161,9 @@ private List apnlist;
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start +  "各APN总流量分析");
+			title.setText(start +  "各APN总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "各APN平均流量分析");
+			title.setText(start + "各APN平均流量分析（K）");
 		} else if (flashby.equals("user")) {
 			title.setText(start + "各APN总用户数分析");
 		}

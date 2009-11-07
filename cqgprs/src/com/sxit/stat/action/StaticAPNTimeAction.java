@@ -36,26 +36,28 @@ public class StaticAPNTimeAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-		
-	
-		apntimelist = statservice.getApnDayTimeStat(startDate, apnid);
-		if (resultType.equals("list"))
-			return SUCCESS;
-		else if (resultType.equals("excel"))
-			return "excel";
-		else if (resultType.equals("flash")) {
 
-			if (flashType.equals("bar")) { // 产生柱状图
-				this.flashChart = barChart();
-			} else { // 产生线图
-				this.flashChart = lineChart();
+		if (apnid != null && !"".equals(apnid)) {
+
+			apntimelist = statservice.getApnDayTimeStat(startDate, apnid);
+			if (resultType.equals("list"))
+				return SUCCESS;
+			else if (resultType.equals("excel"))
+				return "excel";
+			else if (resultType.equals("flash")) {
+
+				if (flashType.equals("bar")) { // 产生柱状图
+					this.flashChart = barChart();
+				} else { // 产生线图
+					this.flashChart = lineChart();
+				}
+				return "ofc";
+			} else {
+				this.message = "返回数据类型错误";
+				return "message";
 			}
-			return "ofc";
-		} else {
-			this.message = "返回数据类型错误";
-			return "message";
-		}
-
+		} else
+			return SUCCESS;
 	}
 
 	private String apnid;
@@ -105,7 +107,7 @@ public class StaticAPNTimeAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getDatetime());
+			label.setText(stat.getDatetime());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -160,7 +162,7 @@ public class StaticAPNTimeAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getDatetime());
+			label.setText(stat.getDatetime());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 

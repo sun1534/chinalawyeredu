@@ -11,8 +11,9 @@ import jofc2.model.axis.Label;
 import jofc2.model.axis.XAxis;
 import jofc2.model.axis.XAxisLabels;
 import jofc2.model.axis.YAxis;
+import jofc2.model.axis.YAxisLabels;
 import jofc2.model.elements.BarChart;
-import jofc2.model.elements.LineChart;
+import jofc2.model.elements.Tooltip;
 
 import com.sxit.stat.models.TotalStatModel;
 import com.sxit.stat.util.StatUtil;
@@ -111,6 +112,7 @@ public class WorkspaceIndexAction extends StatAction {
 		double max = 0d;
 		BarChart c2 = new BarChart(); // 
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
+		jofc2.model.axis.YAxisLabels ylables=new YAxisLabels();
 		int len = streamlist.size();
 		for (int i = 0; i < len; i++) {
 			TotalStatModel stat = (TotalStatModel) streamlist.get(i);
@@ -129,6 +131,7 @@ public class WorkspaceIndexAction extends StatAction {
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getDate());
+	
 			xlables.addLabels(label);
 		}
 
@@ -145,6 +148,14 @@ public class WorkspaceIndexAction extends StatAction {
 		yaxis.setSteps(steps);
 		yaxis.setMin(min - steps<=0?0:min-steps); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
+		
+//		jofc2.model.axis.Label label = new Label();
+//		label.setText("#val#M");
+//		ylables.addLabels(label);
+//		yaxis.setLabels("#val#M");
+//		System.out.println("===");
+		
+		
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
 //		title.setStyle("{font-size:14px;font-weight:bold}");
@@ -159,6 +170,9 @@ public class WorkspaceIndexAction extends StatAction {
 		} else if (flashby.equals("user")) {
 			title.setText("最近3天总用户数情况");		    
 		}
+//		Tooltip tooltip=new Tooltip();
+//		tooltip.set
+//		flashChart.setTooltip(tooltip);
 
 		flashChart.setTitle(title);
 		return flashChart;
