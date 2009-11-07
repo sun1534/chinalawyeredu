@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,7 +37,7 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之APN<${apnid }>分时段统计</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之APN（${apnid }）分时段统计</b></td>
   </tr>
       <tr>
                          <th>时间段</th>

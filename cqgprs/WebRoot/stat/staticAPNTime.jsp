@@ -22,10 +22,22 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
+var apnid=$("#apnid").val();
+if(apnid==""||apnid.length==0)
+{
+alert("请输入要查询的APN编号");
+return false;
+}
   document.form1.resultType.value="excel";
   document.form1.submit();
 }
 function queryit(){
+var apnid=$("#apnid").val();
+if(apnid==""||apnid.length==0)
+{
+alert("请输入要查询的APN编号");
+return false;
+}
   document.form1.resultType.value="list";
   document.form1.submit();
 }
@@ -47,11 +59,20 @@ $(document).ready(function(){
 });
 function confirmit(){
 
+var apnid=$("#apnid").val();
+if(apnid==""||apnid.length==0)
+{
+alert("请输入要查询的APN编号");
+return false;
+}
+
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="staticAPNTime.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+      var start=$("#start").val();
+   var url="staticAPNTime.action?apnid="+apnid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+ //alert(url);
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -78,8 +99,8 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
-								 <td>APN编号：<s:textfield name="apnid" size="8" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td>APN编号：<s:textfield name="apnid" id="apnid" id="apnid" size="8" cssClass="txt" title="APN编号不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -104,7 +125,7 @@ function confirmit(){
 				  	<table class="tableBox">
                         	<thead>
 								<tr>
-									<th>${start }之APN<${apnid }>分时流量分析</th>
+									<th>${start }之APN(${apnid })分时流量分析</th>
                                  </tr>
                             </thead>
                         </table>

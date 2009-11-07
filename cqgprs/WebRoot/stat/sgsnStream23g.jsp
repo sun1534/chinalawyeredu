@@ -46,11 +46,13 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
-   $("#flashconfirm").attr("value","取  消");
+      $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="sgsnStream23g.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+    var nettype=$("#nettype").val();
+   var start=$("#start").val();
+   var url="sgsnStream23g.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType+"%26nettype="+nettype;
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -77,12 +79,13 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 							 <td id="imageopton">
 								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
 								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
+								   <s:select name="nettype" id="nettype" list="#{'gsm':'GSM','td':'TD'}" label="网络类型"></s:select>
 								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
 								 </td>
 								</tr>

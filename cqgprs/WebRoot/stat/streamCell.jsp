@@ -49,8 +49,9 @@ function confirmit(){
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="streamCell.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+   var start=$("#start").val();
+   var url="streamCell.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -77,7 +78,7 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-							 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+							 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">

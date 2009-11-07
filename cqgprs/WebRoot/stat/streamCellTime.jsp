@@ -22,10 +22,22 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
+var cellid=$("#cellid").val();
+if(cellid==""||cellid.length==0)
+{
+alert("请输入要查询的小区编号");
+return false;
+}
   document.form1.resultType.value="excel";
   document.form1.submit();
 }
 function queryit(){
+var cellid=$("#cellid").val();
+if(cellid==""||cellid.length==0)
+{
+alert("请输入要查询的小区编号");
+return false;
+}
   document.form1.resultType.value="list";
   document.form1.submit();
 }
@@ -50,8 +62,11 @@ function confirmit(){
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="streamCellTime.action?resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+   var cellid=$("#cellid").val();
+   var start=$("#start").val();
+   var url="streamCellTime.action?start="+start+"cellid="+cellid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "800", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -78,7 +93,7 @@ function confirmit(){
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
-								 <td>小区编号：<s:textfield name="cellid" size="10" cssClass="txt"/>&nbsp;</td>
+								 <td>小区编号：<s:textfield name="cellid" size="10" id="cellid" cssClass="txt" title="小区编号不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -120,7 +135,7 @@ function confirmit(){
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="" status="status">
+                        <s:iterator value="celltimelist" status="status">
                         <tr>
                           <td>${datetime}</td>
                           <td>${totalStreamStr }</td>

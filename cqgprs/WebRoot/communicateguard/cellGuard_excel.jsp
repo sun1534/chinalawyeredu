@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-String filename="export.xls";
-response.reset();
-response.setContentType("bin;charset=utf-8"); 
-response.addHeader("Content-Disposition","attachment; filename="+filename);
-out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+//String filename="export.xls";
+//response.reset();
+//response.setContentType("bin;charset=utf-8"); 
+//response.addHeader("Content-Disposition","attachment; filename="+filename);
+//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,24 +37,29 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}-${apnid }重点小区分析</b></td>
+    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>${cellid}在${date}的使用跟踪情况</b></td>
   </tr>
       <tr>
      
-                         <th>小区编码</th>
-                          <th>小区名称</th>
-                           <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                           <th>时间</th>
+                          <th>APN</th>
+                          <th>手机号码</th>
+                          <th>上行流量（K）</th>
+                          <th>下行流量（K）</th>
+                          <th>总流量（K）</th>
+                          <th>业务时长（秒）</th>
       </tr>
       <tbody>
-      <s:iterator value="apncelllist" status="stat">
+      <s:iterator value="page.items" status="stat">
       <tr>
      
-                          <td class="listline2">${cellid}</td>
-                          <td class="listline2">${totalStreamStr }</td>
-                          <td class="listline2">${totalUser}</td>
-                          <td class="listline2">${averageStreamStr}</td>
+                         <td class="listline2">${opentimestr}</td>
+                          <td class="listline2">${apnni}</td>
+                          <td class="listline2">${msisdn }</td>
+                          <td class="listline2">${upvolume}</td>
+                          <td class="listline2">${downvolume}</td>
+                          <td class="listline2">${allvolume}</td>
+                          <td class="listline2">${duration}</td>
    
       </tr>
    

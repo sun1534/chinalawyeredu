@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-String filename="export.xls";
-response.reset();
-response.setContentType("bin;charset=utf-8"); 
-response.addHeader("Content-Disposition","attachment; filename="+filename);
-out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+//String filename="export.xls";
+//response.reset();
+//response.setContentType("bin;charset=utf-8"); 
+//response.addHeader("Content-Disposition","attachment; filename="+filename);
+//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,24 +37,31 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}-${apnid }重点小区分析</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>所有小区信息列表</b></td>
   </tr>
       <tr>
-     
-                         <th>小区编码</th>
-                          <th>小区名称</th>
-                           <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+     <!-- 
+                          <th class="listheadline">SGSN号</th>
+                          -->
+                          <th class="listheadline">小区编号</th>
+                       <th class="listheadline">小区名称</th>
+                       <th class="listheadline">所属BSC/RNC</th>
+                       <th class="listheadline">归属SGSN</th>
+                       <th class="listheadline">备注信息</th>
+                       <th class="listheadline">最后更新时间</th>
       </tr>
       <tbody>
-      <s:iterator value="apncelllist" status="stat">
+      <s:iterator value="page.items" status="stat">
       <tr>
-     
+      
                           <td class="listline2">${cellid}</td>
-                          <td class="listline2">${totalStreamStr }</td>
-                          <td class="listline2">${totalUser}</td>
-                          <td class="listline2">${averageStreamStr}</td>
+                          <td class="listline2">${cellname}</td>
+                          <td class="listline2">${bscrncid }</td>
+                          <td class="listline2"><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>
+                          <td class="listline2">${remarks}</td>
+                          <td class="listline2"><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
+
+                       
    
       </tr>
    

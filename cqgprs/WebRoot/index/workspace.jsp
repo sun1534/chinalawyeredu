@@ -13,9 +13,12 @@
    <script type="text/javascript" src="../js/swfobject.js"></script>
    <script type="text/javascript" >
 swfobject.embedSWF("../open-flash-chart.swf", "totalchart", "300", "200", "9.0.0","",
-  {"data-file":"data/infototal.txt","loading":"正在载入数据..."} );
-swfobject.embedSWF("../open-flash-chart.swf", "23gchart", "300", "200","9.0.0","",
-  {"data-file":"data/info23gtotal.txt","loading":"正在载入数据..."} );
+  {"data-file":"../stat/workspaceIndex.action?flashby=total","loading":"正在载入数据..."} );
+swfobject.embedSWF("../open-flash-chart.swf", "avergchart", "300", "200","9.0.0","",
+  {"data-file":"../stat/workspaceIndex.action?flashby=average","loading":"正在载入数据..."} );
+swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0","",
+  {"data-file":"../stat/workspaceIndex.action?flashby=user","loading":"正在载入数据..."} );
+  
  </script>
 </head>
 
@@ -34,15 +37,17 @@ swfobject.embedSWF("../open-flash-chart.swf", "23gchart", "300", "200","9.0.0","
 						<div class="nowInfo">
 							<h2>今日系统异常情况：</h2>
 							<ul>
-								<li><a href="#">新增<b>0</b>个BSC，共<b>812</b>个BSC，有<b>3</b>个BSC有异常</a></li>
-								<li><a href="#">新增<b>0</b>个小区，共<b>1512</b>个小区，有<b>5</b>个小区有异常</a></li>
-								<li><a href="#">新增<b>1</b>个，共<b>82</b>个行业APN，有<b>8</b>个行业APN异常</a></li>
-								<li><a href="#">新增<b>12</b>个链路，共<b>12532</b>个链路，有<b>82</b>个链路流量告警，有<b>15</b>个链路需要关注</a></li>
+								<li><a href="#">新增<b>${newaddbsc }</b>个BSC，共<b>${totalbsc }</b>个BSC，有<b>3</b>个BSC有异常</a></li>
+								<li><a href="#">新增<b>${newaddcell }</b>个小区，共<b>${totalcell }</b>个小区，有<b>5</b>个小区有异常</a></li>
+								<li><a href="#">新增<b>${newaddapn }</b>个APN，共<b>${totalapn }</b>个行业APN，有<b>8</b>个行业APN异常</a></li>
+							<!-- 	<li><a href="#">新增<b>12</b>个链路，共<b>12532</b>个链路，有<b>82</b>个链路流量告警，有<b>15</b>个链路需要关注</a></li>
+							-->
 							</ul>
 				  </div>
-			  <div  class="tablist" align="center">
+			  <div  class="tablist" style="text-align='center'">
     <div  id="totalchart"></div>
-    <div  id="23gchart"></div>
+    <div  id="avergchart"></div>
+    <div  id="userchart"></div>
          </div>
 
 
@@ -57,39 +62,27 @@ swfobject.embedSWF("../open-flash-chart.swf", "23gchart", "300", "200","9.0.0","
 						<table class="tableBox">
 							<thead onclick="$('#checkForm').toggle()">
 								<tr>
-									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">日期</a></th>
-									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">总流量</a></th>
-									<th><a  href="#" class="toggleDate__" title="点击进行排序">总用户数</a></th>
-									<th class="w100">平均每用户流量</th>
+									<th>日期</th>
+									<th>总流量（M）</th>
+									<th>总用户数</th>
+									<th>平均每用户流量（K）</th>
 								</tr>
 							</thead>
 							<tbody id="checkForm">
-								<tr>
-									<td class="w100">2009-9-6</td>
-									<td>455395.8M</td>
-								  <td><a href="#" class="blank">995004</a></td>
-								  <td class="tboperation w220">457.1K
-                                    </td>
-								</tr>
-								<tr>
-									<td class="w100">2009-9-7</td>
-									<td>454231.5M</td>
-								  <td>992003</td>
-							  <td class="tboperation w220">481.6K                                        </td>
-							  </tr>
-								<tr>
-									<td class="w100">2009-9-8</td>
-									<td>457395.8M</td>
-								  <td>980107</td>
-							  <td class="tboperation w220">466.4K                                        </td>
-							  </tr>
-
+						     <s:iterator value="totallist" status="status">
+						      <tr>
+						  <td>${date}</td>
+                          <td>${totalStreamStr }</td>
+                          <td>${totalUser}</td>
+                          <td>${averageStreamStr}</td>
+                          </tr>
+                             </s:iterator>
 							</tbody>
-							<tfoot>
+							<!--<tfoot>
 								<tr>
 									<td colspan="5" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
 								</tr>
-							</tfoot>
+							</tfoot>-->
 						</table>
 					</div>
 
@@ -104,59 +97,29 @@ swfobject.embedSWF("../open-flash-chart.swf", "23gchart", "300", "200","9.0.0","
 						<table class="tableBox">
 							<thead  onclick="$('#checkForm2').toggle()">
 								<tr>
-									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">日期</a></th>
-                                    <th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">用户类型</a></th>
-									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">总流量</a></th>
-									<th><a  href="#" class="toggleDate__" title="点击进行排序">总用户数</a></th>
-									<th class="w100">平均每用户流量</th>
+									<th>日期</th>
+									<th>用户类型</th>
+									<th>总流量（M）</th>
+									<th>总用户数</th>
+									<th>平均每用户流量（K）</th>
 								</tr>
 							</thead>
 							<tbody id="checkForm2">
-								<tr>
-									<td rowspan="2" class="w100">2009-9-6</td>
-									<td>GSM用户</td>
-                                    <td>455395.8M</td>
-								  <td><a href="#" class="blank">995004</a></td>
-								  <td class="tboperation w220">457.1K </td>
-							  </tr>
-                                <tr>
-									<td>TD用户</td>
-                                    <td>0M</td>
-								  <td><a href="#" class="blank">0</a></td>
-									<td class="tboperation w220">0K</td>
-								</tr>
-								<tr>
-									<td rowspan="2" class="w100">2009-9-7</td>
-									<td>GSM用户</td>
-									<td>454231.5M</td>
-                                  <td>992003</td>
-							  <td class="tboperation w220">481.6K </td>
-							  </tr>
-                                <tr>
-									<td>TD用户</td>
-									<td>0M</td>
-                                    <td>0</td>
-									<td class="tboperation w220">0K</td>
-							  </tr>
-								<tr>
-									<td rowspan="2" class="w100">2009-9-8</td>
-									<td>GSM用户</td>
-									<td>457395.8M</td>
-                                  <td>980107</td>
-							  <td class="tboperation w220">466.4K </td>
-							  </tr>
-								<tr>
-									<td>TD用户</td>
-									<td>0M</td>
-                                    <td>0</td>
-									<td class="tboperation w220">0K</td>
-							  </tr>
+						 <s:iterator value="total23glist" status="status">
+						 <tr>
+						  <td>${date}</td>
+						  <td>${nettype}</td>
+                          <td>${totalStreamStr }</td>
+                          <td>${totalUser}</td>
+                          <td>${averageStreamStr}</td>
+                          </tr>
+                             </s:iterator>
 							</tbody>
-							<tfoot>
+						<!-- 	<tfoot>
 								<tr>
 									<td colspan="5" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
 								</tr>
-							</tfoot>
+							</tfoot>-->
 						</table>
 					</div>
 

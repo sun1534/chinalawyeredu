@@ -13,7 +13,7 @@
 <frameset id="wapFrame" framespacing="0" border="0" frameborder="no" cols="0,9,*" >
 	<frame id="leftFrame" name="leftFrame" scrolling="no" noresize="noresize" frameborder="no" src="left.action"></frame>
 	<frame id="switchFrame" name="switchFrame" scrolling="no"  noresize="noresize"  frameborder="0"  border="0" src="swichbar.html"></frame>
-	<frame id="mainFrame" name="mainFrame" scrolling="auto"  noresize="noresize"  frameborder="0"  border="0" src="info.html"></frame>
+	<frame id="mainFrame" name="mainFrame" scrolling="auto"  noresize="noresize"  frameborder="0"  border="0" src="allview.action"></frame>
 </frameset>
 <frame scrolling="no" noresize="noresize" frameborder="no" id="footFrame" name="footFrame"  src="bottom.jsp" />
 </frameset>

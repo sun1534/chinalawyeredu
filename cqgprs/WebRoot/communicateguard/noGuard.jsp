@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-GB链路告警</title>
+ <title>${sysName}-保障号码追踪</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -37,7 +37,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-				   <span>您所在是位置:</span><a>通信保障</a>＞<em>保障号码跟踪</em>
+						<span>您所在是位置:</span><a>通信保障</a>＞<em>保障号码追踪</em>
 				</div>
 			</div>
 		</div>
@@ -52,9 +52,10 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+                                <td>输入手机号码：<s:textfield name="mobile" cssClass="txt" size="12"/>&nbsp;</td>
+                                 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+								<td>您能查询最近7天之内的记录情况:${end }至${start }</td>
 							
 								</tr>
 							</tbody>
@@ -71,29 +72,33 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>时间</th>
+                          <th>所在小区</th>
+                          <th>APN</th>
+                          <th>上行流量（K）</th>
+                          <th>下行流量（K）</th>
+                          <th>总流量（K）</th>
+                          <th>业务时长（秒）</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                          <td>${opentimestr}</td>
+                          <td>${cellid}</td>
+                          <td>${apnni }</td>
+                          <td>${upvolume}</td>
+                          <td>${downvolume}</td>
+                          <td>${allvolume}</td>
+                          <td>${duration}</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="7" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
@@ -102,7 +107,7 @@ function queryit(){
                     </table>
 			  </div>
 
-			 <div  class="tabpagelist">
+				<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>

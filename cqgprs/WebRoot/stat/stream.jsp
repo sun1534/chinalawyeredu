@@ -50,7 +50,9 @@ function confirmit(){
    $("#imgreport").show();
    var flashType=$("#flashTypes").val();
    var flashby=$("#flashbys").val();
-   var url="stream.action?flashby="+flashby+"%26resultType=flash%26flashType="+flashType;
+   var start=$("#start").val();
+   var end=$("#end").val();
+   var url="stream.action?start="+start+"%26end="+end+"%26flashby="+flashby+"%26resultType=flash%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
@@ -78,8 +80,8 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>起始日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
-								 <td>结束日期：<jscalendar:jscalendar name="end" cssClass="txt"/>&nbsp;</td>
+								 <td>起始日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td>结束日期：<jscalendar:jscalendar name="end" id="end" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
