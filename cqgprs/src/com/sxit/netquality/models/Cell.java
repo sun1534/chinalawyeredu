@@ -86,4 +86,7 @@ public class Cell {
 	public void setLastopt(String lastopt) {
 		this.lastopt = lastopt;
 	}
+	public String getSgsnid(){
+		return com.sxit.netquality.service.BasicSetService.BSC_SGSN.get(bscrncid);
+	}
 }
