@@ -3,6 +3,8 @@
  */
 package com.sxit.stat.util;
 
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -100,5 +102,77 @@ public class StatUtil {
 		}
 		return ten;
 	}
+	
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	public static String getYestardayCdrTable() {
+		Calendar calendar = Calendar.getInstance();
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+		if (weekday == 1)// 周日
+			weekday = weekday - 1;
+		else
+			weekday = weekday - 2;
+		String table = "cdr_succ_0" + weekday;
+		return table;
+	}
+	
+	public static String getCdrTable(Date date) {
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+//		if (weekday == 1)// 周日
+//			weekday = weekday - 1;
+//		else
+			weekday = weekday - 1;
+		String table = "cdr_succ_0" + weekday;
+		return table;
+	}
+	
+	public static long getYestardayTime(){
+		try{
+		String datestr=df.format(getPrevDate());
+		String startstr=datestr+" 00:00:00";
+		Date start=dfyyyyMmddHHmmss.parse(startstr);
+		return start.getTime();
+		}catch(Exception e){
+			e.printStackTrace();
+			return System.currentTimeMillis();
+		}
+	}
+	public static long getTodaydayTime(){
+		try{
+		String datestr=df.format(new Date());
+		String startstr=datestr+" 00:00:00";
+		Date start=dfyyyyMmddHHmmss.parse(startstr);
+		return start.getTime();
+		}catch(Exception e){
+			e.printStackTrace();
+			return System.currentTimeMillis();
+		}
+	}
+	
+	public static long getOneDayAfter(long start){
+		return start+24*60*60*1000;
+	}
+	
+	/*
+	 * 得到当前日期的前一天
+	 */
+	public static Date getPrevDate() {
+		return getPrevCountDate(1);
+	}
+	/*
+	 * 得到当前日期的前一天
+	 */
+	public static  Date getPrevCountDate(int days) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, 0-days);
+		Date d = new Date();
+		d.setTime(c.getTimeInMillis());
+		return d;
+	}
+	
 	
 }
