@@ -11,9 +11,9 @@ import com.sxit.system.util.NumberUtil;
  *
  */
 public class StatModel {
-	protected double totalStream;
+	protected double totalStream=0.0d;
 
-	protected long totalUser;
+	protected long totalUser=0;
 
 	
 	
@@ -60,6 +60,8 @@ public class StatModel {
 	 * @return the averageStream
 	 */
 	public float getAverageStreamStr() {
+		if(totalUser==0)
+			return 0.0f;
 		float f= ((float) totalStream) / (totalUser);
 		String averageStreamStr= NumberUtil.toMoney(f);
 		return Float.parseFloat(averageStreamStr);
@@ -70,6 +72,8 @@ public class StatModel {
 	 * @return the averageStream
 	 */
 	public float getAverageStream() {
+		if(totalUser==0)
+			return 0.0f;
 		float f= ((float) totalStream) / ( totalUser);
 		String averageStreamStr= NumberUtil.toMoney(f);
 		return Float.parseFloat(averageStreamStr);
