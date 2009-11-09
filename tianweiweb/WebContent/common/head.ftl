@@ -40,11 +40,8 @@
 			<input name="Input" type="image" disabled="disabled" src="../images/rainy.gif" align="bottom" />
 			阵雨 气温27-32度 2009年7月28日</a>
 			-->
-			<a href="#" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage(document.location.href);event.returnValue=false;">
-			<input name="Input2" type="image" disabled="disabled" src="../images/home.gif" align="bottom" />
-			设为首页</a>
-			<input name="Input3" type="image" disabled="disabled" src="../images/add.gif" align="bottom" />
-			<a href="#" onclick="javascript:window.external.addFavorite(document.location.href,'天威广告')">加入收藏</a>
+			<a href="#" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage(document.location.href);event.returnValue=false;"><img src="../images/home.gif" align="absmiddle" />设为首页</a>
+			<a href="#" onclick="javascript:window.external.addFavorite(document.location.href,'天威广告')"><img src="../images/add.gif"  align="absmiddle" />加入收藏</a>
 		</div>
 
 		</div>
