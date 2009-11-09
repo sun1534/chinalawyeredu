@@ -261,7 +261,7 @@ select{
 	height:105px;
 	padding-top:5px;
 	background:#FFFFFF;
-	float:left;
+	overflow:auto;
 	}
 .adl{
 	float:left;
@@ -277,14 +277,9 @@ select{
 
 #friend{
 	width:830px;
-	*width:870px!important;
 	height:300px;
-	*height:288px!important;
 	background:url(../images/friend.jpg);
-	float:left;
 	padding-left:100px;
-	*padding-top:12px!important;
-	*padding-left:60px!important;
 	}
 #friend ul{
 	width:810px;
