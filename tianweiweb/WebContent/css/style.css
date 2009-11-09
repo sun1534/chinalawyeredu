@@ -719,7 +719,7 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 
 .navguild {height:28px;line-height:28px;}
 .navguild span {background:url(../images/navguild.gif) no-repeat left top;display:block;padding-left:30px;}
-.weather {text-align:right;width:380px;float:right;}
+.weather {text-align:right;width:450px;float:right;}
 .regtxt {border:1px solid #BBBBBB;height:17px;line-height:17px;width:150px;}
 .regmain {float:left;width:660px;padding-right:10px;}
 

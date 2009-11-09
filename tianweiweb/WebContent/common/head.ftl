@@ -35,7 +35,7 @@
 
 		<!--<iframe src="http://www.7stk.com/1/6/sina.htm" frameborder="0" width="150" height="17" marginheight="0" marginwidth="0" scrolling="no"></iframe>-->
 		<div id="" class="weather">
-			<iframe src="http://www.tianqi123.com/small_page/chengshi_371.html?c0=red&c1=D96C00&bg=FFD476&w=328&h=13&text=yes" width=328 height=13 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no align=center id=url style="height:13px;line-height:13px;"></iframe>
+			<iframe src="http://www.tianqi123.com/small_page/chengshi_371.html?c0=red&c1=D96C00&bg=FFD476&w=280&h=13&text=yes" width=280 height=13 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no align=center id=url style="height:13px;line-height:13px;float:left;"></iframe>
 			<!--<a href="#">深圳
 			<input name="Input" type="image" disabled="disabled" src="../images/rainy.gif" align="bottom" />
 			阵雨 气温27-32度 2009年7月28日</a>
