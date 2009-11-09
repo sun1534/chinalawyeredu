@@ -1,0 +1,11 @@
+#Wed Sep 23 22:10:33 CST 2009
+eclipse.preferences.version=1
+encoding//WebContent/regist/findpwd.html=utf-8
+encoding//src/com/tenpay=GBK
+encoding//src/com/tenpay/PayRequestHandler.java=GBK
+encoding//src/com/tenpay/PayResponseHandler.java=GBK
+encoding//src/com/tenpay/RequestHandler.java=GBK
+encoding//src/com/tenpay/ResponseHandler.java=GBK
+encoding//src/com/tenpay/util/MD5Util.java=GBK
+encoding//src/com/tenpay/util/TenpayUtil.java=GBK
+encoding/<project>=UTF-8

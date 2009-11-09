@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="tianwei"
+  id="myeclipse.1250690588878"
+  context-root="/tianwei"
+  j2ee-spec="1.4"
+  archive="tianwei.war">
+  <attributes>
+    <attribute name="webrootdir" value="&lt;prjroot&gt;" />
+  </attributes>
+</project-module>
+
