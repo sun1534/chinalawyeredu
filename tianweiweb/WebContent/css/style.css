@@ -277,7 +277,6 @@ select{
 
 #friend{
 	width:830px;
-	padding-bottom:10px;
 	overflow:auto;
 	background:url(../images/friend.jpg) no-repeat left top;
 	padding-left:100px;
