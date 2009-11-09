@@ -38,7 +38,7 @@
 	    </div>
   </div>
   <div style="display:none text-align:center;" class="content-body" id="leavemessagediv">
-    <img src="../css/images/home/loading.gif" width="32" height="32" border="0" title ="正在读取..." style="margin:10px 200px">
+
   </div>
 
 </div>

@@ -34,12 +34,12 @@
 			    	<p class="spe-warning">${message}</span></p>
 				<p class="no-line"><span><input id="saveBtn" type="button" value="上传"  class="delBtn igreen" /></span></p>
 		 	</div>
-			
+
         </form>
 	</div>
     </div>
     </div>
-<div style="display:none" text-align:center; margin-top:50px;  class="content-body" id="leavemessagediv"><img src="../css/images/home/loading.gif" width="32" height="32" border="0" title ="正在读取..." style="margin:10px 200px"></div>
+<div style="display:none" text-align:center; margin-top:50px;  class="content-body" id="leavemessagediv"></div>
 
 </div>
 

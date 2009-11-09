@@ -17,7 +17,7 @@
 	<form id="form1" name="form1" method="post" action="regist.action">
 		<table border="0" cellspacing="10" cellpadding="5">
 		  <tr>
-			<td width="68"><span style="color:red">*</span>帐　　号：</td>
+			<td width="68"><span style="color:red">*</span>用户名：</td>
 			<td width="315">
 			  <input class="regtxt" type="text" name="username" id="username" onfocus="$('#nametip').show()" onblur="checkusername()" />
 			<span id="nametip"><font color="green">账号请输入6~20个字符</font></span></td>

@@ -155,11 +155,10 @@ img{
 	}
 .search{
 	padding-left:10px;
-	padding-top:10px;
+	padding-top:20px;
 	color:#000;
 	float:right;
 width:558px;
-line-height:24px;
 	}
 .search a{
 	color:#000;
@@ -288,7 +287,7 @@ select{
 	*padding-left:60px!important;
 	}
 #friend ul{
-	width:auto;
+	width:830px;
 	height:auto;
 	padding-top:10px;
 	}
@@ -365,6 +364,7 @@ font-weight:bold;font-size:12px;line-height:24px;color:#fefefe;padding-left:10px
 .search span {margin-right:5px;}
 
 .friendlinks {padding:35px 0;}
+	.friendlinksList {line-height:16px;height:16px;overflow:hidden;}
  .friendlinks a {color:#000;text-decoration:none;}
  .friendlinks a:hover {color:#000;text-decoration:none;}
 .other {color:#fefefe;}

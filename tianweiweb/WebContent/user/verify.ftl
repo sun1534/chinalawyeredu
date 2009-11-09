@@ -1,9 +1,10 @@
 <!--弹出窗口start-->
-<div class="" style="background:#87CEFA">
-  <div class="">
+<!--弹出窗口start-->
+<div class="popbox2" style="background:#87CEFA">
+  <div class="box-orange">
     	<h3>提示</h3>
       <span><a href="#" onclick="$.unblockUI();">关闭</a></span>    </div>
-    <div class="">
+    <div class="box-content">
     	<form id="verifyform" action="sendverifyapply.action">
     	<p>请选择认证方式</p>
     	<p>
