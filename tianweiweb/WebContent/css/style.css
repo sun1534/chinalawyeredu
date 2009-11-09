@@ -278,19 +278,22 @@ select{
 #friend{
 	width:830px;
 	height:300px;
-	background:url(../images/friend.jpg);
+	overflow:auto;
+	background:url(../images/friend.jpg) no-repeat left top;
 	padding-left:100px;
 	}
 #friend ul{
 	width:810px;
-	height:auto;
+	overflow:auto;
 	padding-top:10px;
 	padding-left:20px;
 	}
+	.frb {width:930px;overflow:hidden;height:21px;background:url(../images/friendbottom.jpg) no-repeat left top;}
 #friend li{
 	list-style:none;
 	width:130px;
 	float:left;
+	height:62px;
 	margin-left:15px;
 	margin-left:15px;
 	margin-right:10px;

@@ -5,5 +5,5 @@
 	</#list>
 	<li><a href="../home/partnerlist.action"  title=${p.description}><img width="126" height="58" src="../images/more.jpg"></a></li>
 </ul>
-
+<div class="frb"></div>
 </#escape>
