@@ -74,6 +74,7 @@ document.write('</object>');
 	<div id="friend">
 
 	</div>
+	<div class="frb"></div>
 	<div class="clear"></div>
 
 <script type="text/javascript" src="bubble/BubbleTooltips.js"></script>
