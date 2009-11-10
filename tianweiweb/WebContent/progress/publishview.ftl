@@ -15,7 +15,7 @@
 					<p>${product.name}</p>
 					<p>简介：${product.description}</p>
 					<p>价格：${product.price} ${product.unit}</p>
-					<#if publish.statusid=2><p><a href="../progress/pay.action?id=${publish.id}">现在付款</a></p></#if>
+					<#if publish.statusid=2><p><a href="../progress/tenpay.action?id=${publish.id}">现在付款</a></p></#if>
 				</dd>
 			</dl>
 			</div>
