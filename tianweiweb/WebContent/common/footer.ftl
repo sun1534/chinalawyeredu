@@ -1,13 +1,22 @@
 <#macro footer >
 <div id="bottom">
+<script language="javascript">
 
+$(document).ready(function(){
+$("#footerid").load("../home/ffffff.action");
+});
+</script>
  <div class="friendlinks">
-	<div id="" class="friendlinksList">
-		 友情链接：<a href="http://www.topway.com.cn/" target="_blank">天威视讯</a> |
+	<div id="footerid" class="friendlinksList">
+	<!-- 友情链接：
+		
+		<a href="http://www.topway.com.cn/" target="_blank">天威视讯</a> |
 		<a href="http://www.topway.cn/" target="_blank">天威宽频</a> |
 		<a href="http://www.topway.cn/" target="_blank">天威网络电视</a> |
 		<a href="http://www.szdvte.com/" target="_blank">深圳迪威特</a> |
 		<a href="http://www.sztv.com.cn/" target="_blank">深圳电视台</a><br />
+	 
+	 -->
 	 </div>
   </div>
  <div class="other">
