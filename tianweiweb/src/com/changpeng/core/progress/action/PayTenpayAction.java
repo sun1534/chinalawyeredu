@@ -26,7 +26,7 @@ public class PayTenpayAction extends AbstractListAction {
 //	private static final String KEY = "8934e7d15453e97507ef794cf7b0519d";
 	
 	private static final String KEY = "631c3aaffdcebd88e7a19ac1e756c770";
-	private static final String RETURN_URL = "http://211.154.157.174:8580/progress/payresult.action";
+	private static final String RETURN_URL = "http://211.148.192.252/progress/payresult.action";
 	private int id;
 
 	

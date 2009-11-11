@@ -23,10 +23,16 @@ public class PartnerIndexAction extends AbstractAction {
 	protected String go() throws Exception {
 		UserService userservice = (UserService) this.getBean("userService");
 		partnerlist=userservice.getPartnerlistindex();
+		
+		this.allcnt=userservice.getPartnerCnts();
 		return SUCCESS;
 	}
 
 	public List getPartnerlist() {
 		return partnerlist;
+	}
+	private int allcnt;
+	public int getAllcnt(){
+		return this.allcnt;
 	}
 }

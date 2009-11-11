@@ -15,7 +15,9 @@ import com.tenpay.PayResponseHandler;
 public class PayResultAction extends AbstractListAction {
 
 	// 密钥
-	private static final String KEY = "8934e7d15453e97507ef794cf7b0519d";
+//	private static final String KEY = "8934e7d15453e97507ef794cf7b0519d";
+	private static final String KEY = "631c3aaffdcebd88e7a19ac1e756c770";
+	
 	private int id;
 
 	public PayResultAction() {
@@ -88,7 +90,7 @@ public class PayResultAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
-	private String showurl = "http://211.154.157.174:8580/progress/showpayresult.action";
+	private String showurl = "http://211.148.192.252/progress/showpayresult.action";
 
 	public String getShowurl() {
 		return this.showurl;

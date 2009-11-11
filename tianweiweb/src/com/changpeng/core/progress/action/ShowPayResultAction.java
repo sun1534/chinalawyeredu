@@ -30,15 +30,15 @@ public class ShowPayResultAction extends AbstractListAction {
 			result="1";
 		
 		if(result.equals("0")){
-			this.message="您的费用支付成功,<a href=\"http://211.154.157.174:8580/progress/paylist.action\">请点这里返回</a>";
+			this.message="您的费用支付成功,<a href=\"http://211.148.192.252/progress/paylist.action\">请点这里返回</a>";
 		}
 		else 
 			if(result.equals("1")){
-				this.message="您的费用支付失败,<a href=\"http://211.154.157.174:8580/progress/paylist.action\">请点这里返回</a>";
+				this.message="您的费用支付失败,<a href=\"http://211.148.192.252/progress/paylist.action\">请点这里返回</a>";
 				
 			}else 
 				if(result.equals("2")){
-					this.message="支付签名失败,<a href=\"http://211.154.157.174:8580/progress/paylist.action\">请点这里返回</a>";
+					this.message="支付签名失败,<a href=\"http://211.148.192.252/progress/paylist.action\">请点这里返回</a>";
 				}
 		
 		return SUCCESS;

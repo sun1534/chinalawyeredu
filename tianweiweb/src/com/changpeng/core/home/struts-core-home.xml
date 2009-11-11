@@ -28,7 +28,9 @@
         <action name="newsindex" class="com.changpeng.core.home.NewsindexAction">
             <result name="success" type="freemarker">/home/newsindex.ftl</result>
         </action>
-        
+         <action name="ffffff" class="com.changpeng.core.home.CopyOfNoticeAction">
+         	<result name="success" type="freemarker">/home/footerajax.ftl</result>
+         </action>
         
         <action name="myshowlist" class="com.changpeng.core.home.MyshowListAction">
             <result name="success" type="freemarker">/home/myshowlist.ftl</result>

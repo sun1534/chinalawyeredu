@@ -184,7 +184,13 @@ public class UserService extends BasicService {
 	public List getPartnerlistindex(){
 		DetachedCriteria dc = DetachedCriteria.forClass(CorePartner.class, "u");
 		dc.add(Restrictions.eq("u.status", 0));
-		return this.findByCriteria(dc, 14);
+		return this.findByCriteria(dc, 15);
+	}
+	
+	public int getPartnerCnts(){
+		DetachedCriteria dc = DetachedCriteria.forClass(CorePartner.class, "u");
+		dc.add(Restrictions.eq("u.status", 0));
+		return this.getCountByCriteria(dc);
 	}
 	
 	public PaginationSupport getPartnerList(int pageSize,int pageNo){

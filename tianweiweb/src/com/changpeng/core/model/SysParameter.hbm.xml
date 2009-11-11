@@ -25,5 +25,13 @@
         length="60000"
     />
 
+    <property
+        name="typeid"
+        type="int"
+        column="typeid"
+        precision="5"
+    />
+
+
 </class>
 </hibernate-mapping>

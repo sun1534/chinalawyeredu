@@ -10,6 +10,13 @@ public class SysParameter implements java.io.Serializable {
 
 	private String paramname;
 	private String paramvalue;
+	private int typeid;
+	public int getTypeid() {
+		return typeid;
+	}
+	public void setTypeid(int typeid) {
+		this.typeid = typeid;
+	}
 	public String getParamname() {
 		return paramname;
 	}

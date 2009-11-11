@@ -15,6 +15,7 @@ public class NewsListAction extends AbstractListAction {
 	private String pageString;
 	public NewsListAction(){
 		this.rightCode="PUBLIC";
+		
 	}
 	
 	@Override

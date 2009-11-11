@@ -58,6 +58,7 @@
          	<result name="success" type="redirect">../home/home.action</result>
          	<result name="relogin" type="dispatcher">../common/login.jsp</result>
          </action>
+       
 		  <action name="loginOut" class="com.changpeng.common.action.LoginOutAction">
             <result name="success" type="redirect">../index.html</result>
          </action>
