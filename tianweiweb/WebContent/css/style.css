@@ -78,14 +78,15 @@ img{
 	padding-right:3px;
 	font-size:18px;
 	font-weight:bold;
-	font-family:"微软雅黑";
+	font-family:"微软雅黑","黑体",Tahoma, Helvetica, Arial, sans-serif;
 	text-align:center;
 	}
 .menu a:link,.menu a:visited,.menu a:active{
 	color:#FFFFFF;
 	font-size:18px;
+	line-height:24px;
 	font-weight:bold;
-	font-family:"微软雅黑";
+	font-family:"微软雅黑","黑体",Tahoma, Helvetica, Arial, sans-serif;
 	text-align:center;
 	}
 .menu a:hover{
@@ -129,7 +130,7 @@ img{
 	}
 .topmenu a:link,.topmenu a:visited,.topmenu a:active{
 	color:#FFFFFF;
-	font-family:"微软雅黑";
+	font-family:"微软雅黑","黑体",Tahoma, Helvetica, Arial, sans-serif;
 	font-weight:bold;
 	font-size:18px;
 	margin:0 10px;
@@ -206,7 +207,7 @@ select{
 	background:url(../images/hy.jpg);
 	display:block;
 	font-size:16px;
-	font-family:"微软雅黑";
+	font-family:"微软雅黑","黑体",Tahoma, Helvetica, Arial, sans-serif;
 	color:#FFFFFF;
 	padding-top:50px;
 	padding-right:10px;
@@ -541,7 +542,7 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 .bgreen:hover{border:1px solid #85CCF8;background:url(../images/btnbg.png) repeat-x 0px -108px;color:#000;}
 .bgray{border:1px solid #B2B2B2;background:url(../images/btnbg.png) repeat-x 0px -54px;color:#333;}
 .bgray:hover{border:1px solid #B2B2B2;background:url(../images/btnbg.png) repeat-x 0px -126px;color:#000;}
-.closeA{text-decoration:none;line-height:14px!important;overflow:hidden;font:12px/1.23'微软雅黑', Tahoma, Helvetica, Arial, sans-serif;;text-align:center;display:inline-block;padding:0px 3px;font-weight:bold;}
+.closeA{text-decoration:none;line-height:14px!important;overflow:hidden;font:12px/1.23 "微软雅黑","黑体",Tahoma, Helvetica, Arial, sans-serif;text-align:center;display:inline-block;padding:0px 3px;font-weight:bold;}
 /*按钮type*/
 .btnlist input ,.btnlist button{margin:0 5px 5px 0}
 .btnlist a{margin:0 5px;}
