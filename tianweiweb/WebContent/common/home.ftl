@@ -34,6 +34,7 @@
 <script type="text/javascript" src="../js/base/jquery.form.js"></script>
 <script type="text/javascript" src="../js/base/jquery.blockUI.js"></script>
 <script type="text/javascript" src="../js/base/com.js"></script>
+<script type="text/javascript" src="../js/sys.js"></script>
 <script type="text/javascript" src="../js/index.js"></script>
 <@mheader.head ></@mheader.head>
 <title>欢迎来到深圳市天威广告有限公司网站</title>
