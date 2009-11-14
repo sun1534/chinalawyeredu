@@ -38,5 +38,6 @@
 	.inmenu h3{color:#fff;font-weight:bold;font-size:14px;text-align:center;;height:33px;line-height:35px;background:url(../images/lmenutop.jpg) no-repeat left top;}
 	.inmenu ul {padding-bottom:3px;border-left:5px solid #1E68AF;border-bottom:5px solid #1E68AF;border-right:5px solid #1E68AF;}
 	.inmenu ul li {padding:2px;line-height:22px;height:22px;font-size:0px;}
-	.inmenu ul li a {text-align:center;font-weight:bold;font-size:12px;height:24px;display:block;color:#fff;background:url(../images/leftmenubg.jpg) no-repeat left top;}
+	.inmenu ul li a {text-align:center;font-weight:bold;font-size:12px;height:24px;display:block;color:#fff;background:url(../images/leftmenubg.jpg) no-repeat left top;position:relative;}
+	.inmenu ul li a #unreadmsg {position:absolute;left:120px;top:-1px;display:block;width:22px;height:14px;background:url(../images/new.gif) no-repeat left top;}
 	.inmenu ul li a:hover {background:url(../images/leftmenubg.jpg) no-repeat left -24px;}

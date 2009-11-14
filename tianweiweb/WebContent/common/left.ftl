@@ -8,7 +8,7 @@
 	<h3>家庭专区</h3>
 		<ul>
 			<li><a href="../user/userbaseview.action" class="title">我的资料</a></li>
-			<li><a href="../message/shortmessagelist.action?type=1" class="title">站内消息<span id="unreadmsg" style="display:none">new</span></a></li>
+			<li><a href="../message/shortmessagelist.action?type=1" class="title">站内消息<span id="unreadmsg" style="display:none"></span></a></li>
 			<li><a href="../photo/albumlist.action" class="title">文件管理</a></li>
 			<li><a href="../progress/productlist.action" class="title">产品订购</a></li>
 			<li><a href="../progress/paylist.action" class="title">网上支付</a></li>
@@ -26,7 +26,7 @@
 		<ul>
 			<li><a href="../user/userbaseview.action" class="title">商家资料</a></li>
 			<!--<li><a href="../diary/diarylist.action" class="title">新闻发布</a></li>-->
-			<li><a href="../message/shortmessagelist.action?type=1" class="title"><span id="unreadmsg" style="display:none">new</span></a></li>
+			<li><a href="../message/shortmessagelist.action?type=1" class="title">站内消息<span id="unreadmsg" style="display:none"></span></a></li>
 			<li><a href="../filemanage/dirlist.action?dirtype=3" class="title">文件管理</a></li>
 			<li><a href="../progress/productlist.action" class="title">产品订购</a></li>
 			<li><a href="../progress/paylist.action" class="title">网上支付</a></li>
