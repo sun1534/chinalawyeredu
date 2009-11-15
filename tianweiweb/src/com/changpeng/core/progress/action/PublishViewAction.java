@@ -22,6 +22,8 @@ public class PublishViewAction extends AbstractAction {
 	private List diarys;
 	private int remainphotos;
 	
+	private int contentsize;
+	private String content;
 	public PublishViewAction() {
 	}
 
@@ -40,7 +42,11 @@ public class PublishViewAction extends AbstractAction {
 		
 		int uphotos=photos.size();
 		int maxphotos=product.getMaxpic();
+		
 		remainphotos=maxphotos-uphotos;
+		
+		contentsize=product.getMaxcontent();
+		content=publish.getRemarks();
 		return SUCCESS;
 	}
 
@@ -78,6 +84,22 @@ public class PublishViewAction extends AbstractAction {
 
 	public int getRemainphotos() {
 		return remainphotos;
+	}
+
+	public int getContentsize() {
+		return contentsize;
+	}
+
+	public void setContentsize(int contentsize) {
+		this.contentsize = contentsize;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 }
