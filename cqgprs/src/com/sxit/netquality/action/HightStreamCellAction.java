@@ -67,5 +67,77 @@ public class HightStreamCellAction extends AbstractListAction {
 	public List getTopcelllist(){
 		return this.topcelllist;
 	}
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+	/**
+	 * @return the hour
+	 */
+	public String getHour() {
+		return hour;
+	}
+	/**
+	 * @param hour the hour to set
+	 */
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+	/**
+	 * @param resultType the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
+	/**
+	 * @return the standard
+	 */
+	public String getStandard() {
+		return standard;
+	}
+	/**
+	 * @param standard the standard to set
+	 */
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+	/**
+	 * @return the condition
+	 */
+	public String getCondition() {
+		return condition;
+	}
+	/**
+	 * @param condition the condition to set
+	 */
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+	/**
+	 * @return the flag
+	 */
+	public String getFlag() {
+		return flag;
+	}
+	/**
+	 * @param flag the flag to set
+	 */
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 }
