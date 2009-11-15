@@ -46,6 +46,14 @@ public class ZeroService {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	public int getZeroCells(Date date){
+		String sql="select count(*) as cnt from zero_cellid where stattime="+df.format(date);
+		return jdbcTemplate.queryForInt(sql);
+	}
+	public int getZeroApns(Date date){
+		String sql="select count(*) as cnt from zero_apn where stattime="+df.format(date);
+		return jdbcTemplate.queryForInt(sql);
+	}
 	/**
 	 * 得到某一天的流量为0的cell
 	 * 
@@ -59,8 +67,8 @@ public class ZeroService {
 		String _date = df.format(date);
 
 		int startIndex = (pageNo - 1) * pageSize;
-		String countsql = "select count(*) from zero_cell where dayflag=1 and stattime=" + _date;
-		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_cell where dayflag=1 and stattime="
+		String countsql = "select count(*) from zero_cellid where dayflag=1 and stattime=" + _date;
+		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_cellid where dayflag=1 and stattime="
 				+ _date + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);

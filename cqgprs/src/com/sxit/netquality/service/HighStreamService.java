@@ -60,9 +60,11 @@ public class HighStreamService {
 		String _date=df.format(date);
 		String sql="";
 		if(standard.equals("1")){
-			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
-        }else{
-			 sql="select cellid,allv from(select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid ) where rownum<="+condition+" order by allv desc";
+//			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
+			 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" where allvolume>="+condition+") order by allvolume desc";
+
+		}else{
+			 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" and rownum<="+condition+" order by allvolume desc";
         }
 		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -71,7 +73,7 @@ public class HighStreamService {
 				while (rs.next()) {
 					TopCell model = new TopCell();
 					model.setCellid(rs.getString("cellid"));
-					model.setCurrentStream(rs.getFloat("allv"));
+					model.setCurrentStream(rs.getFloat("allvolume"));
 					list.add(model);
 				}
 				return list;

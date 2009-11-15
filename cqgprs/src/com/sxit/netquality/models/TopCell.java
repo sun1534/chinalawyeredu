@@ -7,7 +7,7 @@ import com.sxit.netquality.service.BasicSetService;
 
 /**
  * 
- * 小区信息
+ * 排名靠前的小区信息
  * 
  * @author 华锋
  * Oct 21, 2009-10:17:45 PM
@@ -16,11 +16,11 @@ import com.sxit.netquality.service.BasicSetService;
 public class TopCell {
 
 	private String cellid;
-	private String bscrncid;
+//	private String bscrncid;
 	
 	
 	public String getSgsnid(){
-		return BasicSetService.BSC_SGSN.get(bscrncid);
+		return BasicSetService.BSC_SGSN.get(getBscrncid());
 	}
 	private float totalStream;
 	private float currentStream;
@@ -40,14 +40,9 @@ public class TopCell {
 	 * @return the bscrncid
 	 */
 	public String getBscrncid() {
-		return bscrncid;
+		return BasicSetService.CELL_BSC.get(cellid);
 	}
-	/**
-	 * @param bscrncid the bscrncid to set
-	 */
-	public void setBscrncid(String bscrncid) {
-		this.bscrncid = bscrncid;
-	}
+
 	/**
 	 * @return the totalStream
 	 */

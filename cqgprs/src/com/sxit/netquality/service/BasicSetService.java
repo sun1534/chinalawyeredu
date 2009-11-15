@@ -194,23 +194,26 @@ public class BasicSetService {
 		return d;
 	}
 
-	public PaginationSupport getCells(String cellid, int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, String bscid,int pageNo, int pageSize) {
 		String countsql = "";
 		String sql = "";
 
 		int startIndex = (pageNo - 1) * pageSize;
+		countsql = "select count(*) from set_cell where opttype!=2 ";
+		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} order by CELLID) a where rownum<=" + (startIndex + pageSize) + ") where rn>="
+			+ startIndex;
+		String where="";
 		if (cellid != null && !cellid.equals("")) {
-
-			countsql = "select count(*) from set_cell where opttype!=2 and cellid='" + cellid + "'";
-			sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 and cellid='"
-					+ cellid + "' order by CELLID) a where rownum<=" + (startIndex + pageSize) + ") where rn>="
-					+ startIndex;
-		} else {
-			countsql = "select count(*) from set_cell where opttype!=2 ";
-			sql = "select * from(select a.*,rownum rn from(select * from set_cell	 where opttype!=2 order by CELLID) a where rownum<="
-					+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+			where+=" and cellid='" + cellid + "'";
+		} 
+		if (bscid != null && !bscid.equals("")) {
+			where+=" and bscid='" + bscid + "'";
 		}
-
+		countsql=countsql+where;
+		sql=sql.replace("${where}", where);
+		
+		System.out.println(countsql);
+		System.out.println(sql);
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -295,6 +298,40 @@ public class BasicSetService {
 				return null;
 			}
 		});
+
+	}
+
+	public List getBsces(String bscid, String sgsnid) {
+
+		String sql = "select * from set_bsc where opttype!=2";
+		if (bscid != null && !bscid.equals("")) {
+			sql += " and bscid='" + bscid + "'";
+		}
+		if (sgsnid != null && !sgsnid.equals("")) {
+			sql += " and sgsnid='" + sgsnid + "'";
+		}
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					BscRnc model = new BscRnc();
+					model.setBscrncid(rs.getString("bscid"));
+					model.setLastopt(rs.getString("opttype"));
+
+					model.setName(rs.getString("bscname"));
+					// model.setNettype(rs.getString("nettype"));
+					model.setSgsnid(rs.getString("sgsnid"));
+					Date date = new Date();
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setLastupdate(date);
+
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
 
 	}
 
@@ -386,12 +423,12 @@ public class BasicSetService {
 	 * 
 	 * @return
 	 */
-	private void getSgsns() {
+	public List getSgsns() {
 
-		String sql = "select * from  SET_SGSN order by sgsnid";
+		String sql = "select * from  SET_SGSN where opttype!=2 order by sgsnid";
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-
+List list=new ArrayList();
 				ALL_SGSNS.clear();
 				while (rs.next()) {
 					Sgsn model = new Sgsn();
@@ -401,12 +438,13 @@ public class BasicSetService {
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
-
+					list.add(model);
 					ALL_SGSNS.put(rs.getString("SGSNID"), model);
 				}
-				return null;
+				return list;
 			}
 		});
+		return (List)object;
 	}
 
 	/**
@@ -445,11 +483,11 @@ public class BasicSetService {
 		}
 
 		st = new StringTokenizer(selected, ",");
-		long now=System.currentTimeMillis()/1000;
+		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
 			String cellid = st.nextToken();
-			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE) values('" + cellid
-					+ "',null,"+now+",1)";
+			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE) values('" + cellid + "',null," + now
+					+ ",1)";
 
 			jdbcTemplate.execute(sql);
 		}
@@ -470,10 +508,11 @@ public class BasicSetService {
 		}
 
 		st = new StringTokenizer(selected, ",");
-long now=System.currentTimeMillis()/1000;
+		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
 			String apnni = st.nextToken();
-			sql = "insert into SET_APN_FOCUS(APNNI,APNNAME,UPDATETIME,ISACTIVE) values('" + apnni + "',null,"+now+",1)";
+			sql = "insert into SET_APN_FOCUS(APNNI,APNNAME,UPDATETIME,ISACTIVE) values('" + apnni + "',null," + now
+					+ ",1)";
 
 			jdbcTemplate.execute(sql);
 		}
