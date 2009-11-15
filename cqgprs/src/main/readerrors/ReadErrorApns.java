@@ -127,13 +127,13 @@ public class ReadErrorApns {
 							apnsubidx = timeline.indexOf(":");
 						}
 
-						String time = timeline.substring(timelineidx + 2);
-						String node = nodeline.substring(timelineidx + 2);
-						String imsi = imsiline.substring(timelineidx + 2);
-						String smcause = smcauseline.substring(timelineidx + 2);
-						String details = detailsline.substring(timelineidx + 2);
-						String apnreq = apnreqline.substring(timelineidx + 2);
-						String apnsub = apnsubline.substring(timelineidx + 2);
+						String time = timeline.substring(timelineidx + 2).trim();
+						String node = nodeline.substring(timelineidx + 2).trim();
+						String imsi = imsiline.substring(timelineidx + 2).trim();
+						String smcause = smcauseline.substring(timelineidx + 2).trim();
+						String details = detailsline.substring(timelineidx + 2).trim();
+						String apnreq = apnreqline.substring(timelineidx + 2).trim();
+						String apnsub = apnsubline.substring(timelineidx + 2).trim();
 
 //						LOG.debug("timeline:" + time);
 //						LOG.debug("nodeline:" + node);
@@ -146,7 +146,7 @@ public class ReadErrorApns {
 						cdr.setCellid(null);
 						int idx1 = smcause.indexOf("(");
 						int idx2 = smcause.indexOf(")");
-						cdr.setErrorcode(smcause.substring(idx1 + 2, idx2));
+						cdr.setErrorcode(smcause.substring(idx1 + 2, idx2).trim());
 						
 //						System.out.println(cdr.getErrorcode());
 						

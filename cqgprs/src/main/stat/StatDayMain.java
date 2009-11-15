@@ -52,6 +52,9 @@ public class StatDayMain {
 	 */
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
+		
+		
+		
 		init();
 		SelfLog.LOGDIR = LOGDIR;
 		LOG = SelfLog.getInstance();
@@ -59,19 +62,20 @@ public class StatDayMain {
 		LOG.info("==============开始统计" + df.format(new Date()) + "的数据");
 	
 		con = DBUtils.getOracleCon();
-		LOG.info("获取到数据库连接OK");
-
+		LOG.info("获取到数据库连接OK1111");
+//		LOG.info("获取到数据库连接OK2222");
+//		LOG.info("获取到数据库连接OK3333");
 		stat_cellid();
-
+//
 		stat_apn();
-
+//
 		stat_bsc();
 
 		stat_sgsn();
 		
 		stat_cell_apn();
 		
-		
+		statapnerror();
 		con.close();
 		
 		
@@ -79,15 +83,31 @@ public class StatDayMain {
 		LOG.info("==============统计完毕" + df.format(new Date()) );
 
 	}
+	
+	
 
+	private static void statapnerror() {
+		try {
+			StatApnError stat = new StatApnError(con);
+			LOG.info("开始统计APN错误情况数据");
+			stat.stat();
+			LOG.info("统计APN错误情况数据完毕");
+		} catch (Exception e) {
+			LOG.error("APN错误情况统计异常" + e);
+		e.printStackTrace();
+		}
+
+	}
+	
 	private static void stat_bsc() {
 		try {
 			StatBsc stat = new StatBsc(con);
-			LOG.info("开始统计SGSN数据");
+			LOG.info("开始统计BSC数据");
 			stat.stat();
-			LOG.info("统计SGSN数据完毕");
+			LOG.info("统计BSC数据完毕");
 		} catch (Exception e) {
 			LOG.error("BSC数据统计异常" + e);
+		e.printStackTrace();
 		}
 
 	}
@@ -150,7 +170,8 @@ public class StatDayMain {
 			stat.stat();
 			LOG.info("统计SGSN数据完毕");
 		} catch (Exception e) {
-			LOG.error("BSC数据统计异常" + e);
+			LOG.error("SGSN数据统计异常" + e);
+			e.printStackTrace();
 		}
 		// try {
 		// String sgsn_sql = "insert into stat_sgsn select
@@ -176,6 +197,7 @@ public class StatDayMain {
 			LOG.info("统计CELL_APN数据完毕");
 		} catch (Exception e) {
 			LOG.error("CELL_APN数据统计异常" + e);
+			e.printStackTrace();
 		}
 		// try {
 		// String sgsn_sql = "insert into stat_sgsn select

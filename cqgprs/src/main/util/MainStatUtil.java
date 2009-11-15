@@ -22,8 +22,10 @@ public class MainStatUtil {
 	public static String getCdrTable() {
 		Calendar calendar = Calendar.getInstance();
 		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+		System.out.println(weekday);
 		if (weekday == 1)// 周日
-			weekday = weekday - 1;
+//			weekday = weekday - 1;
+			weekday=6;
 		else
 			weekday = weekday - 2;
 		String table = "cdr_succ_0" + weekday;
@@ -50,35 +52,40 @@ public class MainStatUtil {
 	 * @param sqls
 	 * @throws Exception
 	 */
-	public static void executeSql(Connection con, List sqls) throws Exception {
+	public static int executeSql(Connection con, List sqls) throws Exception {
 		Statement stmt = null;
+		int result=0;
 		try {
 			int len = sqls.size();
+			System.out.println("代码个数::"+len);
 			if (len > 0) {
 				stmt = con.createStatement();
 				int i = 1;
 				for (Object obj : sqls) {
 					stmt.addBatch(obj.toString());
 					if ((i++) % 500 == 0) {
-						stmt.executeBatch();
+						int s[]=stmt.executeBatch();
 						stmt.clearBatch();
+						result+=s.length;
 					}
 				}
-				stmt.executeBatch();
+				int s[]=	stmt.executeBatch();
 				stmt.clearBatch();
+				result+=s.length;
+				
 
 			}
 		} finally {
 			if (stmt != null)
 				stmt.close();
 		}
-
+		return result;
 	}
 
 	public static void main(String[] args) {
-		List list = new ArrayList();
+	
 
-		System.out.println(list2str(list));
+		System.out.println(getCdrTable());
 	}
 
 	public static long getYestardayTime() {

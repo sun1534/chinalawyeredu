@@ -60,6 +60,8 @@ public class StatSgsn {
 //				stmt.setString(6, stat.usercount);
 //				stmt.addBatch();
 				String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"+stat.sgsnid+"',"+stat.nettype+",1,to_char(sysdate-1,'yyyyMMdd'),"+stat.up+","+stat.down+","+stat.down+","+stat.usercount+")";
+				
+				LOG.info(sql);
 				sqls.add(sql);
 			}
 //			stmt.executeBatch();
@@ -80,8 +82,8 @@ public class StatSgsn {
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
 
-		String sql = "select sgsnid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_sgsn where dayflag=0 and stattime>="
-				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid";
+		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_sgsn where dayflag=0 and stattime>="
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype";
 		
 		LOG.info(sql);
 		Statement stmt = null;
@@ -112,8 +114,9 @@ public class StatSgsn {
 		
 		
 		// 这里要得到用户数
-		String usersql = "select sgsnid,nettype,count(msisdn) as usercount from msisdn_sgsn where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000 + "  group by sgsnid,nettype";
+		String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn where stattime>=" + start / 1000
+				+ " and stattime<=" + end / 1000;
+//				+ "  group by sgsnid,nettype";
 		LOG.info("usersql:" + usersql);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery(usersql);
@@ -194,14 +197,20 @@ public class StatSgsn {
 	}
 
 	public static void main(String args[]) throws Exception {
-		SelfLog.LOGDIR = "/export/home/jf/JAVABIN/logs/stat";
-		LOG = SelfLog.getInstance();
-		LOG.info("开始统计SGSN数据");
-		Connection con = DBUtils.getOracleCon();
-		LOG.info("建立数据库连接成功");
-		StatSgsn s = new StatSgsn(con);
-		s.stat();
-		con.close();
+//		SelfLog.LOGDIR = "/export/home/jf/JAVABIN/logs/stat";
+//		LOG = SelfLog.getInstance();
+//		LOG.info("开始统计SGSN数据");
+//		Connection con = DBUtils.getOracleCon();
+//		LOG.info("建立数据库连接成功");
+//		StatSgsn s = new StatSgsn(con);
+//		s.stat();
+//		con.close();
+		
+		long start = MainStatUtil.getYestardayTime();
+		long end = MainStatUtil.getOneDayAfter(start);
+		System.out.println(new java.sql.Timestamp(1258208434L*1000));
+		System.out.println(start);
+		System.out.println(end);
 
 	}
 //	private static SelfLog LOG;

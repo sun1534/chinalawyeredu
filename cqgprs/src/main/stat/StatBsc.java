@@ -106,8 +106,9 @@ public class StatBsc {
 		LOG.info("得到BSC的统计数据完毕");
 		
 		// 这里要得到用户数
-		String usersql = "select bscid,count(msisdn) as usercount from msisdn_bsc where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000 + "  group by bscid";
+		String usersql = "select bscid,usercount from msisdn_bsc where stattime>=" + start / 1000
+				+ " and stattime<=" + end / 1000 ;
+//		+ "  group by bscid";
 		LOG.info("usersql:" + usersql);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery(usersql);
@@ -115,6 +116,7 @@ public class StatBsc {
 			String bscid = rs.getString("bscid");
 			int usercount = rs.getInt("usercount");
 			TempStat stat = allbscs.get(bscid);
+			if(stat!=null)
 			stat.usercount = usercount + "";
 		}
 		rs.close();
@@ -147,6 +149,7 @@ public class StatBsc {
 
 		} catch (Exception e) {
 			LOG.error("统计错误：" + e);
+			e.printStackTrace();
 		}
 
 		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from

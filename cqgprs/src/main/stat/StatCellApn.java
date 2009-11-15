@@ -95,7 +95,7 @@ public class StatCellApn {
 	/**
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
-	public void stat() {
+	public void stat() throws Exception{
 		// long start = StatUtil.getYestardayTime();
 		// long end = StatUtil.getOneDayAfter(start);
 		// try {
@@ -121,6 +121,9 @@ public class StatCellApn {
 		String sql = "insert into stat_cellid_apn(cellid,apnni,stattime,dayflag,usercount,upvolume,downvolume,allvolume) select "
 				+ "cellid,apnni,to_char(sysdate-1,'yyyyMMdd'),1,count(distinct(msisdn)) as  usercount,sum(upvolume) as up,sum(downvolume) as down,sum(upvolume+downvolume) as allvolume from "
 				+ table + " where apnni not in('cmwap','cmnet','cmmm') group by apnni,cellid";
+	
+		
+		
 		Statement stmt = null;
 		try {
 			stmt = con.createStatement();
@@ -128,6 +131,9 @@ public class StatCellApn {
 
 		} catch (Exception e) {
 			LOG.error("统计CELL_APN错误：" + e);
+		}finally{
+			if(stmt!=null)
+				stmt.close();
 		}
 
 		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
@@ -179,5 +185,5 @@ public class StatCellApn {
 
 	}
 
-	private static SelfLog LOG;
+	private static SelfLog LOG=SelfLog.getInstance();
 }
