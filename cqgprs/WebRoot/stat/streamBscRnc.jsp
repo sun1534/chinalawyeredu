@@ -50,8 +50,17 @@ function confirmit(){
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
    var start=$("#start").val();
-   var url="streamBscRnc.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+   var sgsnid=$("#sgsnid").val();
+   if(sgsnid==""){
+    alert("请输入SGSN编号");
+    return;
+   }
+      if(start==""){
+    alert("请输入查询日期");
+    return;
+   }
+   var url="streamBscRnc.action?start="+start+"%26sgsnid="+sgsnid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "800", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -79,6 +88,7 @@ function confirmit(){
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 							 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+							 <td>SGSN编号：<s:select name="sgsnid" id="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" listKey="key" listValue="key" headerKey="" headerValue="全部"/>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -115,7 +125,8 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                          <td>${nettype }</td>
+                   
+                          <td>${nettype}</td>
                           <td>${bscrncid}</td>
                           <td>${sgsnid}</td>
                           <td>${totalStreamStr }</td>

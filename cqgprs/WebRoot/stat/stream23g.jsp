@@ -116,9 +116,11 @@ function confirmit(){
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="streamlist" status="status">
+                        <s:iterator value="streamlist" status="stat">
                         <tr>
-                          <td>${date}</td>
+                        <s:if test="#stat.odd">
+                          <td rowspan="2">${date}</td>
+                          </s:if>
                           <td>${nettype}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

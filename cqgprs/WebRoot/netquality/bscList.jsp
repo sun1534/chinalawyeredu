@@ -7,14 +7,63 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-38号错误表</title>
+ <title>${sysName}-BSC列表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript">
- 
+  Array.prototype.clear=function(){  
+    this.length=0;  
+}
+  $(document).ready(function() {
+			$("#checkAll").click(selectAll);
+			$("[name=check]").click(selectOne);
+		});
+	 var arrayall=new Array();
+  var arrayadd=new Array();
+	<s:iterator value="page.items">
+       arrayall.push("${apnid }");
+	</s:iterator>
+  function selectAll() {
+	var checked=$(this).attr('checked');
+	var checkboxa = $("#checkForm :checkbox");
+	$.each(checkboxa,function(){
+	   if(!checked){
+	    	$(this).attr('checked','');
+		   	$(this).parent().parent().children().addClass("nomal");
+			$(this).parent().parent().children().removeClass("current");
+	   }else{
+		    $(this).attr('checked','checked');
+		    $(this).parent().parent().children().addClass("current");
+		    $(this).parent().parent().children().removeClass("nomal");
+	   }
+	});
+  }
+
+		/*单选取值*/
+		function selectOne(){
+				if($(this).attr('checked')){
+					$(this).parent().parent().children().addClass("current");
+					$(this).parent().parent().children().removeClass("nomal");
+				}else{
+					$(this).parent().parent().children().addClass("nomal");
+					$(this).parent().parent().children().removeClass("current");
+					$("#checkAll").attr('checked','');
+				}
+      }
+      
+      
+            function getChecked(){
+         var checkbox = $("#checkForm :checkbox");
+         arrayadd.clear();
+	     $.each(checkbox,function(){
+	      if($(this).attr('checked')){
+		    arrayadd.push( $(this).attr("value"));
+	       }
+	    });
+      }
 
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -28,7 +77,12 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
-
+function setit(){
+  getChecked();
+  $.getJSON('../netqualityajax/setApnFocus.action?all='+arrayall.join()+'&selected='+arrayadd.join(),function(data){
+        alert(data.msg);
+  });
+}
 
 </script>
 </head>
@@ -37,11 +91,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>网络失败PDP</em>＞<em>38号错误总表</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>BSC/RNC信息列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="error38" method="POST">	
+			<s:form name="form1" action="apnList" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -51,10 +105,10 @@ function queryit(){
 							<tbody>
 								<tr>
                                  <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+                                     <s:hidden name="resultType"/>
+								 <td>BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
+								  <td>SGSN编号：<s:textfield name="sgsnid" cssClass="txt" size="10"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
 							
 								</tr>
 							</tbody>
@@ -65,49 +119,30 @@ function queryit(){
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
 					    <input type="button" class="btnCancel" title="返 回" value="删　除"/>
 					</div>-->
-				<div class="tablist"> 
-						<table class="tableBox"> 
-							<thead> 
-								<tr> 
-									<th>38号错误总数</th> 
-									<th>38号错误用户数</th> 
-								</tr> 
-							</thead> 
-							<tbody> 
-								<tr> 
-									<td>${codestat.errorcount }</td> 
-									<td>${codestat.usercount }</td> 
-								</tr> 
-							</tbody> 
-						</table> 
-					</div> 
-				
-				
 				
 				  <div class="tablist" id="querylist">
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
-                       
-                          <th>用户IMSI</th>
-                          <th>请求APN</th>
-                          <th>PDP失败次数	</th>
-                    
                         
-                        </tr>
+                       <th>BSC/RNC编号</th>
+                       <th>BSC/RNC名称</th>
+                       <th>所属SGSN</th>
+                       <th>最后更新时间</th>
+                       </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="codestat.detailist" status="status">
+                        <s:iterator value="resultList" status="status">
                         <tr>
-                         <td>${imsi}</td>
-                          <td>${apn}</td>
-                          <td>${pdperrorcnt }</td>
-                      
+                        
+                         <td><a href="cellList.action?bscid=${bscrncid }">${bscrncid}</a> </td>
+                          <td>${name}</td>
+                          <td>${sgsnid }</td>
+                          <td><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
-                      <!-- 
                     <tfoot>
 							<tr>
 							   <td colspan="6" class="fright">
@@ -115,7 +150,7 @@ function queryit(){
 							   </td>
 							</tr>
 						 </tfoot>
-			   -->
+			  
                     </table>
 			  </div>
 

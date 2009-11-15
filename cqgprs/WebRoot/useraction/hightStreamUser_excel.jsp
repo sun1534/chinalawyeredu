@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -36,31 +36,27 @@ th
 
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
+     <tr>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之高流量用户排名（前1000）</b></td>
+  </tr>
       <tr>
-        <td colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之BSC/RNC流量分析</b></td>
-      </tr>
-      <tr>
-        <th class="listheadline">类型</th>
-        <th class="listheadline">SGSN号</th>
-        <th class="listheadline">覆盖范围</th>
-        <th class="listheadline">总流量（M）></th>
-        <th class="listheadline">总用户数</th>
-        <th class="listheadline">平均流量（K）</th>
+                <th>手机号码</th>
+                          <th>APN编码</th>
+                           <th>上行流量（K）</th>
+                            <th>下行流量（K）</th>
+                          <th>总流量（K）</th>
+                          <th>逗留时长（秒）</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+     <s:iterator value="top1000users" status="status">
       <tr>
-     
-                          <td class="listline2">${nettype}</td>
-                          <td class="listline2">${bscrncid}</td>
-                          <td class="listline2">${sgsnid}</td>
-                          <td class="listline2">${totalStreamStr }</td>
-                          <td class="listline2">${totalUser}</td>
-                          <td class="listline2">${averageStreamStr}</td>
-     
-       
+        <td class="listline2">${mobile}</td>
+                          <td class="listline2">${apnni}</td>
+                          <td class="listline2">${upvolume }</td>
+                          <td class="listline2">${downvolume}</td>
+                          <td class="listline2">${allvolume}</td>
+                          <td class="listline2">${periodlen}</td>
       </tr>
-   
     </s:iterator>
       </tbody>
     </table>

@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-异常APN</title>
+ <title>${sysName}-0流量APN</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -37,11 +37,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>行业客户</a>＞<em>异常APN</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>0流量APN</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="exceptionApns" method="POST">	
+			<s:form name="form1" action="zeroStreamAPN" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -52,10 +52,9 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+                                  <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
-							
 								</tr>
 							</tbody>
 						</table>
@@ -71,29 +70,33 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
+                          <th>APN编码</th>
+                          <th>APN使用单位</th>
+                          <th>客户联系电话</th>
                           <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>当前流量</th>
+                          <th title="${last }">上次流量（M）</th>
+                          <th title="${prelast }">上上次流量（M）</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${apnni}</td>
+                          <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_APNS[apnni].usercorp"/></td>
+                          <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_APNS[apnni].userphone"/></td>
+                         <td>${ allvolume}</td>
+                          <td>0.0</td>
+                          <td>${historyvolume }</td>
+                          <td>${prehistoryvolume}</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="8" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

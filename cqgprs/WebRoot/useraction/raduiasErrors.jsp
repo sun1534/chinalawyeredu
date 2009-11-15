@@ -1,12 +1,11 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="jscalendar" uri="/jscalendar"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
- <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
  <title>${sysName}-RADUIAS错误详表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
@@ -52,7 +51,7 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -65,32 +64,49 @@ function queryit(){
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
 					    <input type="button" class="btnCancel" title="返 回" value="删　除"/>
 					</div>-->
+				<div class="tablist"> 
+						<table class="tableBox"> 
+							<thead> 
+								<tr> 
+									<th>RADUIAS错误总数</th> 
+									<th>RADUIAS错误用户数</th> 
+								</tr> 
+							</thead> 
+							<tbody> 
+								<tr> 
+									<td>${codestat.errorcount }</td> 
+									<td>${codestat.usercount }</td> 
+								</tr> 
+							</tbody> 
+						</table> 
+					</div> 
+				
+				
 				
 				  <div class="tablist" id="querylist">
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>用户IMSI</th>
+                          <th>请求APN</th>
+                          <th>PDP失败次数	</th>
+                    
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="codestat.detailist" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${imsi}</td>
+                          <td>${apn}</td>
+                          <td>${pdperrorcnt }</td>
+                      
                         </tr>
                         </s:iterator>
                       
                       </tbody>
+                      <!-- 
                     <tfoot>
 							<tr>
 							   <td colspan="6" class="fright">
@@ -98,7 +114,7 @@ function queryit(){
 							   </td>
 							</tr>
 						 </tfoot>
-			  
+			   -->
                     </table>
 			  </div>
 
@@ -112,6 +128,5 @@ function queryit(){
 		</div>
 </s:form>
 </body>
-
 </html>
 

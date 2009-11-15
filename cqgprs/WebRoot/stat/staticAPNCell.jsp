@@ -97,7 +97,7 @@ var start=$("#start").val();
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								  <td>APN编号：<s:textfield name="apnid" id="apnid" cssClass="txt" size="10"/>&nbsp;</td>
+								  <td>APN编号：<s:textfield name="apnid" id="apnid" cssClass="txt" size="15"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -134,6 +134,7 @@ var start=$("#start").val();
                         <s:iterator value="apncelllist" status="status">
                         <tr>
                           <td>${cellid}</td>
+                           <td>${cell.cellname}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>

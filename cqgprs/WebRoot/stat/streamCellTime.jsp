@@ -64,7 +64,7 @@ function confirmit(){
    var flashby=$("#flashby").val();
    var cellid=$("#cellid").val();
    var start=$("#start").val();
-   var url="streamCellTime.action?start="+start+"cellid="+cellid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="streamCellTime.action?start="+start+"%26cellid="+cellid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
 
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "800", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
@@ -92,7 +92,7 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
 								 <td>小区编号：<s:textfield name="cellid" size="10" id="cellid" cssClass="txt" title="小区编号不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>

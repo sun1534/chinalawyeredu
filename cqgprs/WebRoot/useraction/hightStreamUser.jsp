@@ -71,22 +71,24 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>手机号码</th>
+                          <th>APN编码</th>
+                           <th>上行流量（K）</th>
+                            <th>下行流量（K）</th>
+                          <th>总流量（K）</th>
+                          <th>逗留时长（秒）</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="top1000users" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${mobile}</td>
+                          <td>${apnni}</td>
+                          <td>${upvolume }</td>
+                          <td>${downvolume}</td>
+                          <td>${allvolume}</td>
+                          <td>${periodlen}</td>
                         </tr>
                         </s:iterator>
                       

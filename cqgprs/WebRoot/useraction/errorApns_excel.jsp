@@ -36,30 +36,27 @@ th
 
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
+     <tr>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${date }之错误APN分布</b></td>
+  </tr>
       <tr>
-        <td colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之BSC/RNC流量分析</b></td>
-      </tr>
-      <tr>
-        <th class="listheadline">类型</th>
-        <th class="listheadline">SGSN号</th>
-        <th class="listheadline">覆盖范围</th>
-        <th class="listheadline">总流量（M）></th>
-        <th class="listheadline">总用户数</th>
-        <th class="listheadline">平均流量（K）</th>
+     <!-- 
+                          <th class="listheadline">SGSN号</th>
+                          -->
+                           <th>APN</th>
+                          <th>用户数</th>
+                          <th>PDP失败次数</th>
+                             <th>错误代码</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+      <s:iterator value="apnerrorslist" status="stat">
       <tr>
-     
-                          <td class="listline2">${nettype}</td>
-                          <td class="listline2">${bscrncid}</td>
-                          <td class="listline2">${sgsnid}</td>
-                          <td class="listline2">${totalStreamStr }</td>
-                          <td class="listline2">${totalUser}</td>
-                          <td class="listline2">${averageStreamStr}</td>
-     
-       
-      </tr>
+      
+          <td class="listline2">${apnni}</td>
+                          <td class="listline2">${usercount}</td>
+                          <td class="listline2">${errorcount }</td>
+                               <td class="listline2">${errcode }</td>
+         </tr>
    
     </s:iterator>
       </tbody>

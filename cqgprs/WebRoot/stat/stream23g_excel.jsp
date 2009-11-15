@@ -50,8 +50,10 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <s:iterator value="streamlist" status="stat">
       <tr>
      
-
-                          <td class="listline2">${date}</td>
+      <s:if test="#stat.odd">
+                          <td rowspan="2"  class="listline2">${date}</td>
+                          </s:if>
+                         
                           <td class="listline2">${nettype}</td>
                           <td class="listline2">${totalStreamStr }</td>
                           <td class="listline2">${totalUser}</td>

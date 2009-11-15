@@ -52,9 +52,10 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+							      <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
+							      </td>
 							
 								</tr>
 							</tbody>
@@ -71,22 +72,22 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>小区编码</th>
+                          <th>归属BSC/RNC</th>
+                          <th>归属SGSN</th>
+                          <th>总流量</th>
+                          <th>当前流量</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="topcelllist" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${cellid}</td>
+                          <td>${bscrncid}</td>
+                          <td>${sgsnid }</td>
+                          <td>${totalStream}</td>
+                          <td>${currentStream}</td>
                         </tr>
                         </s:iterator>
                       
@@ -94,7 +95,6 @@ function queryit(){
                     <tfoot>
 							<tr>
 							   <td colspan="6" class="fright">
-							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
 						 </tfoot>

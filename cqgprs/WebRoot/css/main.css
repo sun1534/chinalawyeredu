@@ -45,6 +45,8 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 	.tableBox thead {}
 	.tableBox thead tr {}
 	.tableBox thead tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:25px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
+	.tableBox thead2 tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:50px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
+	
 	.tableBox tbody {}
 	.tableBox tbody tr {}
 	.tableBox tbody tr td {border-bottom:1px solid #EAEAEA;background:#FDFDFD;color:#000;background:url(../images/line.jpg) repeat-y -2px top;padding-left:5px;}

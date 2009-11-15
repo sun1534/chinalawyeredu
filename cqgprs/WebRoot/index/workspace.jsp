@@ -37,9 +37,9 @@ swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0",
 						<div class="nowInfo">
 							<h2>今日系统异常情况：</h2>
 							<ul>
-								<li><a href="#">新增<b>${newaddbsc }</b>个BSC，共<b>${totalbsc }</b>个BSC，有<b>3</b>个BSC有异常</a></li>
-								<li><a href="#">新增<b>${newaddcell }</b>个小区，共<b>${totalcell }</b>个小区，有<b>5</b>个小区有异常</a></li>
-								<li><a href="#">新增<b>${newaddapn }</b>个APN，共<b>${totalapn }</b>个行业APN，有<b>8</b>个行业APN异常</a></li>
+								<li><a href="../netquality/bscList.action">新增<b>${newaddbsc }</b>个BSC，共<b>${totalbsc }</b>个BSC</a>，<a href="#">有<b>${exceptionbsc }</b>个BSC有异常</a></li>
+								<li><a href="../netquality/cellList.action">新增<b>${newaddcell }</b>个小区，共<b>${totalcell }</b>个小区</a>，<a href="../netquality/zeroStreamCell.action">有<b>${exceptioncell }</b>个小区有异常</a></li>
+								<li><a href="../netquality/apnList.action">新增<b>${newaddapn }</b>个APN，共<b>${totalapn }</b>个行业APN</a>，<a href="../netquality/zeroStreamApn.action">有<b>${exceptionapn }</b>个行业APN异常</a></li>
 							<!-- 	<li><a href="#">新增<b>12</b>个链路，共<b>12532</b>个链路，有<b>82</b>个链路流量告警，有<b>15</b>个链路需要关注</a></li>
 							-->
 							</ul>
@@ -105,9 +105,11 @@ swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0",
 								</tr>
 							</thead>
 							<tbody id="checkForm2">
-						 <s:iterator value="total23glist" status="status">
+						 <s:iterator value="total23glist" status="stat">
 						 <tr>
-						  <td>${date}</td>
+						  <s:if test="#stat.odd">
+						  <td rowspan="2">${date}</td>
+						  </s:if>
 						  <td>${nettype}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

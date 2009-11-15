@@ -7,24 +7,24 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-小区列表</title>
+ <title>${sysName}-SGSN列表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript">
- Array.prototype.clear=function(){  
+  Array.prototype.clear=function(){  
     this.length=0;  
 }
   $(document).ready(function() {
 			$("#checkAll").click(selectAll);
 			$("[name=check]").click(selectOne);
-  });
-  var arrayall=new Array();
+		});
+	 var arrayall=new Array();
   var arrayadd=new Array();
 	<s:iterator value="page.items">
-       arrayall.push("${cellid }");
+       arrayall.push("${apnid }");
 	</s:iterator>
   function selectAll() {
 	var checked=$(this).attr('checked');
@@ -53,7 +53,9 @@
 					$("#checkAll").attr('checked','');
 				}
       }
-      function getChecked(){
+      
+      
+            function getChecked(){
          var checkbox = $("#checkForm :checkbox");
          arrayadd.clear();
 	     $.each(checkbox,function(){
@@ -75,15 +77,12 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
-
-
 function setit(){
   getChecked();
-  $.getJSON('../netqualityajax/setCellFocus.action?all='+arrayall.join()+'&selected='+arrayadd.join(),function(data){
+  $.getJSON('../netqualityajax/setApnFocus.action?all='+arrayall.join()+'&selected='+arrayadd.join(),function(data){
         alert(data.msg);
   });
 }
-
 
 </script>
 </head>
@@ -92,31 +91,30 @@ function setit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>小区信息列表</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>SGSN信息列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="cellList" method="POST">	
+			<s:form name="form1" action="sgsnList" method="POST">	
+			     <s:hidden name="resultType"/>
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
-					<!-- 查询模块-->
+					<!-- 查询模块
 					<div class="searchTab">
 						<table>
 							<tbody>
 								<tr>
                                  <s:hidden name="pageNo"/>
-                                    <s:hidden name="resultType"/>
-								 <td>小区编号：<s:textfield name="cellid" cssClass="txt" size="10"/>&nbsp;</td>
-								 <td>BSCID：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
-								 
+                                
+								 <td>APN编号：<s:textfield name="apnid" cssClass="txt" size="10"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							 <td><input type="button" class="btnSubmit" value="设置为重点小区" onclick="setit()"/></td>
+								<td><input type="button" class="btnSubmit" value="设置为重点APN" onclick="setit()"/></td>
 							
 								</tr>
 							</tbody>
 						</table>
-				  </div> 
+				  </div> -->
 					<!-- 操作模块
 					<div class="operate">
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
@@ -127,37 +125,20 @@ function setit(){
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
-                         <th title="点中全选">
-                          设置为重点小区
-                          <input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/>
-                          </th>
-                       <th>小区编号</th>
-                       <th>小区名称</th>
-                       <th>所属BSC/RNC</th>
-                       <th>归属SGSN</th>
-                       <th>备注信息</th>
+                       
+                       <th>SGSN编号</th>
+                       <th>覆盖范围</th>
+                       <th>华为/爱立信</th>
                        <th>最后更新时间</th>
-                        
-                        </tr>
+                       </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="page.items" status="status">
+                        <s:iterator value="resultList" status="status">
                         <tr>
-                     <td align="center">
-                     <s:if test="focuslist.contains(cellid)">
-                      <input type="checkbox" class="checkbox" name="check" value="${cellid }" checked/>
-                     </s:if>
-                     <s:else>
-                      <input type="checkbox" class="checkbox" name="check" value="${cellid }"/>
-                     </s:else>
-                    </td>
-                         <td>${cellid}
-                           <!--<s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellid].cellname"/>-->
-                         </td>
-                          <td>${cellname}</td>
-                          <td>${bscrncid }</td>
-                          <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>
-                          <td>${remarks}</td>
+                        
+                         <td><a href="bscList.action?sgsnid=${sgsnid }">${sgsnid}</a></td>
+                          <td>${sgsnarea}</td>
+                          <td>${sgsntype }</td>
                           <td><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
                         </tr>
                         </s:iterator>
@@ -165,7 +146,7 @@ function setit(){
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="7" class="fright">
+							   <td colspan="6" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

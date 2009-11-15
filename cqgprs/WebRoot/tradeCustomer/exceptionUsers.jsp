@@ -52,9 +52,11 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								 <td>APN编号：<s:textfield name="apnni" cssClass="txt" size="10"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+								<!--  <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/></td>
+							 -->
 							
 								</tr>
 							</tbody>
@@ -65,42 +67,93 @@ function queryit(){
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
 					    <input type="button" class="btnCancel" title="返 回" value="删　除"/>
 					</div>-->
+					
+					<div class="tablist"> 
+						<table class="tableBox"> 
+							<thead> 
+								<tr> 
+									<th  rowspan="2">APN</th> 
+									<th  rowspan="2">客户名称</th> 
+									<th  rowspan="2">联系方式</th> 
+									<th  rowspan="2">异常用户数</th> 
+									<th  colspan="2" align="center">详情</th> 
+								</tr> 
+								<tr> 
+									<th>IMSI</th> 
+									<th>PDP失败次数</th> 
+								</tr> 
+							</thead> 
+							<tbody> 
+								<s:iterator value="page.items">
+							<s:iterator value="imsilist" status="stat">
+							<s:if test="#stat.index==0">
+								<tr> 
+									<td rowspan="${ usercount}">${apnni }</td> 
+									<td rowspan="${ usercount}">${apn.usercorp }</td> 
+									<td rowspan="${ usercount}">${apn.userphone }</td> 
+									<td rowspan="${ usercount}">${usercount }</td> 
+									<td >${imsi }</td> 
+									<td >${errcount }</td> 
+								</tr> 
+								</s:if>
+								<s:else>
+								<tr>
+								<td >${imsi }</td> 
+									<td >${errcount }</td> 
+									</tr>
+								</s:else>
+								</s:iterator>
+								</s:iterator>
+							</tbody>
+						</table> 
+					</div> 
+					<!-- 
+				<s:iterator value="page.items">
+				<div class="tablist"> 
+						<table class="tableBox"> 
+							<thead> 
+								<tr> 
+									<th>APN</th> 
+									<th>客户名称</th> 
+									<th>联系方式</th> 
+									<th>异常用户数</th> 
+								</tr> 
+							</thead> 
+							<tbody> 
+								<tr> 
+									<td>${apnni }</td> 
+									<td>${apn.usercorp }</td> 
+									<td>${apn.userphone }</td> 
+									<td>${usercount }</td> 
+								</tr> 
+							</tbody> 
+						</table> 
+					</div> 
 				
-				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+				  <div class="tablist" >
+			        <table class="tableBox" >
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>用户IMSI</th>
+                          <th>PDP失败次数</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="imsilist" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${imsi}</td>
+                          <td>${errcount}</td>
+                        
                         </tr>
                         </s:iterator>
                       
                       </tbody>
-                    <tfoot>
-							<tr>
-							   <td colspan="6" class="fright">
-							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
-							   </td>
-							</tr>
-						 </tfoot>
-			  
                     </table>
 			  </div>
+			  
+			  </s:iterator>-->
 
 			 <div  class="tabpagelist">
 						<div class="pager">

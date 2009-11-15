@@ -116,10 +116,12 @@ function confirmit(){
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="sgsnlist" status="stat">
                         <tr>
-                          <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
+                          <s:if test="#stat.odd">
+                          <td rowspan="2">${sgsnid}</td>
+                          <td rowspan="2">${sgsnArea}</td>
+                          </s:if>
                           <td>${nettype}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>
