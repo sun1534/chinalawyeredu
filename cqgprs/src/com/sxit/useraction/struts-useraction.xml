@@ -21,11 +21,13 @@
         <action name="roamErros" class="com.sxit.useraction.action.RoamErrosAction">
           <result name="success" type="dispatcher">/useraction/roamErros.jsp</result>	
        </action>
-         <action name="errorApns" class="com.sxit.useraction.action.ErrorApnsction">
+      <action name="errorApns" class="com.sxit.useraction.action.ErrorApnsction">
           <result name="success" type="dispatcher">/useraction/errorApns.jsp</result>	
+          <result name="excel" type="dispatcher">/useraction/errorApns_excel.jsp</result>	
        </action>
          <action name="userPdpErrorTopList" class="com.sxit.useraction.action.UserPdpErrorTopListAction">
           <result name="success" type="dispatcher">/useraction/userPdpErrorTopList.jsp</result>	
+           <result name="excel" type="dispatcher">/useraction/userPdpErrorTopList_excel.jsp</result>	
        </action>
        
       
