@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.sxit.common.action.AbstractAction;
 import com.sxit.netquality.service.BasicSetService;
+import com.sxit.netquality.service.ZeroService;
 import com.sxit.stat.service.StatService;
 
 /**
@@ -50,6 +51,12 @@ public class MyWorkspacePageAction extends AbstractAction {
 		totallist=statservice.getDaysTotalStream(start, end);
 		total23glist=statservice.getDaysTotalStream23g(start, end);
 		
+		Date date=com.sxit.stat.util.StatUtil.getPrevDate();
+		ZeroService zeroservice=(ZeroService)this.getBean("zeroService");
+		
+		this.exceptionapn=zeroservice.getZeroApns(date);
+		this.exceptioncell=zeroservice.getZeroCells(date);
+		
 		return SUCCESS;
 	}
 	
@@ -69,7 +76,8 @@ public class MyWorkspacePageAction extends AbstractAction {
 	public List getTotal23glist() {
 		return total23glist;
 	}
-	
+	private int zeroapn;
+	private int zerocell;
 	private int newaddcell;
 	private int totalcell;
 	private int newaddapn;
