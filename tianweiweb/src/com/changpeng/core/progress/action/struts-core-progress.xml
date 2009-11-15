@@ -88,5 +88,9 @@
         <action name="unorder" class="com.changpeng.core.progress.action.UnOrderAction">
       		<result name="success" type="freemarker">/common/result.ftl</result>
         </action>
+        
+        <action name="editcontent" class="com.changpeng.core.progress.action.EditContentAction">
+      		<result name="success" type="freemarker">/common/result.ftl</result>
+        </action>
     </package>
 </struts>

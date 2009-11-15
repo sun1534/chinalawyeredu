@@ -21,6 +21,7 @@
 			</div>
 			<#if currentRole=1>
 				<div class="companylist">
+					
 					<div class="title-h"><h3>图片</h3></div>
 					<div class="piclist_ clearfix">
 						<#list photos as photo>
@@ -36,10 +37,15 @@
 									<li><img src="../upload/logo/00/00/15_96_2.jpg" onclick="javascript:addphoto1(${publish.id})" /></li>
 									<li>祝福</li>
 								</ul>
-
 							</#list>
 						</#if>
 					</div>
+					<#if contentsize gt 0>
+						<textarea maxLength="${contentsize}" id="txtcontent">${content}</textarea>
+						<input type="button" id="editbtn" onclick="editit()" value="编辑" />
+						<input type="button" id="savebtn" onclick="saveit()" value="保存" style="display:none" />
+						<input type="button" id="cancelbtn" onclick="cancelit()" value="取消" style="display:none" />
+					</#if>
 				</div>
 
 				<!--<div class="companylist">
@@ -142,6 +148,30 @@ function delcontent(id){
 		    	location=location;
 	    }});
     }
+}
+function editit(){
+	$("#editbtn").hide();
+	$("#savebtn").show();
+	$("#cancelbtn").show();
+}
+function saveit(){
+	//alert($("#txtcontent").val());
+	$.ajax({
+	    type: "POST",
+	    data:"publishid="+${publish.id}+"&content="+$("#txtcontent").val(),
+	    url:"../progress/editcontent.action",
+	    success:function(data){
+	    	//$.blockUI({message:data});
+	    	location=location;
+    }});
+	$("#editbtn").show();
+	$("#savebtn").hide();
+	$("#cancelbtn").hide();
+}
+function cancelit(){
+	$("#editbtn").show();
+	$("#savebtn").hide();
+	$("#cancelbtn").hide();
 }
 </script>
 </@home.home>
