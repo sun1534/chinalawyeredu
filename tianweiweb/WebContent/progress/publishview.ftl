@@ -22,7 +22,7 @@
 			<#if currentRole=1>
 				<div class="companylist">
 					
-					<div class="title-h"><h3>图片</h3></div>
+					<div class="title-h"><h3>内容</h3></div>
 					<div class="piclist_ clearfix">
 						<#list photos as photo>
 						<ul>
@@ -41,10 +41,10 @@
 						</#if>
 					</div>
 					<#if contentsize gt 0>
-						<textarea maxLength="${contentsize}" id="txtcontent">${content}</textarea>
-						<input type="button" id="editbtn" onclick="editit()" value="编辑" />
-						<input type="button" id="savebtn" onclick="saveit()" value="保存" style="display:none" />
-						<input type="button" id="cancelbtn" onclick="cancelit()" value="取消" style="display:none" />
+						<textarea maxLength="${contentsize}" id="txtcontent" class="editArea">${content}</textarea>
+						<input type="button" id="editbtn" onclick="editit()" value="编辑"  class="delBtn igreen "/>
+						<input type="button" id="savebtn" onclick="saveit()" value="保存"   class="delBtn igreen " style="display:none" />
+						<input type="button" id="cancelbtn" onclick="cancelit()" value="取消"  class="cancerBtn" style="display:none" />
 					</#if>
 				</div>
 
@@ -153,6 +153,8 @@ function editit(){
 	$("#editbtn").hide();
 	$("#savebtn").show();
 	$("#cancelbtn").show();
+	$("#txtcontent").removeClass("editArea");
+	$("#txtcontent").addClass("saveEidt");
 }
 function saveit(){
 	//alert($("#txtcontent").val());
@@ -167,11 +169,16 @@ function saveit(){
 	$("#editbtn").show();
 	$("#savebtn").hide();
 	$("#cancelbtn").hide();
+	$("#txtcontent").removeClass("saveEidt");
+	$("#txtcontent").addClass("editArea");
+	
 }
 function cancelit(){
 	$("#editbtn").show();
 	$("#savebtn").hide();
 	$("#cancelbtn").hide();
+	$("#txtcontent").removeClass("saveEidt");
+	$("#txtcontent").addClass("editArea");
 }
 </script>
 </@home.home>

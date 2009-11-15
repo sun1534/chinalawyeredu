@@ -812,4 +812,6 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 	margin-left:15px;
 	margin-top:5px;
 	}
-	.partenger ul li a img {border:1px solid #ddd;padding:1px;display:block;;}
+	.partenger ul li a img {border:1px solid #ddd;padding:1px;display:block;}
+		.editArea {border:0px;background:#fff;width:300px;height:50px;}
+		.saveEidt {border:1px solid #666;width:300px;height:50px;}
