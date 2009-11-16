@@ -21,17 +21,26 @@ public class StatModel {
 	 * 以兆为单位
 	 * @return
 	 */
-	public float getTotalStreamStr(){
+	public String getTotalStreamStr(){
+		if(totalStream<1)
+			return totalStream+"（K）";
 		double d = ((double) totalStream) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
-		return Float.parseFloat(totalStreamStr);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
 	}
 	
 	/**
 	 * @return the totalStream
 	 */
 	public double getTotalStream() {
-		return totalStream;
+//		return totalStream;
+//		if(totalStream<1)
+//			return totalStream+"（K）";
+		double d = ((double) totalStream) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+		return Float.parseFloat(totalStreamStr);
+		
 	}
 
 	/**

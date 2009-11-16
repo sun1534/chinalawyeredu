@@ -3,7 +3,7 @@
  */
 package com.sxit.stat.models;
 
-import com.sxit.system.util.NumberUtil;
+import com.sxit.netquality.models.Cell;
 
 /**
  * @author 华锋 Oct 19, 2009-10:37:32 PM
@@ -24,7 +24,9 @@ public class ApnCellStatModel extends StatModel  {
 	private String datetime;
 
 	
-
+public Cell getCell(){
+	return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellid);
+}
 	
 
 	/**

@@ -44,27 +44,23 @@ public class BsnRncStatModel extends StatModel {
 	
 
 	public String getNettype() {
-		if(nettype==null||nettype.equals(""))
-			return "未知";
-		if(nettype.equals("1")){
-			return "WLAN";
-		}
-		else if(nettype.equals("2")){
-			return "GSM";
-
-		}
-		else if(nettype.equals("3")){
-			return "TD";
-	    }else 
-		return nettype;
+//		if(nettype==null||nettype.equals(""))
+//			return "未知";
+//		if(nettype.equals("1")){
+//			return "WLAN";
+//		}
+//		else if(nettype.equals("2")){
+//			return "GSM";
+//
+//		}
+//		else if(nettype.equals("3")){
+//			return "TD";
+//	    }else 
+		this.nettype= com.sxit.netquality.service.BasicSetService.ALL_BSCS.get(bscrncid).getNettype();
+		return this.nettype;
 	}
 
-	/**
-	 * @param nettype the nettype to set
-	 */
-	public void setNettype(String nettype) {
-		this.nettype = nettype;
-	}
+
 
 	/**
 	 * @return the date
@@ -98,6 +94,7 @@ public class BsnRncStatModel extends StatModel {
 	 * @return the sgsnid
 	 */
 	public String getSgsnid() {
+		sgsnid=com.sxit.netquality.service.BasicSetService.BSC_SGSN.get(bscrncid);
 		return sgsnid;
 	}
 
@@ -106,6 +103,13 @@ public class BsnRncStatModel extends StatModel {
 	 */
 	public void setSgsnid(String sgsnid) {
 		this.sgsnid = sgsnid;
+	}
+
+	/**
+	 * @param nettype the nettype to set
+	 */
+	public void setNettype(String nettype) {
+		this.nettype = nettype;
 	}
 	
 	

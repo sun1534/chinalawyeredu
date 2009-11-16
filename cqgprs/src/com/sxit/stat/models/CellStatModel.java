@@ -42,7 +42,8 @@ private String cellname;
 	 * @return the bscrncid
 	 */
 	public String getBscrncid() {
-		return bscrncid;
+//		return bscrncid;
+		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(cellid);
 	}
 
 	/**
@@ -113,7 +114,8 @@ private String cellname;
 	 * @return the sgsnid
 	 */
 	public String getSgsnid() {
-		return sgsnid;
+		return com.sxit.netquality.service.BasicSetService.BSC_SGSN.get(getBscrncid());
+//		return sgsnid;
 	}
 
 	/**

@@ -6,7 +6,6 @@ package com.sxit.stat.util;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author 华锋
@@ -107,26 +106,48 @@ public class StatUtil {
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static String getYestardayCdrTable() {
-		Calendar calendar = Calendar.getInstance();
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-		if (weekday == 1)// 周日
-			weekday = weekday - 1;
-		else
-			weekday = weekday - 2;
-		String table = "cdr_succ_0" + weekday;
-		return table;
+//		Calendar calendar = Calendar.getInstance();
+//		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+//		if (weekday == 1)// 周日
+////			weekday = weekday - 1;
+//			weekday=6;
+//		else
+//			weekday = weekday - 2;
+//		String table = "cdr_succ_0" + weekday;
+//		return table;
+		return getCdrTable(getPrevDate());
 	}
 	
 	public static String getCdrTable(Date date) {
 		
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+		System.out.println(calendar.get(Calendar.DATE));
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
+//		System.out.println(weekday);
 //		if (weekday == 1)// 周日
-//			weekday = weekday - 1;
+////			weekday = weekday - 1;
+//			weekday=0;
 //		else
-			weekday = weekday - 1;
+//			weekday = weekday - 1;
 		String table = "cdr_succ_0" + weekday;
+		return table;
+//周 1 2 3 4 5 6 7
+//日 0 1 2 3 4 5 6
+	}
+	
+	public static String getMobileApnTable(Date date) {
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
+//		System.out.println(weekday);
+//		if (weekday == 1)// 周日
+////			weekday = weekday - 1;
+//			weekday=6;
+//		else
+//			weekday = weekday - 1;
+		String table = "stat_mobile_apn_0" + weekday;
 		return table;
 	}
 	
@@ -141,6 +162,19 @@ public class StatUtil {
 			return System.currentTimeMillis();
 		}
 	}
+	
+	public static long getDateTime(Date date){
+		try{
+		String datestr=df.format(date);
+		String startstr=datestr+" 00:00:00";
+		Date start=dfyyyyMmddHHmmss.parse(startstr);
+		return start.getTime();
+		}catch(Exception e){
+			e.printStackTrace();
+			return System.currentTimeMillis();
+		}
+	}
+	
 	public static long getTodaydayTime(){
 		try{
 		String datestr=df.format(new Date());
@@ -173,6 +207,9 @@ public class StatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
-	
+	public static void main(String[] args){
+//		System.out.println(getMobileApnTable());
+		System.out.println(getYestardayCdrTable());
+	}
 	
 }

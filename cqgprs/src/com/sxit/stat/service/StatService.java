@@ -37,6 +37,8 @@ public class StatService {
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private static List<String> ALL_TIME_LIST = new ArrayList<String>();
+	private static List<String> ALL_HOUR_LIST = new ArrayList<String>();
+
 	static {
 		ALL_TIME_LIST.add("00:00");
 		ALL_TIME_LIST.add("01:00");
@@ -62,6 +64,31 @@ public class StatService {
 		ALL_TIME_LIST.add("21:00");
 		ALL_TIME_LIST.add("22:00");
 		ALL_TIME_LIST.add("23:00");
+		
+		  ALL_HOUR_LIST.add("00");
+			ALL_HOUR_LIST.add("01");
+			ALL_HOUR_LIST.add("02");
+			ALL_HOUR_LIST.add("03");
+			ALL_HOUR_LIST.add("04");
+			ALL_HOUR_LIST.add("05");
+			ALL_HOUR_LIST.add("06");
+			ALL_HOUR_LIST.add("07");
+			ALL_HOUR_LIST.add("08");
+			ALL_HOUR_LIST.add("09");
+			ALL_HOUR_LIST.add("10");
+			ALL_HOUR_LIST.add("11");
+			ALL_HOUR_LIST.add("12");
+			ALL_HOUR_LIST.add("13");
+			ALL_HOUR_LIST.add("14");
+			ALL_HOUR_LIST.add("15");
+			ALL_HOUR_LIST.add("16");
+			ALL_HOUR_LIST.add("17");
+			ALL_HOUR_LIST.add("18");
+			ALL_HOUR_LIST.add("19");
+			ALL_HOUR_LIST.add("20");
+			ALL_HOUR_LIST.add("21");
+			ALL_HOUR_LIST.add("22");
+			ALL_HOUR_LIST.add("23");
 
 	}
 
@@ -259,22 +286,33 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getBscRncStat(Date date, int pageNo, int pageSize) {
-		int _date = (int) (date.getTime() / 1000);
+	public PaginationSupport getBscRncStat( Date date,String sgsnid, int pageNo, int pageSize) {
+//		int _date = (int) (date.getTime() / 1000);
+		final String _date=dfyyyyMMdd.format(date);
 
+		String where=" where 1=1";
+		if(sgsnid!=null&&!sgsnid.equals(""))
+			where+=" and sgsnid='"+sgsnid+"'";
+		
+		where+=" and dayflag=1 and stattime="+_date;
+		
 		int totalCount = 0;
 		if (pageSize != Integer.MAX_VALUE) {
-			String countsql = "select count(*) as cnt from  STAT_BSC where STATTIME=" + _date + " and dayflag=1 ";
+			String countsql = "select count(*) as cnt from  STAT_BSC {0}";
+			countsql=countsql.replace("{0}", where);
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		int startIndex = (pageNo - 1) * pageSize;
 
-		String sql = "select * from(select a.*,rownum rn from(select BSCID,SGSNID,STATTIME,NETTYPE,USERCOUNT,ALLVOLUME from  STAT_BSC where STATTIME="
-				+ _date
-				+ " and dayflag=1 order by sgsnid,NETTYPE) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select BSCID,SGSNID,STATTIME,USERCOUNT,ALLVOLUME from  STAT_BSC {0} order by sgsnid) a where rownum<="
 				+ (startIndex + pageSize)
-				+ ") where rn>=" + startIndex;
-
+				+ ") where rn>" + startIndex;
+		
+		
+		sql=sql.replace("{0}", where);
+		
+		System.out.println(sql);
+		
 		// Object[] args = new Object[] { _date };
 		// int[] argTypes = new int[] { Types.INTEGER };
 		// Object object = jdbcTemplate.query(sql, args, argTypes, new
@@ -287,15 +325,16 @@ public class StatService {
 					BsnRncStatModel model = new BsnRncStatModel();
 					int usercount = rs.getInt("USERCOUNT");
 					double all = rs.getDouble("ALLVOLUME");
-					int stattime = rs.getInt("STATTIME");
+//					int stattime = rs.getInt("STATTIME");
 					String sgsnid = rs.getString("SGSNID");
-					Date date = new Date();
-					date.setTime(stattime * 1000);
+//					Date date = new Date();
+//					date.setTime(stattime * 1000);
 					model.setTotalStream(all);
 					model.setTotalUser(usercount);
-					model.setDate(df.format(date));
+//					model.setDate(df.format(date));
+					model.setDate(_date);
 					model.setSgsnid(sgsnid);
-					model.setNettype(rs.getString("NETTYPE"));
+//					model.setNettype(rs.getString("NETTYPE"));
 					model.setBscrncid(rs.getString("BSCID"));
 					list.add(model);
 				}
