@@ -22,6 +22,9 @@ import org.apache.commons.logging.Log;
 public class MainStatUtil {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
+	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(MainStatUtil.class);
 
 	public static String getCdrTable() {
@@ -63,6 +66,23 @@ public class MainStatUtil {
 
 	}
 
+	/**
+	 * 得到这个小时的起始时间值
+	 * 
+	 * @return
+	 */
+	public static int getDateHourTime(Date date) {
+		String datestr = dfhour.format(date);
+//		String hstart = datestr + " 00:00";
+		// String hend=datestr+" 59:59";
+		try {
+			Date d = dfsec.parse(datestr);
+			return (int) (d.getTime() / 1000);
+		} catch (Exception e) {
+			return (int) (System.currentTimeMillis() / 1000);
+		}
+	}
+	
 	/**
 	 * 批量执行sql
 	 * 

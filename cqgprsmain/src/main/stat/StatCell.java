@@ -24,14 +24,14 @@ public class StatCell {
 
 	public class TempCellStat {
 		String cellid;
-		String nettype="2";
+		String nettype = "2";
 		String bscid;
-		String all="0";;
-		String up="0";;
-		String down="0";;
+		String all = "0";;
+		String up = "0";;
+		String down = "0";;
 		// String time;
-		String usercount="0";;
-
+		String usercount = "0";;
+		String allall = "0";
 	}
 
 	private Connection con;
@@ -48,7 +48,7 @@ public class StatCell {
 	 */
 	private void insert(Map<String, TempCellStat> allsgsns) throws Exception {
 		java.util.Iterator<TempCellStat> stats = allsgsns.values().iterator();
-		
+
 		String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
 		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(2));
 		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(3));
@@ -58,59 +58,82 @@ public class StatCell {
 		List sqls = new ArrayList();
 		ResultSet rs = null;
 
-//		String sql = "insert into stat_cellid(cellid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values(?,?,1,to_char(sysdate-1,'yyyyMMdd'),?,?,?,?)";
-//		PreparedStatement stmt = null;
-	
+		// String sql = "insert into
+		// stat_cellid(cellid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values(?,?,1,to_char(sysdate-1,'yyyyMMdd'),?,?,?,?)";
+		// PreparedStatement stmt = null;
+
 		try {
-//			stmt = con.prepareStatement(sql);
+			// stmt = con.prepareStatement(sql);
 
 			while (stats.hasNext()) {
 				TempCellStat stat = stats.next();
-				if(Float.parseFloat(stat.all)>0){
-//				stmt.setString(1, stat.cellid);
-//				stmt.setString(2, stat.nettype);
-//				stmt.setString(3, stat.up);
-//				stmt.setString(4, stat.down);
-//				stmt.setString(5, stat.all);
-//				stmt.setString(6, stat.usercount);
-//				stmt.addBatch();
-					
-					String sql = "insert into stat_cellid(cellid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"+stat.cellid+"',"+stat.nettype+",1,to_char(sysdate-1,'yyyyMMdd'),"+stat.up+","+stat.down+","+stat.all+","+stat.usercount+")";
-                    sqls.add(sql);
-					
-				}else{
-					
-					 list0.add(stat.cellid);
-						String sql0 = "insert into zero_cellid(cellid,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values("
+				if (Float.parseFloat(stat.all) > 0) {
+					// stmt.setString(1, stat.cellid);
+					// stmt.setString(2, stat.nettype);
+					// stmt.setString(3, stat.up);
+					// stmt.setString(4, stat.down);
+					// stmt.setString(5, stat.all);
+					// stmt.setString(6, stat.usercount);
+					// stmt.addBatch();
+
+					String sql = "insert into stat_cellid(cellid,bscid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
+							+ stat.cellid
+							+ "','"
+							+ stat.bscid
+							+ "',"
+							+ stat.nettype
+							+ ",1,to_char(sysdate-1,'yyyyMMdd'),"
+							+ stat.up
+							+ ","
+							+ stat.down
+							+ ","
+							+ stat.all
+							+ ","
+							+ stat.usercount + ")";
+					sqls.add(sql);
+
+					/**
+					 * 更新总流量
+					 */
+					String totalsql = "update allvolume_cellid set upvolume=upvolume+" + stat.up
+							+ ",downvolume=downvolume+" + stat.down + ",allvolume=allvolume+" + stat.all
+							+ " where cellid='" + stat.cellid + "'";
+					sqls.add(totalsql);
+
+				} else {
+
+					list0.add(stat.cellid);
+					String sql0 = "insert into zero_cellid(cellid,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values("
 							+ stat.cellid + ",1,to_char(sysdate-1,'yyyyMMdd'),0,0,0)";
 					sqls.add(sql0);
-					
+
 				}
 			}
-//			stmt.executeBatch();
-//			stmt.clearBatch();
+			// stmt.executeBatch();
+			// stmt.clearBatch();
 			main.util.MainStatUtil.executeSql(con, sqls);
 			sqls.clear();
 
 			LOG.info("CELLID统计数据入库成功");
-			
-			
+
 			int len = list0.size();
 			if (len > 0) {
 
 				tempstmt = con.createStatement();
 
-				String allsql = "select cellid,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
-						+ MainStatUtil.list2str(list0) + ") group by cellid";
-				rs = tempstmt.executeQuery(allsql);
-				while (rs.next()) {
-					String cellid = rs.getString("cellid");
-					String allvolume = rs.getString("allvolume");
+				// String allsql = "select cellid,sum(allvolume) as allvolume
+				// from stat_cellid where dayflag=1 and cellid in("
+				// + MainStatUtil.list2str(list0) + ") group by cellid";
+				// rs = tempstmt.executeQuery(allsql);
+				// while (rs.next()) {
+				for (int i = 0; i < len; i++) {
+					String cellid = list0.get(i).toString();
+					String allvolume = allsgsns.get(cellid).allall;
 					String zero0sql = "update zero_cellid set allvolume=" + allvolume + " where cellid='" + cellid
 							+ "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
-				allsql = "select cellid,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
+				String allsql = "select cellid,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by cellid";
 				rs.close();
 				rs = null;
@@ -131,13 +154,13 @@ public class StatCell {
 				while (rs.next()) {
 					String cellid = rs.getString("cellid");
 					String allvolume = rs.getString("allvolume");
-					String zero0sql = "update zero_cellid set prehistoryvolume=" + allvolume + " where cellid='" + cellid
-							+ "' and stattime=" + day1;
+					String zero0sql = "update zero_cellid set prehistoryvolume=" + allvolume + " where cellid='"
+							+ cellid + "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
 
 			}
-			
+
 			main.util.MainStatUtil.executeSql(con, sqls);
 			sqls.clear();
 			LOG.info("流量为0的CELL统计数据入库成功");
@@ -153,17 +176,19 @@ public class StatCell {
 	}
 
 	private void getStatDatas(Map<String, TempCellStat> allsgsns) throws Exception {
-		
+
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
-		
+
 		String table = MainStatUtil.getCdrTable();
-//		String sql = "select cellid,count(distinct(msisdn))as  usercount,sum(upvolume) as up,sum(downvolume) as down,sum(upvolume+downvolume) as allvolume from "
-//				+ table + " group by cellid";
-		
+		// String sql = "select cellid,count(distinct(msisdn))as
+		// usercount,sum(upvolume) as up,sum(downvolume) as
+		// down,sum(upvolume+downvolume) as allvolume from "
+		// + table + " group by cellid";
+
 		String sql = "select cellid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_cellid where dayflag=0 and stattime>="
-			+ start / 1000 + " and stattime<=" + end / 1000 + " group by cellid";
-		
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by cellid";
+
 		LOG.info(sql);
 		Statement stmt = null;
 
@@ -173,30 +198,30 @@ public class StatCell {
 		while (rs.next()) {
 
 			String cellid = rs.getString("cellid");
-//			String nettype = rs.getString("nettype");
+			// String nettype = rs.getString("nettype");
 			// String key = cellid + nettype;
 			String key = cellid;
 			if (allsgsns.containsKey(key)) {
-//				LOG.info("得到的CELLID统计数据:" + cellid );
+				// LOG.info("得到的CELLID统计数据:" + cellid );
 				TempCellStat stat = allsgsns.get(key);
 				stat.cellid = rs.getString("cellid");
 				// stat.nettype = rs.getString("nettype");
 				stat.nettype = "2";
-//				stat.usercount = rs.getString("usercount");
-				
+				// stat.usercount = rs.getString("usercount");
+
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
 			}
-			
+
 		}
-		
+
 		LOG.info("得到CELLID的统计数据完毕");
-		
+
 		// 这里要得到用户数
 		String usersql = "select CELLID, usercount from msisdn_CELLID where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000 ;
-//				+ "  group by CELLID";
+				+ " and stattime<=" + end / 1000;
+		// + " group by CELLID";
 		LOG.info("usersql:" + usersql);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery(usersql);
@@ -204,8 +229,8 @@ public class StatCell {
 			String cellid = rs.getString("CELLID");
 			int usercount = rs.getInt("usercount");
 			TempCellStat stat = allsgsns.get(cellid);
-			if(stat!=null)
-			stat.usercount = usercount + "";
+			if (stat != null)
+				stat.usercount = usercount + "";
 		}
 		rs.close();
 		stmt.close();
@@ -216,26 +241,26 @@ public class StatCell {
 	/**
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
-	public void stat() throws Exception{
+	public void stat() throws Exception {
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
-//		try {
-			// 得到所有的sgsn
-			Map<String, TempCellStat> allmap = getAllCells();
-			// 得到每个sgsn的数据
-			getStatDatas(allmap);
-			// 插入统计表
-			insert(allmap);
-			// String sql="select
-			// sgsnid,nettype,sum(allvolume),sum(downvolume),sum(allvolume) from
-			// stat_sgsn
-			// where dayflag=0 and stattime between "+start+" and "+end+" group
-			// by
-			// sgsnid,nettype";
+		// try {
+		// 得到所有的sgsn
+		Map<String, TempCellStat> allmap = getAllCells();
+		// 得到每个sgsn的数据
+		getStatDatas(allmap);
+		// 插入统计表
+		insert(allmap);
+		// String sql="select
+		// sgsnid,nettype,sum(allvolume),sum(downvolume),sum(allvolume) from
+		// stat_sgsn
+		// where dayflag=0 and stattime between "+start+" and "+end+" group
+		// by
+		// sgsnid,nettype";
 
-//		} catch (Exception e) {
-//			LOG.error("统计错误：" + e);
-//		}
+		// } catch (Exception e) {
+		// LOG.error("统计错误：" + e);
+		// }
 
 		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
 		// " +
@@ -244,7 +269,9 @@ public class StatCell {
 	}
 
 	private Map<String, TempCellStat> getAllCells() throws Exception {
-		String sql = "select cellid from set_cell";
+		// String sql = "select cellid,bscid from set_cell where opttype!=2";
+		String sql = "select a.cellid,b.allvolume from set_cell a,allvolume_cellid b where a.cellid=b.cellid(+) and a.opttype!=2";
+
 		ResultSet rs = null;
 		Statement stmt = null;
 		Map<String, TempCellStat> list = new HashMap<String, TempCellStat>();
@@ -255,7 +282,8 @@ public class StatCell {
 				TempCellStat stat = new TempCellStat();
 				stat.cellid = rs.getString("cellid");
 				stat.nettype = "2";
-
+				stat.bscid = rs.getString("bscid");
+				stat.allall = rs.getString("allvolume");
 				list.put(stat.cellid, stat);
 				// stat = new TempCellStat();
 				// stat.cellid = rs.getString("cellid");
@@ -286,5 +314,5 @@ public class StatCell {
 
 	}
 
-	private static SelfLog LOG=SelfLog.getInstance();
+	private static SelfLog LOG = SelfLog.getInstance();
 }

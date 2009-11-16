@@ -6,6 +6,7 @@ package main.readerrors;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.apache.commons.logging.Log;
  */
 public class ReadHandleHistory {
 	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(ReadHandleHistory.class);
+	private static DateFormat df=new java.text.SimpleDateFormat("yyyyMMddHHmm");
 
 	/**
 	 * 超过这个，即使相同也不换行
@@ -51,14 +53,15 @@ public class ReadHandleHistory {
 				if (files.containsKey(key)) {
 					ErrorFile file = files.get(key);
 					long thefiletime = file.getModified().getTime();
-					if (thefiletime - modified < INTERVAL)
+					LOG.info(sgsnid+"_"+srcfile+"上次处理行数:"+rs.getInt("lastlines")+",间隔:"+(thefiletime - modified));
+					if (thefiletime - modified < INTERVAL){
 						file.setHandleLines(rs.getInt("lastlines"));
-					//
+					}
 					sqls
 							.add("delete from apn_error_handle where sgsnid='" + sgsnid + "' and srcfile='" + srcfile
 									+ "'");
 				}else{
-					LOG.debug("此文件上次没有处理过:"+srcfile);
+					LOG.debug("这些文件此次不用处理:"+sgsnid+"_"+srcfile+"_"+df.format(rs.getTimestamp("modifytime")));
 				}
 			}
 			main.util.MainStatUtil.executeSql(con, sqls);

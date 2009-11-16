@@ -65,5 +65,10 @@ public class SelfLog {
 	public  void error(String msg) {
 		ERRORLOG.println(df.format(new Date())+"=>"+msg);
 	}
+	
+	public  void error(String msg,Exception e) {
+		ERRORLOG.println(df.format(new Date())+"=>"+msg);
+		e.printStackTrace(ERRORLOG);
+	}
 
 }

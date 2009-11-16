@@ -31,6 +31,7 @@ public class StatApn {
 		String up = "0";
 		String down = "0";
 		String usercount = "0";
+		String allall = "0";
 
 	}
 
@@ -66,19 +67,16 @@ public class StatApn {
 							+ ","
 							+ stat.all + "," + stat.usercount + ")";
 					sqls.add(sql);
-					//					
-					// stmt.setString(1, stat.apnni);
-					// stmt.setString(2, stat.up);
-					// stmt.setString(3, stat.down);
-					// stmt.setString(4, stat.all);
-					// stmt.setString(5, stat.usercount);
-					// stmt.addBatch();
+
+					/**
+					 * 更新总流量
+					 */
+					String totalsql = "update allvolume_apn set upvolume=upvolume+" + stat.up
+							+ ",downvolume=downvolume+" + stat.down + ",allvolume=allvolume+" + stat.all
+							+ " where apnni='" + stat.apnni + "'";
+					sqls.add(totalsql);
 				} else { // 入0流量的apn
-				// stmt0.setString(1, stat.apnni);
-				// stmt0.setString(2, "1");
-				// stmt0.setString(3, day1);
-				// stmt0.addBatch();
-				 list0.add(stat.apnni);
+					list0.add(stat.apnni);
 
 					String sql0 = "insert into zero_apn(apnni,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values('"
 							+ stat.apnni + "',1,to_char(sysdate-1,'yyyyMMdd'),0,0,0)";
@@ -87,26 +85,28 @@ public class StatApn {
 				}
 			}
 
-		int s=main.util.MainStatUtil.executeSql(con, sqls);
+			int s = main.util.MainStatUtil.executeSql(con, sqls);
 			sqls.clear();
 
-			LOG.info("APN统计数据入库成功："+s);
+			LOG.info("APN统计数据入库成功：" + s);
 			int len = list0.size();
 			if (len > 0) {
 
 				tempstmt = con.createStatement();
 
-				String allsql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in("
-						+ MainStatUtil.list2str(list0) + ") group by apnni";
-				rs = tempstmt.executeQuery(allsql);
-				while (rs.next()) {
-					String apnni = rs.getString("apnni");
-					String allvolume = rs.getString("allvolume");
-					String zero0sql = "update zero_apn set allvolume=" + allvolume + " where apnni='" + apnni
-							+ "' and stattime=" + day1;
+				// String allsql = "select apnni,sum(allvolume) as allvolume
+				// from stat_apn where dayflag=1 and apnni in("
+				// + MainStatUtil.list2str(list0) + ") group by apnni";
+				// rs = tempstmt.executeQuery(allsql);
+				// while (rs.next()) {
+				for (int i = 0; i < len; i++) {
+					String apnni = list0.get(i).toString();
+					// String allvolume = rs.getString("allvolume");
+					String zero0sql = "update zero_apn set allvolume=" + allsgsns.get(apnni).allall + " where apnni='"
+							+ apnni + "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
-				allsql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in("
+				String allsql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by apnni";
 				rs.close();
 				rs = null;
@@ -131,9 +131,8 @@ public class StatApn {
 							+ "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
-
 			}
-			
+
 			main.util.MainStatUtil.executeSql(con, sqls);
 			sqls.clear();
 			LOG.info("流量为0APN统计数据入库成功");
@@ -149,7 +148,7 @@ public class StatApn {
 	}
 
 	private void getStatDatas(Map<String, TempApnStat> allapns) throws Exception {
-		String table = MainStatUtil.getCdrTable();
+		// String table = MainStatUtil.getCdrTable();
 		// String sql = "select apnni,count(distinct(msisdn))as
 		// usercount,sum(upvolume) as up,sum(downvolume) as
 		// down,sum(upvolume+downvolume) as allvolume from "
@@ -185,9 +184,9 @@ public class StatApn {
 		stmt.close();
 		LOG.info("得到APN的流量数据完毕");
 		// 这里要得到用户数
-		String usersql = "select apnni,usercount from msisdn_apn where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000 ;
-//		+ "  group by apnni";
+		String usersql = "select apnni,usercount from msisdn_apn where stattime>=" + start / 1000 + " and stattime<="
+				+ end / 1000;
+		// + " group by apnni";
 		LOG.info("usersql:" + usersql);
 		stmt = con.createStatement();
 		rs = stmt.executeQuery(usersql);
@@ -195,8 +194,8 @@ public class StatApn {
 			String apnni = rs.getString("apnni");
 			int usercount = rs.getInt("usercount");
 			TempApnStat stat = allapns.get(apnni);
-			if(stat!=null)
-			stat.usercount = usercount + "";
+			if (stat != null)
+				stat.usercount = usercount + "";
 		}
 		rs.close();
 		stmt.close();
@@ -208,8 +207,8 @@ public class StatApn {
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
 	public void stat() throws Exception {
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+		// long start = MainStatUtil.getYestardayTime();
+		// long end = MainStatUtil.getOneDayAfter(start);
 
 		// try {
 		// 得到所有的sgsn
@@ -218,25 +217,11 @@ public class StatApn {
 		getStatDatas(allmap);
 		// 插入统计表
 		insert(allmap);
-		// String sql="select
-		// sgsnid,nettype,sum(allvolume),sum(downvolume),sum(allvolume) from
-		// stat_sgsn
-		// where dayflag=0 and stattime between "+start+" and "+end+" group
-		// by
-		// sgsnid,nettype";
-
-		// } catch (Exception e) {
-		// LOG.error("统计错误：" + e);
-		// }
-
-		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
-		// " +
-		// table + " group by sgsnid,nettype";
 
 	}
 
 	private Map<String, TempApnStat> getAllApns() throws Exception {
-		String sql = "select apnni from set_apn where opttype!=2";
+		String sql = "select a.apnni,b.allvolume from set_apn a,allvolume_apn b where a.apnni=b.apnni(+) and a.opttype!=2";
 		ResultSet rs = null;
 		Statement stmt = null;
 		Map<String, TempApnStat> list = new HashMap<String, TempApnStat>();
@@ -246,6 +231,7 @@ public class StatApn {
 			while (rs.next()) {
 				TempApnStat stat = new TempApnStat();
 				stat.apnni = rs.getString("apnni");
+				stat.allall = rs.getString("allvolume");
 				list.put(stat.apnni, stat);
 			}
 			LOG.info("得到所有的APN个数:" + list.size());

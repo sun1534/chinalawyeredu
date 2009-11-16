@@ -52,16 +52,13 @@ public class StatSgsn {
 
 			while (stats.hasNext()) {
 				TempStat stat = stats.next();
-//				stmt.setString(1, stat.sgsnid);
-//				stmt.setString(2, stat.nettype);
-//				stmt.setString(3, stat.up);
-//				stmt.setString(4, stat.down);
-//				stmt.setString(5, stat.all);
-//				stmt.setString(6, stat.usercount);
-//				stmt.addBatch();
 				String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"+stat.sgsnid+"',"+stat.nettype+",1,to_char(sysdate-1,'yyyyMMdd'),"+stat.up+","+stat.down+","+stat.down+","+stat.usercount+")";
-				
-				LOG.info(sql);
+				/**
+				 * 更新总流量
+				 */
+				String totalsql="update allvolume_sgsn set upvolume=upvolume+"+stat.up+",downvolume=downvolume+"+stat.down+",allvolume=allvolume+"+stat.all+" where sgsnid='"+stat.sgsnid+"' and nettype='"+stat.nettype+"'";
+				sqls.add(totalsql);
+//				LOG.info(sql);
 				sqls.add(sql);
 			}
 //			stmt.executeBatch();

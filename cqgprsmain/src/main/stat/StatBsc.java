@@ -25,9 +25,10 @@ public class StatBsc {
 	public class TempStat {
 		String bscid;
 		// String nettype;
-		String all = "0";;
-		String up = "0";;
-		String down = "0";;
+		String all = "0";
+		String sgsnid="";
+		String up = "0";
+		String down = "0";
 		// String time;
 		String usercount = "0";;
 
@@ -54,10 +55,17 @@ public class StatBsc {
 			// stmt.setString(5, stat.usercount);
 			// stmt.addBatch();
 
-			String sql = "insert into stat_bsc(bscid,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
-					+ stat.bscid + "',1,to_char(sysdate-1,'yyyyMMdd')," + stat.up + "," + stat.down + "," + stat.all
+			String sql = "insert into stat_bsc(bscid,sgsnid,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
+					+ stat.bscid + "','"+stat.sgsnid+"',1,to_char(sysdate-1,'yyyyMMdd')," + stat.up + "," + stat.down + "," + stat.all
 					+ "," + stat.usercount + ")";
 			sqls.add(sql);
+			
+			/**
+			 * 更新总流量
+			 */
+			String totalsql="update allvolume_bsc set upvolume=upvolume+"+stat.up+",downvolume=downvolume+"+stat.down+",allvolume=allvolume+"+stat.all+" where bscid='"+stat.bscid+"'";
+			sqls.add(totalsql);	
+			
 		}
 
 		main.util.MainStatUtil.executeSql(con, sqls);
@@ -67,7 +75,7 @@ public class StatBsc {
 	}
 
 	private void getStatDatas(Map<String, TempStat> allbscs) throws Exception {
-		String table = MainStatUtil.getCdrTable();
+//		String table = MainStatUtil.getCdrTable();
 		// String sql = "select bscid,count(distinct(msisdn))as
 		// usercount,sum(upvolume) as up,sum(downvolume) as
 		// down,sum(upvolume+downvolume) as allvolume from "
@@ -77,7 +85,7 @@ public class StatBsc {
 		long end = MainStatUtil.getOneDayAfter(start);
 
 		String sql = "select bscid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_bsc where dayflag=0 and stattime>="
-				+ start / 1000 + " and stattime<=" + end / 1000 + " group by apnni";
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by bscid";
 
 		LOG.info(sql);
 		Statement stmt = null;
@@ -96,7 +104,7 @@ public class StatBsc {
 				TempStat stat = allbscs.get(key);
 				stat.bscid = rs.getString("bscid");
 				// stat.nettype = rs.getString("nettype");
-				stat.usercount = rs.getString("usercount");
+//				stat.usercount = rs.getString("usercount");
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -159,7 +167,7 @@ public class StatBsc {
 	}
 
 	private Map<String, TempStat> getALlBscs() throws Exception {
-		String sql = "select bscid from set_bsc";
+		String sql = "select bscid,sgsnid from set_bsc where opttype!=2";
 		ResultSet rs = null;
 		Statement stmt = null;
 		Map<String, TempStat> list = new HashMap<String, TempStat>();
@@ -169,6 +177,7 @@ public class StatBsc {
 			while (rs.next()) {
 				TempStat stat = new TempStat();
 				stat.bscid = rs.getString("bscid");
+				stat.sgsnid=rs.getString("sgsnid");
 				// stat.nettype = "2";
 
 				list.put(stat.bscid, stat);
@@ -200,5 +209,5 @@ public class StatBsc {
 
 	}
 
-	private static SelfLog LOG;
+	private static SelfLog LOG=SelfLog.getInstance();
 }

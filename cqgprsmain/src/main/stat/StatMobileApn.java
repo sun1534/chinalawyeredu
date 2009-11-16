@@ -37,7 +37,7 @@ public class StatMobileApn {
 		String table = MainStatUtil.getMobileApnTable();
 		String sql = "insert into "+table+"(mobile,apnni,stattime,dayflag,upvolume,downvolume,allvolume,periodlen) select "
 				+ "mobile,apnni,to_char(sysdate-1,'yyyyMMdd'),1,sum(upvolume),sum(downvolume),sum(allvolume),sum(periodlen) from "
-				+ table ;
+				+ table +" group by mobile,apnni";
 		
 		LOG.info("StatMobileAPN:"+sql);
 		Statement stmt = null;
