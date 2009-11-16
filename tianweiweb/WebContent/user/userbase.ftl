@@ -2,6 +2,8 @@
 <#import "../common/home.ftl" as home>
 <@home.home myheader="user/user_h.ftl">
 <script type="text/javascript" src="${staticpath}/js/location.js"></script>
+<script language="javascript" type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+
 <div class="parentsinfo-box in-main">
 	<div class="title-h">
 		<h3>我的资料</h3>
@@ -53,7 +55,8 @@
 		<div class="even">
 			<label class="fname" for="pname">生日：</label>
 			<span class="fvalue">
-				<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput" class="normal txt-login w90"/>
+				<!--<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput" class="normal txt-login w90"/>-->
+				<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput1" onfocus="new WdatePicker(this)"  class="normal txt-login w90"/>
 			</span>
 		</div>
 		</#if>
@@ -92,7 +95,7 @@
 		<div class="formbtn">
 		<label class="fname" for="cname"></label>
 		<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn"  stype="button" title="保存修改" value="保存修改"/>
+		<input class="delBtn igreen "   id="saveBtn11" onclick="submita()" stype="button" title="保存修改" value="保存修改"/>
 		</span>
 		</div>
 	</div>
@@ -106,7 +109,7 @@ function applyverify(){
 	if($("#username").val()==""){
 		alert("请先输入用户名");
 	}else if(!checkIDCard($("#cardno").val())){
-		alert("请先输入正确的身份证号码");
+		alert("请先输入正确的身份证号码和生日");
 	}else if($("#phone").val()==""){
 		alert("请先输入联系电话");
 	}else{
@@ -120,6 +123,7 @@ function applyverify(){
 	    }});
     }
 }
+
 function checkPhone (str){
 	isPhone=/\d{7,15}/;
 	return (isPhone.test(str));
@@ -130,7 +134,30 @@ function checkIDCard (str)
  //身份证正则表达式(18位)
  isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
  //验证身份证，返回结果
+ 
+ var birthday=$("#dateinput1").val();
+ if(str.length==15){
+ 	if(birthday!="19"+str.substring(6,8)+"-"+str.substring(8,10)+"-"+str.substring(10,12))
+ 		return false;
+ }else if(str.length==18){
+ 	if(birthday!=str.substring(6,10)+"-"+str.substring(10,12)+"-"+str.substring(12,14))
+ 		return false;
+ }else{
+ 	return false;
+ }
  return (isIDCard1.test(str)||isIDCard2.test(str));
+}
+function submita(){
+	if($("#username").val()==""){
+		alert("请先输入用户名");
+	}else if(!checkIDCard($("#cardno").val())){
+		alert("请先输入正确的身份证号码和生日");
+	}else if($("#phone").val()==""){
+		alert("请先输入联系电话");
+	}else{
+		var options={success:showResponse};
+		$("#form1").ajaxSubmit(options);
+	}
 }
 </script>
 
