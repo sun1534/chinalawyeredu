@@ -212,6 +212,7 @@ select{
 	}
 .hy a{
 	color:#FFCC00;
+	font-size:16px;
 	}
 .hd{
 	float:left;
@@ -229,7 +230,7 @@ select{
 .video{
 	background:url(../images/video.jpg) no-repeat;
 	width:562px;
-	height:337px;
+	height:338px;
 	margin-top:8px;
 	margin-left:8px;
 	}
