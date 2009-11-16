@@ -23,6 +23,7 @@ import com.sxit.common.exception.ServiceException;
 import com.sxit.log.service.SysLoginLogService;
 import com.sxit.models.system.SysParameter;
 import com.sxit.models.system.SysRight;
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.system.util.RightTree;
 
 /**
@@ -116,6 +117,10 @@ public class WebContextListener implements ServletContextListener {
 			}
 			// 获得所有的权限列表信息
 			RightTree.setRightList(basicService.findAll(SysRight.class));
+			
+			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+			setservice.getAllSets();
+			LOG.info("得到所有的配置参数信息");
 
 		} catch (ServiceException e) {
 			LOG.error("系统启动初始化权限列表为空" + e);

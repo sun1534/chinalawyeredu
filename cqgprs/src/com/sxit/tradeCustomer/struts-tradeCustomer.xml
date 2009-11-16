@@ -13,6 +13,8 @@
        </action>
      <action name="exceptionApns" class="com.sxit.tradeCustomer.action.ExceptionApnsAction">
           <result name="success" type="dispatcher">/tradeCustomer/exceptionApns.jsp</result>	
+          <result name="excel" type="dispatcher">/tradeCustomer/exceptionApns_excel.jsp</result>	
+          
        </action>
        <action name="exceptionUsers" class="com.sxit.tradeCustomer.action.ExceptionUsersAction">
           <result name="success" type="dispatcher">/tradeCustomer/exceptionUsers.jsp</result>	

@@ -14,6 +14,10 @@ public class Sgsn {
 	private String sgsnid;
 	private String sgsnarea;
 	private String sgsntype;
+	private String sgsnip;
+	private int bsccount;
+	private int slotcount;
+	private double capacity;
 	/**
 	 * 最近1次拿数据的时间
 	 */
@@ -87,13 +91,8 @@ public class Sgsn {
 	 * @return the snsgtype
 	 */
 	public String getSgsntype() {
-		int len = sgsnid.length();
-		String seq = sgsnid.substring(len - 1);
-		if (Integer.parseInt(seq) > 6) {
-			return "华为";
-		} else
-			return "爱立信";
-		// return snsgtype;
+	
+		 return sgsntype;
 	}
 
 	/**
@@ -102,5 +101,61 @@ public class Sgsn {
 	 */
 	public void setSgsntype(String sgsntype) {
 		this.sgsntype = sgsntype;
+	}
+
+	/**
+	 * @return the sgsnip
+	 */
+	public String getSgsnip() {
+		return sgsnip;
+	}
+
+	/**
+	 * @param sgsnip the sgsnip to set
+	 */
+	public void setSgsnip(String sgsnip) {
+		this.sgsnip = sgsnip;
+	}
+
+	/**
+	 * @return the bsccount
+	 */
+	public int getBsccount() {
+		return bsccount;
+	}
+
+	/**
+	 * @param bsccount the bsccount to set
+	 */
+	public void setBsccount(int bsccount) {
+		this.bsccount = bsccount;
+	}
+
+	/**
+	 * @return the slotcount
+	 */
+	public int getSlotcount() {
+		return slotcount;
+	}
+
+	/**
+	 * @param slotcount the slotcount to set
+	 */
+	public void setSlotcount(int slotcount) {
+		this.slotcount = slotcount;
+	}
+
+	/**
+	 * @return the capacity
+	 */
+	public double getCapacity() {
+		return capacity;
+	}
+
+	/**
+	 * @param capacity the capacity to set
+	 */
+	public void setCapacity(double capacity) {
+		this.capacity = capacity;
 	}
 }

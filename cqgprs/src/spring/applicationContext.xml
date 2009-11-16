@@ -88,12 +88,32 @@
               <ref bean="jdbcTemplate"/>           
           </property>           
     </bean> 
+     <bean id="queryService" class="com.sxit.query.service.QueryService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
          <bean id="basicSetService" class="com.sxit.netquality.service.BasicSetService">           
           <property name="jdbcTemplate">           
               <ref bean="jdbcTemplate"/>           
           </property>           
     </bean> 
     
+      <bean id="highStreamService" class="com.sxit.netquality.service.HighStreamService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+     <bean id="useractionService" class="com.sxit.useraction.service.UseractionService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+    <bean id="zeroService" class="com.sxit.netquality.service.ZeroService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
     
      <bean id="timerTask" class="com.sxit.common.ScheduleTask">
     </bean>

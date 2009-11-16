@@ -323,6 +323,7 @@ public class BasicSetService {
 					model.setSgsnid(rs.getString("sgsnid"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setNsvcount(rs.getInt("nsvcount"));
 					model.setLastupdate(date);
 
 					list.add(model);
@@ -409,6 +410,7 @@ public class BasicSetService {
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
+					model.setNsvcount(rs.getInt("nsvccount"));
 
 					ALL_BSCS.put(rs.getString("BSCID"), model);
 					BSC_SGSN.put(rs.getString("BSCID"), rs.getString("SGSNID"));
@@ -438,6 +440,10 @@ List list=new ArrayList();
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
+					model.setSgsntype(rs.getString("provider"));
+					model.setBsccount(rs.getInt("bsccount"));
+					model.setSlotcount(rs.getInt("slotcount"));
+					model.setCapacity(rs.getDouble("capacity"));
 					list.add(model);
 					ALL_SGSNS.put(rs.getString("SGSNID"), model);
 				}

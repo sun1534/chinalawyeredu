@@ -15,9 +15,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.sxit.common.PaginationSupport;
-import com.sxit.stat.models.BsnRncStatModel;
+import com.sxit.netquality.models.TopCell;
 import com.sxit.useraction.models.ErrorCodeStat;
 import com.sxit.useraction.models.ExceptionUsers;
+import com.sxit.useraction.models.MobilesTop;
 import com.sxit.useraction.models.StatApnErrors;
 import com.sxit.useraction.models.UserPdpErrorTop;
 
@@ -27,7 +28,16 @@ import com.sxit.useraction.models.UserPdpErrorTop;
  */
 public class UseractionService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
+	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyyMM-dd HH:mm:ss");
+	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyyMM-dd HH:00");
+	private int getDfSec(String date) {
+	try {
+		Date d = dfsec.parse(date);
+		return (int) (d.getTime() / 1000);
+	} catch (Exception e) {
+		return (int) (System.currentTimeMillis() / 1000);
+	}
+}
 	private JdbcTemplate jdbcTemplate;
 
 	/**
@@ -146,6 +156,7 @@ public class UseractionService {
 
 	/**
 	 * 统计高流量的用户排名,根据时间和所在的apn进行排名
+	 * stat_apn_mobile
 	 * 
 	 * @param date
 	 * @param apn
@@ -153,47 +164,81 @@ public class UseractionService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getHightStreamUser(Date date, String apn, int pageNo, int pageSize) {
-		int _date = (int) (date.getTime() / 1000);
-		String countsql = "select count(*) as cnt from  STAT_BSC where dayflag=1 and STATTIME=" + _date;
-		int totalCount = jdbcTemplate.queryForInt(countsql);
-		int startIndex = (pageNo - 1) * pageSize;
+	public List getHightStreamDayUser(final Date date,String standard, String condition) {
+		
+		String sql="";
+		String table=com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		if(standard.equals("1")){
+//			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
+			 sql="select mobile,apnni,upvolume,downvolume,allvolume,periodlen from "+table+" where dayflag=1 and allvolume>="+condition+" order by allvolume desc";
 
-		String sql = "select * from(select a.*,rownum rn from(select BSCID,SGSNID,STATTIME,USERCOUNT,ALLVOLUME from  STAT_BSC where STATTIME="
-				+ _date
-				+ " and dayflag=1 order by sgsnid) a where rownum<="
-				+ (startIndex + pageSize)
-				+ ") where rn>" + startIndex;
-
+		}else{
+			 sql="select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  "+table+"  where dayflag=1 and rownum<="+condition+" order by allvolume desc";
+        }
+		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					BsnRncStatModel model = new BsnRncStatModel();
-					int usercount = rs.getInt("USERCOUNT");
-					long all = rs.getLong("ALLVOLUME");
-					int stattime = rs.getInt("STATTIME");
-					String sgsnid = rs.getString("SGSNID");
-					Date date = new Date();
-					date.setTime(stattime * 1000);
-					model.setTotalStream(all);
-					model.setTotalUser(usercount);
-					model.setDate(df.format(date));
-					model.setSgsnid(sgsnid);
-//					model.setNettype(rs.getString("NETTYPE"));
-					model.setBscrncid(rs.getString("BSCID"));
+					MobilesTop model = new MobilesTop();
+				model.setMobile(rs.getString("mobile"));
+				model.setApnni(rs.getString("apnni"));
+				model.setUpvolume(rs.getFloat("upvolume"));
+				model.setDownvolume(rs.getFloat("downvolume"));
+				model.setPeriodlen(rs.getInt("periodlen"));
+				model.setAllvolume(rs.getFloat("allvolume"));
+				model.setDate(df.format(date));
+				model.setDatehour(dfsec.format(date));
 					list.add(model);
 				}
 				return list;
 			}
 		});
 		List list = (List) object;
-		// PaginationSupport ps=new PaginationSupport();
-		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
-		return ps;
+        return list;
 	}
 
+	
+	public List getHightStreamHourUser(String standard,String condition, Date date,final String hour){
+		final String _date=df.format(date);
+		String start = _date + " " + hour + ":00:00";
+		String end = _date + " " + hour + ":59:59";
+
+		int _start = getDfSec(start);
+		int _end = getDfSec(end);
+		String table=com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+
+		
+		String sql="";
+		if(standard.equals("1")){
+			 sql="select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "+table+" where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by mobile,apnni having sum(allvolume)>="+condition+") order by allvolume desc";
+		}else{
+			 sql="select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "+table+" where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by mobile,apnni ) where rownum<="+condition+" order by allvolume desc";
+        }
+		
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					MobilesTop model = new MobilesTop();
+				model.setMobile(rs.getString("mobile"));
+				model.setApnni(rs.getString("apnni"));
+				model.setUpvolume(rs.getFloat("upvolume"));
+				model.setDownvolume(rs.getFloat("downvolume"));
+				model.setPeriodlen(rs.getInt("periodlen"));
+				model.setAllvolume(rs.getFloat("allvolume"));
+				model.setDate(_date);
+				
+				model.setDatehour(_date+" "+hour+":00");
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+        return list;
+	}
+	
 	/**
 	 * 统计pdp的失败用户排名
 	 * 

@@ -11,6 +11,8 @@ import java.util.Date;
  *
  */
 public class BscRnc {
+	private int nsvcount;
+	
 /**
  * 编号
  */
@@ -107,5 +109,17 @@ public class BscRnc {
 	 */
 	public void setLastopt(String lastopt) {
 		this.lastopt = lastopt;
+	}
+	/**
+	 * @return the nsvcount
+	 */
+	public int getNsvcount() {
+		return nsvcount;
+	}
+	/**
+	 * @param nsvcount the nsvcount to set
+	 */
+	public void setNsvcount(int nsvcount) {
+		this.nsvcount = nsvcount;
 	}
 }
