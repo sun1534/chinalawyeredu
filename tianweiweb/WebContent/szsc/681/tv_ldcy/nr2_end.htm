@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>
+table{ font-size:24px;font-family: "黑体" ;}.style1 {color: #993300}
+</style>
+<script>
+var PRVE_URL = "";
+var BACK_URL   = "tm.htm"; //返回连接
+var tmArray = [
+	{"info":"市委","url":"nr_end.htm"},
+	{"info":"市人大","url":"nr1_end.htm"},
+	{"info":"市政府","url":"nr2_end.htm"},
+	{"info":"市政府党组","url":"nr3_end.htm"},
+	{"info":"市政协 ","url":"nr4_end.htm"},
+	{"info":"市纪委","url":"nr5_end.htm"}
+];
+var nr_pageSize = 1;
+var nr_length = tmArray.length;
+var area = 0;// 1: nr_titles  2:btn
+var btn_pos = 0;
+var nr_first_pos = 1;
+var nr_pageIndex = 0;
+var nr_title_objs = new Array();
+
+var NOW_POS = 0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	NOW_POS = parseInt(url.substr(url.indexOf("?")+1));
+}
+function init(){
+	init_objs();
+	init_focus();
+	show_nr_page();
+}
+function init_objs(){
+	nr_title_objs[0] = document.getElementById("list0");
+	//nr_title_objs[1] = document.getElementById("list1");
+}
+
+function init_focus(){
+	btn_pos = 0;
+	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//根据当前位置确定相关链接的初始位置
+	nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+	nr_title_objs[0].style.color = "#ffffff";
+}
+
+function show_nr_page(){
+	//if(nr_length>1) nr_titleIcon_objs[1].src = "title_icon.gif";
+	nr_title_objs[0].innerText = tmArray[nr_first_pos].info;
+}
+
+
+
+var delay_show_nr_timer = -1;
+function delay_show_nr_page(){
+	clearTimeout(delay_show_nr_timer);
+	delay_show_nr_timer = setTimeout("show_nr_page()",50);
+}
+
+function go_to_nr_link(){
+	var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;;
+	location.href = tmArray[nr_pos].url+"?" + nr_pos;
+}
+
+function go_to_back(){
+	location.href = BACK_URL+ "?"+NOW_POS;
+}
+
+function go_to_index(){
+	location.href = INDEX_URL;
+}
+
+document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+	switch(keycode){
+		case 38:
+case 269:
+		case 1://up
+			if(area==0){
+						nr_title_objs[0].style.backgroundImage = "url()";
+						nr_title_objs[0].style.color = "#000000";
+						area=1;
+						document.getElementById("btn").src = "pic7_03.gif";
+						return 0;
+						break;
+			}
+			return 0;
+			break;
+		case 40:
+case 270:
+		case 2://down
+			if(area==1){
+				document.getElementById("btn").src = "pic6_03.gif";
+				area=0;
+				nr_pageIndex = 0;
+				nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+				nr_title_objs[0].style.color = "#ffffff";
+			}
+			else if(area==0){
+				var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;
+					nr_first_pos = (nr_first_pos+1)%nr_length;
+					show_nr_page();
+			}
+			return 0;
+			break;
+		case 37:
+		case 271:
+		case 3://left
+			return 0;
+			break;
+		case 39:
+		case 272:
+		case 4://right
+			return 0;
+			break;
+		case 13://enter
+			if(area==0){
+				go_to_nr_link();
+			}
+			else if(area==1){
+				location.href=BACK_URL+ "?" +NOW_POS
+			}
+			return 0;
+			break;
+		case 282:
+		case 339://exit
+			location.href=BACK_URL+ "?" +NOW_POS
+			break;
+		case 283:
+		case 340://back
+			go_to_back();
+			return 0;
+			break;
+		case 301:
+		case 372://page up
+			break;
+		case 302:
+		case 373://page down
+			break;
+	}
+}
+</script>
+</head>
+
+<body background="nr_bg.gif" leftmargin="0" topmargin="0" onload="init()">
+<table width="613" height="499" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="37" height="84">&nbsp;</td>
+    <td width="576" align="right" background="pic6_03.gif" id="btn" style="background:center right no-repeat"></td>
+  </tr>
+  <tr>
+    <td height="65">&nbsp;</td>
+    <td align="center" style="font-size:26px;">市政府</td>
+  </tr>
+  <tr>
+    <td height="288">&nbsp;</td>
+    <td valign="top" style="line-height:30px;"><table width="585" border="0" cellspacing="0" cellpadding="0" style="font-size:22px;">
+      <tr>
+        <td width="174" height="40" align="center" style="font-size:24px; color:#993300"><p>市长(代):</p></td>
+        <td width="137" align="center" id="titles0">王　荣</td>
+        <td width="133" align="center">&nbsp;</td>
+        <td width="148" align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="40" align="center" style="font-size:24px; color:#993300">常务副市长:</td>
+        <td align="center" id="titles1">许　勤</td>
+        <td align="center" id="titles2">李　锋</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="40" align="center" style="font-size:24px; color:#993300">副市长：</td>
+        <td align="center" id="titles3">吕锐锋</td>
+        <td align="center" id="titles4">陈应春</td>
+        <td align="center" id="titles5">卓钦锐</td>
+      </tr>
+      <tr>
+        <td height="40" align="center">&nbsp;</td>
+        <td align="center" id="titles6">张思平</td>
+        <td align="center" id="titles7">闫小培(女)</td>
+        <td align="center" id="titles8">李　铭</td>
+      </tr>
+      <tr>
+        <td height="40" align="center">&nbsp;</td>
+        <td align="center" id="titles9">唐　杰</td>
+        <td align="center">&nbsp;</td>
+        <td align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="40" align="center" style="font-size:24px; color:#993300"><span class="style1">秘书长：</span></td>
+        <td align="center" id="titles10">李　平</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="24">&nbsp;</td>
+    <td><hr color="#aa0101" size="2" /></td>
+  </tr>
+  <tr>
+    <td height="38">&nbsp;</td>
+    <td valign="top" style="line-height:30px;"><table width="574" height="34" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="43" height="34"><img src="icon.gif" width="28" height="28" /></td>
+        <td width="531" id="list0" style="padding-left:10px;">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

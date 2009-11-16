@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>
+table{ font-size:26px;font-family: "黑体" ;}.style2 {font-size: 22px}
+</style>
+<script>
+var HEADER_URL = "nr1_0.htm";		 //头条连接
+var PREV_URL = "tm.htm";//上一页的连接
+var NEXT_URL="tm.htm";
+var tmArray = ["nr3_end.htm","nr4_end.htm","nr5_end.htm"];
+var tm_link=["../tv_ldcy/tm.htm","../tv_zwdt/tm.htm","../tm.htm","../tv_bmzn/tm.htm","../index.htm"];
+var pos = 0;
+var area = 0; //0 list 1 头条 2 back
+var position=0;
+var vv=0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	pos = parseInt(url.substr(url.indexOf("?")+1));
+}
+
+function $(id){
+	return document.getElementById(id);
+}
+
+function headerFocus(__num){
+	if(__num>0){
+		area = 0;
+		$("list" + pos).style.backgroundImage = "url(bg.gif)";		
+		$("list" + pos).style.color = "#ffffff";	
+	}
+	else if(__num<0){
+		area = 2;
+		$("btn").src= "pic02_03.gif";
+	}
+	$("header").style.backgroundImage = "url(header_bg0.gif)";
+}
+
+function btnFocus(__num){
+	$("L"+position).style.backgroundImage="url()";
+	position+=__num;
+	if(position>4) position=0;
+	if(position<0) position=3;
+	$("L"+position).style.backgroundImage="url(bg.gif)";
+}
+
+
+function listFocus(__num){
+	$("list" + pos).style.backgroundImage = "url()";
+	$("list" + pos).style.color = "#000000";
+	pos+=__num;
+	if(pos<0){
+	if(PREV_URL!="")window.location.href = NEXT_URL;
+	}	
+	if(pos>tmArray.length-1){
+		pos=tmArray.length-1;
+		if(NEXT_URL!="")window.location.href = NEXT_URL;
+	}
+	$("list" + pos).style.backgroundImage = "url(bg.gif)";
+	$("list" + pos).style.color = "#ffffff";
+}
+
+function doSelect(){
+	if(area==0) location.href = tmArray[pos]+"?"+pos;
+	else if(area==1) location.href = HEADER_URL;
+	else if(area==2){		
+		location.href = tm_link[position];
+	}
+}
+
+function init(){
+	listFocus(0)
+}
+
+document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress=grabEvent;
+function grabEvent(){
+var keycode = event.which||event.keyCode;
+switch(keycode){
+		case 1://up
+		case 38:
+		case 269:
+		    if(area==2) btnFocus(-1);
+			if(area==0&&pos==0){
+            if(PREV_URL!="")window.location.href = PREV_URL;
+			}
+			else if(area==0)listFocus(-1);
+			return 0;
+			break;
+		case 2://down
+		case 40:
+		case 270:
+		    if(area==2) btnFocus(1);
+			if(area==0)listFocus(1);
+			//if(area==1)headerFocus(1);
+			return 0;
+			break;
+		case 3://left
+		case 37:
+		case 271:
+                    if(area==0){
+				area=2;
+				//$("header").style.backgroundImage = "url(header_bg0.gif)";
+				$("list" + pos).style.backgroundImage = "url()";
+				$("list" + pos).style.color = "#000000";
+				btnFocus(0);
+				}
+			if(area==1){
+				area=2;
+				vv=1;
+				//$("header").style.backgroundImage = "url(header_bg0.gif)";
+				btnFocus(0);
+				}
+			return 0;
+			break;
+		    
+		case 4://right
+		case 39:
+		case 272:
+		    if(area==2){
+				$("L"+position).style.backgroundImage="url()";
+				if(vv==1){
+				vv=0;
+				area=1;
+				//$("header").style.backgroundImage = "url(header_bg1.gif)";
+				}
+				else {area=0;listFocus(0)}
+				}
+			return 0;
+			break;
+		case 340://back
+		case 283:
+			location.href = BACK_URL;
+			return 0;
+			break;
+		case 13:
+			doSelect();
+			return 0;
+			break;
+	}
+}
+</script>
+</head>
+<body background="index.gif" leftmargin="0" topmargin="0" onload="init();">
+<table width="625" height="506" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="76" colspan="2" align="right" valign="bottom"><img src="../pic1_03.gif" width="440" height="71" /></td>
+  </tr>
+  <tr>
+    <td width="176" height="430" align="right" valign="top"><table width="140" border="0" cellpadding="0" cellspacing="1" style="font-size:26px; color:#FFFFFF">
+      <tr>
+        <td height="72" align="center">&nbsp;</td>
+      </tr>
+      <tr>
+        <td height="44" align="center" id="L0" style="color:#FFFF00">领导成员</td>
+      </tr>
+      <tr>
+        <td height="44" align="center" id="L1"> 政务动态 </td>
+      </tr>
+      <tr>
+        <td height="44" align="center" id="L2">政务公开</td>
+      </tr>
+      <tr>
+        <td height="44" align="center" id="L3">便民指南</td>
+      </tr>
+      <tr>
+        <td height="44" align="center" id="L4">返　回</td>
+      </tr>
+    </table></td>
+    <td width="449" align="right" valign="top"><table width="439" height="120" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td height="120" valign="bottom"><table width="438" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="38" height="38" align="center"><span style="background:center no-repeat"><img src="icon.gif" /></span></td>
+              <td width="400" style="padding-left:10px;" id="list0"  align="left"><span class="style1">市政府党组</span></td>
+            </tr>
+            <tr>
+              <td height="38" align="center"><span style="background:center no-repeat"><img src="icon.gif" /></span></td>
+              <td style="padding-left:10px;" id="list1"  align="left"><span class="style1">市政协</span></td>
+            </tr>
+            <tr>
+              <td height="38" align="center"><span style="background:center no-repeat"><img src="icon.gif" /></span></td>
+              <td style="padding-left:10px;" id="list2"  align="left"><span class="style1">市纪委</span></td>
+            </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

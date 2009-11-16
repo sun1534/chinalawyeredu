@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>table{ font-size:22px;font-family: "黑体" ;}body {
+	background-image: url(nr0_bg.gif);
+}
+</style>
+<script>
+var PRVE_URL = "nr1_0.htm"
+var NEXT_URL = "nr1_end.htm";//
+var BACK_URL = "../tm2.htm"; //返回连接
+var NOW_POS = 0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	NOW_POS = parseInt(url.substr(url.indexOf("?")+1));
+}
+
+function go_to_back(){
+	//iPanel.overlayFrame.close();
+	if(PRVE_URL=="") location.href =BACK_URL+ "?" +NOW_POS
+    else location.href = PRVE_URL+ "?"+NOW_POS;
+	 	 
+}
+
+function go_to_index(){
+	location.href = INDEX_URL;
+}document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+	switch(keycode){
+		case 38:
+case 269:
+		case 1://up
+			if(PRVE_URL!="")location.href = PRVE_URL+ "?"+NOW_POS;
+			return 0;
+			break;
+		case 40:
+case 270:
+		case 2://down
+			if(NEXT_URL!="") location.href = NEXT_URL+ "?"+NOW_POS;;
+			return 0;
+			break;
+		case 37:
+		case 271:
+		case 3://left
+			return 0;
+			break;
+		case 39:
+		case 272:
+		case 4://right
+			return 0;
+			break;
+		case 13://enter
+			//iPanel.overlayFrame.close();
+			location.href = BACK_URL+ "?" + NOW_POS
+			return 0;
+			break;
+		case 282:
+		case 339://exit
+			//iPanel.overlayFrame.close();
+			location.href=BACK_URL+ "?" +NOW_POS
+			break;
+		case 283:
+		case 340://back
+			go_to_back();
+			return 0;
+			break;
+		case 301:
+		case 372://page up
+			break;
+		case 302:
+		case 373://page down
+			break;
+	}
+}</script>
+</head>
+<body leftmargin="0" topmargin="0">
+<table width="613" height="489" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="37" height="79">&nbsp;</td>
+    <td width="576" align="right" background="pic7_03.gif" id="btn" style="background:center right no-repeat"></td>
+  </tr>
+  <tr>
+    <td height="65">&nbsp;</td>
+    <td align="center" style="font-size:26px;">深圳市人民政府任免通告</td>
+  </tr>
+  <tr>
+    <td height="345">&nbsp;</td>
+    <td valign="top" style="line-height:30px;">　　王　芃 市规划和国土资源委员会主任<br />      
+      　　蒋尊玉 市人居环境委员会主任<br />      
+      　　张士明 市交通运输委员会主任<br />      
+      　　江捍平 市卫生和人口计划生育委员会主任<br />      
+      　　郭雨蓉 市教育局局长<br />      
+      　　李　铭 市公安局局长（兼）<br />      
+      　　杨　洪 市监察局局长<br />      
+      　　刘润华 市民政局局长<br />      　　李英才 市司法局局长</td>
+  </tr>
+</table>
+</body>
+</html>

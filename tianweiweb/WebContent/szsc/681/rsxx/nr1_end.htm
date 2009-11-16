@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>table{ font-size:22px;font-family: "黑体" ;}</style>
+<script>
+var PRVE_URL = "nr1_1.htm"
+var BACK_URL = "../tm2.htm"; //返回连接
+var tmArray = [
+	{"info":"干部任前公示通告 8月28日","url":"nr3_0.htm"},
+	{"info":"深圳市人民政府人员任免通告 8月5日","url":"nr1_0.htm"},
+    {"info":"深圳市人民政府人员任免通告 8月4日","url":"nr2_0.htm"}
+];
+var nr_pageSize = 1;
+var nr_length = tmArray.length;
+var area = 0;// 1: nr_titles  2:btn
+var btn_pos = 0;
+var nr_first_pos = 1;
+var nr_pageIndex = 0;
+var nr_title_objs = new Array();
+
+var NOW_POS = 0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	NOW_POS = parseInt(url.substr(url.indexOf("?")+1));
+}
+
+function init(){
+	init_objs();
+	init_focus();
+	show_nr_page();
+}
+function init_objs(){
+	nr_title_objs[0] = document.getElementById("list0");
+	//nr_title_objs[1] = document.getElementById("list1");
+}
+
+function init_focus(){
+	btn_pos = 0;
+	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//根据当前位置确定相关链接的初始位置
+	nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+	nr_title_objs[0].style.color = "#ffffff";
+}
+
+function show_nr_page(){
+	//if(nr_length>1) nr_titleIcon_objs[1].src = "title_icon.gif";
+	nr_title_objs[0].innerText = tmArray[nr_first_pos].info;
+}
+
+
+
+var delay_show_nr_timer = -1;
+function delay_show_nr_page(){
+	clearTimeout(delay_show_nr_timer);
+	delay_show_nr_timer = setTimeout("show_nr_page()",50);
+}
+
+function go_to_nr_link(){
+	var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;;
+	location.href = tmArray[nr_pos].url+"?" + nr_pos;
+}
+
+function go_to_back(){
+	location.href = BACK_URL+ "?"+NOW_POS;
+}
+
+function go_to_index(){
+	location.href = INDEX_URL;
+}document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+	switch(keycode){
+		case 38:
+case 269:
+		case 1://up
+			if(area==0){
+						nr_title_objs[0].style.backgroundImage = "url()";
+						nr_title_objs[0].style.color = "#000000";
+						area=1;
+						document.getElementById("btn").style.backgroundImage = "url(pic7_03.gif)";
+						return 0;
+						break;
+			}
+			else if(area==1){
+				
+				location.href = PRVE_URL+ "?"+NOW_POS;
+			}
+			return 0;
+			break;
+		case 40:
+case 270:
+		case 2://down
+			if(area==1){
+				document.getElementById("btn").style.backgroundImage = "url(pic6_03.gif)";
+				area=0;
+				nr_pageIndex = 0;
+				nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+				nr_title_objs[0].style.color = "#ffffff";
+			}
+			else if(area==0){
+				var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;
+					nr_first_pos = (nr_first_pos+1)%nr_length;
+					show_nr_page();
+			}
+			return 0;
+			break;
+		case 37:
+		case 271:
+		case 3://left
+			return 0;
+			break;
+		case 39:
+		case 272:
+		case 4://right
+			return 0;
+			break;
+		case 13://enter
+			if(area==0){
+				go_to_nr_link();
+			}
+			else if(area==1){
+				location.href=BACK_URL+ "?" +NOW_POS
+			}
+			return 0;
+			break;
+		case 282:
+		case 339://exit
+			location.href=BACK_URL+ "?" +NOW_POS
+			break;
+		case 283:
+		case 340://back
+			go_to_back();
+			return 0;
+			break;
+		case 301:
+		case 372://page up
+			break;
+		case 302:
+		case 373://page down
+			break;
+	}
+}</script>
+</head>
+
+<body background="nr_bg.gif" leftmargin="0" topmargin="0" onload="init()">
+<table width="613" height="501" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="37" height="79">&nbsp;</td>
+    <td width="576" align="right" background="pic6_03.gif" id="btn" style="background:center right no-repeat"></td>
+  </tr>
+  <tr>
+    <td height="65">&nbsp;</td>
+    <td align="center" style="font-size:26px;">深圳市人民政府任免通告</td>
+  </tr>
+  <tr>
+    <td height="295">&nbsp;</td>
+    <td valign="top" style="line-height:30px;"> 　　王　敏 市人力资源和社会保障局局长<br />
+            　　陈　威 市文体旅游局局长<br />
+                  　　申庆三 市市场监督管理局局长<br />            
+                        　　陈志刚 市审计局局长<br />
+      <br />                        　　免去：张宝泉的深圳市教育局局长职务。</td>
+  </tr>
+  <tr>
+    <td height="24">&nbsp;</td>
+    <td><hr color="#aa0101" size="2" /></td>
+  </tr>
+  <tr>
+    <td height="38">&nbsp;</td>
+    <td valign="top" style="line-height:30px;"><table width="574" height="34" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="43" height="34"><img src="icon.gif" width="28" height="28" /></td>
+        <td width="531" id="list0"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

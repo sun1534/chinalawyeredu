@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="page-view-size" content="720*576">
+<title>无标题文档</title>
+<script>
+iPanel.Media.av(10000,0,0,0,0,0,0);
+</script>
+<style>
+td { background-position:center; background-repeat:no-repeat;font-family: "黑体" ;}
+.menu { font-size:18px; padding-left:20px; background-position:center; background-repeat:no-repeat;font-family: "黑体" ;}
+</style>
+<script>
+var L_pos = 0;
+var btn_pos = 0;
+var area = 0; //0 L 1 button 2 "全文阅读"
+var lm_pos = 0;
+var L_links    = ['../681/index.htm','../692/index.htm','../684/index.htm','../693/index.htm','../686/index.htm','../687/index.htm','../691/index.htm','../690/index.htm','../694/index.htm','../695/index1.htm','../695/index.htm'];
+var btnLinks = ["tv_ldcy/tm.htm","tv_zwdt/tm.htm","tm.htm","tv_bmzn/tm.htm"];
+var read_URL   = "nr.htm";
+var url = window.location.href;
+function $(__id){
+	return document.getElementById(__id);
+}
+function init(){
+    if(url.indexOf("?") > -1){
+	btn_pos = parseInt(url.substr(url.indexOf("?")+1));
+	area=1;
+	buttonFocus(0);
+}
+	else{
+	L_focus(0);
+	$("read").style.color = "#790000";	//解决2.0 BUG
+	}
+}
+
+function L_focus(__num){
+		alert("L_focus("+__num+")");
+	$("L"+L_pos).style.backgroundImage = "url()";	
+	$("L9").style.backgroundImage= "url(jpg1.gif)";
+	$("L10").style.backgroundImage= "url(jpg2.gif)";
+	L_pos+=__num;
+	//if(L_pos<0)L_pos = L_links.length-1;
+	if(L_pos<0)L_pos = 10;
+	//if(L_pos>L_links.length-1)L_pos = 0;
+	if(L_pos>10)L_pos = 0;	
+	if(L_pos>=0&&L_pos<9)$("L"+L_pos).style.backgroundImage = "url(focus0.gif)";
+	else if(L_pos==9)$("L"+L_pos).style.backgroundImage = "url(q2.gif)";
+	else if(L_pos==10)$("L"+L_pos).style.backgroundImage = "url(q.gif)";
+}
+
+function buttonFocus(__num){
+	$("btn"+btn_pos).style.backgroundImage = "url()";
+	$("btn"+btn_pos).style.color = "#000000";
+	btn_pos+=__num;
+	if(btn_pos<0){
+		btn_pos=0;
+		area=0;
+		L_focus(0);
+		return;
+	}
+	if(btn_pos>btnLinks.length-1)btn_pos=btnLinks.length-1;
+	$("btn"+btn_pos).style.backgroundImage = "url(yg1_focus1.gif)";
+	$("btn"+btn_pos).style.color = "#FFFFFF";
+}
+
+function doSelcet(){
+	alert(area);
+	if(area==0){
+		location.href = L_links[L_pos];
+	}
+	else if(area==1){
+		location.href = btnLinks[btn_pos];
+	}
+	else if(area==2){
+		location.href = read_URL;
+	}
+}
+
+document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+		alert("keycode::"+keycode)
+	switch(keycode){
+		case 1://up
+		case 38:
+		case 269:
+			if(area==0)L_focus(-1);
+			else if(area==2){
+				area=1;
+				buttonFocus(0);
+				$("read").style.backgroundImage = "url()";
+				$("read").style.color = "#790000";					
+			}
+			return 0;
+			break; 
+		case 2://down
+		case 40:
+		case 270:
+			if(area==0)L_focus(1);
+			else if(area==1){
+				area = 2;
+				$("btn"+btn_pos).style.backgroundImage = "url()";
+				$("read").style.backgroundImage = "url(yg1_focus2.gif)";
+				$("btn"+btn_pos).style.color = "#000000";
+				$("read").style.color = "#FFFFFF";			
+			}
+			return 0;
+			break; 
+		case 3://left
+		case 37:
+		case 271:
+			if(area==1){
+				buttonFocus(-1);
+			}
+			else if(area==2){
+				area=0;
+				L_focus(0);
+				$("read").style.backgroundImage = "url()";
+				$("read").style.color = "#790000";	
+			}
+			return 0;
+			break;
+		case 4://right
+		case 39:
+		case 272:
+			if(area==0){
+				area=1;
+				$("L"+L_pos).style.backgroundImage = "url()";
+				$("L9").style.backgroundImage= "url(jpg1.gif)";
+	$("L10").style.backgroundImage= "url(jpg2.gif)";
+				buttonFocus(0);
+			}
+			else if(area==1)buttonFocus(1);
+			return 0;
+			break;
+		case 13://enter	
+			doSelcet();
+			return 0;	
+			break;
+		case 339:
+		case 340:
+			
+		    break;
+	}
+}
+</script>
+</head>
+
+<body bgcolor="#E4E0C8" leftmargin="0" topmargin="0" onload="init()">
+<table width="640" height="526" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="100" valign="top" background="background_01.jpg"><table width="100" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+         <td width="100" height="68"></td>
+      </tr>
+	   <tr>      </tr>
+      <tr>
+        <td height="40" class="menu" id="L0">政务</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L1">　文化</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L2">气象</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L3">　理财</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L4">健康</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L5">　折扣</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L6">旅游</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L7">　影城</td>
+      </tr>
+      <tr>
+        <td height="40" class="menu" id="L8">亲子</td>
+      </tr>
+    </table>
+      <table width="100" height="98" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><table width="100" height="98" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td height="50" background="jpg1.gif" id="L9"></td>
+            </tr>
+            <tr>
+              <td height="48" background="jpg2.gif" id="L10"></td>
+            </tr>
+          </table></td>
+        </tr>
+    </table></td>
+    <td width="540" valign="top" background="background_02.jpg"><table width="540" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="105" colspan="4" align="center" valign="bottom"><table width="540" border="0" cellpadding="0" cellspacing="0">
+              <tr style="font-size:28px;"> 
+                <td width="135" height="40" align="center" id="btn0"><span class="style1">领导成员</span></td>
+                <td width="135" align="center" id="btn1"><span class="style1">政务动态</span></td>
+                <td width="135" align="center" id="btn2"><span class="style1">政务公开</span></td>
+                <br />
+                <td width="135" align="center" id="btn3"><span class="style1">便民指南</span></td>
+              </tr>
+              <tr> 
+                <td height="8" colspan="4"></td>
+              </tr>
+            </table></td>
+      </tr>
+      <tr>
+        <td height="61" colspan="3" align="center" valign="middle" style="font-size:40px;"></td>
+        <td width="185" rowspan="3" align="center" style="font-size:40px;"></td>
+      </tr>
+      <tr>
+        <td height="294" colspan="3" style="line-height:28px; padding-left:20px; font-size:20px;">　　
+          ２００９年深圳要高举中国特色社会主义伟大旗帜，以邓小平理论和“三个代表”重要思想为指导，以科学发展观统领经济社会发展全局，按照市委四届十一次全会的总体部署，深入实施《珠江三角洲地区改革发展规划纲要》，加快推进综合配套改革，在珠三角新一轮发展中发挥示范带动作用……</td>
+        </tr>
+      <tr>
+        <td width="38" height="42"></td>
+        <td width="238" align="center" style="font-size:22px;" id="read">阅读全文</td>
+        <td width="79"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>

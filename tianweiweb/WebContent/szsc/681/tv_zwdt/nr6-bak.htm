@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>
+table{ font-size:22px;font-family: "黑体" ;}.style2 {font-size: 22px}
+.style3 {font-size: 22px}
+</style>
+<script>
+var PRVE_URL = "";
+var NEXT_URL = "nr6_end.htm";//
+var BACK_URL = "tm1.htm"; //返回连接
+var NOW_POS = 0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	NOW_POS = parseInt(url.substr(url.indexOf("?")+1));
+}
+
+function go_to_back(){
+	//iPanel.overlayFrame.close();
+	if(PRVE_URL=="") location.href =BACK_URL+ "?" +NOW_POS
+    else location.href = PRVE_URL+ "?"+NOW_POS;
+	 	 
+}
+
+function go_to_index(){
+	location.href = INDEX_URL;
+}document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+	switch(keycode){
+		case 38:
+case 269:
+		case 1://up
+			if(PRVE_URL!="")location.href = PRVE_URL+ "?"+NOW_POS;
+			return 0;
+			break;
+		case 40:
+case 270:
+		case 2://down
+			if(NEXT_URL!="") location.href = NEXT_URL+ "?"+NOW_POS;;
+			return 0;
+			break;
+		case 37:
+		case 271:
+		case 3://left
+			return 0;
+			break;
+		case 39:
+		case 272:
+		case 4://right
+			return 0;
+			break;
+		case 13://enter
+			//iPanel.overlayFrame.close();
+			location.href = BACK_URL+ "?" + NOW_POS
+			return 0;
+			break;
+		case 282:
+		case 339://exit
+			//iPanel.overlayFrame.close();
+			location.href=BACK_URL+ "?" +NOW_POS
+			break;
+		case 283:
+		case 340://back
+			go_to_back();
+			return 0;
+			break;
+		case 301:
+		case 372://page up
+			break;
+		case 302:
+		case 373://page down
+			break;
+	}
+}</script>
+</head>
+<body background="nr0_bg.gif" leftmargin="0" topmargin="0" onload="init()">
+<table width="613" height="489" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="37" height="79">&nbsp;</td>
+    <td width="576" align="right" background="pic7_03.gif" id="btn" style="background:center right no-repeat"></td>
+  </tr>
+  <tr>
+    <td height="65">&nbsp;</td>
+    <td align="center" style="font-size:26px;">15条公交线路拟调整</td>
+  </tr>
+  <tr>
+    <td height="345">&nbsp;</td>
+	<td valign="top" style="line-height:33px;"><span class="style2"> <span class="style3">　　近期交通部门将对１２路等１５条公交进行调整，现公开征询市民对有关线路调整的意见和建议，相关意见和建议可登录交通局网站进行反馈。<br />　　</span></span>据介绍，这１５条线路分别是：12、18、35、91、40、63、210、212、228、M205、242、N9、N10、N18、M207。其中变化比较大的线路有：原３５路和９１路公交合并为Ｍ２０４，线路起讫点为：梅林一村总站—福田口岸，途经站点调整为：梅林一村总站、梅林一村、梅林二村、梅林三村、梅林阁、上梅林公交总站、万科大厦、</td>
+  </tr>
+</table>
+</body>
+</html>

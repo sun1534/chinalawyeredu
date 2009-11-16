@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>table{ font-size:22px;font-family: "黑体" ;}body {
+	background-image: url(nr0_bg.gif);
+}
+</style>
+<script>
+var PRVE_URL = ""
+var NEXT_URL = "nr3_1.htm";//
+var BACK_URL = "../tm2.htm"; //返回连接
+var NOW_POS = 0;
+var url = window.location.href;
+if(url.indexOf("?") > -1){
+	NOW_POS = parseInt(url.substr(url.indexOf("?")+1));
+}
+
+function go_to_back(){
+	//iPanel.overlayFrame.close();
+	if(PRVE_URL=="") location.href =BACK_URL+ "?" +NOW_POS
+    else location.href = PRVE_URL+ "?"+NOW_POS;
+	 	 
+}
+
+function go_to_index(){
+	location.href = INDEX_URL;
+}document.onsystemevent = grabEvent;
+document.onkeypress = grabEvent;
+document.onkeydown = grabEvent;
+document.onirkeypress = grabEvent;
+function grabEvent(){
+	var keycode = event.which||event.keyCode;
+	switch(keycode){
+		case 38:
+case 269:
+		case 1://up
+			if(PRVE_URL!="")location.href = PRVE_URL+ "?"+NOW_POS;
+			return 0;
+			break;
+		case 40:
+case 270:
+		case 2://down
+			if(NEXT_URL!="") location.href = NEXT_URL+ "?"+NOW_POS;;
+			return 0;
+			break;
+		case 37:
+		case 271:
+		case 3://left
+			return 0;
+			break;
+		case 39:
+		case 272:
+		case 4://right
+			return 0;
+			break;
+		case 13://enter
+			//iPanel.overlayFrame.close();
+			location.href = BACK_URL+ "?" + NOW_POS
+			return 0;
+			break;
+		case 282:
+		case 339://exit
+			//iPanel.overlayFrame.close();
+			location.href=BACK_URL+ "?" +NOW_POS
+			break;
+		case 283:
+		case 340://back
+			go_to_back();
+			return 0;
+			break;
+		case 301:
+		case 372://page up
+			break;
+		case 302:
+		case 373://page down
+			break;
+	}
+}</script>
+</head>
+<body leftmargin="0" topmargin="0">
+<table width="613" height="489" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="37" height="79">&nbsp;</td>
+    <td width="576" align="right" background="pic7_03.gif" id="btn" style="background:center right no-repeat"></td>
+  </tr>
+  <tr>
+    <td height="65">&nbsp;</td>
+    <td align="center" style="font-size:26px;">干部任前公示通告（8月28日）</td>
+  </tr>
+  <tr>
+    <td height="345">&nbsp;</td>
+    <td valign="top" style="line-height:30px;">　　经市委常委会议研究，杨新洪等同志拟提拔使用或转任领导职务。根据《党政领导干部选拔任用工作条例》和《深圳市党政领导干部任前公示实施办法》的规定，现将有关情况公示如下：<br />      
+      　　杨新洪，男，1964年11月生，江苏淮阴人，汉族，党校在职研究生学历，1990年5月加入中国共产党，1982年8月参加工作，原深圳市统计局副巡视员，拟任深圳市统计局副局长、党组成员。</td>
+  </tr>
+</table>
+</body>
+</html>
