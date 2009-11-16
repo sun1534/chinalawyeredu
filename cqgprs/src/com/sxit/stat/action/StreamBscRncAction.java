@@ -14,6 +14,7 @@ import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
 
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.stat.models.BsnRncStatModel;
 import com.sxit.stat.util.StatUtil;
 
@@ -34,14 +35,20 @@ public class StreamBscRncAction extends StatAction {
 	 */
 	@Override
 	protected String go() throws Exception {
-		this.pageSize = 1000;
-this.pageSize=Integer.MAX_VALUE;
-		if(startDate==null){
+//		this.pageSize = 1000;
+		com.sxit.netquality.service.BasicSetService service=(BasicSetService)this.getBean("basicSetService");
+
+		service.getAllSets();
+		this.pageSize=Integer.MAX_VALUE;
+		if(start==null||start.equals("")){
 			startDate=getPrevDate();
-			this.end=df.format(startDate);
+			this.start=df.format(startDate);
 		}
-		this.page = statservice.getBscRncStat(startDate, pageNo, pageSize);
-		this.bsclist=page.getItems();
+//		System.out.println(endDate);
+		this.page = statservice.getBscRncStat(startDate, sgsnid,pageNo, pageSize);
+	
+		this.bsclist=page.getItems();	
+		System.out.println("bsclist::"+bsclist);
 		if (resultType.equals("list"))
 			return SUCCESS;
 
@@ -73,7 +80,7 @@ this.pageSize=Integer.MAX_VALUE;
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -85,6 +92,7 @@ this.pageSize=Integer.MAX_VALUE;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getBscrncid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -128,7 +136,7 @@ this.pageSize=Integer.MAX_VALUE;
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -140,6 +148,7 @@ this.pageSize=Integer.MAX_VALUE;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getBscrncid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 
@@ -172,6 +181,21 @@ this.pageSize=Integer.MAX_VALUE;
 		return flashChart;
 	}
 
+	private String sgsnid;
+	/**
+	 * @return the sgsnid
+	 */
+	public String getSgsnid() {
+		return sgsnid;
+	}
+
+
+	/**
+	 * @param sgsnid the sgsnid to set
+	 */
+	public void setSgsnid(String sgsnid) {
+		this.sgsnid = sgsnid;
+	}
 	
 	
 }

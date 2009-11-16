@@ -88,7 +88,7 @@ public class Stream23gAction extends StatAction {
 				float value = 0;
 				// 总流量
 				if (flashby.equals("total"))
-					value = stat.getTotalStreamStr();
+					value =(float)stat.getTotalStream();
 				else if (flashby.equals("average"))
 					value = stat.getAverageStream();
 				else if (flashby.equals("user"))
@@ -156,7 +156,7 @@ public class Stream23gAction extends StatAction {
 				float value = 0;
 				// 总流量
 				if (flashby.equals("total"))
-					value = stat.getTotalStreamStr();
+					value = (float)stat.getTotalStream();
 				else if (flashby.equals("average"))
 					value = stat.getAverageStream();
 				else if (flashby.equals("user"))

@@ -14,6 +14,8 @@ import jofc2.model.axis.YAxis;
 import jofc2.model.elements.BarChart;
 import jofc2.model.elements.LineChart;
 
+import com.sxit.common.Globals;
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.stat.models.CellStatModel;
 import com.sxit.stat.util.StatUtil;
 
@@ -34,6 +36,10 @@ public class StreamCellAction extends StatAction {
 	 */
 	@Override
 	protected String go() throws Exception {
+		
+		BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+		setservice.getAllSets();
+		
 		if(startDate==null){
 			startDate=super.getPrevDate();
 			this.start=df.format(startDate);
@@ -76,7 +82,7 @@ public class StreamCellAction extends StatAction {
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -131,7 +137,7 @@ public class StreamCellAction extends StatAction {
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))

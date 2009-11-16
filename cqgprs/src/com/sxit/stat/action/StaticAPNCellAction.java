@@ -36,25 +36,25 @@ public class StaticAPNCellAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-		if(apnid!=null&&!apnid.equals("")){
-		apncelllist = statservice.getApnCellDayStat(startDate, apnid);
-		if (resultType.equals("list"))
-			return SUCCESS;
+		if (apnid != null && !apnid.equals("")) {
+			apncelllist = statservice.getApnCellDayStat(startDate, apnid);
+			if (resultType.equals("list"))
+				return SUCCESS;
 
-		else if (resultType.equals("excel"))
-			return "excel";
-		else if (resultType.equals("flash")) {
-			if (flashType.equals("bar")) { // 产生柱状图
-				this.flashChart = barChart();
-			} else { // 产生线图
-				this.flashChart = lineChart();
+			else if (resultType.equals("excel"))
+				return "excel";
+			else if (resultType.equals("flash")) {
+				if (flashType.equals("bar")) { // 产生柱状图
+					this.flashChart = barChart();
+				} else { // 产生线图
+					this.flashChart = lineChart();
+				}
+				return "ofc";
+			} else {
+				this.message = "返回数据类型错误";
+				return "message";
 			}
-			return "ofc";
-		} else {
-			this.message = "返回数据类型错误";
-			return "message";
-		}
-		}else
+		} else
 			return SUCCESS;
 	}
 
@@ -95,7 +95,7 @@ public class StaticAPNCellAction extends StatAction {
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -106,7 +106,8 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());label.setRotation(ration);
+			label.setText(stat.getCellid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -150,7 +151,7 @@ public class StaticAPNCellAction extends StatAction {
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -161,7 +162,8 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());label.setRotation(ration);
+			label.setText(stat.getCellid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 

@@ -76,7 +76,7 @@ public class SgsnStreamAction extends StatAction {
 float value=0;
 			
 if(flashby.equals("total"))
-	value = stat.getTotalStreamStr();
+	value = value = (float)stat.getTotalStream();
 else if(flashby.equals("average"))
 	value = stat.getAverageStream();
 else if(flashby.equals("user"))
@@ -141,7 +141,7 @@ else if(flashby.equals("user"))
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value =value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))

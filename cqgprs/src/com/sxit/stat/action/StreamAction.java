@@ -79,7 +79,7 @@ public class StreamAction extends StatAction {
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -113,6 +113,7 @@ public class StreamAction extends StatAction {
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
 		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
+		System.out.println("max:::"+max+",steps:::"+steps);
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
@@ -140,7 +141,7 @@ public class StreamAction extends StatAction {
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = stat.getTotalStreamStr();
+				value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
