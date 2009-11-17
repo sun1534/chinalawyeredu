@@ -10,6 +10,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class StatService {
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private static List<String> ALL_TIME_LIST = new ArrayList<String>();
-	private static List<String> ALL_HOUR_LIST = new ArrayList<String>();
+	private static Map<String,String> ALL_HOUR_LIST = new LinkedHashMap<String,String>();
 
 	static {
 		ALL_TIME_LIST.add("00:00");
@@ -65,30 +66,30 @@ public class StatService {
 		ALL_TIME_LIST.add("22:00");
 		ALL_TIME_LIST.add("23:00");
 		
-		  ALL_HOUR_LIST.add("00");
-			ALL_HOUR_LIST.add("01");
-			ALL_HOUR_LIST.add("02");
-			ALL_HOUR_LIST.add("03");
-			ALL_HOUR_LIST.add("04");
-			ALL_HOUR_LIST.add("05");
-			ALL_HOUR_LIST.add("06");
-			ALL_HOUR_LIST.add("07");
-			ALL_HOUR_LIST.add("08");
-			ALL_HOUR_LIST.add("09");
-			ALL_HOUR_LIST.add("10");
-			ALL_HOUR_LIST.add("11");
-			ALL_HOUR_LIST.add("12");
-			ALL_HOUR_LIST.add("13");
-			ALL_HOUR_LIST.add("14");
-			ALL_HOUR_LIST.add("15");
-			ALL_HOUR_LIST.add("16");
-			ALL_HOUR_LIST.add("17");
-			ALL_HOUR_LIST.add("18");
-			ALL_HOUR_LIST.add("19");
-			ALL_HOUR_LIST.add("20");
-			ALL_HOUR_LIST.add("21");
-			ALL_HOUR_LIST.add("22");
-			ALL_HOUR_LIST.add("23");
+	        ALL_HOUR_LIST.put("00","00,00");
+			ALL_HOUR_LIST.put("01","01,00");
+			ALL_HOUR_LIST.put("02","02,00");
+			ALL_HOUR_LIST.put("03","03,00");
+			ALL_HOUR_LIST.put("04","04,00");
+			ALL_HOUR_LIST.put("05","05,00");
+			ALL_HOUR_LIST.put("06","06,00");
+			ALL_HOUR_LIST.put("07","07,00");
+			ALL_HOUR_LIST.put("08","08,00");
+			ALL_HOUR_LIST.put("09","09,00");
+			ALL_HOUR_LIST.put("10","10,00");
+			ALL_HOUR_LIST.put("11","11,00");
+			ALL_HOUR_LIST.put("12","12,00");
+			ALL_HOUR_LIST.put("13","13,00");
+			ALL_HOUR_LIST.put("14","14,00");
+			ALL_HOUR_LIST.put("15","15,00");
+			ALL_HOUR_LIST.put("16","16,00");
+			ALL_HOUR_LIST.put("17","17,00");
+			ALL_HOUR_LIST.put("18","18,00");
+			ALL_HOUR_LIST.put("19","19,00");
+			ALL_HOUR_LIST.put("20","20,00");
+			ALL_HOUR_LIST.put("21","21,00");
+			ALL_HOUR_LIST.put("22","22,00");
+			ALL_HOUR_LIST.put("23","23,00");
 
 	}
 
@@ -133,7 +134,7 @@ public class StatService {
 		// int _from = (int) (start.getTime() / 1000);
 		// int _to = (int) end.getTime() / 1000;
 
-		// System.out.println(sql);
+		 System.out.println(sql);
 
 		Object[] args = new Object[] { _from, _to };
 		int[] argTypes = new int[] { Types.INTEGER, Types.INTEGER };
@@ -145,12 +146,19 @@ public class StatService {
 				while (rs.next()) {
 					TotalStatModel model = new TotalStatModel();
 					int usercount = rs.getInt("USERCOUNT");
+					
+//					System.out.println("rs.getDouble(\"USERCOUNT\"):::"+rs.getDouble("USERCOUNT"));
+					
 					double all = rs.getDouble("ALLVOLUME");
+					
+//					System.out.println("all:::"+all);
+					
 					int stattime = rs.getInt("STATTIME");
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					model.setTotalUser(usercount);
+					model.setTotalUser((int)(usercount*0.6));
+//					System.out.println("model.getTotalUser()::"+model.getTotalUser());
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
 					list.add(model);
@@ -189,7 +197,8 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					model.setTotalUser(usercount);
+//					model.setTotalUser(usercount);
+					model.setTotalUser((int)(usercount*0.6));
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
 					model.setNettype(type);
@@ -227,7 +236,8 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					model.setTotalUser(usercount);
+//					model.setTotalUser(usercount);
+					model.setTotalUser((int)(usercount*0.6));
 					// model.setDate(df.format(date));
 					model.setDate(_date + "");
 					model.setSgsnid(sgsnid);
@@ -267,7 +277,8 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					model.setTotalUser(usercount);
+//					model.setTotalUser(usercount);
+					model.setTotalUser((int)(usercount*0.6));
 					// model.setDate(df.format(date));
 					model.setDate(_date + "");
 					model.setSgsnid(sgsnid);

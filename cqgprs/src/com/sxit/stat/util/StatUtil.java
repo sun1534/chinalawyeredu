@@ -8,11 +8,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @author 华锋
- * Oct 21, 2009-2:46:19 PM
- *
+ * @author 华锋 Oct 21, 2009-2:46:19 PM
+ * 
  */
 public class StatUtil {
+	
+
+	
 	/**
 	 * 得到离f最近的一个整数值,比如43451,最近的整数值为40000 423最近的整数值为400，123的最近整数值为100
 	 * 
@@ -56,7 +58,7 @@ public class StatUtil {
 			long mod = lf % s;
 			if (value < 10) {
 				if (mod != 0)
-					return (value+1) * tenn(i);
+					return (value + 1) * tenn(i);
 				else {
 					if (i != 0)
 						return (lf + tenn(i - 1));
@@ -67,32 +69,29 @@ public class StatUtil {
 		return 0;
 	}
 
-		
 	/**
 	 * 得到min和max之间相差count个的步长
+	 * 
 	 * @param max
 	 * @param min
 	 * @param count
 	 * @return
-	 */	
-	 public static double steps(double max,double min,int count){
-			
-		 double f=max-min;  //差距多大
-		 double steps=f/count; //相差的数字多少
-			//看是哪个数量级的
-//			for (int i = 0; i < 100; i++) {
-//
-//				long s = tenn(i);
-//			    long value=((long)steps)/s;
-//			    if(value<10){
-//			    	return value
-//			    }
-//			}
-			return steps;
-	 }
-	 
+	 */
+	public static double steps(double max, double min, int count) {
 
-	 
+		double f = max - min; // 差距多大
+		double steps = f / count; // 相差的数字多少
+		// 看是哪个数量级的
+		// for (int i = 0; i < 100; i++) {
+		//
+		// long s = tenn(i);
+		// long value=((long)steps)/s;
+		// if(value<10){
+		// return value
+		// }
+		// }
+		return steps;
+	}
 
 	private static long tenn(int x) {
 		long ten = 1;
@@ -101,115 +100,129 @@ public class StatUtil {
 		}
 		return ten;
 	}
-	
+
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static String getYestardayCdrTable() {
-//		Calendar calendar = Calendar.getInstance();
-//		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-//		if (weekday == 1)// 周日
-////			weekday = weekday - 1;
-//			weekday=6;
-//		else
-//			weekday = weekday - 2;
-//		String table = "cdr_succ_0" + weekday;
-//		return table;
+		// Calendar calendar = Calendar.getInstance();
+		// int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+		// if (weekday == 1)// 周日
+		// // weekday = weekday - 1;
+		// weekday=6;
+		// else
+		// weekday = weekday - 2;
+		// String table = "cdr_succ_0" + weekday;
+		// return table;
 		return getCdrTable(getPrevDate());
 	}
-	
+
 	public static String getCdrTable(Date date) {
-		
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		System.out.println(calendar.get(Calendar.DATE));
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
-//		System.out.println(weekday);
-//		if (weekday == 1)// 周日
-////			weekday = weekday - 1;
-//			weekday=0;
-//		else
-//			weekday = weekday - 1;
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		// System.out.println(weekday);
+		// if (weekday == 1)// 周日
+		// // weekday = weekday - 1;
+		// weekday=0;
+		// else
+		// weekday = weekday - 1;
 		String table = "cdr_succ_0" + weekday;
 		return table;
-//周 1 2 3 4 5 6 7
-//日 0 1 2 3 4 5 6
+		// 周 1 2 3 4 5 6 7
+		// 日 0 1 2 3 4 5 6
 	}
-	
+
 	public static String getMobileApnTable(Date date) {
-		
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK)-1;
-//		System.out.println(weekday);
-//		if (weekday == 1)// 周日
-////			weekday = weekday - 1;
-//			weekday=6;
-//		else
-//			weekday = weekday - 1;
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		// System.out.println(weekday);
+		// if (weekday == 1)// 周日
+		// // weekday = weekday - 1;
+		// weekday=6;
+		// else
+		// weekday = weekday - 1;
 		String table = "stat_mobile_apn_0" + weekday;
 		return table;
 	}
-	
-	public static long getYestardayTime(){
-		try{
-		String datestr=df.format(getPrevDate());
-		String startstr=datestr+" 00:00:00";
-		Date start=dfyyyyMmddHHmmss.parse(startstr);
-		return start.getTime();
-		}catch(Exception e){
+
+	public static long getYestardayTime() {
+		return getDateTime(getPrevDate());
+	}
+
+	public static long getDateTime(Date date) {
+		try {
+			String datestr = df.format(date);
+			String startstr = datestr + " 00:00:00";
+			Date start = dfyyyyMmddHHmmss.parse(startstr);
+			return start.getTime();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return System.currentTimeMillis();
 		}
 	}
-	
-	public static long getDateTime(Date date){
-		try{
-		String datestr=df.format(date);
-		String startstr=datestr+" 00:00:00";
-		Date start=dfyyyyMmddHHmmss.parse(startstr);
-		return start.getTime();
-		}catch(Exception e){
-			e.printStackTrace();
-			return System.currentTimeMillis();
-		}
+
+	public static long getTodaydayTime() {
+
+		return getDateTime(new Date());
+
 	}
-	
-	public static long getTodaydayTime(){
-		try{
-		String datestr=df.format(new Date());
-		String startstr=datestr+" 00:00:00";
-		Date start=dfyyyyMmddHHmmss.parse(startstr);
-		return start.getTime();
-		}catch(Exception e){
-			e.printStackTrace();
-			return System.currentTimeMillis();
-		}
+
+	public static long getOneDayAfter(long start) {
+		return start + 24 * 60 * 60 * 1000;
 	}
-	
-	public static long getOneDayAfter(long start){
-		return start+24*60*60*1000;
-	}
-	
+
 	/*
 	 * 得到当前日期的前一天
 	 */
 	public static Date getPrevDate() {
 		return getPrevCountDate(1);
 	}
+
 	/*
 	 * 得到当前日期的前一天
 	 */
-	public static  Date getPrevCountDate(int days) {
+	public static Date getPrevCountDate(int days) {
 		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, 0-days);
+		c.add(Calendar.DATE, 0 - days);
 		Date d = new Date();
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
-	public static void main(String[] args){
-//		System.out.println(getMobileApnTable());
-		System.out.println(getYestardayCdrTable());
+
+/**
+ * 得到当前日期的前一天
+ * @param date
+ * @param days
+ * @return
+ */
+	public static Date getPrevCountDate(Date date, int days) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, 0 - days);
+		Date d = new Date();
+		d.setTime(c.getTimeInMillis());
+		return d;
 	}
-	
+
+	public static void main(String[] args) {
+		// System.out.println(getMobileApnTable());
+		// long yes=getTodaydayTime();
+		// System.out.println(yes);
+		// System.out.println(getOneDayAfter(yes));
+		DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
+
+		Date date = getPrevCountDate(1);
+		System.out.println(dfyyyyMMdd.format(date));
+		date = getPrevCountDate(date, 0);
+		System.out.println(dfyyyyMMdd.format(date));
+		
+		System.out.println(dfyyyyMMdd.format(date));
+
+	}
+
 }

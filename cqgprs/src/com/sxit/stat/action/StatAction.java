@@ -3,7 +3,7 @@
  */
 package com.sxit.stat.action;
 
-import java.util.Calendar;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import jofc2.model.Chart;
@@ -19,7 +19,7 @@ import com.sxit.common.action.AbstractListAction;
  */
 public abstract class StatAction extends AbstractListAction {
 protected	jofc2.model.axis.Label.Rotation ration=	jofc2.model.axis.Label.Rotation.DIAGONAL;
-
+java.text.NumberFormat nf=new   DecimalFormat("####.0");
 	private static Log _LOG = LogFactory.getLog(StatAction.class);
 
 	protected com.sxit.stat.service.StatService statservice;

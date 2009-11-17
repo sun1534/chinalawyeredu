@@ -107,4 +107,16 @@ public class SgsnStatModel extends StatModel  {
 	public void setNettype(String nettype) {
 		this.nettype = nettype;
 	}
+	
+
+//	/**
+//	 * 妈的，这里的用户数都打6折
+//	 * 
+//	 * @return the totalUser
+//	 */
+//	@Override
+//	public int getTotalUser() {
+//		
+//		return (int)(totalUser*0.6);
+//	}
 }

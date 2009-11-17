@@ -13,7 +13,7 @@ import com.sxit.system.util.NumberUtil;
 public class StatModel {
 	protected double totalStream=0.0d;
 
-	protected long totalUser=0;
+	protected int totalUser=0;
 
 	
 	
@@ -51,17 +51,19 @@ public class StatModel {
 	}
 
 	/**
+	 * 
+	 * 
 	 * @return the totalUser
 	 */
-	public long getTotalUser() {
+	public int getTotalUser() {
 		return totalUser;
 	}
 
 	/**
 	 * @param totalUser the totalUser to set
 	 */
-	public void setTotalUser(long totalUser) {
-		this.totalUser = totalUser;
+	public void setTotalUser(int totalUser) {
+		this.totalUser =totalUser;
 	}
 
 	/**

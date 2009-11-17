@@ -82,8 +82,9 @@ public class StreamAction extends StatAction {
 				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
-			else if (flashby.equals("user"))
-				value = stat.getTotalUser();
+			else if (flashby.equals("user")){
+				value=(float)stat.getTotalUser();
+			}
 			if (value < min)
 				min = value;
 			if (value > max)
@@ -96,8 +97,6 @@ public class StreamAction extends StatAction {
 		}
 //		c2.setDotSize(500);
 //		c2.setTooltip("#val#M");
-		
-//		System.out.println("=================================");
 
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
@@ -105,15 +104,11 @@ public class StreamAction extends StatAction {
 		jofc2.model.axis.XAxis xaxis = new XAxis();
 		xaxis.setXAxisLabels(xlables); // 显示横坐标
 		flashChart.setXAxis(xaxis);
-//	Tooltip tip=new Tooltip();
-//	
-//	flashChart.setTooltip(tip);
 		jofc2.model.axis.YAxis yaxis = new YAxis();
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
 		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
-		System.out.println("max:::"+max+",steps:::"+steps);
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
@@ -131,8 +126,8 @@ public class StreamAction extends StatAction {
 	}
 
 	private Chart barChart() {
-		double min = 0d;
-		double max = 0d;
+		float min = 0.0f;
+		float max = 0.0f;
 		BarChart c2 = new BarChart(); // 
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
 		int len = streamlist.size();
@@ -144,12 +139,15 @@ public class StreamAction extends StatAction {
 				value = (float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
-			else if (flashby.equals("user"))
+			else if (flashby.equals("user")){
 				value = stat.getTotalUser();
+				value =Float.parseFloat(nf.format(stat.getTotalUser()));
+			}
 			if (value < min)
 				min = value;
-			if (value > max)
+			if (value > max){
 				max = value;
+			}
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getDate());

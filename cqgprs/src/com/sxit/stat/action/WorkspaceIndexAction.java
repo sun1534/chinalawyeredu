@@ -108,14 +108,15 @@ public class WorkspaceIndexAction extends StatAction {
 	// }
 
 	private Chart barChart() {
-		double min = 0d;
-		double max = 0d;
+		float min = 0.0f;
+		float max = 0.0f;
 		BarChart c2 = new BarChart(); // 
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
 		jofc2.model.axis.YAxisLabels ylables=new YAxisLabels();
 		int len = streamlist.size();
 		for (int i = 0; i < len; i++) {
 			TotalStatModel stat = (TotalStatModel) streamlist.get(i);
+			
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
@@ -134,7 +135,7 @@ public class WorkspaceIndexAction extends StatAction {
 	
 			xlables.addLabels(label);
 		}
-
+		System.out.println("max::::"+max);
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
 
@@ -148,6 +149,8 @@ public class WorkspaceIndexAction extends StatAction {
 		yaxis.setSteps(steps);
 		yaxis.setMin(min - steps<=0?0:min-steps); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
+		
+		
 		
 //		jofc2.model.axis.Label label = new Label();
 //		label.setText("#val#M");
