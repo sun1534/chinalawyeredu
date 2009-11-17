@@ -15,14 +15,15 @@
 	.message_content dd {display:block; /*width:620px; float:right;*/ border-bottom:1px dotted #CCC;}
 	.message_content dd a.del {float:right; color:#F60; padding-left:5px; text-decoration:none;}
 	.message_content dd a:hover.del {color:#333; text-decoration:none;}
-	.message_content dd .info span {color:#999;}
+	.message_content dd .info  {color:#ff6600;font-size:14px;}
+	.message_content dd .info span {color:#000;font-size:14px;}
 	.message_content dd .info a {color:#093; text-decoration:none; padding-right:20px;}
 	.message_content dd .info a:hover {color:#333; text-decoration:none;}
 	.message_content dd .info .addr {padding-left:40px; color:#666;}
 	.message_content dd .info .time a {color:#F60; text-decoration:none; margin-left:10px;}
 	.message_sys dd {width:auto;}
 	.mag_info_box {overflow:hidden;zoom:1}
-	.mag_info {width:550px; float:left; color:#666;}
+	.mag_info {width:550px; float:left; color:#000;font-size:14px;}
 	.mag_info * a {color:#FF6600;}
 	.mag_dels {width:60px; float:right; text-align:center;}
 	.mag_dels span a {display:inline-block; line-height:18px;}
