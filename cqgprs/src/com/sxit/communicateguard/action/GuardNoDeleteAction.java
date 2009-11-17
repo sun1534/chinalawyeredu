@@ -1,18 +1,17 @@
 /**
  * 
  */
-package com.sxit.netquality.action;
+package com.sxit.communicateguard.action;
 
 import com.sxit.common.action.AbstractAction;
 
 /**
  * 
- * 设置或者取消保障的号码
- * 
+ * 设置或者取消重点apn设置
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class MobileListAction extends AbstractAction {
+public class GuardNoDeleteAction extends AbstractAction {
 
 	/*
 	 * (non-Javadoc)
@@ -25,6 +24,4 @@ public class MobileListAction extends AbstractAction {
 		return SUCCESS;
 	}
 
-	
-	
 }

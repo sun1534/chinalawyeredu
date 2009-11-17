@@ -7,7 +7,7 @@ import com.sxit.common.action.AbstractAction;
 
 /**
  * 
- * SGSN流量分析
+ * gb链路统计,从stat_nsvc拿数据
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */

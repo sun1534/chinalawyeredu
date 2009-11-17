@@ -9,7 +9,7 @@ import java.util.Date;
  * @author 华锋 Oct 21, 2009-10:18:05 PM
  * 
  */
-public class Sgsn {
+public class Sgsn extends Volumes{
 
 	private String sgsnid;
 	private String sgsnarea;

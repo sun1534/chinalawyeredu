@@ -118,9 +118,9 @@ public class WebContextListener implements ServletContextListener {
 			// 获得所有的权限列表信息
 			RightTree.setRightList(basicService.findAll(SysRight.class));
 			
-			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
-			setservice.getAllSets();
-			LOG.info("得到所有的配置参数信息");
+//			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+//			setservice.getAllSets();
+//			LOG.info("得到所有的配置参数信息");
 
 		} catch (ServiceException e) {
 			LOG.error("系统启动初始化权限列表为空" + e);

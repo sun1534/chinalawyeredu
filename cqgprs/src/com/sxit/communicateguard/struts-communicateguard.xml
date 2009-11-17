@@ -12,11 +12,27 @@
           <result name="success" type="dispatcher">/communicateguard/noGuard.jsp</result>	
           <result name="excel" type="dispatcher">/communicateguard/noGuard_excel.jsp</result>	
        </action>
-     <action name="cellGuard" class="com.sxit.communicateguard.action.CellGuardAction">
+       <action name="cellGuard" class="com.sxit.communicateguard.action.CellGuardAction">
           <result name="success" type="dispatcher">/communicateguard/cellGuard.jsp</result>	
           <result name="excel" type="dispatcher">/communicateguard/cellGuard_excel.jsp</result>	
        </action>
-    
+       <action name="guardCells" class="com.sxit.communicateguard.action.GuardCellsAction">
+          <result name="success" type="dispatcher">/communicateguard/guardCells.jsp</result>	
+          <result name="excel" type="dispatcher">/communicateguard/guardCells_excel.jsp</result>	
+       </action>
+       
+       <action name="guardNos" class="com.sxit.communicateguard.action.GuardNosAction">
+          <result name="success" type="dispatcher">/communicateguard/guardNos.jsp</result>	
+          <result name="excel" type="dispatcher">/communicateguard/guardNos_excel.jsp</result>	
+       </action>
+       
+        <action name="guardNoCreateEdit" class="com.sxit.communicateguard.action.GuadrNoCreateEditAction">
+          <result name="input" type="dispatcher">/communicateguard/guardNos.jsp</result>	
+       </action>
+       
+        <action name="guardNoDelete" class="com.sxit.communicateguard.action.GuardNoDeleteAction">
+          <result name="success" type="dispatcher">/common/message.jsp</result>	
+       </action>
       
     </package>
 	

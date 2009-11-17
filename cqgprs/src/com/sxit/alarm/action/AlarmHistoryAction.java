@@ -1,17 +1,17 @@
 /**
  * 
  */
-package com.sxit.netquality.action;
+package com.sxit.alarm.action;
 
 import com.sxit.common.action.AbstractAction;
 
 /**
  * 
- * SGSN流量分析
+ * 告警历史记录查询
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class GbLinkAlertAction extends AbstractAction {
+public class AlarmHistoryAction extends AbstractAction {
 
 	/*
 	 * (non-Javadoc)

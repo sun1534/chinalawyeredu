@@ -20,9 +20,19 @@ import com.sxit.useraction.service.UseractionService;
 public class UserPdpErrorTopListAction extends AbstractAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat dfhour = new java.text.SimpleDateFormat("HH");
+	/**
+	 * 哪天,默认是前1天
+	 */
 	private String date;
+	/**
+	 * 所选择的时间，哪个小时
+	 */
 	private String hour;
-	private String flag;
+	/**
+	 * 1按天 2按时
+	 */
+	private String flag = "1";
 
 	/**
 	 * @return the date
@@ -89,10 +99,23 @@ public class UserPdpErrorTopListAction extends AbstractAction {
 				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			}
 		}
+		if (hour == null || hour.equals("")) {
+			hour = dfhour.format(new Date());
+		}
 
 		UseractionService actionservice = (UseractionService) this.getBean("useractionService");
-
-		this.resultList = actionservice.getPdpErrorTopList(thedate);
+		int start = 0;
+		int end = 0;
+		if (flag.equals("1")) {
+			start = (int) (com.sxit.stat.util.StatUtil.getDateTime(thedate) / 1000);
+			end = (int) (com.sxit.stat.util.StatUtil.getOneDayAfter(start) / 1000);
+		} else {
+			date=df.format(new Date());
+		    String _date=date+" "+hour+"00:00";
+		    start=UseractionService.getDfSec(_date);
+		    end=start+60*60;
+		}
+		this.resultList = actionservice.getPdpErrorTopList(start, end);
 		if (this.resultType.equals("list"))
 			return SUCCESS;
 		else

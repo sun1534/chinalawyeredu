@@ -12,7 +12,7 @@ import java.util.Date;
  * Oct 21, 2009-10:17:54 PM
  *
  */
-public class Apn {
+public class Apn extends Volumes{
 
 	/**
 	 * 编号

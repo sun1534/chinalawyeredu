@@ -130,4 +130,32 @@ public class HightStreamUserAction extends AbstractAction {
 		return top1000users;
 	}
 
+	/**
+	 * @return the standard
+	 */
+	public String getStandard() {
+		return standard;
+	}
+
+	/**
+	 * @param standard the standard to set
+	 */
+	public void setStandard(String standard) {
+		this.standard = standard;
+	}
+
+	/**
+	 * @return the condition
+	 */
+	public String getCondition() {
+		return condition;
+	}
+
+	/**
+	 * @param condition the condition to set
+	 */
+	public void setCondition(String condition) {
+		this.condition = condition;
+	}
+
 }

@@ -25,6 +25,7 @@ import com.sxit.common.PaginationSupport;
 import com.sxit.netquality.models.Apn;
 import com.sxit.netquality.models.BscRnc;
 import com.sxit.netquality.models.Cell;
+import com.sxit.netquality.models.Nsvc;
 import com.sxit.netquality.models.Sgsn;
 
 /**
@@ -49,6 +50,9 @@ public class BasicSetService {
 
 	public static Map<String, String> CELL_BSC = new LinkedHashMap<String, String>();
 	public static Map<String, String> BSC_SGSN = new LinkedHashMap<String, String>();
+
+	public static Map<String, Nsvc> ALL_NSVCS = new LinkedHashMap<String, Nsvc>();
+	public static Map<String, String> NSVC_BSCS = new LinkedHashMap<String, String>();
 
 	private static long updatetime = 0L;
 
@@ -111,7 +115,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTotalLinks() {
-		String sql = "select count(*) from set_bsc where opttype!=2";
+		String sql = "select count(*) from set_nsvc where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -171,7 +175,7 @@ public class BasicSetService {
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
-		String sql = "select count(*) from set_bsc where updatetime between " + start / 1000 + " and " + end / 1000
+		String sql = "select count(*) from set_nsvc where updatetime between " + start / 1000 + " and " + end / 1000
 				+ " and opttype=0";
 		return jdbcTemplate.queryForInt(sql);
 	}
@@ -194,24 +198,24 @@ public class BasicSetService {
 		return d;
 	}
 
-	public PaginationSupport getCells(String cellid, String bscid,int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, String bscid, int pageNo, int pageSize) {
 		String countsql = "";
 		String sql = "";
 
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from set_cell where opttype!=2 ";
-		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} order by CELLID) a where rownum<=" + (startIndex + pageSize) + ") where rn>="
-			+ startIndex;
-		String where="";
+		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} order by CELLID) a where rownum<="
+				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+		String where = "";
 		if (cellid != null && !cellid.equals("")) {
-			where+=" and cellid='" + cellid + "'";
-		} 
-		if (bscid != null && !bscid.equals("")) {
-			where+=" and bscid='" + bscid + "'";
+			where += " and cellid='" + cellid + "'";
 		}
-		countsql=countsql+where;
-		sql=sql.replace("${where}", where);
-		
+		if (bscid != null && !bscid.equals("")) {
+			where += " and bscid='" + bscid + "'";
+		}
+		countsql = countsql + where;
+		sql = sql.replace("${where}", where);
+
 		System.out.println(countsql);
 		System.out.println(sql);
 		int totalCount = jdbcTemplate.queryForInt(countsql);
@@ -224,6 +228,7 @@ public class BasicSetService {
 					model.setCellid(rs.getString("CELLID"));
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLastopt(rs.getString("OPTTYPE"));
+					model.setSubarea(rs.getString("subsidiary"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
@@ -247,19 +252,24 @@ public class BasicSetService {
 	}
 
 	private void getAllCells() {
-		String sql = "select * from  set_cell where opttype!=2 order by CELLID";
+		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_cell a ,allvolume_cellid b where a.cellid=b.cellid(+) and a.opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
 				ALL_CELLS.clear();
 				CELL_BSC.clear();
 				ALL_CELL_LIST.clear();
+				rs.setFetchSize(50);
 				while (rs.next()) {
 					Cell model = new Cell();
 					model.setBscrncid(rs.getString("BSCID"));
 					model.setCellid(rs.getString("CELLID"));
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLastopt(rs.getString("OPTTYPE"));
+					model.setAllvolume(rs.getDouble("allvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setSubarea(rs.getString("subsidiary"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
@@ -275,7 +285,7 @@ public class BasicSetService {
 	}
 
 	private void getAllApns() {
-		String sql = "select * from  set_apn where opttype!=2 order by APNNI";
+		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_apn a,allvolume_apn b where a.apnni=b.apnni(+) and a.opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -287,7 +297,9 @@ public class BasicSetService {
 					model.setApnname(rs.getString("APNNAME"));
 					model.setUsercorp(rs.getString("apnconector"));
 					model.setUserphone(rs.getString("apnconector"));
-
+					model.setAllvolume(rs.getDouble("allvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setUpvolume(rs.getDouble("upvolume"));
 					model.setLastopt(rs.getString("opttype"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
@@ -298,7 +310,65 @@ public class BasicSetService {
 				return null;
 			}
 		});
+	}
 
+	public List getNsvces(String bscid) {
+		String sql = "select * from  set_nsvc where opttype!=2";
+
+		if (bscid != null && !"".equals(bscid)) {
+			sql += " and bscid='" + bscid + "'";
+		}
+		Object obj = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// List list = new ArrayList();
+				List list = new ArrayList();
+				while (rs.next()) {
+					Nsvc model = new Nsvc();
+
+					model.setBscid(rs.getString("bscid"));
+					model.setCapacity(rs.getInt("capacity"));
+					model.setIsactive(rs.getInt("isactive"));
+					model.setNsvc(rs.getString("nsvc"));
+					model.setNsvcindex(rs.getString("nsvcgbindex"));
+					model.setOpst(rs.getString("opst"));
+					model.setOpttype(rs.getInt("opttype"));
+					model.setSgsnid(rs.getString("sgsnid"));
+					model.setUpdatetime(rs.getInt("updatetime"));
+
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		return (List) obj;
+	}
+
+	private void getAllNsvces() {
+		String sql = "select * from  set_nsvc where opttype!=2";
+		jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// List list = new ArrayList();
+				ALL_NSVCS.clear();
+				NSVC_BSCS.clear();
+				while (rs.next()) {
+					Nsvc model = new Nsvc();
+
+					model.setBscid(rs.getString("bscid"));
+					model.setCapacity(rs.getInt("capacity"));
+					model.setIsactive(rs.getInt("isactive"));
+					model.setNsvc(rs.getString("nsvc"));
+					model.setNsvcindex(rs.getString("nsvcindex"));
+					model.setOpst(rs.getString("opst"));
+					model.setOpttype(rs.getInt("opttype"));
+					model.setSgsnid(rs.getString("sgsnid"));
+					model.setUpdatetime(rs.getInt("updatetime"));
+
+					NSVC_BSCS.put(rs.getString("nsvc"), rs.getString("bscid"));
+					ALL_NSVCS.put(rs.getString("APNNI"), model);
+				}
+				return null;
+			}
+		});
 	}
 
 	public List getBsces(String bscid, String sgsnid) {
@@ -323,7 +393,7 @@ public class BasicSetService {
 					model.setSgsnid(rs.getString("sgsnid"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
-					model.setNsvcount(rs.getInt("nsvcount"));
+					model.setNsvcount(rs.getInt("nsvccount"));
 					model.setLastupdate(date);
 
 					list.add(model);
@@ -346,7 +416,7 @@ public class BasicSetService {
 
 			countsql = "select count(*) from set_apn where opttype!=2 and	 apnni='" + apnid + "'";
 			sql = "select * from(select a.*,rownum rn from(select * from set_apn where opttype!=2 and apnni='" + apnid
-					+ "' order by APNNI) a where rownum<=" + (startIndex + pageSize) + ")	 where rn>=" + startIndex;
+					+ "') a where rownum<=" + (startIndex + pageSize) + ")	 where rn>=" + startIndex;
 		}
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 
@@ -393,7 +463,7 @@ public class BasicSetService {
 	 */
 	private void getBsces() {
 
-		String sql = "select * from  SET_BSC  where opttype!=2  order by BSCID";
+		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  SET_BSC a,allvolume_bsc b where a.bscid=b.bscid(+) and a.opttype!=2 ";
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -411,7 +481,9 @@ public class BasicSetService {
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
 					model.setNsvcount(rs.getInt("nsvccount"));
-
+					model.setAllvolume(rs.getDouble("allvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setUpvolume(rs.getDouble("upvolume"));
 					ALL_BSCS.put(rs.getString("BSCID"), model);
 					BSC_SGSN.put(rs.getString("BSCID"), rs.getString("SGSNID"));
 				}
@@ -427,10 +499,14 @@ public class BasicSetService {
 	 */
 	public List getSgsns() {
 
-		String sql = "select * from  SET_SGSN where opttype!=2 order by sgsnid";
+		// String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from
+		// SET_SGSN a,allvolume_sgsn b where a.sgsnid=b.sgsnid(+) and
+		// a.opttype!=2 ";
+		String sql = "select a.* from  SET_SGSN a where a.opttype!=2 ";
+
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-List list=new ArrayList();
+				List list = new ArrayList();
 				ALL_SGSNS.clear();
 				while (rs.next()) {
 					Sgsn model = new Sgsn();
@@ -442,15 +518,19 @@ List list=new ArrayList();
 					model.setLastupdate(date);
 					model.setSgsntype(rs.getString("provider"));
 					model.setBsccount(rs.getInt("bsccount"));
+					model.setSgsnip(rs.getString("sgsnip"));
 					model.setSlotcount(rs.getInt("slotcount"));
 					model.setCapacity(rs.getDouble("capacity"));
+					// model.setAllvolume(rs.getDouble("allvolume"));
+					// model.setDownvolume(rs.getDouble("downvolume"));
+					// model.setUpvolume(rs.getDouble("upvolume"));
 					list.add(model);
 					ALL_SGSNS.put(rs.getString("SGSNID"), model);
 				}
 				return list;
 			}
 		});
-		return (List)object;
+		return (List) object;
 	}
 
 	/**
@@ -564,14 +644,27 @@ List list=new ArrayList();
 
 	public void getAllSets() {
 		long now = System.currentTimeMillis();
-
+long now1=now;
 		if (now - updatetime > 12 * 60 * 60 * 1000) {
 			_LOG.info("从数据库里面取的数据");
 			getSgsns();
+			_LOG.debug("sgsn:"+(System.currentTimeMillis()-now1));
+			now1 = System.currentTimeMillis();
 			getBsces();
+			
+			_LOG.debug("bsc:"+(System.currentTimeMillis()-now1));
+			now1 = System.currentTimeMillis();
 			getAllCells();
+			
+			_LOG.debug("cell:"+(System.currentTimeMillis()-now1));
+			now1 = System.currentTimeMillis();
 			getAllApns();
-
+			
+			_LOG.debug("apn:"+(System.currentTimeMillis()-now1));
+			now1 = System.currentTimeMillis();
+			this.getAllNsvces();
+			_LOG.debug("nsvc:"+(System.currentTimeMillis()-now1));
+			
 			updatetime = now;
 		} else {
 			_LOG.info("从缓存里面取的数据");

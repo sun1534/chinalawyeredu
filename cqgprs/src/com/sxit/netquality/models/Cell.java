@@ -13,11 +13,12 @@ import java.util.Date;
  * Oct 21, 2009-10:17:45 PM
  *
  */
-public class Cell {
+public class Cell extends Volumes{
 
 	private String cellid;
 	private String cellname;
 	private String bscrncid;
+	private String subarea;
 	/**
 	 * 最近1次拿数据的时间
 	 */
@@ -88,5 +89,17 @@ public class Cell {
 	}
 	public String getSgsnid(){
 		return com.sxit.netquality.service.BasicSetService.BSC_SGSN.get(bscrncid);
+	}
+	/**
+	 * @return the subarea
+	 */
+	public String getSubarea() {
+		return subarea;
+	}
+	/**
+	 * @param subarea the subarea to set
+	 */
+	public void setSubarea(String subarea) {
+		this.subarea = subarea;
 	}
 }

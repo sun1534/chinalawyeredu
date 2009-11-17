@@ -58,7 +58,10 @@ public class ErrorCodeStat {
 		}
 		
 	}
-	
+	/**
+	 * 对应的错误代码
+	 */
+	private String errorcode;
 //错误总数
 	private int errorcount;
 	//用户总数
@@ -103,6 +106,18 @@ public class ErrorCodeStat {
 	 */
 	public void setDetailist(List detailist) {
 		this.detailist = detailist;
+	}
+	/**
+	 * @return the errorcode
+	 */
+	public String getErrorcode() {
+		return errorcode;
+	}
+	/**
+	 * @param errorcode the errorcode to set
+	 */
+	public void setErrorcode(String errorcode) {
+		this.errorcode = errorcode;
 	}
 	
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sxit.netquality.action;
+package com.sxit.communicateguard.action;
 
 import com.sxit.common.action.AbstractAction;
 
@@ -11,7 +11,7 @@ import com.sxit.common.action.AbstractAction;
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class MobileCreateEditAction extends AbstractAction {
+public class GuadrNoCreateEditAction extends AbstractAction {
 
 	/*
 	 * (non-Javadoc)

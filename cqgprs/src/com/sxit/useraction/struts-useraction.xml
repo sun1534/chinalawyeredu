@@ -16,6 +16,7 @@
        </action>
        <action name="userPdpErrorAll" class="com.sxit.useraction.action.UserPdpErrorAllAction">
           <result name="success" type="dispatcher">/useraction/userPdpErrorAll.jsp</result>	
+          <result name="excel" type="dispatcher">/useraction/userPdpErrorAll_excel.jsp</result>	
        </action>
       
         <action name="roamErros" class="com.sxit.useraction.action.RoamErrosAction">

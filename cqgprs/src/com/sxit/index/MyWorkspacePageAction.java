@@ -46,6 +46,9 @@ public class MyWorkspacePageAction extends AbstractAction {
 		this.totalbsc=service.getTotalBscs();
 		this.totalcell=service.getTotalCells();
 		
+		this.totallink=service.getTotalLinks();
+		this.newlink=service.getTodayAddLink();
+		
 		
 		com.sxit.stat.service.StatService statservice=(StatService)getBean("statService");
 		totallist=statservice.getDaysTotalStream(start, end);
@@ -76,14 +79,15 @@ public class MyWorkspacePageAction extends AbstractAction {
 	public List getTotal23glist() {
 		return total23glist;
 	}
-	private int zeroapn;
-	private int zerocell;
+
 	private int newaddcell;
 	private int totalcell;
 	private int newaddapn;
 	private int totalapn;
 	private int newaddbsc;
 	private int totalbsc;
+	private int newlink;
+	private int totallink;
 	
 	private int exceptioncell;
 	private int exceptionapn;
@@ -150,6 +154,20 @@ public class MyWorkspacePageAction extends AbstractAction {
 	 */
 	public int getTotalbsc() {
 		return totalbsc;
+	}
+
+	/**
+	 * @return the newlink
+	 */
+	public int getNewlink() {
+		return newlink;
+	}
+
+	/**
+	 * @return the totallink
+	 */
+	public int getTotallink() {
+		return totallink;
 	}
 	
 }

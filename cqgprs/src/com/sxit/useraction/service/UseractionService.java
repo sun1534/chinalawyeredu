@@ -15,7 +15,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.sxit.common.PaginationSupport;
-import com.sxit.netquality.models.TopCell;
+import com.sxit.netquality.models.ContinueMobiles;
+import com.sxit.useraction.models.ErrorCodeAllStat;
 import com.sxit.useraction.models.ErrorCodeStat;
 import com.sxit.useraction.models.ExceptionUsers;
 import com.sxit.useraction.models.MobilesTop;
@@ -28,16 +29,43 @@ import com.sxit.useraction.models.UserPdpErrorTop;
  */
 public class UseractionService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyyMM-dd HH:mm:ss");
-	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyyMM-dd HH:00");
-	private int getDfSec(String date) {
-	try {
-		Date d = dfsec.parse(date);
-		return (int) (d.getTime() / 1000);
-	} catch (Exception e) {
-		return (int) (System.currentTimeMillis() / 1000);
+	private static final DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
+	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
+
+	public static int getDfSec(String date) {
+		try {
+			Date d = dfsec.parse(date);
+			return (int) (d.getTime() / 1000);
+		} catch (Exception e) {
+			return (int) (System.currentTimeMillis() / 1000);
+		}
 	}
-}
+
+	/**
+	 * 得到这个小时的起始时间值
+	 * 
+	 * @return
+	 */
+	public static int getDateHourTime(Date date) {
+		String datestr = dfhour.format(date);
+		// String hstart = datestr + " 00:00";
+		// String hend=datestr+" 59:59";
+		try {
+			Date d = dfsec.parse(datestr);
+			return (int) (d.getTime() / 1000);
+		} catch (Exception e) {
+			return (int) (System.currentTimeMillis() / 1000);
+		}
+	}
+	
+	
+	
+
+	public static int getHourAfterTime(int start) {
+		return start + 60 * 60;
+	}
+
 	private JdbcTemplate jdbcTemplate;
 
 	/**
@@ -49,14 +77,94 @@ public class UseractionService {
 	}
 
 	/**
-     * 表3、PDP异常用户排名（按失败次数取前1000个用户），其实主要是33号错误的
+	 * 得到起始终止时间段内的错误统计情况
+	 * 
+	 * @param timestart
+	 * @param timeend
 	 * @return
 	 */
-	public List getPdpErrorTopList(Date date){
-		long start=com.sxit.stat.util.StatUtil.getDateTime(date);
-		long end=com.sxit.stat.util.StatUtil.getOneDayAfter(start);
-		String sql="select * from (select imsi,reqapnni,count(*) as cnt from cdr_mistake where opentime between "+start/1000+" and "+end/1000+" group by imsi,reqapnni) where rownum<=1000 order by cnt desc";
-			
+	public ErrorCodeAllStat getPdpErrorStatics(int timestart, int timeend) {
+		String sql = "select errcode,count(errcode) as errcount,count(distinct(imsi)) usercount from cdr_mistake where opentime between "
+				+ timestart + " and " + timeend + " group by errcode";
+
+		System.out.println(sql);
+
+		final ErrorCodeAllStat ecas = new ErrorCodeAllStat();
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				while (rs.next()) {
+					int errcode = rs.getInt("errcode");
+					int errcount = rs.getInt("errcount");
+					int usercount = rs.getInt("usercount");
+
+					if (errcode == 33) {
+						ecas.setErrorcount33(ecas.getErrorcount33() + errcount);
+						ecas.setUsercount33(ecas.getUsercount33() + usercount);
+					} else if (errcode == 27) {
+						ecas.setErrorcount27(ecas.getErrorcount27() + errcount);
+						ecas.setUsercount27(ecas.getUsercount27() + usercount);
+					} else if (errcode == 29) {
+						ecas.setErrorcount29(ecas.getErrorcount29() + errcount);
+						ecas.setUsercount29(ecas.getUsercount29() + usercount);
+					} else if (errcode == 38) {
+						ecas.setErrorcount38(ecas.getErrorcount38() + errcount);
+						ecas.setUsercount38(ecas.getUsercount38() + usercount);
+					} else {
+						ecas.setErrorcountothers(ecas.getErrorcountothers() + errcount);
+						ecas.setUsercountothers(ecas.getUsercountothers() + usercount);
+					}
+
+					ecas.setErrorcountall(ecas.getErrorcountall() + errcount);
+					ecas.setUsercountall(ecas.getUsercountall() + usercount);
+
+				}
+				return null;
+			}
+		});
+		// List list = (List) object;
+		return ecas;
+	}
+
+	/**
+	 * 表3、PDP异常用户排名（按失败次数取前1000个用户），其实主要是33号错误的
+	 * 
+	 * 这里要按天和按时
+	 * 
+	 * @return
+	 */
+	public List getPdpErrorTopList(Date date) {
+		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
+		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		return getPdpErrorTopList((int)(start/1000),(int)(end/1000));
+//		String sql = "select * from (select imsi,reqapnni,count(*) as cnt from cdr_mistake where opentime between "
+//				+ start / 1000 + " and " + end / 1000 + " group by imsi,reqapnni order by cnt desc) where rownum<=1000 order by cnt desc";
+//System.out.println(sql);
+//		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+//
+//			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				List list = new ArrayList();
+//				while (rs.next()) {
+//					UserPdpErrorTop eusers = new UserPdpErrorTop();
+//					eusers.setApn(rs.getString("reqapnni"));
+//					eusers.setErrorcount(rs.getInt("cnt"));
+//					eusers.setImsi(rs.getString("imsi"));
+//					list.add(eusers);
+//				}
+//				return list;
+//			}
+//		});
+//		List list = (List) object;
+//		return list;
+
+	}
+
+	public List getPdpErrorTopList(int start,int end) {
+//		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
+//		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		String sql = "select * from (select imsi,reqapnni,count(*) as cnt from cdr_mistake where opentime between "
+				+ start + " and " + end  + " group by imsi,reqapnni order by cnt desc) where rownum<=1000 order by cnt desc";
+System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -73,7 +181,7 @@ public class UseractionService {
 		});
 		List list = (List) object;
 		return list;
-		
+
 	}
 	
 	/**
@@ -82,18 +190,20 @@ public class UseractionService {
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getExceptionUsers(String apnni,Date date, int pageNo, int pageSize) {
+	public PaginationSupport getExceptionUsers(String apnni, Date date, int pageNo, int pageSize) {
 		final long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		final long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
 
-		String where="";
-		if(apnni!=null&&!apnni.equals(""))
-		where =" and reqapnni='"+apnni+"'";
+		String where = "";
+		if (apnni != null && !apnni.equals(""))
+			where = " and reqapnni='" + apnni + "'";
 		String cntsql = "select count(*) as cnt from (select count(reqapnni) from cdr_mistake where reqapnni like '%.cq' and errcode=33 and opentime between "
 				+ start / 1000 + " and " + end / 1000 + " ${where} group by reqapnni )";
-	
-		cntsql=cntsql.replace("${where}", where);
-		
+
+		cntsql = cntsql.replace("${where}", where);
+
+		System.out.println(cntsql);
+
 		int totalCount = jdbcTemplate.queryForInt(cntsql);
 
 		int startIndex = (pageNo - 1) * pageSize;
@@ -107,8 +217,8 @@ public class UseractionService {
 				+ " ${where} group by reqapnni ) a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
-		sql=sql.replace("${where}", where);
-		
+		sql = sql.replace("${where}", where);
+
 		// String sql="select reqapnni ,count(distinct(imsi)) from cdr_mistake
 		// where reqapnni like '%.cq' and errcode=33 and opentime between
 		// "+start/1000+" and "+end/1000+" group by reqapnni ";
@@ -135,7 +245,7 @@ public class UseractionService {
 
 	public List getExcepionUserDetailByApn(final ExceptionUsers eusers, String apn, long start, long end) {
 		String sql = "select imsi,count(imsi) as errorcount from cdr_mistake where reqapnni='" + apn
-				+ "' and opentime between " + start / 1000 + " and " + end / 1000 +"group by imsi";
+				+ "' and opentime between " + start / 1000 + " and " + end / 1000 + "group by imsi";
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -155,8 +265,7 @@ public class UseractionService {
 	}
 
 	/**
-	 * 统计高流量的用户排名,根据时间和所在的apn进行排名
-	 * stat_apn_mobile
+	 * 统计高流量的用户排名,根据时间和所在的apn进行排名 stat_apn_mobile
 	 * 
 	 * @param date
 	 * @param apn
@@ -164,96 +273,150 @@ public class UseractionService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List getHightStreamDayUser(final Date date,String standard, String condition) {
-		
-		String sql="";
-		String table=com.sxit.stat.util.StatUtil.getMobileApnTable(date);
-		if(standard.equals("1")){
-//			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
-			 sql="select mobile,apnni,upvolume,downvolume,allvolume,periodlen from "+table+" where dayflag=1 and allvolume>="+condition+" order by allvolume desc";
+	public List getHightStreamDayUser(final Date date, String standard, String condition) {
 
-		}else{
-			 sql="select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  "+table+"  where dayflag=1 and rownum<="+condition+" order by allvolume desc";
-        }
+		String sql = "";
+		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		if (standard.equals("1")) {
+			// sql="select cellid,sum(allvolume) as allv from stat_cellid where
+			// dayflag=1 and (stattime="+_date+") group by cellid having
+			// sum(allvolume)>="+condition+") order by allv desc";
+			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from " + table
+					+ " where dayflag=1 and allvolume>=" + condition + " order by allvolume desc";
+
+		} else {
+//			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
+//					+ "  where dayflag=1 and rownum<=" + condition + " order by allvolume desc";
+//			
+			sql="select * from(select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
+					+ "  where dayflag=1 order by allvolume desc) where rownum<=" + condition +" order by allvolume desc" ;
+		}
 		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
 					MobilesTop model = new MobilesTop();
-				model.setMobile(rs.getString("mobile"));
-				model.setApnni(rs.getString("apnni"));
-				model.setUpvolume(rs.getFloat("upvolume"));
-				model.setDownvolume(rs.getFloat("downvolume"));
-				model.setPeriodlen(rs.getInt("periodlen"));
-				model.setAllvolume(rs.getFloat("allvolume"));
-				model.setDate(df.format(date));
-				model.setDatehour(dfsec.format(date));
+					model.setMobile(rs.getString("mobile"));
+					model.setApnni(rs.getString("apnni"));
+					model.setUpvolume(rs.getFloat("upvolume"));
+					model.setDownvolume(rs.getFloat("downvolume"));
+					model.setPeriodlen(rs.getInt("periodlen"));
+					model.setAllvolume(rs.getFloat("allvolume"));
+					model.setDate(df.format(date));
+					model.setDatehour(dfsec.format(date));
 					list.add(model);
 				}
 				return list;
 			}
 		});
 		List list = (List) object;
-        return list;
+		return list;
 	}
 
-	
-	public List getHightStreamHourUser(String standard,String condition, Date date,final String hour){
-		final String _date=df.format(date);
+	public List getHightStreamHourUser(String standard, String condition, Date date, final String hour) {
+		final String _date = df.format(date);
 		String start = _date + " " + hour + ":00:00";
 		String end = _date + " " + hour + ":59:59";
 
 		int _start = getDfSec(start);
 		int _end = getDfSec(end);
-		String table=com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
 
-		
-		String sql="";
-		if(standard.equals("1")){
-			 sql="select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "+table+" where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by mobile,apnni having sum(allvolume)>="+condition+") order by allvolume desc";
-		}else{
-			 sql="select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "+table+" where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by mobile,apnni ) where rownum<="+condition+" order by allvolume desc";
-        }
-		
+		String sql = "";
+		if (standard.equals("1")) {
+			sql = "select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
+					+ table
+					+ " where dayflag=0 and (stattime>="
+					+ _start
+					+ " and stattime<="
+					+ _end
+					+ ") group by mobile,apnni having sum(allvolume)>=" + condition + ") order by allvolume desc";
+		} else {
+			sql = "select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
+					+ table
+					+ " where dayflag=0 and (stattime>="
+					+ _start
+					+ " and stattime<="
+					+ _end
+					+ ") group by mobile,apnni ) where rownum<=" + condition + " order by allvolume desc";
+		}
+
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
 					MobilesTop model = new MobilesTop();
-				model.setMobile(rs.getString("mobile"));
-				model.setApnni(rs.getString("apnni"));
-				model.setUpvolume(rs.getFloat("upvolume"));
-				model.setDownvolume(rs.getFloat("downvolume"));
-				model.setPeriodlen(rs.getInt("periodlen"));
-				model.setAllvolume(rs.getFloat("allvolume"));
-				model.setDate(_date);
-				
-				model.setDatehour(_date+" "+hour+":00");
+					model.setMobile(rs.getString("mobile"));
+					model.setApnni(rs.getString("apnni"));
+					model.setUpvolume(rs.getFloat("upvolume"));
+					model.setDownvolume(rs.getFloat("downvolume"));
+					model.setPeriodlen(rs.getInt("periodlen"));
+					model.setAllvolume(rs.getFloat("allvolume"));
+					model.setDate(_date);
+
+					model.setDatehour(_date + " " + hour + ":00");
 					list.add(model);
 				}
 				return list;
 			}
 		});
 		List list = (List) object;
-        return list;
+		return list;
 	}
-	
+
 	/**
-	 * 统计pdp的失败用户排名
+	 * 得到连续n天都有某个错误的号码
 	 * 
-	 * @param date
-	 * @param pageNo
-	 * @param pageSize
+	 * @param firstdate
+	 *            第一天
+	 * @param count
+	 *            总计多少天
 	 * @return
 	 */
-	public PaginationSupport getTopPdpErrors(Date date, int pageNo, int pageSize) {
+	public List getConinueErrorMobileList(Date firstdate, int count, int errcode) {
+		String first = dfyyyyMMdd.format(firstdate);
+		Date lastdate = com.sxit.stat.util.StatUtil.getPrevCountDate(firstdate, count - 1);
+		String last = dfyyyyMMdd.format(lastdate);
+		// String sql="select imsi,msisdn,count(*) from stat_apn_error_imsi
+		// where errcode="+errcode+" stattime between "+first+" and "+last+"
+		// group by imsi,msisdn having count(*)>= "+ count;
 
-		// PaginationSupport ps = new PaginationSupport(list, totalCount,
-		// pageSize, startIndex);
-		// return ps;
+		String sql = "select imsi,count(*) from stat_apn_error_imsi where errcode=" + errcode + " and stattime between "
+				+ first + " and " + last + " group by imsi having count(*)>= " + count;
+		System.out.println(sql);
 
-		return null;
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				int i = 0;
+				ContinueMobiles mobiles = null;
+				while (rs.next()) {
+					if (i % 4 == 0) {
+						mobiles = new ContinueMobiles();
+						mobiles.setImsi1(rs.getString("imsi"));
+						list.add(mobiles);
+						i = i + 1;
+					}
+					if (rs.next()) {
+						mobiles.setImsi2(rs.getString("imsi"));
+						i = i + 1;
+					}
+					if (rs.next()) {
+						mobiles.setImsi3(rs.getString("imsi"));
+						i = i + 1;
+					}
+					if (rs.next()) {
+						mobiles.setImsi4(rs.getString("imsi"));
+						i = i + 1;
+					}
+
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
 	}
 
 	/**
@@ -268,12 +431,17 @@ public class UseractionService {
 		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
 
-		String countsql = "select count(distinct(imsi)) as usercount,count(*) as errorcount from  cdr_mistake where errcode="
-				+ errorcode + " and opentime between " + start / 1000 + " and " + end / 1000;
+		String table = "cdr_mistake";
+		if (!errorcode.equals("33")) {
+			table = "cdr_mistake_no33";
+		}
+		String countsql = "select count(distinct(imsi)) as usercount,count(*) as errorcount from  " + table
+				+ " where errcode=" + errorcode + " and opentime between " + start / 1000 + " and " + end / 1000;
 
 		System.out.println(countsql);
 
 		final ErrorCodeStat stat = new ErrorCodeStat();
+		stat.setErrorcode(errorcode);
 		jdbcTemplate.query(countsql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -287,9 +455,12 @@ public class UseractionService {
 			}
 		});
 
-		String sql = "select reqapnni,imsi,count(*) as errorcount from  cdr_mistake where errcode='" + errorcode
-				+ "' and opentime between " + start / 1000 + " and " + end / 1000 + " group by reqapnni,imsi";
+		String sql = "select reqapnni,imsi,count(*) as errorcount from  "+table+" where errcode='" + errorcode
+				+ "' and opentime between " + start / 1000 + " and " + end / 1000 + " group by imsi,reqapnni";
 
+		System.out.println(sql);
+
+		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -324,12 +495,13 @@ public class UseractionService {
 	 *            统计某天的还是统计某个时间点的
 	 * @return
 	 */
-	public List getApnErrors(String date, String hour, String dayflag) {
+	public List getApnErrors(String date, String orderby,String ascdesc,String hour, String dayflag) {
 
 		String sql = "";
 		// if (dayflag.equals("1")) {
 		String stattime = date.replace("-", "");
-		sql = "select * from stat_apn_error where dayflag=1 and stattime=" + stattime;
+		sql = "select * from stat_apn_error where dayflag=1 and stattime=" + stattime +" order by "+orderby+" "+ascdesc;
+		
 		// }
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 

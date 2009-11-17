@@ -20,7 +20,21 @@ public class ErrorApnsction extends AbstractAction {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private String date;
-	private String orderby; // 排序依据
+	private String orderby="apnni"; // 排序依据
+private String ascdesc="asc";//顺序逆序
+	/**
+ * @return the ascdesc
+ */
+public String getAscdesc() {
+	return ascdesc;
+}
+
+/**
+ * @param ascdesc the ascdesc to set
+ */
+public void setAscdesc(String ascdesc) {
+	this.ascdesc = ascdesc;
+}
 
 	/**
 	 * @return the date
@@ -64,13 +78,15 @@ public class ErrorApnsction extends AbstractAction {
 			date = df.format(com.sxit.stat.util.StatUtil.getPrevDate());
 		}
 		UseractionService service = (UseractionService) this.getBean("useractionService");
-		apnerrorslist = service.getApnErrors(date, null, null);
+		apnerrorslist = service.getApnErrors(date,orderby,ascdesc, null, null);
 		if (resultType.equals("list"))
 			return SUCCESS;
 		else
 			return "excel";
 	}
 
+	
+	
 	private List apnerrorslist;
 
 	public List getApnerrorslist() {

@@ -10,7 +10,7 @@ import java.util.Date;
  * Oct 21, 2009-10:18:01 PM
  *
  */
-public class BscRnc {
+public class BscRnc extends Volumes{
 	private int nsvcount;
 	
 /**

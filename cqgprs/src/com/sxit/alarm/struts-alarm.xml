@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="alarm" extends="default" namespace="/alarm">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+		   <action name="alarmHistory" class="com.sxit.alarm.action.AlarmHistoryAction">
+          <result name="success" type="dispatcher">/alarm/alarmHistory.jsp</result>	
+       </action>
+
+        <action name="gbLinkAlarm" class="com.sxit.alarm.action.GbLinkAlarmAction">
+          <result name="success" type="dispatcher">/alarm/gbLinkAlarm.jsp</result>	
+       </action>
+    </package>
+	
+	
+</struts>

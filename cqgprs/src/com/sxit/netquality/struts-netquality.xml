@@ -21,26 +21,22 @@
         <action name="zeroStreamAPN" class="com.sxit.netquality.action.ZeroStreamAPNAction">
           <result name="success" type="dispatcher">/netquality/zeroStreamAPN.jsp</result>	
        </action>
-         <action name="gbLinkAlert" class="com.sxit.netquality.action.GbLinkAlertAction">
-          <result name="success" type="dispatcher">/netquality/gbLinkAlert.jsp</result>	
-       </action>
+       
          <action name="gbLinkStatic" class="com.sxit.netquality.action.GbLinkStaticAction">
           <result name="success" type="dispatcher">/netquality/gbLinkStatic.jsp</result>	
        </action>
          <action name="pdpErrorAll" class="com.sxit.netquality.action.PdpErrorAllAction">
           <result name="success" type="dispatcher">/netquality/pdpErrorAll.jsp</result>	
+           <result name="success" type="dispatcher">/netquality/pdpErrorAll_excel.jsp</result>
        </action>
          <action name="error38" class="com.sxit.netquality.action.Error38Action">
           <result name="success" type="dispatcher">/netquality/error38.jsp</result>	
        </action>
+        <action name="error38Continue" class="com.sxit.netquality.action.Error38ContinueAction">
+          <result name="success" type="dispatcher">/netquality/error38Continue.jsp</result>	
+       </action>
        
-        <action name="mobileList" class="com.sxit.netquality.action.MobileListAction">
-          <result name="success" type="dispatcher">/netquality/mobileList.jsp</result>	
-          <result name="excel" type="dispatcher">/netquality/mobileList_excel.jsp</result>	
-       </action>
-         <action name="mobileCreateEdit" class="com.sxit.netquality.action.MobileCreateEditAction">
-          <result name="success" type="dispatcher">/netquality/mobileCreateEdit.jsp</result>	
-       </action>
+       
         <action name="cellList" class="com.sxit.netquality.action.CellListAction">
           <result name="success" type="dispatcher">/netquality/cellList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/cellList_excel.jsp</result>	
@@ -57,6 +53,10 @@
           <result name="success" type="dispatcher">/netquality/sgsnList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/sgsnList_excel.jsp</result>	
        </action>
+       <action name="nsvcList" class="com.sxit.netquality.action.NsvcListAction">
+          <result name="success" type="dispatcher">/netquality/nsvcList.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/nsvcList_excel.jsp</result>	
+       </action>
        
        
        
@@ -70,9 +70,7 @@
 	    <action name="setCellFocus" class="com.sxit.netquality.action.ajax.SetCellFocusAction">
 			<result name="success" type="json"></result>
    	   </action>
-   	      <action name="mobileDelete" class="com.sxit.netquality.action.ajax.MobileDeleteAction">
-			<result name="success" type="json"></result>
-       </action>
+   	  
    	   	   	 
 	</package>
 	
