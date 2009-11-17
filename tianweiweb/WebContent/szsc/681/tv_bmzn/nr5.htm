@@ -10,14 +10,14 @@ table{ font-size:22px;font-family: "黑体" ;}.style2 {font-size: 26px}
 var PRVE_URL = "nr5.htm"
 var BACK_URL = "tm1.htm"; //返回连接
 var tmArray = [
-	{"info":"南航增深圳至台北航班","url":"nr1.htm"},
-	{"info":"深航增开至首尔航班","url":"nr2.htm"},
-	{"info":"南航推出国内民航首张电子货单","url":"nr3.htm"},
-	{"info":"顺丰全货机出港场地投产使用","url":"nr4.htm"},
-	{"info":"恩施至深圳航班27日起开通","url":"nr5.htm"},
-	{"info":"“和谐号”发车时间恢复","url":"nr6.htm"},
-	{"info":"深圳往来南昌L226/5次列车停开","url":"nr7.htm"},
-	{"info":"珠海至蛇口航线航班开行时间恢复","url":"nr8.htm"}
+	{"info":"<a href='nr1.htm'>南航增深圳至台北航班</a>","url":"nr1.htm"},
+	{"info":"<a href='nr2.htm'>深航增开至首尔航班</a>","url":"nr2.htm"},
+	{"info":"<a href='nr3.htm'>南航推出国内民航首张电子货单</a>","url":"nr3.htm"},
+	{"info":"<a href='nr4.htm'>顺丰全货机出港场地投产使用</a>","url":"nr4.htm"},
+	{"info":"<a href='nr5.htm'>恩施至深圳航班27日起开通</a>","url":"nr5.htm"},
+	{"info":"<a href='nr6.htm'>“和谐号”发车时间恢复</a>","url":"nr6.htm"},
+	{"info":"<a href='nr7.htm'>深圳往来南昌L226/5次列车停开</a>","url":"nr7.htm"},
+	{"info":"<a href='nr8.htm'>珠海至蛇口航线航班开行时间恢复</a>","url":"nr8.htm"}
 ];
 
 var nr_pageSize = 1;
@@ -53,7 +53,7 @@ function init_focus(){
 
 function show_nr_page(){
 	//if(nr_length>1) nr_titleIcon_objs[1].src = "title_icon.gif";
-	nr_title_objs[0].innerText = tmArray[nr_first_pos].info;
+	nr_title_objs[0].innerHTML = tmArray[nr_first_pos].info;
 }
 
 
@@ -153,7 +153,24 @@ case 270:
 		case 373://page down
 			break;
 	}
-}</script>
+}
+function nextpage(){
+	if(area==1){
+				document.getElementById("btn").src = "pic6_03.gif";
+				area=0;
+				nr_pageIndex = 0;
+				nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+				nr_title_objs[0].style.color = "#ffffff";
+			}
+			else if(area==0){
+				var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;
+					nr_first_pos = (nr_first_pos+1)%nr_length;
+					show_nr_page();
+			}
+			return 0;
+}
+setInterval ("nextpage()",2000);
+</script>
 </head>
 
 <body background="nr_bg.gif" leftmargin="0" topmargin="0" onload="init()">

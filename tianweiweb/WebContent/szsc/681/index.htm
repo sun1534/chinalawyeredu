@@ -36,7 +36,7 @@ function init(){
 }
 
 function L_focus(__num){
-		alert("L_focus("+__num+")");
+		//alert("L_focus("+__num+")");
 	$("L"+L_pos).style.backgroundImage = "url()";	
 	$("L9").style.backgroundImage= "url(jpg1.gif)";
 	$("L10").style.backgroundImage= "url(jpg2.gif)";
@@ -66,7 +66,7 @@ function buttonFocus(__num){
 }
 
 function doSelcet(){
-	alert(area);
+	//alert(area);
 	if(area==0){
 		location.href = L_links[L_pos];
 	}
@@ -84,7 +84,7 @@ document.onkeydown = grabEvent;
 document.onirkeypress = grabEvent;
 function grabEvent(){
 	var keycode = event.which||event.keyCode;
-		alert("keycode::"+keycode)
+		//alert("keycode::"+keycode)
 	switch(keycode){
 		case 1://up
 		case 38:

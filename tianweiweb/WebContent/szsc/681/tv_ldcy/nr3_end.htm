@@ -8,12 +8,12 @@
 var PRVE_URL = "";
 var BACK_URL   = "tm1.htm"; //返回连接
 var tmArray = [
-	{"info":"市委","url":"nr_end.htm"},
-	{"info":"市人大","url":"nr1_end.htm"},
-	{"info":"市政府","url":"nr2_end.htm"},
-	{"info":"市政府党组","url":"nr3_end.htm"},
-	{"info":"市政协 ","url":"nr4_end.htm"},
-	{"info":"市纪委","url":"nr5_end.htm"}
+	{"info":"<a href='nr_end.htm'>市委</a>","url":"nr_end.htm"},
+	{"info":"<a href='nr1_end.htm'>市人大</a>","url":"nr1_end.htm"},
+	{"info":"<a href='nr2_end.htm'>市政府</a>","url":"nr2_end.htm"},
+	{"info":"<a href='nr3_end.htm'>市政府党组</a>","url":"nr3_end.htm"},
+	{"info":"<a href='nr4_end.htm'>市政协 </a>","url":"nr4_end.htm"},
+	{"info":"<a href='nr5_end.htm'>市纪委</a>","url":"nr5_end.htm"}
 ];
 var nr_pageSize = 1;
 var nr_length = tmArray.length;
@@ -47,7 +47,7 @@ function init_focus(){
 
 function show_nr_page(){
 	//if(nr_length>1) nr_titleIcon_objs[1].src = "title_icon.gif";
-	nr_title_objs[0].innerText = tmArray[nr_first_pos].info;
+	nr_title_objs[0].innerHTML = tmArray[nr_first_pos].info;
 }
 
 
@@ -144,6 +144,22 @@ case 270:
 			break;
 	}
 }
+function nextpage(){
+	if(area==1){
+				document.getElementById("btn").src = "pic6_03.gif";
+				area=0;
+				nr_pageIndex = 0;
+				nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+				nr_title_objs[0].style.color = "#ffffff";
+			}
+			else if(area==0){
+				var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;
+					nr_first_pos = (nr_first_pos+1)%nr_length;
+					show_nr_page();
+			}
+			return 0;
+}
+setInterval ("nextpage()",2000);
 </script>
 </head>
 

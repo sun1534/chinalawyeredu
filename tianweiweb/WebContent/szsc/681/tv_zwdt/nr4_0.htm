@@ -11,14 +11,14 @@ table{ font-size:22px;font-family: "黑体" ;}.style1 {font-size: 22px}
 var PRVE_URL = "nr4_0.htm";
 var BACK_URL = "tm1.htm"; //返回连接
 var tmArray = [
-	{"info":"黄华华带队考核我市党风廉政建设情况","url":"nr1_0.htm"},
-    {"info":"王荣主持召开市政府四届一四八次常务会议","url":"nr2_0.htm"},
-	{"info":"全国总工会领导来深调研基层工会工作","url":"nr3_0.htm"},
-    {"info":"吕锐锋乘坐火车考察铁路沿线实情","url":"nr4_0.htm"},
-	{"info":"市政协领导率队视察我市城市更新情况","url":"nr5_0.htm"},	  	
-	{"info":"全国海洋石油安全生产会议在深举行","url":"nr6_0.htm"},
-	{"info":"世界知识城市峰会5日在深展开学术交流","url":"nr7_0.htm"},	
-	{"info":"我市今年计划建2.57万套保障性住房","url":"nr8_0.htm"}
+	{"info":"<a href='nr1_0.htm'>黄华华带队考核我市党风廉政建设情况</a>","url":"nr1_0.htm"},
+    {"info":"<a href='nr2_0.htm'>王荣主持召开市政府四届一四八次常务会议</a>","url":"nr2_0.htm"},
+	{"info":"<a href='nr3_0.htm'>全国总工会领导来深调研基层工会工作</a>","url":"nr3_0.htm"},
+    {"info":"<a href='nr4_0.htm'>吕锐锋乘坐火车考察铁路沿线实情</a>","url":"nr4_0.htm"},
+	{"info":"<a href='nr5_0.htm'>市政协领导率队视察我市城市更新情况</a>","url":"nr5_0.htm"},	  	
+	{"info":"<a href='nr6_0.htm'>全国海洋石油安全生产会议在深举行</a>","url":"nr6_0.htm"},
+	{"info":"<a href='nr7_0.htm'>世界知识城市峰会5日在深展开学术交流</a>","url":"nr7_0.htm"},	
+	{"info":"<a href='nr8_0.htm'>我市今年计划建2.57万套保障性住房</a>","url":"nr8_0.htm"}
 ]
 var nr_pageSize = 1;
 var nr_length = tmArray.length;
@@ -53,7 +53,7 @@ function init_focus(){
 
 function show_nr_page(){
 	//if(nr_length>1) nr_titleIcon_objs[1].src = "title_icon.gif";
-	nr_title_objs[0].innerText = tmArray[nr_first_pos].info;
+	nr_title_objs[0].innerHTML = tmArray[nr_first_pos].info;
 }
 
 
@@ -150,7 +150,24 @@ case 270:
 		case 373://page down
 			break;
 	}
-}</script>
+}
+function nextpage(){
+	if(area==1){
+				document.getElementById("btn").src = "pic6_03.gif";
+				area=0;
+				nr_pageIndex = 0;
+				nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
+				nr_title_objs[0].style.color = "#ffffff";
+			}
+			else if(area==0){
+				var nr_pos = (nr_first_pos + nr_pageIndex)%nr_length;
+					nr_first_pos = (nr_first_pos+1)%nr_length;
+					show_nr_page();
+			}
+			return 0;
+}
+setInterval ("nextpage()",2000);
+</script>
 </head>
 
 <body background="nr_bg.gif" leftmargin="0" topmargin="0" onload="init()">
