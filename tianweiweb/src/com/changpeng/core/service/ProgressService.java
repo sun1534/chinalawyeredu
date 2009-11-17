@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
@@ -37,6 +38,7 @@ public class ProgressService extends BasicService {
 	public PaginationSupport getProgressList(int userid,int pageSize,int pageNo){
 		DetachedCriteria dc = DetachedCriteria.forClass(CorePublish.class, "u");
 		dc.add(Restrictions.eq("u.userid", userid));
+		dc.addOrder(Order.desc("u.id"));
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
 	/**
@@ -50,6 +52,7 @@ public class ProgressService extends BasicService {
 		DetachedCriteria dc = DetachedCriteria.forClass(CorePublish.class, "u");
 		dc.add(Restrictions.eq("u.userid", userid));
 		dc.add(Restrictions.eq("u.statusid", (short)99));
+		dc.addOrder(Order.desc("u.id"));
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
 	/**
@@ -63,6 +66,7 @@ public class ProgressService extends BasicService {
 		DetachedCriteria dc = DetachedCriteria.forClass(CorePublish.class, "u");
 		dc.add(Restrictions.eq("u.userid", userid));
 		dc.add(Restrictions.not(Restrictions.eq("statusid", (short)1)));
+		dc.addOrder(Order.desc("u.id"));
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
 	
