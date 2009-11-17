@@ -9,7 +9,7 @@
 	<div class="">${pageString}</div>
 	<ul class="selectpic clearfix">
 		<#list page.items as photo>
-		<li><img src="../${photo.smallPic}" /><br /><input type="radio" name="photoid" value="${photo.photoid}" /></li>
+		<li><img src="../${photo.smallPic}" /><span><input type="radio" name="photoid" value="${photo.photoid}" /></span></li>
 	</#list>
 	</ul>
 

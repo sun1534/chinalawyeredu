@@ -765,11 +765,15 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 .prolist2 dl dd p a:hover {color:#000;text-decoration:none;}
 
 .selectpic {width:420px;height:200px;overflow:auto;border:1px solid #000;}
-.selectpic li {float:left;width:100px;text-align:center;height:90px;}
+.selectpic li {float:left;width:100px;text-align:center;height:90px;overflow:hidden;display:block;}
+.selectpic li img {display:block;}
+.selectpic li span  {display:block;}
+#addpicform table {width:360px;}
 
 .piclist_ {padding:10px 0;}
 .piclist_ ul {width:140px;float:left;}
 .piclist_ ul li{text-align:center;}
+.piclist_ ul li img {cursor:pointer;}
 .hd * {margin-right:2px;margin-top:2px;}
 
 .newlist {padding:10px 50px;}
