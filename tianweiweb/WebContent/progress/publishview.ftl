@@ -14,8 +14,16 @@
 					<p><b>产品介绍</b></p>
 					<p>${product.name}</p>
 					<p>简介：${product.description}</p>
-					<p>价格：${product.price} ${product.unit}</p>
-					<#if publish.statusid=2><p><a href="../progress/tenpay.action?id=${publish.id}">现在付款</a></p></#if>
+					<p>价格：${product.pricestr} ${product.unit}</p>
+					<p>当前状态：
+					 <#if publish.statusid=1>初订购</#if>
+			   	     <#if publish.statusid=2>待付费（<a href="../progress/tenpay.action?id=${t.id}" target="_blank">现在付款</a>）</#if>
+			   	     <#if publish.statusid=3>待审核</#if>
+			   	     <#if publish.statusid=4>审核未通过</#if>
+			   	     <#if publish.statusid=5>审核通过</#if>
+			   	     <#if publish.statusid=99>发布中</#if>
+			   	     <#if publish.statusid=100>业务到期</#if>
+			   	     </p>
 				</dd>
 			</dl>
 			</div>

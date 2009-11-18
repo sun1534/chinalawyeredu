@@ -48,7 +48,7 @@
 					<#list page.items as t>
 			     <tr>
 			   	   <td>${t.name}</td>
-			   	   <td>${t.price} ${t.unit}</td>
+			   	   <td>${t.pricestr} ${t.unit}</td>
 			   	   <td>${t.description}</td>
 			   	   <td><a href="#">详细介绍</a></td>
 			   	   <td><a href="#">案例</a></td>
