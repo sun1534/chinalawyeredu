@@ -1,13 +1,18 @@
 package com.changpeng.common.interceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.common.sysdata.CommonData;
+import com.changpeng.core.service.UserService;
+import com.changpeng.core.user.model.CoreUser;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
@@ -56,7 +61,47 @@ public class OperateInteceptor implements Interceptor {
 				abstractAction.currentRole = (short) Integer.parseInt(str[4]);
 				abstractAction.currentUsername = str[5];
 			} else if (!abstractAction.rightCode.equals("PUBLIC")) {
-				return Action.LOGIN; // 跳回到登录页面
+				
+				javax.servlet.http.Cookie[] cookies = request.getCookies();
+				Cookie cookie = null;
+				for (int i = 0; cookies != null && i < cookies.length; i++) {
+					System.out.println("cookies[i].getName():::"+cookies[i].getName());
+					if (cookies[i].getName().equals(CommonData.LOGINCOOKIE)) {
+						cookie = cookies[i];
+					}
+				}
+				if (cookie == null)
+					return Action.LOGIN;
+				else{
+					String s = cookie.getValue();
+					LOG.info("我去拿cookie了"+s);
+					int idx = s.indexOf("||");
+				
+					String loginname = s.substring(0, idx);
+					String password = s.substring(idx + 2);
+				
+					WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+					UserService service = (UserService) wac.getBean("userService");
+					CoreUser user = service.getUserByLoginName(loginname);
+					if(user==null)
+						return Action.LOGIN;
+					String usersession = user.getId() + "," + user.getProvinceId()
+					+ "," + user.getCityId() + "," + user.getDistrictId()
+					+ "," + user.getUserRole() + "," + user.getUserName() + ","
+					+ user.getUserType();
+					ActionContext.getContext().getSession().put("USERSESSION", usersession);
+					abstractAction.currentUserid = user.getId();
+					abstractAction.currentRole = user.getUserRole();
+					abstractAction.provinceid = user.getProvinceId();
+					abstractAction.cityid = user.getCityId();
+					abstractAction.districtid = user.getDistrictId();
+					abstractAction.usertype = user.getUserType();
+					abstractAction.currentUsername=user.getUserName();
+					
+				}
+				
+				
+				
 			}
 			// 先处理完毕这个东东，事后再来处理发送到接口的请求
 			long begin = System.currentTimeMillis();
@@ -70,16 +115,16 @@ public class OperateInteceptor implements Interceptor {
 			short userRole = (short) abstractAction.currentRole;
 			short userType = (short) abstractAction.usertype;
 			// 如果有模块id,则发送到陈总的接口
-			if (abstractAction.moduleid != 0) {
-				short flag = 0;
-				// 判断请求参数是否存在
-				if (request.getParameter("logflag") != null && !"".equals(request.getParameter("logflag")))
-					flag = Short.parseShort(request.getParameter("logflag"));
-
-				// 这里考虑换成异步的方式,应该会快很多
-				// 也就是所有的日志操作部分等,都异步的方式操作,因为俺不用等返回啊
-
-			}
+//			if (abstractAction.moduleid != 0) {
+//				short flag = 0;
+//				// 判断请求参数是否存在
+//				if (request.getParameter("logflag") != null && !"".equals(request.getParameter("logflag")))
+//					flag = Short.parseShort(request.getParameter("logflag"));
+//
+//				// 这里考虑换成异步的方式,应该会快很多
+//				// 也就是所有的日志操作部分等,都异步的方式操作,因为俺不用等返回啊
+//
+//			}
 			// 如果不是发生了错误等,判断是否记录积分。根据数据字典来，也就是根据url来判断是否需要记录积分
 			// 这里的话，有些规则不好对应积分的话，自己在action里面判断
 			// 积分规则表如下

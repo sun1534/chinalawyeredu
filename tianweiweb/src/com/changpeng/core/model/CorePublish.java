@@ -129,6 +129,11 @@ public class CorePublish implements java.io.Serializable {
 	public Double getFee() {
 		return this.fee;
 	}
+	
+
+	public String getFeestr() {
+		return com.changpeng.core.progress.action.NumberUtil.toMoney(fee);
+	}
 
 	public void setFee(Double fee) {
 		this.fee = fee;

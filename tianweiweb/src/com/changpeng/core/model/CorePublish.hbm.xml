@@ -41,7 +41,7 @@
             </column>
         </property>
         <property name="fee" type="java.lang.Double">
-            <column name="fee" precision="22" scale="0" not-null="true">
+            <column name="fee" precision="22" scale="2" not-null="true">
                 <comment>付费金额</comment>
             </column>
         </property>

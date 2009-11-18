@@ -13,6 +13,11 @@ public class CoreProduct implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private Double price;
+	
+	public String getPricestr(){
+		return com.changpeng.core.progress.action.NumberUtil.toMoney(price);
+	}
+	
 	private String unit;
 	private String pic;
 	private String description;

@@ -5,11 +5,17 @@ package com.changpeng.common.action;
 
 import java.sql.Timestamp;
 
-import org.apache.log4j.Logger;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
+
+import com.changpeng.common.sysdata.CommonData;
 import com.changpeng.core.service.UserService;
 import com.changpeng.core.user.model.CoreUser;
 import com.changpeng.global.model.GlobalLogLogin;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  */
@@ -62,6 +68,7 @@ public class LoginAction extends AbstractAction {
 					this.cityid = user.getCityId();
 					this.districtid = user.getDistrictId();
 					this.usertype = user.getUserType();
+					this.currentUsername=user.getUserName();
 	
 					GlobalLogLogin loglogin=new GlobalLogLogin();
 					loglogin.setLoginIp(this.userip);
@@ -71,6 +78,17 @@ public class LoginAction extends AbstractAction {
 					loglogin.setUserName(user.getUserName());
 					loglogin.setUserRole(user.getUserRole());
 					service.save(loglogin);
+					
+					ActionContext ctx = ActionContext.getContext();
+					HttpServletResponse response = (HttpServletResponse) ctx.get(ServletActionContext.HTTP_RESPONSE);
+
+					Cookie cookie = new Cookie(CommonData.LOGINCOOKIE, loginname+"||"+password);
+					cookie.setMaxAge(60*60*1000);
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					System.out.println("加入COOKIE......");
+					
+					
 					message="ok";
 			} else {
 				message = "密码错误，请重新输入!";

@@ -10,6 +10,9 @@ public class CommonData {
 	public static String Staticpath="..";
 	public static String Resourcepath="..";
 	
+	
+	public static String LOGINCOOKIE="logincookie";
+	
 	public static int CURPID=240;
 	public static String CURPNAME="辽宁";
 //	public static String downloadpath;
