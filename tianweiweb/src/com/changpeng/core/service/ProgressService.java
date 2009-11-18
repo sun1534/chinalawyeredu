@@ -56,7 +56,7 @@ public class ProgressService extends BasicService {
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
 	/**
-	 * 付费列表,列出除了初始订购之外的所有内容
+	 * 付费列表,付费状态的      --列出除了初始订购之外的所有内容
 	 * @param userid
 	 * @param pageSize
 	 * @param pageNo
@@ -65,7 +65,8 @@ public class ProgressService extends BasicService {
 	public PaginationSupport getPayList(int userid,int pageSize,int pageNo){
 		DetachedCriteria dc = DetachedCriteria.forClass(CorePublish.class, "u");
 		dc.add(Restrictions.eq("u.userid", userid));
-		dc.add(Restrictions.not(Restrictions.eq("statusid", (short)1)));
+		//dc.add(Restrictions.not(Restrictions.eq("statusid", (short)1)));
+		dc.add(Restrictions.eq("statusid", (short)2));
 		dc.addOrder(Order.desc("u.id"));
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
