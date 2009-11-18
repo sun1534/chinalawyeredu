@@ -6,6 +6,7 @@ package com.sxit.stat.util;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 华锋 Oct 21, 2009-2:46:19 PM
@@ -153,6 +154,21 @@ public class StatUtil {
 	public static long getYestardayTime() {
 		return getDateTime(getPrevDate());
 	}
+	
+
+	public static String list2str(List list) {
+		StringBuffer sb = new StringBuffer();
+		int len = list.size();
+		int i = 0;
+		for (Object obj : list) {
+			sb.append("'").append(obj).append("'");
+			if (i++ != len - 1)
+				sb.append(",");
+		}
+		return sb.toString();
+
+	}
+	
 
 	public static long getDateTime(Date date) {
 		try {

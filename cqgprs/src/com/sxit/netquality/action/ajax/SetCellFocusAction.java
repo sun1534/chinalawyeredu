@@ -57,7 +57,7 @@ public class SetCellFocusAction extends AbstractAction {
 			
 			BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 			if(all!=null&&selected!=null)
-		     	setservice.setFocusCell(all, selected);
+		     	setservice.setFocusCell(all, selected,this.getLoginUser().getUserid(),this.getLoginUser().getUsername());
 			this.msg = "重点小区设置成功";
 		} catch (Exception e) {
 			this.msg = "设置失败,请返回";

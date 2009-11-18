@@ -343,8 +343,8 @@ public class BasicSetService {
 		return (List) obj;
 	}
 
-	private void getAllNsvces() {
-		String sql = "select * from  set_nsvc where opttype!=2";
+	public void getAllNsvces() {
+		String sql = "select nsvc,nsvcgbindex,bscid,sgsnid,opst,capacity,updatetime,opttype,isactive from  set_nsvc  where opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -357,14 +357,14 @@ public class BasicSetService {
 					model.setCapacity(rs.getInt("capacity"));
 					model.setIsactive(rs.getInt("isactive"));
 					model.setNsvc(rs.getString("nsvc"));
-					model.setNsvcindex(rs.getString("nsvcindex"));
+					model.setNsvcindex(rs.getString("nsvcgbindex"));
 					model.setOpst(rs.getString("opst"));
 					model.setOpttype(rs.getInt("opttype"));
 					model.setSgsnid(rs.getString("sgsnid"));
 					model.setUpdatetime(rs.getInt("updatetime"));
 
 					NSVC_BSCS.put(rs.getString("nsvc"), rs.getString("bscid"));
-					ALL_NSVCS.put(rs.getString("APNNI"), model);
+					ALL_NSVCS.put(rs.getString("nsvc"), model);
 				}
 				return null;
 			}
@@ -559,7 +559,7 @@ public class BasicSetService {
 	 * @param isset
 	 */
 	@Transactional
-	public void setFocusCell(String all, String selected) {
+	public void setFocusCell(String all, String selected, int userid, String username) {
 		StringTokenizer st = new StringTokenizer(all, ",");
 		String sql = "";
 		while (st.hasMoreTokens()) {
@@ -572,11 +572,47 @@ public class BasicSetService {
 		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
 			String cellid = st.nextToken();
-			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE) values('" + cellid + "',null," + now
-					+ ",1)";
+			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ cellid + "',null," + now + ",1," + userid + ",'" + username + "')";
 
 			jdbcTemplate.execute(sql);
 		}
+	}
+	
+	public void saveFocusCell(String cellid, int userid, String username) {
+	
+		long now = System.currentTimeMillis() / 1000;
+		
+		
+			 String	sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ cellid + "',null," + now + ",1," + userid + ",'" + username + "')";
+
+			jdbcTemplate.execute(sql);
+		
+	}
+	public void deleteFocusCell(String cellid) {
+		String	sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "'";
+		jdbcTemplate.execute(sql);
+		
+	}
+	
+	
+	
+	public void saveFocusApn(String apnni, int userid, String username) {
+		
+		long now = System.currentTimeMillis() / 1000;
+		
+		
+			 String	sql = "insert into SET_apn_FOCUS(apnni,APNNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ apnni + "',null," + now + ",1," + userid + ",'" + username + "')";
+
+			jdbcTemplate.execute(sql);
+		
+	}
+	public void deleteFocusApn(String apnni){
+		String	sql = "delete from SET_apn_FOCUS where apnni ='" + apnni + "'";
+		jdbcTemplate.execute(sql);
+		
 	}
 
 	/**
@@ -584,7 +620,7 @@ public class BasicSetService {
 	 * 
 	 * @param isset
 	 */
-	public void setFocusApn(String all, String selected) {
+	public void setFocusApn(String all, String selected, int userid, String username) {
 		StringTokenizer st = new StringTokenizer(all, ",");
 		String sql = "";
 		while (st.hasMoreTokens()) {
@@ -597,8 +633,8 @@ public class BasicSetService {
 		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
 			String apnni = st.nextToken();
-			sql = "insert into SET_APN_FOCUS(APNNI,APNNAME,UPDATETIME,ISACTIVE) values('" + apnni + "',null," + now
-					+ ",1)";
+			sql = "insert into SET_APN_FOCUS(APNNI,APNNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ apnni + "',null," + now + ",1," + userid + ",'" + username + "')";
 
 			jdbcTemplate.execute(sql);
 		}
@@ -611,12 +647,14 @@ public class BasicSetService {
 	 * @param mobile
 	 * @param isset
 	 */
-	public void setFocusMobile(String mobile, boolean isset) {
+	public void setFocusMobile(String mobile, int userid, String username, boolean isset) {
+		long now = System.currentTimeMillis() / 1000;
 		String sql = "";
 		if (!isset) {
 			sql = "delete from SET_MOBILE_FOCUS where mobile='" + mobile + "'";
 		} else {
-			sql = "insert into SET_MOBILE_FOCUS(mobile) values('" + mobile + "')";
+			sql = "insert into SET_MOBILE_FOCUS(mobile,updatetime,createuserid,createusername) values('" + mobile
+					+ "'," + now + "," + userid + ",'" + username + "')";
 		}
 		jdbcTemplate.execute(sql);
 
@@ -644,27 +682,29 @@ public class BasicSetService {
 
 	public void getAllSets() {
 		long now = System.currentTimeMillis();
-long now1=now;
+		long now1 = now;
 		if (now - updatetime > 12 * 60 * 60 * 1000) {
 			_LOG.info("从数据库里面取的数据");
+
 			getSgsns();
-			_LOG.debug("sgsn:"+(System.currentTimeMillis()-now1));
+			_LOG.debug("sgsn:" + (System.currentTimeMillis() - now1));
+
 			now1 = System.currentTimeMillis();
 			getBsces();
-			
-			_LOG.debug("bsc:"+(System.currentTimeMillis()-now1));
+			_LOG.debug("bsc:" + (System.currentTimeMillis() - now1));
+
 			now1 = System.currentTimeMillis();
 			getAllCells();
-			
-			_LOG.debug("cell:"+(System.currentTimeMillis()-now1));
+			_LOG.debug("cell:" + (System.currentTimeMillis() - now1));
+
 			now1 = System.currentTimeMillis();
 			getAllApns();
-			
-			_LOG.debug("apn:"+(System.currentTimeMillis()-now1));
+			_LOG.debug("apn:" + (System.currentTimeMillis() - now1));
+
 			now1 = System.currentTimeMillis();
 			this.getAllNsvces();
-			_LOG.debug("nsvc:"+(System.currentTimeMillis()-now1));
-			
+			_LOG.debug("nsvc:" + (System.currentTimeMillis() - now1));
+
 			updatetime = now;
 		} else {
 			_LOG.info("从缓存里面取的数据");

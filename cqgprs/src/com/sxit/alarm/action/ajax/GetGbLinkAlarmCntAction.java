@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sxit.alarm.action;
+package com.sxit.alarm.action.ajax;
 
 import java.util.List;
 
@@ -16,13 +16,27 @@ import com.sxit.common.action.AbstractAction;
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class GbLinkAlarmAction extends AbstractAction {
+public class GetGbLinkAlarmCntAction extends AbstractAction {
 
-	private List alarmlist;
+	private int alarmcount;
+	private String now;
 	
-	public List getAlarmlist(){
-		return this.alarmlist;
+	/**
+	 * @param now the now to set
+	 */
+	public void setNow(String now) {
+		this.now = now;
 	}
+
+
+	/**
+	 * @return the alarmcount
+	 */
+	public int getAlarmcount() {
+		return alarmcount;
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -31,13 +45,9 @@ public class GbLinkAlarmAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 
-		System.out.println("====================================");
 		
 		AlarmService service=(AlarmService)this.getBean("alarmService");
-		alarmlist=service.getGbAlarms();
-		
-		service.updateAlarmHasRead();
-		
+		this.alarmcount=service.getGbAlarmCounts();
 		return SUCCESS;
 	}
 

@@ -52,7 +52,7 @@ public class SetApnFocusAction extends AbstractAction {
 		try {
 			BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		System.out.println("+selected+"+selected);
-			setservice.setFocusApn(all, selected);
+			setservice.setFocusApn(all, selected,this.getLoginUser().getUserid(),this.getLoginUser().getUsername());
 			this.msg = "重点APN设置成功";
 		} catch (Exception e) {
 			this.msg = "设置失败,请返回";

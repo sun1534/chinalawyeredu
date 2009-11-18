@@ -24,6 +24,7 @@
        
          <action name="gbLinkStatic" class="com.sxit.netquality.action.GbLinkStaticAction">
           <result name="success" type="dispatcher">/netquality/gbLinkStatic.jsp</result>	
+           <result name="excel" type="dispatcher">/netquality/gbLinkStatic_excel.jsp</result>
        </action>
          <action name="pdpErrorAll" class="com.sxit.netquality.action.PdpErrorAllAction">
           <result name="success" type="dispatcher">/netquality/pdpErrorAll.jsp</result>	

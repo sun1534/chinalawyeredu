@@ -6,7 +6,6 @@ package com.sxit.communicateguard.action;
 import java.text.DateFormat;
 import java.util.Date;
 
-import com.sxit.common.action.AbstractAction;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.query.service.QueryService;
 

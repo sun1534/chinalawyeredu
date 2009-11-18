@@ -16,6 +16,14 @@
           <result name="success" type="dispatcher">/alarm/gbLinkAlarm.jsp</result>	
        </action>
     </package>
-	
+	 <package name="alarmajax" extends="defaultajax" namespace="/alarmajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   
+   	   <action name="getGbLinkAlarmCnt" class="com.sxit.alarm.action.ajax.GetGbLinkAlarmCntAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	 
+   	 
+   </package>
 	
 </struts>

@@ -115,6 +115,18 @@
           </property>           
     </bean> 
     
+        <bean id="alarmService" class="com.sxit.alarm.service.AlarmService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+    
+         <bean id="guardService" class="com.sxit.communicateguard.service.GuardService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+    
      <bean id="timerTask" class="com.sxit.common.ScheduleTask">
     </bean>
     <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
