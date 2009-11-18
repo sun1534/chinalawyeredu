@@ -108,8 +108,8 @@ public class StatApn {
 				}
 				String allsql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by apnni";
-				rs.close();
-				rs = null;
+//				rs.close();
+//				rs = null;
 				rs = tempstmt.executeQuery(allsql);
 				while (rs.next()) {
 					String apnni = rs.getString("apnni");
@@ -157,7 +157,7 @@ public class StatApn {
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
 
-		String sql = "select apnni,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_apn where dayflag=0 and stattime>="
+		String sql = "select apnni,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_apn where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by apnni";
 
 		LOG.info("sql:" + sql);
@@ -173,7 +173,7 @@ public class StatApn {
 				// LOG.info("得到的APN统计数据:" + apnni);
 				TempApnStat stat = allapns.get(apnni);
 				stat.apnni = rs.getString("apnni");
-				// stat.usercount = rs.getString("usercount");
+				 stat.usercount = rs.getString("usercount");
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -184,23 +184,23 @@ public class StatApn {
 		stmt.close();
 		LOG.info("得到APN的流量数据完毕");
 		// 这里要得到用户数
-		String usersql = "select apnni,usercount from msisdn_apn where stattime>=" + start / 1000 + " and stattime<="
-				+ end / 1000;
-		// + " group by apnni";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String apnni = rs.getString("apnni");
-			int usercount = rs.getInt("usercount");
-			TempApnStat stat = allapns.get(apnni);
-			if (stat != null)
-				stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
-
-		LOG.info("得到APN的用户数据完毕");
+//		String usersql = "select apnni,usercount from msisdn_apn where stattime>=" + start / 1000 + " and stattime<="
+//				+ end / 1000;
+//		// + " group by apnni";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String apnni = rs.getString("apnni");
+//			int usercount = rs.getInt("usercount");
+//			TempApnStat stat = allapns.get(apnni);
+//			if (stat != null)
+//				stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
+//
+//		LOG.info("得到APN的用户数据完毕");
 	}
 
 	/**

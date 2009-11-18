@@ -83,6 +83,18 @@ public class MainStatUtil {
 		}
 	}
 	
+	public static int getDateTime(Date date) {
+		String datestr = df.format(date);
+		String hstart = datestr + " 00:00:00";
+		// String hend=datestr+" 59:59";
+		try {
+			Date d = dfsec.parse(hstart);
+			return (int) (d.getTime() / 1000);
+		} catch (Exception e) {
+			return (int) (System.currentTimeMillis() / 1000);
+		}
+	}
+	
 	/**
 	 * 批量执行sql
 	 * 
@@ -95,20 +107,23 @@ public class MainStatUtil {
 		int result = 0;
 		try {
 			int len = sqls.size();
-			// System.out.println("代码个数::"+len);
+			 System.out.println("代码个数::"+len);
 			LOG.info("要执行的SQL个数为:" + len);
 			if (len > 0) {
 				stmt = con.createStatement();
 				int i = 1;
 				for (Object obj : sqls) {
 					stmt.addBatch(obj.toString());
+				
 					if ((i++) % 500 == 0) {
 						int s[] = stmt.executeBatch();
 						stmt.clearBatch();
 						result += s.length;
 					}
 				}
+//				System.out.println("完了.............");
 				int s[] = stmt.executeBatch();
+//				 System.out.println("执行了::"+s.length);
 				stmt.clearBatch();
 				result += s.length;
 			}

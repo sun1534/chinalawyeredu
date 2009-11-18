@@ -22,8 +22,8 @@ public class DBUtils {
 
 	// private static String oracle_url =
 	// "jdbc:oracle:thin:@192.168.0.4:1521:orcl";
-	private static String url = "jdbc:oracle:thin:@localhost:1521:ora92";
-//	private static String url = "jdbc:oracle:thin:@218.201.8.150:1521:ora92";
+//	private static String url = "jdbc:oracle:thin:@localhost:1521:ora92";
+	private static String url = "jdbc:oracle:thin:@218.201.8.150:1521:ora92";
 	private static String user = "jf_gprs";
 	private static String pass = "jf_gprs";
 

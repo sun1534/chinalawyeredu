@@ -65,7 +65,7 @@ public class StatDayMain {
 			sqls.add(apnsql);
 
 			main.util.MainStatUtil.executeSql(con, sqls);
-			LOG.error("各配置参数入库成功");
+			LOG.info("各配置参数入库成功");
 		} catch (Exception e) {
 			LOG.error("各配置参数入库失败", e);
 		}
@@ -90,9 +90,9 @@ public class StatDayMain {
 		insertAllvolumeSets(con);
 
 		stat_cellid();
-		//
-		stat_apn();
-		//
+		
+//		stat_apn();
+//	
 		stat_bsc();
 
 		stat_sgsn();

@@ -79,7 +79,7 @@ public class StatSgsn {
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
 
-		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_sgsn where dayflag=0 and stattime>="
+		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount from stat_sgsn where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype";
 		
 		LOG.info(sql);
@@ -99,7 +99,7 @@ public class StatSgsn {
 				TempStat stat = allsgsns.get(key);
 				stat.sgsnid = rs.getString("sgsnid");
 				stat.nettype = rs.getString("nettype");
-//				stat.usercount = rs.getString("usercount");
+				stat.usercount = rs.getString("usercount");
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -110,24 +110,24 @@ public class StatSgsn {
 		}
 		
 		
-		// 这里要得到用户数
-		String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000;
-//				+ "  group by sgsnid,nettype";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String sgsnid = rs.getString("sgsnid");
-			String nettype=rs.getString("nettype");
-			String key = sgsnid + nettype;
-
-			int usercount = rs.getInt("usercount");
-			TempStat stat = allsgsns.get(key);
-			stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
+//		// 这里要得到用户数
+//		String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn where stattime>=" + start / 1000
+//				+ " and stattime<=" + end / 1000;
+////				+ "  group by sgsnid,nettype";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String sgsnid = rs.getString("sgsnid");
+//			String nettype=rs.getString("nettype");
+//			String key = sgsnid + nettype;
+//
+//			int usercount = rs.getInt("usercount");
+//			TempStat stat = allsgsns.get(key);
+//			stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
 		
 	}
 

@@ -135,8 +135,8 @@ public class StatCell {
 				}
 				String allsql = "select cellid,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by cellid";
-				rs.close();
-				rs = null;
+//				rs.close();
+//				rs = null;
 				rs = tempstmt.executeQuery(allsql);
 				while (rs.next()) {
 					String cellid = rs.getString("cellid");
@@ -186,7 +186,7 @@ public class StatCell {
 		// down,sum(upvolume+downvolume) as allvolume from "
 		// + table + " group by cellid";
 
-		String sql = "select cellid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_cellid where dayflag=0 and stattime>="
+		String sql = "select cellid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_cellid where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by cellid";
 
 		LOG.info(sql);
@@ -207,7 +207,7 @@ public class StatCell {
 				stat.cellid = rs.getString("cellid");
 				// stat.nettype = rs.getString("nettype");
 				stat.nettype = "2";
-				// stat.usercount = rs.getString("usercount");
+				 stat.usercount = rs.getString("usercount");
 
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
@@ -218,24 +218,24 @@ public class StatCell {
 
 		LOG.info("得到CELLID的统计数据完毕");
 
-		// 这里要得到用户数
-		String usersql = "select CELLID, usercount from msisdn_CELLID where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000;
-		// + " group by CELLID";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String cellid = rs.getString("CELLID");
-			int usercount = rs.getInt("usercount");
-			TempCellStat stat = allsgsns.get(cellid);
-			if (stat != null)
-				stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
+//		// 这里要得到用户数
+//		String usersql = "select CELLID, usercount from msisdn_CELLID where stattime>=" + start / 1000
+//				+ " and stattime<=" + end / 1000;
+//		// + " group by CELLID";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String cellid = rs.getString("CELLID");
+//			int usercount = rs.getInt("usercount");
+//			TempCellStat stat = allsgsns.get(cellid);
+//			if (stat != null)
+//				stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
 
-		LOG.info("得到CELLID的用户数据完毕");
+//		LOG.info("得到CELLID的用户数据完毕");
 	}
 
 	/**
@@ -270,7 +270,7 @@ public class StatCell {
 
 	private Map<String, TempCellStat> getAllCells() throws Exception {
 		// String sql = "select cellid,bscid from set_cell where opttype!=2";
-		String sql = "select a.cellid,b.allvolume from set_cell a,allvolume_cellid b where a.cellid=b.cellid(+) and a.opttype!=2";
+		String sql = "select a.cellid,a.bscid,b.allvolume from set_cell a,allvolume_cellid b where a.cellid=b.cellid(+) and a.opttype!=2";
 
 		ResultSet rs = null;
 		Statement stmt = null;

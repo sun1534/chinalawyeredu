@@ -84,7 +84,7 @@ public class StatBsc {
 		long start = MainStatUtil.getYestardayTime();
 		long end = MainStatUtil.getOneDayAfter(start);
 
-		String sql = "select bscid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume from stat_bsc where dayflag=0 and stattime>="
+		String sql = "select bscid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_bsc where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by bscid";
 
 		LOG.info(sql);
@@ -104,7 +104,7 @@ public class StatBsc {
 				TempStat stat = allbscs.get(key);
 				stat.bscid = rs.getString("bscid");
 				// stat.nettype = rs.getString("nettype");
-//				stat.usercount = rs.getString("usercount");
+				stat.usercount = rs.getString("usercount");
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -113,24 +113,24 @@ public class StatBsc {
 		}
 		LOG.info("得到BSC的统计数据完毕");
 		
-		// 这里要得到用户数
-		String usersql = "select bscid,usercount from msisdn_bsc where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000 ;
-//		+ "  group by bscid";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String bscid = rs.getString("bscid");
-			int usercount = rs.getInt("usercount");
-			TempStat stat = allbscs.get(bscid);
-			if(stat!=null)
-			stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
-
-		LOG.info("得到BSC的用户数据完毕");
+//		// 这里要得到用户数
+//		String usersql = "select bscid,usercount from msisdn_bsc where stattime>=" + start / 1000
+//				+ " and stattime<=" + end / 1000 ;
+////		+ "  group by bscid";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String bscid = rs.getString("bscid");
+//			int usercount = rs.getInt("usercount");
+//			TempStat stat = allbscs.get(bscid);
+//			if(stat!=null)
+//			stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
+//
+//		LOG.info("得到BSC的用户数据完毕");
 		
 	}
 

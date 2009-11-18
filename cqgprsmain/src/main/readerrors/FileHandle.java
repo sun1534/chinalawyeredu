@@ -290,17 +290,17 @@ public class FileHandle {
 
 				try {
 					if (line.equals(BASE_STR)) {
-						
+
 						if (i >= handledLines) {
-//							if(cdr!=null)
-								
+							// if(cdr!=null)
+
 							lastCount++;
 							cdr = new ErrorApnsCdr();
 							cdr.setSgsnid(file.getSgsnid());
 							cdrs.add(cdr);
 						}
 						i++;
-					
+
 					}
 					int idx = line.indexOf(":");
 					if (idx == -1)
@@ -373,11 +373,32 @@ public class FileHandle {
 			con = DBUtils.getOracleCon();
 
 			String sql = "insert into CDR_MISTAKE(lac,cellid,sgsnid,reqapnni,subapnni,imsi,nettype,errcode,opentime,recordtime) values(?,?,?,?,?,?,?,?,?,?)";
+
 			stmt = con.prepareStatement(sql);
 			int len = cdrs.size();
 			long begin = System.currentTimeMillis();
+			List<String> no33sqls = new ArrayList<String>();
 			for (int i = 0; i < len; i++) {
 				ErrorApnsCdr cdr = cdrs.get(i);
+				// 非33的错误同时入另外一张表
+				if (!cdr.getErrorcode().equals("33")) {
+					String sqlno33 = "insert into CDR_MISTAKE_NO33(lac,cellid,sgsnid,reqapnni,subapnni,imsi,nettype,errcode,opentime,recordtime,msisdn) values("
+							+ "0,0,'"
+							+ cdr.getSgsnid()
+							+ "','"
+							+ cdr.getReqapnni()
+							+ "','"
+							+ cdr.getSubapnni()
+							+ "','"
+							+ cdr.getImsi()
+							+ "','"
+							+ cdr.getNettype()
+							+ "','"
+							+ cdr.getErrorcode() + "'," + cdr.getOpentime() + "," + now + ",'" + cdr.getMsisdn() + "')";
+					no33sqls.add(sqlno33);
+				
+
+				}
 				stmt.setLong(1, cdr.getLac());
 				stmt.setString(2, cdr.getCellid());
 				stmt.setString(3, cdr.getSgsnid());
@@ -399,10 +420,15 @@ public class FileHandle {
 			}
 			int[] s = stmt.executeBatch();
 			stmt.clearBatch();
+			// 33的错误同时入到另外一张表
+//			for(Object obj:no33sqls){
+//				LOG.debug(obj.toString());
+//			}
+			main.util.MainStatUtil.executeSql(con, no33sqls);
 			LOG.info("最后入库记录数：" + (s != null ? s.length : 0) + ",时间:" + (System.currentTimeMillis() - begin));
 		} catch (Exception e) {
-			LOG.error("插入数据库错误:" , e);
-//			e.printStackTrace();
+			LOG.error("插入数据库错误:", e);
+			// e.printStackTrace();
 			// ReadErrorApns.errorlog("插入数据库错误:" + e);
 		} finally {
 			DBUtils.closeResource(null, stmt, null);

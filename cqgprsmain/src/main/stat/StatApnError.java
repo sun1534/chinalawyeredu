@@ -41,7 +41,7 @@ public class StatApnError {
 		
 //		System.out.println(hour);
 		
-		String errcodesql="insert into stat_apn_error_code (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,to_char(sysdate,'yyyyMMddHH'),0 from cdr_mistake where opentime between "+prehourstart+" and "+prehourend+" group by errcode";
+		String errcodesql="insert into stat_apn_error_code (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+hour+",0 from cdr_mistake where opentime between "+prehourstart+" and "+prehourend+" group by errcode";
 
 		String sql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where reqapnni is not null and (opentime between "+prehourstart+" and "+prehourend+") group by reqapnni,errcode";
 		String nullsql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+prehourstart+" and "+prehourend+") group by errcode";
@@ -74,13 +74,18 @@ public class StatApnError {
 	
 		String errcodesql="insert into stat_apn_error_code (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,to_char(sysdate-1,'yyyyMMdd'),1 from cdr_mistake where opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode";
 		
+		
+		String errcodeno33sql="insert into stat_apn_error_imsi(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),1,to_char(sysdate-1,'yyyyMmdd') from cdr_mistake_no33 where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode,imsi,msisdn";
+		
 		LOG.info("sql::"+sql);
 		LOG.info("nullsql::"+nullsql);
 		LOG.info("errcodesql::"+errcodesql);
+		LOG.info("errcodeno33sql::"+errcodeno33sql);
 		List<String> sqls=new ArrayList<String>();
 		sqls.add(sql);
 		sqls.add(nullsql);
 		sqls.add(errcodesql);
+		sqls.add(errcodeno33sql);
 		MainStatUtil.executeSql(con, sqls);
 	}
 	
