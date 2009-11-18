@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-GB链路告警</title>
+ <title>${sysName}-历史告警查询</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -37,11 +37,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-				   <span>您所在是位置:</span><a>网络质量</a>＞<em>GB链路告警</em>
+						<span>您所在是位置:</span><a>系统告警</a>＞<em>历史告警查询</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="gbLinkAlert" method="POST">	
+			<s:form name="form1" action="alarmHistory" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -71,22 +71,21 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>告警链路</th>
+                          <th>告警原因</th>
+                          <th>当前流量</th>
+                          <th>告警时间</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                              <td>${nsvc}</td>
+                          <td>${reason }
+                          </td>
+                          <td>${currentstream }</td>
+                          <td>${alarmdate}</td>
                         </tr>
                         </s:iterator>
                       

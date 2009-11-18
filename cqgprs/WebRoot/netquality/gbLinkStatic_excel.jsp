@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,29 +37,32 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}APN业务统计</b></td>
+    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>
+    <s:if test="bscid!=null&&!bscid.equals(\"\")">
+    ${date }之GB流量统计
+    </s:if>
+    <s:else>
+    ${date }之归属BSC/RNC：${bscid }之GB流量统计
+    </s:else>
+    </b></td>
   </tr>
       <tr>
-     <!-- 
-                          <th class="listheadline">SGSN号</th>
-                          -->
-                          <th>APN编码</th>
-                          <th>APN使用单位</th>
-                          <th>客户联系电话</th>
+   
+  
+                          <th>NSVCID</th>
+                          <th>NSVC查询索引</th>
+                          <th>所属BSC/RNC</th>
+                          <th>所属SGSN</th>
                           <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+         <s:iterator value="page.items" status="status">
       <tr>
-
-                          <td class="listline2">${apnid}</td>
-                          <td class="listline2">${apnid}</td>
-                          <td class="listline2">${apnid}</td>
-                          <td class="listline2">${totalStreamStr }</td>
-                          <td class="listline2">${totalUser}</td>
-                          <td class="listline2">${averageStreamStr}</td>
+          <td class="listline2">${nsvcid}</td>
+                          <td class="listline2">${nsvc.nsvcindex}</td>
+                          <td class="listline2">${bscid }</td>
+                          <td class="listline2">${bsc.sgsnid}</td>
+                          <td class="listline2">${totalStreamStr}</td>
    
       </tr>
    

@@ -37,7 +37,14 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之高流量用户排名（前1000）</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>$
+    <s:if test="standard==2">
+    {start}之高流量用户排名（前${condition}）
+    </s:if>
+    <s:else>
+      {start}之流量大于${condition }（K）用户排名
+    </s:else>
+    </b></td>
   </tr>
       <tr>
                 <th>手机号码</th>

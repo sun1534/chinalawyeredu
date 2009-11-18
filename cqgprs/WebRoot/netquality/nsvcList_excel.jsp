@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,31 +37,30 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>所有小区信息列表</b></td>
+    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>所有链路信息列表</b></td>
   </tr>
       <tr>
-     <!-- 
-                          <th class="listheadline">SGSN号</th>
-                          -->
-                          <th class="listheadline">小区编号</th>
-                       <th class="listheadline">小区名称</th>
-                       <th class="listheadline">所属BSC/RNC</th>
-                       <th class="listheadline">归属SGSN</th>
-                       <th class="listheadline">所属城区</th>
-                       <th class="listheadline">最后更新时间</th>
+   
+                       <th>NSVC</th>
+                       <th>查询索引号</th>
+                       <th>所属BSC/RNC</th>
+                       <th>归属SGSN</th>
+                       <th>当前状态</th>
+                       <th>容量大小（K）</th>
+                       <th>最后更新时间</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+      <s:iterator value="nsvclist" status="stat">
       <tr>
       
-                          <td class="listline2">${cellid}</td>
-                          <td class="listline2">${cellname}</td>
-                          <td class="listline2">${bscrncid }</td>
-                          <td class="listline2"><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>
-                          <td class="listline2">${subarea}</td>
-                          <td class="listline2"><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
-
-                       
+           <td class="listline2">${nsvc}</td>
+                          <td class="listline2">${nsvcindex}</td>
+                          <td class="listline2">${bscid }</td>
+                          <td class="listline2"><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscid]"/></td>
+                          <td class="listline2">${opst}</td>
+                           <td class="listline2">${capacity}</td>
+                          <td class="listline2">${lastupdate }</td>
+      
    
       </tr>
    

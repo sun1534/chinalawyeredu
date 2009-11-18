@@ -23,6 +23,7 @@ function showMenu(rightcode){
 <body >
 <div id="leftmenu">
 		<s:iterator value="#session.loginUser.topMenus" status="stat">
+		
 			<div id="${rightcode}" class="Menu">
 			<s:if test="hasChild">
 			<s:iterator value="children" status="stat"> 
@@ -30,7 +31,9 @@ function showMenu(rightcode){
 			   	<h3 id="${rightcode}">${rightname }</h3>
 			   	<ul>
 			   	<s:iterator value="children" status="stat">
+			   	<s:if test="ismenu">
 			   	 <li id="${rightcode}"><a href="${linkurl}" target="mainFrame">${rightname}</a></li>
+			   	</s:if>
 			   	</s:iterator>
 			   	</ul>
 			   </s:if>
@@ -40,6 +43,7 @@ function showMenu(rightcode){
 			</s:iterator>
 			</s:if>
 			</div>
+		
 		</s:iterator>
 		<!-- 
 	<div id="menuWarp"  class="Menu">

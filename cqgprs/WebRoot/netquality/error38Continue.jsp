@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-资源列表</title>
+ <title>${sysName}-连续错误号码</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -37,11 +37,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>重点号码列表</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>网络失败PDP</em>＞<em>${ date}前连续${count }天38号错误号码列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="resourceList" method="POST">	
+			<s:form name="form1" action="error38Continue" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -50,11 +50,14 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-                                 <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
-								 <td>输入号码：<s:textfield name="mobileno" cssClass="txt"/>&nbsp;</td>
+                       
+                                 <s:hidden name="resultType"/>
+								 <td>最后日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								 <td>连续天数：<s:select name="count" list="#{'2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','10':'10'}"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+							 <!--      <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
+							      -->
+							     </td>
 							
 								</tr>
 							</tbody>
@@ -71,22 +74,19 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th></th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th colspan="4" align="center">手机号码列表</th>
+                      
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="mobilelist" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${imsi1}</td>
+                          <td>${imsi2}</td>
+                          <td>${imsi3 }</td>
+                          <td>${imsi4}</td>
+                     
                         </tr>
                         </s:iterator>
                       
@@ -94,7 +94,6 @@ function queryit(){
                     <tfoot>
 							<tr>
 							   <td colspan="6" class="fright">
-							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
 						 </tfoot>

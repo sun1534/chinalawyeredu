@@ -7,14 +7,14 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-错误APN分布</title>
+ <title>${sysName}-链路信息列表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript">
- 
+
 
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -30,6 +30,8 @@ function queryit(){
 }
 
 
+
+
 </script>
 </head>
 
@@ -37,11 +39,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>用户行为</a>＞<em>错误APN分布</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>资源列表</em>＞<em>链路信息列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="errorApns" method="POST">	
+			<s:form name="form1" action="nsvcList" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -50,12 +52,11 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-                                 <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
-								 <td>按：<s:select name="orderby" list="#{'apnni':'请求APN','USERCOUNT':'用户数','ERRORCOUNT':'PDP失败次数','errcode':'错误代码'}"/><s:select name="ascdesc" list="#{'asc':'升序','desc':'逆序'}"/>&nbsp;</td>
-								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+                             
+                                    <s:hidden name="resultType"/>
+								 <td>BSCID：<s:textfield name="bscid" cssClass="txt" size="15"/>&nbsp;</td>
+								 <td><input type="button" class="btnSubmit"  value="查　询" onclick="queryit()"/></td>
+								  <td><input type="button" class="btnSubmit" value="导  出" onclick="exportit()"/></td>
 							
 								</tr>
 							</tbody>
@@ -72,27 +73,34 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>APN</th>
-                          <th>用户数</th>
-                          <th>PDP失败次数</th>
-                        <th>错误代码</th>
+                       <th>NSVC</th>
+                       <th>查询索引号</th>
+                       <th>所属BSC/RNC</th>
+                       <th>归属SGSN</th>
+                       <th>当前状态</th>
+                       <th>容量大小（K）</th>
+                       <th>最后更新时间</th>
+                        
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="apnerrorslist" status="status">
+                        <s:iterator value="nsvclist" status="status">
                         <tr>
-                         <td>${apnni}</td>
-                          <td>${usercount}</td>
-                          <td>${errorcount }</td>
-                            <td>${errcode }</td>
-                          
+                  
+                         <td>${nsvc}</td>
+                          <td>${nsvcindex}</td>
+                          <td>${bscid }</td>
+                          <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscid]"/></td>
+                          <td>${opst}</td>
+                           <td>${capacity}</td>
+                          <td>${lastupdate }</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="7" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

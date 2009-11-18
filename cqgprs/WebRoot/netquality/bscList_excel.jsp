@@ -45,6 +45,7 @@ th
                           -->
                           <th>BSC/RNC编号</th>
                        <th>BSC/RNC名称</th>
+                      <th>GB链路数量</th>
                        <th>所属SGSN</th>
                        <th>最后更新时间</th>
       </tr>
@@ -54,6 +55,7 @@ th
       
           <td class="listline2">${bscrncid}</td>
                           <td class="listline2">${name}</td>
+                           <td class="listline2">${nsvcount }</td>
                           <td class="listline2">${sgsnid }</td>
                           <td class="listline2"><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
       

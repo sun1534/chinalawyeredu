@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="../css/reset.css" /> 
 <link rel="stylesheet" type="text/css" href="../css/header.css" /> 
 <script type="text/javascript" src="../js/jquery.js"></script> 
-<title>${sysName}</title> 
+<title>${sysName}-主菜单</title> 
 <script language="javascript" type="text/javascript">
 var issubmit=false;
 var f5pressed=false;
@@ -26,6 +26,53 @@ function exitform(){
 function pressedF5(){
 	//  alert("f5pressed");
 	 f5pressed=true;
+}
+$(document).ready(function(){
+//getGbAlarmCnts();
+ setTimeout('getGbAlarmCnts()',2*1000);
+});
+var ajaxurl="../alarmajax/getGbLinkAlarmCnt.action";
+var islight = false;
+var hd;
+var hascancel=false;
+var t=0;
+var counts=0;
+function getGbAlarmCnts(){
+var now=new Date().getTime();
+$.getJSON(ajaxurl+"?now="+now,function(json){
+  var ac=json.alarmcount;
+  if(ac>0&&!islight){
+	islight=true;
+    hd=setInterval('lighttitle()', 1000);
+    hascancel=false;
+    counts=0;
+  }else if(ac<=0){
+    islight=false;
+    top.document.title="${sysName}";
+    if(hd&&!hascancel){
+      clearInterval(hd);
+      hascancel=true;
+    }
+  }
+});
+setTimeout('getGbAlarmCnts()',5*1000);
+}
+function lighttitle(){
+	if(t == 0){
+		top.document.title="【链路告警】${sysName}";
+		t=1;
+	}else{
+		top.document.title="【　　　　】${sysName}";
+		t=0;
+	}
+	counts++;
+	if(counts>60){
+	   if(hd&&!hascancel){
+		 clearInterval(hd);
+		 hascancel=true;
+	   }
+	   top.document.title = "${sysName}";
+	}
 }
 </script>
 </head> 
@@ -50,7 +97,9 @@ function pressedF5(){
 		<div class="quickmenu" id="quickmenu"> 
 				<ul> 
 				<s:iterator value="#session.loginUser.topMenus" status="stat">
+				<s:if test="ismenu">
 				<li><a id="${rightcode}" title="${rightname}" href="javascript:void(0)"><span>${rightname}</span></a></li> 
+				</s:if>
 				</s:iterator>
 			    <!-- 
 					<li class="current"><a id="menu1" title="概　　况" href="javascript:void(0)"><span>概　　况</span></a></li> 

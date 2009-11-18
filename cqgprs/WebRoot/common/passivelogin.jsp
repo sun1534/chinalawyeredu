@@ -39,7 +39,7 @@ function submitOnClick()
 			</div>
 	</div>
 	<div class="main">
-	<s:form name="form1" action="login" method="post">
+	<s:form name="form1" action="/common/login.action" method="post">
 	  <s:hidden name="pasivelogin" value="true"/>
 		<div class="inmain">
 		 

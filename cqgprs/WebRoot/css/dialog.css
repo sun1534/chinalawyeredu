@@ -1,0 +1,9 @@
+.dialogBox{z-index:999;background:#FBFBFB;display:none;}
+		#Overdialog {display:none;background:none;position:absolute;left:0px;top:0px;width:100%;height:100%;z-index:998;}
+		#Overdialog iframe{width:100%;height:100%;display:block;position:absolute;top:0px;left:0px;margin:0;padding:0;border:none;;z-index:1;background:#fff;}
+
+		.DialogWrap {overflow:auto;;border:5px solid #B2E0F5;background:#FFFFFF url(../images/bg.gif) repeat-x left top;position:relative;}
+			.closeDialogBox {text-indent:-999em;display:block;position:absolute;right:5px;top:5px;_right:10px;_top:10px;width:13px;height:13px;overflow:hidden;background:url(../images/close.gif) no-repeat 0 -13px;}
+			.closeDialogBox:hover {background:url(../images/close.gif) no-repeat 0 0px;}
+			.dialogMain {padding:10px 10px 0 10px;}
+			.dialogBtn {padding:0 10px 10px 10px;}

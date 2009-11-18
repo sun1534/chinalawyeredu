@@ -91,7 +91,7 @@ function setit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>SGSN信息列表</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>资源列表</em>＞<em>SGSN信息列表</em>
 				</div>
 			</div>
 		</div>
@@ -127,7 +127,10 @@ function setit(){
                         <tr>
                        
                        <th>SGSN编号</th>
-                       <th>覆盖范围</th>
+                       <th>所在IP</th>
+                       <th>BSC个数</th>
+                       <th>时隙数</th>
+                       <th>带宽（K）</th>
                        <th>华为/爱立信</th>
                        <th>最后更新时间</th>
                        </tr>
@@ -137,7 +140,11 @@ function setit(){
                         <tr>
                         
                          <td><a href="bscList.action?sgsnid=${sgsnid }">${sgsnid}</a></td>
-                          <td>${sgsnarea}</td>
+                          <td>${sgsnip}</td>
+                             <td>${bsccount}</td>
+                                <td>${slotcount}</td>
+                                  <td>${capacity}</td>
+                                
                           <td>${sgsntype }</td>
                           <td><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
                         </tr>

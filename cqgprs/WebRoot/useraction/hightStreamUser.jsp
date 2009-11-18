@@ -28,6 +28,13 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
+function selectit(obj){
+if(obj.value==2){
+$("#pahint").text("总流量前X位：");
+}else{
+$("#pahint").text("总流量大于X(单位K)：");
+}
+}
 
 
 </script>
@@ -37,7 +44,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>用户行为</a>＞<em>高流量用户排名</em>
+						<span>您所在是位置:</span><a>用户行为</a>＞<em>高流量用户排名<s:if test="standard==2">（排名前${condition }）</s:if><s:else>（流量大于${condition}(K)）</s:else></em>
 				</div>
 			</div>
 		</div>
@@ -50,8 +57,10 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-                                 <s:hidden name="pageNo"/>
+                                
                                   <s:hidden name="resultType"/>
+                                   <td><s:radio name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onclick="selectit(this)"/>&nbsp;</td>
+                                   <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="10" cssClass="txt"/>&nbsp;</td>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							

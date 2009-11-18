@@ -10,7 +10,7 @@ body {margin:0;padding:0;font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif ;te
 
 .quickmenu {width:100%;height:26px;overflow:hidden;clear:both;background:url(../images/topnavbg_.gif) 0px -169px repeat-x;position:absolute;bottom:-4px;left:0px;}
 .quickmenu  a,.quickmenu  a:hover {text-decoration:none}
-.quickmenu  ul {overflow:hidden;background:url(../images/topnavbg_.gif) -1px -169px repeat-x;position:absolute;bottom:-1px;left:175px;}
+.quickmenu  ul {overflow:hidden;background:url(../images/topnavbg_.gif) -1px -169px repeat-x;position:absolute;bottom:-1px;left:65px;}
 .quickmenu  ul li {background:url(../images/topnavbg_.gif) no-repeat 0 -127px;float:left;margin-left:-1px;}
 .quickmenu  ul li a {display:block;padding:0;margin:0;color:#000;}
 .quickmenu  ul li a span {display:block;padding:5px 15px 4px 15px ;margin:0}

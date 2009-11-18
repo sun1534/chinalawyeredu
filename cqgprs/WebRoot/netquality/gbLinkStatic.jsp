@@ -52,7 +52,8 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt" id="date"/>&nbsp;</td>
+								 <td>所属BSC/RNC：<s:textfield name="bscid" cssClass="txt" size="15" id="bscid"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -71,22 +72,23 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
+                          <th>NSVCID</th>
+                          <th>NSVC查询索引</th>
+                          <th>所属BSC/RNC</th>
+                          <th>所属SGSN</th>
                           <th>总流量（M）</th>
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                      
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
-                          <td>${totalUser}</td>
-                          <td>${averageStreamStr}</td>
+                         <td>${nsvcid}</td>
+                          <td>${nsvc.nsvcindex}</td>
+                          <td>${bscid }</td>
+                          <td>${bsc.sgsnid}</td>
+                          <td>${totalStreamStr}</td>
                         </tr>
                         </s:iterator>
                       
