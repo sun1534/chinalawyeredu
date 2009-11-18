@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="log" extends="default" namespace="/log">
+    <default-interceptor-ref name="adminStack"/>
+     
+       <action name="userLoginLog" class="com.sxit.log.action.UserLoginLogAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="list" type="dispatcher">/log/userLoginLog.jsp</result>
+			<result name="excel" type="dispatcher">/log/userLoginLog2Excel.jsp</result>
+       </action>
+       <action name="userRegLog" class="com.sxit.log.action.UserRegLogAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="list" type="dispatcher">/log/userRegLog.jsp</result>
+       </action>
+       <action name="userOperLog" class="com.sxit.log.action.UserOperLogAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="list" type="dispatcher">/log/userOperLog.jsp</result>
+       </action>
+       <!--操作日志查询-->
+        <action name="sysOperLogList" class="com.sxit.log.action.SysOperLogListAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="list" type="dispatcher">/log/sysOperLogList.jsp</result>
+			<result name="excel" type="dispatcher">/log/sysOperLogList2Excel.jsp</result>
+       </action>
+       <action name="sysOperLogDelete" class="com.sxit.log.action.SysOperLogDeleteAction">
+			<result name="success" type="redirect">/log/sysOperLogList.action</result>
+       </action>
+       <action name="sysOperLogBatchDelete" class="com.sxit.log.action.SysOperLogBatchDeleteAction">
+			<result name="success" type="redirect">/log/sysOperLogList.action</result>
+       </action>
+       <!--登录日志查询-->
+        <action name="sysLoginLogList" class="com.sxit.log.action.SysLoginLogListAction">
+        	<interceptor-ref name="hibernateSessionStack"/>
+			<result name="list" type="dispatcher">/log/sysLoginLogList.jsp</result>
+			<result name="excel" type="dispatcher">/log/sysLoginLogList2Excel.jsp</result>
+        </action>
+        <action name="sysLoginLogDelete" class="com.sxit.log.action.SysLoginLogDeleteAction">
+			<result name="success" type="redirect">/log/sysloginLogList.action</result>
+       </action>
+       <action name="sysLoginLogBatchDelete" class="com.sxit.log.action.SysLoginLogBatchDeleteAction">
+			<result name="success" type="redirect">/log/sysloginLogList.action</result>
+       </action>
+       
+       
+       
+   </package>
+   
+  
+</struts>

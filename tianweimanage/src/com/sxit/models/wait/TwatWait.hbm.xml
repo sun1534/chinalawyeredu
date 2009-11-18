@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.sxit.models.wait.TwatWait"
+    table="TWAT_WAIT" dynamic-update="true"
+>
+
+    <id
+        name="waitid"
+        type="int"
+        column="WAITID"
+    >
+       <generator class="identity" />
+    </id>
+
+    <property
+        name="url"
+        type="java.lang.String"
+        column="URL"
+        not-null="true"
+        length="400"
+    />
+    <property
+        name="subject"
+        type="java.lang.String"
+        column="SUBJECT"
+        not-null="true"
+        length="250"
+    />
+        <property name="fromUserid" type="int" column="fromuserid" precision="10"/>
+    <property
+        name="fromUsername"
+        type="java.lang.String"
+        column="fromusername"
+        not-null="true"
+        length="100"
+    />
+    <property
+        name="status"
+        type="int"
+        column="STATUS"
+        length="2"
+    />
+    <property
+        name="flowstep"
+        type="java.lang.String"
+        column="FLOWSTEP"
+        length="100"
+    />
+    <property
+        name="docstatus"
+        type="int"
+        column="DOCSTATUS"
+        length="2"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+    <property
+        name="target"
+        type="java.lang.String"
+        column="TARGET"
+        length="40"
+    />
+    
+    <property name="userid" type="int" column="userid" precision="10"/>
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TsysUser -->
+
+
+</class>
+</hibernate-mapping>

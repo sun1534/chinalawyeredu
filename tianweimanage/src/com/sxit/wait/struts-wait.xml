@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="wait-wait" extends="default" namespace="/wait">
+    <default-interceptor-ref name="adminStack"/>
+        
+        <!--Wait start-->
+        <action name="listNum" class="com.sxit.wait.action.ListNumAction">
+            <result name="success" type="dispatcher">/wait/listNum.jsp</result>
+         </action>
+        <action name="listWait" class="com.sxit.wait.action.ListWaitAction">
+            <result name="success" type="dispatcher">/wait/listWait.jsp</result>
+        </action>
+              <action name="shouldDoList" class="com.sxit.wait.action.ListWaitAction">
+            <result name="success" type="redirect">listWait.action?status=0</result>
+        </action>
+              <action name="hasBeenDoneList" class="com.sxit.wait.action.ListWaitAction">
+            <result name="success" type="redirect">listWait.action?status=1</result>
+        </action>
+      
+        <action name="deleteWait" class="com.sxit.wait.action.DeleteWaitAction">
+        </action>
+       
+       
+        <!--Wait end-->
+    </package>
+</struts>
+
+

@@ -1,0 +1,137 @@
+
+<html><head><title></title>
+<meta http-equiv=content-type content="text/html; charset=gb2312">
+<style type=text/css>
+ul,li{padding:0;margin:0;}
+table {border:0px;}
+td {font:12px 宋体;}
+img {vertical-align:bottom;border:0px;}
+a {font:12px 宋体;color: #000; text-decoration: none}
+a:hover {color: #c00; text-decoration: underline}
+.sec_menu {background:#ccc;overflow:hidden;}
+.menu_title {cursor: pointer;background-image: url(css/images/title_bg.jpg);text-indent:15px;height:22px;_height:32px;width:206px;padding-top:10px;_padding-top:7px;}
+.menu_title img {margin-right:10px;}
+.menu_title span {font-weight:bold;left:8px;color:#000;top:2px;font-size:12px;}
+.menu_title2 span {font-size: 12px;font-weight:bold;left:8px;color:#f90;top:2px}
+.title_con{width:206px;height:auto;}
+.title_con ul{list-style-type: none;}
+.title_con ul li{display:block;border-bottom:1px solid #999;text-indent:40px;line-height:25px;}
+.title_con ul li a {display:block;text-decoration:none;line-height:25px;}
+.title_con ul li a:hover {display: block;text-decoration: none;line-height:25px; background:#EAEAEA;}
+.title_con ul li.title2{border-bottom:1px solid #999;line-height:25px;text-indent:75px;}
+.title_con ul li.title3{border-bottom:1px solid #999;line-height:25px;text-indent:100px;}
+.title_con ul li.nonce{line-height:25px;background:#EAEAEA;}
+</style>
+
+<script language=javascript1.2>
+function showsubmenu(sid)
+{
+whichel = eval("submenu" + sid);
+if (whichel.style.display == "none")
+{
+eval("submenu" + sid + ".style.display=\"\";");
+}
+else
+{
+eval("submenu" + sid + ".style.display=\"none\";");
+}
+}
+</script>
+</head>
+<body leftmargin=0 topmargin=0 marginwidth="0" marginheight="0">
+
+        <div class="menu_title"  onClick="showsubmenu(1)">
+            <img src="css/images/ico_09.gif" width="12" height="16"><span>内容审核</span>
+</div>
+	        <div id="submenu1" class="title_con">
+			  <ul>
+			    <li onClick="showsubmenu(100)"><a href="#">事后审核</a></li>
+						<span id="submenu100" >
+                            <li class="title2" onClick="showsubmenu(101)"><a href="#">投票</a></li>
+                                  <span id="submenu101">
+                                        <li class="title3"><a href="upload.html" target="mainFrame">投评论列表</a></li>
+                                        <li class="title3"><a href="maincontent_2.html" target="mainFrame">投票信息列表</a></li>
+                                  </span>      
+                            <li class="title2"><a href="maincontent_5.html" target="mainFrame">话题列表</a></li>
+                        </span>
+			    <li onClick="showsubmenu(102)"><a href="#">事前审核</a></li>
+						<span  id="submenu102" style="display:none">
+                            <li class="title2"><a href="maincontent_3.html" target="mainFrame">论文共享列表</a></li>
+                        </span>
+                        
+				<li><a href="maincontent_6.html" target="mainFrame">关键字管理</a></li>
+		      </ul>
+	        </div>
+
+
+        <div class="menu_title" onMouseOver="this.classname='menu_title2';" onClick="showsubmenu(2)" onMouseOut="this.classname='menu_title';"><img src="css/images/ico_10.gif" width="16" height="14"><span>前台用户管理</span>
+</div>
+	        <div id="submenu2" class="title_con">
+			  <ul>
+			    <li><a href="welcome.html" target="mainFrame">学校管理</a></li>
+			    <li class="nonce"><a href="maincontent.html" target="mainFrame">班级管理</a></li>
+			    <li><a href="maincontent_2.html" target="mainFrame">学生管理</a></li>
+			    <li><a href="maincontent_3.html" target="mainFrame">家长管理</a></li>
+			    <li><a href="maincontent_4.html" target="mainFrame">教师管理</a></li>
+		      </ul>
+	        </div>
+
+        <div class="menu_title" onMouseOver="this.classname='menu_title2';" onClick="showsubmenu(3)" onMouseOut="this.classname='menu_title';">
+            <img src="css/images/ico_11.gif" width="16" height="14"><span>业务管理</span>
+</div>
+	        <div id="submenu3" class="title_con">
+			  <ul>
+			    <li><a href="flow_img.html" target="mainFrame">APCP管理</a></li>
+			    <li><a href="#" target="mainFrame">业务管理</a></li>
+			    <li><a href="#" target="mainFrame">计费类型管理</a></li>
+			    <li><a href="#" target="mainFrame">计费数据管理</a></li>
+			    <li><a href="#" target="mainFrame">订购关系管理</a></li>
+			    <li><a href="#" target="mainFrame">订购历史管理</a></li>
+		      </ul>
+	        </div>
+
+		<div class="menu_title" onMouseOver="this.classname='menu_title2';" onClick="showsubmenu(4)" onMouseOut="this.classname='menu_title';">
+            <img src="css/images/ico_12.gif" width="16" height="14"><span>信息中心管理</span>
+        </div>
+	        <div id="submenu4" class="title_con"  style="display: none">
+			  <ul>
+			    <li><a href="#" target="mainFrame">短信一次审核</a></li>
+			    <li><a href="#" target="mainFrame">群发系统消息</a></li>
+			    <li><a href="#" target="mainFrame">群发短信</a></li>
+			    <li><a href="#" target="mainFrame">短信二次审核</a></li>
+			    <li><a href="#" target="mainFrame">定时发送系统消息</a></li>
+			    <li><a href="#" target="mainFrame">定时发送短信</a></li>
+			    <li><a href="#" target="mainFrame">已发送消息</a></li>
+		      </ul>
+	        </div>
+
+
+        <div class="menu_title" onMouseOver="this.classname='menu_title2';" onClick="showsubmenu(5)" onMouseOut="this.classname='menu_title';">
+            <img src="css/images/ico_13.gif" width="16" height="16"><span>系统管理</span>
+</div>
+	        <div id="submenu5" class="title_con"  style="display: none">
+			  <ul>
+			    <li><a href="#" target="mainFrame">用户管理</a></li>
+			    <li><a href="#" target="mainFrame">角色管理</a></li>
+			    <li><a href="#" target="mainFrame">登录日志查看</a></li>
+			    <li><a href="#" target="mainFrame">操作日志查看</a></li>
+			    <li><a href="#" target="mainFrame">区域管理</a></li>
+		      </ul>
+	        </div>
+
+
+
+        <div class="menu_title" onMouseOver="this.classname='menu_title2';" onClick="showsubmenu(6)" onMouseOut="this.classname='menu_title';">
+            <img src="css/images/ico_14.gif" width="16" height="16"><span>渠道代理商</span>
+</div>
+	        <div id="submenu6" class="title_con"  style="display: none">
+			  <ul>
+			    <li><a href="#" target="mainFrame">代理商列表</a></li>
+
+		      </ul>
+	        </div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="content" extends="default" namespace="/content">
+		<default-interceptor-ref name="adminStack" />
+
+		<!--Wait start-->
+		<action name="contentList"	class="com.sxit.content.action.ContentListAction">
+			<result name="success" type="dispatcher">/content/contentList.jsp
+			</result>
+		</action>
+		<action name="photoList" class="com.sxit.content.action.PhotoListAction">
+			<result name="success" type="dispatcher">/content/photoList.jsp
+			</result>
+		</action>
+		<action name="albumView" class="com.sxit.content.action.AlbumViewAction">
+			<result name="success" type="dispatcher">/content/albumView.jsp</result>
+		</action>
+			<action name="albumRecommand" class="com.sxit.content.action.AlbumRecommandAction">
+		
+		</action>
+
+		<action name="videoList" class="com.sxit.content.action.VideoListAction">
+			<result name="success" type="dispatcher">/content/videoList.jsp</result>
+		</action>
+
+		<action name="contentApproveSubmit" class="com.sxit.content.action.ContentApproveSubmitAction">
+
+		</action>
+
+		<action name="contentView"	class="com.sxit.content.action.ContentViewAction">
+			<result name="success" type="dispatcher">/content/contentView.jsp</result>
+		</action>
+
+		<action name="videoView" class="com.sxit.content.action.VideoViewAction">
+			<result name="success" type="dispatcher">/content/videoView.jsp</result>
+		</action>
+
+		<action name="photoView" class="com.sxit.content.action.PhotoViewAction">
+			<result name="success" type="dispatcher">
+				/content/photoView.jsp
+			</result>
+		</action>
+
+		<action name="tvConfirmList" class="com.sxit.content.action.TvConfirmListAction">
+			<result name="list1" type="dispatcher">/content/homeOrderList.jsp</result>
+			<result name="list2" type="dispatcher">/content/corpOrderList.jsp</result>
+			<result name="excel" type="dispatcher">/content/tvConfirmList2Excel.jsp</result>
+		</action>
+		
+		
+			<action name="corpOrderList" class="com.sxit.content.action.OrderListAction">
+			<result name="success" type="redirect">/content/tvConfirmList.action?userRole=2</result>
+		</action>
+		
+			<action name="corpPublishList" class="com.sxit.content.action.OrderListAction">
+			<result name="success" type="redirect">/content/tvConfirmList.action?userRole=2&amp;statusid=99&amp;from=publish</result>
+		</action>
+		
+			<action name="userOrderList" class="com.sxit.content.action.OrderListAction">
+				<result name="success" type="redirect">/content/tvConfirmList.action?userRole=1</result>
+		</action>
+
+		<action name="tvContentDoView" class="com.sxit.content.action.TVContentDoViewAction">
+			<result name="success" type="dispatcher">/content/tvContentDoView.jsp
+			</result>
+		</action>
+
+
+        <action name="tvContentStop" class="com.sxit.content.action.TVContentStopAction">
+		</action>
+		
+		<action name="tvContentApproveSubmit" class="com.sxit.content.action.TVContentApproveSubmitAction">
+		</action>
+
+        <action name="tvContentPublish"	class="com.sxit.content.action.TVContentPublishAction">
+		</action>
+		
+		<action name="orderContentApproveSubmit" class="com.sxit.content.action.OrderContentApproveSubmitAction">
+          <result name="input" type="dispatcher">/content/orderContentDoView.jsp</result>
+          <result name="success" type="redirect">${nextPage}</result>
+          
+		</action>
+
+		<!--Wait end-->
+	</package>
+</struts>
+
+

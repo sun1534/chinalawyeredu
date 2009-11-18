@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="workflow" extends="default" namespace="/workflow">
+      <default-interceptor-ref name="adminStack"/>
+      <!-- 职务管理 -->
+      <action name="positionList" class="com.sxit.workflow.action.PositionListAction">
+           <result name="success" type="dispatcher">/workflow/positionList.jsp</result>
+ 	  </action>
+      <action name="positionCreate" class="com.sxit.workflow.action.PositionCreateAction">
+	       <result name="input" type="dispatcher">/workflow/positionCreate.jsp</result>
+      </action>
+         <action name="positionEdit" class="com.sxit.workflow.action.PositionEditAction">
+	   <result name="input" type="dispatcher">/workflow/positionEdit.jsp</result>
+         </action>
+         <action name="positionDelete" class="com.sxit.workflow.action.PositionDeleteAction">
+         </action>
+         <action name="positionViewUsers" class="com.sxit.workflow.action.PositionViewUsersAction">
+             <interceptor-ref name="hibernateSessionStack"/> 
+           <result name="success" type="dispatcher">/workflow/positionViewUsers.jsp</result>
+         </action>
+         <action name="positionAddUsers" class="com.sxit.workflow.action.PositionAddUsersAction">
+           <result name="success" type="dispatcher">/workflow/positionViewUsers.jsp</result>
+            <result name="input" type="dispatcher">/workflow/positionAddUsers.jsp</result>
+         </action>
+         <action name="positionDeleteUsers" class="com.sxit.workflow.action.PositionDeleteUsersAction">
+         </action> 
+      
+        <!-- 业务管理-->
+      <action name="businessList" class="com.sxit.workflow.action.BusinessListAction">
+           	
+           <result name="success" type="dispatcher">/workflow/businessList.jsp</result>
+ 	  </action>
+      <action name="businessCreate" class="com.sxit.workflow.action.BusinessCreateAction">
+	       <result name="input" type="dispatcher">/workflow/businessCreate.jsp</result>
+      </action>
+         <action name="businessEdit" class="com.sxit.workflow.action.BusinessEditAction">
+	   <result name="input" type="dispatcher">/workflow/businessEdit.jsp</result>
+         </action>
+         <action name="businessDelete" class="com.sxit.workflow.action.BusinessDeleteAction">
+         </action>
+
+
+         <action name="businessViewUsers" class="com.sxit.workflow.action.BusinessViewUsersAction">
+           <result name="success" type="dispatcher">/workflow/businessViewUsers.jsp</result>
+         </action>
+         <action name="businessAddUsers" class="com.sxit.workflow.action.BusinessAddUsersAction">
+           <result name="success" type="dispatcher">/workflow/businessViewUsers.jsp</result>
+            <result name="input" type="dispatcher">/workflow/businessAddUsers.jsp</result>
+         </action>
+
+         <action name="businessDeleteUsers" class="com.sxit.workflow.action.BusinessDeleteUsersAction">
+         
+         </action> 
+         <!-- 流程管理-->
+       <action name="processList" class="com.sxit.workflow.action.ProcessListAction">
+       <interceptor-ref name="hibernateSessionStack"/> 
+           <result name="success" type="dispatcher">/workflow/processList.jsp</result>
+ 	 </action>
+         <action name="processCreate" class="com.sxit.workflow.action.ProcessCreateAction">
+	   <result name="input" type="dispatcher">/workflow/processCreate.jsp</result>
+         </action>
+         <action name="processEdit" class="com.sxit.workflow.action.ProcessEditAction">
+	   <result name="input" type="dispatcher">/workflow/processEdit.jsp</result>
+         </action>
+         <action name="processDelete" class="com.sxit.workflow.action.ProcessDeleteAction">
+         </action>
+         <action name="processPicView" class="com.sxit.workflow.action.ProcessPicViewAction">
+           <result name="success" type="dispatcher">/workflow/processPicView.jsp</result>
+ 	 </action>
+ 	 
+ 	 <!--节点管理-->
+ 	   <action name="nodeList" class="com.sxit.workflow.action.NodeListAction">
+             <interceptor-ref name="hibernateSessionStack"/> 
+           <result name="success" type="dispatcher">/workflow/nodeList.jsp</result>
+ 	 </action>
+         <action name="nodeCreate" class="com.sxit.workflow.action.NodeCreateAction">
+	   <result name="input" type="dispatcher">/workflow/nodeCreate.jsp</result>
+         </action>
+         <action name="nodeEdit" class="com.sxit.workflow.action.NodeEditAction">
+	   <result name="input" type="dispatcher">/workflow/nodeEdit.jsp</result>
+         </action>
+         <action name="nodeDelete" class="com.sxit.workflow.action.NodeDeleteAction">
+         </action>
+         <action name="nodeAddList" class="com.sxit.workflow.action.NodeAddListAction">
+          <interceptor-ref name="hibernateSessionStack"/> 
+           <result name="success" type="dispatcher">/workflow/nodeAddList.jsp</result>
+ 	 </action>
+         <action name="nodeAddTo" class="com.sxit.workflow.action.NodeAddToAction">
+           <result name="success" type="redirect">/workflow/nodeView.action?nodeid=${fromnodeid}&amp;processid=${processid}</result>
+ 	 </action>
+         <action name="nodeDeleteTo" class="com.sxit.workflow.action.NodeDeleteToAction">
+           <result name="success" type="redirect">/workflow/nodeView.action?nodeid=${nodeid}&amp;processid=${processid}</result>
+ 	 </action>
+         <action name="nodeView" class="com.sxit.workflow.action.NodeViewAction">
+         <interceptor-ref name="hibernateSessionStack"/> 
+           <result name="success" type="dispatcher">/workflow/nodeView.jsp</result>
+ 	 </action>
+  </package>
+</struts>

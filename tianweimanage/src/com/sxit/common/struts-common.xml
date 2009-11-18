@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+	  <!--登录啊退出啊密码修改等等-->
+    <package name="common" extends="default" namespace="/common">
+    	<default-interceptor-ref name="visitStack"/>
+		<!-- 登录,默认为name='success' type='dispatch' -->
+		<action name="login" class="com.sxit.common.action.UserLoginAction">
+		    <interceptor-ref name="visitStack"/>  
+    		<result name="success" type="redirect">/index/index.action</result><!-- 进入系统首页 -->
+			<result name="pasiveloginsuccess" type="redirect">/index/workspace.action</result><!-- 进入系统首页 -->
+		</action> 
+
+		
+		<action name="logout" class="com.sxit.common.action.UserLogoutAction">
+		    <interceptor-ref name="adminStack"/>  
+			<result name="success" type="redirect">/common/index.action</result><!-- 跳转到登录页面 -->
+		</action> 
+		
+		<action name="passwdChange" class="com.sxit.common.action.PasswordChangedAction">
+		    <interceptor-ref name="adminStack"/>  
+		    <result name="input"  type="dispatcher">/common/passwdChange.jsp</result>
+		    
+			<!--<result name="success" type="dispatcher">/common/message.jsp</result> 提示密码修改成功 -->
+		</action>  
+		<!--系统访问,实现一些数据的初始化工作-->
+        <action name="index" class="com.sxit.common.action.IndexAction">
+		    <interceptor-ref name="visitStack"/>  
+			<result name="success" type="dispatcher">/common/login.jsp</result><!-- 提示密码修改成功 -->
+		</action> 
+		
+	</package>
+	
+	<package name="index" extends="default" namespace="/index">
+       <default-interceptor-ref name="adminStack"/>
+       <action name="index" class="com.sxit.index.IndexPageAction">
+          <result name="success" type="dispatcher">/index/index.jsp</result>	
+       </action>
+        <action name="top" class="com.sxit.index.IndexPageAction" method="top">
+          <result name="top" type="dispatcher">/index/top.jsp</result>	
+       </action>
+        <action name="left" class="com.sxit.index.IndexPageAction" method="left">
+          <result name="left" type="dispatcher">/index/left.jsp</result>	
+       </action>
+       <action name="workspace" class="com.sxit.index.MyWorkspacePageAction">
+       		<interceptor-ref name="hibernateSessionStack"/>
+          <result name="success" type="dispatcher">/index/workspace.jsp</result>	
+       </action> 
+    </package>
+   
+
+	<package name="commonajax" extends="defaultajax" namespace="/commonajax">
+       <default-interceptor-ref name="visitStack"/>
+       <action name="ajaxlogout" class="com.sxit.common.action.ajax.UserLogoutAjaxAction">
+           <result name="success" type="json"></result>
+   	   </action>
+     
+   	   <action name="checkCreateName" class="com.sxit.common.action.ajax.CheckCreateNameAction">
+   	   		<result name="success" type="json"></result>
+   	   </action>
+   	  
+    </package>
+	
+	
+</struts>

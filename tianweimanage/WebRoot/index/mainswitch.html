@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>${sysName}</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css" media="all"/>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script language="javascript" type="text/javascript">
+function switchFrame(){
+   if(top.frames["leftMenu"].cols=="215,18")
+   //if(top.frames["allMain"].cols=="233,*")
+   {
+      top.frames["leftMenu"].cols="0,18"
+	  top.frames["allMain"].cols="18,*"
+	  $("#switchimg").attr("src","../css/images/ico_04_1.gif");
+   }
+   else{
+       top.frames["leftMenu"].cols="215,18"
+	   top.frames["allMain"].cols="233,*"
+	  $("#switchimg").attr("src","../css/images/ico_04.gif");
+   }
+   
+}
+</script>
+</head>
+<body class="mainswitch-body">
+<div class="mainswitch">
+<a href="#" onclick="switchFrame()"><img id="switchimg" src="../css/images/ico_04.gif" width="12" height="30" alt=""/></a>
+</div>
+</body>
+</html>

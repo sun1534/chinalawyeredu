@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="service" extends="default" namespace="/service">
+      <default-interceptor-ref name="adminStack"/>
+      <!-- 职务管理 -->
+      <action name="adList" class="com.sxit.service.action.ADListAction">
+           <result name="success" type="dispatcher">/service/adList.jsp</result>
+ 	  </action>
+      <action name="adCreateEdit" class="com.sxit.service.action.ADCreateEditAction">
+	       <result name="input" type="dispatcher">/service/adCreateEdit.jsp</result>
+      </action>
+
+      <action name="adDelete" class="com.sxit.service.action.ADDeleteAction">
+      </action>
+         
+         
+          <action name="advPosList" class="com.sxit.service.action.AdvPosListAction">
+           <result name="success" type="dispatcher">/service/advPosList.jsp</result>
+ 	  </action>
+      <action name="advPosCreateEdit" class="com.sxit.service.action.AdvPosCreateEditAction">
+	       <result name="input" type="dispatcher">/service/advPosCreateEdit.jsp</result>
+      </action>
+
+      <action name="advPosDelete" class="com.sxit.service.action.AdvPosDeleteAction">
+      </action>
+         
+      <action name="productList" class="com.sxit.service.action.ProductListAction">
+           <result name="success" type="dispatcher">/service/productList.jsp</result>
+ 	  </action>
+      <action name="productCreateEdit" class="com.sxit.service.action.ProductCreateEditAction">
+	       <result name="input" type="dispatcher">/service/productCreateEdit.jsp</result>
+      </action>
+
+      <action name="productDelete" class="com.sxit.service.action.ProductDeleteAction">
+      </action>
+    
+    
+       <action name="keywordDelete" class="com.sxit.service.action.KeywordDeleteAction">
+        </action>
+        
+               
+        <action name="keywordCreateEdit" class="com.sxit.service.action.KeywordCreateEditAction">
+            <result name="input" type="dispatcher">keywordCreateEdit.jsp</result>
+        </action>
+        
+               
+        <action name="keywordList" class="com.sxit.service.action.KeywordListAction">
+            <result name="success" type="dispatcher">keywordList.jsp</result>
+        </action>
+        
+        
+         <action name="partnerList" class="com.sxit.service.action.PartnerListAction">
+           <result name="success" type="dispatcher">/service/partnerList.jsp</result>
+ 	  </action>
+      <action name="partnerCreateEdit" class="com.sxit.service.action.PartnerCreateEditAction">
+	       <result name="input" type="dispatcher">/service/partnerCreateEdit.jsp</result>
+      </action>
+
+      <action name="partnerDelete" class="com.sxit.service.action.PartnerDeleteAction">
+      </action>
+      
+          <action name="shichuangList" class="com.sxit.service.action.ShichuangListAction">
+           <result name="success" type="dispatcher">/service/shichuangList.jsp</result>
+ 	  </action>
+ 	    <action name="daohangList" class="com.sxit.service.action.DaohangListAction">
+           <result name="success" type="dispatcher">/service/daohangList.jsp</result>
+ 	  </action>
+      <action name="shichuangCreateEdit" class="com.sxit.service.action.ShichuangCreateEditAction">
+	       <result name="input" type="dispatcher">/service/shichuangCreateEdit.jsp</result>
+      </action>
+
+      <action name="shichuangDelete" class="com.sxit.service.action.ShichuangDeleteAction">
+      </action>
+        
+      
+  </package>
+</struts>

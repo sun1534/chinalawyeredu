@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="info" extends="default" namespace="/info">
+    <default-interceptor-ref name="adminStack"/>
+        
+        <!--Wait start-->
+        <action name="newsList" class="com.sxit.info.action.NewsListAction">
+            <result name="success" type="dispatcher">/info/newsList.jsp</result>
+         </action>
+         <action name="noticeList" class="com.sxit.info.action.NewsListAction">
+            <result name="success" type="redirect">newsList.action?thetype=100</result>
+        </action>
+         <action name="huodongList" class="com.sxit.info.action.NewsListAction">
+            <result name="success" type="redirect">newsList.action?thetype=2</result>
+        </action>
+        <action name="newsCreate" class="com.sxit.info.action.NewsCreateAction">
+            <result name="input" type="dispatcher">newsCreate.jsp</result>
+        </action>
+        
+        <action name="newsEdit" class="com.sxit.info.action.NewsEditAction">
+            <result name="input" type="dispatcher">newsEdit.jsp</result>
+        </action>
+      
+        <action name="newsDelete" class="com.sxit.info.action.NewsDeleteAction">
+        </action>
+       
+        <action name="infoTypeDelete" class="com.sxit.info.action.InfoTypeDeleteAction">
+        </action>
+        
+               
+        <action name="infoTypeCreateEdit" class="com.sxit.info.action.InfoTypeCreateEditAction">
+            <result name="input" type="dispatcher">infoTypeCreateEdit.jsp</result>
+        </action>
+        
+               
+        <action name="infoTypeList" class="com.sxit.info.action.InfoTypeListAction">
+            <result name="success" type="dispatcher">infoTypeList.jsp</result>
+        </action>
+       
+        <!--Wait end-->
+    </package>
+</struts>
+
+

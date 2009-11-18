@@ -1,0 +1,22 @@
+#
+#Fri Aug 14 10:56:02 CST 2009
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=false
+reStrategyClass=
+springDaoFile=
+useJavaTypes=true
+keyGenerator=identity
+libInstallFolder=
+addLibs2Project=false
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=/tianwei/hibernate.reveng.xml
+configFile=/tianwei/src/hibernate.cfg.xml
+createConfigFile=true
+addLibs2Classpath=false

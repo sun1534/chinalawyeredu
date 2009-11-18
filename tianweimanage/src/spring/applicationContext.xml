@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+           
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName">
+      <value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property name="url">
+       <value>jdbc:mysql://211.148.192.252:3306/tianwei?characterEncoding=UTF-8</value>
+    </property>
+    <property name="username">
+      <value>tianwei</value>
+    </property>
+    <property name="password">
+      <value>tianwei</value>
+    </property>
+  </bean>   
+  
+
+           
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">       
+        <property name="dataSource">       
+            <ref bean="dataSource" />       
+        </property>       
+        <property name="hibernateProperties">       
+            <props>       
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>    
+                
+                 <prop key="hibernate.hbm2ddl.auto">none</prop>
+      
+            	 <prop key="hibernate.show_sql">false</prop>
+               <prop key="hibernate.generate_statistics">false</prop>       
+               <prop key="hibernate.connection.release_mode">auto</prop>       
+               <prop key="hibernate.autoReconnect">true</prop> 
+               <prop key="hibernate.jdbc.fetch_size"> 25</prop> 
+               <prop key="hibernate.jdbc.batch_size">30</prop> 
+               <!--<prop key="hibernate.cache.use_second_level_cache">true</prop>
+               <prop key="hibernate.cache.provider_class">org.hibernate.cache.OSCacheProvider</prop> 
+               <prop key="hibernate.cache.region_prefix">hibernate.oscache</prop> 
+               <prop key="hibernate.cache.use_minimal_puts">false</prop> -->
+                
+            </props>       
+        </property>       
+        <!-- 将所有的hibernate的配置文件都放在这里,就不要人为来对这个xml文件进行处理了-->
+        <property name="mappingDirectoryLocations">
+        	<list>
+        		<!--<value>classpath:com/sxit/models/workflow</value>
+        		<value>classpath:com/sxit/models/wait</value>-->
+        	 	<value>classpath:com/sxit/models/</value> 
+        	</list>
+        </property> 
+    </bean>      
+ 
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">           
+          <property name="sessionFactory">           
+              <ref bean="sessionFactory"/>           
+          </property>           
+    </bean>         
+    <tx:annotation-driven />
+  
+   <bean id="basicDAO" class="com.sxit.common.BasicDAO">           
+          <property name="sessionFactory">           
+              <ref bean="sessionFactory"/>           
+          </property>           
+    </bean>    
+    
+    <bean id="basicService" class="com.sxit.common.BasicService">           
+          <property name="basicDAO">           
+              <ref bean="basicDAO"/>           
+          </property>           
+    </bean> 
+    
+     <bean id="timerTask" class="com.sxit.common.ScheduleTask">
+    </bean>
+    <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="timerTask">
+    		<ref bean="timerTask"/>
+    	</property>
+		<!-- 每隔指定时间执行定时任务毫秒 -->
+    	<property name="period">
+    		<value>360000</value>
+    	</property>
+    	<!-- 系统加载后延时多久执行定时任务 毫秒 -->
+    	<property name="delay">
+    		<value>360000</value>
+    	</property>
+    </bean>
+    <!-- 
+    <bean id="smsSendTask" class="com.sxit.sms.util.SmsBatchSendTask">
+    </bean>
+    <bean  id="scheduleTimerTask1" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="timerTask">
+    		<ref bean="smsSendTask"/>
+    	</property>
+    	<property name="period">
+    		<value>1000</value>
+    	</property>
+    	<property name="delay">
+    		<value>60000</value>
+    	</property>
+    </bean>
+     -->
+     <bean id="timerFactoryBean" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+    		<list>
+    			<ref bean="scheduleTimerTask"/>
+    			<!-- <ref bean="scheduleTimerTask1"/> -->
+    		</list>		
+    	</property>
+    </bean>
+    
+</beans>

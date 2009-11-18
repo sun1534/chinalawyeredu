@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="direction.directionid">
+        <field-validator type="requiredstring">
+            <message>请输入流向id!</message>
+        </field-validator>
+    </field>
+    <field name="direction.directionname">
+        <field-validator type="requiredstring">
+            <message>请输入流向名!</message>
+        </field-validator>
+    </field>
+    <field name="direction.description">
+        <field-validator type="requiredstring">
+            <message>请输入描述!</message>
+        </field-validator>
+    </field>
+    <field name="direction.fromnodeid">
+        <field-validator type="requiredstring">
+            <message>请输入起始节点!</message>
+        </field-validator>
+    </field>
+    <field name="direction.tonodeid">
+        <field-validator type="requiredstring">
+            <message>请输入到达节点!</message>
+        </field-validator>
+    </field>
+ 
+ 
+</validators> 

@@ -1,0 +1,253 @@
+/*
+ *     -- ArekorePopup.css for ArekorePopup.js (v1.2.5) --
+ *  
+ *  
+ *  node-tree when mouse pointer is on effective element:
+ *  
+ *  html
+ *    +- head
+ *    +- body
+ *        +- ..
+ *        +- ..
+ *        +- ins#AP-popup-parent       (popup box)
+ *             +- ul
+ *                 +- li.ap-banner     (if 'ap:banner' attr exists)
+ *                 |     +- img        (image specified in 'ap:banner')
+ *                 |
+ *                 +- li.title         (if 'title' attr exists)
+ *                 |     +- #text      ('title' attr value)
+ *                 |
+ *                 +- li.href          (if 'href' attr exists)
+ *                 |     +- a          (if attr is URI-type then exists)
+ *                 |        +- #text   ('href' attr value)
+ *                 :
+ */
+
+ins#AP-popup-parent,
+ins#AP-popup-parent ul,
+ins#AP-popup-parent li,
+ins#AP-popup-parent div,
+ins#AP-popup-parent img,
+ins#AP-popup-parent a
+	{
+	background-color: transparent !important;
+	background-image: none /* !important */;
+	background-repeat : repeat !important;
+	background-attachment: scroll !important;
+	background-position: top left !important;
+	border: none !important;
+	caption-side: top !important;
+	clear: none !important;
+	/* clip: auto !important; */
+	color: inherit !important;
+	content: "" !important;
+	counter-increment: none !important;
+	counter-reset: none !important;
+	cursor: auto !important;
+	direction: ltr !important;
+	display: block !important;
+	empty-cells: show !important;
+	float: none !important;
+	font-family: inherit !important;
+	font-size: inherit !important;
+	font-size-adjust: none !important;
+	font-stretch: normal !important;
+	font-style: normal !important;
+	font-variant: normal !important;
+	font-weight: normal !important;
+	height: auto /* !important */;
+	letter-spacing: normal !important;
+	line-height: normal !important;
+	list-style-type: none !important;
+	list-style-image: none !important;
+	margin: 0 !important;
+	max-height: none !important;
+	max-width: none !important;
+	min-height: 0 !important;
+	min-width: 0 !important;
+	overflow: visible !important;
+	outline: invert none medium !important;
+	padding: 0 !important;
+	position: static !important;
+	quotes: none !important;
+	table-layout: auto !important;
+	text-align: left !important;
+	text-decoration: none !important;
+	text-indent: 0 !important;
+	text-shadow: none !important;
+	text-transform: none !important;
+	unicode-bidi: normal !important;
+	vertical-align: baseline !important;
+	visibility: inherit !important;
+	white-space: normal !important;
+	width: auto /* !important */;
+	word-spacing: normal !important;
+	z-index: 1000000 !important;
+	-moz-border-radius: 0 !important;
+	-moz-box-sizing: content-box !important;
+	-moz-opacity: 1.0 !important;
+	}
+
+ins#AP-popup-parent:before,
+ins#AP-popup-parent:after,
+ins#AP-popup-parent ul:before,
+ins#AP-popup-parent ul:after,
+ins#AP-popup-parent li:before,
+ins#AP-popup-parent li:after,
+ins#AP-popup-parent div:before,
+ins#AP-popup-parent div:after,
+ins#AP-popup-parent img:before,
+ins#AP-popup-parent img:after,
+ins#AP-popup-parent a:before,
+ins#AP-popup-parent a:after
+	{
+	display: none !important;
+	}
+	
+ins#AP-popup-parent
+ /*
+  *  'top', 'left' properties are automatic setup by the script.
+  *  Do not declare in CSS.
+  */
+	{
+	position: absolute !important;
+	right: auto !important;
+	bottom: auto !important;
+	width: auto !important;
+	height: auto !important;
+	color: black !important;
+	background-color: #ffffaf !important;
+	border: 1px solid #cfcf8e !important;
+	padding: 4px !important;
+	font-size: 12px !important;
+	font-family: "Lucida Grande", sans-serif !important;
+	}
+
+ins#AP-popup-parent li
+	{
+	overflow: hidden !important;
+	/*
+	 * Script limits popup width to 90% of window by computing.
+	 * Do not declare 'max-width' in CSS.
+	 */
+	}
+
+ins#AP-popup-parent li:before
+	{
+	/* --- for debug --- */
+	/* display: block !important; */
+	/* content: "[" attr(class) "] " !important; */
+	}
+
+ins#AP-popup-parent li.title
+	{
+	font-weight: bold !important;
+	}
+
+ins#AP-popup-parent li.href,
+ins#AP-popup-parent li.cite
+	{
+	font-size: 11px !important;
+	}
+
+ins#AP-popup-parent li.ap-banner img
+	{
+	/*
+	 * If all images of 'ap:banner' are same height,
+	 * better to specify the height value here
+	 * to prevent display collapse of popup.
+	 */
+	/* height: 40px !important; */
+	}
+
+ins#AP-popup-parent a
+	{
+	display: inline !important;
+	cursor: pointer !important;
+	text-decoration: underline !important;
+	color: expression('black') !important; /* measure to WinIE */
+	}
+
+/*
+ *  Settings in the case of using 'image-enhanced' rich style popup
+ *  ('this.useRichStyle = true;' in the script)
+ *
+ *  node-tree when mouse pointer is on effective element:
+ *     
+ *   html
+ *     +- head
+ *     +- body
+ *         +- ..
+ *         +- ..
+ *         +- ins#AP-popup-parent.AP-richStyle
+ *              +- ul
+ *              |   +- li.hoge
+ *              |   +- li.fuga
+ *              |   :
+ *              |   +- li.hoge.AP-shadow  (exists when UA is not WinIE)
+ *              |   +- li.fuga.AP-shadow  (exists when UA is not WinIE)
+ *              |   :
+ *              |        
+ *              +- div#AP-rect-top
+ *              +- div#AP-rect-left
+ *              +- div#AP-rect-right
+ *              +- div#AP-rect-bottom
+ *              +- div#AP-angle-top-left
+ *              +- div#AP-angle-top-right
+ *              +- div#AP-angle-bottom-left
+ *              +- div#AP-angle-bottom-right
+ */
+
+ins#AP-popup-parent.AP-richStyle
+ /* 
+  *  'padding' property must be in 'px' and
+  *  same to 'richStyleEdgeWidth' variable value in script.
+  */
+	{
+	padding: 16px !important;
+	border: 0 none !important;
+	background-color: transparent !important;
+	color: white !important;
+	}
+
+ins#AP-popup-parent.AP-richStyle a
+	{
+	color: expression('white') !important; /* measure to WinIE */
+	}
+
+ins#AP-popup-parent.AP-richStyle li.AP-shadow
+ /*
+  *  for 'text-shadow' fake. this exists when UA is not WinIE.
+  *  'top', 'left', 'width' properties are automatic
+  *  setup by the script. do not declare in CSS.
+  */
+	{
+	position: absolute !important;
+	background-image: none !important;
+	right: auto !important;
+	height: auto !important;
+	bottom: auto !important;
+	color: black !important;
+	z-index: -1 !important;
+	}
+	
+ins#AP-popup-parent.AP-richStyle li.AP-shadow img
+ /* 
+  *  shadow fake of 'ap:banner' image (except WinIE)
+  */
+	{
+	border: 1px solid black !important;
+	border-left: none !important;
+	border-top: none !important;
+	}
+
+ins#AP-popup-parent.AP-richStyle div
+ /*
+  *  'top', 'bottom', 'left', 'right', 'width, 'height',
+  *  'background-image' properties are automatic
+  *  setup by the script. do not declare in CSS.
+  */
+	{
+	position: absolute !important;
+	font-size: 0px !important; /* measure to WinIE */
+	}
