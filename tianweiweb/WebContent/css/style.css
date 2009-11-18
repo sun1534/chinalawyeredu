@@ -519,8 +519,8 @@ input[type="text"]:focus, input[type="password"]:focus,select:focus, textarea:fo
 .submitBtn ,.cancerBtn ,.delBtn ,.backBtn{text-align:center;cursor:pointer;border:1px solid #bbb;}
 .submitBtn {color:#fff;}
 .submitBtn,
-.delBtn{background:url(../images/sbgn.gif) repeat-x left top;width:70px;height:23px;}
-.cancerBtn {background:url(../images/sbgn_.gif) repeat-x left top;width:70px;height:23px;}
+.delBtn{background:url(../images/sbgn.gif) repeat-x left top;width:90px;height:23px;}
+.cancerBtn {background:url(../images/sbgn_.gif) repeat-x left top;width:90px;height:23px;}
 .backBtn{border-color:#DDDDDD #264F6E #264F6E #DDDDDD;}
 input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7c7c7c;border-right:1px solid #ddd;border-bottom:1px solid #ddd;padding:1px 3px;font-size:12px;height:16px;line-height:16px;}
 .iorange{color:#FFFFFF;}
