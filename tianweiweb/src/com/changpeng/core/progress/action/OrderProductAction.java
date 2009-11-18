@@ -50,10 +50,10 @@ public class OrderProductAction extends AbstractAction {
 				publish.setUserRole((short)this.currentRole);
 				if(this.currentRole==2){
 					if(publish.getFee()==0.0){
-						publish.setStatusid((short)2);
+						publish.setStatusid((short)3);
 						publish.setPaystatus((short)0);
 					}else{
-						publish.setStatusid((short)3);
+						publish.setStatusid((short)2);
 					}
 				}
 				service.save(publish);
