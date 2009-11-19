@@ -28,8 +28,8 @@
 						 <th class="w110">产品名称</th>
 						 <th class="w80">价格</th>
 						 <th>订购时间</th>
-						 <th class="w100">进度</th>
-						 <th class="w60">详细信息</th>
+						 <th class="w80">进度</th>
+						 <th class="w100">详细信息</th>
 						 <th class="w60">取消订购</th>
 					 </tr>
 				</thead>
@@ -49,7 +49,12 @@
 			   	     <#if t.statusid=99>发布中</#if>
 			   	     <#if t.statusid=100>业务到期</#if>
 			   	   </td>
-			   	   <td><a href="../progress/publishview.action?publishid=${t.id}">查看</a></td>
+			   	   <td><a href="../progress/publishview.action?publishid=${t.id}">查看</a>
+
+	<#if t.statusid=5><a href="javascript:getUploadFile(${t.id})" class="a_pay">上传资料</a></#if>
+		<#if t.statusid=99><a href="javascript:getUploadFile(${t.id})" class="a_pay">上传资料</a></#if>
+			   	   
+			   	   </td>
 			   	    <td>&nbsp;<#if t.statusid=1><a href="javascript:unorder(${t.id})">取消订购</a></#if>
 			   	     <#if t.statusid=2><a href="javascript:unorder(${t.id})">取消订购</a></#if>
 			   	   </td>

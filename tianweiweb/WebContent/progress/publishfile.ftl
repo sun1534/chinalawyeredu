@@ -75,7 +75,8 @@
 					</td>
 					<td align="right">
 					<div  class="addfriendBtn clearfix">
-					<button title="取消" class="cancerBtn igray" onclick="location.reload(true)">关闭</button>
+				<!--	<button title="取消" class="cancerBtn igray" onclick="location.reload(true)">关闭</button>-->
+				<button title="取消" class="cancerBtn igray" onclick="javascript:location.href='../progress/publishview.action?publishid=${id}'">关闭</button>
 				</div>
 					</td>
 				</tr>
