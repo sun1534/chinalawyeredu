@@ -7,6 +7,7 @@ import java.text.DateFormat;
 
 import com.sxit.common.action.AbstractAction;
 import com.sxit.models.content.CorePublish;
+import com.sxit.models.users.CoreUser;
 import com.sxit.models.users.CoreUserPersonal;
 import com.sxit.models.wait.CoreInnerMsg;
 import com.sxit.models.wait.CoreInnerMsgDest;
@@ -52,7 +53,7 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 		msg.setTitle(null);
 		dest.setDestUserid(publish.getUserid());
 		
-		
+		CoreUser coreuser = (CoreUser) basicService.get(CoreUser.class, publish.getUserid());
 		System.out.println("dest.getDestUserid()::"+dest.getDestUserid());
 		
 		if(history.getSimpleapprove()==1){ //审核通过
@@ -66,7 +67,12 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 				basicService.executeSql("update core_publish_content set statusid=1,approve_time=now() where publishid="+serviceId);
 			}
 //			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过！</a>");
+			
+			
+			if(coreuser.getUserRole()==2&&publish.getProductid()!=22)
 			msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过，请点此上传相应文件内容！</a>");
+			else
+				msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品审核通过！</a>");
 
 			this.message = "审核通过处理成功";
 		}else if(history.getSimpleapprove()==2){ //通过并发布
@@ -76,10 +82,10 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 			publish.setStarttime(new java.util.Date());
 			this.message = "审核通过并发布处理成功";
 			publish.setStarttime(new java.util.Date());
-			
+			if(coreuser.getUserRole()==2&&publish.getProductid()!=22)
 				msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过并已经发布到电视，请点此上传相应文件内容！</a>");
-
-//			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过并已经发布到电视！</a>");
+			else
+			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品审核通过并已经发布到电视！</a>");
 		}else if(history.getSimpleapprove()==3){//不通过
 			publish.setStatusid((short)4);
 			history.setSimpleapprove(4);
