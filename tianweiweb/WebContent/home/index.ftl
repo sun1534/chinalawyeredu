@@ -49,7 +49,10 @@ document.write('</object>');
 					<h3>节目导航</h3>
 					<ul>
 					<#list shichuangs as shichuang>
-						<li><a  href="#" onclick="window.open('${shichuang.url}','','newwindow', 'width=640,height=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${shichuang.title}</a></li>
+						<li>
+						
+						
+						<a  href="#" onclick="window.open('${shichuang.url}','newwindow', 'width=640,height=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${shichuang.title}</a></li>
 					</#list>
 					</ul>
 					</div>
