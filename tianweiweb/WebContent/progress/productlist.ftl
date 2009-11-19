@@ -90,7 +90,7 @@ function applyverify(){
 		$.ajax({
 		    type: "POST",
 		    data:"",
-		    url:"verifyapply.action",
+		    url:"../user/verifyapply.action",
 		    success:function(data){
 		    	$.blockUI({message:data});
 	    }});
