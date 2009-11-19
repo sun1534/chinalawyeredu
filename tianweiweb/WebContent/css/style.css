@@ -761,8 +761,8 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 .prolist2 dl dt img {display:block;border:1px solid #eee;padding:1;}
 .prolist2 dl dd {float:left;width:330px;padding-left:10px;}
 .prolist2 dl dd p {line-height:24px;}
-.prolist2 dl dd p a {color:#fF6600;text-decoration:none;}
-.prolist2 dl dd p a:hover {color:#000;text-decoration:none;}
+.prolist2 dl dd p a {text-decoration:none;}
+.prolist2 dl dd p a:hover {text-decoration:none;}
 
 .selectpic {height:280px;overflow:auto;border:1px solid #000;}
 .selectpic li {float:left;width:100px;text-align:center;height:110px;overflow:hidden;display:inline-block;}
