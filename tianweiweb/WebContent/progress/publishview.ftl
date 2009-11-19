@@ -17,7 +17,7 @@
 					<p>价格：${product.pricestr} ${product.unit}</p>
 					<p>当前状态：
 					 <#if publish.statusid=1>初订购</#if>
-			   	     <#if publish.statusid=2>待付费（<a href="../progress/tenpay.action?id=${t.id}" target="_blank">现在付款</a>）</#if>
+			   	     <#if publish.statusid=2>待付费（<a href="../progress/tenpay.action?id=${t.id}" target="_blank" class="a_pay">现在付款</a>）</#if>
 			   	     <#if publish.statusid=3>待审核</#if>
 			   	     <#if publish.statusid=4>审核未通过</#if>
 			   	     <#if publish.statusid=5>审核通过</#if>
@@ -29,7 +29,7 @@
 			</div>
 			<#if currentRole=1>
 				<div class="companylist">
-					
+
 					<div class="title-h"><h3>内容</h3></div>
 					<div class="piclist_ clearfix">
 						<#list photos as photo>
@@ -97,7 +97,7 @@
 									<#if file.publishstatus=2><a href="javascript:delcontent(${file.id})">删除</a></#if></td>
 								</tr>
 								</#list>
-		
+
 								<#if publish.statusid=5><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})">添加</a></td></tr></#if>
 								<#if publish.statusid=99><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})">添加</a></td></tr></#if>
 							</tbody>
@@ -179,7 +179,7 @@ function saveit(){
 	$("#cancelbtn").hide();
 	$("#txtcontent").removeClass("saveEidt");
 	$("#txtcontent").addClass("editArea");
-	
+
 }
 function cancelit(){
 	$("#editbtn").show();
