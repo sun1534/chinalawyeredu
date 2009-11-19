@@ -4,7 +4,7 @@
 
 <div class="in-main">
 	<div class="blogbox">
-		<div class="title-h"><h3>进度查询</h3></div>
+		<div class="title-h"><h3>产品订购管理</h3></div>
 		<!-- bloglist start -->
 		<div class="bloglist">
 
@@ -50,10 +50,12 @@
 			   	     <#if t.statusid=100>业务到期</#if>
 			   	   </td>
 			   	   <td><a href="../progress/publishview.action?publishid=${t.id}">查看</a>
-
+<#if should=1>
+<#if t.productid!=22>
 	<#if t.statusid=5><a href="javascript:getUploadFile(${t.id})" class="a_pay">上传资料</a></#if>
 		<#if t.statusid=99><a href="javascript:getUploadFile(${t.id})" class="a_pay">上传资料</a></#if>
-			   	   
+	</#if>
+	</#if>		   	   
 			   	   </td>
 			   	    <td>&nbsp;<#if t.statusid=1><a href="javascript:unorder(${t.id})">取消订购</a></#if>
 			   	     <#if t.statusid=2><a href="javascript:unorder(${t.id})">取消订购</a></#if>

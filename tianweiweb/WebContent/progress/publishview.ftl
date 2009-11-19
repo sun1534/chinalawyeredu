@@ -4,7 +4,7 @@
 
 <div class="in-main">
 	<div class="blogbox">
-		<div class="title-h"><h3>详细信息</h3></div>
+		<div class="title-h"><h3>产品“${product.name}”订购详细信息</h3></div>
 		<div class="bloglist">
 			<!-- list start  -->
 			<div class="prolist2 clearfix">
@@ -83,6 +83,7 @@
 								<tr>
 									<th  class="w200">文件包名称</th>
 									<th>审批状态</th>
+								
 									<th>&nbsp;</th>
 									<th>&nbsp;</th>
 								</tr>
@@ -91,7 +92,7 @@
 								<#list audios as file>
 								<tr>
 									<td>${file.fileName}</td>
-									<td><#if file.publishstatus=0>待审核</#if><#if file.publishstatus=1>审核通过</#if><#if file.publishstatus=2>审核不通过</#if></td>
+									<td><#if file.publishstatus=0>待审核</#if><#if file.publishstatus=1>审核通过<br/>(<s:date name="approvetime" format="yyyy-MM-dd HH:mm:ss"/>)</#if><#if file.publishstatus=2>审核不通过</#if></td>
 									<td><a href="${file.url}">下载</a></td>
 									<td><#if file.publishstatus=0><a href="javascript:delcontent(${file.id})">删除</a></#if>
 									<#if file.publishstatus=2><a href="javascript:delcontent(${file.id})">删除</a></#if></td>
