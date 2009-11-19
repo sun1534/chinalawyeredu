@@ -32,12 +32,12 @@
 			<label class="fname" for="pname"><#if currentRole=1>姓名</#if><#if currentRole=2>法人代表</#if>：</label>
 			<span class="fvalue"><input type="text" id="username" name="username" size="15" value="${username}" class="normal txt-login w200"/></span>
 		</div>
-		<div class="odd">
+		<!--<div class="odd">
 			<label class="fname" for="pname">身份认证：</label>
 			<span class="fvalue"><#if status=0><b class="red">通过认证</b></#if><#if status=1><a href="javascript:applyverify()">申请认证</a></#if>
 			<#if status=2>等待认证</#if>
 			<#if status=3><a href="javascript:applyverify()">申请认证</a></#if></span>
-		</div>
+		</div>-->
 		<#if currentRole=1>
 		<div class="odd">
 			<label class="fname" for="pname">性别：</label>
