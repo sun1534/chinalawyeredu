@@ -7,6 +7,8 @@
 	.message_top a.s4 {background:url(../images/message4.jpg) center left no-repeat;}
 #message_box .title_org {color:#F60;}
 .message_content {padding:10px; line-height:24px;}
+.message_content * {font-size:14px;}
+.message_content a {font-size:14px;}
 	.message_content dl {display:block; width:100%; overflow:hidden;}
 	.message_content dt {/*display:block; padding:5px 0; width:100px; float:left;*/}
 		.message_content dt a {display:block; width:60px; height:60px; margin:0 auto; padding:1px; border:1px solid #CCC;}

@@ -6,7 +6,7 @@
 	<form id="addpicform" action="addselectphoto.action" method="POST">
 	<input type="hidden" name="contentid" value="${contentid}" />
 	<input type="hidden" name="publishid" value="${publishid}" />
-	<div class="">${pageString}</div>
+	<div style="line-height:25px;">${pageString}</div>
 	<ul class="selectpic clearfix">
 		<#list page.items as photo>
 		<li><img src="../${photo.smallPic}" /><span><input type="radio" name="photoid" value="${photo.photoid}" /></span></li>
