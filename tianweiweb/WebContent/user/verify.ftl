@@ -22,7 +22,8 @@ function sendverify(){
 	$("#verifyform").ajaxSubmit({
 		 success:function(data){
 		 	if(data=="ok"){
-		 		location.href="/user/userbaseview.action";
+		 		//location.href="/user/userbaseview.action";
+		 		location=location;
 		 	}else{
 		 		alert(data);
 		 	}
