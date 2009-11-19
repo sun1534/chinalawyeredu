@@ -59,7 +59,7 @@ $.blockUI.defaults = {
         top:            '40%',
         left:           '35%',
 		*/
-		 width: '600%',
+		 width: '600px',
 		 top: '20%',
 		left: '35%',
         textAlign:      'left',
