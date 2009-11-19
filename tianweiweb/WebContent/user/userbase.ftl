@@ -135,6 +135,7 @@ function checkIDCard (str)
  isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
  //验证身份证，返回结果
  
+ <#if currentRole=1>
  var birthday=$("#dateinput1").val();
  if(str.length==15){
  	if(birthday!="19"+str.substring(6,8)+"-"+str.substring(8,10)+"-"+str.substring(10,12))
@@ -145,6 +146,7 @@ function checkIDCard (str)
  }else{
  	return false;
  }
+ </#if>
  return (isIDCard1.test(str)||isIDCard2.test(str));
 }
 function submita(){
