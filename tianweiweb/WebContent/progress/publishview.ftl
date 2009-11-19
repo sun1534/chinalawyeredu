@@ -98,8 +98,8 @@
 								</tr>
 								</#list>
 
-								<#if publish.statusid=5><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})">添加</a></td></tr></#if>
-								<#if publish.statusid=99><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})">添加</a></td></tr></#if>
+								<#if publish.statusid=5><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})" class="a_book">添加</a></td></tr></#if>
+								<#if publish.statusid=99><tr><td colspan=2><a href="javascript:getUploadFile(${publish.id})" class="a_book">添加</a></td></tr></#if>
 							</tbody>
 						</table>
 					</div>
