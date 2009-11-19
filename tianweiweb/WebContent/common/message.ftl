@@ -6,11 +6,11 @@
 		<p>${message}</p>
 	</div>
 	<div class="popboxbtn">
-    	<#if redirectURL?length gt 0>
+    	
     	<button onclick="window.location.href='${redirectURL}'" class="submitBtn">确定</button>
-    	<#else>
+    	
     	<button onclick="$.unblockUI();" class="cancerBtn">关闭</button>
-    	</#if>
+    	
 	</div>
 </div>
 

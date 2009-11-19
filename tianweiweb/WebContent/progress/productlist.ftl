@@ -72,11 +72,12 @@ function dinggou(id){
 	    data:"productid="+id,
 	    url:"../progress/orderproduct.action",
 	    success:function(data){
-	    	if(data.indexOf("userverify.action")>0){
-	    		applyverify();
-	    	}else{
+	  //  alert(data);
+	   // 	if(data.indexOf("userverify.action")>0){
+	   // 		applyverify();
+	   // 	}else{
 	    		$.blockUI({message:data});
-	    	}
+	   // 	}
 	    }});
 	//alert("订购");
 }

@@ -29,10 +29,12 @@
      <form id="form1" method="post" action="userbaseupdate.action">
 		<div id="baseadmininfo" class="form" >
 		<div class="odd">
-			<label class="fname" for="pname">身份认证：</label>
-			<span class="fvalue"><#if status=0><b class="red">通过认证</b></#if><#if status=1><a href="javascript:applyverify()">申请认证</a></#if>
-			<#if status=2>等待认证</#if>
-			<#if status=3><a href="javascript:applyverify()">申请认证</a></#if></span>
+			<label class="fname" for="pname">当前状态：</label>
+			<span class="fvalue">
+			<#if status=0><b class="red">通过认证</b></#if>
+			<#if status=1><b class="red">待认证</b></#if>
+			<#if status=2><b class="red">已提交认证申请,待审核</b></#if>
+			<#if status=3><b class="red">认证未通过</b></#if></span>
 		</div>
 		<div class="even">
 			<label class="fname" for="pname"><#if currentRole=1>姓名</#if><#if currentRole=2>法人代表</#if>：</label>
@@ -96,6 +98,16 @@
 
 		<div class="formbtn">
 		<label class="fname" for="cname"></label>
+		<#if status=3>
+				<span class="fvalue">
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify()" stype="button" title="申请认证" value="申请认证"/>
+		</span>
+		</#if>
+			<#if status=1>
+				<span class="fvalue">
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify()" stype="button" title="申请认证" value="申请认证"/>
+		</span>
+		</#if>
 		</div>
 	</div>
 	</div>
