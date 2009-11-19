@@ -52,7 +52,7 @@
 			   	   <td>${t.description}</td>
 			   	   <td><a href="#">详细介绍</a></td>
 			   	   <td><a href="#">案例</a></td>
-			   	   <td><a href="javascript:dinggou(${t.id})">订购</a></td>
+			   	   <td><a href="javascript:dinggou(${t.id})" class="a_book">订购</a></td>
 			   </tr>
 			</#list>
 				</tbody>
