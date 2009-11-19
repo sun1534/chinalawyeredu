@@ -92,7 +92,7 @@
 								<#list audios as file>
 								<tr>
 									<td>${file.fileName}</td>
-									<td><#if file.publishstatus=0>待审核</#if><#if file.publishstatus=1>审核通过<br/>(<s:date name="approvetime" format="yyyy-MM-dd HH:mm:ss"/>)</#if><#if file.publishstatus=2>审核不通过</#if></td>
+									<td><#if file.publishstatus=0>待审核</#if><#if file.publishstatus=1>审核通过<br/></#if><#if file.publishstatus=2>审核不通过</#if></td>
 									<td><a href="${file.url}">下载</a></td>
 									<td><#if file.publishstatus=0><a href="javascript:delcontent(${file.id})">删除</a></#if>
 									<#if file.publishstatus=2><a href="javascript:delcontent(${file.id})">删除</a></#if></td>
