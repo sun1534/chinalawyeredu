@@ -41,7 +41,7 @@
 			   	   <td>${t.createtime}</td>
 			   	   <td>
 			   	     <#if t.statusid=1>初订购</#if>
-			   	     <#if t.statusid=2>待付费 <a href="../progress/tenpay.action?id=${t.id}" target="_blank" class="a-pay">现在付款</a></#if>
+			   	     <#if t.statusid=2>待付费 <a href="../progress/tenpay.action?id=${t.id}" target="_blank" class="a_pay">现在付款</a></#if>
 			   	     <#if t.statusid=3>待审核</#if>
 			   	     <#if t.statusid=4>审核未通过</#if>
 			   	     <#if t.statusid=5>审核通过</#if>
