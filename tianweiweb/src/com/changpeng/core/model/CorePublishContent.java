@@ -1,5 +1,7 @@
 package com.changpeng.core.model;
 
+import java.sql.Timestamp;
+
 /**
  * CorePublishContent entity. @author MyEclipse Persistence Tools
  */
@@ -14,7 +16,25 @@ public class CorePublishContent implements java.io.Serializable {
 	private Integer contentid;
 	private String remark="";
 	private int statusid;
+	private Timestamp approvetime;
+	private Timestamp createtime;
 	// Constructors
+
+	public Timestamp getApprovetime() {
+		return approvetime;
+	}
+
+	public void setApprovetime(Timestamp approvetime) {
+		this.approvetime = approvetime;
+	}
+
+	public Timestamp getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(Timestamp createtime) {
+		this.createtime = createtime;
+	}
 
 	/** default constructor */
 	public CorePublishContent() {

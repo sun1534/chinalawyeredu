@@ -36,6 +36,7 @@ public class AddSelectAudioAction extends AbstractAction {
 				publishcontent.setContentid(fileid[i]);
 				publishcontent.setServiceid(4);
 				publishcontent.setPublishid(publishid);
+				publishcontent.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 				service.save(publishcontent);
 			}
 			if(progressService.checkContent(publishid)){

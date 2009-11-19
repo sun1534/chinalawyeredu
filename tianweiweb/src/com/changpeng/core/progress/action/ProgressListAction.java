@@ -12,16 +12,27 @@ public class ProgressListAction extends AbstractListAction {
 	public ProgressListAction(){
 	}
 	
+	private int should;
+	public int getShould(){
+		return should;
+	}
 	@Override
 	protected String go() throws Exception {
 		pageSize = 8;
 		ProgressService progressservice = (ProgressService)this.getBean("progressService");
 		
 		page = progressservice.getProgressList(currentUserid, pageSize, pageNo);
-
+		if(currentRole==1){
+			should=0;
+		}else{
+			should=1;
+		}
+		
 		Pagefoot pagefoot = new Pagefoot();
 		pageString = pagefoot.packString(page, pageNo,"getPage");
 		return SUCCESS;
+		
+	
 		
 	}
 	

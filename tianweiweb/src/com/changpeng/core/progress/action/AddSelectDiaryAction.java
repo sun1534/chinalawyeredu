@@ -36,6 +36,8 @@ public class AddSelectDiaryAction extends AbstractAction {
 				publishcontent.setContentid(diaryid[i]);
 				publishcontent.setServiceid(3);
 				publishcontent.setPublishid(publishid);
+				publishcontent.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+
 				service.save(publishcontent);
 			}
 			if(progressService.checkContent(publishid)){

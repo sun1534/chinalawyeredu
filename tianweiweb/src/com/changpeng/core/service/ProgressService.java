@@ -164,6 +164,7 @@ public class ProgressService extends BasicService {
 					pfile.setPublishstatus((short)cont.getStatusid());
 					pfile.setTypeid(audio.getTypeid());
 					pfile.setUrl(audio.getUrl());
+			
 					audios.add(pfile);
 				}
 			}

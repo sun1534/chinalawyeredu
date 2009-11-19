@@ -37,6 +37,9 @@ public class AddSelectPhotoAction extends AbstractAction {
 				publishcontent.setServiceid(2);
 				publishcontent.setPublishid(publishid);
 				publishcontent.setRemark(remark);
+				publishcontent.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+
+				
 				service.save(publishcontent);
 
 				if(progressService.checkContent(publishid)){
