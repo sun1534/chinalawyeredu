@@ -63,10 +63,11 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 //			0 待审核  1 审核通过  2 审核部通过
 			
 			if(userRole==1){
-				basicService.executeSql("update core_publish_content set statusid=1 where publishid="+serviceId);
+				basicService.executeSql("update core_publish_content set statusid=1,approve_time=now() where publishid="+serviceId);
 			}
-			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过！</a>");
-			
+//			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过！</a>");
+			msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过，请点此上传相应文件内容！</a>");
+
 			this.message = "审核通过处理成功";
 		}else if(history.getSimpleapprove()==2){ //通过并发布
 			publish.setStatusid((short)99);
@@ -76,7 +77,9 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 			this.message = "审核通过并发布处理成功";
 			publish.setStarttime(new java.util.Date());
 			
-			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过并已经发布到电视！</a>");
+				msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过并已经发布到电视，请点此上传相应文件内容！</a>");
+
+//			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过并已经发布到电视！</a>");
 		}else if(history.getSimpleapprove()==3){//不通过
 			publish.setStatusid((short)4);
 			history.setSimpleapprove(4);

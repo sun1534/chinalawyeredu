@@ -57,9 +57,13 @@ public class OrderContentApproveSubmitAction extends AbstractAction {
 
 		if (history.getSimpleapprove() == 1) {
 			publishcontent.setStatusid((short) 1);
+			publishcontent.setApprovetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			basicService.update(publishcontent);
 
 			msg.setContent("<a href=\"../progress/publishview.action?publishid="+publishcontent.getPublishid()+"\">您订购的企业产品，内容审核通过！</a>");
+	
+		//	msg.setContent("<a href=\"javascript:getUploadFile("+publishcontent.getPublishid()+")\" class=\"a_pay\">您订购的企业产品，内容审核通过，请点此上传相应文件内容！</a>");
+
 		} else if (history.getSimpleapprove() == 2) {
 			publishcontent.setStatusid((short) 2);
 			basicService.update(publishcontent);

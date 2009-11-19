@@ -36,5 +36,13 @@
             </column>
         </property>
         
+          <property name="createtime" type="timestamp">
+            <column name="create_time">
+            </column>
+        </property>
+           <property name="approvetime" type="timestamp">
+            <column name="approve_time">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>
