@@ -14,6 +14,7 @@
 				<li class="current"><a title="更新LOGO" href="userlogo.action"><span>更新LOGO</span></a></li>
 				<li><a title="密码修改" href="userpassword.action"><span>密码修改</span></a></li>
 				<li><a title="安全资料" href="safepwd!input.action"><span>安全资料</span></a></li>
+				<li><a title="认证管理" href="userverify.action"><span>认证管理</span></a></li>
 			</ul>
 			</div>
 		</div>

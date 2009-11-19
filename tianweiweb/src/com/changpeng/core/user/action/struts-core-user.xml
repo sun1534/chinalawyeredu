@@ -78,5 +78,10 @@
             <result name="success" type="freemarker">/common/message.ftl</result>
             <result name="input" type="freemarker">/user/safepwd.ftl</result>
         </action>
+        
+        <action name="userverify" class="com.changpeng.core.user.action.UserverifyAction">
+			
+			<result name="success" type="freemarker">/user/userverify.ftl</result>
+		</action>
     </package>
 </struts>

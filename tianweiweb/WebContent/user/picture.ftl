@@ -45,6 +45,7 @@ code{font-size:12px;color:#333;margin:10px;display:block;}
 				<li class="current"><a title="更新头像" href="userimages!input.action"><span>更新头像</span></a></li>
 				<li><a title="密码修改" href="userpassword.action"><span>密码修改</span></a></li>
 				<li><a title="安全资料" href="safepwd!input.action"><span>安全资料</span></a></li>
+				<li><a title="认证管理" href="userverify.action"><span>认证管理</span></a></li>
 			</ul>
 		</div>
 	</div>

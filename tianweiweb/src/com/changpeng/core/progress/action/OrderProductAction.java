@@ -26,7 +26,7 @@ public class OrderProductAction extends AbstractAction {
 			CoreUser user=(CoreUser)service.get(CoreUser.class, this.currentUserid);
 			if(user.getStatus()==1||user.getStatus()==3){
 				this.message="请先进行身份审核再订购产品！";
-				this.redirectURL="/user/userbaseview.action";
+				this.redirectURL="/user/userverify.action";
 			}else if(user.getStatus()==2){
 				this.message="您的身份正在审核，请等待审核成功后订购！";
 			}else if(user.getStatus()==0){
