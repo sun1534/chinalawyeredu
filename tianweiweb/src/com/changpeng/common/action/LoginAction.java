@@ -33,6 +33,14 @@ public class LoginAction extends AbstractAction {
 	// 用户输入的密码
 	private String password;
 
+private String from;
+	public String getFrom() {
+	return from;
+}
+
+public void setFrom(String from) {
+	this.from = from;
+}
 
 	public LoginAction() {
 		rightCode = "PUBLIC";
@@ -94,7 +102,14 @@ public class LoginAction extends AbstractAction {
 				message = "密码错误，请重新输入!";
 			}
 		}
-		return result;
+		
+		System.out.println("from::::::::"+from);
+		if(from!=null&&from.equals("register")){
+			System.out.println("from111111111111::::::::"+from);
+			return "tohome";
+		}
+		else
+			return result;
 	}
 
 	// 以下set方法页面调用

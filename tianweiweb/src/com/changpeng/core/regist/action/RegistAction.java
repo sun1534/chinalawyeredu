@@ -5,13 +5,19 @@ package com.changpeng.core.regist.action;
 
 import java.sql.Timestamp;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.sysdata.CommonData;
 import com.changpeng.core.service.UserService;
 import com.changpeng.core.user.model.CoreUser;
 import com.changpeng.core.user.model.CoreUserDetail;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  */
@@ -19,9 +25,9 @@ public class RegistAction extends AbstractAction {
 	/**
 	 * 
 	 */
-	private static  Logger log = Logger.getLogger(RegistAction.class);
+	private static Logger log = Logger.getLogger(RegistAction.class);
 	private static final long serialVersionUID = 1L;
-	
+
 	private String username;
 	private String password;
 	private String repassword;
@@ -35,9 +41,9 @@ public class RegistAction extends AbstractAction {
 	private String phone;
 	private String qq;
 	private String msn;
-	
+
 	private String name;
-	
+
 	private int role = 0;
 
 	public RegistAction() {
@@ -51,30 +57,30 @@ public class RegistAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		String rstr = ERROR;
-		UserService uservice=(UserService)this.getBean("userService");
-		CoreUser u=uservice.getUserByLoginName(username);
-		if (role != 1 && role != 2 ) {
+		UserService uservice = (UserService) this.getBean("userService");
+		CoreUser u = uservice.getUserByLoginName(username);
+		if (role != 1 && role != 2) {
 			message = "请选择注册类型！";
-		}else if(username.length()<6){
+		} else if (username.length() < 6) {
 			message = "用户名必须大于6位";
-		}else if(password.length()<6||!password.equals(repassword)){
+		} else if (password.length() < 6 || !password.equals(repassword)) {
 			message = "密码设置有误，请重新设置密码！";
-		}else if(u!=null){
-			message="用户名已经注册,请重新输入";
-		}else if(!agreerule){
-			message="请同意注册协议完成注册！";
-		}else{
-			log.info("agreerule:"+agreerule);
-			
-			CoreUser user=new CoreUser();
+		} else if (u != null) {
+			message = "用户名已经注册,请重新输入";
+		} else if (!agreerule) {
+			message = "请同意注册协议完成注册！";
+		} else {
+			log.info("agreerule:" + agreerule);
+
+			CoreUser user = new CoreUser();
 			user.setBirthday(new Timestamp(System.currentTimeMillis()));
 			user.setProvinceId(0);
 			user.setCityId(0);
 			user.setDistrictId(0);
-			user.setGender((short)0);
-			if(role==1){
+			user.setGender((short) 0);
+			if (role == 1) {
 				user.setPic(CommonData.DEFAULT_FAM_PIC);
-			}else{
+			} else {
 				user.setPic(CommonData.DEFAULT_ENT_PIC);
 			}
 			user.setLogo(CommonData.DEFAULT_ENT_LOGO);
@@ -83,15 +89,15 @@ public class RegistAction extends AbstractAction {
 			user.setUserName(name);
 			user.setLoginName(username);
 			user.setPwd(password);
-			user.setUserRole((short)role);
+			user.setUserRole((short) role);
 			user.setRegTime(new Timestamp(System.currentTimeMillis()));
 			user.setRegIp(this.userip);
 			user.setSign("");
-			user.setStatus((short)1);
-			user.setUserType((short)1);
+			user.setStatus((short) 1);
+			user.setUserType((short) 1);
 			user.setCardno(cardno);
-			
-			CoreUserDetail userdetail=new CoreUserDetail();
+
+			CoreUserDetail userdetail = new CoreUserDetail();
 			userdetail.setAdages("");
 			userdetail.setAnimations("");
 			userdetail.setAnswer(answer);
@@ -110,18 +116,52 @@ public class RegistAction extends AbstractAction {
 			userdetail.setSports("");
 			userdetail.setSummary("");
 			userdetail.setUserAddress(address);
-			
+
 			uservice.regUser(user, userdetail);
-			message = "感谢您的注册！";
-			this.redirectURL = "../index.html";
+			message = "感谢您的注册，您现在可以登入系统，欢迎您的使用！";
+
+//			ActionContext ctx = ActionContext.getContext();
+//			HttpServletResponse response = (HttpServletResponse) ctx.get(ServletActionContext.HTTP_RESPONSE);
+//			HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+
+			
+//			Cookie cookie = new Cookie(CommonData.LOGINCOOKIE, username+"||"+password);
+//			cookie.setMaxAge(60*60*1000);
+//			cookie.setPath("/");
+//			response.addCookie(cookie);
+//			System.out.println("注册时加入COOKIE......");
+
+//			this.redirectURL = "../index.html";
+			this.redirectURL="../common/login.action?loginname="+username+"&password="+password+"&from=register";
+//			this.redirectURL = "/home/";
 		}
-		
+
 		rstr = SUCCESS;
 		return rstr;
 	}
 
 	@Override
 	protected String getin() {
+		ActionContext ctx = ActionContext.getContext();
+		HttpServletResponse response = (HttpServletResponse) ctx.get(ServletActionContext.HTTP_RESPONSE);
+		HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+
+		javax.servlet.http.Cookie[] cookies = request.getCookies();
+		Cookie cookie = null;
+		for (int i = 0; cookies != null && i < cookies.length; i++) {
+			System.out.println("cookies[i].getName():::" + cookies[i].getName());
+			if (cookies[i].getName().equals(CommonData.LOGINCOOKIE)) {
+				cookie = cookies[i];
+			}
+		}
+		if (cookie != null) {
+			cookie.setMaxAge(0);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+
+		}
+		System.out.println("注册时删除COOKIE......");
+
 		return INPUT;
 	}
 
