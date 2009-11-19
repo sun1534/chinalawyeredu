@@ -54,7 +54,7 @@
 
     <package name="common" extends="commondefault" namespace="/common">
          <action name="login" class="com.changpeng.common.action.LoginAction">
-            
+            <result name="tohome" type="redirect">/user/userbaseview.action</result>
          	<result name="success" type="redirect">../home/home.action</result>
          	<result name="relogin" type="dispatcher">../common/login.jsp</result>
          </action>
