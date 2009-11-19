@@ -37,9 +37,11 @@ public class SendVerifyApplyAction extends AbstractAction{
 			user.setWaitid(waitid);
 			
 			userService.update(user);
-			this.message="ok";
+//			this.message="ok";
+			this.message="您的身份认证提交成功,请点\"关闭\"关闭,或者点\"确定\"进入认证管理页面";
+			this.redirectURL="../user/userverify.action";
 		}
-		return "plainmsg";
+		return "success";
 	}
 
 	public void setApprove_type(int approve_type) {

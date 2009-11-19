@@ -56,6 +56,7 @@ public class UserbaseUpdateAction extends AbstractAction{
 		detail.setMsn(msn);
 		userService.saveOrupdate(detail);
 		message="恭喜您，您的个人资料修改成功！";
+		this.redirectURL="javascript:$.unblockUI()";
 		return SUCCESS;
 	}
 
