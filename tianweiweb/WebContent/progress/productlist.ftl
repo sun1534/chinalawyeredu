@@ -72,10 +72,29 @@ function dinggou(id){
 	    data:"productid="+id,
 	    url:"../progress/orderproduct.action",
 	    success:function(data){
-	    	$.blockUI({message:data});
+	    	if(data.indexOf("userverify.action")>0){
+	    		applyverify();
+	    	}else{
+	    		$.blockUI({message:data});
+	    	}
 	    }});
 	//alert("订购");
 }
 </script>
  </@home.home>
  </#escape>
+<script>
+function applyverify(){
+
+		$("#form1").ajaxSubmit();
+		$.ajax({
+		    type: "POST",
+		    data:"",
+		    url:"verifyapply.action",
+		    success:function(data){
+		    	$.blockUI({message:data});
+	    }});
+    
+}
+
+</script>
