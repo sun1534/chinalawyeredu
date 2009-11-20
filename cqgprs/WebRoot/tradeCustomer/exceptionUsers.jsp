@@ -13,7 +13,12 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["reqapnni","usercount"];
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -37,7 +42,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>行业客户</a>＞<em>异常行业用户</em>
+						<span>to您所在是位置:</span><a>行业客户</a>＞<em>异常行业用户</em>
 				</div>
 			</div>
 		</div>
@@ -50,6 +55,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+										 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
@@ -69,13 +76,13 @@ function queryit(){
 					</div>-->
 					
 					<div class="tablist"> 
-						<table class="tableBox"> 
+						<table class="tableBox" id="newTables"> 
 							<thead> 
 								<tr> 
-									<th  rowspan="2">APN</th> 
+									<th rowspan="2"><a onclick="orderByThis(document.form1,this)" id="reqapnni" title="点击排序">APN编码</a></th> 
 									<th  rowspan="2">客户名称</th> 
 									<th  rowspan="2">联系方式</th> 
-									<th  rowspan="2">异常用户数</th> 
+									<th  rowspan="2"><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">异常用户数</a></th> 
 									<th  colspan="2" align="center">详情</th> 
 								</tr> 
 								<tr> 

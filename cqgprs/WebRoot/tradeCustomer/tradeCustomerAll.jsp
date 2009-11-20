@@ -12,8 +12,12 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["apnni","allvolume","usercount"];
  
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -52,8 +56,8 @@ function confirmit(){
 
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
-
 }
+
 </script>
 </head>
 
@@ -74,6 +78,8 @@ function confirmit(){
 						<table>
 							<tbody>
 								<tr>
+								   <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
@@ -101,11 +107,11 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th>APN编码</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         </tr>

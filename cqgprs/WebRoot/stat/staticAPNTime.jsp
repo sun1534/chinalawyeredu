@@ -13,9 +13,12 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
- <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/swfobject.js"></script> 
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
- 
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -130,7 +133,7 @@ return false;
                             </thead>
                         </table>
                         </s:if>
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        

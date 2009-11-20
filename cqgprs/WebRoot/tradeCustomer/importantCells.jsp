@@ -14,7 +14,12 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+   var orderArray=["cellid","allvolume","usercount"];
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
  
 function fanye(str){
@@ -94,6 +99,8 @@ var start=$("#start").val();
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
@@ -122,10 +129,10 @@ var start=$("#start").val();
                       <thead>
                         <tr>
                        
-                          <th>主要小区编码</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">主要小区编码</a></th>
                           <th>主要小区名称</th>
-                           <th>总流量（M）</th>
-                          <th>总用户数</th>
+                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         </tr>

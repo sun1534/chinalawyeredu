@@ -55,7 +55,7 @@ $.getJSON(ajaxurl+"?now="+now,function(json){
     }
   }
 });
-setTimeout('getGbAlarmCnts()',5*1000);
+//setTimeout('getGbAlarmCnts()',5*1000);
 }
 function lighttitle(){
 	if(t == 0){

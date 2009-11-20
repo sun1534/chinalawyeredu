@@ -13,7 +13,12 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
+  var orderArray=["reqapnni","usercount","errorcount","errcode"];
  
 
 function fanye(str){
@@ -50,12 +55,16 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+									<s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
-								 <td>按：<s:select name="orderby" list="#{'apnni':'请求APN','USERCOUNT':'用户数','ERRORCOUNT':'PDP失败次数','errcode':'错误代码'}"/><s:select name="ascdesc" list="#{'asc':'升序','desc':'逆序'}"/>&nbsp;</td>
+								 <td>请求APN：<s:textfield name="reqapnni" cssClass="txt" size="12"/>&nbsp;</td>
+								 <td>错误代码：<s:select name="errcode" list="#{'':'全部','27':'27','29':'29','33':'33','38':'38'}"/>&nbsp;</td>
+								 
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+							<td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/></td>
 							
 								</tr>
 							</tbody>
@@ -72,10 +81,10 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>APN</th>
-                          <th>用户数</th>
-                          <th>PDP失败次数</th>
-                        <th>错误代码</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="reqapnni" title="点击排序">APN编码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">用户数</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="errorcount" title="点击排序">PDP失败次数</a></th>
+                        <th><a onclick="orderByThis(document.form1,this)" id="errcode" title="点击排序">错误代码</a></th>
                         </tr>
                       </thead>
                       <tbody id="checkForm">

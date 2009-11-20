@@ -14,9 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
- 
- 
+ $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();
@@ -84,7 +86,7 @@ return false;
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>行业客户</a>＞<em>24小时业务统计</em>
+						<span>您所在是位置:</span><a>行业客户2＞<em>24小时业务统计</em>
 				</div>
 			</div>
 		</div>
@@ -130,7 +132,7 @@ return false;
                             </thead>
                         </table>
                         </s:if>
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        

@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
  
 function fanye(str){
@@ -123,7 +127,7 @@ function confirmit(){
                             </thead>
                         </table>
                         </s:if>
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                           <th>时间段</th>

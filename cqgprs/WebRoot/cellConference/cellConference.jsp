@@ -7,17 +7,14 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-0流量小区</title>
+ <title>${sysName}-历史告警查询</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
-  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
  
- var field="${orderfield}";
-var ascdesc="${ascdesc}";
 
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -40,11 +37,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>0流量小区</em>
+						<span>您所在是位置:</span><a>系统告警</a>＞<em>历史告警查询</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="zeroStreamCell" method="POST">	
+			<s:form name="form1" action="alarmHistory" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -53,12 +50,9 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-								 <s:hidden name="orderfield" id="orderfieldid"/>
-								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
-                                     <s:hidden name="resultType"/>
-                                  <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
-								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+                                  <s:hidden name="resultType"/>
+								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -77,35 +71,28 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
-                          <th>小区名称</th>
-                          <th>归属BSC/RNC</th>
-                          <th>归属SGSN</th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th>告警链路</th>
+                          <th>告警原因</th>
                           <th>当前流量</th>
-                          <th title="${last }">上次流量（M）</th>
-                          <th title="${prelast }">上上次流量（M）</th>
+                          <th>告警时间</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${cellid}</td>
-                          <td>${cell.cellname }</td>
-                          <td>${bscid}</td>
-                          <td>${sgsnid }</td>
-                          <td>${ allvolume}</td>
-                          <td>0.0</td>
-                          <td>${historyvolume }</td>
-                          <td>${prehistoryvolume}</td>
+                              <td>${nsvc}</td>
+                          <td>${reason }
+                          </td>
+                          <td>${currentstream }</td>
+                          <td>${alarmdate}</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="8" class="fright">
+							   <td colspan="6" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

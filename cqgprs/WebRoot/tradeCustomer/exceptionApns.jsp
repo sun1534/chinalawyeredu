@@ -7,13 +7,19 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-0流量APN</title>
+ <title>${sysName}-异常APN</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["apnni","allvolume"];
+ 
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -37,11 +43,11 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>0流量APN</em>
+						<span>您所在是位置:</span><a>行业客户</a>＞<em>异常APN</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="zeroStreamAPN" method="POST">	
+			<s:form name="form1" action="exceptionApns" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -50,6 +56,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
                                   <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
@@ -70,10 +78,10 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>APN编码</th>
+                      <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
-                          <th>总流量（M）</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th>当前流量</th>
                           <th title="${last }">上次流量（M）</th>
                           <th title="${prelast }">上上次流量（M）</th>

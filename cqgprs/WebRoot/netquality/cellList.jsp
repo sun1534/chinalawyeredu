@@ -130,6 +130,7 @@ function setit(){
                           <input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/>
                           </th>
                        <th>小区编号</th>
+                        <th>LAC</th>
                        <th>小区名称</th>
                        <th>所属BSC/RNC</th>
                        <th>归属SGSN</th>
@@ -149,9 +150,8 @@ function setit(){
                       <input type="checkbox" class="checkbox" name="check" value="${cellid }"/>
                      </s:else>
                     </td>
-                         <td>${cellid}
-                           <!--<s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellid].cellname"/>-->
-                         </td>
+                         <td>${cellid} </td>
+                         <td>${lac }</td>
                           <td>${cellname}</td>
                           <td>${bscrncid }</td>
                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>

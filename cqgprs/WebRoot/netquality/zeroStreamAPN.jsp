@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -50,6 +54,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
                                   <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
@@ -70,10 +76,10 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>APN编码</th>
+                         <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
-                          <th>总流量（M）</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th>当前流量</th>
                           <th title="${last }">上次流量（M）</th>
                           <th title="${prelast }">上上次流量（M）</th>

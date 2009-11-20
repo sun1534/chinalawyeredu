@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["reqapnni","imsi","errcount"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -28,8 +32,21 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
-
-
+$(document).ready(function(){
+var flag="${flag}";
+showhidehour(flag);
+});
+function selectit(obj){
+var flag=obj.value;
+showhidehour(flag);
+}
+function showhidehour(_flag){
+if(_flag==2){
+$("#hourselect").show();
+}else{
+$("#hourselect").hide();
+}
+}
 </script>
 </head>
 
@@ -37,7 +54,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>用户行为</a>＞<em>PDP失败用户排名</em>
+						<span>您所在是位置:</span><a>用户行为</a>＞<em>PDP失败用户排名（错误前1000）</em>
 				</div>
 			</div>
 		</div>
@@ -50,7 +67,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-                    
+                    <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                   <s:hidden name="resultType"/>
                                   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selectit(this)"/>&nbsp;</td>
                                   <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
@@ -73,19 +91,19 @@ function queryit(){
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
-                       
-                          <th>IMSI</th>
-                          <th>请求APN</th>
-                          <th>PDP失败次数</th>
+                  
+                          <th><a onclick="orderByThis(document.form1,this)" id="imsi" title="点击排序">IMSI</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="reqapnni" title="点击排序">请求APN</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="errcount" title="点击排序">PDP失败次数</a></th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="resultList" status="status">
                         <tr>
-                         <td>${imsi}</td>
-                          <td>${apn}</td>
-                          <td>${errorcount }</td>
+                         <td>${imsi}</a></td>
+                          <td>${apn}</a></td>
+                          <td>${errorcount }</a></td>
                         </tr>
                         </s:iterator>
                       
