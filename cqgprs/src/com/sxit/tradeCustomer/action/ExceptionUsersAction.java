@@ -90,11 +90,15 @@ public class ExceptionUsersAction extends AbstractListAction {
 		}
 		UseractionService actionservice = (UseractionService) this.getBean("useractionService");
 
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="reqapnni";
+		}
+		
 		if (resultType.equals("excel")) {
 			pageNo = 1;
 			pageSize = Integer.MAX_VALUE;
 		}
-		this.page = actionservice.getExceptionUsers(apnni, thedate, pageNo, pageSize);
+		this.page = actionservice.getExceptionUsers(apnni, thedate, getOrderby(),pageNo, pageSize);
 
 		if (resultType.equals("list"))
 			return SUCCESS;

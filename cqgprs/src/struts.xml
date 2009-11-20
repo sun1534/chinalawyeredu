@@ -28,8 +28,12 @@
      <include file="com/sxit/query/struts-query.xml" />
      <include file="com/sxit/tradeCustomer/struts-tradeCustomer.xml" />
      <include file="com/sxit/useraction/struts-useraction.xml" />
-  
+  <include file="com/sxit/cellConference/struts-cellConference.xml" />
 	<package name="default" extends="struts-default">
+     	  <result-types>
+            <result-type name="ofc" class="com.sxit.common.FlashChartResult"/>
+        </result-types>
+     	
      	<interceptors>
 			<interceptor name="userverify" class="com.sxit.common.interceptor.UserVerifyInterceptor"/>
 			<interceptor name="uservisit"  class="com.sxit.common.interceptor.UserVisitInterceptor"/>
@@ -54,7 +58,9 @@
 			    <interceptor-ref name="defaultStack"/>
 			</interceptor-stack>
 		</interceptors>
+		
 		<global-results>
+		 <result name="ofc" type="ofc"></result>	
 			<result name="success" type="dispatcher">/common/message.jsp</result>
 		    <result name="message" type="dispatcher">/common/message.jsp</result>
 			<result name="error" type="dispatcher">/common/message.jsp</result>

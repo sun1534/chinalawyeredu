@@ -40,6 +40,9 @@ public class ZeroStreamCellAction extends AbstractListAction {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 		}
 
+		if(orderfield==null||orderfield.equals(""))
+			orderfield="cellid";
+		
 		if (resultType != null && resultType.equals("excel")) {
 			this.pageNo = 1;
 			this.pageSize = Integer.MAX_VALUE;
@@ -47,9 +50,9 @@ public class ZeroStreamCellAction extends AbstractListAction {
 
 		ZeroService zeroservice = (ZeroService) this.getBean("zeroService");
 		if (dayflag.equals("1")) {
-			this.page = zeroservice.getDayZeroCells(thedate, pageNo, pageSize);
+			this.page = zeroservice.getDayZeroCells(thedate,getOrderby(), pageNo, pageSize);
 		} else {
-			this.page = zeroservice.getHourZeroCells(date, hour, pageNo, pageSize);
+			this.page = zeroservice.getHourZeroCells(date, hour,getOrderby(),pageNo, pageSize);
 		}
 
 		if (resultType != null && resultType.equals("excel")) {

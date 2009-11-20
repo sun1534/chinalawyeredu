@@ -7,14 +7,14 @@
 	  <!--登录啊退出啊密码修改等等-->
     <package name="stat" extends="default" namespace="/stat">
     
-    <result-types>
+   <!-- <result-types>
             <result-type name="ofc" class="com.sxit.common.FlashChartResult"/>
-        </result-types>
+        </result-types>-->
        
     	<default-interceptor-ref name="visitStack"/>
-    	 <global-results>
+    	<!-- <global-results>
           <result name="ofc" type="ofc"></result>	
-        </global-results>
+        </global-results>-->
 		<!-- 总流量分析 -->
 	 <action name="stream" class="com.sxit.stat.action.StreamAction">
           <result name="success" type="dispatcher">/stat/stream.jsp</result>	

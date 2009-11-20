@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="cellConference" extends="default" namespace="/cellConference">
+       <default-interceptor-ref name="visitStack"/>
+		<!-- 总流量分析 -->
+	   <action name="cellConference" class="com.sxit.cellConference.action.CellConferenceAction">
+          <result name="success" type="dispatcher">/cellConference/cellConference.jsp</result>	
+       </action>
+
+    </package>
+	 <package name="cellConferenceajax" extends="defaultajax" namespace="/cellConferenceajax">
+       <default-interceptor-ref name="visitStack"/>
+   	 
+   </package>
+	
+</struts>

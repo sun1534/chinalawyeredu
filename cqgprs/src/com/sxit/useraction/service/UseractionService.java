@@ -58,9 +58,6 @@ public class UseractionService {
 			return (int) (System.currentTimeMillis() / 1000);
 		}
 	}
-	
-	
-	
 
 	public static int getHourAfterTime(int start) {
 		return start + 60 * 60;
@@ -133,38 +130,41 @@ public class UseractionService {
 	 * 
 	 * @return
 	 */
-	public List getPdpErrorTopList(Date date) {
+	public List getPdpErrorTopList(Date date, String orderby) {
 		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
-		return getPdpErrorTopList((int)(start/1000),(int)(end/1000));
-//		String sql = "select * from (select imsi,reqapnni,count(*) as cnt from cdr_mistake where opentime between "
-//				+ start / 1000 + " and " + end / 1000 + " group by imsi,reqapnni order by cnt desc) where rownum<=1000 order by cnt desc";
-//System.out.println(sql);
-//		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-//
-//			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				List list = new ArrayList();
-//				while (rs.next()) {
-//					UserPdpErrorTop eusers = new UserPdpErrorTop();
-//					eusers.setApn(rs.getString("reqapnni"));
-//					eusers.setErrorcount(rs.getInt("cnt"));
-//					eusers.setImsi(rs.getString("imsi"));
-//					list.add(eusers);
-//				}
-//				return list;
-//			}
-//		});
-//		List list = (List) object;
-//		return list;
+		return getPdpErrorTopList((int) (start / 1000), (int) (end / 1000), orderby);
+		// String sql = "select * from (select imsi,reqapnni,count(*) as cnt
+		// from cdr_mistake where opentime between "
+		// + start / 1000 + " and " + end / 1000 + " group by imsi,reqapnni
+		// order by cnt desc) where rownum<=1000 order by cnt desc";
+		// System.out.println(sql);
+		// Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+		//
+		// public Object extractData(ResultSet rs) throws SQLException,
+		// DataAccessException {
+		// List list = new ArrayList();
+		// while (rs.next()) {
+		// UserPdpErrorTop eusers = new UserPdpErrorTop();
+		// eusers.setApn(rs.getString("reqapnni"));
+		// eusers.setErrorcount(rs.getInt("cnt"));
+		// eusers.setImsi(rs.getString("imsi"));
+		// list.add(eusers);
+		// }
+		// return list;
+		// }
+		// });
+		// List list = (List) object;
+		// return list;
 
 	}
 
-	public List getPdpErrorTopList(int start,int end) {
-//		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
-//		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
-		String sql = "select * from (select imsi,reqapnni,count(*) as cnt from cdr_mistake where opentime between "
-				+ start + " and " + end  + " group by imsi,reqapnni order by cnt desc) where rownum<=1000 order by cnt desc";
-System.out.println(sql);
+	public List getPdpErrorTopList(int start, int end, String orderby) {
+		// long start = com.sxit.stat.util.StatUtil.getDateTime(date);
+		// long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		String sql = "select * from (select imsi,reqapnni,count(*) as errcount from cdr_mistake where opentime between "
+				+ start + " and " + end + " group by imsi,reqapnni order by errcount desc) where rownum<=1000 "+orderby;
+		System.out.println("sql:::" + sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -172,7 +172,7 @@ System.out.println(sql);
 				while (rs.next()) {
 					UserPdpErrorTop eusers = new UserPdpErrorTop();
 					eusers.setApn(rs.getString("reqapnni"));
-					eusers.setErrorcount(rs.getInt("cnt"));
+					eusers.setErrorcount(rs.getInt("errcount"));
 					eusers.setImsi(rs.getString("imsi"));
 					list.add(eusers);
 				}
@@ -183,41 +183,83 @@ System.out.println(sql);
 		return list;
 
 	}
-	
+	/**
+	 * 从统计表里拿数据
+	 * @param stattime
+	 * @param orderby
+	 * @return
+	 */
+	public List getPdpErrorTopList(String stattime, String orderby) {
+		// long start = com.sxit.stat.util.StatUtil.getDateTime(date);
+		// long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		String sql = "select * from(select imsi,reqapnni, errcount from stat_imsi_apn_error where stattime="+stattime+" order by errcount desc) where rownum<=1000 "+orderby ;
+	long now=System.currentTimeMillis();
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					UserPdpErrorTop eusers = new UserPdpErrorTop();
+					eusers.setApn(rs.getString("reqapnni"));
+					eusers.setErrorcount(rs.getInt("errcount"));
+					eusers.setImsi(rs.getString("imsi"));
+					list.add(eusers);
+				}
+				return list;
+			}
+		});
+		System.out.println((System.currentTimeMillis()-now)+":::::::" + sql);
+		List list = (List) object;
+		return list;
+
+	}
 	/**
 	 * 得到异常行业用户 （实际上把错误码为33的，APN为*.cq的异常行业用户号码单列）
 	 * 
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getExceptionUsers(String apnni, Date date, int pageNo, int pageSize) {
+	public PaginationSupport getExceptionUsers(String apnni, Date date, String orderby, int pageNo, int pageSize) {
 		final long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		final long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
-
+	final	String _date = dfyyyyMMdd.format(date);
 		String where = "";
 		if (apnni != null && !apnni.equals(""))
-			where = " and reqapnni='" + apnni + "'";
-		String cntsql = "select count(*) as cnt from (select count(reqapnni) from cdr_mistake where reqapnni like '%.cq' and errcode=33 and opentime between "
-				+ start / 1000 + " and " + end / 1000 + " ${where} group by reqapnni )";
+			where = "  reqapnni='" + apnni + "'";
+		else
+			where = "  reqapnni like '%.cq'";
 
-		cntsql = cntsql.replace("${where}", where);
+		// String cntsql = "select count(*) as cnt from (select count(reqapnni)
+		// from cdr_mistake where reqapnni like '%.cq' and errcode=33 and
+		// opentime between "
+		// + start / 1000 + " and " + end / 1000 + " ${where} group by reqapnni
+		// )";
 
-		System.out.println(cntsql);
+		String cntsql = "select count(*) from stat_apn_error where "+where+" and errcode=33 and stattime="
+				+ _date;
 
+		
+		long now = System.currentTimeMillis();
 		int totalCount = jdbcTemplate.queryForInt(cntsql);
-
+		System.out.println((System.currentTimeMillis() - now) + "::" + cntsql);
 		int startIndex = (pageNo - 1) * pageSize;
-
-		String sql = "select * from(select a.*,rownum rn from(select reqapnni ,count(distinct(imsi)) as usercount from cdr_mistake where reqapnni like '%.cq' and errcode=33 and opentime between "
-				+ start
-				/ 1000
-				+ " and "
-				+ end
-				/ 1000
-				+ " ${where} group by reqapnni ) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
-
-		sql = sql.replace("${where}", where);
+		 now = System.currentTimeMillis();
+//		String sql = "select * from(select a.*,rownum rn from(select reqapnni ,count(distinct(imsi)) as usercount from cdr_mistake where reqapnni like '%.cq' and errcode=33 and opentime between "
+//				+ start
+//				/ 1000
+//				+ " and "
+//				+ end
+//				/ 1000
+//				+ " ${where} group by reqapnni "
+//				+ orderby
+//				+ ") a where rownum<="
+//				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+		
+		String sql = "select * from(select a.*,rownum rn from(select reqapnni ,usercount from stat_apn_error where "+where+" and errcode=33 and stattime= "+_date
+			+ orderby
+			+ ") a where rownum<="
+			+ (startIndex + pageSize) + ") where rn>" + startIndex;
+		
 
 		// String sql="select reqapnni ,count(distinct(imsi)) from cdr_mistake
 		// where reqapnni like '%.cq' and errcode=33 and opentime between
@@ -232,17 +274,46 @@ System.out.println(sql);
 					eusers.setApnni(rs.getString("reqapnni"));
 					eusers.setUsercount(rs.getInt("usercount"));
 
-					eusers.setImsilist(getExcepionUserDetailByApn(eusers, eusers.getApnni(), start, end));
+//					eusers.setImsilist(getExcepionUserDetailByApn(eusers, eusers.getApnni(), start, end));
+					eusers.setImsilist(getExcepionUserDetailByApn(eusers, eusers.getApnni(), _date));
 					list.add(eusers);
 				}
 				return list;
 			}
 		});
+		
+		System.out.println((System.currentTimeMillis() - now) + "::" +sql);
+		
 		List list = (List) object;
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
 
+	
+	public List getExcepionUserDetailByApn(final ExceptionUsers eusers, String apn, String stattime) {
+		String sql = "select imsi, errcount from stat_imsi_apn_error where reqapnni='" + apn
+				+ "' and stattime="+stattime;
+		
+		long now=System.currentTimeMillis();
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+
+				while (rs.next()) {
+					ExceptionUsers.DetailImsi detailimsi = eusers.new DetailImsi();
+					detailimsi.setErrcount(rs.getInt("errcount"));
+					detailimsi.setImsi(rs.getString("imsi"));
+					list.add(detailimsi);
+				}
+				return list;
+			}
+		});
+		System.out.println((System.currentTimeMillis()-now)+"::"+sql);
+		List list = (List) object;
+		return list;
+	}
+	
 	public List getExcepionUserDetailByApn(final ExceptionUsers eusers, String apn, long start, long end) {
 		String sql = "select imsi,count(imsi) as errorcount from cdr_mistake where reqapnni='" + apn
 				+ "' and opentime between " + start / 1000 + " and " + end / 1000 + "group by imsi";
@@ -285,11 +356,15 @@ System.out.println(sql);
 					+ " where dayflag=1 and allvolume>=" + condition + " order by allvolume desc";
 
 		} else {
-//			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
-//					+ "  where dayflag=1 and rownum<=" + condition + " order by allvolume desc";
-//			
-			sql="select * from(select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
-					+ "  where dayflag=1 order by allvolume desc) where rownum<=" + condition +" order by allvolume desc" ;
+			// sql = "select
+			// mobile,apnni,upvolume,downvolume,allvolume,periodlen from " +
+			// table
+			// + " where dayflag=1 and rownum<=" + condition + " order by
+			// allvolume desc";
+			//			
+			sql = "select * from(select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
+					+ "  where dayflag=1 order by allvolume desc) where rownum<=" + condition
+					+ " order by allvolume desc";
 		}
 		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -378,12 +453,12 @@ System.out.println(sql);
 		String first = dfyyyyMMdd.format(firstdate);
 		Date lastdate = com.sxit.stat.util.StatUtil.getPrevCountDate(firstdate, count - 1);
 		String last = dfyyyyMMdd.format(lastdate);
-		// String sql="select imsi,msisdn,count(*) from stat_apn_error_imsi
+		// String sql="select imsi,msisdn,count(*) from STAT_IMSI_APN_ERROR
 		// where errcode="+errcode+" stattime between "+first+" and "+last+"
 		// group by imsi,msisdn having count(*)>= "+ count;
 
-		String sql = "select imsi,count(*) from stat_apn_error_imsi where errcode=" + errcode + " and stattime between "
-				+ first + " and " + last + " group by imsi having count(*)>= " + count;
+		String sql = "select imsi,count(*) from STAT_IMSI_APN_ERROR where errcode=" + errcode
+				+ " and stattime between " + last + " and " + first + " group by imsi having count(*)>= " + count;
 		System.out.println(sql);
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -455,12 +530,11 @@ System.out.println(sql);
 			}
 		});
 
-		String sql = "select reqapnni,imsi,count(*) as errorcount from  "+table+" where errcode='" + errorcode
+		String sql = "select reqapnni,imsi,count(*) as errorcount from  " + table + " where errcode='" + errorcode
 				+ "' and opentime between " + start / 1000 + " and " + end / 1000 + " group by imsi,reqapnni";
 
 		System.out.println(sql);
 
-		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -495,13 +569,17 @@ System.out.println(sql);
 	 *            统计某天的还是统计某个时间点的
 	 * @return
 	 */
-	public List getApnErrors(String date, String orderby,String ascdesc,String hour, String dayflag) {
+	public List getApnErrors(String date, String hour, String dayflag, String reqapnni, String errcode, String orderby) {
 
 		String sql = "";
 		// if (dayflag.equals("1")) {
 		String stattime = date.replace("-", "");
-		sql = "select * from stat_apn_error where dayflag=1 and stattime=" + stattime +" order by "+orderby+" "+ascdesc;
-		
+		sql = "select * from stat_apn_error where 1=1";
+		if (reqapnni != null && !reqapnni.equals(""))
+			sql += " and apnni='" + reqapnni + "'";
+		if (errcode != null && !errcode.equals(""))
+			sql += " and errcode='" + errcode + "'";
+		sql += " and dayflag=1 and stattime=" + stattime + orderby;
 		// }
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 
@@ -529,6 +607,59 @@ System.out.println(sql);
 		});
 		List list = (List) object;
 		return list;
+	}
+
+	public PaginationSupport getApnErrors(String date, String hour, String dayflag, String reqapnni, String errcode,
+			String orderby, int pageNo, int pageSize) {
+
+		String stattime = date.replace("-", "");
+
+		String where = "";
+		String cntsql = "select count(*) from stat_apn_error where 1=1 ${where} and dayflag=1 and stattime=" + stattime
+				+ orderby;
+		if (reqapnni != null && !reqapnni.equals(""))
+			where += " and reqapnni='" + reqapnni + "'";
+		if (errcode != null && !errcode.equals(""))
+			where += " and errcode='" + errcode + "'";
+		cntsql = cntsql.replace("${where}", where);
+
+		System.out.println(cntsql);
+
+		int totalCount = jdbcTemplate.queryForInt(cntsql);
+
+		int startIndex = (pageNo - 1) * pageSize;
+
+		String sql = "select * from(select a.*,rownum rn from(select * from stat_apn_error where 1=1 ${where} and dayflag=1 and stattime="
+				+ stattime + orderby + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+		sql = sql.replace("${where}", where);
+
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					StatApnErrors model = new StatApnErrors();
+					int usercount = rs.getInt("USERCOUNT");
+					int errorcount = rs.getInt("ERRORCOUNT");
+					long stattime = rs.getLong("stattime");
+					String apnni = rs.getString("reqapnni");
+
+					// Date date = new Date();
+					// date.setTime(stattime * 1000);
+					model.setApnni(apnni);
+					model.setDayflag(rs.getString("dayflag"));
+					model.setErrorcount(errorcount);
+					model.setStattime(stattime);
+					model.setUsercount(usercount);
+					model.setErrcode(rs.getInt("errcode"));
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+		return ps;
 	}
 
 }

@@ -39,8 +39,8 @@ public class StatService {
 	private static final DateFormat dftime = new java.text.SimpleDateFormat("HH:00");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	private static List<String> ALL_TIME_LIST = new ArrayList<String>();
-	private static Map<String, String> ALL_HOUR_LIST = new LinkedHashMap<String, String>();
+	public static List<String> ALL_TIME_LIST = new ArrayList<String>();
+	public static Map<String, String> ALL_HOUR_LIST = new LinkedHashMap<String, String>();
 
 	static {
 		ALL_TIME_LIST.add("00:00");
@@ -68,30 +68,30 @@ public class StatService {
 		ALL_TIME_LIST.add("22:00");
 		ALL_TIME_LIST.add("23:00");
 
-		ALL_HOUR_LIST.put("00", "00,00");
-		ALL_HOUR_LIST.put("01", "01,00");
-		ALL_HOUR_LIST.put("02", "02,00");
-		ALL_HOUR_LIST.put("03", "03,00");
-		ALL_HOUR_LIST.put("04", "04,00");
-		ALL_HOUR_LIST.put("05", "05,00");
-		ALL_HOUR_LIST.put("06", "06,00");
-		ALL_HOUR_LIST.put("07", "07,00");
-		ALL_HOUR_LIST.put("08", "08,00");
-		ALL_HOUR_LIST.put("09", "09,00");
-		ALL_HOUR_LIST.put("10", "10,00");
-		ALL_HOUR_LIST.put("11", "11,00");
-		ALL_HOUR_LIST.put("12", "12,00");
-		ALL_HOUR_LIST.put("13", "13,00");
-		ALL_HOUR_LIST.put("14", "14,00");
-		ALL_HOUR_LIST.put("15", "15,00");
-		ALL_HOUR_LIST.put("16", "16,00");
-		ALL_HOUR_LIST.put("17", "17,00");
-		ALL_HOUR_LIST.put("18", "18,00");
-		ALL_HOUR_LIST.put("19", "19,00");
-		ALL_HOUR_LIST.put("20", "20,00");
-		ALL_HOUR_LIST.put("21", "21,00");
-		ALL_HOUR_LIST.put("22", "22,00");
-		ALL_HOUR_LIST.put("23", "23,00");
+		ALL_HOUR_LIST.put("00", "00:00");
+		ALL_HOUR_LIST.put("01", "01:00");
+		ALL_HOUR_LIST.put("02", "02:00");
+		ALL_HOUR_LIST.put("03", "03:00");
+		ALL_HOUR_LIST.put("04", "04:00");
+		ALL_HOUR_LIST.put("05", "05:00");
+		ALL_HOUR_LIST.put("06", "06:00");
+		ALL_HOUR_LIST.put("07", "07:00");
+		ALL_HOUR_LIST.put("08", "08:00");
+		ALL_HOUR_LIST.put("09", "09:00");
+		ALL_HOUR_LIST.put("10", "10:00");
+		ALL_HOUR_LIST.put("11", "11:00");
+		ALL_HOUR_LIST.put("12", "12:00");
+		ALL_HOUR_LIST.put("13", "13:00");
+		ALL_HOUR_LIST.put("14", "14:00");
+		ALL_HOUR_LIST.put("15", "15:00");
+		ALL_HOUR_LIST.put("16", "16:00");
+		ALL_HOUR_LIST.put("17", "17:00");
+		ALL_HOUR_LIST.put("18", "18:00");
+		ALL_HOUR_LIST.put("19", "19:00");
+		ALL_HOUR_LIST.put("20", "20:00");
+		ALL_HOUR_LIST.put("21", "21:00");
+		ALL_HOUR_LIST.put("22", "22:00");
+		ALL_HOUR_LIST.put("23", "23:00");
 
 	}
 
@@ -131,8 +131,8 @@ public class StatService {
 	public List getDaysTotalStream(Date start, Date end) {
 		int _from = Integer.parseInt(dfyyyyMMdd.format(start));
 		int _to = Integer.parseInt(dfyyyyMMdd.format(end));
-		String sql = "select sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) as ALLVOLUME,STATTIME  from  STAT_SGSN where STATTIME between "
-				+ _from + " and " + _to + " and dayflag=1 group by STATTIME";
+		String sql = "select stattime,sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) as ALLVOLUME,sum(UPVOLUME) as UPVOLUME,sum(DOWNVOLUME) as DOWNVOLUME,STATTIME  from  STAT_ALLDAY where STATTIME between "
+				+ _from + " and " + _to + " group by STATTIME";
 		// int _from = (int) (start.getTime() / 1000);
 		// int _to = (int) end.getTime() / 1000;
 
@@ -159,7 +159,9 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					model.setTotalUser((int) (usercount*0.3 ));
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setTotalUser((int) (usercount*0.2 ));
 					// System.out.println("model.getTotalUser()::"+model.getTotalUser());
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
@@ -180,7 +182,7 @@ public class StatService {
 	 * @return
 	 */
 	public List getDaysTotalStream23g(Date start, Date end) {
-		String sql = "select sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) ALLVOLUME,NETTYPE,stattime  from  STAT_SGSN where dayflag=1 and STATTIME between ? and ? group by stattime,NETTYPE";
+		String sql = "select stattime,NETTYPE,sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) as ALLVOLUME,sum(UPVOLUME) as UPVOLUME,sum(DOWNVOLUME) as DOWNVOLUME,STATTIME  from  STAT_ALLDAY  where STATTIME between ? and ? group by stattime,NETTYPE";
 		// int _from = (int) (start.getTime() / 1000);
 		// int _to = (int) end.getTime() / 1000;
 		int _from = Integer.parseInt(dfyyyyMMdd.format(start));
@@ -199,8 +201,10 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
 					// model.setTotalUser(usercount);
-					model.setTotalUser((int) (usercount*0.3));
+					model.setTotalUser((int) (usercount*0.2));
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
 					model.setNettype(type);
@@ -594,7 +598,7 @@ public class StatService {
 	 * @param cellid
 	 * @return
 	 */
-	public PaginationSupport getApnDayStat(Date date, final int pageNo, final int pageSize) {
+	public PaginationSupport getApnDayStat(Date date,String orderby, final int pageNo, final int pageSize) {
 		// int _date = (int) (date.getTime() / 1000);
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
 		int totalCount = 0;
@@ -607,8 +611,9 @@ public class StatService {
 		// String sql = "select * from(select APNNI,STATTIME,USERCOUNT,ALLVOLUME
 		// from STAT_APN where STATTIME="+_date+" and dayflag=1)";
 
+
 		String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM (select APNNI,STATTIME,USERCOUNT,ALLVOLUME from  STAT_APN where  dayflag=1 and apnni not in('cmwap','cmnet') and  STATTIME="
-				+ _date + ") A WHERE ROWNUM <= " + (startIndex + pageSize) + " )  WHERE RN > " + startIndex;
+				+ _date + orderby+" ) A WHERE ROWNUM <= " + (startIndex + pageSize) + " )  WHERE RN > " + startIndex;
 
 		// Object[] args = new Object[] { _date };
 		// int[] argTypes = new int[] { Types.INTEGER };
@@ -654,7 +659,7 @@ public class StatService {
 	 * @return
 	 */
 	public List getApnDayTimeStat(final Date date, String apnid) {
-		String sql = "select APNNI,STATTIME,USERCOUNT,ALLVOLUME from  STAT_APN where  APNNI=? and dayflag=0 and STATTIME between ? and ? order by STATTIME";
+		String sql = "select APNNI,STATTIME,USERCOUNT,ALLVOLUME from  STAT_APN where  APNNI=? and dayflag=0 and STATTIME between ? and ? ";
 		// int _date = (int) (date.getTime() / 1000);
 
 		long start = getDayStartTime(date);
@@ -724,11 +729,11 @@ public class StatService {
 	 * @param apnid
 	 * @return
 	 */
-	public List getApnCellDayStat(Date date, String apnid) {
+	public List getApnCellDayStat(Date date, String apnid,String orderby) {
 		// int _date = (int) (date.getTime() / 1000);
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
 		String sql = "select APNNI,CELLID,STATTIME,USERCOUNT,ALLVOLUME from  STAT_CELLID_APN  where dayflag=1 AND APNNI='"
-				+ apnid + "' and STATTIME=" + _date;
+				+ apnid + "' and STATTIME=" + _date+orderby;
 		System.out.println(sql);
 		// Object[] args = new Object[] { apnid,_date };
 		// int[] argTypes = new int[] { Types.VARCHAR ,Types.INTEGER};

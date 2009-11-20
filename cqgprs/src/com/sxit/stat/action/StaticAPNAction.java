@@ -26,7 +26,8 @@ import com.sxit.stat.util.StatUtil;
  * 
  */
 public class StaticAPNAction extends StatAction {
-private List apnlist;
+	private List apnlist;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -38,19 +39,20 @@ private List apnlist;
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-
-		this.page = statservice.getApnDayStat(startDate, pageNo, pageSize);
+		if (orderfield == null || orderfield.equals("")) {
+			orderfield = "USERCOUNT";
+		}
+		this.page = statservice.getApnDayStat(startDate, getOrderby(), pageNo, pageSize);
 		if (resultType.equals("list"))
 			return SUCCESS;
 
 		else if (resultType.equals("excel")) {
-			this.page = statservice.getApnDayStat(startDate, 1, Integer.MAX_VALUE);
+			this.page = statservice.getApnDayStat(startDate, getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
-		}	
-		else if (resultType.equals("flash")) {
-			this.page=statservice.getApnDayStat(startDate, pageNo, pageSize);
-			apnlist=page.getItems();
-			
+		} else if (resultType.equals("flash")) {
+			this.page = statservice.getApnDayStat(startDate, getOrderby(), pageNo, pageSize);
+			apnlist = page.getItems();
+
 			if (flashType.equals("bar")) { // 产生柱状图
 				this.flashChart = barChart();
 			} else { // 产生线图
@@ -62,6 +64,7 @@ private List apnlist;
 			return "message";
 		}
 	}
+
 	private Chart lineChart() {
 		double min = 0d;
 		double max = 0d;
@@ -73,7 +76,7 @@ private List apnlist;
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = (float)stat.getTotalStream();
+				value = (float) stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -84,7 +87,8 @@ private List apnlist;
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getApnid());label.setRotation(ration);
+			label.setText(stat.getApnid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -100,7 +104,7 @@ private List apnlist;
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
+		yaxis.setMin(min - steps <= 0 ? 0 : (min - steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
@@ -128,7 +132,7 @@ private List apnlist;
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = (float)stat.getTotalStream();
+				value = (float) stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -139,7 +143,8 @@ private List apnlist;
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getApnid());label.setRotation(ration);
+			label.setText(stat.getApnid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 
@@ -154,14 +159,14 @@ private List apnlist;
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
+		yaxis.setMin(min - steps <= 0 ? 0 : (min - steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start +  "各APN总流量分析（M）");
+			title.setText(start + "各APN总流量分析（M）");
 		else if (flashby.equals("average")) {
 			title.setText(start + "各APN平均流量分析（K）");
 		} else if (flashby.equals("user")) {

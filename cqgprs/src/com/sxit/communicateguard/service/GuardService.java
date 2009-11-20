@@ -58,7 +58,7 @@ public class GuardService {
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from SET_CELL_FOCUS  ";
 		sql = "select * from(select a.*,rownum rn from(select * from SET_CELL_FOCUS ${where} order by CELLID) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		String where = "";
 		if (cellid != null && !cellid.equals("")) {
 			where += " where cellid='" + cellid + "'";
@@ -99,7 +99,7 @@ public class GuardService {
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from SET_MOBILE_FOCUS  ";
 		sql = "select * from(select a.*,rownum rn from(select * from SET_MOBILE_FOCUS ${where}) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		String where = "";
 		if (mobile != null && !mobile.equals("")) {
 			where += " where mobile='" + mobile + "'";

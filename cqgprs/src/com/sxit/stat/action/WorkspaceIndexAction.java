@@ -13,7 +13,6 @@ import jofc2.model.axis.XAxisLabels;
 import jofc2.model.axis.YAxis;
 import jofc2.model.axis.YAxisLabels;
 import jofc2.model.elements.BarChart;
-import jofc2.model.elements.Tooltip;
 
 import com.sxit.stat.models.TotalStatModel;
 import com.sxit.stat.util.StatUtil;
@@ -44,9 +43,15 @@ public class WorkspaceIndexAction extends StatAction {
 			endDate = getPrevDate();
 			this.end = df.format(endDate);
 		}
+	
 
-		streamlist = statservice.getDaysTotalStream(startDate, endDate);
+//		streamlist = statservice.getDaysTotalStream(startDate, endDate);
 
+		while(com.sxit.index.IndexPageAction.cache==null){
+			Thread.sleep(50);
+		}
+		streamlist=com.sxit.index.IndexPageAction.cache.getStreamlist();
+		
 		this.flashChart = barChart();
 
 		return "ofc";

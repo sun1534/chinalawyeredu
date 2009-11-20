@@ -19,7 +19,7 @@ private static String ADDRATE="100%";
 	private String nsvc;
 	private int alarmtype;
 	private long alarmtime;
-	private float flowcount;
+	private double flowcount;
 	private int isactive;
 	/**
 	 * @return the isactive
@@ -37,11 +37,18 @@ private static String ADDRATE="100%";
 	
 	public String getReason(){
 		if(alarmtype==1){
-			return "该活动链路流量为0";
-		}else if(alarmtype==1){
+			return "该链路为ALIVE,但流量为0";
+		}else if(alarmtype==2){
 			return "此链路流量比上一时间段增长"+ADDRATE;
 		}else
-			return "此链路当前为锁定状态";
+			return "此链路当前为DEAD";
+	}
+	
+	private double abs(double f){
+		if(f<0)
+			return 0-f;
+		else
+			return f;
 	}
 
 	/**
@@ -49,9 +56,9 @@ private static String ADDRATE="100%";
 	 * @return
 	 */
 	public String getCurrentstream(){
-		if(flowcount<1)
+		if(abs(flowcount)<1)
 			return flowcount+"（B）";
-		else if(flowcount<1024)
+		else if(abs(flowcount)<1024)
 		{
 			double d = ((double) flowcount) / (1024);
 			String totalStreamStr= NumberUtil.toMoney(d);
@@ -119,14 +126,14 @@ private static String ADDRATE="100%";
 	/**
 	 * @return the flowcount
 	 */
-	public float getFlowcount() {
+	public double getFlowcount() {
 		return flowcount;
 	}
 
 	/**
 	 * @param flowcount the flowcount to set
 	 */
-	public void setFlowcount(float flowcount) {
+	public void setFlowcount(double flowcount) {
 		this.flowcount = flowcount;
 	}
 }

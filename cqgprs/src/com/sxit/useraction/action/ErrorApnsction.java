@@ -6,7 +6,7 @@ package com.sxit.useraction.action;
 import java.text.DateFormat;
 import java.util.List;
 
-import com.sxit.common.action.AbstractAction;
+import com.sxit.common.action.AbstractListAction;
 import com.sxit.useraction.service.UseractionService;
 
 /**
@@ -16,25 +16,11 @@ import com.sxit.useraction.service.UseractionService;
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class ErrorApnsction extends AbstractAction {
+public class ErrorApnsction extends AbstractListAction {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private String date;
-	private String orderby="apnni"; // 排序依据
-private String ascdesc="asc";//顺序逆序
-	/**
- * @return the ascdesc
- */
-public String getAscdesc() {
-	return ascdesc;
-}
 
-/**
- * @param ascdesc the ascdesc to set
- */
-public void setAscdesc(String ascdesc) {
-	this.ascdesc = ascdesc;
-}
 
 	/**
 	 * @return the date
@@ -50,20 +36,38 @@ public void setAscdesc(String ascdesc) {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	private String reqapnni;
+	private String errcode;
+
+
 
 	/**
-	 * @return the orderby
+	 * @return the reqapnni
 	 */
-	public String getOrderby() {
-		return orderby;
+	public String getReqapnni() {
+		return reqapnni;
 	}
 
 	/**
-	 * @param orderby
-	 *            the orderby to set
+	 * @param reqapnni the reqapnni to set
 	 */
-	public void setOrderby(String orderby) {
-		this.orderby = orderby;
+	public void setReqapnni(String reqapnni) {
+		this.reqapnni = reqapnni;
+	}
+
+	/**
+	 * @return the errcode
+	 */
+	public String getErrcode() {
+		return errcode;
+	}
+
+	/**
+	 * @param errcode the errcode to set
+	 */
+	public void setErrcode(String errcode) {
+		this.errcode = errcode;
 	}
 
 	/*
@@ -78,11 +82,18 @@ public void setAscdesc(String ascdesc) {
 			date = df.format(com.sxit.stat.util.StatUtil.getPrevDate());
 		}
 		UseractionService service = (UseractionService) this.getBean("useractionService");
-		apnerrorslist = service.getApnErrors(date,orderby,ascdesc, null, null);
-		if (resultType.equals("list"))
+		if(orderfield==null||orderfield.equals(""))
+			orderfield="reqapnni";
+		
+		if (resultType.equals("list")){
+			this.page=service.getApnErrors(date, null, null,reqapnni,errcode,getOrderby(),pageNo,pageSize);
+			apnerrorslist=page.getItems();
 			return SUCCESS;
-		else
+		}
+		else{
+			apnerrorslist = service.getApnErrors(date, null, null,reqapnni,errcode,getOrderby());
 			return "excel";
+		}
 	}
 
 	

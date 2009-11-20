@@ -36,10 +36,10 @@ public class IndexAction extends AbstractAction {
 		int length = cookies == null ? 0 : cookies.length;
 		for (int i = 0; i < length; i++) {
 			if (cookies[i].getName().equals(Constants.COOKIE_LOGINNAME)) {
-				this.loginname = cookies[i].getValue();
+//				this.loginname = cookies[i].getValue();
 			}
 			if (cookies[i].getName().equals(Constants.COOKIE_LOGINNAME)) {
-				this.password = cookies[i].getValue();
+//				this.password = cookies[i].getValue();
 			}
 		}
 		return SUCCESS;

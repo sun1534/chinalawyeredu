@@ -20,6 +20,8 @@ import com.sxit.useraction.service.UseractionService;
 public class UserPdpErrorTopListAction extends AbstractAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
+
 	private static DateFormat dfhour = new java.text.SimpleDateFormat("HH");
 	/**
 	 * 哪天,默认是前1天
@@ -104,18 +106,30 @@ public class UserPdpErrorTopListAction extends AbstractAction {
 		}
 
 		UseractionService actionservice = (UseractionService) this.getBean("useractionService");
-		int start = 0;
-		int end = 0;
-		if (flag.equals("1")) {
-			start = (int) (com.sxit.stat.util.StatUtil.getDateTime(thedate) / 1000);
-			end = (int) (com.sxit.stat.util.StatUtil.getOneDayAfter(start) / 1000);
-		} else {
-			date=df.format(new Date());
-		    String _date=date+" "+hour+"00:00";
-		    start=UseractionService.getDfSec(_date);
-		    end=start+60*60;
+//		int start = 0;
+//		int end = 0;
+
+		if (orderfield == null || orderfield.equals("")) {
+			orderfield = "errcount";
+			ascdesc="desc";
 		}
-		this.resultList = actionservice.getPdpErrorTopList(start, end);
+String stattime="";
+		if (flag.equals("1")) {
+			stattime=dfyyyyMMdd.format(thedate);
+//			long _start = com.sxit.stat.util.StatUtil.getDateTime(thedate);
+//			start = (int) (_start / 1000);
+//			end = (int) (com.sxit.stat.util.StatUtil.getOneDayAfter(_start) / 1000);
+
+		} else {
+			stattime=dfyyyyMMdd.format(thedate)+hour;
+//
+//			date = df.format(new Date());
+//			String _date = date + " " + hour + "00:00";
+//			start = UseractionService.getDfSec(_date);
+//			end = start + 60 * 60;
+		}
+//		this.resultList = actionservice.getPdpErrorTopList(start, end, getOrderby());
+		this.resultList = actionservice.getPdpErrorTopList(stattime, getOrderby());
 		if (this.resultType.equals("list"))
 			return SUCCESS;
 		else

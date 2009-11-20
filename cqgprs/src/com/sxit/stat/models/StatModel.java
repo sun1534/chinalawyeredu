@@ -16,7 +16,8 @@ public class StatModel {
 	protected int totalUser=0;
 
 	
-	
+	protected double upvolume;
+	protected double downvolume;
 	/**
 	 * 以兆为单位
 	 * @return
@@ -29,7 +30,22 @@ public class StatModel {
 //		return Float.parseFloat(totalStreamStr);
 		return totalStreamStr;
 	}
-	
+	public String getUpvolumeStr(){
+		if(upvolume<1)
+			return upvolume+"（K）";
+		double d = ((double) upvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
+	}
+	public String getDownvolumeStr(){
+		if(downvolume<1)
+			return downvolume+"（K）";
+		double d = ((double) downvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
+	}
 	/**
 	 * @return the totalStream
 	 */
@@ -88,5 +104,33 @@ public class StatModel {
 		float f= ((float) totalStream) / ( totalUser);
 		String averageStreamStr= NumberUtil.toMoney(f);
 		return Float.parseFloat(averageStreamStr);
+	}
+
+	/**
+	 * @return the upvolume
+	 */
+	public double getUpvolume() {
+		return upvolume;
+	}
+
+	/**
+	 * @param upvolume the upvolume to set
+	 */
+	public void setUpvolume(double upvolume) {
+		this.upvolume = upvolume;
+	}
+
+	/**
+	 * @return the downvolume
+	 */
+	public double getDownvolume() {
+		return downvolume;
+	}
+
+	/**
+	 * @param downvolume the downvolume to set
+	 */
+	public void setDownvolume(double downvolume) {
+		this.downvolume = downvolume;
 	}
 }

@@ -275,4 +275,41 @@ public abstract class AbstractAction extends ActionSupport  {
 	public void setResultType(String resultType) {
 		this.resultType = resultType;
 	}
+	
+	protected String orderfield;
+	protected String ascdesc="asc";
+
+	/**
+	 * @return the orderfield
+	 */
+	public String getOrderfield() {
+		return orderfield;
+	}
+
+	/**
+	 * @param orderfield the orderfield to set
+	 */
+	public void setOrderfield(String orderfield) {
+		this.orderfield = orderfield;
+	}
+
+	/**
+	 * @return the ascdesc
+	 */
+	public String getAscdesc() {
+		return ascdesc;
+	}
+
+	/**
+	 * @param ascdesc the ascdesc to set
+	 */
+	public void setAscdesc(String ascdesc) {
+		this.ascdesc = ascdesc;
+	}
+	
+	protected String getOrderby(){
+	   if(orderfield==null||orderfield.equals(""))
+		   return "";
+	   return " order by "+orderfield+" "+ascdesc;
+	}
 }

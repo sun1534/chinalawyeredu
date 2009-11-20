@@ -62,14 +62,14 @@ public class ZeroService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getDayZeroCells(final Date date, int pageNo, int pageSize) {
+	public PaginationSupport getDayZeroCells(final Date date,String orderby, int pageNo, int pageSize) {
 
 		String _date = df.format(date);
 
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_cellid where dayflag=1 and stattime=" + _date;
 		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_cellid where dayflag=1 and stattime="
-				+ _date + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+				+ _date + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 
@@ -104,14 +104,16 @@ public class ZeroService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getDayZeroApns(final Date date, int pageNo, int pageSize) {
+	public PaginationSupport getDayZeroApns(final Date date,String orderby, int pageNo, int pageSize) {
 
 		String _date = df.format(date);
 
+		
+		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_apn where dayflag=1 and stattime=" + _date;
 		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_apn where dayflag=1 and stattime="
-				+ _date + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+				+ _date + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 
@@ -146,7 +148,7 @@ public class ZeroService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getHourZeroCells(final String date, String hour, int pageNo, int pageSize) {
+	public PaginationSupport getHourZeroCells(final String date, String hour,String orderby, int pageNo, int pageSize) {
 
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
@@ -158,7 +160,7 @@ public class ZeroService {
 		String countsql = "select count(*) from zero_cell where dayflag=0 and stattime>=" + _start + " and stattime<="
 				+ _end;
 		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_cell where dayflag=0 and stattime>="
-				+ _start + " and stattime<=" + _end + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
+				+ _start + " and stattime<=" + _end + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
 				+ startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);
@@ -193,7 +195,7 @@ public class ZeroService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getHourZeroApns(final String date, String hour, int pageNo, int pageSize) {
+	public PaginationSupport getHourZeroApns(final String date, String orderby,String hour, int pageNo, int pageSize) {
 
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
@@ -205,7 +207,7 @@ public class ZeroService {
 		String countsql = "select count(*) from zero_apn where dayflag=0 and stattime>=" + _start + " and stattime<="
 				+ _end;
 		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_apn where dayflag=0 and stattime>="
-				+ _start + " and stattime<=" + _end + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
+				+ _start + " and stattime<=" + _end + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
 				+ startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);

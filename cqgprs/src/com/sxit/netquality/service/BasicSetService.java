@@ -205,7 +205,7 @@ public class BasicSetService {
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from set_cell where opttype!=2 ";
 		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} order by CELLID) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		String where = "";
 		if (cellid != null && !cellid.equals("")) {
 			where += " and cellid='" + cellid + "'";
@@ -229,6 +229,7 @@ public class BasicSetService {
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLastopt(rs.getString("OPTTYPE"));
 					model.setSubarea(rs.getString("subsidiary"));
+					model.setLac(rs.getString("lac"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
@@ -269,6 +270,7 @@ public class BasicSetService {
 					model.setAllvolume(rs.getDouble("allvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setLac(rs.getString("lac"));
 					model.setSubarea(rs.getString("subsidiary"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
@@ -411,12 +413,12 @@ public class BasicSetService {
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from set_apn where opttype!=2";
 		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 order by APNNI) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>=" + startIndex;
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		if (!(apnid == null || apnid.equals(""))) {
 
 			countsql = "select count(*) from set_apn where opttype!=2 and	 apnni='" + apnid + "'";
 			sql = "select * from(select a.*,rownum rn from(select * from set_apn where opttype!=2 and apnni='" + apnid
-					+ "') a where rownum<=" + (startIndex + pageSize) + ")	 where rn>=" + startIndex;
+					+ "') a where rownum<=" + (startIndex + pageSize) + ")	 where rn>" + startIndex;
 		}
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 

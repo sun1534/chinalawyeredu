@@ -139,16 +139,16 @@ public class UserLoginAction extends AbstractAction {
 			loginService.insertLoginLog(_remoteAddr, sysUser.getUserid(), sysUser.getUsername(),contextid, "会话退出重新登录");
 			sysUser.setLoginId(loginService.getLoginId()); // 绑定本次登录的登录id
 			this.set(Constants.LOGIN_USER, sysUser);
-			return "pasiveloginsuccess";
+//			return "pasiveloginsuccess";
 		} else {
 
 			loginService.insertLoginLog(_remoteAddr, sysUser.getUserid(),sysUser.getUsername(), contextid, "正常登录");
 			sysUser.setLoginId(loginService.getLoginId()); // 绑定本次登录的登录id
 			LOG.debug("系统正常登录成功.............");
 			this.set(Constants.LOGIN_USER, sysUser);
-			return SUCCESS;
+			
 		}
-
+		return SUCCESS;
 	}
 
 	public void setLoginname(String loginname) {

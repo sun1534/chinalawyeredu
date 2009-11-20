@@ -6,7 +6,9 @@
 <struts>
 
     <package name="tradeCustomer" extends="default" namespace="/tradeCustomer">
+    	  
     	<default-interceptor-ref name="visitStack"/>
+    	
 		<!-- 总流量分析 -->
 		   <action name="tradeCustomerAll" class="com.sxit.tradeCustomer.action.TradeCustomerAllAction">
           <result name="success" type="dispatcher">/tradeCustomer/tradeCustomerAll.jsp</result>	

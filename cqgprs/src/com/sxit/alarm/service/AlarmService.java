@@ -87,7 +87,7 @@ public class AlarmService {
 					GbLinkAlarm model = new GbLinkAlarm();
 					model.setAlarmtime(rs.getLong("alarmtime"));
 					model.setAlarmtype(rs.getInt("alarmtype"));
-					model.setFlowcount(rs.getInt("flowcount"));
+					model.setFlowcount(rs.getDouble("flowcount"));
 					model.setNsvc(rs.getString("nsvc"));
 					model.setIsactive(rs.getInt("isactive"));
 					list.add(model);
@@ -129,9 +129,10 @@ public class AlarmService {
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		int startIndex = (pageNo - 1) * pageSize;
+//		Hibernate:    select * from ( select row_.*, rownum rownum_ from ( select * from SYS_LOGINLOG this_ order by this_.loginid desc ) row_ ) where rownum_ <= ? and rownum_ > ?
 
 		String sql = "select * from(select a.*,rownum rn from(select * from  alarm_gb {0} order by alarmtime desc) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex + " order by alarmtime desc";
+				+ (startIndex + pageSize) + ") where rn>" + startIndex ;
 
 		sql = sql.replace("{0}", where);
 		System.out.println(sql);
@@ -144,7 +145,7 @@ public class AlarmService {
 					GbLinkAlarm model = new GbLinkAlarm();
 					model.setAlarmtime(rs.getLong("alarmtime"));
 					model.setAlarmtype(rs.getInt("alarmtype"));
-					model.setFlowcount(rs.getInt("flowcount"));
+					model.setFlowcount(rs.getDouble("flowcount"));
 					model.setNsvc(rs.getString("nsvc"));
 					model.setIsactive(rs.getInt("isactive"));
 					list.add(model);

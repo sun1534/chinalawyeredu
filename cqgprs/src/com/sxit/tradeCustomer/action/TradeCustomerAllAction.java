@@ -20,12 +20,17 @@ import com.sxit.stat.util.StatUtil;
 
 /**
  * 
- * SGSN流量分析
+ * SGSN流量分析,平均流量的排行,还不好处理
+ * 
+ * 排序字段：APNNI,USERCOUNT,ALLVOLUME
+ * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
 public class TradeCustomerAllAction extends StatAction {
 
+	
+	
 	private List apnlist;
 	/*
 	 * (non-Javadoc)
@@ -38,17 +43,20 @@ public class TradeCustomerAllAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-
-		this.page = statservice.getApnDayStat(startDate, pageNo, pageSize);
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="apnni";
+		}
+		System.out.println("resultType:::"+resultType);
+		this.page = statservice.getApnDayStat(startDate,getOrderby(), pageNo, pageSize);
 		if (resultType.equals("list"))
 			return SUCCESS;
 
 		else if (resultType.equals("excel")) {
-			this.page = statservice.getApnDayStat(startDate, 1, Integer.MAX_VALUE);
+			this.page = statservice.getApnDayStat(startDate,getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
 		}	
 		else if (resultType.equals("flash")) {
-			this.page=statservice.getApnDayStat(startDate, pageNo, pageSize);
+			this.page=statservice.getApnDayStat(startDate,getOrderby(), pageNo, pageSize);
 			apnlist=page.getItems();
 			
 			if (flashType.equals("bar")) { // 产生柱状图
@@ -56,6 +64,7 @@ public class TradeCustomerAllAction extends StatAction {
 			} else { // 产生线图
 				this.flashChart = lineChart();
 			}
+		
 			return "ofc";
 		} else {
 			this.message = "返回数据类型错误";

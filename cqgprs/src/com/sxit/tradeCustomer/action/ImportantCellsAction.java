@@ -36,8 +36,12 @@ public class ImportantCellsAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
+		if(orderfield==null||orderfield.equals(""))
+			orderfield="cellid";
 		if (apnid != null && !apnid.equals("")) {
-			apncelllist = statservice.getApnCellDayStat(startDate, apnid);
+			
+			System.out.println("getOrderby():"+getOrderby());
+			apncelllist = statservice.getApnCellDayStat(startDate, apnid,getOrderby());
 			if (resultType.equals("list"))
 				return SUCCESS;
 

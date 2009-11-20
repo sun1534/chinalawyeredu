@@ -19,13 +19,12 @@ import com.sxit.stat.models.ApnStatModel;
 import com.sxit.stat.util.StatUtil;
 
 /**
+ * 行业APN分时段统计
  * 
- * 雷同StaticAPNTimeAction
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
 public class StaticBy24HoursAction extends StatAction {
-
 
 	/*
 	 * (non-Javadoc)
@@ -39,6 +38,8 @@ public class StaticBy24HoursAction extends StatAction {
 			this.start = df.format(startDate);
 		}
 
+		System.out.println("============================我XXXXXXXXXXXXXx");
+		
 		if (apnid != null && !"".equals(apnid)) {
 
 			apntimelist = statservice.getApnDayTimeStat(startDate, apnid);
@@ -98,7 +99,7 @@ public class StaticBy24HoursAction extends StatAction {
 			float value = 0;
 
 			if (flashby.equals("total"))
-				value = (float)stat.getTotalStream();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -153,7 +154,7 @@ public class StaticBy24HoursAction extends StatAction {
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value = (float)stat.getTotalStream();
+				value =(float)stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -196,5 +197,4 @@ public class StaticBy24HoursAction extends StatAction {
 		flashChart.setTitle(title);
 		return flashChart;
 	}
-
 }

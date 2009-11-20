@@ -16,6 +16,7 @@ import java.util.Date;
 public class Cell extends Volumes{
 
 	private String cellid;
+	private String lac;
 	private String cellname;
 	private String bscrncid;
 	private String subarea;
@@ -101,5 +102,17 @@ public class Cell extends Volumes{
 	 */
 	public void setSubarea(String subarea) {
 		this.subarea = subarea;
+	}
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 }
