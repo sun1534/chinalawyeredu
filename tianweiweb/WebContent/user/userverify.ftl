@@ -120,7 +120,11 @@ function applyverify(){
 	if($("#username").val()==""){
 		alert("请先输入用户名");
 	}else if(!checkIDCard($("#cardno").val())){
+		<#if currentRole=1>
 		alert("请先输入正确的身份证号码和生日");
+	 <#else>
+	 	alert("请先输入正确的身份证号码");
+	 </#if>
 	}else if($("#phone").val()==""){
 		alert("请先输入联系电话");
 	}else{
@@ -164,7 +168,11 @@ function submita(){
 	if($("#username").val()==""){
 		alert("请先输入用户名");
 	}else if(!checkIDCard($("#cardno").val())){
+		<#if currentRole=1>
 		alert("请先输入正确的身份证号码和生日");
+	 <#else>
+	 	alert("请先输入正确的身份证号码");
+	 </#if>
 	}else if($("#phone").val()==""){
 		alert("请先输入联系电话");
 	}else{
