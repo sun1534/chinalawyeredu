@@ -30,7 +30,9 @@
 		<div id="baseadmininfo" class="form" >
 		<div class="even">
 			<label class="fname" for="pname"><#if currentRole=1>姓名</#if><#if currentRole=2>法人代表</#if>：</label>
-			<span class="fvalue"><input type="text" id="username" name="username" size="15" value="${username}" class="normal txt-login w200"/></span>
+			<span class="fvalue"><input type="text" id="username" name="username" size="15" value="${username}" class="normal txt-login w200"/>
+			<font color="red">*</font>
+			</span>
 		</div>
 		<!--<div class="odd">
 			<label class="fname" for="pname">身份认证：</label>
@@ -58,12 +60,13 @@
 			<span class="fvalue">
 				<!--<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput" class="normal txt-login w90"/>-->
 				<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput1" onfocus="new WdatePicker(this)"  class="normal txt-login w90"/>
+					<font color="red">*</font>
 			</span>
 		</div>
 		</#if>
 		<div class="odd">
 			<label class="fname" for="pname">地址：</label>
-			<span class="fvalue"><input type="text" name="address" size="15" value="${address}" class="normal txt-login w300" /></span>
+			<span class="fvalue"><input type="text" name="address" size="15" value="${address}" class="normal txt-login w300" /><font color="red">*</font></span>
 		</div>
 		<div class="even">
 			<label class="fname" for="pname">邮编：</label>
@@ -71,16 +74,23 @@
 		</div>
 		<div class="odd">
 			<label class="fname" for="pname">电话：</label>
-			<span class="fvalue"><input id="phone" type="text" name="phone" size="15" value="${phone}" class="normal txt-login w200"/></span>
+			<span class="fvalue"><input id="phone" type="text" name="phone" size="15" value="${phone}" class="normal txt-login w200"/>
+				<font color="red">*</font>
+			</span>	
 		</div>
 		<div class="even">
 			<label class="fname" for="pname">身份证号码：</label>
-			<span class="fvalue"><input id="cardno" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="cardno" size="15" value="${cardno}" class="normal txt-login w200"/></span>
+			<span class="fvalue"><input id="cardno" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="cardno" size="15" value="${cardno}" class="normal txt-login w200"/>
+				<font color="red">*</font>
+			</span>
 		</div>
 		<#if currentRole=2>
 		<div class="even">
 			<label class="fname" for="pname">营业执照号：</label>
-			<span class="fvalue"><input id="entno" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="entno" size="15" value="${entno}" class="normal txt-login w200"/></span>
+			<span class="fvalue"><input id="entno" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="entno" size="15" value="${entno}" class="normal txt-login w200"/>
+			
+				<font color="red">*</font>
+			</span>
 		</div>
 		</#if>
 		<div class="odd">
@@ -106,24 +116,24 @@
 	</div>
 <div class="clear"></div>
 <script>
-function applyverify(){
-	if($("#username").val()==""){
-		alert("请先输入用户名");
-	}else if(!checkIDCard($("#cardno").val())){
-		alert("请先输入正确的身份证号码和生日");
-	}else if($("#phone").val()==""){
-		alert("请先输入联系电话");
-	}else{
-		$("#form1").ajaxSubmit();
-		$.ajax({
-		    type: "POST",
-		    data:"",
-		    url:"verifyapply.action",
-		    success:function(data){
-		    	$.blockUI({message:data});
-	    }});
-    }
-}
+//function applyverify(){
+//	if($("#username").val()==""){
+//		alert("请先输入用户名");
+//	}else if(!checkIDCard($("#cardno").val())){
+//		alert("请先输入正确的身份证号码和生日");
+//	}else if($("#phone").val()==""){
+//		alert("请先输入联系电话");
+//	}else{
+//		$("#form1").ajaxSubmit();
+//		$.ajax({
+//		    type: "POST",
+//		    data:"",
+//		    url:"verifyapply.action",
+//		    success:function(data){
+//		    	$.blockUI({message:data});
+//	    }});
+//   }
+//}
 
 function checkPhone (str){
 	isPhone=/\d{7,15}/;
@@ -151,12 +161,31 @@ function checkIDCard (str)
  return (isIDCard1.test(str)||isIDCard2.test(str));
 }
 function submita(){
+	<#if currentRole=1>
 	if($("#username").val()==""){
 		alert("请先输入用户名");
-	}else if(!checkIDCard($("#cardno").val())){
+	}
+	else if(!checkIDCard($("#cardno").val())){
 		alert("请先输入正确的身份证号码和生日");
-	}else if($("#phone").val()==""){
-		alert("请先输入联系电话");
+	}
+	</#if>
+	   <#if currentRole=2>
+	   if($("#username").val()==""){
+		alert("请先输入企业法人代表名称,不能为空");
+	    }
+	    	 else  if($("#entno").val()==""){
+		alert("请输入企业营业执照号,不能为空,不能为空");
+	    }
+	    	  else if($("#cardno").val()==""){
+		alert("请输入企业法人身份证号码,不能为空");
+	    }
+	    	
+	</#if>
+		else if($("#address").val()==""){
+		alert("请输入您或您公司的地址,不能为空");
+	}
+	else if($("#phone").val()==""){
+		alert("请输入您的联系电话,不能为空");
 	}else{
 		var options={success:showResponse};
 		$("#form1").ajaxSubmit(options);
