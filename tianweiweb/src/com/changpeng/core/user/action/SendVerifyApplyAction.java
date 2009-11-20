@@ -17,11 +17,15 @@ public class SendVerifyApplyAction extends AbstractAction{
 		CoreUserDetail up=userService.getUserDetailById(currentUserid);
 		
 		if(user.getUserName()==null||user.getUserName().equals("")){
-			this.message="请先填写姓名并保存";
+		
+			if(this.currentRole==1)
+				this.message="请先填写姓名并保存";
+			else
+				this.message="请先填写法人代表并保存";
 		}else if(up.getUserAddress()==null||up.getUserAddress().equals("")){
 			this.message="请先填写地址并保存";
 		}else if(user.getMobile()==null||user.getMobile().equals("")){
-			this.message="请先填写地址并保存";
+			this.message="请先填写好您的联系电话再保存";
 		}else if(user.getCardno()==null||user.getCardno().equals("")){
 			if(this.currentRole==1)
 				this.message="请先填写身份证号码并保存";
