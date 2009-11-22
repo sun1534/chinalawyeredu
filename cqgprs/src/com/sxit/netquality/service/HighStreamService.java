@@ -55,16 +55,23 @@ public class HighStreamService {
  * @return
  */
 	
-	public List getHightStreamDayCell(String standard,String condition,Date date){
+	public List getHightStreamDayCell(String standard,String condition,String bscid,String orderby,Date date){
 	
 		String _date=df.format(date);
 		String sql="";
+		String where="";
+		if(!(bscid==null||bscid.equals("")))
+			where=" and a.bscid='"+bscid+"'";
 		if(standard.equals("1")){
 //			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
-			 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" where allvolume>="+condition+") order by allvolume desc";
+//			 sql="select a.cellid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where  a.cellid=b.cellid(+) and a.dayflag=1 and a.allvolume>="+condition+" and a.stattime="+_date+" "+ orderby;
+			 sql="select * from(select a.cellid,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+") where currentvolume>="+condition+orderby;
 
 		}else{
-			 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" and rownum<="+condition+" order by allvolume desc";
+			
+			 sql="select * from(select a.cellid,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+" order by a.allvolume desc) where rownum<="+condition+orderby;
+			 
+//				 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" and rownum<="+condition+" order by allvolume desc";
         }
 		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -73,7 +80,9 @@ public class HighStreamService {
 				while (rs.next()) {
 					TopCell model = new TopCell();
 					model.setCellid(rs.getString("cellid"));
-					model.setCurrentStream(rs.getFloat("allvolume"));
+					model.setCurrentStream(rs.getDouble("currentvolume"));
+					model.setTotalStream(rs.getDouble("allvolume"));
+					model.setBscid(rs.getString("bscid"));
 					list.add(model);
 				}
 				return list;

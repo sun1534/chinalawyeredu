@@ -28,9 +28,12 @@ public class ApnListAction extends AbstractListAction {
 
 		BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		setservice.getAllSets();
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="apnni";
+		}
 		if (resultType.equals("list")) {
 			focuslist = setservice.getFocusApns();
-			this.page = setservice.getApns(apnid, pageNo, pageSize);
+			this.page = setservice.getApns(apnid, getOrderby(),pageNo, pageSize);
 			return SUCCESS;
 		} else {
 			this.startIndex = (pageNo - 1) * pageSize;

@@ -44,10 +44,16 @@ public class HightStreamUserAction extends AbstractAction {
 			}
 
 		}
+		
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="allvolume";
+			ascdesc="desc";
+		}
+		
 		if (flag.equals("1"))
-			top1000users = service.getHightStreamDayUser(thedate, standard, condition);
+			top1000users = service.getHightStreamDayUser(thedate, standard, condition,getOrderby());
 		else
-			top1000users = service.getHightStreamHourUser(standard, condition, thedate, hour);
+			top1000users = service.getHightStreamHourUser(standard, condition, thedate, hour,getOrderby());
 
 		if (this.resultType.equals("list"))
 

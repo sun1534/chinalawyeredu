@@ -46,16 +46,23 @@ private String bscid;
 		
 		BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		setservice.getAllSets();
+		
+		if(orderfield==null||orderfield.equals(""))
+			orderfield="cellid";
+		
 		if (resultType.equals("list")) {
 			focuslist = setservice.getFocusCellids();
-			this.page = setservice.getCells(cellid, bscid,pageNo, pageSize);
+			this.page = setservice.getCells(cellid, bscid,getOrderby(),pageNo, pageSize);
 			return SUCCESS;
 		} else {
 //			this.startIndex = (pageNo - 1) * pageSize;
 //			this.page = new PaginationSupport(BasicSetService.ALL_CELL_LIST, BasicSetService.ALL_CELL_LIST.size(),
 //					pageSize, startIndex);
 			
-			this.page = setservice.getCells(cellid, bscid,1, Integer.MAX_VALUE);
+			
+			
+			
+			this.page = setservice.getCells(cellid, bscid,getOrderby(),1, Integer.MAX_VALUE);
 			return "excel";
 		}
 	}

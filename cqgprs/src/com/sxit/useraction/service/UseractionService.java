@@ -344,7 +344,7 @@ public class UseractionService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List getHightStreamDayUser(final Date date, String standard, String condition) {
+	public List getHightStreamDayUser(final Date date, String standard, String condition,String orderby) {
 
 		String sql = "";
 		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
@@ -353,7 +353,7 @@ public class UseractionService {
 			// dayflag=1 and (stattime="+_date+") group by cellid having
 			// sum(allvolume)>="+condition+") order by allv desc";
 			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from " + table
-					+ " where dayflag=1 and allvolume>=" + condition + " order by allvolume desc";
+					+ " where dayflag=1 and allvolume>=" + condition + orderby;
 
 		} else {
 			// sql = "select
@@ -364,7 +364,7 @@ public class UseractionService {
 			//			
 			sql = "select * from(select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
 					+ "  where dayflag=1 order by allvolume desc) where rownum<=" + condition
-					+ " order by allvolume desc";
+					+orderby;
 		}
 		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -389,7 +389,7 @@ public class UseractionService {
 		return list;
 	}
 
-	public List getHightStreamHourUser(String standard, String condition, Date date, final String hour) {
+	public List getHightStreamHourUser(String standard, String condition, Date date, final String hour,String orderby) {
 		final String _date = df.format(date);
 		String start = _date + " " + hour + ":00:00";
 		String end = _date + " " + hour + ":59:59";
@@ -406,7 +406,7 @@ public class UseractionService {
 					+ _start
 					+ " and stattime<="
 					+ _end
-					+ ") group by mobile,apnni having sum(allvolume)>=" + condition + ") order by allvolume desc";
+					+ ") group by mobile,apnni having sum(allvolume)>=" + condition + ") "+orderby;
 		} else {
 			sql = "select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
 					+ table
@@ -414,7 +414,7 @@ public class UseractionService {
 					+ _start
 					+ " and stattime<="
 					+ _end
-					+ ") group by mobile,apnni ) where rownum<=" + condition + " order by allvolume desc";
+					+ ") group by mobile,apnni ) where rownum<=" + condition +orderby;
 		}
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -457,7 +457,7 @@ public class UseractionService {
 		// where errcode="+errcode+" stattime between "+first+" and "+last+"
 		// group by imsi,msisdn having count(*)>= "+ count;
 
-		String sql = "select imsi,count(*) from STAT_IMSI_APN_ERROR where errcode=" + errcode
+		String sql = "select imsi,count(*) from STAT_IMSI_errcode_ERROR where errcode=" + errcode
 				+ " and stattime between " + last + " and " + first + " group by imsi having count(*)>= " + count;
 		System.out.println(sql);
 
@@ -505,14 +505,19 @@ public class UseractionService {
 
 		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
-
+		Date today=new Date();  
+long todaytime=com.sxit.stat.util.StatUtil.getDateTime(today);//今天的时间
 		String table = "cdr_mistake";
 		if (!errorcode.equals("33")) {
 			table = "cdr_mistake_no33";
 		}
-		String countsql = "select count(distinct(imsi)) as usercount,count(*) as errorcount from  " + table
+		String countsql = "";
+		if(todaytime==start)
+		 countsql = "select count(distinct(imsi)) as usercount,count(*) as errcount from  " + table
 				+ " where errcode=" + errorcode + " and opentime between " + start / 1000 + " and " + end / 1000;
-
+		else{
+			 countsql = "select  usercount, errcount from stat_errcode_error where errcode=" + errorcode + " and stattime="+dfyyyyMMdd.format(date);
+		}
 		System.out.println(countsql);
 
 		final ErrorCodeStat stat = new ErrorCodeStat();
@@ -522,7 +527,7 @@ public class UseractionService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 
 				if (rs.next()) {
-					stat.setErrorcount(rs.getInt("errorcount"));
+					stat.setErrorcount(rs.getInt("errcount"));
 					stat.setUsercount(rs.getInt("usercount"));
 
 				}

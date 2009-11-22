@@ -27,16 +27,18 @@ public class BscListAction extends AbstractListAction {
 
 		BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		setservice.getAllSets();
-		resultList = setservice.getBsces(bscid, sgsnid);
-		if (resultType.equals("list")) {
+		
 
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="bscid";
+		}
+		
+		if (resultType.equals("list")) {
+this.page=setservice.getBsces(bscid, sgsnid, getOrderby(), pageNo, pageSize);
+this.resultList=this.page.getItems();
 			return SUCCESS;
 		} else {
-			// this.startIndex = (pageNo - 1) * pageSize;
-			// this.page = new PaginationSupport(BasicSetService.ALL_APN_LIST,
-			// BasicSetService.ALL_APN_LIST.size(),
-			// pageSize, startIndex);
-
+			resultList = setservice.getBsces(bscid, sgsnid, getOrderby());
 			return "excel";
 		}
 	}

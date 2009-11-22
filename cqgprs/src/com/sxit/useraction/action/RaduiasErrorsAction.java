@@ -35,7 +35,10 @@ public class RaduiasErrorsAction extends AbstractAction {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+	private String exceltitle;
+	public String getExceltitle(){
+		return this.exceltitle;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,7 +63,12 @@ public class RaduiasErrorsAction extends AbstractAction {
 		
 		codestat=service.getErrcodeList(thedate, "29");
 		
-		return SUCCESS;
+		if(resultType.equals("list"))
+			return SUCCESS;
+			else{
+			this.exceltitle=date+"之RADUIS错误(29号错误)情况总表";
+				return "excel";
+			}
 	}
 	private ErrorCodeStat codestat;
 

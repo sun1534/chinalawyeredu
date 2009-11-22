@@ -161,7 +161,7 @@ public class StatService {
 					model.setTotalStream(all);
 					model.setUpvolume(rs.getDouble("upvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
-					model.setTotalUser((int) (usercount*0.2 ));
+					model.setTotalUser((int) (usercount ));
 					// System.out.println("model.getTotalUser()::"+model.getTotalUser());
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
@@ -204,7 +204,7 @@ public class StatService {
 					model.setUpvolume(rs.getDouble("upvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					// model.setTotalUser(usercount);
-					model.setTotalUser((int) (usercount*0.2));
+					model.setTotalUser((int) (usercount));
 					// model.setDate(df.format(date));
 					model.setDate(stattime + ""); // 总数的按天统计，时间都是20091011的形式
 					model.setNettype(type);
@@ -303,7 +303,7 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getBscRncStat(Date date, String sgsnid, int pageNo, int pageSize) {
+	public PaginationSupport getBscRncStat(Date date, String sgsnid, String orderby,int pageNo, int pageSize) {
 		// int _date = (int) (date.getTime() / 1000);
 		final String _date = dfyyyyMMdd.format(date);
 
@@ -321,7 +321,7 @@ public class StatService {
 		}
 		int startIndex = (pageNo - 1) * pageSize;
 
-		String sql = "select * from(select a.*,rownum rn from(select BSCID,SGSNID,STATTIME,USERCOUNT,ALLVOLUME from  STAT_BSC {0} order by sgsnid) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select BSCID,SGSNID,STATTIME,USERCOUNT,ALLVOLUME from  STAT_BSC {0} "+orderby+") a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		sql = sql.replace("{0}", where);
@@ -385,7 +385,7 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getNsvcStat(Date date, String bscid, int pageNo, int pageSize) {
+	public PaginationSupport getNsvcStat(Date date, String bscid, String orderby,int pageNo, int pageSize) {
 
 		long start = StatUtil.getDateTime(date);
 		long end = StatUtil.getOneDayAfter(start);
@@ -412,7 +412,7 @@ public class StatService {
 		}
 		int startIndex = (pageNo - 1) * pageSize;
 
-		String sql = "select * from(select a.*,rownum rn from(select nsvc,sum(difference) as difference from  stat_nsvc {0} group by nsvc order by difference desc ) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select nsvc,sum(difference) as difference from  stat_nsvc {0} group by nsvc "+orderby+" ) a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		sql = sql.replace("{0}", where);
@@ -449,22 +449,24 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getCellDayStat(Date date, int pageNo, int pageSize) {
+	public PaginationSupport getCellDayStat(Date date,String bscid,String orderby, int pageNo, int pageSize) {
 		// int _date = (int) (date.getTime() / 1000);
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
 		int totalCount = 0;
+		String where="";
+		if(!(bscid==null||bscid.equals(""))){
+			where=" and bscid='"+bscid+"'";
+		}
 		if (pageSize != Integer.MAX_VALUE) {
-			String countsql = "select count(*) from STAT_CELLID where dayflag=1 and STATTIME=" + _date;
-
-			// System.out.println(countsql);
+			String countsql = "select count(*) from STAT_CELLID where dayflag=1 "+where+" and STATTIME=" + _date;
 
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select CELLID,BSCID,NETTYPE,STATTIME,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=1 and STATTIME=? order by CELLID,NETTYPE) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select CELLID,BSCID,NETTYPE,STATTIME,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=1 "+where+" and STATTIME=? "+orderby+") a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
-		// System.out.println(sql);
+		 System.out.println(sql);
 
 		Object[] args = new Object[] { _date };
 		int[] argTypes = new int[] { Types.INTEGER };

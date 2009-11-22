@@ -176,7 +176,8 @@ public class SgsnStream23gAction extends StatAction {
 					max = value;
 				c2.addValues(value);
 				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getSgsnid());label.setRotation(ration);
+				label.setText(stat.getSgsnid());
+				label.setRotation(ration);
 				xlables.addLabels(label);
 			}
 		}

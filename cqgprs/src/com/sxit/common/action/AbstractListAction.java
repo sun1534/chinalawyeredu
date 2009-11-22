@@ -16,7 +16,7 @@ public abstract class AbstractListAction extends AbstractAction {
 	
 	protected int pageNo=1;
 	
-	protected int pageSize=12;
+	protected int pageSize=10;
 	
 	protected int startIndex;
 	public void setPageNo(int pageNo){

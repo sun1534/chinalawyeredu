@@ -32,6 +32,19 @@ public class HightStreamCellAction extends AbstractListAction {
 	
 	private String flag; //1按天统计0按小时
 	
+	private String bscid;
+	/**
+	 * @return the bscid
+	 */
+	public String getBscid() {
+		return bscid;
+	}
+	/**
+	 * @param bscid the bscid to set
+	 */
+	public void setBscid(String bscid) {
+		this.bscid = bscid;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -52,7 +65,7 @@ public class HightStreamCellAction extends AbstractListAction {
 		}
 		
 		HighStreamService hightService=(HighStreamService)this.getBean("highStreamService");
-		topcelllist=	hightService.getHightStreamDayCell(standard, condition, thedate);
+		topcelllist=hightService.getHightStreamDayCell(standard, condition,bscid,getOrderby(), thedate);
 		if(resultType.equals("list")){
 			
 			return SUCCESS;

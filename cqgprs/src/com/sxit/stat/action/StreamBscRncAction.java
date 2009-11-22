@@ -45,7 +45,7 @@ public class StreamBscRncAction extends StatAction {
 			this.start=df.format(startDate);
 		}
 //		System.out.println(endDate);
-		this.page = statservice.getBscRncStat(startDate, sgsnid,pageNo, pageSize);
+		this.page = statservice.getBscRncStat(startDate, sgsnid,getOrderby(),pageNo, pageSize);
 	
 		this.bsclist=page.getItems();	
 		System.out.println("bsclist::"+bsclist);

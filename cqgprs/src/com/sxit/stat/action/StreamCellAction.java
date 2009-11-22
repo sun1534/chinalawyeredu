@@ -26,7 +26,7 @@ import com.sxit.stat.util.StatUtil;
  * 
  */
 public class StreamCellAction extends StatAction {
-	
+	private String bscid;
 
 	private List celllist=null;
 	/*
@@ -46,17 +46,17 @@ public class StreamCellAction extends StatAction {
 		}
 		this.pageSize=15;
 		if (resultType.equals("list")){
-			this.page=statservice.getCellDayStat(startDate, pageNo, pageSize);
+			this.page=statservice.getCellDayStat(startDate,bscid,getOrderby(), pageNo, pageSize);
 			return SUCCESS;
 		}
 
 		else if (resultType.equals("excel")){
-		    this.page=statservice.getCellDayStat(startDate, 1, Integer.MAX_VALUE);
+		    this.page=statservice.getCellDayStat(startDate,bscid,getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
 		}
 		
 		else if (resultType.equals("flash")) {
-			this.page=statservice.getCellDayStat(startDate,pageNo, pageSize);
+			this.page=statservice.getCellDayStat(startDate,bscid,getOrderby(),pageNo, pageSize);
 			celllist=page.getItems();
 			
 			if (flashType.equals("bar")) { // 产生柱状图
@@ -179,5 +179,17 @@ public class StreamCellAction extends StatAction {
 
 		flashChart.setTitle(title);
 		return flashChart;
+	}
+	/**
+	 * @return the bscid
+	 */
+	public String getBscid() {
+		return bscid;
+	}
+	/**
+	 * @param bscid the bscid to set
+	 */
+	public void setBscid(String bscid) {
+		this.bscid = bscid;
 	}
 }

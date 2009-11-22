@@ -13,6 +13,8 @@
        </action>
      <action name="raduiasErrors" class="com.sxit.useraction.action.RaduiasErrorsAction">
           <result name="success" type="dispatcher">/useraction/raduiasErrors.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/errorno33_excel.jsp</result>	
+          
        </action>
        <action name="userPdpErrorAll" class="com.sxit.useraction.action.UserPdpErrorAllAction">
           <result name="success" type="dispatcher">/useraction/userPdpErrorAll.jsp</result>	
@@ -21,6 +23,8 @@
       
         <action name="roamErros" class="com.sxit.useraction.action.RoamErrosAction">
           <result name="success" type="dispatcher">/useraction/roamErros.jsp</result>	
+        <result name="excel" type="dispatcher">/netquality/errorno33_excel.jsp</result>	
+          
        </action>
       <action name="errorApns" class="com.sxit.useraction.action.ErrorApnsction">
           <result name="success" type="dispatcher">/useraction/errorApns.jsp</result>	

@@ -4,6 +4,7 @@
 package com.sxit.netquality.models;
 
 import com.sxit.netquality.service.BasicSetService;
+import com.sxit.system.util.NumberUtil;
 
 /**
  * 
@@ -16,14 +17,28 @@ import com.sxit.netquality.service.BasicSetService;
 public class TopCell {
 
 	private String cellid;
+	private String bscid;
+	
 //	private String bscrncid;
 	
 	
+	/**
+	 * @return the bscid
+	 */
+	public String getBscid() {
+		return bscid;
+	}
+	/**
+	 * @param bscid the bscid to set
+	 */
+	public void setBscid(String bscid) {
+		this.bscid = bscid;
+	}
 	public String getSgsnid(){
 		return BasicSetService.BSC_SGSN.get(getBscrncid());
 	}
-	private float totalStream;
-	private float currentStream;
+	private double totalStream;
+	private double currentStream;
 	/**
 	 * @return the cellid
 	 */
@@ -46,27 +61,43 @@ public class TopCell {
 	/**
 	 * @return the totalStream
 	 */
-	public float getTotalStream() {
+	public double getTotalStream() {
 		return totalStream;
 	}
 	/**
 	 * @param totalStream the totalStream to set
 	 */
-	public void setTotalStream(float totalStream) {
+	public void setTotalStream(double totalStream) {
 		this.totalStream = totalStream;
 	}
 	/**
 	 * @return the currentStream
 	 */
-	public float getCurrentStream() {
+	public double getCurrentStream() {
 		return currentStream;
 	}
 	/**
 	 * @param currentStream the currentStream to set
 	 */
-	public void setCurrentStream(float currentStream) {
+	public void setCurrentStream(double currentStream) {
 		this.currentStream = currentStream;
 	}
 	
-
+	public String getCurrentStreamStr(){
+		if(currentStream<1)
+			return currentStream+"（K）";
+		double d = ((double) currentStream) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
+	}
+	
+	public String getTotalStreamStr(){
+		if(totalStream<1)
+			return totalStream+"（K）";
+		double d = ((double) totalStream) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
+	}
 }

@@ -198,13 +198,13 @@ public class BasicSetService {
 		return d;
 	}
 
-	public PaginationSupport getCells(String cellid, String bscid, int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, String bscid,String orderby, int pageNo, int pageSize) {
 		String countsql = "";
 		String sql = "";
 
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from set_cell where opttype!=2 ";
-		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} order by CELLID) a where rownum<="
+		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} "+orderby+") a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		String where = "";
 		if (cellid != null && !cellid.equals("")) {
@@ -239,15 +239,6 @@ public class BasicSetService {
 			}
 		});
 		List list = (List) object;
-		// getAllCells();
-		// int totalCount = ALL_CELL_LIST.size();
-		// int startIndex = (pageNo - 1) * pageSize;
-		// List<Cell> list = new ArrayList<Cell>();
-		// for (int i = startIndex; i < totalCount && i < startIndex + pageSize;
-		// i++) {
-		// list.add(ALL_CELL_LIST.get(i));
-		// }
-		// PaginationSupport ps=new PaginationSupport();
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
@@ -314,12 +305,55 @@ public class BasicSetService {
 		});
 	}
 
-	public List getNsvces(String bscid) {
+	public PaginationSupport getNsvces(String bscid,String orderby,int pageNo,int pageSize) {
+		
+		
+		 String where="";
+		 if(!(bscid==null||bscid.equals(""))){
+			 where=" and bscid='"+bscid+"'";
+		 }
+
+		int startIndex = (pageNo - 1) * pageSize;
+		String	countsql = "select count(*) from set_nsvc where opttype!=2 "+where;
+		String sql = "select * from(select a.*,rownum rn from(select * from set_nsvc where opttype!=2 "+where+orderby+") a where rownum<="
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+	
+		int totalCount=jdbcTemplate.queryForInt(countsql);
+		
+		Object obj = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				// List list = new ArrayList();
+				List list = new ArrayList();
+				while (rs.next()) {
+					Nsvc model = new Nsvc();
+
+					model.setBscid(rs.getString("bscid"));
+					model.setCapacity(rs.getInt("capacity"));
+					model.setIsactive(rs.getInt("isactive"));
+					model.setNsvc(rs.getString("nsvc"));
+					model.setNsvcindex(rs.getString("nsvcgbindex"));
+					model.setOpst(rs.getString("opst"));
+					model.setOpttype(rs.getInt("opttype"));
+					model.setSgsnid(rs.getString("sgsnid"));
+					model.setUpdatetime(rs.getInt("updatetime"));
+
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list= (List) obj;
+		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+		return ps;
+	}
+	
+	public List getNsvces(String bscid,String orderby) {
 		String sql = "select * from  set_nsvc where opttype!=2";
 
 		if (bscid != null && !"".equals(bscid)) {
 			sql += " and bscid='" + bscid + "'";
 		}
+		sql+=orderby;
 		Object obj = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -373,9 +407,9 @@ public class BasicSetService {
 		});
 	}
 
-	public List getBsces(String bscid, String sgsnid) {
+	public List getBsces(String bscid, String sgsnid,String orderby) {
 
-		String sql = "select * from set_bsc where opttype!=2";
+		String sql = "select * from set_bsc where opttype!=2"+orderby;
 		if (bscid != null && !bscid.equals("")) {
 			sql += " and bscid='" + bscid + "'";
 		}
@@ -407,12 +441,65 @@ public class BasicSetService {
 		return list;
 
 	}
+	/**
+	 * 
+	 * 
+	 * @param bscid
+	 * @param sgsnid
+	 * @param orderby
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public PaginationSupport getBsces(String bscid,String sgsnid,String orderby, int pageNo, int pageSize) {
 
-	public PaginationSupport getApns(String apnid, int pageNo, int pageSize) {
+		int startIndex = (pageNo - 1) * pageSize;
+		String where="";
+		if (bscid != null && !bscid.equals("")) {
+			where += " and bscid='" + bscid + "'";
+		}
+		if (sgsnid != null && !sgsnid.equals("")) {
+			where += " and sgsnid='" + sgsnid + "'";
+		}
+		
+		
+		String countsql = "select count(*) from set_bsc where opttype!=2"+where;
+		String sql = "select * from(select a.*,rownum rn from(select * from	 set_bsc where opttype!=2 "+where+orderby+") a where rownum<="
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+	
+		int totalCount = jdbcTemplate.queryForInt(countsql);
+
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					BscRnc model = new BscRnc();
+					model.setBscrncid(rs.getString("bscid"));
+					model.setLastopt(rs.getString("opttype"));
+					model.setName(rs.getString("bscname"));
+					// model.setNettype(rs.getString("nettype"));
+					model.setSgsnid(rs.getString("sgsnid"));
+					Date date = new Date();
+					date.setTime(rs.getLong("UPDATETIME") * 1000);
+					model.setNsvcount(rs.getInt("nsvccount"));
+					model.setLastupdate(date);
+
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+		return ps;
+	}
+
+
+	public PaginationSupport getApns(String apnid,String orderby, int pageNo, int pageSize) {
 
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from set_apn where opttype!=2";
-		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 order by APNNI) a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 "+orderby+") a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 		if (!(apnid == null || apnid.equals(""))) {
 
@@ -442,21 +529,8 @@ public class BasicSetService {
 			}
 		});
 		List list = (List) object;
-		// PaginationSupport ps=new PaginationSupport();
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
-		// getAllApns();
-		// int totalCount = ALL_APN_LIST.size();
-		// int startIndex = (pageNo - 1) * pageSize;
-		// List<Apn> list = new ArrayList<Apn>();
-		// for (int i = startIndex; i < totalCount && i < startIndex + pageSize;
-		// i++) {
-		// list.add(ALL_APN_LIST.get(i));
-		// }
-		// // PaginationSupport ps=new PaginationSupport();
-		// PaginationSupport ps = new PaginationSupport(list, totalCount,
-		// pageSize, startIndex);
-		// return ps;
 	}
 
 	/**

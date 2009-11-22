@@ -28,7 +28,10 @@ public class RoamErrosAction extends AbstractAction {
 	public String getDate() {
 		return date;
 	}
-
+	private String exceltitle;
+	public String getExceltitle(){
+		return this.exceltitle;
+	}
 	/**
 	 * @param date the date to set
 	 */
@@ -36,6 +39,7 @@ public class RoamErrosAction extends AbstractAction {
 		this.date = date;
 	}
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,7 +64,12 @@ public class RoamErrosAction extends AbstractAction {
 		
 		codestat=service.getErrcodeList(thedate, "27");
 		
-		return SUCCESS;
+		if(resultType.equals("list"))
+			return SUCCESS;
+			else{
+			this.exceltitle=date+"之漫游错误(27号错误)情况总表";
+				return "excel";
+			}
 	}
 	private ErrorCodeStat codestat;
 

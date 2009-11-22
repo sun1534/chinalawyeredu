@@ -60,11 +60,11 @@ public class GbLinkStaticAction extends AbstractListAction {
 
 		if (resultType.equals("list")) {
 
-			this.page = statservice.getNsvcStat(thedate, bscid, pageNo, pageSize);
+			this.page = statservice.getNsvcStat(thedate, bscid, getOrderby(),pageNo, pageSize);
 			return SUCCESS;
 		} else {
 
-			this.page = statservice.getNsvcStat(thedate, bscid, 1, Integer.MAX_VALUE);
+			this.page = statservice.getNsvcStat(thedate, bscid,getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
 		}
 	}

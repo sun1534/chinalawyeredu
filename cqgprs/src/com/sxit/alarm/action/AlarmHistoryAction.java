@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.sxit.alarm.service.AlarmService;
 import com.sxit.common.action.AbstractListAction;
-import com.sxit.stat.action.StatAction;
 
 /**
  * 
@@ -25,6 +24,20 @@ public class AlarmHistoryAction extends AbstractListAction {
 
 	private String start;
 	private String end;
+private String nsvc;
+	/**
+ * @return the nsvc
+ */
+public String getNsvc() {
+	return nsvc;
+}
+
+/**
+ * @param nsvc the nsvc to set
+ */
+public void setNsvc(String nsvc) {
+	this.nsvc = nsvc;
+}
 
 	/*
 	 * (non-Javadoc)
@@ -80,12 +93,18 @@ public class AlarmHistoryAction extends AbstractListAction {
 			} catch (Exception e) {
 				_LOG.error("起始时间解析错误:", e);
 			}
+		}else{
+			enddate=new Date();
+			end=df.format(enddate);
 		}
-		
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="alarmtime";
+			ascdesc="desc";
+		}
 	
 		AlarmService service = (AlarmService) this.getBean("alarmService");
-		this.page = service.getAlarmhishory(startdate, enddate, pageNo, pageSize);
-
+//		this.page = service.getAlarmhishory(startdate, enddate, nsvc,getOrderby(),pageNo, pageSize);
+		this.page = service.getAlarmhishory(startdate, enddate, nsvc, getOrderby(), pageNo, pageSize);
 		return SUCCESS;
 	}
 }

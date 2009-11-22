@@ -34,14 +34,15 @@ private String bscid;
 		BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		setservice.getAllSets();
 		
-		this.nsvclist=setservice.getNsvces(bscid);
-		
-		if (resultType.equals("list")) {
-		
+		if(orderfield==null||orderfield.equals("")){
+			orderfield="nsvc";
+		}
+		if(resultType.equals("list")){
+			this.page=setservice.getNsvces(bscid,getOrderby(),pageNo,pageSize);
+			this.nsvclist=this.page.getItems();
 			return SUCCESS;
-		} else {
-
-
+		}else{
+			this.nsvclist=setservice.getNsvces(bscid,getOrderby());
 			return "excel";
 		}
 	}

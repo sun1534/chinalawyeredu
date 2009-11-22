@@ -36,7 +36,10 @@ public class Error38Action extends AbstractAction {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
+private String exceltitle;
+public String getExceltitle(){
+	return this.exceltitle;
+}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,8 +63,12 @@ public class Error38Action extends AbstractAction {
 		UseractionService service=(UseractionService)this.getBean("useractionService");
 		
 		codestat=service.getErrcodeList(thedate, "38");
-		
+		if(resultType.equals("list"))
 		return SUCCESS;
+		else{
+		this.exceltitle=date+"之38号错误情况总表";
+			return "excel";
+		}
 	}
 	private ErrorCodeStat codestat;
 

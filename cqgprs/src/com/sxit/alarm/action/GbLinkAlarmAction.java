@@ -6,7 +6,7 @@ package com.sxit.alarm.action;
 import java.util.List;
 
 import com.sxit.alarm.service.AlarmService;
-import com.sxit.common.action.AbstractAction;
+import com.sxit.common.action.AbstractListAction;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.sxit.common.action.AbstractAction;
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class GbLinkAlarmAction extends AbstractAction {
+public class GbLinkAlarmAction extends AbstractListAction {
 
 	private List alarmlist;
 	
@@ -34,7 +34,10 @@ public class GbLinkAlarmAction extends AbstractAction {
 		System.out.println("====================================");
 		
 		AlarmService service=(AlarmService)this.getBean("alarmService");
-		alarmlist=service.getGbAlarms();
+		this.page=service.getGbAlarms(pageNo, pageSize);
+		
+//		alarmlist=service.getGbAlarms();
+		alarmlist=page.getItems();
 		
 		service.updateAlarmHasRead();
 		

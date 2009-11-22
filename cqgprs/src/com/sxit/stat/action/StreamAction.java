@@ -92,6 +92,7 @@ public class StreamAction extends StatAction {
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getDate());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -151,6 +152,7 @@ public class StreamAction extends StatAction {
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
 			label.setText(stat.getDate());
+			label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 

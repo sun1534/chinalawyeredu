@@ -60,11 +60,10 @@ public class AlarmService {
 		String sql = "update alarm_gb set isactive=0 where isactive=1";
 		jdbcTemplate.execute(sql);
 		_LOG.info("此次的警告信息已读完毕");
-		
+
 	}
-	
-	
-	public int  getGbAlarmCounts() {
+
+	public int getGbAlarmCounts() {
 		// int _date = (int) (date.getTime() / 1000);
 		String sql = "select count(*) from  alarm_gb where isactive=1 ";
 		return jdbcTemplate.queryForInt(sql);
@@ -96,16 +95,55 @@ public class AlarmService {
 			}
 		});
 		List list = (List) object;
-	   return list;
+		return list;
 	}
-	
+
+	public PaginationSupport getGbAlarms(int pageNo, int pageSize) {
+
+		int totalCount = 0;
+		if (pageSize != Integer.MAX_VALUE) {
+			String countsql = "select count(*) as cnt from  alarm_gb where isactive=1";
+			totalCount = jdbcTemplate.queryForInt(countsql);
+		}
+		int startIndex = (pageNo - 1) * pageSize;
+
+		String sql = "select * from(select a.*,rownum rn from(select * from  alarm_gb where isactive=1 order by alarmtime desc) a where rownum<="
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+
+		// String sql = "select * from alarm_gb where isactive=1 order by
+		// alarmtime desc";
+		System.out.println("gb链路告警:" + sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					GbLinkAlarm model = new GbLinkAlarm();
+					model.setAlarmtime(rs.getLong("alarmtime"));
+					model.setAlarmtype(rs.getInt("alarmtype"));
+					model.setFlowcount(rs.getDouble("flowcount"));
+					model.setNsvc(rs.getString("nsvc"));
+					model.setIsactive(rs.getInt("isactive"));
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		if (pageSize == Integer.MAX_VALUE) {
+			totalCount = list.size();
+		}
+		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+		return ps;
+	}
+
 	/**
 	 * 查询告警信息历史列表
 	 * 
 	 * @param date
 	 * @return
 	 */
-	public PaginationSupport getAlarmhishory(Date startdate, Date enddate, int pageNo, int pageSize) {
+	public PaginationSupport getAlarmhishory(Date startdate, Date enddate, String nsvc, String orderby, int pageNo,
+			int pageSize) {
 		// int _date = (int) (date.getTime() / 1000);
 
 		long start = 0;
@@ -120,21 +158,28 @@ public class AlarmService {
 			end = com.sxit.stat.util.StatUtil.getOneDayAfter(com.sxit.stat.util.StatUtil.getDateTime(enddate));
 		else
 			end = Long.MAX_VALUE;
-		String where = " where isactive=0 and (alarmtime between " + start / 1000 + " and " + end / 1000
-				+ ")";
+		String where = " where isactive=0 and (alarmtime between " + start / 1000 + " and " + end / 1000 + ")";
+
+		if (!(nsvc == null || nsvc.equals(""))) {
+			where = " where isactive=0 and nsvc='" + nsvc + "' and (alarmtime between " + start / 1000 + " and " + end
+					/ 1000 + ")";
+		}
+
 		int totalCount = 0;
 		if (pageSize != Integer.MAX_VALUE) {
-			String countsql = "select count(*) as cnt from  alarm_gb {0}";
-			countsql = countsql.replace("{0}", where);
+			String countsql = "select count(*) as cnt from  alarm_gb {where}";
+			countsql = countsql.replace("{where}", where);
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		int startIndex = (pageNo - 1) * pageSize;
-//		Hibernate:    select * from ( select row_.*, rownum rownum_ from ( select * from SYS_LOGINLOG this_ order by this_.loginid desc ) row_ ) where rownum_ <= ? and rownum_ > ?
+		// Hibernate: select * from ( select row_.*, rownum rownum_ from (
+		// select * from SYS_LOGINLOG this_ order by this_.loginid desc ) row_ )
+		// where rownum_ <= ? and rownum_ > ?
 
-		String sql = "select * from(select a.*,rownum rn from(select * from  alarm_gb {0} order by alarmtime desc) a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex ;
+		String sql = "select * from(select a.*,rownum rn from(select * from  alarm_gb {where} " + orderby
+				+ ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
-		sql = sql.replace("{0}", where);
+		sql = sql.replace("{where}", where);
 		System.out.println(sql);
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {

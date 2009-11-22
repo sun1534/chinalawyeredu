@@ -32,6 +32,7 @@
        </action>
          <action name="error38" class="com.sxit.netquality.action.Error38Action">
           <result name="success" type="dispatcher">/netquality/error38.jsp</result>	
+            <result name="excel" type="dispatcher">/netquality/errorno33_excel.jsp</result>	
        </action>
         <action name="error38Continue" class="com.sxit.netquality.action.Error38ContinueAction">
           <result name="success" type="dispatcher">/netquality/error38Continue.jsp</result>	

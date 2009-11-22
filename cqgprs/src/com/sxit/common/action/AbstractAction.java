@@ -16,6 +16,7 @@ import com.sxit.common.exception.ServiceException;
 import com.sxit.log.service.SysLogService;
 import com.sxit.models.system.SysRight;
 import com.sxit.models.system.SysUser;
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.system.util.RightTree;
 
 /**
@@ -311,5 +312,10 @@ public abstract class AbstractAction extends ActionSupport  {
 	   if(orderfield==null||orderfield.equals(""))
 		   return "";
 	   return " order by "+orderfield+" "+ascdesc;
+	}
+	
+	static{
+		BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+		setservice.getAllSets();
 	}
 }
