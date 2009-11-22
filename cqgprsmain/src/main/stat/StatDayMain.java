@@ -91,7 +91,7 @@ public class StatDayMain {
 
 		stat_cellid();
 		
-//		stat_apn();
+		stat_apn();
 //	
 		stat_bsc();
 

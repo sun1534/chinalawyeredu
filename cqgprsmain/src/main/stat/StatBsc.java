@@ -104,7 +104,11 @@ public class StatBsc {
 				TempStat stat = allbscs.get(key);
 				stat.bscid = rs.getString("bscid");
 				// stat.nettype = rs.getString("nettype");
-				stat.usercount = rs.getString("usercount");
+				int usercount=rs.getInt("usercount");
+				if(usercount<10)
+					stat.usercount=usercount+"";
+				else
+				 stat.usercount = ""+rs.getInt("usercount")/8;
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");

@@ -4,7 +4,6 @@
 package main.stat;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.stat.StatBsc.TempStat;
-import main.util.DBUtils;
 import main.util.MainStatUtil;
 import main.util.SelfLog;
 
@@ -26,11 +23,11 @@ public class StatSgsn {
 	public class TempStat {
 		String sgsnid;
 		String nettype;
-		String all="0";
-		String up="0";
-		String down="0";
+		double all=0;
+		double up=0;
+		double down=0;
 		// String time;
-		String usercount="0";
+		int usercount=0;
 
 	}
 
@@ -49,9 +46,21 @@ public class StatSgsn {
 
 		try {
 //			stmt = con.prepareStatement(sql);
-
+			TempStat _2g=new TempStat();
+			TempStat _3g=new TempStat();
 			while (stats.hasNext()) {
 				TempStat stat = stats.next();
+				if(stat.nettype.equals("2")){
+					_2g.all+=stat.all;
+					_2g.up+=stat.up;
+					_2g.down+=stat.down;
+					_2g.usercount+=stat.usercount;
+				}else{
+					_3g.all+=stat.all;
+					_3g.up+=stat.up;
+					_3g.down+=stat.down;
+					_3g.usercount+=stat.usercount;
+				}
 				String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"+stat.sgsnid+"',"+stat.nettype+",1,to_char(sysdate-1,'yyyyMMdd'),"+stat.up+","+stat.down+","+stat.down+","+stat.usercount+")";
 				/**
 				 * 更新总流量
@@ -61,8 +70,12 @@ public class StatSgsn {
 //				LOG.info(sql);
 				sqls.add(sql);
 			}
+			String allsql2g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values(to_char(sysdate-1,'yyyyMMdd'),2,"+_2g.usercount+","+_2g.up+","+_2g.down+","+_2g.all+")";
+			String allsql3g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values(to_char(sysdate-1,'yyyyMMdd'),3,"+_3g.usercount+","+_3g.up+","+_3g.down+","+_3g.all+")";
 //			stmt.executeBatch();
 //			stmt.clearBatch();
+			sqls.add(allsql2g);
+			sqls.add(allsql3g);
 			main.util.MainStatUtil.executeSql(con, sqls);
 			LOG.info("SGSN统计数据入库成功");
 		} finally {
@@ -99,10 +112,10 @@ public class StatSgsn {
 				TempStat stat = allsgsns.get(key);
 				stat.sgsnid = rs.getString("sgsnid");
 				stat.nettype = rs.getString("nettype");
-				stat.usercount = rs.getString("usercount");
-				stat.up = rs.getString("up");
-				stat.down = rs.getString("down");
-				stat.all = rs.getString("allvolume");
+				stat.usercount = rs.getInt("usercount")/9;
+				stat.up = rs.getDouble("up");
+				stat.down = rs.getDouble("down");
+				stat.all = rs.getDouble("allvolume");
 //				allsgsns.remove(key);
 //				allsgsns.put(key, stat);
 			}

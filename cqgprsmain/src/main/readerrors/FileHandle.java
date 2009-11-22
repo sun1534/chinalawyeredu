@@ -386,9 +386,9 @@ public class FileHandle {
 							+ "0,0,'"
 							+ cdr.getSgsnid()
 							+ "','"
-							+ cdr.getReqapnni()
+							+ cdr.getReqapnni()==null?"":cdr.getReqapnni()
 							+ "','"
-							+ cdr.getSubapnni()
+							+ cdr.getSubapnni()==null?"":cdr.getSubapnni()
 							+ "','"
 							+ cdr.getImsi()
 							+ "','"
@@ -402,8 +402,8 @@ public class FileHandle {
 				stmt.setLong(1, cdr.getLac());
 				stmt.setString(2, cdr.getCellid());
 				stmt.setString(3, cdr.getSgsnid());
-				stmt.setString(4, cdr.getReqapnni());
-				stmt.setString(5, cdr.getSubapnni());
+				stmt.setString(4, cdr.getReqapnni()==null?"":cdr.getReqapnni());
+				stmt.setString(5, cdr.getSubapnni()==null?"":cdr.getSubapnni());
 				stmt.setString(6, cdr.getImsi());
 				stmt.setInt(7, cdr.getNettype());
 				stmt.setString(8, cdr.getErrorcode());

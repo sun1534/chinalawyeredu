@@ -207,7 +207,11 @@ public class StatCell {
 				stat.cellid = rs.getString("cellid");
 				// stat.nettype = rs.getString("nettype");
 				stat.nettype = "2";
-				 stat.usercount = rs.getString("usercount");
+				int usercount=rs.getInt("usercount");
+				if(usercount<10)
+					stat.usercount=usercount+"";
+				else
+				 stat.usercount = ""+rs.getInt("usercount")/8;
 
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");

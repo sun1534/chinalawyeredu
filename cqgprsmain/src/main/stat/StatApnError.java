@@ -41,17 +41,23 @@ public class StatApnError {
 		
 //		System.out.println(hour);
 		
-		String errcodesql="insert into stat_apn_error_code (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+hour+",0 from cdr_mistake where opentime between "+prehourstart+" and "+prehourend+" group by errcode";
+		String errcodesql="insert into STAT_ERRCODE_ERROR (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+hour+",0 from cdr_mistake where opentime between "+prehourstart+" and "+prehourend+" group by errcode";
+		String errcodeno33sql="insert into stat_imsi_errcode_error(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),0,"+hour+" from cdr_mistake_no33 where  opentime between "+prehourstart+" and "+prehourend+" group by errcode,imsi,msisdn";
+		String apnimsisql="insert into stat_imsi_apn_error(imsi,reqapnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),0,"+hour+" from cdr_mistake where  opentime between "+prehourstart+" and "+prehourend+" group by reqapnni,imsi";
 
-		String sql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where reqapnni is not null and (opentime between "+prehourstart+" and "+prehourend+") group by reqapnni,errcode";
-		String nullsql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+prehourstart+" and "+prehourend+") group by errcode";
+		String sql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where reqapnni is not null and (opentime between "+prehourstart+" and "+prehourend+") group by reqapnni,errcode";
+		String nullsql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),"+hour+",0,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+prehourstart+" and "+prehourend+") group by errcode";
 		LOG.info("sql::"+sql);
 		LOG.info("nullsql::"+nullsql);
 		LOG.info("errcodesql::"+errcodesql);
+		LOG.info("errcodeno33sql::"+errcodeno33sql);
+		LOG.info("apnimsisql::"+apnimsisql);
 		List<String> sqls = new ArrayList<String>();
 		sqls.add(errcodesql);
 		sqls.add(sql);
 		sqls.add(nullsql);
+		sqls.add(errcodeno33sql);
+		sqls.add(apnimsisql);
 		try {
 			main.util.MainStatUtil.executeSql(con, sqls);
 			LOG.info("APN错误代码小时统计入库成功");
@@ -69,23 +75,24 @@ public class StatApnError {
 		long yeendtime=MainStatUtil.getOneDayAfter(yetime);
 		
 		//明细记录情况
-		String sql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),to_char(sysdate-1,'yyyyMMdd'),1,errcode from cdr_mistake where reqapnni is not null and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by reqapnni,errcode";
-		String nullsql="insert into stat_apn_error(apnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),to_char(sysdate-1,'yyyyMMdd'),1,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by errcode";
+		String sql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),to_char(sysdate-1,'yyyyMMdd'),1,errcode from cdr_mistake where reqapnni is not null and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by reqapnni,errcode";
+		String nullsql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),to_char(sysdate-1,'yyyyMMdd'),1,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by errcode";
 	
-		String errcodesql="insert into stat_apn_error_code (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,to_char(sysdate-1,'yyyyMMdd'),1 from cdr_mistake where opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode";
-		
-		
-		String errcodeno33sql="insert into stat_apn_error_imsi(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),1,to_char(sysdate-1,'yyyyMmdd') from cdr_mistake_no33 where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode,imsi,msisdn";
-		
+		String errcodesql="insert into STAT_ERRCODE_ERROR (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,to_char(sysdate-1,'yyyyMMdd'),1 from cdr_mistake where opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode";
+		String errcodeno33sql="insert into stat_imsi_errcode_error(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),1,to_char(sysdate-1,'yyyyMmdd') from cdr_mistake_no33 where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode,imsi,msisdn";
+		String apnimsisql="insert into stat_imsi_apn_error(imsi,reqapnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,to_char(sysdate-1,'yyyyMmdd') from cdr_mistake where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by reqapnni,imsi";
+
 		LOG.info("sql::"+sql);
 		LOG.info("nullsql::"+nullsql);
 		LOG.info("errcodesql::"+errcodesql);
 		LOG.info("errcodeno33sql::"+errcodeno33sql);
+		LOG.info("apnimsisql::"+apnimsisql);
 		List<String> sqls=new ArrayList<String>();
 		sqls.add(sql);
 		sqls.add(nullsql);
 		sqls.add(errcodesql);
 		sqls.add(errcodeno33sql);
+		sqls.add(apnimsisql);
 		MainStatUtil.executeSql(con, sqls);
 	}
 	

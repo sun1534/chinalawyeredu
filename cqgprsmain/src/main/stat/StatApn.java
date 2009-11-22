@@ -173,7 +173,12 @@ public class StatApn {
 				// LOG.info("得到的APN统计数据:" + apnni);
 				TempApnStat stat = allapns.get(apnni);
 				stat.apnni = rs.getString("apnni");
-				 stat.usercount = rs.getString("usercount");
+				
+				int usercount=rs.getInt("usercount");
+				if(usercount<10)
+					stat.usercount=usercount+"";
+				else
+				 stat.usercount = ""+rs.getInt("usercount")/8;
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
