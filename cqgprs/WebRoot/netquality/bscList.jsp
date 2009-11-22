@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["bscid","sgsnid","nsvccount"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
   Array.prototype.clear=function(){  
     this.length=0;  
 }
@@ -104,10 +108,12 @@ function setit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                      <s:hidden name="resultType"/>
 								 <td>BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
-								  <td>SGSN编号：<s:textfield name="sgsnid" cssClass="txt" size="10"/>&nbsp;</td>
+								  <td>SGSN编号：<s:select name="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" headerKey="" headerValue="全部" listKey="value.sgsnid" listValue="value.sgsnid"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 								</tr>
@@ -125,10 +131,10 @@ function setit(){
                       <thead>
                         <tr>
                         
-                       <th>BSC/RNC编号</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">BSC/RNC编号</a></th>
                        <th>BSC/RNC名称</th>
-                       <th>GB链路数量</th>  
-                       <th>所属SGSN</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="nsvccount" title="点击排序">GB链路数量</a></th>  
+                       <th><a onclick="orderByThis(document.form1,this)" id="sgsnid" title="点击排序">所属SGSN</a></th>
                        <th>最后更新时间</th>
                        </tr>
                       </thead>
@@ -136,7 +142,7 @@ function setit(){
                         <s:iterator value="resultList" status="status">
                         <tr>
                         
-                         <td><a href="cellList.action?bscid=${bscrncid }">${bscrncid}</a> </td>
+                         <td><a title="点击查看归属小区列表" href="cellList.action?bscid=${bscrncid }">${bscrncid}</a> </td>
                           <td>${name}</td>
                           <td>${nsvcount }</td>
                            <td>${sgsnid }</td>

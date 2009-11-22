@@ -11,7 +11,11 @@
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["cellid","lac","bscid"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  Array.prototype.clear=function(){  
     this.length=0;  
 }
@@ -103,6 +107,8 @@ function setit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                     <s:hidden name="resultType"/>
 								 <td>小区编号：<s:textfield name="cellid" cssClass="txt" size="10"/>&nbsp;</td>
@@ -129,10 +135,10 @@ function setit(){
                           设置为重点小区
                           <input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/>
                           </th>
-                       <th>小区编号</th>
-                        <th>LAC</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
+                        <th><a onclick="orderByThis(document.form1,this)" id="lac" title="点击排序">LAC</a></th>
                        <th>小区名称</th>
-                       <th>所属BSC/RNC</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">所属BSC/RNC</a></th>
                        <th>归属SGSN</th>
                        <th>所属城区</th>
                        <th>最后更新时间</th>

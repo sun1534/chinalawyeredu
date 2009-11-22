@@ -13,7 +13,12 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["nsvc","nsvcgbindex","difference"];
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -50,10 +55,12 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt" id="date"/>&nbsp;</td>
-								 <td>所属BSC/RNC：<s:textfield name="bscid" cssClass="txt" size="15" id="bscid"/>&nbsp;</td>
+								 <td>归属BSC/RNC：<s:textfield name="bscid" cssClass="txt" size="15" id="bscid"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -72,11 +79,11 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>NSVCID</th>
-                          <th>NSVC查询索引</th>
-                          <th>所属BSC/RNC</th>
-                          <th>所属SGSN</th>
-                          <th>总流量（M）</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="nsvc" title="点击排序">NSVCID</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="nsvcgbindex" title="点击排序">NSVC查询索引</a></th>
+                          <th>归属BSC/RNC</th>
+                          <th>归属SGSN</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="difference" title="点击排序">总流量（M）</a></th>
                       
                         
                         </tr>

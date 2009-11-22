@@ -92,6 +92,7 @@ function queryit(){
 							</thead> 
 							<tbody> 
 								<s:iterator value="page.items">
+								
 							<s:iterator value="imsilist" status="stat">
 							<s:if test="#stat.index==0">
 								<tr> 
@@ -114,53 +115,7 @@ function queryit(){
 							</tbody>
 						</table> 
 					</div> 
-					<!-- 
-				<s:iterator value="page.items">
-				<div class="tablist"> 
-						<table class="tableBox"> 
-							<thead> 
-								<tr> 
-									<th>APN</th> 
-									<th>客户名称</th> 
-									<th>联系方式</th> 
-									<th>异常用户数</th> 
-								</tr> 
-							</thead> 
-							<tbody> 
-								<tr> 
-									<td>${apnni }</td> 
-									<td>${apn.usercorp }</td> 
-									<td>${apn.userphone }</td> 
-									<td>${usercount }</td> 
-								</tr> 
-							</tbody> 
-						</table> 
-					</div> 
-				
-				  <div class="tablist" >
-			        <table class="tableBox" >
-                      <thead>
-                        <tr>
-                       
-                          <th>用户IMSI</th>
-                          <th>PDP失败次数</th>
-                        
-                        </tr>
-                      </thead>
-                      <tbody id="checkForm">
-                        <s:iterator value="imsilist" status="status">
-                        <tr>
-                         <td>${imsi}</td>
-                          <td>${errcount}</td>
-                        
-                        </tr>
-                        </s:iterator>
-                      
-                      </tbody>
-                    </table>
-			  </div>
-			  
-			  </s:iterator>-->
+			
 
 			 <div  class="tabpagelist">
 						<div class="pager">

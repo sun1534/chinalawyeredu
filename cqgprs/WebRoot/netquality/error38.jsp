@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+ $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
 
 function fanye(str){
@@ -53,6 +57,7 @@ function queryit(){
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
+								<td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/></td>
 							
 							
 								</tr>
@@ -84,7 +89,7 @@ function queryit(){
 				
 				
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        
@@ -106,7 +111,7 @@ function queryit(){
                         </s:iterator>
                       
                       </tbody>
-                      <!-- 
+                   
                     <tfoot>
 							<tr>
 							   <td colspan="6" class="fright">
@@ -114,7 +119,7 @@ function queryit(){
 							   </td>
 							</tr>
 						 </tfoot>
-			   -->
+			  
                     </table>
 			  </div>
 

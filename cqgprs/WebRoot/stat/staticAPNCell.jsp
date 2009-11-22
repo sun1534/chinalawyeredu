@@ -16,6 +16,7 @@
  <script type="text/javascript" src="../js/swfobject.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+   var orderArray=["cellid","allvolume","usercount"];
  
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -85,7 +86,9 @@ var start=$("#start").val();
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>统计分析</a>＞<em>行业业务统计</em>＞<em> 行业APN分重点小区分析</em>
+
+					<span>您所在是位置:</span><a>统计分析</a>＞<em>行业业务统计</em>＞<em>行业APN分重点小区分析</em>
+						
 				</div>
 			</div>
 		</div>
@@ -103,7 +106,7 @@ var start=$("#start").val();
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								  <td>APN编号：<s:textfield name="apnid" id="apnid" cssClass="txt" size="15"/>&nbsp;</td>
+								  <td>行业APN编号：<s:textfield name="apnid" id="apnid" cssClass="txt" size="15"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -128,8 +131,7 @@ var start=$("#start").val();
                       <thead>
                         <tr>
                        
-                   
-                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">主要小区编码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">主要小区编码</a></th>
                           <th>主要小区名称</th>
                            <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>

@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
  //var url="test.txt"
  //swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":"test.txt","loading":"正在载入数据..."} );
@@ -102,7 +106,7 @@ function confirmit(){
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-if(field&&ascdesc){
+//if(field&&ascdesc){
 $("thead tr th a").each(function (){
   if($(this).attr("id")==field){
     if(ascdesc=="desc")
@@ -10,7 +10,7 @@ $("thead tr th a").each(function (){
       $(this).addClass("toggleDate__");
   }
 });
-}
+//}
 });
 function orderByThis(form,obj){
 if(ascdesc=="asc")

@@ -73,7 +73,7 @@ var start=$("#start").val();
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="staticAPNCell.action?apnid="+apnid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="importantCells.action?apnid="+apnid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 

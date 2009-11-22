@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["apnni"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
   Array.prototype.clear=function(){  
     this.length=0;  
 }
@@ -104,6 +108,8 @@ function setit(){
 						<table>
 							<tbody>
 								<tr>
+						 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                      <s:hidden name="resultType"/>
 								 <td>APN编号：<s:textfield name="apnid" cssClass="txt" size="10"/>&nbsp;</td>
@@ -127,7 +133,7 @@ function setit(){
                          <th title="点中全选">
                           设置为重点APN<input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/>
                        </th>
-                       <th>APN编号</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编号</a></th>
                        <th>使用单位</th>
                        <th>客户联系方式</th>
                        <th>最后更新时间</th>

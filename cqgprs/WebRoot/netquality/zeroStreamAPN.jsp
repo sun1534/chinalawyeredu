@@ -15,6 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["apnni","allvolume","historyvolume","prehistoryvolume"];
  
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -81,8 +82,8 @@ function queryit(){
                           <th>客户联系电话</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th>当前流量</th>
-                          <th title="${last }">上次流量（M）</th>
-                          <th title="${prelast }">上上次流量（M）</th>
+                          <th title="${last }"><a onclick="orderByThis(document.form1,this)" id="historyvolume" title="点击排序">上次流量（M）</a></th>
+                          <th title="${prelast }"><a onclick="orderByThis(document.form1,this)" id="historyvolume" title="点击排序">上上次流量（M）</a></th>
                         
                         </tr>
                       </thead>

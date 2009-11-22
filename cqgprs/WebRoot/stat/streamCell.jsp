@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["cellid","bscid","allvolume","usercount"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
  
 function fanye(str){
@@ -50,7 +54,8 @@ function confirmit(){
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
    var start=$("#start").val();
-   var url="streamCell.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var bscid=$("#bscid").val();
+   var url="streamCell.action?bscid="+bscid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
@@ -76,9 +81,12 @@ function confirmit(){
 						<table>
 							<tbody>
 								<tr>
+									 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 							 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+							 <td>归属BSC/RNC：<s:textfield name="bscid" id="bscid" size="12" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -103,11 +111,11 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th>小区编码</th>
-                            <th>归属BSC/RNC</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编码</a></th>
+                            <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                               <th>归属SGSN</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         </tr>

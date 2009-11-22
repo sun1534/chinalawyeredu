@@ -13,7 +13,12 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["mobile","apnni","upvolume","downvolume","allvolume","periodlen"];
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -79,13 +84,13 @@ $("#pahint").text("总流量大于X(单位K)：");
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
-                       
-                          <th>手机号码</th>
-                          <th>APN编码</th>
-                           <th>上行流量（K）</th>
-                            <th>下行流量（K）</th>
-                          <th>总流量（K）</th>
-                          <th>逗留时长（秒）</th>
+
+                          <th><a onclick="orderByThis(document.form1,this)" id="mobile" title="点击排序">手机号码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
+                           <th><a onclick="orderByThis(document.form1,this)" id="upvolume" title="点击排序">上行流量（K）</a></th>
+                            <th><a onclick="orderByThis(document.form1,this)" id="downvolume" title="点击排序">下行流量（K）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（K）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="periodlen" title="点击排序">逗留时长（秒）</a></th>
                         
                         </tr>
                       </thead>

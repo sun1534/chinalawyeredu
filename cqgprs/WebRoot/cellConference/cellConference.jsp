@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-历史告警查询</title>
+ <title>${sysName}-会议小区监控</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -37,7 +37,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>系统告警</a>＞<em>历史告警查询</em>
+						<span>您所在是位置:</span><a>会议小区</a>＞<em>会议小区监控</em>
 				</div>
 			</div>
 		</div>
@@ -71,10 +71,11 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>告警链路</th>
-                          <th>告警原因</th>
+                          <th>小区编号</th>
+                          <th>LAC</th>
                           <th>当前流量</th>
-                          <th>告警时间</th>
+                          <th>上一小时流量</th>
+                          <th>昨天同小时流量</th>
                         
                         </tr>
                       </thead>
@@ -86,6 +87,7 @@ function queryit(){
                           </td>
                           <td>${currentstream }</td>
                           <td>${alarmdate}</td>
+                          <th>${alarmdate}</th>
                         </tr>
                         </s:iterator>
                       

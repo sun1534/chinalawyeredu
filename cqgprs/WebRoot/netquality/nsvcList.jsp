@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["nsvc","nsvcgbindex","bscid","capacity","opst"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
 
 
 function fanye(str){
@@ -52,9 +56,10 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
-                             
+                              <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                     <s:hidden name="resultType"/>
-								 <td>BSCID：<s:textfield name="bscid" cssClass="txt" size="15"/>&nbsp;</td>
+								 <td>归属BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="15"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit"  value="查　询" onclick="queryit()"/></td>
 								  <td><input type="button" class="btnSubmit" value="导  出" onclick="exportit()"/></td>
 							
@@ -73,12 +78,12 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                       <th>NSVC</th>
-                       <th>查询索引号</th>
-                       <th>所属BSC/RNC</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="nsvc" title="点击排序">NSVC</a></th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="nsvcgbindex" title="点击排序">查询索引号</a></th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">所属BSC/RNC</a></th>
                        <th>归属SGSN</th>
-                       <th>当前状态</th>
-                       <th>容量大小（K）</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="opst" title="点击排序">当前状态</a></th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="capacity" title="点击排序">容量大小（K）</a></th>
                        <th>最后更新时间</th>
                         
                         </tr>

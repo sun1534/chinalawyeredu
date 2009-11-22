@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
  
 function fanye(str){
@@ -101,12 +105,12 @@ function confirmit(){
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        
                           <th>SGSN号</th>
-                          <th>覆盖范围</th>
+                        <!--   <th>覆盖范围</th>-->
                           <th>用户类型</th>
                           <th>总流量（M）</th>
                           <th>总用户数</th>
@@ -118,10 +122,11 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="sgsnlist" status="stat">
                         <tr>
-                          <s:if test="#stat.odd">
+                        <!--   <s:if test="#stat.odd">
                           <td rowspan="2">${sgsnid}</td>
                           <td rowspan="2">${sgsnArea}</td>
-                          </s:if>
+                          </s:if>-->
+                          <td>${sgsnid}</td>
                           <td>${nettype}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

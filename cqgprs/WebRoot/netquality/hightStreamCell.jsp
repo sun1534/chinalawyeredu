@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["cellid","bscid","allvolume","currentvolume"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -50,6 +54,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+									 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
@@ -72,11 +78,11 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>小区编码</th>
-                          <th>归属BSC/RNC</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                           <th>归属SGSN</th>
-                          <th>总流量</th>
-                          <th>当前流量</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="currentvolume" title="点击排序">当前流量</a></th>
                         
                         </tr>
                       </thead>

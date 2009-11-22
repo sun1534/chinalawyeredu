@@ -1,4 +1,4 @@
-﻿<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,7 +24,7 @@ th
 -->
 </style>
 <%
-String filename="celllist.xls";
+String filename="export.xls";
 response.reset();
 response.setContentType("bin;charset=utf-8"); 
 response.addHeader("Content-Disposition","attachment; filename="+filename);
@@ -37,36 +37,33 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>所有小区信息列表</b></td>
+    <td  colspan="3" align="center" bgcolor="#FFFF00"><b>${exceltitle}</b></td>
   </tr>
-      <tr>
-     <!-- 
-                          <th class="listheadline">SGSN号</th>
-                          -->
-                          <th class="listheadline">小区编号</th>
-                       <th class="listheadline">小区名称</th>
-                       <th class="listheadline">所属BSC/RNC</th>
-                       <th class="listheadline">归属SGSN</th>
-                       <th class="listheadline">所属城区</th>
-                       <th class="listheadline">最后更新时间</th>
-      </tr>
-      <tbody>
-      <s:iterator value="page.items" status="stat">
-      <tr>
-      
-                          <td class="listline2">${cellid}</td>
-                          <td class="listline2">${cellname}</td>
-                          <td class="listline2">${bscrncid }</td>
-                          <td class="listline2"><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>
-                          <td class="listline2">${subarea}</td>
-                          <td class="listline2"><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
-
-                       
-   
-      </tr>
-   
-    </s:iterator>
-      </tbody>
+      <tr>        
+			<td class="listheadline">错误总数</td> 
+			<td  colspan="2" class="listline2">${codestat.errorcount }</td> 
+			
+		</tr>
+		<tr>			
+			<th class="listheadline">错误用户数</td> 
+			<td  colspan="2" class="listline2">${codestat.usercount }</td> 
+		</tr> 
+ <tr>
+    <td  colspan="3" align="center" bgcolor="#FFFF00"><b>错误详情</b></td>
+  </tr>
+       <tr> 
+						<td class="listheadline" >用户IMSI</td>
+                          <td class="listheadline" >请求APN</td>
+                          <td class="listheadline" >PDP失败次数</td>
+</tr>
+                        <s:iterator value="codestat.detailist" status="status">
+                         <tr>
+                         <td  class="listline2">${imsi}</td>
+                          <td  class="listline2">${apn}</td>
+                          <td  class="listline2">${pdperrorcnt }</td>
+                      
+                        </tr>
+                        </s:iterator>
     </table>
 
 </body>

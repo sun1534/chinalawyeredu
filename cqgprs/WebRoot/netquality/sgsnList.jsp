@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+ $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
   Array.prototype.clear=function(){  
     this.length=0;  
 }
@@ -122,7 +126,7 @@ function setit(){
 					</div>-->
 				
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        
@@ -139,7 +143,7 @@ function setit(){
                         <s:iterator value="resultList" status="status">
                         <tr>
                         
-                         <td><a href="bscList.action?sgsnid=${sgsnid }">${sgsnid}</a></td>
+                         <td><a title="点击查看归属BSC/RNC列表" href="bscList.action?sgsnid=${sgsnid }">${sgsnid}</a></td>
                           <td>${sgsnip}</td>
                              <td>${bsccount}</td>
                                 <td>${slotcount}</td>
@@ -153,7 +157,7 @@ function setit(){
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="7" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

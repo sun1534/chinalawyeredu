@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["bscid","sgsnid","allvolume","usercount"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
  
 function fanye(str){
@@ -64,6 +68,9 @@ function confirmit(){
    //alert(url);
 
 }
+function submitit(){
+document.form1.submit();
+}
 
 </script>
 </head>
@@ -85,10 +92,12 @@ function confirmit(){
 						<table>
 							<tbody>
 								<tr>
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 							 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-							 <td>SGSN编号：<s:select name="sgsnid" id="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" listKey="key" listValue="key" headerKey="" headerValue="全部"/>
+							 <td>SGSN编号：<s:select name="sgsnid" id="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" listKey="key" listValue="key" headerKey="" headerValue="全部" onchange="submitit()"/>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -114,10 +123,10 @@ function confirmit(){
                         <tr>
                        
                           <th>类型</th>
-                         <th>BSC/RNC编码</th>
-                          <th>归属SGSN</th>
-                           <th>总流量（M）</th>
-                          <th>总用户数</th>
+                         <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">BSC/RNC编码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="sgsnid" title="点击排序">归属SGSN</a></th>
+                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         </tr>

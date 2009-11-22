@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["alarmtime","flowcount","nsvc"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -50,9 +54,13 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+								<s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>从：<jscalendar:jscalendar name="start" cssClass="txt"/>
+								 到：<jscalendar:jscalendar name="end" cssClass="txt"/>&nbsp;</td>
+								 <td>告警链路：<s:textfield name="nsvc" size="10" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -71,10 +79,10 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th>告警链路</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="nsvc" title="点击排序">告警链路</a></th>
                           <th>告警原因</th>
-                          <th>当前流量</th>
-                          <th>告警时间</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="flowcount" title="点击排序">当前流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="alarmtime" title="点击排序">告警时间</a></th>
                         
                         </tr>
                       </thead>

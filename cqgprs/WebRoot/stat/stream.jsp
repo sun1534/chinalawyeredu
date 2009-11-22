@@ -14,8 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
- 
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -102,7 +105,7 @@ function confirmit(){
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        

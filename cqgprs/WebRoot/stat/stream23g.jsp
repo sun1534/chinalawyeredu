@@ -14,7 +14,11 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+ <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
  <script type="text/javascript">
+  $(document).ready(function(){
+ $("#tableOrder").tablesorter();
+ });
  
  
 function fanye(str){
@@ -103,7 +107,7 @@ function confirmit(){
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        
@@ -118,9 +122,10 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="streamlist" status="stat">
                         <tr>
-                        <s:if test="#stat.odd">
+                     <!--     <s:if test="#stat.odd">
                           <td rowspan="2">${date}</td>
-                          </s:if>
+                          </s:if>-->
+                          <td>${date}</td>
                           <td>${nettype}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

@@ -15,9 +15,10 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- 
+ var orderArray=["cellid","allvolume","historyvolume","prehistoryvolume"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
+
 
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -83,8 +84,8 @@ function queryit(){
                           <th>归属SGSN</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th>当前流量</th>
-                          <th title="${last }">上次流量（M）</th>
-                          <th title="${prelast }">上上次流量（M）</th>
+                          <th title="${last }"><a onclick="orderByThis(document.form1,this)" id="historyvolume" title="点击排序">上次流量（M）</a></th>
+                          <th title="${prelast }"><a onclick="orderByThis(document.form1,this)" id="prehistoryvolume" title="点击排序">上上次流量（M）</a></th>
                         
                         </tr>
                       </thead>

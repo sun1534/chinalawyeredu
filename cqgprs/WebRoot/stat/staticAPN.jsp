@@ -14,7 +14,12 @@
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+  var orderArray=["apnni","allvolume","usercount"];
+ 
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
  
 function fanye(str){
@@ -103,11 +108,11 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th>APN编码</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         </tr>
