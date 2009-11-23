@@ -95,12 +95,20 @@ function focusit(obj){
                     <TR>
 					  <TD width="20%" class="listheadline">申请认证方式:</TD>
 					  <TD width="35%" class="listline">
+					
                       <s:property value="@com.sxit.users.util.CommonDatas@APPROVETYPE[user.approveType]"/>
-                      <img src="${resourcepath}${detail.verifyurl}"/></TD>
+                     </TD>
 					  <TD width="20%" class="listline" colspan="2">
                       <s:if test="user.approveType==1"></s:if>                      </TD>
 					</TR>
-                    
+                     <TR>
+					  <TD width="20%" class="listheadline">企业名称:</TD>
+					  <TD width="35%" class="listline">
+				${user.sign }
+                     </TD>
+					  <TD width="20%" class="listline" colspan="2">
+                      <s:if test="user.approveType==1"></s:if>                      </TD>
+					</TR>
 	 			 	<TR>
 					  <TD width="20%" class="listheadline">登录账号:</TD>
 					  <TD width="35%" class="listline">${user.loginName}</TD>

@@ -68,8 +68,8 @@ function deleteit(uid){
                   	  </td>
                   	  </tr>
                   	  <TR class="listheadline">               
-                      <TD>名称</TD>
-                       <TD>登录名</TD>
+                      <TD>法人代表</TD>
+                       <TD>企业名称</TD>
                       <TD>工商编号</TD>
                       <TD>注册时间</TD>
                       <TD>状态</TD>
@@ -84,7 +84,7 @@ function deleteit(uid){
                       <TR class=listline>
                    
                        <TD>${userName}</TD>
-                        <TD>${loginName}</TD>
+                        <TD>${sign}</TD>
                        <TD>${entno}</TD>    
                         <TD><s:date name="regTime" format="yyyy-MM-dd HH:mm"/></TD>                                                                        
                         <TD>
