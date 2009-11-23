@@ -14,7 +14,7 @@
 			   <div class="box-grey" style="margin:10px auto;">
 					<h4>信息提示</h4>
 					<div class="box-content">
-						<p>暂无审批内容。</p>
+						<p>暂无您订购的产品信息。</p>
 					</div>
 				</div>
                </div>

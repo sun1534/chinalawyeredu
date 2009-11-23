@@ -14,7 +14,7 @@
 			   <div class="box-grey" style="margin:10px auto;">
 					<h4>信息提示</h4>
 					<div class="box-content">
-						<p>暂无支付内容。</p>
+						<p>暂无需要支付的项目。</p>
 					</div>
 				</div>
                </div>

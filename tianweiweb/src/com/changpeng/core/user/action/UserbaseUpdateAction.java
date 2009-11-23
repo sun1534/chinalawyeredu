@@ -21,8 +21,16 @@ public class UserbaseUpdateAction extends AbstractAction{
 	private String qq;
 	private String msn;
 	
+	private String sign;
 	
-	
+	public String getSign() {
+		return sign;
+	}
+
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
 	protected String go() throws Exception {
 		UserService userService = (UserService)this.getBean("userService");
 		CoreUser user=userService.getUserById(currentUserid);
@@ -34,6 +42,7 @@ public class UserbaseUpdateAction extends AbstractAction{
 		user.setMobile(phone);
 		user.setCardno(cardno);
 		user.setEntno(entno);
+		user.setSign(sign);
 		userService.update(user);
 
 		
@@ -55,7 +64,10 @@ public class UserbaseUpdateAction extends AbstractAction{
 		detail.setQq(qq);
 		detail.setMsn(msn);
 		userService.saveOrupdate(detail);
+		if(user.getUserRole()==1)
 		message="恭喜您，您的个人资料修改成功！";
+		else
+			message="恭喜您，您的企业资料修改成功！";
 		this.redirectURL="javascript:$.unblockUI()";
 		return SUCCESS;
 	}

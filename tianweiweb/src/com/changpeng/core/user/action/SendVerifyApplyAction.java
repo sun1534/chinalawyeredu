@@ -7,7 +7,7 @@ import com.changpeng.core.user.model.CoreUser;
 import com.changpeng.core.user.model.CoreUserDetail;
 
 public class SendVerifyApplyAction extends AbstractAction{
-	private int approve_type=0;
+	private int approvetype=0;
 	
 	protected String go() throws Exception {
 		
@@ -34,7 +34,7 @@ public class SendVerifyApplyAction extends AbstractAction{
 		}
 		else if(user.getStatus().intValue()!=0){
 			user.setStatus((short)2);
-			user.setApproveType(approve_type);
+			user.setApproveType(approvetype);
 			
 			
 			int waitid=WaitWork.Sendwait(currentUserid, "用户认证", userService);
@@ -48,8 +48,12 @@ public class SendVerifyApplyAction extends AbstractAction{
 		return "success";
 	}
 
-	public void setApprove_type(int approve_type) {
-		this.approve_type = approve_type;
+	public void setApprovetype(int approvetype) {
+		this.approvetype = approvetype;
+	}
+
+	public int getApprovetype() {
+		return approvetype;
 	}
 	
 }

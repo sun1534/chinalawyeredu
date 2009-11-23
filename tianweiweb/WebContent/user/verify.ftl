@@ -34,8 +34,8 @@ return;
 $("#verifyform").ajaxSubmit();
 		$.ajax({
 		    type: "POST",
-		    data:"approve_type:"+approve_type,
-		    url:"../user/sendverifyapply.action",
+		//    data:"approvetype:"+_type,
+		    url:"../user/sendverifyapply.action?approvetype="+_type,
 		    success:function(data){
 		    	$.blockUI({message:data});
 	    }});
