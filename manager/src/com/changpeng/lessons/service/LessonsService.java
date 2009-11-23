@@ -162,11 +162,11 @@ public class LessonsService extends BasicService {
 		String sql = "";
 
 		if (field != null && !field.equals("")) {
-			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(createtime) between "
+			sql = "select lessonstyle,count(lessonstyle) from lessons where deleteflag=0 and (UNIX_TIMESTAMP(createtime) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") and " + field + "=" + fieldvalue
 					+ " group by lessonstyle";
 		} else {
-			sql = "select lessonstyle,count(lessonstyle) from lessons where (UNIX_TIMESTAMP(createtime) between "
+			sql = "select lessonstyle,count(lessonstyle) from lessons where deleteflag=0 and (UNIX_TIMESTAMP(createtime) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") group by lessonstyle";
 
 		}

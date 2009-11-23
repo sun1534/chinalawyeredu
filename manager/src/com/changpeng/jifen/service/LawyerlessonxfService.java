@@ -138,12 +138,12 @@ public class LawyerlessonxfService extends BasicService {
 		
 		if (field != null && !field.equals("")) {
 		
-		 sql = "select learnmode,count(learnmode) from lawyerlessonxf where (UNIX_TIMESTAMP(lastupdate) between "
+		 sql = "select learnmode,count(distinct(lawyerid)) from lawyerlessonxf where (UNIX_TIMESTAMP(lastupdate) between "
 				+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") and " + field + "=" + fieldvalue
 				+ " group by learnmode";
 		
 		}else{
-			 sql = "select learnmode,count(learnmode) from lawyerlessonxf where (UNIX_TIMESTAMP(lastupdate) between "
+			 sql = "select learnmode,count(distinct(lawyerid)) from lawyerlessonxf where (UNIX_TIMESTAMP(lastupdate) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") group by learnmode";
 		}
 		LearnmodeStatics statics = new LearnmodeStatics();

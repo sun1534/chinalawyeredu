@@ -35,28 +35,32 @@ public class PxxtTransfer {
 	private static LawyersService service = null;
 	private static BasicService basicService = null;
 	private static SysGroupService groupService = null;
-	private static SysUserService sysUserService=null;
+	private static SysUserService sysUserService = null;
 	static {
 		service = (LawyersService) Globals.getMainBean("lawyersService");
 		basicService = (BasicService) Globals.getMainBean("basicService");
 		groupService = (SysGroupService) Globals.getMainBean("sysGroupService");
-		sysUserService= (SysUserService) Globals.getMainBean("sysUserService");
+		sysUserService = (SysUserService) Globals.getMainBean("sysUserService");
 	}
 
-	public static void syncLawyers(PersonInfo person)throws Exception {
-		
-		if(person.getRoleCode().equals("7")){
-			LOG.warn("实习人员,不进行同步!"+person.getPersonName());
+	public static void syncLawyers(PersonInfo person) throws Exception {
+
+		if (person.getRoleCode().equals("7")) {
+			LOG.warn("实习人员,不进行同步!" + person.getPersonName());
 			return;
 		}
-		
+
 		Lawyers lawyers = null;
 		try {
 			boolean isnew = false;
-			lawyers=service.getLawyerBySystemno(person.getPersonCode());
+			lawyers = service.getLawyerBySystemno(person.getPersonCode());
 			if (lawyers == null) {
-				lawyers = new Lawyers();
-				isnew = true;
+
+				lawyers = service.getLawyerbyLawyerno(person.getCertificateNo(), 22, 0);
+				if (lawyers == null) {
+					lawyers = new Lawyers();
+					isnew = true;
+				}
 			}
 
 			String orgId = person.getOrgId();
@@ -119,12 +123,13 @@ public class PxxtTransfer {
 			lawyers.setTheoffice(theoffice);
 			lawyers.setWorktime(person.getJoinDate());
 			lawyers.setZhiyedate(person.getJoinDate());
-			if(person.getPersonStatus()!=null&&person.getPersonStatus().equals("6"))
-			lawyers.setStatus(Integer.parseInt(person.getPersonStatus()));
-			
-			String image="";
-			if(person.getFilename()!=null&&!person.getFilename().equals("")&&!person.getFilename().equalsIgnoreCase("null")){
-				image=person.getFilename();
+			if (person.getPersonStatus() != null && person.getPersonStatus().equals("6"))
+				lawyers.setStatus(Integer.parseInt(person.getPersonStatus()));
+
+			String image = "";
+			if (person.getFilename() != null && !person.getFilename().equals("")
+					&& !person.getFilename().equalsIgnoreCase("null")) {
+				image = person.getFilename();
 			}
 			lawyers.setPhoto(image);
 			lawyers.setPhotoname(image);
@@ -152,7 +157,7 @@ public class PxxtTransfer {
 		}
 	}
 
-	public static void syncOrgs(OrgOfficeInfo org)throws Exception {
+	public static void syncOrgs(OrgOfficeInfo org) throws Exception {
 
 		SysGroup group = null;
 		try {
@@ -163,13 +168,13 @@ public class PxxtTransfer {
 				isnew = true;
 			}
 			String parentOrg = org.getGuildId();
-			SysGroup parentGroup=null;
-			if(parentOrg.equals("0408")){
-				 parentGroup = (SysGroup) groupService.getGroupBySystemno("7330");
-			}else{
-				 parentGroup = (SysGroup) groupService.getGroupBySystemno("-1" + parentOrg);
+			SysGroup parentGroup = null;
+			if (parentOrg.equals("0408")) {
+				parentGroup = (SysGroup) groupService.getGroupBySystemno("7330");
+			} else {
+				parentGroup = (SysGroup) groupService.getGroupBySystemno("-1" + parentOrg);
 			}
-			
+
 			int parentId = 0;
 			int directgroup = 0;
 			if (parentGroup != null) {
@@ -206,8 +211,8 @@ public class PxxtTransfer {
 					basicService.update(group);
 			} else if (flag != null && flag.equals("deleted")) {
 				if (!isnew) {
-//					group.setDelflag(true);
-//					basicService.update(group);
+					// group.setDelflag(true);
+					// basicService.update(group);
 					basicService.delete(group);
 				} else
 					LOG.warn("删除部门,但是对应的部门不存在:" + group.getSystemno());
@@ -226,33 +231,33 @@ public class PxxtTransfer {
 	/**
 	 * 
 	 */
-	public static void syncLXManagers(GuildUserInfo info)throws Exception {
+	public static void syncLXManagers(GuildUserInfo info) throws Exception {
 		SysUser user = null;
 		try {
-			String systemno="";
-			if(info.getDepatId().equals("0408")){
-				if(info.getLoginName().equals("gxlxadmin")){
-					systemno="-1" + info.getDepatId();
-				}else{
-					systemno="7330";
+			String systemno = "";
+			if (info.getDepatId().equals("0408")) {
+				if (info.getLoginName().equals("gxlxadmin")) {
+					systemno = "-1" + info.getDepatId();
+				} else {
+					systemno = "7330";
 				}
-			}else{
-				systemno="-1" + info.getDepatId();
+			} else {
+				systemno = "-1" + info.getDepatId();
 			}
-			
+
 			SysGroup group = (SysGroup) groupService.getGroupBySystemno(systemno);
 			if (group == null) {
 				LOG.warn(info.getUserName() + "对应的律协(-1+)" + info.getDepatId() + "在系统中不存在");
 				return;
 			}
-			user=(SysUser)sysUserService.getSysUserBySystemno(info.getUserId());
+			user = (SysUser) sysUserService.getSysUserBySystemno(info.getUserId());
 			boolean isnew = false;
 			if (user == null) {
 				user = new SysUser();
 				isnew = true;
 			}
 			user.setBirthday(null);
-		
+
 			user.setComments("律管平台同步");
 			user.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			user.setCreateuser("律管平台");
@@ -263,29 +268,28 @@ public class PxxtTransfer {
 			user.setGender("F");
 			user.setLoginname(info.getLoginName());
 			user.setMobile(null);
-			
+
 			user.setOfficephone(null);
 			user.setPassword(info.getPassword());
-			if(group.getGrouptype()==2){ //市律协的
+			if (group.getGrouptype() == 2) { // 市律协的
 				user.setProvinceid(group.getParentid());
 				user.setCityid(group.getGroupid());
 				user.setOfficeid(0);
-			}else if(group.getGrouptype()==3){//省律协的
+			} else if (group.getGrouptype() == 3) {// 省律协的
 				user.setProvinceid(group.getGroupid());
 				user.setCityid(0);
 				user.setOfficeid(0);
 			}
-		
-			
-			user.setStatus((short)0);
+
+			user.setStatus((short) 0);
 			user.setSysGroup(group);
-			SysRole role=new SysRole();
-		 
+			SysRole role = new SysRole();
+
 			role.setRoleid(group.getGrouptype());
 			user.setSysRole(role);
 			user.setSystemno(info.getUserId());
 			user.setUsername(info.getUserName());
-	
+
 			String flag = info.getDataType();
 			if (flag != null && flag.equalsIgnoreCase("inserted") || flag.equalsIgnoreCase("updated")) {
 				if (isnew)
@@ -310,7 +314,7 @@ public class PxxtTransfer {
 		}
 	}
 
-	public static void syncOrgManagers(OrgUserInfo info)throws Exception {
+	public static void syncOrgManagers(OrgUserInfo info) throws Exception {
 
 		SysUser user = null;
 		try {
@@ -319,14 +323,14 @@ public class PxxtTransfer {
 				LOG.warn(info.getUserName() + "对应的事务所(9+)" + info.getOrgId() + "在系统中不存在");
 				return;
 			}
-			user=(SysUser)sysUserService.getSysUserBySystemno(info.getUserId());
+			user = (SysUser) sysUserService.getSysUserBySystemno(info.getUserId());
 			boolean isnew = false;
 			if (user == null) {
 				user = new SysUser();
 				isnew = true;
 			}
 			user.setBirthday(null);
-			
+
 			user.setComments("律管平台同步");
 			user.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			user.setCreateuser("律管平台");
@@ -343,14 +347,14 @@ public class PxxtTransfer {
 			user.setProvinceid(group.getDirectgroup());
 			user.setCityid(group.getParentid());
 			user.setOfficeid(group.getGroupid());
-			user.setStatus((short)0);
+			user.setStatus((short) 0);
 			user.setSysGroup(group);
-			SysRole role=new SysRole();
+			SysRole role = new SysRole();
 			role.setRoleid(1);
 			user.setSysRole(role);
 			user.setSystemno(info.getUserId());
 			user.setUsername(info.getUserName());
-	
+
 			String flag = info.getDataType();
 			if (flag != null && flag.equalsIgnoreCase("inserted") || flag.equalsIgnoreCase("updated")) {
 				if (isnew)

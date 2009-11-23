@@ -123,9 +123,12 @@ public class LawyersDAO extends BasicDAO {
 	public Lawyers getLawyerbyLawyerno(String lawyerno, int province, int city) {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
-		dc.add(Restrictions.eq("lawyerno", lawyerno));
+		
+		if(city!=0)
 		dc.add(Restrictions.eq("directunion", city));
+		if(province!=0)
 		dc.add(Restrictions.eq("provinceunion", province));
+		dc.add(Restrictions.eq("lawyerno", lawyerno));
 		List list = this.findAllByCriteria(dc);
 		if (list == null || list.size() == 0)
 			return null;

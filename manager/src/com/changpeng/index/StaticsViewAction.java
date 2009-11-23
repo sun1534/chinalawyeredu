@@ -48,15 +48,13 @@ public class StaticsViewAction extends AbstractAction {
 		LessonsService lessonsservice = (LessonsService) this.getBean("lessonsService");
 		LawyersService lawyersservice = (LawyersService) this.getBean("lawyersService");
 		
-		
-		
-
 		if (sysgroup == null || sysgroup.getGrouptype() > 3) {// 系统管理员层级
 			
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
 			this.lawyerscnt=lawyersservice.getFieldLawyerCnt(null, 0);
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(),null,0);
-			 this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+//			 this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
 
 			
 		} else if (sysgroup.getGrouptype() == 1) {// 事务所
@@ -67,7 +65,8 @@ public class StaticsViewAction extends AbstractAction {
 			OfficeProperties properties= (OfficeProperties)basicService.get(OfficeProperties.class, sysgroup.getGroupid());
 			if(properties!=null)
 			this.officelogo=properties.getPhoto();
-			
+		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+
 
 		} else if (sysgroup.getGrouptype() == 2) {// 市级律协
 			SysUnionparams params = sysgroup.getSysUnionparams();
@@ -77,7 +76,8 @@ public class StaticsViewAction extends AbstractAction {
 					.getDabiaofen(), "cityid", sysgroup.getGroupid());
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "cityid",
 					sysgroup.getGroupid());
-			
+		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+
 			this.lawyerscnt=this.jifenstatics.getAllusers();
 
 		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "cityid",sysgroup.getGroupid());
@@ -87,6 +87,7 @@ public class StaticsViewAction extends AbstractAction {
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "provinceid",
 					sysgroup.getGroupid());
 		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "provinceid",sysgroup.getGroupid());
+		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
 
 			this.lawyerscnt=lawyersservice.getFieldLawyerCnt("provinceunion", sysgroup.getGroupid());
 		}
@@ -104,9 +105,13 @@ public class StaticsViewAction extends AbstractAction {
 	private Jifenstatics jifenstatics;
 	private LearnmodeStatics learnmodestatics;
 	private Lessonstatics lessonstatics;
+	private Lessonstatics alllessonstatics;
 
 
-
+	public Lessonstatics getAlllessonstatics() {
+		return alllessonstatics;
+	}
+	
 	/**
 	 * @return the lessonstatics
 	 */
