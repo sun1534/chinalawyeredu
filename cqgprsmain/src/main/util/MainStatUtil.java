@@ -21,38 +21,66 @@ import org.apache.commons.logging.Log;
  */
 public class MainStatUtil {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
 	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(MainStatUtil.class);
 
-	public static String getCdrTable() {
-		Calendar calendar = Calendar.getInstance();
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-		System.out.println(weekday);
-		if (weekday == 1)// 周日
-		// weekday = weekday - 1;
-			weekday = 6;
-		else
-			weekday = weekday - 2;
-		String table = "cdr_succ_0" + weekday;
-		return table;
-	}
+	/**
+	 * 得到这个日期对应的mobileapn表
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String getMobileApnTable(Date date) {
 
-	public static String getMobileApnTable() {
 		Calendar calendar = Calendar.getInstance();
-		int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-		System.out.println(weekday);
-		if (weekday == 1)// 周日
-		// weekday = weekday - 1;
-			weekday = 6;
-		else
-			weekday = weekday - 2;
+		calendar.setTime(date);
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 		String table = "stat_mobile_apn_0" + weekday;
 		return table;
 	}
 
+	/**
+	 * 得到这个日期对应的cdr表
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String getCdrTable(Date date) {
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		System.out.println(calendar.get(Calendar.DATE));
+		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		String table = "cdr_succ_0" + weekday;
+		return table;
+	}
+
+//	/**
+//	 * 昨天是哪个cdr表
+//	 * 
+//	 * @return
+//	 */
+//	public static String getCdrTable() {
+//		return getCdrTable(getPrevDate());
+//	}
+
+//	/**
+//	 * 昨天是哪个mobile_apn表
+//	 * 
+//	 * @return
+//	 */
+//	public static String getMobileApnTable() {
+//		return getMobileApnTable(getPrevDate());
+//	}
+
+	/**
+	 * list转化成'a','b','c'的形式
+	 * 
+	 * @param list
+	 * @return
+	 */
 	public static String list2str(List list) {
 		StringBuffer sb = new StringBuffer();
 		int len = list.size();
@@ -67,35 +95,6 @@ public class MainStatUtil {
 	}
 
 	/**
-	 * 得到这个小时的起始时间值
-	 * 
-	 * @return
-	 */
-	public static int getDateHourTime(Date date) {
-		String datestr = dfhour.format(date);
-//		String hstart = datestr + " 00:00";
-		// String hend=datestr+" 59:59";
-		try {
-			Date d = dfsec.parse(datestr);
-			return (int) (d.getTime() / 1000);
-		} catch (Exception e) {
-			return (int) (System.currentTimeMillis() / 1000);
-		}
-	}
-	
-	public static int getDateTime(Date date) {
-		String datestr = df.format(date);
-		String hstart = datestr + " 00:00:00";
-		// String hend=datestr+" 59:59";
-		try {
-			Date d = dfsec.parse(hstart);
-			return (int) (d.getTime() / 1000);
-		} catch (Exception e) {
-			return (int) (System.currentTimeMillis() / 1000);
-		}
-	}
-	
-	/**
 	 * 批量执行sql
 	 * 
 	 * @param con
@@ -107,23 +106,21 @@ public class MainStatUtil {
 		int result = 0;
 		try {
 			int len = sqls.size();
-			 System.out.println("代码个数::"+len);
+			System.out.println("代码个数::" + len);
 			LOG.info("要执行的SQL个数为:" + len);
 			if (len > 0) {
 				stmt = con.createStatement();
 				int i = 1;
 				for (Object obj : sqls) {
 					stmt.addBatch(obj.toString());
-				
+
 					if ((i++) % 500 == 0) {
 						int s[] = stmt.executeBatch();
 						stmt.clearBatch();
 						result += s.length;
 					}
 				}
-//				System.out.println("完了.............");
 				int s[] = stmt.executeBatch();
-//				 System.out.println("执行了::"+s.length);
 				stmt.clearBatch();
 				result += s.length;
 			}
@@ -133,33 +130,91 @@ public class MainStatUtil {
 		return result;
 	}
 
-	public static void main(String[] args) {
-
-		System.out.println(getCdrTable());
+	/**
+	 * 得到这个小时的起始时间值
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static long getDateHourTime(Date date) {
+		String datestr = dfhour.format(date);
+		try {
+			Date d = dfsec.parse(datestr);
+			return d.getTime();
+		} catch (Exception e) {
+			return System.currentTimeMillis();
+		}
 	}
 
+	/**
+	 * 
+	 * @param datestr
+	 *            必须是2009-11-21 12:00:00的形式
+	 * @return
+	 */
+	public static long getDateHourTime(String datestr) {
+
+		if (!datestr.endsWith(":00:00"))
+			return 0;
+		try {
+			Date d = dfsec.parse(datestr);
+			return d.getTime();
+		} catch (Exception e) {
+			return System.currentTimeMillis();
+		}
+	}
+
+	/**
+	 * 得到某天的起始时间
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static long getDateTime(Date date) {
+		String datestr = df.format(date);
+		String hstart = datestr + " 00:00:00";
+		try {
+			Date d = dfsec.parse(hstart);
+			return d.getTime();
+		} catch (Exception e) {
+			return System.currentTimeMillis();
+		}
+	}
+
+	/**
+	 * 得到昨天的起始时间
+	 * 
+	 * @return
+	 */
 	public static long getYestardayTime() {
-		try {
-			String datestr = df.format(getPrevDate());
-			String startstr = datestr + " 00:00:00";
-			Date start = dfyyyyMmddHHmmss.parse(startstr);
-			return start.getTime();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return System.currentTimeMillis();
-		}
+		// try {
+		// String datestr = df.format(getPrevDate());
+		// String startstr = datestr + " 00:00:00";
+		// Date start = dfyyyyMmddHHmmss.parse(startstr);
+		// return start.getTime();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// return System.currentTimeMillis();
+		// }
+		return getDateTime(getPrevDate());
 	}
 
+	/**
+	 * 得到今天的起始时间
+	 * 
+	 * @return
+	 */
 	public static long getTodaydayTime() {
-		try {
-			String datestr = df.format(new Date());
-			String startstr = datestr + " 00:00:00";
-			Date start = dfyyyyMmddHHmmss.parse(startstr);
-			return start.getTime();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return System.currentTimeMillis();
-		}
+		// try {
+		// String datestr = df.format(new Date());
+		// String startstr = datestr + " 00:00:00";
+		// Date start = dfyyyyMmddHHmmss.parse(startstr);
+		// return start.getTime();
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// return System.currentTimeMillis();
+		// }
+		return getDateTime(new Date());
 	}
 
 	public static long getOneDayAfter(long start) {
@@ -173,8 +228,11 @@ public class MainStatUtil {
 		return getPrevCountDate(1);
 	}
 
-	/*
-	 * 得到当前日期的前一天
+	/**
+	 * 得到几天前的日期
+	 * 
+	 * @param days
+	 * @return
 	 */
 	public static Date getPrevCountDate(int days) {
 		Calendar c = Calendar.getInstance();
@@ -183,5 +241,31 @@ public class MainStatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
+	
+	public static Date getPrevCountDate(Date date,int days) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, 0 - days);
+		Date d = new Date();
+		d.setTime(c.getTimeInMillis());
+		return d;
+	}
 
+	/**
+	 * 多少小时前
+	 * @param date
+	 * @param hours
+	 * @return
+	 */
+	public static Date getPrevCountHour(Date date,int hours) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.HOUR_OF_DAY, 0 - hours);
+		Date d = new Date();
+		d.setTime(c.getTimeInMillis());
+		return d;
+	}
+	public static void main(String[] args) {
+
+	}
 }

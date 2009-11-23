@@ -6,13 +6,13 @@ package main.stat;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.stat.StatApn.TempApnStat;
-import main.util.DBUtils;
 import main.util.MainStatUtil;
 import main.util.SelfLog;
 
@@ -33,30 +33,28 @@ public class StatBsc {
 		String usercount = "0";;
 
 	}
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
 
 	private Connection con;
-
-	public StatBsc(Connection con) {
+	private long start;
+	private long end;
+	private String stattime;
+	public StatBsc(Connection con,Date statdate) {
 		this.con = con;
+		this.start=main.util.MainStatUtil.getDateTime(statdate);
+		this.end=main.util.MainStatUtil.getOneDayAfter(start);
+		this.stattime=df.format(statdate);
 	}
 
 	private void insert(Map<String, TempStat> allsgsns) throws Exception {
 		java.util.Iterator<TempStat> stats = allsgsns.values().iterator();
 
-		List sqls = new ArrayList();
+		List<String> sqls = new ArrayList<String>();
 
 		while (stats.hasNext()) {
 			TempStat stat = stats.next();
-			// stmt.setString(1, stat.bscid);
-			// // stmt.setString(2, stat.nettype);
-			// stmt.setString(2, stat.up);
-			// stmt.setString(3, stat.down);
-			// stmt.setString(4, stat.all);
-			// stmt.setString(5, stat.usercount);
-			// stmt.addBatch();
-
 			String sql = "insert into stat_bsc(bscid,sgsnid,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
-					+ stat.bscid + "','"+stat.sgsnid+"',1,to_char(sysdate-1,'yyyyMMdd')," + stat.up + "," + stat.down + "," + stat.all
+					+ stat.bscid + "','"+stat.sgsnid+"',1,"+stattime+"," + stat.up + "," + stat.down + "," + stat.all
 					+ "," + stat.usercount + ")";
 			sqls.add(sql);
 			
@@ -81,8 +79,8 @@ public class StatBsc {
 		// down,sum(upvolume+downvolume) as allvolume from "
 		// + table + " group by bscid";
 
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+//		long start = MainStatUtil.getYestardayTime();
+//		long end = MainStatUtil.getOneDayAfter(start);
 
 		String sql = "select bscid,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_bsc where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by bscid";
@@ -141,11 +139,10 @@ public class StatBsc {
 	/**
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
-	public void stat() {
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+	public void stat() throws Exception {
+		
 
-		try {
+//		try {
 			// 得到所有的sgsn
 			Map<String, TempStat> allmap = getALlBscs();
 			// 得到每个sgsn的数据
@@ -159,10 +156,10 @@ public class StatBsc {
 			// by
 			// sgsnid,nettype";
 
-		} catch (Exception e) {
-			LOG.error("统计错误：" + e);
-			e.printStackTrace();
-		}
+//		} catch (Exception e) {
+//			LOG.error("统计错误：" + e);
+//			e.printStackTrace();
+//		}
 
 		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
 		// " +
@@ -202,14 +199,14 @@ public class StatBsc {
 	}
 
 	public static void main(String args[]) throws Exception {
-		SelfLog.LOGDIR = "/export/home/jf/JAVABIN/logs/stat";
-		LOG = SelfLog.getInstance();
-		LOG.info("开始统计BSC数据");
-		Connection con = DBUtils.getOracleCon();
-		LOG.info("建立数据库连接成功");
-		StatBsc s = new StatBsc(con);
-		s.stat();
-		con.close();
+//		SelfLog.LOGDIR = "/export/home/jf/JAVABIN/logs/stat";
+//		LOG = SelfLog.getInstance();
+//		LOG.info("开始统计BSC数据");
+//		Connection con = DBUtils.getOracleCon();
+//		LOG.info("建立数据库连接成功");
+//		StatBsc s = new StatBsc(con);
+//		s.stat();
+//		con.close();
 
 	}
 

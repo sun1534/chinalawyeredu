@@ -6,7 +6,9 @@ package main.stat;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,25 +28,30 @@ public class StatSgsn {
 		double all=0;
 		double up=0;
 		double down=0;
-		// String time;
 		int usercount=0;
 
 	}
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
 
 	private Connection con;
-
-	public StatSgsn(Connection con) {
+	private long start;
+	private long end;
+	private String stattime;
+	public StatSgsn(Connection con,Date statdate) {
 		this.con = con;
+		this.start=main.util.MainStatUtil.getDateTime(statdate);
+		this.end=main.util.MainStatUtil.getOneDayAfter(start);
+		this.stattime=df.format(statdate);
 	}
 
 	private void insert(Map<String, TempStat> allsgsns) throws Exception {
 		java.util.Iterator<TempStat> stats = allsgsns.values().iterator();
 
-//		String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values(?,?,1,to_char(sysdate-1,'yyyyMMdd'),?,?,?,?)";
+//		String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values(?,?,1,"+stattime+",?,?,?,?)";
 //		PreparedStatement stmt = null;
-		List sqls = new ArrayList();
+		List<String> sqls = new ArrayList<String>();
 
-		try {
+//		try {
 //			stmt = con.prepareStatement(sql);
 			TempStat _2g=new TempStat();
 			TempStat _3g=new TempStat();
@@ -61,7 +68,7 @@ public class StatSgsn {
 					_3g.down+=stat.down;
 					_3g.usercount+=stat.usercount;
 				}
-				String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"+stat.sgsnid+"',"+stat.nettype+",1,to_char(sysdate-1,'yyyyMMdd'),"+stat.up+","+stat.down+","+stat.down+","+stat.usercount+")";
+				String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"+stat.sgsnid+"',"+stat.nettype+",1,"+stattime+","+stat.up+","+stat.down+","+stat.down+","+stat.usercount+")";
 				/**
 				 * 更新总流量
 				 */
@@ -70,17 +77,17 @@ public class StatSgsn {
 //				LOG.info(sql);
 				sqls.add(sql);
 			}
-			String allsql2g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values(to_char(sysdate-1,'yyyyMMdd'),2,"+_2g.usercount+","+_2g.up+","+_2g.down+","+_2g.all+")";
-			String allsql3g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values(to_char(sysdate-1,'yyyyMMdd'),3,"+_3g.usercount+","+_3g.up+","+_3g.down+","+_3g.all+")";
+			String allsql2g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values("+stattime+",2,"+_2g.usercount+","+_2g.up+","+_2g.down+","+_2g.all+")";
+			String allsql3g="insert into STAT_ALLDAY(stattime,nettype,usercount,upvolume,downvolume,allvolume)values("+stattime+",3,"+_3g.usercount+","+_3g.up+","+_3g.down+","+_3g.all+")";
 //			stmt.executeBatch();
 //			stmt.clearBatch();
 			sqls.add(allsql2g);
 			sqls.add(allsql3g);
 			main.util.MainStatUtil.executeSql(con, sqls);
 			LOG.info("SGSN统计数据入库成功");
-		} finally {
-//			stmt.close();
-		}
+//		} finally {
+////			stmt.close();
+//		}
 
 	}
 
@@ -89,8 +96,7 @@ public class StatSgsn {
 //		String sql = "select sgsnid,nettype,count(distinct(msisdn))as  usercount,sum(upvolume) as up,sum(downvolume) as down,sum(upvolume+downvolume) as allvolume from "
 //				+ table + " group by sgsnid,nettype";
 		
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+		
 
 		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount from stat_sgsn where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype";
@@ -147,37 +153,24 @@ public class StatSgsn {
 	/**
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
-	public void stat() {
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
-
-		try {
+	public void stat() throws Exception{
+		
+//		try {
 			// 得到所有的sgsn
 			Map<String, TempStat> allmap = getAllSgsns();
 			// 得到每个sgsn的数据
 			getStatDatas(allmap);
 			// 插入统计表
 			insert(allmap);
-			// String sql="select
-			// sgsnid,nettype,sum(allvolume),sum(downvolume),sum(allvolume) from
-			// stat_sgsn
-			// where dayflag=0 and stattime between "+start+" and "+end+" group
-			// by
-			// sgsnid,nettype";
 
-		} catch (Exception e) {
-			LOG.error("统计错误：" + e);
-			e.printStackTrace();
-		}
-
-		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
-		// " +
-		// table + " group by sgsnid,nettype";
-
+//		} catch (Exception e) {
+//			LOG.error("统计错误：" + e);
+//			e.printStackTrace();
+//		}
 	}
 
 	private Map<String, TempStat> getAllSgsns() throws Exception {
-		String sql = "select sgsnid from set_sgsn";
+		String sql = "select sgsnid from set_sgsn where opttype!=2";
 		ResultSet rs = null;
 		Statement stmt = null;
 		Map<String, TempStat> list = new HashMap<String, TempStat>();

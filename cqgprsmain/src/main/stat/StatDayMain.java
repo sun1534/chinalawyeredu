@@ -30,7 +30,6 @@ public class StatDayMain {
 	// private static String table;
 	private static String LOGDIR = "c:\\bak";
 	private static SelfLog LOG;
-	private static Connection con;
 
 	private static void init() {
 		InputStream in = null;
@@ -49,6 +48,11 @@ public class StatDayMain {
 		}
 	}
 
+	/**
+	 * 插入总流量表里面的配置信息情况
+	 * 
+	 * @param con
+	 */
 	private static void insertAllvolumeSets(Connection con) {
 		String cellsql = "insert into allvolume_cellid(cellid,upvolume,downvolume,allvolume) select a.cellid,0,0,0 from set_cell a where not exists(select * from allvolume_cellid b where a.cellid= b.cellid )";
 		String sgsngsmsql = "insert into allvolume_sgsn(sgsnid,nettype,upvolume,downvolume,allvolume) select a.sgsnid,'gsm',0,0,0 from set_sgsn a where not exists(select * from allvolume_sgsn b where a.sgsnid= b.sgsnid )";
@@ -63,7 +67,6 @@ public class StatDayMain {
 			sqls.add(sgsntdsql);
 			sqls.add(bscsql);
 			sqls.add(apnsql);
-
 			main.util.MainStatUtil.executeSql(con, sqls);
 			LOG.info("各配置参数入库成功");
 		} catch (Exception e) {
@@ -71,6 +74,9 @@ public class StatDayMain {
 		}
 
 	}
+
+	private static Connection con;
+	private static Date statdate;
 
 	/**
 	 * @param args
@@ -82,7 +88,9 @@ public class StatDayMain {
 		SelfLog.LOGDIR = LOGDIR;
 		LOG = SelfLog.getInstance();
 
-		LOG.info("==============开始统计" + df.format(new Date()) + "的数据");
+		// Date today=new Date();
+		statdate = main.util.MainStatUtil.getPrevDate();
+		LOG.info("==============开始统计" + df.format(statdate) + "的数据");
 
 		con = DBUtils.getOracleCon();
 		LOG.info("获取到数据库连接OK1111");
@@ -90,9 +98,9 @@ public class StatDayMain {
 		insertAllvolumeSets(con);
 
 		stat_cellid();
-		
+
 		stat_apn();
-//	
+
 		stat_bsc();
 
 		stat_sgsn();
@@ -104,13 +112,13 @@ public class StatDayMain {
 		stat_mobile_apn();
 		con.close();
 
-		LOG.info("==============统计完毕" + df.format(new Date()));
+		LOG.info("==============统计完毕" + df.format(statdate));
 
 	}
 
 	private static void statapnerror() {
 		try {
-			StatApnError stat = new StatApnError(con);
+			StatApnError stat = new StatApnError(con, statdate);
 			LOG.info("开始统计APN错误情况数据");
 			stat.statday();
 			LOG.info("统计APN错误情况数据完毕");
@@ -123,7 +131,7 @@ public class StatDayMain {
 
 	private static void stat_bsc() {
 		try {
-			StatBsc stat = new StatBsc(con);
+			StatBsc stat = new StatBsc(con, statdate);
 			LOG.info("开始统计BSC数据");
 			stat.stat();
 			LOG.info("统计BSC数据完毕");
@@ -136,7 +144,7 @@ public class StatDayMain {
 
 	private static void stat_apn() {
 		try {
-			StatApn stat = new StatApn(con);
+			StatApn stat = new StatApn(con, statdate);
 			LOG.info("开始统计APN数据");
 			stat.stat();
 			LOG.info("统计APN数据完毕");
@@ -144,23 +152,11 @@ public class StatDayMain {
 			LOG.error("APN数据统计异常", e);
 			e.printStackTrace();
 		}
-		// try {
-		// String apn_sql = "insert into stat_apn select
-		// apnni,to_char(sysdate-1,'yyyyMMdd'),1,count(distinct(msisdn)),sum(upvolume),sum(downvolume),sum(upvolume+downvolume)
-		// from "
-		// + table + " group by apnni";
-		// Statement stmt = con.createStatement();
-		// stmt.execute(apn_sql);
-		// closeResource(null, stmt, null);
-		// } catch (Exception e) {
-		// LOG.info("stat_apn error"+e);
-		//
-		// }
 	}
 
 	private static void stat_cellid() {
 		try {
-			StatCell stat = new StatCell(con);
+			StatCell stat = new StatCell(con, statdate);
 			LOG.info("开始统计小区数据");
 			stat.stat();
 			LOG.info("统计小区数据完毕");
@@ -168,18 +164,6 @@ public class StatDayMain {
 			LOG.error("小区数据统计异常", e);
 			e.printStackTrace();
 		}
-		// try {
-		// String cell_sql = "insert into stat_cellid select
-		// cellid,null,null,null,nettype,to_char(sysdate-1,'yyyyMMdd'),1,count(distinct(msisdn)),sum(upvolume),sum(downvolume),sum(upvolume+downvolume)
-		// from "
-		// + table + " group by cellid,nettype";
-		// Statement stmt = con.createStatement();
-		// stmt.execute(cell_sql);
-		// closeResource(null, stmt, null);
-		// } catch (Exception e) {
-		// LOG.info("stat_cellid error"+e);
-		//
-		// }
 	}
 
 	/**
@@ -187,7 +171,7 @@ public class StatDayMain {
 	 */
 	private static void stat_sgsn() {
 		try {
-			StatSgsn stat = new StatSgsn(con);
+			StatSgsn stat = new StatSgsn(con, statdate);
 			LOG.info("开始统计SGSN数据");
 			stat.stat();
 			LOG.info("统计SGSN数据完毕");
@@ -195,17 +179,6 @@ public class StatDayMain {
 			LOG.error("SGSN数据统计异常", e);
 			e.printStackTrace();
 		}
-		// try {
-		// String sgsn_sql = "insert into stat_sgsn select
-		// sgsnid,nettype,to_char(sysdate-1,'yyyyMMdd'),1,count(distinct(msisdn)),sum(upvolume),sum(downvolume),sum(upvolume+downvolume)
-		// from "
-		// + table + " group by sgsnid,nettype";
-		// Statement stmt = con.createStatement();
-		// stmt.execute(sgsn_sql);
-		// closeResource(null, stmt, null);
-		// } catch (Exception e) {
-		// LOG.info("stat_sgsn error"+e);
-		// }
 	}
 
 	/**
@@ -213,7 +186,7 @@ public class StatDayMain {
 	 */
 	private static void stat_cell_apn() {
 		try {
-			StatCellApn stat = new StatCellApn(con);
+			StatCellApn stat = new StatCellApn(con, statdate);
 			LOG.info("开始统计CELL_APN数据");
 			stat.stat();
 			LOG.info("统计CELL_APN数据完毕");
@@ -228,7 +201,7 @@ public class StatDayMain {
 	 */
 	private static void stat_mobile_apn() {
 		try {
-			StatMobileApn stat = new StatMobileApn(con);
+			StatMobileApn stat = new StatMobileApn(con, statdate);
 			LOG.info("开始统计MOBILE_APN数据");
 			stat.stat();
 			LOG.info("统计MOBILE_APN数据完毕");

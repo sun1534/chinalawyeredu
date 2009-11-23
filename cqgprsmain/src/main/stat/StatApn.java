@@ -4,16 +4,15 @@
 package main.stat;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.util.DBUtils;
 import main.util.MainStatUtil;
 import main.util.SelfLog;
 
@@ -36,21 +35,30 @@ public class StatApn {
 	}
 
 	private Connection con;
+	private long start;
+	private long end;
+	private Date statdate;
+	private String statdatestr;
 
-	public StatApn(Connection con) {
+	public StatApn(Connection con, Date statdate) {
 		this.con = con;
+		this.start = main.util.MainStatUtil.getDateTime(statdate);
+		this.end = main.util.MainStatUtil.getOneDayAfter(start);
+		this.statdate = statdate;
+		this.statdatestr = df.format(statdate);
 	}
 
 	private void insert(Map<String, TempApnStat> allsgsns) throws Exception {
 		java.util.Iterator<TempApnStat> stats = allsgsns.values().iterator();
 
-		String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
-		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(2));
-		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(3));
+		// String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
+		String day1 = statdatestr;
+		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 1)); // 上次流量
+		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 2)); // 上上次流量
 
 		Statement tempstmt = null;
-		List list0 = new ArrayList();
-		List sqls = new ArrayList();
+		List<String> list0 = new ArrayList<String>();
+		List<String> sqls = new ArrayList<String>();
 		ResultSet rs = null;
 		try {
 
@@ -60,12 +68,15 @@ public class StatApn {
 
 					String sql = "insert into stat_apn(apnni,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
 							+ stat.apnni
-							+ "',1,to_char(sysdate-1,'yyyyMMdd'),"
+							+ "',1,"
+							+ statdatestr
+							+ ","
 							+ stat.up
 							+ ","
 							+ stat.down
 							+ ","
-							+ stat.all + "," + stat.usercount + ")";
+							+ stat.all
+							+ "," + stat.usercount + ")";
 					sqls.add(sql);
 
 					/**
@@ -79,7 +90,7 @@ public class StatApn {
 					list0.add(stat.apnni);
 
 					String sql0 = "insert into zero_apn(apnni,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values('"
-							+ stat.apnni + "',1,to_char(sysdate-1,'yyyyMMdd'),0,0,0)";
+							+ stat.apnni + "',1,"+statdatestr+",0,0,0)";
 					sqls.add(sql0);
 
 				}
@@ -108,8 +119,8 @@ public class StatApn {
 				}
 				String allsql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by apnni";
-//				rs.close();
-//				rs = null;
+				// rs.close();
+				// rs = null;
 				rs = tempstmt.executeQuery(allsql);
 				while (rs.next()) {
 					String apnni = rs.getString("apnni");
@@ -154,8 +165,8 @@ public class StatApn {
 		// down,sum(upvolume+downvolume) as allvolume from "
 		// + table + " group by apnni";
 
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+		// long start = MainStatUtil.getYestardayTime();
+		// long end = MainStatUtil.getOneDayAfter(start);
 
 		String sql = "select apnni,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_apn where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by apnni";
@@ -173,12 +184,12 @@ public class StatApn {
 				// LOG.info("得到的APN统计数据:" + apnni);
 				TempApnStat stat = allapns.get(apnni);
 				stat.apnni = rs.getString("apnni");
-				
-				int usercount=rs.getInt("usercount");
-				if(usercount<10)
-					stat.usercount=usercount+"";
+
+				int usercount = rs.getInt("usercount");
+				if (usercount < 10)
+					stat.usercount = usercount + "";
 				else
-				 stat.usercount = ""+rs.getInt("usercount")/8;
+					stat.usercount = "" + rs.getInt("usercount") / 8;
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -189,23 +200,24 @@ public class StatApn {
 		stmt.close();
 		LOG.info("得到APN的流量数据完毕");
 		// 这里要得到用户数
-//		String usersql = "select apnni,usercount from msisdn_apn where stattime>=" + start / 1000 + " and stattime<="
-//				+ end / 1000;
-//		// + " group by apnni";
-//		LOG.info("usersql:" + usersql);
-//		stmt = con.createStatement();
-//		rs = stmt.executeQuery(usersql);
-//		while (rs.next()) {
-//			String apnni = rs.getString("apnni");
-//			int usercount = rs.getInt("usercount");
-//			TempApnStat stat = allapns.get(apnni);
-//			if (stat != null)
-//				stat.usercount = usercount + "";
-//		}
-//		rs.close();
-//		stmt.close();
-//
-//		LOG.info("得到APN的用户数据完毕");
+		// String usersql = "select apnni,usercount from msisdn_apn where
+		// stattime>=" + start / 1000 + " and stattime<="
+		// + end / 1000;
+		// // + " group by apnni";
+		// LOG.info("usersql:" + usersql);
+		// stmt = con.createStatement();
+		// rs = stmt.executeQuery(usersql);
+		// while (rs.next()) {
+		// String apnni = rs.getString("apnni");
+		// int usercount = rs.getInt("usercount");
+		// TempApnStat stat = allapns.get(apnni);
+		// if (stat != null)
+		// stat.usercount = usercount + "";
+		// }
+		// rs.close();
+		// stmt.close();
+		//
+		// LOG.info("得到APN的用户数据完毕");
 	}
 
 	/**
@@ -248,17 +260,6 @@ public class StatApn {
 			if (stmt != null)
 				stmt.close();
 		}
-	}
-
-	public static void main(String args[]) throws Exception {
-		SelfLog.LOGDIR = "/export/home/jf/JAVABIN/logs/stat";
-		LOG = SelfLog.getInstance();
-		LOG.info("开始统计APN数据");
-		Connection con = DBUtils.getOracleCon();
-		LOG.info("建立数据库连接成功");
-		StatApn s = new StatApn(con);
-		s.stat();
-		con.close();
 	}
 
 	private static SelfLog LOG = SelfLog.getInstance();

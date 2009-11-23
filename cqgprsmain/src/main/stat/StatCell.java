@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +36,17 @@ public class StatCell {
 	}
 
 	private Connection con;
+	private long start;
+	private long end;
+	private String statdatestr;
+	private Date statdate;
 
-	public StatCell(Connection con) {
+	public StatCell(Connection con, Date statdate) {
 		this.con = con;
+		this.start = main.util.MainStatUtil.getDateTime(statdate);
+		this.end = main.util.MainStatUtil.getOneDayAfter(start);
+		this.statdate = statdate;
+		this.statdatestr = df.format(statdate);
 	}
 
 	/**
@@ -49,13 +58,16 @@ public class StatCell {
 	private void insert(Map<String, TempCellStat> allsgsns) throws Exception {
 		java.util.Iterator<TempCellStat> stats = allsgsns.values().iterator();
 
-		String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
-		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(2));
-		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(3));
+		// String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
+		// String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(2));
+		// String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(3));
+		String day1 = statdatestr;
+		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 1)); // 上次流量
+		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 2)); // 上上次流量
 
 		Statement tempstmt = null;
-		List list0 = new ArrayList();
-		List sqls = new ArrayList();
+		List<String> list0 = new ArrayList<String>();
+		List<String> sqls = new ArrayList<String>();
 		ResultSet rs = null;
 
 		// String sql = "insert into
@@ -82,14 +94,10 @@ public class StatCell {
 							+ stat.bscid
 							+ "',"
 							+ stat.nettype
-							+ ",1,to_char(sysdate-1,'yyyyMMdd'),"
-							+ stat.up
+							+ ",1,"
+							+ statdatestr
 							+ ","
-							+ stat.down
-							+ ","
-							+ stat.all
-							+ ","
-							+ stat.usercount + ")";
+							+ stat.up + "," + stat.down + "," + stat.all + "," + stat.usercount + ")";
 					sqls.add(sql);
 
 					/**
@@ -104,7 +112,7 @@ public class StatCell {
 
 					list0.add(stat.cellid);
 					String sql0 = "insert into zero_cellid(cellid,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values("
-							+ stat.cellid + ",1,to_char(sysdate-1,'yyyyMMdd'),0,0,0)";
+							+ stat.cellid + ",1,"+statdatestr+",0,0,0)";
 					sqls.add(sql0);
 
 				}
@@ -135,8 +143,8 @@ public class StatCell {
 				}
 				String allsql = "select cellid,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
 						+ MainStatUtil.list2str(list0) + ") and stattime=" + day2 + " group by cellid";
-//				rs.close();
-//				rs = null;
+				// rs.close();
+				// rs = null;
 				rs = tempstmt.executeQuery(allsql);
 				while (rs.next()) {
 					String cellid = rs.getString("cellid");
@@ -176,11 +184,11 @@ public class StatCell {
 	}
 
 	private void getStatDatas(Map<String, TempCellStat> allsgsns) throws Exception {
+		//
+		// long start = MainStatUtil.getYestardayTime();
+		// long end = MainStatUtil.getOneDayAfter(start);
 
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
-
-		String table = MainStatUtil.getCdrTable();
+		// String table = MainStatUtil.getCdrTable();
 		// String sql = "select cellid,count(distinct(msisdn))as
 		// usercount,sum(upvolume) as up,sum(downvolume) as
 		// down,sum(upvolume+downvolume) as allvolume from "
@@ -207,11 +215,11 @@ public class StatCell {
 				stat.cellid = rs.getString("cellid");
 				// stat.nettype = rs.getString("nettype");
 				stat.nettype = "2";
-				int usercount=rs.getInt("usercount");
-				if(usercount<10)
-					stat.usercount=usercount+"";
+				int usercount = rs.getInt("usercount");
+				if (usercount < 10)
+					stat.usercount = usercount + "";
 				else
-				 stat.usercount = ""+rs.getInt("usercount")/8;
+					stat.usercount = "" + rs.getInt("usercount") / 8;
 
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
@@ -222,32 +230,32 @@ public class StatCell {
 
 		LOG.info("得到CELLID的统计数据完毕");
 
-//		// 这里要得到用户数
-//		String usersql = "select CELLID, usercount from msisdn_CELLID where stattime>=" + start / 1000
-//				+ " and stattime<=" + end / 1000;
-//		// + " group by CELLID";
-//		LOG.info("usersql:" + usersql);
-//		stmt = con.createStatement();
-//		rs = stmt.executeQuery(usersql);
-//		while (rs.next()) {
-//			String cellid = rs.getString("CELLID");
-//			int usercount = rs.getInt("usercount");
-//			TempCellStat stat = allsgsns.get(cellid);
-//			if (stat != null)
-//				stat.usercount = usercount + "";
-//		}
-//		rs.close();
-//		stmt.close();
+		// // 这里要得到用户数
+		// String usersql = "select CELLID, usercount from msisdn_CELLID where
+		// stattime>=" + start / 1000
+		// + " and stattime<=" + end / 1000;
+		// // + " group by CELLID";
+		// LOG.info("usersql:" + usersql);
+		// stmt = con.createStatement();
+		// rs = stmt.executeQuery(usersql);
+		// while (rs.next()) {
+		// String cellid = rs.getString("CELLID");
+		// int usercount = rs.getInt("usercount");
+		// TempCellStat stat = allsgsns.get(cellid);
+		// if (stat != null)
+		// stat.usercount = usercount + "";
+		// }
+		// rs.close();
+		// stmt.close();
 
-//		LOG.info("得到CELLID的用户数据完毕");
+		// LOG.info("得到CELLID的用户数据完毕");
 	}
 
 	/**
 	 * 总数的统计等从stat_sgsn的表里拿,用户总数从cdr_succ表里面拿
 	 */
 	public void stat() throws Exception {
-		long start = MainStatUtil.getYestardayTime();
-		long end = MainStatUtil.getOneDayAfter(start);
+	
 		// try {
 		// 得到所有的sgsn
 		Map<String, TempCellStat> allmap = getAllCells();

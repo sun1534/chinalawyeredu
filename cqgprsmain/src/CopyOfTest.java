@@ -17,27 +17,35 @@ import java.util.List;
  * 
  */
 public class CopyOfTest {
+	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 	private static Connection con = null;
 	public static void main(String[] args) throws Exception {
 	
-
-		long no1w=1258855447L*1000;
+		System.out.println(dfsec.parse("2009-11-22 22:00:00").getTime()/1000);
+		System.out.println(dfsec.parse("2009-11-22 23:00:00").getTime()/1000);
+		long no1w=1258981800L*1000;
 		System.out.println(new java.sql.Timestamp(no1w));
 		
+//		
+//		// 更新16，15，14，13，12，11，10这几天的stat_**的dayflag=1的数据
+//		DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
+//	
+//		int now=20091115;
+//		for(int i=20091115;i<=20091119;i++){
+//			Date date=df.parse(i+"");
+//			long start = main.util.MainStatUtil.getDateTime(date)/1000;
+//			long end = start + 24 * 60 * 60;
+//			String apnimsisql="insert into stat_imsi_apn_error(imsi,apnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,"+i+" from cdr_mistake where  opentime between "+start+" and "+end+" group by reqapnni,imsi;";
+//System.out.println(apnimsisql);
+//			
+//		}
+//		
 		
-		// 更新16，15，14，13，12，11，10这几天的stat_**的dayflag=1的数据
-		DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
-	
-		int now=20091115;
-		for(int i=20091115;i<=20091119;i++){
-			Date date=df.parse(i+"");
-			int start = main.util.MainStatUtil.getDateTime(date);
-			int end = start + 24 * 60 * 60;
-			String apnimsisql="insert into stat_imsi_apn_error(imsi,apnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,"+i+" from cdr_mistake where  opentime between "+start+" and "+end+" group by reqapnni,imsi;";
-System.out.println(apnimsisql);
-			
-		}
+		Date date=new Date();
 		
+		Date yydate=main.util.MainStatUtil.getPrevCountHour(date, 1);
+		System.out.println(dfsec.format(yydate));
 
 
 	}
@@ -52,11 +60,11 @@ System.out.println(apnimsisql);
 		for (int i = 2; i <= 15; i++) {
 
 			Date date = main.util.MainStatUtil.getPrevCountDate(i);
-			int start = main.util.MainStatUtil.getDateTime(date);
-			int end = start + 24 * 60 * 60;
+			long start = main.util.MainStatUtil.getDateTime(date);
+			long end = start + 24 * 60 * 60;
 			String stattime = df.format(date);
-			sgsn(start, end, stattime);
-			bsc(start, end, stattime);
+//			sgsn(start, end, stattime);
+//			bsc(start, end, stattime);
 //			cell(start, end, stattime);
 		
 		

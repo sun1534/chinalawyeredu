@@ -26,7 +26,7 @@ import main.util.SelfLog;
  */
 public class StatHourMain {
 
-	private static DateFormat df = new java.text.SimpleDateFormat("yyyyMMddHH");
+	private static DateFormat dfhh = new java.text.SimpleDateFormat("yyyyMMddHH");
 
 	// private static String table;
 	private static String LOGDIR = "c:\\bak";
@@ -49,10 +49,8 @@ public class StatHourMain {
 			}
 		}
 	}
-	
 
-
-
+	private static Date statdate;
 
 	/**
 	 * @param args
@@ -64,17 +62,23 @@ public class StatHourMain {
 		SelfLog.LOGDIR = LOGDIR;
 		LOG = SelfLog.getInstance();
 
-		LOG.info("==============开始统计" + df.format(new Date()) + "的数据");
+		Date now = new Date();
+		statdate = main.util.MainStatUtil.getPrevCountHour(now, 1);
+
+		LOG.info("==============开始统计" + dfhh.format(statdate) + "的数据");
 
 		con = DBUtils.getOracleCon();
 		LOG.info("获取到数据库连接OK1111");
-
-		StatApnError sae=new StatApnError(con);
-		sae.stathour();
-
+		try {
+			StatApnError sae = new StatApnError(con, statdate);
+			sae.stathour();
+			LOG.info("APN错误代码小时统计入库成功");
+		} catch (Exception e) {
+			LOG.error("APN错误代码小时统计入库失败", e);
+		}
 		con.close();
 
-		LOG.info("==============统计完毕" + df.format(new Date()));
+		LOG.info("==============统计完毕" + dfhh.format(new Date()));
 
-	}	
+	}
 }
