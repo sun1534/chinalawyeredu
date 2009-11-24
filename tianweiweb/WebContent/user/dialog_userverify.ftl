@@ -92,12 +92,12 @@
 		<label class="fname" for="cname"></label>
 		<#if status=3>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 			<#if status=1>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 		</div>
