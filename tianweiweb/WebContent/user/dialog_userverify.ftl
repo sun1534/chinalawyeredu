@@ -4,7 +4,7 @@
 <style type="text/css">@import url(../css/userset.css);</style>
 <script type="text/javascript" src="${staticpath}/js/location.js"></script>
 <script language="javascript" type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
-<div class="popbox2">
+<div class="popbox2" id="userverifyBox" style="">
      <form id="form1" method="post" action="userbaseupdate.action">
 		<div id="baseadmininfo" class="form" >
 		<div class="odd">
