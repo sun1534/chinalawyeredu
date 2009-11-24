@@ -1,24 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>ÎÞ±êÌâÎÄµµ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>æ— æ ‡é¢˜æ–‡æ¡£</title>
 <style>
-table{ font-size:22px;font-family: "ºÚÌå" ;}.style1 {font-size: 26px}
+table{ font-size:22px;font-family: "é»‘ä½“" ;}.style1 {font-size: 26px}
 .style2 {font-size: 22px}
 </style>
 <script>
 var PRVE_URL = "nr1_0.htm";
-var BACK_URL = "tm.htm"; //·µ»ØÁ¬½Ó
+var BACK_URL = "tm.htm"; //è¿”å›žè¿žæŽ¥
 var tmArray = [
-	{"info":"<a href='nr1_0.htm'>»Æ»ª»ª´ø¶Ó¿¼ºËÎÒÊÐµ³·çÁ®Õþ½¨ÉèÇé¿ö</a>","url":"nr1_0.htm"},
-    {"info":"<a href='nr2_0.htm'>ÍõÈÙÖ÷³ÖÕÙ¿ªÊÐÕþ¸®ËÄ½ìÒ»ËÄ°Ë´Î³£Îñ»áÒé</a>","url":"nr2_0.htm"},
-	{"info":"<a href='nr3_0.htm'>È«¹ú×Ü¹¤»áÁìµ¼À´Éîµ÷ÑÐ»ù²ã¹¤»á¹¤×÷</a>","url":"nr3_0.htm"},
-    {"info":"<a href='nr4_0.htm'>ÂÀÈñ·æ³Ë×ø»ð³µ¿¼²ìÌúÂ·ÑØÏßÊµÇé</a>","url":"nr4_0.htm"},
-	{"info":"<a href='nr5_0.htm'>ÊÐÕþÐ­Áìµ¼ÂÊ¶ÓÊÓ²ìÎÒÊÐ³ÇÊÐ¸üÐÂÇé¿ö</a>","url":"nr5_0.htm"},	  	
-	{"info":"<a href='nr6_0.htm'>È«¹úº£ÑóÊ¯ÓÍ°²È«Éú²ú»áÒéÔÚÉî¾ÙÐÐ</a>","url":"nr6_0.htm"},
-	{"info":"<a href='nr7_0.htm'>ÊÀ½çÖªÊ¶³ÇÊÐ·å»á5ÈÕÔÚÉîÕ¹¿ªÑ§Êõ½»Á÷</a>","url":"nr7_0.htm"},	
-	{"info":"<a href='nr8_0.htm'>ÎÒÊÐ½ñÄê¼Æ»®½¨2.57ÍòÌ×±£ÕÏÐÔ×¡·¿</a>","url":"nr8_0.htm"}
+	{"info":"<a href='nr1_0.htm'>é»„åŽåŽå¸¦é˜Ÿè€ƒæ ¸æˆ‘å¸‚å…šé£Žå»‰æ”¿å»ºè®¾æƒ…å†µ</a>","url":"nr1_0.htm"},
+    {"info":"<a href='nr2_0.htm'>çŽ‹è£ä¸»æŒå¬å¼€å¸‚æ”¿åºœå››å±Šä¸€å››å…«æ¬¡å¸¸åŠ¡ä¼šè®®</a>","url":"nr2_0.htm"},
+	{"info":"<a href='nr3_0.htm'>å…¨å›½æ€»å·¥ä¼šé¢†å¯¼æ¥æ·±è°ƒç ”åŸºå±‚å·¥ä¼šå·¥ä½œ</a>","url":"nr3_0.htm"},
+    {"info":"<a href='nr4_0.htm'>å•é”é”‹ä¹˜åç«è½¦è€ƒå¯Ÿé“è·¯æ²¿çº¿å®žæƒ…</a>","url":"nr4_0.htm"},
+	{"info":"<a href='nr5_0.htm'>å¸‚æ”¿åé¢†å¯¼çŽ‡é˜Ÿè§†å¯Ÿæˆ‘å¸‚åŸŽå¸‚æ›´æ–°æƒ…å†µ</a>","url":"nr5_0.htm"},	  	
+	{"info":"<a href='nr6_0.htm'>å…¨å›½æµ·æ´‹çŸ³æ²¹å®‰å…¨ç”Ÿäº§ä¼šè®®åœ¨æ·±ä¸¾è¡Œ</a>","url":"nr6_0.htm"},
+	{"info":"<a href='nr7_0.htm'>ä¸–ç•ŒçŸ¥è¯†åŸŽå¸‚å³°ä¼š5æ—¥åœ¨æ·±å±•å¼€å­¦æœ¯äº¤æµ</a>","url":"nr7_0.htm"},	
+	{"info":"<a href='nr8_0.htm'>æˆ‘å¸‚ä»Šå¹´è®¡åˆ’å»º2.57ä¸‡å¥—ä¿éšœæ€§ä½æˆ¿</a>","url":"nr8_0.htm"}
 ]
 var nr_pageSize = 1;
 var nr_length = tmArray.length;
@@ -46,7 +46,7 @@ function init_objs(){
 
 function init_focus(){
 	btn_pos = 0;
-	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//¸ù¾Ýµ±Ç°Î»ÖÃÈ·¶¨Ïà¹ØÁ´½ÓµÄ³õÊ¼Î»ÖÃ
+	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//æ ¹æ®å½“å‰ä½ç½®ç¡®å®šç›¸å…³é“¾æŽ¥çš„åˆå§‹ä½ç½®
 	nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
 	nr_title_objs[0].style.color = "#ffffff";
 }
@@ -181,13 +181,13 @@ setInterval ("nextpage()",2000);
   <tr>
     <td height="65">&nbsp;</td>
     <td align="center" style="font-size:26px;"><marquee direction="left" width="400" behavior="scroll" scrollamount="3" scrolldelay="60">
-    »Æ»ª»ª´ø¶Ó¿¼ºËÎÒÊÐµ³·çÁ®Õþ½¨ÉèÇé¿ö
+    é»„åŽåŽå¸¦é˜Ÿè€ƒæ ¸æˆ‘å¸‚å…šé£Žå»‰æ”¿å»ºè®¾æƒ…å†µ
     </marquee></td>
   </tr>
   <tr>
     <td height="295">&nbsp;</td>
-    <td valign="top" style="line-height:29px;"><div align="left">¡¡¡¡11ÔÂ4ÈÕ£¬Ê¡Î¯¸±Êé¼Ç¡¢Ê¡³¤»Æ»ª»ª´øÁìÊ¡µ³·çÁ®Õþ½¨ÉèµÚ¶þ¿¼ºË×é£¬¶ÔÉîÛÚÊÐÂäÊµµ³·çÁ®Õþ½¨ÉèÔðÈÎÖÆµÄÇé¿ö½øÐÐ¿¼ºË¡£<br />
-      ¡¡¡¡µ±ÌìÉÏÎç£¬Ê¡Î¯¸±Êé¼Ç¡¢ÉîÛÚÊÐÎ¯Êé¼ÇÁõÓñÆÖ£¬Ê¡Î¯³£Î¯¡¢ÉîÛÚÊÐ´úÊÐ³¤ÍõÈÙÏò»Æ»ª»ªºÍÊ¡¿¼ºË×é»ã±¨ÁË½üÄêÀ´ÎÒÊÐ¿ªÕ¹µ³·çÁ®Õþ½¨ÉèºÍ·´¸¯°Ü¶·ÕùµÄÓÐ¹ØÇé¿ö¡£</div></td>
+    <td valign="top" style="line-height:29px;"><div align="left">ã€€ã€€11æœˆ4æ—¥ï¼Œçœå§”å‰¯ä¹¦è®°ã€çœé•¿é»„åŽåŽå¸¦é¢†çœå…šé£Žå»‰æ”¿å»ºè®¾ç¬¬äºŒè€ƒæ ¸ç»„ï¼Œå¯¹æ·±åœ³å¸‚è½å®žå…šé£Žå»‰æ”¿å»ºè®¾è´£ä»»åˆ¶çš„æƒ…å†µè¿›è¡Œè€ƒæ ¸ã€‚<br />
+      ã€€ã€€å½“å¤©ä¸Šåˆï¼Œçœå§”å‰¯ä¹¦è®°ã€æ·±åœ³å¸‚å§”ä¹¦è®°åˆ˜çŽ‰æµ¦ï¼Œçœå§”å¸¸å§”ã€æ·±åœ³å¸‚ä»£å¸‚é•¿çŽ‹è£å‘é»„åŽåŽå’Œçœè€ƒæ ¸ç»„æ±‡æŠ¥äº†è¿‘å¹´æ¥æˆ‘å¸‚å¼€å±•å…šé£Žå»‰æ”¿å»ºè®¾å’Œåè…è´¥æ–—äº‰çš„æœ‰å…³æƒ…å†µã€‚</div></td>
   </tr>
   <tr>
     <td height="24">&nbsp;</td>

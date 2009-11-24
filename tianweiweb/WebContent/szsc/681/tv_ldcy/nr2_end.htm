@@ -1,21 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>ÎŞ±êÌâÎÄµµ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>æ— æ ‡é¢˜æ–‡æ¡£</title>
 <style>
-table{ font-size:24px;font-family: "ºÚÌå" ;}.style1 {color: #993300}
+table{ font-size:24px;font-family: "é»‘ä½“" ;}.style1 {color: #993300}
 </style>
 <script>
 var PRVE_URL = "";
-var BACK_URL   = "tm.htm"; //·µ»ØÁ¬½Ó
+var BACK_URL   = "tm.htm"; //è¿”å›è¿æ¥
 var tmArray = [
-	{"info":"<a href='nr_end.htm'>ÊĞÎ¯</a>","url":"nr_end.htm"},
-	{"info":"<a href='nr1_end.htm'>ÊĞÈË´ó</a>","url":"nr1_end.htm"},
-	{"info":"<a href='nr2_end.htm'>ÊĞÕş¸®</a>","url":"nr2_end.htm"},
-	{"info":"<a href='nr3_end.htm'>ÊĞÕş¸®µ³×é</a>","url":"nr3_end.htm"},
-	{"info":"<a href='nr4_end.htm'>ÊĞÕşĞ­ </a>","url":"nr4_end.htm"},
-	{"info":"<a href='nr5_end.htm'>ÊĞ¼ÍÎ¯</a>","url":"nr5_end.htm"}
+	{"info":"<a href='nr_end.htm'>å¸‚å§”</a>","url":"nr_end.htm"},
+	{"info":"<a href='nr1_end.htm'>å¸‚äººå¤§</a>","url":"nr1_end.htm"},
+	{"info":"<a href='nr2_end.htm'>å¸‚æ”¿åºœ</a>","url":"nr2_end.htm"},
+	{"info":"<a href='nr3_end.htm'>å¸‚æ”¿åºœå…šç»„</a>","url":"nr3_end.htm"},
+	{"info":"<a href='nr4_end.htm'>å¸‚æ”¿å </a>","url":"nr4_end.htm"},
+	{"info":"<a href='nr5_end.htm'>å¸‚çºªå§”</a>","url":"nr5_end.htm"}
 ];
 var nr_pageSize = 1;
 var nr_length = tmArray.length;
@@ -42,7 +42,7 @@ function init_objs(){
 
 function init_focus(){
 	btn_pos = 0;
-	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//¸ù¾İµ±Ç°Î»ÖÃÈ·¶¨Ïà¹ØÁ´½ÓµÄ³õÊ¼Î»ÖÃ
+	if(typeof(NOW_POS)!="undefined") nr_first_pos = (NOW_POS+1)%nr_length;//æ ¹æ®å½“å‰ä½ç½®ç¡®å®šç›¸å…³é“¾æ¥çš„åˆå§‹ä½ç½®
 	nr_title_objs[0].style.backgroundImage = "url(bg.gif)";
 	nr_title_objs[0].style.color = "#ffffff";
 }
@@ -173,44 +173,44 @@ setInterval ("nextpage()",2000);
   </tr>
   <tr>
     <td height="65">&nbsp;</td>
-    <td align="center" style="font-size:26px;">ÊĞÕş¸®</td>
+    <td align="center" style="font-size:26px;">å¸‚æ”¿åºœ</td>
   </tr>
   <tr>
     <td height="288">&nbsp;</td>
     <td valign="top" style="line-height:30px;"><table width="585" border="0" cellspacing="0" cellpadding="0" style="font-size:22px;">
       <tr>
-        <td width="174" height="40" align="center" style="font-size:24px; color:#993300"><p>ÊĞ³¤(´ú):</p></td>
-        <td width="137" align="center" id="titles0">Íõ¡¡ÈÙ</td>
+        <td width="174" height="40" align="center" style="font-size:24px; color:#993300"><p>å¸‚é•¿(ä»£):</p></td>
+        <td width="137" align="center" id="titles0">ç‹ã€€è£</td>
         <td width="133" align="center">&nbsp;</td>
         <td width="148" align="center">&nbsp;</td>
       </tr>
       <tr>
-        <td height="40" align="center" style="font-size:24px; color:#993300">³£Îñ¸±ÊĞ³¤:</td>
-        <td align="center" id="titles1">Ğí¡¡ÇÚ</td>
-        <td align="center" id="titles2">Àî¡¡·æ</td>
+        <td height="40" align="center" style="font-size:24px; color:#993300">å¸¸åŠ¡å‰¯å¸‚é•¿:</td>
+        <td align="center" id="titles1">è®¸ã€€å‹¤</td>
+        <td align="center" id="titles2">æã€€é”‹</td>
         <td align="center">&nbsp;</td>
       </tr>
       <tr>
-        <td height="40" align="center" style="font-size:24px; color:#993300">¸±ÊĞ³¤£º</td>
-        <td align="center" id="titles3">ÂÀÈñ·æ</td>
-        <td align="center" id="titles4">³ÂÓ¦´º</td>
-        <td align="center" id="titles5">×¿ÇÕÈñ</td>
+        <td height="40" align="center" style="font-size:24px; color:#993300">å‰¯å¸‚é•¿ï¼š</td>
+        <td align="center" id="titles3">å•é”é”‹</td>
+        <td align="center" id="titles4">é™ˆåº”æ˜¥</td>
+        <td align="center" id="titles5">å“é’¦é”</td>
       </tr>
       <tr>
         <td height="40" align="center">&nbsp;</td>
-        <td align="center" id="titles6">ÕÅË¼Æ½</td>
-        <td align="center" id="titles7">ãÆĞ¡Åà(Å®)</td>
-        <td align="center" id="titles8">Àî¡¡Ãú</td>
+        <td align="center" id="titles6">å¼ æ€å¹³</td>
+        <td align="center" id="titles7">é—«å°åŸ¹(å¥³)</td>
+        <td align="center" id="titles8">æã€€é“­</td>
       </tr>
       <tr>
         <td height="40" align="center">&nbsp;</td>
-        <td align="center" id="titles9">ÌÆ¡¡½Ü</td>
+        <td align="center" id="titles9">å”ã€€æ°</td>
         <td align="center">&nbsp;</td>
         <td align="center">&nbsp;</td>
       </tr>
       <tr>
-        <td height="40" align="center" style="font-size:24px; color:#993300"><span class="style1">ÃØÊé³¤£º</span></td>
-        <td align="center" id="titles10">Àî¡¡Æ½</td>
+        <td height="40" align="center" style="font-size:24px; color:#993300"><span class="style1">ç§˜ä¹¦é•¿ï¼š</span></td>
+        <td align="center" id="titles10">æã€€å¹³</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
       </tr>
