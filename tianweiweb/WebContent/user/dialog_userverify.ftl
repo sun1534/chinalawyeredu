@@ -9,14 +9,14 @@
      	<input type="hidden" name="fromorder" value="true" />
      	<input type="hidden" name="approve_type" id="approve_type" value="" />
 		<div id="baseadmininfo" class="form" >
-		
+
 		<div class="odd">
 			<label class="fname" for="pname">认证方式：</label>
 			<span class="fvalue"><input type="radio"  value="1" onclick="selectit(1)"/>身份证认证
 				<input type="radio"  value="2" onclick="selectit(2)" />电话认证
 				<input type="radio"  value="3"  onclick="selectit(3)"/>上门认证</span>
 		</div>
-		
+
 		<div class="even">
 			<label class="fname" for="pname"><#if currentRole=1>姓名</#if><#if currentRole=2>法人代表</#if>：</label>
 			<span class="fvalue"><input type="text" id="username" name="username" size="15" value="${username}" class="normal txt-login w200"/><font color="red">*</font></span>
@@ -91,12 +91,12 @@
 		<label class="fname" for="cname"></label>
 		<#if status=3>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()" stype="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 			<#if status=1>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()" stype="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 		</div>
