@@ -3,6 +3,7 @@ package com.changpeng.core.user.action;
 import java.util.Date;
 
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.common.util.WaitWork;
 import com.changpeng.core.service.UserService;
 import com.changpeng.core.user.model.CoreUser;
 import com.changpeng.core.user.model.CoreUserDetail;
@@ -22,6 +23,9 @@ public class UserbaseUpdateAction extends AbstractAction{
 	private String msn;
 	
 	private String sign;
+	
+	private String fromorder;
+	private int approve_type;
 	
 	public String getSign() {
 		return sign;
@@ -69,6 +73,21 @@ public class UserbaseUpdateAction extends AbstractAction{
 		else
 			message="恭喜您，您的企业资料修改成功！";
 		this.redirectURL="javascript:$.unblockUI()";
+		
+		
+		if(fromorder!=null&&fromorder.equals("true")){
+			user.setStatus((short)2);
+			user.setApproveType(approve_type);
+			
+			
+			int waitid=WaitWork.Sendwait(currentUserid, "用户认证", userService);
+			user.setWaitid(waitid);
+			
+			userService.update(user);
+//			this.message="ok";
+			this.message="您的身份认证提交成功,请等待身份认证通过后再订购产品";
+			this.redirectURL="";
+		}
 		return SUCCESS;
 	}
 
@@ -114,6 +133,14 @@ public class UserbaseUpdateAction extends AbstractAction{
 
 	public void setEntno(String entno) {
 		this.entno = entno;
+	}
+
+	public void setFromorder(String fromorder) {
+		this.fromorder = fromorder;
+	}
+
+	public void setApprove_type(int approve_type) {
+		this.approve_type = approve_type;
 	}
 	
 }

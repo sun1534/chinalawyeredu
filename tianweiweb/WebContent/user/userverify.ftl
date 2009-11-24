@@ -159,10 +159,18 @@ function applyverify(){
 	else if($("#phone").val()==""){
 		alert("请输入您的联系电话,不能为空");
 	}else{
-		
-		
-		
-		$("#form1").ajaxSubmit();
+		$("#form1").ajaxSubmit({
+		 success:function(data){
+		 	$.ajax({
+		    type: "POST",
+		    data:"",
+		    url:"verifyapply.action",
+		    success:function(d1){
+		    	$.blockUI({message:d1});
+	        }})
+	 	 }
+	 });
+	 /*
 		$.ajax({
 		    type: "POST",
 		    data:"",
@@ -170,6 +178,7 @@ function applyverify(){
 		    success:function(data){
 		    	$.blockUI({message:data});
 	    }});
+	 */
     }
 }
 

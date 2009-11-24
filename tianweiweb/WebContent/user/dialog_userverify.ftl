@@ -5,16 +5,18 @@
 <script type="text/javascript" src="${staticpath}/js/location.js"></script>
 <script language="javascript" type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
 <div class="popbox2" id="userverifyBox" style="">
-     <form id="form1" method="post" action="userbaseupdate.action">
+     <form id="form1" method="post" action="../user/userbaseupdate.action">
+     	<input type="hidden" name="fromorder" value="true" />
+     	<input type="hidden" name="approve_type" id="approve_type" value="" />
 		<div id="baseadmininfo" class="form" >
+		
 		<div class="odd">
-			<label class="fname" for="pname">当前状态：</label>
-			<span class="fvalue">
-			<#if status=0><b class="red">通过认证</b></#if>
-			<#if status=1><b class="red">待认证</b></#if>
-			<#if status=2><b class="red">已提交认证申请,待审核</b></#if>
-			<#if status=3><b class="red">认证未通过</b></#if></span>
+			<label class="fname" for="pname">认证方式：</label>
+			<span class="fvalue"><input type="radio"  value="1" onclick="selectit(1)"/>身份证认证
+				<input type="radio"  value="2" onclick="selectit(2)" />电话认证
+				<input type="radio"  value="3"  onclick="selectit(3)"/>上门认证</span>
 		</div>
+		
 		<div class="even">
 			<label class="fname" for="pname"><#if currentRole=1>姓名</#if><#if currentRole=2>法人代表</#if>：</label>
 			<span class="fvalue"><input type="text" id="username" name="username" size="15" value="${username}" class="normal txt-login w200"/><font color="red">*</font></span>
@@ -89,12 +91,12 @@
 		<label class="fname" for="cname"></label>
 		<#if status=3>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify()" stype="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()" stype="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 			<#if status=1>
 				<span class="fvalue">
-		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify()" stype="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen "   id="saveBtn11" onclick="javascript:applyverify1()" stype="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 		</div>
@@ -102,7 +104,17 @@
 	</div>
 	</form>
 <script>
-function applyverify(){
+var selected=false;
+function selectit(value){
+	selected=true;
+	$("#approve_type").val(value);
+	//alert($("#approve_type").val());
+}
+function applyverify1(){
+	if(!selected){
+		alert("请先选择认证方式");
+		return;
+	}
 	<#if currentRole=1>
 	if($("#username").val()==""){
 		alert("请先输入用户名");
@@ -132,17 +144,20 @@ function applyverify(){
 	else if($("#phone").val()==""){
 		alert("请输入您的联系电话,不能为空");
 	}else{
-
-
-
-		$("#form1").ajaxSubmit();
-		$.ajax({
-		    type: "POST",
-		    data:"",
-		    url:"verifyapply.action",
-		    success:function(data){
-		    	$.blockUI({message:data});
-	    }});
+		$("#form1").ajaxSubmit({
+			success:function(data){
+			 	$.blockUI({message:data});
+			 	/*
+			 	$.ajax({
+			    type: "POST",
+			    data:"",
+			    url:"../user/verifyapply.action",
+			    success:function(d1){
+			    	$.blockUI({message:d1});
+		        }})
+		        */
+		 	 }
+		});
     }
 }
 
@@ -185,5 +200,4 @@ function checkIDCard (str)
 //}
 </script>
 </div>
-</@home.home>
 </#escape>

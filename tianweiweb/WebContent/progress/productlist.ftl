@@ -86,16 +86,14 @@ function dinggou(id){
  </#escape>
 <script>
 function applyverify(){
-
-		$("#form1").ajaxSubmit();
 		$.ajax({
 		    type: "POST",
 		    data:"",
-		    url:"../user/verifyapply.action",
+		    url:"../user/verifyapplyp1.action",
 		    success:function(data){
+		    	$.unblockUI();
 		    	$.blockUI({message:data});
 	    }});
-    
 }
 
 </script>

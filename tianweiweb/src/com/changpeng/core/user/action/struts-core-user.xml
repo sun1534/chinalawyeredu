@@ -68,6 +68,12 @@
             <result name="success" type="freemarker">/common/message.ftl</result>
             <result name="input" type="freemarker">/user/verify.ftl</result>
         </action>
+        
+        <action name="verifyapplyp1" class="com.changpeng.core.user.action.VerifyApplyP1Action">
+            <result name="success" type="freemarker">/user/dialog_userverify.ftl</result>
+            <result name="input" type="freemarker">/user/dialog_userverify.ftl</result>
+        </action>
+        
         <!-- 发送认证请求 -->
 		<action name="sendverifyapply" class="com.changpeng.core.user.action.SendVerifyApplyAction">
             <result name="success" type="freemarker">/common/message.ftl</result>
