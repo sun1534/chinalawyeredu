@@ -12,9 +12,10 @@
 
 		<div class="odd">
 			<label class="fname" for="pname">认证方式：</label>
-			<span class="fvalue"><input type="radio"  value="1" onclick="selectit(1)"/>身份证认证
-				<input type="radio"  value="2" onclick="selectit(2)" />电话认证
-				<input type="radio"  value="3"  onclick="selectit(3)"/>上门认证</span>
+			<span class="fvalue">
+			    <input type="radio"  value="1" name="approvetype_ajax" onclick="selectit(1)"/>身份证认证
+				<input type="radio"  value="2" name="approvetype_ajax" onclick="selectit(2)" />电话认证
+				<input type="radio"  value="3" name="approvetype_ajax"  onclick="selectit(3)"/>上门认证</span>
 		</div>
 
 		<div class="even">
