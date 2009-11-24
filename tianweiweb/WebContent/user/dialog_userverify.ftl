@@ -7,7 +7,7 @@
      <form id="form1" method="post" action="../user/userbaseupdate.action">
      	<input type="hidden" name="fromorder" value="true" />
      	<input type="hidden" name="approve_type" id="approve_type" value="" />
-		<div id="baseadmininfo" class="form" >
+		<div id="baseadmininfo" class="form"  style="height:370px;">
 
 		<div class="odd">
 			<label class="fname" for="pname">认证方式：</label>
