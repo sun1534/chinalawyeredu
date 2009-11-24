@@ -1,10 +1,9 @@
 <#escape x as (x)!"">
-<script type="text/javascript" src="../js/base/jquery.MultiFile.js"></script>
+
+<div class="popbox2" id="userverifyBox" style="">
 <script type="text/javascript" src="../js/sctx.js"></script>
 <style type="text/css">@import url(../css/userset.css);</style>
 <script type="text/javascript" src="${staticpath}/js/location.js"></script>
-<script language="javascript" type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
-<div class="popbox2" id="userverifyBox" style="">
      <form id="form1" method="post" action="../user/userbaseupdate.action">
      	<input type="hidden" name="fromorder" value="true" />
      	<input type="hidden" name="approve_type" id="approve_type" value="" />
@@ -92,12 +91,12 @@
 		<label class="fname" for="cname"></label>
 		<#if status=3>
 				<span class="fvalue">
-		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 			<#if status=1>
 				<span class="fvalue">
-		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();$('#userverifyBox').remove();$('.blockUI').remove();" type="button" title="申请认证" value="申请认证"/>
+		<input class="delBtn igreen" id="saveBtn11" onclick="applyverify1();" type="button" title="申请认证" value="申请认证"/>
 		</span>
 		</#if>
 		</div>

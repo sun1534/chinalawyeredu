@@ -91,9 +91,9 @@ function applyverify(){
 		    data:"",
 		    url:"../user/verifyapplyp1.action",
 		    success:function(data){
-
-		    	$.blockUI({message:data});
 				$.unblockUI();
+				$.blockUI({message:data});
+
 	    }});
 }
 
