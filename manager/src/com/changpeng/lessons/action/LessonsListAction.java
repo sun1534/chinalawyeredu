@@ -35,7 +35,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	private int lessontype = 0;
 	private String teachers = "";
-	private int groupid = -1; // 0是代表来自平台的添加
+//	private int groupid = -1; // 0是代表来自平台的添加
 	private List fromlist = null;
 
 	/**
@@ -49,6 +49,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	public LessonsListAction() {
 		datavisible = new DataVisible();
+		datavisible.setProvinceid(-1);
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class LessonsListAction extends AbstractListAction {
 		SysGroup _mygroup = this.getLoginUser().getSysGroup();
 		String nianshen = "01-01";
 		
-		
+		int groupid=-1;
 		
 		if (_mygroup != null) {
 			mygroup = _mygroup.getGroupid();
@@ -136,20 +137,20 @@ if(nianshenyear!=0){
 		this.teachers = teachers;
 	}
 
-	/**
-	 * @return the groupid
-	 */
-	public int getGroupid() {
-		return groupid;
-	}
-
-	/**
-	 * @param groupid
-	 *            the groupid to set
-	 */
-	public void setGroupid(int groupid) {
-		this.groupid = groupid;
-	}
+//	/**
+//	 * @return the groupid
+//	 */
+//	public int getGroupid() {
+//		return groupid;
+//	}
+//
+//	/**
+//	 * @param groupid
+//	 *            the groupid to set
+//	 */
+//	public void setGroupid(int groupid) {
+//		this.groupid = groupid;
+//	}
 
 	/**
 	 * @return the fromlist

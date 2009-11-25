@@ -13,14 +13,27 @@
         <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
             到 【${jifentime.endstr}】</b></td>
       </tr>
-      <tr  bgcolor="#F2F8FF" >
-        <td align="right" width="45%" height="18" valign="middle">
-        <b>现场培训课程数：</b></td>
+      <s:if test="lessonstatics!=null">
+        <tr bgcolor="#F2F8FF" >
+        <td align="right" width="55%" height="18" valign="middle">
+        <b>本地现场培训课程数：</b></td>
         <td align="left" >${lessonstatics.local}</td>      
         </tr>
+    </s:if>
       <tr bgcolor="#F2F8FF" >
-        <td align="right" height="18"><b>网上培训课件数： </b></td>                   
-        <td align="left" >${lessonstatics.online}</td>  
+        <td align="right" width="55%" height="18" valign="middle">
+        <b>所有现场培训课程数：</b></td>
+        <td align="left" >${alllessonstatics.local}</td>      
+        </tr>
+        <s:if test="lessonstatics!=null">
+        <tr bgcolor="#F2F8FF" >
+         <td align="right" height="18"><b>本地网上培训课件数： </b></td>                   
+         <td align="left" >${lessonstatics.online}</td>  
+        </tr>
+        </s:if>
+          <tr bgcolor="#F2F8FF" >
+        <td align="right" height="18"><b>所有网上培训课件数： </b></td>                   
+        <td align="left" >${alllessonstatics.online}</td>  
         </tr>
         <!--
       <tr bgcolor="#F2F8FF" >
