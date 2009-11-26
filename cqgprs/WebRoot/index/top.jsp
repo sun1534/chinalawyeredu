@@ -29,7 +29,7 @@ function pressedF5(){
 }
 $(document).ready(function(){
 //getGbAlarmCnts();
- setTimeout('getGbAlarmCnts()',2*1000);
+ setTimeout('getGbAlarmCnts()',5*1000);
 });
 var ajaxurl="../alarmajax/getGbLinkAlarmCnt.action";
 var islight = false;
@@ -55,7 +55,7 @@ $.getJSON(ajaxurl+"?now="+now,function(json){
     }
   }
 });
-//setTimeout('getGbAlarmCnts()',5*1000);
+setTimeout('getGbAlarmCnts()',30*1000);
 }
 function lighttitle(){
 	if(t == 0){
@@ -66,13 +66,13 @@ function lighttitle(){
 		t=0;
 	}
 	counts++;
-	if(counts>60){
-	   if(hd&&!hascancel){
-		 clearInterval(hd);
-		 hascancel=true;
-	   }
-	   top.document.title = "${sysName}";
-	}
+	//if(counts>60){
+	//   if(hd&&!hascancel){
+	//	 clearInterval(hd);
+	//	 hascancel=true;
+    //  }
+	//   top.document.title = "${sysName}";
+	//}
 }
 </script>
 </head> 

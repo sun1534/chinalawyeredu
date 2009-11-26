@@ -21,14 +21,17 @@ var ascdesc="${ascdesc}";
  
 
 function fanye(str){
+ document.form1.firstpage.value="no";
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
 function exportit(){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="excel";
   document.form1.submit();
 }
 function queryit(){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="list";
   document.form1.submit();
 }
@@ -67,7 +70,8 @@ $("#hourselect").hide();
 						<table>
 							<tbody>
 								<tr>
-                    <s:hidden name="orderfield" id="orderfieldid"/>
+				                	<s:hidden name="firstpage"/>
+					              <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                   <s:hidden name="resultType"/>
                                   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selectit(this)" title="按时查可以选当天的日期"/>&nbsp;</td>

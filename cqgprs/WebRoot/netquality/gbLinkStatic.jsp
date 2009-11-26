@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
-  var orderArray=["nsvc","nsvcgbindex","difference"];
+  var orderArray=["nsvc","difference"];
  
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -80,7 +80,7 @@ function queryit(){
                         <tr>
                        
                           <th><a onclick="orderByThis(document.form1,this)" id="nsvc" title="点击排序">NSVCID</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="nsvcgbindex" title="点击排序">NSVC查询索引</a></th>
+                          <th>NSVC查询索引</th>
                           <th>归属BSC/RNC</th>
                           <th>归属SGSN</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="difference" title="点击排序">总流量（M）</a></th>
