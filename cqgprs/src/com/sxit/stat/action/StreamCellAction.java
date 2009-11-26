@@ -93,7 +93,7 @@ public class StreamCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());label.setRotation(ration);
+			label.setText(stat.getLac()+"-"+stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 
 		}
@@ -148,7 +148,7 @@ public class StreamCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());label.setRotation(ration);
+			label.setText(stat.getLac()+"-"+stat.getCellid());label.setRotation(ration);
 			xlables.addLabels(label);
 		}
 

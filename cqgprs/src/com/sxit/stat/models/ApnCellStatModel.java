@@ -13,7 +13,7 @@ public class ApnCellStatModel extends StatModel  {
 	private String apnid;
 
 	private String cellid;
-
+private String lac;
 	/**
 	 * 某天的数据
 	 */
@@ -22,10 +22,15 @@ public class ApnCellStatModel extends StatModel  {
 	 * 某天-时的数据
 	 */
 	private String datetime;
-
+	public String getCellkey(){
+	if(lac==null||lac.equals(""))
+		return cellid;
+		return lac+"-"+cellid;
+	}
+	
 	
 public Cell getCell(){
-	return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellid);
+	return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
 }
 	
 
@@ -87,5 +92,21 @@ public Cell getCell(){
 	 */
 	public void setCellid(String cellid) {
 		this.cellid = cellid;
+	}
+
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 }

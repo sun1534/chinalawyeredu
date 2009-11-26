@@ -42,7 +42,7 @@ public class StreamCellTimeAction extends StatAction {
 		System.out.println(resultType+"==="+cellid);
 		
 		if (cellid != null && !cellid.equals("")) {
-			this.celltimelist = statservice.getCellDayTimeStat(startDate, cellid);
+			this.celltimelist = statservice.getCellDayTimeStat(startDate, cellid,lac);
 			if (resultType.equals("list"))
 				return SUCCESS;
 			else if (resultType.equals("excel"))
@@ -63,8 +63,11 @@ public class StreamCellTimeAction extends StatAction {
 			return SUCCESS;
 
 	}
-
+public String getCellkey(){
+	return lac+"-"+cellid;
+}
 	private String cellid;
+	private String lac;
 	private List celltimelist;
 
 	/**
@@ -197,5 +200,19 @@ public class StreamCellTimeAction extends StatAction {
 
 		flashChart.setTitle(title);
 		return flashChart;
+	}
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 }

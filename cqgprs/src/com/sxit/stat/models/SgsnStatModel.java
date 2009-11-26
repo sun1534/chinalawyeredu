@@ -90,14 +90,15 @@ public class SgsnStatModel extends StatModel  {
 		if(nettype==null||nettype.equals(""))
 			return "未知";
 		if(nettype.equals("1")){
-			return "WLAN";
+//			return "WLAN";
+			return "TD";
 		}
 		else if(nettype.equals("2")){
 			return "GSM";
 
 		}
 		else if(nettype.equals("3")){
-			return "TD";
+			return "WLAN";
 	    }else 
 		return nettype;
 	}

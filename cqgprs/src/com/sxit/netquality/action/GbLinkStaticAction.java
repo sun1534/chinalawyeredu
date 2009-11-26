@@ -49,12 +49,13 @@ public class GbLinkStaticAction extends AbstractListAction {
 			thedate = new Date();
 			date = df.format(thedate);
 		} else {
-			try {
-				thedate = df.parse(date);
-			} catch (Exception e) {
-				thedate = new Date();
-				date = df.format(thedate);
-			}
+//			try {
+//				thedate = df.parse(date);
+//			} catch (Exception e) {
+//				thedate = new Date();
+//				date = df.format(thedate);
+//			}
+			thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		StatService statservice = (StatService) getBean("statService");
 

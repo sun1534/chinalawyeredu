@@ -63,12 +63,12 @@ public class QueryByAPNAction extends AbstractListAction {
 		if(apn!=null&&!apn.equals(""))
 		{
 		if (resultType.equals("list")){
-			this.page = queryservice.queryCdr(_date, null, null, apn, pageNo, pageSize);
+			this.page = queryservice.queryCdr(_date, null, null,null, apn, pageNo, pageSize);
 			return SUCCESS;
 		}
 
 		else if (resultType.equals("excel")){
-			this.page = queryservice.queryCdr(_date, null, null, apn, pageNo, Integer.MAX_VALUE);
+			this.page = queryservice.queryCdr(_date, null, null,null, apn, pageNo, Integer.MAX_VALUE);
 			return "excel";
 		}
 		}

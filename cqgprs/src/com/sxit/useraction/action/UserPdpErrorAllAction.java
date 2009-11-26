@@ -23,8 +23,10 @@ import com.sxit.useraction.service.UseractionService;
 public class UserPdpErrorAllAction extends AbstractAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 	private static DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00");
-//	private static DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	// private static DateFormat dfsec = new
+	// java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	// 1是实时 2是按天,也就是最近3天的
 	private String flag = "1";
@@ -46,12 +48,13 @@ public class UserPdpErrorAllAction extends AbstractAction {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
-			try {
-				thedate = df.parse(date);
-			} catch (Exception e) {
-				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-				date = df.format(thedate);
-			}
+//			try {
+//				thedate = df.parse(date);
+//			} catch (Exception e) {
+//				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+//				date = df.format(thedate);
+//			}
+			thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		// 实时的方式
 		if (flag.equals("1")) {
@@ -65,45 +68,53 @@ public class UserPdpErrorAllAction extends AbstractAction {
 			long todaystart = com.sxit.stat.util.StatUtil.getTodaydayTime();
 			long todayend = com.sxit.stat.util.StatUtil.getOneDayAfter(todaystart);
 
-			date1=df.format(today);
-	
-			
+			date1 = df.format(today);
+
 			errorallstat1 = service.getPdpErrorStatics((int) (todaystart / 1000), (int) (todayend / 1000));
 			errorallstat2 = service.getPdpErrorStatics(nowhourstart, nowhourend);
 			errorallstat3 = service.getPdpErrorStatics(prehourstart, nowhourstart);
 
-			date2=dfhour.format(new java.sql.Timestamp(nowhourstart*1000L));
-			date3=dfhour.format(new java.sql.Timestamp(prehourstart*1000L));
-			
-			System.out.println(date1+",,,"+date2+",,,"+date3);
-			
-			
+			date2 = dfhour.format(new java.sql.Timestamp(nowhourstart * 1000L));
+			date3 = dfhour.format(new java.sql.Timestamp(prehourstart * 1000L));
+
+			System.out.println(date1 + ",,," + date2 + ",,," + date3);
+
 		} else {
 
-			
-			date1=date;
-	
+			date1 = date;
+			String today = df.format(new Date());
 
 			long todaystart = com.sxit.stat.util.StatUtil.getDateTime(thedate);
 			long todayend = com.sxit.stat.util.StatUtil.getOneDayAfter(todaystart);
 			long pretodaystart = todaystart - 24 * 60 * 60 * 1000;
 			long pretodaystart2 = pretodaystart - 24 * 60 * 60 * 1000;
 			// 当天的
-			errorallstat1 = service.getPdpErrorStatics((int) (todaystart / 1000), (int) (todayend / 1000));
+			date2 = df.format(new java.sql.Timestamp(pretodaystart));
+			date3 = df.format(new java.sql.Timestamp(pretodaystart2));
+
+			if (today.equals(date1))
+				errorallstat1 = service.getPdpErrorStatics((int) (todaystart / 1000), (int) (todayend / 1000));
+			else
+				errorallstat1 = service.getPdpErrorStatics(date1.replace("-", ""), 1);
+
 			// 昨天的
-			errorallstat2 = service.getPdpErrorStatics((int) (pretodaystart / 1000), (int) (todaystart / 1000));
-			
+			if (today.equals(date2))
+				errorallstat2 = service.getPdpErrorStatics((int) (pretodaystart / 1000), (int) (todaystart / 1000));
+			else
+				errorallstat2 = service.getPdpErrorStatics(date2.replace("-", ""), 1);
+
 			// 前天的
-			errorallstat3 = service.getPdpErrorStatics((int) (pretodaystart2 / 1000), (int) (pretodaystart / 1000));
-			
-			date2=df.format(new java.sql.Timestamp(pretodaystart));
-			date3=df.format(new java.sql.Timestamp(pretodaystart2));
+			if (today.equals(date3))
+				errorallstat3 = service.getPdpErrorStatics((int) (pretodaystart2 / 1000), (int) (pretodaystart / 1000));
+			else
+				errorallstat3 = service.getPdpErrorStatics(date3.replace("-", ""), 1);
+
 		}
-		if(resultType.equals("list"))
-		return SUCCESS;
+		if (resultType.equals("list"))
+			return SUCCESS;
 		return "excel";
 	}
-	
+
 	private String date1;
 	private String date2;
 	private String date3;

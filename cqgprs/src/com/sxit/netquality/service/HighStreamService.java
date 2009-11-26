@@ -55,24 +55,28 @@ public class HighStreamService {
  * @return
  */
 	
-	public List getHightStreamDayCell(String standard,String condition,String bscid,String orderby,Date date){
+	public List getHightStreamDayCell(Date date,String standard,String condition,String bscid,String orderby){
 	
 		String _date=df.format(date);
 		String sql="";
 		String where="";
 		if(!(bscid==null||bscid.equals("")))
-			where=" and a.bscid='"+bscid+"'";
+			where=" and bscid='"+bscid+"'";
 		if(standard.equals("1")){
 //			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime="+_date+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
 //			 sql="select a.cellid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where  a.cellid=b.cellid(+) and a.dayflag=1 and a.allvolume>="+condition+" and a.stattime="+_date+" "+ orderby;
-			 sql="select * from(select a.cellid,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+") where currentvolume>="+condition+orderby;
+//			 sql="select a.cellid,a.lac,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+" and currentvolume>="+condition+orderby;
+			sql="select cellid,lac,bscid,allvolume from stat_cellid a where dayflag=1 "+where+" and stattime="+_date+" and allvolume>="+condition+orderby;
 
 		}else{
 			
-			 sql="select * from(select a.cellid,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+" order by a.allvolume desc) where rownum<="+condition+orderby;
-			 
+//			 sql="select * from(select a.cellid,a.lac,a.bscid,a.allvolume as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+" order by a.allvolume desc) where rownum<="+condition+orderby;
+			 sql="select * from(select cellid,lac,bscid,allvolume from stat_cellid  where dayflag=1 "+where+" and stattime="+_date+" order by allvolume desc) where rownum<="+condition+orderby;
+
 //				 sql="select cellid,allvolume from stat_cellid where dayflag=1 and stattime="+_date+" and rownum<="+condition+" order by allvolume desc";
         }
+		
+		System.out.println(sql);
 		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -80,9 +84,14 @@ public class HighStreamService {
 				while (rs.next()) {
 					TopCell model = new TopCell();
 					model.setCellid(rs.getString("cellid"));
-					model.setCurrentStream(rs.getDouble("currentvolume"));
-					model.setTotalStream(rs.getDouble("allvolume"));
-					model.setBscid(rs.getString("bscid"));
+					model.setLac(rs.getString("lac"));
+					model.setCurrentStream(rs.getDouble("allvolume"));
+//					model.setTotalStream(rs.getDouble("allvolume"));
+//					System.out.println(rs.getString("lac")+"-"+rs.getString("cellid"));
+					String cellkey=rs.getString("lac")+"-"+rs.getString("cellid");
+					if(BasicSetService.ALL_CELLS.containsKey(cellkey)){
+						model.setTotalStream(com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getAllvolume());
+					}					model.setBscid(rs.getString("bscid"));
 					list.add(model);
 				}
 				return list;
@@ -92,34 +101,49 @@ public class HighStreamService {
         return list;
 	}
 	
-	public List getHightStreamHourCell(String standard,String condition,String date,String hour){
+	public List getHightStreamHourCell(String date,String hour,String bscid,String standard,String condition,String orderby){
 
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
-
+		String where="";
+		if(!(bscid==null||bscid.equals("")))
+			where=" and bscid='"+bscid+"'";
 		int _start = getDfSec(start);
 		int _end = getDfSec(end);
 		
 		
 		String sql="";
 		if(standard.equals("1")){
-			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
+//			 sql="select * from(select a.cellid,a.bscid,sum(a.allvolume) as currentvolume,b.allvolume as allvolume from stat_cellid a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1 "+where+" and a.stattime="+_date+") where currentvolume>="+condition+orderby;
+
+			 sql="select a.cellid,a.lac,a.bscid,a.allvolume from (select cellid,lac,bscid,sum(allvolume) as allvolume from stat_cellid where dayflag=0 "+where+" and (stattime>="+_start+" and stattime<="+_end+") group by cellid,lac,bscid having sum(allvolume)>="+condition+") a"+orderby;;
         }else{
-			 sql="select cellid,allv from(select cellid,sum(allvolume) as allv from stat_cellid where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by cellid ) where rownum<="+condition+" order by allv desc";
+			 sql="select * from(select a.cellid,a.lac,a.bscid,a.allvolume from (select cellid,lac,bscid,sum(allvolume) as allvolume from stat_cellid where dayflag=0 "+where+" and (stattime>="+_start+" and stattime<="+_end+") group by cellid,lac,bscid) a order by allvolume desc) where rownum<="+condition+orderby;
+//			 sql="select cellid,allv from(select cellid,sum(allvolume) as allv from stat_cellid where dayflag=0 and (stattime>="+_start+" and stattime<="+_end+") group by cellid ) where rownum<="+condition+" order by allv desc";
         }
-		
+		long now=System.currentTimeMillis();
+	
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
 					TopCell model = new TopCell();
 					model.setCellid(rs.getString("cellid"));
-					model.setCurrentStream(rs.getFloat("allv"));
+					model.setLac(rs.getString("lac"));
+					model.setCurrentStream(rs.getDouble("allvolume"));
+//					model.setTotalStream(rs.getDouble("allvolume"));
+			String cellkey=rs.getString("lac")+"-"+rs.getString("cellid");
+			if(BasicSetService.ALL_CELLS.containsKey(cellkey)){
+				model.setTotalStream(com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getAllvolume());
+			}
+					
+					model.setBscid(rs.getString("bscid"));
 					list.add(model);
 				}
 				return list;
 			}
 		});
+		System.out.println((System.currentTimeMillis()-now)+":hour()::"+sql);
 		List list = (List) object;
         return list;
 	}
@@ -132,29 +156,30 @@ public class HighStreamService {
 	 * @param end
 	 * @return
 	 */
-	public List getHightStreamCellAll(String standard,String condition,String start,String end){
-		String sql="";
-		if(standard.equals("1")){
-			 sql="select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime>="+start+" and stattime<="+end+") group by cellid having sum(allvolume)>="+condition+") order by allv desc";
-        }else{
-			 sql="select cellid,allv from(select cellid,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime>="+start+" and stattime<="+end+") group by cellid ) where rownum<="+condition+" order by allv desc";
-        }
-		
-		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-				List list = new ArrayList();
-				while (rs.next()) {
-					TopCell model = new TopCell();
-					model.setCellid(rs.getString("cellid"));
-					model.setTotalStream(rs.getFloat("allv"));
-					list.add(model);
-				}
-				return list;
-			}
-		});
-		List list = (List) object;
-        return list;
-		
-	}
+//	public List getHightStreamCellAll(String standard,String condition,String start,String end){
+//		String sql="";
+//		if(standard.equals("1")){
+//			 sql="select cellid,lac,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime>="+start+" and stattime<="+end+") group by cellid,lac having sum(allvolume)>="+condition+") order by allv desc";
+//        }else{
+//			 sql="select cellid,lac,allv from(select cellid,lac,sum(allvolume) as allv from stat_cellid where dayflag=1 and (stattime>="+start+" and stattime<="+end+") group by cellid,lac ) where rownum<="+condition+" order by allv desc";
+//        }
+//		
+//		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+//			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				List list = new ArrayList();
+//				while (rs.next()) {
+//					TopCell model = new TopCell();
+//					model.setCellid(rs.getString("cellid"));
+//					model.setLac(rs.getString("lac"));
+//					model.setTotalStream(rs.getFloat("allv"));
+//					list.add(model);
+//				}
+//				return list;
+//			}
+//		});
+//		List list = (List) object;
+//        return list;
+//		
+//	}
 	
 }

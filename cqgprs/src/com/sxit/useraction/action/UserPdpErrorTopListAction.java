@@ -95,40 +95,43 @@ public class UserPdpErrorTopListAction extends AbstractAction {
 			date = df.format(thedate);
 
 		} else {
-			try {
-				thedate = df.parse(date);
-			} catch (Exception e) {
-				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-			}
+			// try {
+			// thedate = df.parse(date);
+			// } catch (Exception e) {
+			// thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+			// }
+			thedate = com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		if (hour == null || hour.equals("")) {
 			hour = dfhour.format(new Date());
 		}
 
 		UseractionService actionservice = (UseractionService) this.getBean("useractionService");
-//		int start = 0;
-//		int end = 0;
+		// int start = 0;
+		// int end = 0;
 
 		if (orderfield == null || orderfield.equals("")) {
 			orderfield = "errcount";
-			ascdesc="desc";
+			ascdesc = "desc";
 		}
-String stattime="";
+		String stattime = "";
 		if (flag.equals("1")) {
-			stattime=dfyyyyMMdd.format(thedate);
-//			long _start = com.sxit.stat.util.StatUtil.getDateTime(thedate);
-//			start = (int) (_start / 1000);
-//			end = (int) (com.sxit.stat.util.StatUtil.getOneDayAfter(_start) / 1000);
+			stattime = dfyyyyMMdd.format(thedate);
+			// long _start = com.sxit.stat.util.StatUtil.getDateTime(thedate);
+			// start = (int) (_start / 1000);
+			// end = (int) (com.sxit.stat.util.StatUtil.getOneDayAfter(_start) /
+			// 1000);
 
 		} else {
-			stattime=dfyyyyMMdd.format(thedate)+hour;
-//
-//			date = df.format(new Date());
-//			String _date = date + " " + hour + "00:00";
-//			start = UseractionService.getDfSec(_date);
-//			end = start + 60 * 60;
+			stattime = dfyyyyMMdd.format(thedate) + hour;
+			//
+			// date = df.format(new Date());
+			// String _date = date + " " + hour + "00:00";
+			// start = UseractionService.getDfSec(_date);
+			// end = start + 60 * 60;
 		}
-//		this.resultList = actionservice.getPdpErrorTopList(start, end, getOrderby());
+		// this.resultList = actionservice.getPdpErrorTopList(start, end,
+		// getOrderby());
 		this.resultList = actionservice.getPdpErrorTopList(stattime, getOrderby());
 		if (this.resultType.equals("list"))
 			return SUCCESS;

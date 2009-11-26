@@ -34,8 +34,8 @@ public class GuardService {
 	}
 
 	
-	public boolean isExistCell(String cellid){
-	 String sql="select count(*) as cnt from set_cell_focus where cellid='"+cellid+"'";
+	public boolean isExistCell(String cellid,String lac){
+	 String sql="select count(*) as cnt from set_cell_focus where cellid='"+cellid+"' and lac='"+lac+"'";
 	 
 	 return jdbcTemplate.queryForInt(sql)>0?true:false;
 	}
@@ -80,7 +80,7 @@ public class GuardService {
 					cell.setCreateuserid(rs.getInt("createuserid"));
 					cell.setCreateusername(rs.getString("createusername"));
 					cell.setUpdatetime(rs.getLong("updatetime"));
-
+cell.setLac(rs.getString("lac"));
 					list.add(cell);
 				}
 				return list;

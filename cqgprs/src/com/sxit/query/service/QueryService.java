@@ -37,7 +37,7 @@ public class QueryService {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public PaginationSupport queryCdr(Date date, String mobile, String cellid, String apnni, final int pageNo,
+	public PaginationSupport queryCdr(Date date, String mobile, String cellid,String lac, String apnni, final int pageNo,
 			final int pageSize) {
 		String table = StatUtil.getCdrTable(date);
 		int totalCount = 0;
@@ -51,6 +51,10 @@ public class QueryService {
 		if (cellid != null && !cellid.equals("")) {
 			cntsql += " and cellid='" + cellid + "'";
 			search += " and cellid='" + cellid + "'";
+		}
+		if (lac != null && !lac.equals("")) {
+			cntsql += " and lac='" + lac + "'";
+			search += " and lac='" + lac + "'";
 		}
 		if (apnni != null && !apnni.equals("")) {
 			cntsql += " and apnni='" + apnni + "'";

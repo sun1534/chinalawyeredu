@@ -53,11 +53,12 @@ java.text.NumberFormat nf=new   DecimalFormat("####.0");
 	 */
 	public void setStart(String start) {
 		if (start != null && !start.equals("")) {
-			try {
-				this.startDate = df.parse(start);
-			} catch (Exception e) {
-				_LOG.error("起始时间解析错误:", e);
-			}
+//			try {
+//				this.startDate = df.parse(start);
+//			} catch (Exception e) {
+//				_LOG.error("起始时间解析错误:", e);
+//			}
+			this.startDate= com.sxit.stat.util.StatUtil.getDate(start);
 		}
 		this.start = start;
 	}
@@ -75,11 +76,12 @@ java.text.NumberFormat nf=new   DecimalFormat("####.0");
 	 */
 	public void setEnd(String end) {
 		if (end != null && !end.equals("")) {
-			try {
-				this.endDate = df.parse(end);
-			} catch (Exception e) {
-				_LOG.error("结束时间解析错误:", e);
-			}
+//			try {
+//				this.endDate = df.parse(end);
+//			} catch (Exception e) {
+//				_LOG.error("结束时间解析错误:", e);
+//			}
+			this.endDate= com.sxit.stat.util.StatUtil.getDate(start);
 		}
 		this.end = end;
 	}

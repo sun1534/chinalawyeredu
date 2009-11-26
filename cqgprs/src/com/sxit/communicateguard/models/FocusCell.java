@@ -21,10 +21,29 @@ public class FocusCell {
 	private String createusername;
 	
 	public Cell getCell(){
-		return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellid);
+		return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
 	}
 	public String getLastupdate(){
 		return dfyyyyMmddHHmmss.format(new java.sql.Timestamp(updatetime*1000));
+	}
+	public String getCellkey(){
+		if(lac==null||lac.equals(""))
+			return cellid;
+		return lac+"-"+cellid;
+	}
+	
+	private String lac;
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 	/**
 	 * @return the cellid

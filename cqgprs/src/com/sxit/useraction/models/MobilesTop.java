@@ -3,6 +3,8 @@
  */
 package com.sxit.useraction.models;
 
+import com.sxit.system.util.NumberUtil;
+
 /**
  * @author 华锋
  * Nov 9, 2009-11:01:03 PM
@@ -17,6 +19,31 @@ public class MobilesTop {
 	private float upvolume;
 	private float downvolume;
 	private float allvolume;
+	
+	public String getDownvolumeStr(){
+		if(downvolume<1)
+			return downvolume+"（K）";
+		double d = ((double) downvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+		return totalStreamStr;
+	}
+	public String getUpvolumeStr(){
+		if(upvolume<1)
+			return upvolume+"（K）";
+		double d = ((double) upvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+//		return Float.parseFloat(totalStreamStr);
+		return totalStreamStr;
+	}
+	public String getAllvolumeStr(){
+		if(allvolume<1)
+			return allvolume+"（K）";
+		double d = ((double) allvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+		return totalStreamStr;
+	}
+	
+	
 	private int periodlen;
 	/**
 	 * @return the mobile

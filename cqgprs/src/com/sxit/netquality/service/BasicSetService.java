@@ -198,7 +198,7 @@ public class BasicSetService {
 		return d;
 	}
 
-	public PaginationSupport getCells(String cellid, String bscid,String orderby, int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, String lac,String bscid,String orderby, int pageNo, int pageSize) {
 		String countsql = "";
 		String sql = "";
 
@@ -209,6 +209,9 @@ public class BasicSetService {
 		String where = "";
 		if (cellid != null && !cellid.equals("")) {
 			where += " and cellid='" + cellid + "'";
+		}
+		if (lac != null && !lac.equals("")) {
+			where += " and lac='" + lac + "'";
 		}
 		if (bscid != null && !bscid.equals("")) {
 			where += " and bscid='" + bscid + "'";
@@ -244,7 +247,7 @@ public class BasicSetService {
 	}
 
 	private void getAllCells() {
-		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_cell a ,allvolume_cellid b where a.cellid=b.cellid(+) and a.opttype!=2";
+		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_cell a ,allvolume_cellid b where a.cellid=b.cellid(+) and a.lac=b.lac(+) and a.opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -268,8 +271,8 @@ public class BasicSetService {
 					model.setLastupdate(date);
 					// list.add(model);
 					ALL_CELL_LIST.add(model);
-					ALL_CELLS.put(rs.getString("CELLID"), model);
-					CELL_BSC.put(rs.getString("CELLID"), rs.getString("BSCID"));
+					ALL_CELLS.put(rs.getString("lac")+"-"+rs.getString("CELLID"), model);
+					CELL_BSC.put(rs.getString("lac")+"-"+rs.getString("CELLID"), rs.getString("BSCID"));
 				}
 				return null;
 			}
@@ -615,12 +618,12 @@ public class BasicSetService {
 	 * @return
 	 */
 	public List getFocusCellids() {
-		String sql = "select CELLID from  SET_CELL_FOCUS ";
+		String sql = "select lac,CELLID from  SET_CELL_FOCUS ";
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					list.add(rs.getString("CELLID"));
+					list.add(rs.getString("lac")+"-"+rs.getString("CELLID"));
 				}
 				return list;
 			}
@@ -639,35 +642,44 @@ public class BasicSetService {
 		StringTokenizer st = new StringTokenizer(all, ",");
 		String sql = "";
 		while (st.hasMoreTokens()) {
-			String cellid = st.nextToken();
-			sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "'";
+			String cellkey = st.nextToken();
+			
+			int idx=cellkey.indexOf("-");
+			String cellid=cellkey.substring(idx+1);
+			String lac=cellkey.substring(0,idx);
+			
+			sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='"+lac+"'";
 			jdbcTemplate.execute(sql);
 		}
 
 		st = new StringTokenizer(selected, ",");
 		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
-			String cellid = st.nextToken();
-			sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
-					+ cellid + "',null," + now + ",1," + userid + ",'" + username + "')";
+	String cellkey = st.nextToken();
+			
+			int idx=cellkey.indexOf("-");
+			String cellid=cellkey.substring(idx+1);
+			String lac=cellkey.substring(0,idx);
+			sql = "insert into SET_CELL_FOCUS(CELLID,lac,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ cellid + "','"+lac+"',null," + now + ",1," + userid + ",'" + username + "')";
 
 			jdbcTemplate.execute(sql);
 		}
 	}
 	
-	public void saveFocusCell(String cellid, int userid, String username) {
+	public void saveFocusCell(String cellid,String lac, int userid, String username) {
 	
 		long now = System.currentTimeMillis() / 1000;
 		
 		
-			 String	sql = "insert into SET_CELL_FOCUS(CELLID,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
-					+ cellid + "',null," + now + ",1," + userid + ",'" + username + "')";
+			 String	sql = "insert into SET_CELL_FOCUS(CELLID,lac,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+					+ cellid + "','"+lac+"',null," + now + ",1," + userid + ",'" + username + "')";
 
 			jdbcTemplate.execute(sql);
 		
 	}
-	public void deleteFocusCell(String cellid) {
-		String	sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "'";
+	public void deleteFocusCell(String cellid,String lac) {
+		String	sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='"+lac+"'";
 		jdbcTemplate.execute(sql);
 		
 	}

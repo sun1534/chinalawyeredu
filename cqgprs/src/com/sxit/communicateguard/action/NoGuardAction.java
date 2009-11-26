@@ -42,14 +42,14 @@ public class NoGuardAction extends AbstractListAction {
 		this.start = df.format(new java.util.Date());
 		Date enddate = this.getPrevCountDate(7);
 		this.end = df.format(enddate);
-		Date _date = df.parse(date);
-
+//		Date _date = df.parse(date);
+		Date _date= com.sxit.stat.util.StatUtil.getDate(date);
 		if (mobile != null && !mobile.equals("")) {
 			if (resultType.equals("list")) {
-				this.page = queryservice.queryCdr(_date, mobile, null, null, pageNo, pageSize);
+				this.page = queryservice.queryCdr(_date, mobile, null, null,null, pageNo, pageSize);
 				return SUCCESS;
 			} else if (resultType.equals("excel")) {
-				this.page = queryservice.queryCdr(_date, mobile, null, null, pageNo, Integer.MAX_VALUE);
+				this.page = queryservice.queryCdr(_date, mobile, null, null,null, pageNo, Integer.MAX_VALUE);
 				return "excel";
 			}
 		}

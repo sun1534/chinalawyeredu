@@ -463,7 +463,7 @@ public class StatService {
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		int startIndex = (pageNo - 1) * pageSize;
-		String sql = "select * from(select a.*,rownum rn from(select CELLID,BSCID,NETTYPE,STATTIME,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=1 "+where+" and STATTIME=? "+orderby+") a where rownum<="
+		String sql = "select * from(select a.*,rownum rn from(select CELLID,lac,BSCID,NETTYPE,STATTIME,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=1 "+where+" and STATTIME=? "+orderby+") a where rownum<="
 				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		 System.out.println(sql);
@@ -484,6 +484,7 @@ public class StatService {
 					model.setTotalStream(all);
 					model.setTotalUser(usercount);
 					model.setDate(_date + "");
+					model.setLac(rs.getString("lac"));
 					// model.setDate(df.format(date));
 					// model.setSgsnid(sgsnid);
 					model.setNettype(rs.getString("NETTYPE"));
@@ -509,15 +510,15 @@ public class StatService {
 	 * @param date
 	 * @return
 	 */
-	public List getCellDayTimeStat(Date date, String cellid) {
+	public List getCellDayTimeStat(Date date, String cellid,String lac) {
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
 		int _datestart = (int) (start / 1000);
 		int _dateend = (int) (end / 1000);
 
-		String sql = "select CELLID,BSCID,NETTYPE,STATTIME,NETTYPE,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=0 and CELLID='"
-				+ cellid + "' and STATTIME between " + _datestart + " and " + _dateend + " order by stattime";
+		String sql = "select CELLID,lac,BSCID,NETTYPE,STATTIME,NETTYPE,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=0 and CELLID='"
+				+ cellid + "' AND LAC='"+lac+"' and STATTIME between " + _datestart + " and " + _dateend + " order by stattime";
 		System.out.println(sql);
 		// Object[] args = new Object[] { cellid,_datestart,_dateend };
 		// int[] argTypes = new int[] { Types.VARCHAR,Types.INTEGER,
@@ -547,7 +548,7 @@ public class StatService {
 						CellStatModel model = new CellStatModel();
 
 						// String sgsnid=rs.getString("SGSNID");
-
+						model.setLac(rs.getString("lac"));
 						model.setTotalStream(all);
 						model.setTotalUser(usercount);
 						model.setDate(df.format(date));
@@ -575,7 +576,7 @@ public class StatService {
 				model.setDatetime(time);
 				model.setCellid(cellid);
 				model.setDate(df.format(date));
-
+				model.setLac(lac);
 				result.add(model);
 			}
 		}

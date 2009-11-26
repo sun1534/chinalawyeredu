@@ -30,19 +30,23 @@ public class HightStreamUserAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 
+		this.start = df.format(new java.util.Date());
+		Date enddate = this.getPrevCountDate(7);
+		this.end = df.format(enddate);
+		
 		UseractionService service = (UseractionService) this.getBean("useractionService");
 		Date thedate = null;
 		if (date == null || date.equals("")) {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
-			try {
-				thedate = df.parse(date);
-			} catch (Exception e) {
-				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-				date = df.format(thedate);
-			}
-
+//			try {
+//				thedate = df.parse(date);
+//			} catch (Exception e) {
+//				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+//				date = df.format(thedate);
+//			}
+			thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		
 		if(orderfield==null||orderfield.equals("")){
@@ -53,7 +57,7 @@ public class HightStreamUserAction extends AbstractAction {
 		if (flag.equals("1"))
 			top1000users = service.getHightStreamDayUser(thedate, standard, condition,getOrderby());
 		else
-			top1000users = service.getHightStreamHourUser(standard, condition, thedate, hour,getOrderby());
+			top1000users = service.getHightStreamHourUser(thedate, hour,standard, condition, getOrderby());
 
 		if (this.resultType.equals("list"))
 
@@ -62,6 +66,10 @@ public class HightStreamUserAction extends AbstractAction {
 			return "excel";
 	}
 
+	private String start;
+	private String end;
+	
+	
 	/**
 	 * 1代表大于多少m
 	 * 
@@ -164,4 +172,17 @@ public class HightStreamUserAction extends AbstractAction {
 		this.condition = condition;
 	}
 
+	/**
+	 * @return the start
+	 */
+	public String getStart() {
+		return start;
+	}
+
+	/**
+	 * @return the end
+	 */
+	public String getEnd() {
+		return end;
+	}
 }

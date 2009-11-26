@@ -51,12 +51,13 @@ public class RaduiasErrorsAction extends AbstractAction {
 			thedate=com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		}else{
-			try{
-				thedate=df.parse(date);
-			}catch(Exception e){
-				thedate=com.sxit.stat.util.StatUtil.getPrevDate();
-				date = df.format(thedate);
-			}
+//			try{
+//				thedate=df.parse(date);
+//			}catch(Exception e){
+//				thedate=com.sxit.stat.util.StatUtil.getPrevDate();
+//				date = df.format(thedate);
+//			}
+			thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		
 		UseractionService service=(UseractionService)this.getBean("useractionService");

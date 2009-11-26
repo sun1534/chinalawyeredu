@@ -23,6 +23,21 @@ public class CellGuardAction extends AbstractListAction {
 	private String end;
 	private String date;
 	private String cellid;
+	private String lac;
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
+	}
 
 	/**
 	 * @return the date
@@ -83,13 +98,14 @@ public class CellGuardAction extends AbstractListAction {
 		this.start = df.format(new java.util.Date());
 		Date enddate = this.getPrevCountDate(7);
 		this.end = df.format(enddate);
-		Date _date = df.parse(date);
+//		Date _date = df.parse(date);
+		Date _date= com.sxit.stat.util.StatUtil.getDate(date);
 		if (cellid != null && !cellid.equals("")) {
 			if (resultType.equals("list")) {
-				this.page = queryservice.queryCdr(_date, null, cellid, null, pageNo, pageSize);
+				this.page = queryservice.queryCdr(_date, null, cellid,lac, null, pageNo, pageSize);
 				return SUCCESS;
 			} else if (resultType.equals("excel")) {
-				this.page = queryservice.queryCdr(_date, null, cellid, null, pageNo, Integer.MAX_VALUE);
+				this.page = queryservice.queryCdr(_date, null, cellid, lac,null, pageNo, Integer.MAX_VALUE);
 				return "excel";
 			}
 		}

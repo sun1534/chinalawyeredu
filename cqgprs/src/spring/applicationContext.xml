@@ -121,6 +121,14 @@
           </property>           
     </bean> 
     
+    
+    
+     <bean id="cellConferenceService" class="com.sxit.cellConference.service.CellConferenceService">           
+          <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>           
+    </bean> 
+    
          <bean id="guardService" class="com.sxit.communicateguard.service.GuardService">           
           <property name="jdbcTemplate">           
               <ref bean="jdbcTemplate"/>           

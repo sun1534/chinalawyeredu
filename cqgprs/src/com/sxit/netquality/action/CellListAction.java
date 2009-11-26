@@ -20,6 +20,21 @@ public class CellListAction extends AbstractListAction {
 
 	private String cellid;
 private String bscid;
+private String lac;
+	/**
+ * @return the lac
+ */
+public String getLac() {
+	return lac;
+}
+
+/**
+ * @param lac the lac to set
+ */
+public void setLac(String lac) {
+	this.lac = lac;
+}
+
 	/**
 	 * @return the cellid
 	 */
@@ -52,17 +67,14 @@ private String bscid;
 		
 		if (resultType.equals("list")) {
 			focuslist = setservice.getFocusCellids();
-			this.page = setservice.getCells(cellid, bscid,getOrderby(),pageNo, pageSize);
+			this.page = setservice.getCells(cellid, lac,bscid,getOrderby(),pageNo, pageSize);
 			return SUCCESS;
 		} else {
 //			this.startIndex = (pageNo - 1) * pageSize;
 //			this.page = new PaginationSupport(BasicSetService.ALL_CELL_LIST, BasicSetService.ALL_CELL_LIST.size(),
 //					pageSize, startIndex);
 			
-			
-			
-			
-			this.page = setservice.getCells(cellid, bscid,getOrderby(),1, Integer.MAX_VALUE);
+			this.page = setservice.getCells(cellid, lac,bscid,getOrderby(),1, Integer.MAX_VALUE);
 			return "excel";
 		}
 	}

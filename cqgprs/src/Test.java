@@ -1,4 +1,6 @@
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import jofc2.model.Chart;
@@ -130,15 +132,27 @@ public class Test {
 //		
 //		System.out.println(date.toLocaleString());
 //		
-//		System.out.println(System.getProperty("file.encoding"));
+		System.out.println(System.getProperty("file.encoding"));
 //		
-//		System.out.println("中文");
+		System.out.println("中文");
 		
-		java.text.DateFormat df=new java.text.SimpleDateFormat("HH:00");
-		System.out.println(df.format(new Date()));
+		java.text.DateFormat df=new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+		System.out.println(df.parse("20091117000000").getTime()/1000);
 		
 	
-			System.out.println(System.currentTimeMillis()/1000);
+//		java.text.NumberFormat nf=new   DecimalFormat("####.#");
+//
+//		
+//		int value=13000811;
+//		
+//		  BigDecimal   num   =   new   BigDecimal(13000811);
+//	
+//		  float vvv=num.floatValue();
+
+		
+		
+		
+//			System.out.println(System.currentTimeMillis()/1000);
 
 
 	}

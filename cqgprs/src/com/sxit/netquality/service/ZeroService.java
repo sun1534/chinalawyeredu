@@ -79,6 +79,7 @@ public class ZeroService {
 				while (rs.next()) {
 					ZeroCell model = new ZeroCell();
 					model.setCellid(rs.getString("cellid"));
+					model.setLac(rs.getString("lac"));
 					model.setAllvolume(rs.getFloat("allvolume"));
 					model.setHistoryvolume(rs.getFloat("Historyvolume"));
 					model.setPrehistoryvolume(rs.getFloat("Prehistoryvolume"));
@@ -107,8 +108,6 @@ public class ZeroService {
 	public PaginationSupport getDayZeroApns(final Date date,String orderby, int pageNo, int pageSize) {
 
 		String _date = df.format(date);
-
-		
 		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_apn where dayflag=1 and stattime=" + _date;
@@ -171,6 +170,8 @@ public class ZeroService {
 				while (rs.next()) {
 					ZeroCell model = new ZeroCell();
 					model.setCellid(rs.getString("cellid"));
+					model.setLac(rs.getString("lac"));
+					
 					model.setAllvolume(rs.getFloat("allvolume"));
 					model.setHistoryvolume(rs.getFloat("Historyvolume"));
 					model.setPrehistoryvolume(rs.getFloat("Prehistoryvolume"));

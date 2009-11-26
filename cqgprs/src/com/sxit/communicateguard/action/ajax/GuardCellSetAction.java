@@ -23,7 +23,8 @@ public class GuardCellSetAction extends AbstractAction {
 
 	private static Log _LOG = LogFactory.getLog(GuadrNoSetAction.class);
 	private String now;
-	private String cellid;
+	private String cellkey;
+
 	private String isok;
 	private int isdelete;
 
@@ -39,21 +40,7 @@ public class GuardCellSetAction extends AbstractAction {
 		return this.isdelete;
 	}
 
-	/**
-	 * @return the mobile
-	 */
-	public String getCellid() {
-		return cellid;
-	}
-
-	/**
-	 * @param mobile
-	 *            the mobile to set
-	 */
-	public void setCellid(String cellid) {
-		this.cellid = cellid;
-	}
-
+	
 	/**
 	 * @return the isok
 	 */
@@ -74,26 +61,36 @@ public class GuardCellSetAction extends AbstractAction {
 
 		try {
 			if (isdelete == 0) {
-				if (!BasicSetService.ALL_CELLS.containsKey(cellid)) {
+				
+			
+				int idx=cellkey.indexOf("-");
+				String cellid=cellkey.substring(idx+1);
+				String lac=cellkey.substring(0,idx);
+				
+				
+				if (!BasicSetService.ALL_CELLS.containsKey(cellkey)) {
 					isok = "2";
 				}
 				else {
-					if (service.isExistCell(cellid)){
+					if (service.isExistCell(cellid,lac)){
 						isok = "4";
 					
 					} else {
-						setservice.saveFocusCell(cellid, this.getLoginUser().getUserid(), this.getLoginUser()
+						setservice.saveFocusCell(cellid,lac, this.getLoginUser().getUserid(), this.getLoginUser()
 								.getUsername());
 						isok = "1";
 					}
 				}
 			} else {
 
-				StringTokenizer st = new StringTokenizer(cellid, ",");
+				StringTokenizer st = new StringTokenizer(cellkey, ",");
 				while (st.hasMoreTokens()) {
-					String cellid1 = st.nextToken();
+					String str = st.nextToken();
+					int idx=str.indexOf("-");
+					String cellid1=str.substring(idx+1);
+					String lac1=str.substring(0,idx);
 					_LOG.debug("cellid1" + cellid1);
-					setservice.deleteFocusCell(cellid1);
+					setservice.deleteFocusCell(cellid1,lac1);
 				}
 				isok = "1";
 			}
@@ -112,4 +109,20 @@ public class GuardCellSetAction extends AbstractAction {
 	public void setNow(String now) {
 		this.now = now;
 	}
+
+	/**
+	 * @return the cellkey
+	 */
+	public String getCellkey() {
+		return cellkey;
+	}
+
+	/**
+	 * @param cellkey the cellkey to set
+	 */
+	public void setCellkey(String cellkey) {
+		this.cellkey = cellkey;
+	}
+
+	
 }

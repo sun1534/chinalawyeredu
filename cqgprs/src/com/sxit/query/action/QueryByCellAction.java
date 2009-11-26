@@ -23,6 +23,7 @@ public class QueryByCellAction extends AbstractListAction {
 	private String end;
 	private String date;
 	private String cellid;
+	private String lac;
 	
 	/**
 	 * @return the date
@@ -71,10 +72,10 @@ public class QueryByCellAction extends AbstractListAction {
 		if(cellid!=null&&!cellid.equals(""))
 		{
 		if (resultType.equals("list")){
-			this.page=queryservice.queryCdr(_date, null, cellid, null, pageNo, pageSize);
+			this.page=queryservice.queryCdr(_date, null, cellid,lac, null, pageNo, pageSize);
 			return SUCCESS;
 		}else if(resultType.equals("excel")){
-			this.page=queryservice.queryCdr(_date, null, cellid, null, pageNo, Integer.MAX_VALUE);
+			this.page=queryservice.queryCdr(_date, null, cellid, lac,null, pageNo, Integer.MAX_VALUE);
 			return "excel";	
 		}
 		}
@@ -93,6 +94,20 @@ public class QueryByCellAction extends AbstractListAction {
 	 */
 	public String getEnd() {
 		return end;
+	}
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 
 }

@@ -15,6 +15,7 @@ public class ZeroCell {
 	private static final DateFormat dfHH = new java.text.SimpleDateFormat("HH:00");
 
 	
+	private String lac;
 	private String cellid;
 	private long stattime;
 	private float historyvolume;
@@ -22,13 +23,18 @@ public class ZeroCell {
 	private float allvolume;
 	private int dayflag;
 	
+	public String getCellkey(){
+		if(lac==null||lac.equals(""))
+			return cellid;
+		return lac+"-"+cellid;
+	}
 	
 	public Cell getCell(){
-		return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellid);
+		return com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
 	}
 	
 	public String getBscid(){
-		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(cellid);
+		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(getCellkey());
 	}
 	
 	public String getSgsnid(){
@@ -115,5 +121,19 @@ public class ZeroCell {
 	 */
 	public void setAllvolume(float allvolume) {
 		this.allvolume = allvolume;
+	}
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 }

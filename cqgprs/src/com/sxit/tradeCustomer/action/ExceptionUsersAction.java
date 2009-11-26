@@ -82,12 +82,13 @@ public class ExceptionUsersAction extends AbstractListAction {
 			date = df.format(com.sxit.stat.util.StatUtil.getPrevDate());
 		}
 		Date thedate = null;
-		try {
-			thedate = df.parse(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-		}
+//		try {
+//			thedate = df.parse(date);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+//		}
+		thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		UseractionService actionservice = (UseractionService) this.getBean("useractionService");
 
 		if(orderfield==null||orderfield.equals("")){

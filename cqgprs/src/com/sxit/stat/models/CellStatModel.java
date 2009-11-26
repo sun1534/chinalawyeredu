@@ -19,6 +19,7 @@ public class CellStatModel extends StatModel {
 	private String bscrncid;
 private String sgsnid;
 private String cellid;
+private String lac;
 private String cellname;
 	
 	/**
@@ -35,7 +36,14 @@ private String cellname;
 	private String datetime;
 	
 
-	
+	public String getCellkey(){
+		if(lac==null||lac.equals(""))
+		{
+			System.out.println("lac==null||lac.equals(\"\")");
+			return cellid;
+		}
+		return lac+"-"+cellid;
+	}
 
 
 	/**
@@ -43,7 +51,7 @@ private String cellname;
 	 */
 	public String getBscrncid() {
 //		return bscrncid;
-		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(cellid);
+		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(getCellkey());
 	}
 
 	/**
@@ -62,14 +70,14 @@ private String cellname;
 	public String getNettype() {
 		if(nettype==null||nettype.equals(""))
 			return "未知";
-		if(nettype.equals("1")){
+		if(nettype.equals("3")){
 			return "WLAN";
 		}
 		else if(nettype.equals("2")){
 			return "GSM";
 
 		}
-		else if(nettype.equals("3")){
+		else if(nettype.equals("1")){
 			return "TD";
 	    }else 
 		return nettype;
@@ -151,6 +159,20 @@ private String cellname;
 	 */
 	public void setCellname(String cellname) {
 		this.cellname = cellname;
+	}
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 	
 	

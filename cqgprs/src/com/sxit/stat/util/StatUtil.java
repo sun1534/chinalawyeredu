@@ -45,7 +45,11 @@ public class StatUtil {
 		}
 		return 0;
 	}
-
+/**
+ * 得到离f最近的大整数值
+ * @param f
+ * @return
+ */
 	public static long integerMax(float f) {
 		if (f < 0)
 			throw new java.lang.IllegalArgumentException("数据为负");
@@ -83,17 +87,14 @@ public class StatUtil {
 		double f = max - min; // 差距多大
 		double steps = f / count; // 相差的数字多少
 		// 看是哪个数量级的
-		// for (int i = 0; i < 100; i++) {
-		//
-		// long s = tenn(i);
-		// long value=((long)steps)/s;
-		// if(value<10){
-		// return value
-		// }
-		// }
-		return steps;
+		return Double.parseDouble(com.sxit.system.util.NumberUtil.toMoney(steps));
+//		return steps;
 	}
-
+/**
+ * 返回10的n次方
+ * @param x
+ * @return
+ */
 	private static long tenn(int x) {
 		long ten = 1;
 		for (int i = 0; i < x; i++) {
@@ -105,55 +106,41 @@ public class StatUtil {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public static String getYestardayCdrTable() {
-		// Calendar calendar = Calendar.getInstance();
-		// int weekday = calendar.get(Calendar.DAY_OF_WEEK);
-		// if (weekday == 1)// 周日
-		// // weekday = weekday - 1;
-		// weekday=6;
-		// else
-		// weekday = weekday - 2;
-		// String table = "cdr_succ_0" + weekday;
-		// return table;
-		return getCdrTable(getPrevDate());
-	}
-
+	
+//	public static String getYestardayCdrTable() {
+//		return getCdrTable(getPrevDate());
+//	}
+/**
+ * 
+ * @param date
+ * @return
+ */
 	public static String getCdrTable(Date date) {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		System.out.println(calendar.get(Calendar.DATE));
 		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-		// System.out.println(weekday);
-		// if (weekday == 1)// 周日
-		// // weekday = weekday - 1;
-		// weekday=0;
-		// else
-		// weekday = weekday - 1;
 		String table = "cdr_succ_0" + weekday;
 		return table;
-		// 周 1 2 3 4 5 6 7
-		// 日 0 1 2 3 4 5 6
 	}
-
+/**
+ * 
+ * @param date
+ * @return
+ */
 	public static String getMobileApnTable(Date date) {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-		// System.out.println(weekday);
-		// if (weekday == 1)// 周日
-		// // weekday = weekday - 1;
-		// weekday=6;
-		// else
-		// weekday = weekday - 1;
 		String table = "stat_mobile_apn_0" + weekday;
 		return table;
 	}
 
-	public static long getYestardayTime() {
-		return getDateTime(getPrevDate());
-	}
+//	public static long getYestardayTime() {
+//		return getDateTime(getPrevDate());
+//	}
 	
 
 	public static String list2str(List list) {
@@ -166,10 +153,13 @@ public class StatUtil {
 				sb.append(",");
 		}
 		return sb.toString();
-
 	}
 	
-
+/**
+ * 得到那天的启示时间
+ * @param date
+ * @return
+ */
 	public static long getDateTime(Date date) {
 		try {
 			String datestr = df.format(date);
@@ -181,7 +171,41 @@ public class StatUtil {
 			return System.currentTimeMillis();
 		}
 	}
-
+	/**
+	 * datestr的形式必须为2009-12-13或者2009-11-01的形式
+	 * @param datestr
+	 * @return
+	 */
+	public static long getDateTime(String datestr){
+		try {
+		
+			String startstr = datestr + " 00:00:00";
+			Date start = dfyyyyMmddHHmmss.parse(startstr);
+			return start.getTime();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return System.currentTimeMillis();
+		}
+	}
+	/**
+	 * datestr必须为2009-12-13或者2009-11-01的形式
+	 * @param datestr
+	 * @return
+	 */
+	public static Date getDate(String datestr){
+		try {
+			Date date = df.parse(datestr);
+			return date;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+/**
+ * 得到今天的起始时间
+ * @return
+ */
 	public static long getTodaydayTime() {
 
 		return getDateTime(new Date());
@@ -209,6 +233,8 @@ public class StatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
+	
+
 
 /**
  * 得到当前日期的前一天
@@ -224,6 +250,9 @@ public class StatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
+	
+	
+	
 
 	public static void main(String[] args) {
 		// System.out.println(getMobileApnTable());

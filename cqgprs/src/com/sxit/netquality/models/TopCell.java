@@ -17,6 +17,7 @@ import com.sxit.system.util.NumberUtil;
 public class TopCell {
 
 	private String cellid;
+	private String lac;
 	private String bscid;
 	
 //	private String bscrncid;
@@ -51,11 +52,18 @@ public class TopCell {
 	public void setCellid(String cellid) {
 		this.cellid = cellid;
 	}
+	
+	public String getCellkey(){
+		if(lac==null||lac.equals(""))
+			return cellid;
+			return lac+"-"+cellid;
+	}
+	
 	/**
 	 * @return the bscrncid
 	 */
 	public String getBscrncid() {
-		return BasicSetService.CELL_BSC.get(cellid);
+		return BasicSetService.CELL_BSC.get(getCellkey());
 	}
 
 	/**
@@ -99,5 +107,17 @@ public class TopCell {
 		String totalStreamStr= NumberUtil.toMoney(d);
 //		return Float.parseFloat(totalStreamStr);
 		return totalStreamStr;
+	}
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
 	}
 }

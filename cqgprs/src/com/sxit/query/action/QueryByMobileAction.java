@@ -58,10 +58,10 @@ public class QueryByMobileAction extends AbstractListAction {
 		if(mobile!=null&&!mobile.equals(""))
 		{
 		if (resultType.equals("list")){
-			this.page=queryservice.queryCdr(_date, mobile, null, null, pageNo, pageSize);
+			this.page=queryservice.queryCdr(_date, mobile, null, null,null, pageNo, pageSize);
 			return SUCCESS;
 		}else if(resultType.equals("excel")){
-			this.page=queryservice.queryCdr(_date, mobile, null, null, pageNo, Integer.MAX_VALUE);
+			this.page=queryservice.queryCdr(_date, mobile, null, null,null, pageNo, Integer.MAX_VALUE);
 			return "excel";	
 		}
 		}
