@@ -54,7 +54,7 @@ th
       <s:iterator value="page.items" status="stat">
       <tr>
       
-        <td class="listline2">${cellid}</td>
+        <td class="listline2">${cellkey}</td>
                           <td class="listline2">${cell.cellname }</td>
                           <td class="listline2">${bscid}</td>
                           <td class="listline2">${sgsnid }</td>

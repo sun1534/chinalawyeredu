@@ -34,13 +34,32 @@ function queryit(){
   document.form1.submit();
 }
 function selectit(obj){
-if(obj.value==2){
+showhint(obj.value);
+}
+$(document).ready(function(){
+var flag="${flag}";
+var standard="${standard}";
+showhint(standard);
+showhidehour(flag);
+});
+function selecthour(obj){
+var flag=obj.value;
+showhidehour(flag);
+}
+function showhint(_standard){
+if(_standard==2){
 $("#pahint").text("总流量前X位：");
 }else{
 $("#pahint").text("总流量大于X(单位K)：");
 }
 }
-
+function showhidehour(_flag){
+if(_flag==2){
+$("#hourselect").show();
+}else{
+$("#hourselect").hide();
+}
+}
 
 </script>
 </head>
@@ -61,15 +80,18 @@ $("#pahint").text("总流量大于X(单位K)：");
 					<div class="searchTab">
 						<table>
 							<tbody>
-								<tr>
-                                
+								<tr title="您能查询最近7天之内的记录情况:${end }至${start }">
+								 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
                                   <s:hidden name="resultType"/>
                                    <td><s:radio name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onclick="selectit(this)"/>&nbsp;</td>
-                                   <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="10" cssClass="txt"/>&nbsp;</td>
+                                   <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="6" cssClass="txt"/>&nbsp;</td>
+								   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selecthour(this)" title="按时查询可以选择当天的日期"/>&nbsp;</td>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								 <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
-							
+							<!--  <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/></td>
+							-->
 								</tr>
 							</tbody>
 						</table>
@@ -87,9 +109,9 @@ $("#pahint").text("总流量大于X(单位K)：");
 
                           <th><a onclick="orderByThis(document.form1,this)" id="mobile" title="点击排序">手机号码</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
-                           <th><a onclick="orderByThis(document.form1,this)" id="upvolume" title="点击排序">上行流量（K）</a></th>
-                            <th><a onclick="orderByThis(document.form1,this)" id="downvolume" title="点击排序">下行流量（K）</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（K）</a></th>
+                           <th><a onclick="orderByThis(document.form1,this)" id="upvolume" title="点击排序">上行流量（M）</a></th>
+                            <th><a onclick="orderByThis(document.form1,this)" id="downvolume" title="点击排序">下行流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="periodlen" title="点击排序">逗留时长（秒）</a></th>
                         
                         </tr>
@@ -99,9 +121,9 @@ $("#pahint").text("总流量大于X(单位K)：");
                         <tr>
                          <td>${mobile}</td>
                           <td>${apnni}</td>
-                          <td>${upvolume }</td>
-                          <td>${downvolume}</td>
-                          <td>${allvolume}</td>
+                          <td>${upvolumeStr }</td>
+                          <td>${downvolumeStr}</td>
+                          <td>${allvolumeStr}</td>
                           <td>${periodlen}</td>
                         </tr>
                         </s:iterator>

@@ -41,7 +41,7 @@ function queryit(){
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="alarmHistory" method="POST">	
+			<s:form name="form1" action="cellConference" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -52,7 +52,7 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" cssClass="txt"/>&nbsp;</td>
+								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							
 							
@@ -72,22 +72,26 @@ function queryit(){
                         <tr>
                        
                           <th>小区编号</th>
-                          <th>LAC</th>
+                        
+                           <th>当前用户数</th>
+                          <th>上小时用户数</th>
+                          <th>上上小用户数</th>
                           <th>当前流量</th>
-                          <th>上一小时流量</th>
-                          <th>昨天同小时流量</th>
+                          <th>上小时流量</th>
+                          <th>上上小时流量</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                              <td>${nsvc}</td>
-                          <td>${reason }
-                          </td>
-                          <td>${currentstream }</td>
-                          <td>${alarmdate}</td>
-                          <th>${alarmdate}</th>
+                          <td>${cellkey}</td>
+                          <td>${usercount }</td>
+                          <td>${preusercount}</td>
+                          <th>${oldpreusercount}</th>
+                           <th>${allvolue}</th>
+                            <th>${preallvolume}</th>
+                             <th>${oldpreallvolume}</th>
                         </tr>
                         </s:iterator>
                       

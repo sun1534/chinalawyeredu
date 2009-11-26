@@ -70,9 +70,9 @@ $("#hourselect").hide();
                     <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                   <s:hidden name="resultType"/>
-                                  <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selectit(this)"/>&nbsp;</td>
-                                  <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
+                                  <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selectit(this)" title="按时查可以选当天的日期"/>&nbsp;</td>
 								  <td id="dateselect">选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								  <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							<td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							</td>

@@ -54,7 +54,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <s:iterator value="page.items" status="stat">
       <tr>
       
-                          <td class="listline2">${cellid}</td>
+                          <td class="listline2">${lac }-${cellid} </td>
                           <td class="listline2">${cellname}</td>
                           <td class="listline2">${bscrncid }</td>
                           <td class="listline2"><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>

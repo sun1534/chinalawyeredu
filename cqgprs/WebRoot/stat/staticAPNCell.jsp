@@ -142,7 +142,7 @@ var start=$("#start").val();
                       <tbody id="checkForm">
                         <s:iterator value="apncelllist" status="status">
                         <tr>
-                          <td>${cellid}</td>
+                          <td>${cellkey}</td>
                            <td>${cell.cellname}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

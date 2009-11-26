@@ -112,6 +112,7 @@ function confirmit(){
                         <tr>
                        
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编码</a></th>
+                            <th>小区名称</th>
                             <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                               <th>归属SGSN</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
@@ -123,7 +124,10 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                          <td>${cellid}</td>
+                          <td>
+                          <a href="streamCellTime.action?lac=${lac }&cellid=${cellid }&start=${start }">${cellkey}</a>
+                          </td>
+                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/></td>
                           <td>${bscrncid}</td>
                           <td>${sgsnid}</td>
                           <td>${totalStreamStr }</td>

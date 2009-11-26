@@ -21,14 +21,25 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
+if(checkvalue()){
   document.form1.resultType.value="excel";
   document.form1.submit();
+  }
 }
 function queryit(){
+if(checkvalue()){
   document.form1.resultType.value="list";
   document.form1.submit();
+  }
 }
-
+function checkvalue(){
+var apnni=$("#apnni").attr("value");
+if(apnni==""||apnni.length==0){
+alert("请输入要查询的APN");
+return false;
+}
+return true;
+}
 
 </script>
 </head>
@@ -52,7 +63,7 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								  <td>输入APN编号：<s:textfield name="apn" cssClass="txt" size="12a"/>&nbsp;</td>
+								  <td>输入APN编号：<s:textfield name="apn" cssClass="txt" id="apnni" size="12"/>&nbsp;</td>
                                  <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								<td>您能查询最近7天之内的记录情况:${end }至${start }</td>
@@ -86,7 +97,7 @@ function queryit(){
                          <s:iterator value="page.items" status="status">
                         <tr>
                          <td>${opentimestr}</td>
-                          <td>${cellid}</td>
+                          <td>${lac }-${cellid} </td>
                           <td>${msisdn }</td>
                           <td>${upvolume}</td>
                           <td>${downvolume}</td>

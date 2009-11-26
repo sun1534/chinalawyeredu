@@ -32,8 +32,33 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
-
-
+function selectit(obj){
+showhint(obj.value);
+}
+$(document).ready(function(){
+var flag="${flag}";
+var standard="${standard}";
+showhint(standard);
+showhidehour(flag);
+});
+function selecthour(obj){
+var flag=obj.value;
+showhidehour(flag);
+}
+function showhint(_standard){
+if(_standard==2){
+$("#pahint").text("总流量前X位：");
+}else{
+$("#pahint").text("总流量大于X(单位K)：");
+}
+}
+function showhidehour(_flag){
+if(_flag==2){
+$("#hourselect").show();
+}else{
+$("#hourselect").hide();
+}
+}
 </script>
 </head>
 
@@ -41,7 +66,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>网络质量</a>＞<em>高流量小区</em>
+						<span>您所在是位置:</span><a>网络质量</a>＞<em>高流量小区<s:if test="standard==2">（当前流量排名前${condition }）</s:if><s:else>（流量大于${condition}(K)）</s:else></em>
 				</div>
 			</div>
 		</div>
@@ -58,11 +83,16 @@ function queryit(){
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
+								
+								   <td><s:radio name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onclick="selectit(this)"/>&nbsp;</td>
+                                   <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="6" cssClass="txt"/>&nbsp;</td>
+								   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selecthour(this)" title="按时查询可以选择当天的日期"/>&nbsp;</td>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								 <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							      <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
+							     <!--  <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							      </td>
-							
+							 -->
 								</tr>
 							</tbody>
 						</table>
@@ -81,26 +111,27 @@ function queryit(){
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编码</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                           <th>归属SGSN</th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="currentvolume" title="点击排序">当前流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="currentvolume" title="点击排序">当前流量（M）</a></th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="topcelllist" status="status">
                         <tr>
-                         <td>${cellid}</td>
+                         <td>${cellkey}</td>
                           <td>${bscrncid}</td>
                           <td>${sgsnid }</td>
-                          <td>${totalStream}</td>
-                          <td>${currentStream}</td>
+                          <td>${totalStreamStr}</td>
+                          <td>${currentStreamStr}</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="5" class="fright">
+							  <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
 						 </tfoot>

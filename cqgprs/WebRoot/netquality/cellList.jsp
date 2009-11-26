@@ -111,7 +111,8 @@ function setit(){
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                     <s:hidden name="resultType"/>
-								 <td>小区编号：<s:textfield name="cellid" cssClass="txt" size="10"/>&nbsp;</td>
+								 <td>小区编号：<s:textfield name="cellid" cssClass="txt" size="6"/>&nbsp;</td>
+								  <td>LAC：<s:textfield name="lac" cssClass="txt" size="6"/>&nbsp;</td>
 								 <td>BSCID：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
 								 
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
@@ -136,7 +137,7 @@ function setit(){
                           <input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/>
                           </th>
                        <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
-                        <th><a onclick="orderByThis(document.form1,this)" id="lac" title="点击排序">LAC</a></th>
+                       
                        <th>小区名称</th>
                        <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">所属BSC/RNC</a></th>
                        <th>归属SGSN</th>
@@ -149,15 +150,15 @@ function setit(){
                         <s:iterator value="page.items" status="status">
                         <tr>
                      <td align="center">
-                     <s:if test="focuslist.contains(cellid)">
-                      <input type="checkbox" class="checkbox" name="check" value="${cellid }" checked/>
+                     <s:if test="focuslist.contains(cellkey)">
+                      <input type="checkbox" class="checkbox" name="check" value="${lac }-${cellid }" checked/>
                      </s:if>
                      <s:else>
-                      <input type="checkbox" class="checkbox" name="check" value="${cellid }"/>
+                      <input type="checkbox" class="checkbox" name="check" value="${lac }-${cellid }"/>
                      </s:else>
                     </td>
-                         <td>${cellid} </td>
-                         <td>${lac }</td>
+                         <td>${lac }-${cellid} </td>
+                      
                           <td>${cellname}</td>
                           <td>${bscrncid }</td>
                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>

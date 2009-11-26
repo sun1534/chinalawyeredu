@@ -37,7 +37,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
       <tr>
-        <td colspan="5" align="center" bgcolor="#FFFF00"><b>${start }之小区编号（${cellid }）分时流量分析</b></td>
+        <td colspan="5" align="center" bgcolor="#FFFF00"><b>${start }之小区（<s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/>）分时流量分析</b></td>
       </tr>
       <tr>
                           <th>时间段</th>

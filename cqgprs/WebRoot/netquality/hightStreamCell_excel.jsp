@@ -52,7 +52,7 @@ th
       <tbody>
       <s:iterator value="topcelllist" status="stat">
       <tr>
-                          <td class="listline2">${cellid}</td>
+                          <td class="listline2">${cellkey}</td>
                           <td class="listline2">${bscrncid}</td>
                           <td class="listline2">${sgsnid }</td>
                           <td class="listline2">${totalStream}</td>

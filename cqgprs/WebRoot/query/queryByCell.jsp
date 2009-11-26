@@ -21,12 +21,30 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
+if(checkvalue()){
   document.form1.resultType.value="excel";
   document.form1.submit();
+  }
 }
 function queryit(){
+
+if(checkvalue()){
   document.form1.resultType.value="list";
   document.form1.submit();
+  }
+}
+function checkvalue(){
+var lac=$("#lac").attr("value");
+var cellid=$("#cellid").attr("value");
+if(cellid==""||cellid.length==0){
+alert("请输入要查询的小区编号");
+return false;
+}
+if(lac==""||lac.length==0){
+alert("请输入要查询的LAC");
+return false;
+}
+return true;
 }
 
 
@@ -52,7 +70,8 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								  <td>输入小区编号：<s:textfield name="cellid" cssClass="txt" size="12"/>&nbsp;</td>
+								  <td>小区编号：<s:textfield name="cellid" id="cellid" cssClass="txt" size="6"/>&nbsp;</td>
+                                 <td>LAC：<s:textfield name="lac" cssClass="txt" id="lac" size="6"/>&nbsp;</td>
                                  <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								<td>您能查询最近7天之内的记录情况:${end }至${start }</td>

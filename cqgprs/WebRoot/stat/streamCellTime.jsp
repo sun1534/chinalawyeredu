@@ -26,24 +26,34 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
-var cellid=$("#cellid").val();
-if(cellid==""||cellid.length==0)
-{
-alert("请输入要查询的小区编号");
-return false;
-}
+if(checkvalue()){
   document.form1.resultType.value="excel";
   document.form1.submit();
+  }
 }
-function queryit(){
+
+function checkvalue(){
+
 var cellid=$("#cellid").val();
+var lac=$("#lac").val();
 if(cellid==""||cellid.length==0)
 {
 alert("请输入要查询的小区编号");
 return false;
 }
+if(lac==""||lac.length==0)
+{
+alert("请输入对应要查询的LAC");
+return false;
+}
+return true;
+}
+
+function queryit(){
+if(checkvalue()){
   document.form1.resultType.value="list";
   document.form1.submit();
+  }
 }
 function imageit(){
  if(ishide){
@@ -63,16 +73,18 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
+if(checkvalue()){
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
    var cellid=$("#cellid").val();
+    var lac=$("#lac").val();
    var start=$("#start").val();
-   var url="streamCellTime.action?start="+start+"%26cellid="+cellid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="streamCellTime.action?start="+start+"%26lac="+lac+"%26cellid="+cellid+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
 
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "800", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
-
+}
 }
 </script>
 </head>
@@ -98,6 +110,7 @@ function confirmit(){
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
 								 <td>小区编号：<s:textfield name="cellid" size="10" id="cellid" cssClass="txt" title="小区编号不能为空"/>&nbsp;</td>
+								 <td>LAC：<s:textfield name="lac" size="10" id="lac" cssClass="txt" title="LAC不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -122,7 +135,7 @@ function confirmit(){
 				  	<table class="tableBox">
                         	<thead>
 								<tr>
-									<th>${start }之小区编号<${cellid }>分时流量分析</th>
+									<th>${start }之小区<<s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/>>分时流量分析</th>
                                  </tr>
                             </thead>
                         </table>

@@ -92,7 +92,7 @@ function queryit(){
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                         <td>${cellid}</td>
+                         <td>${cellkey}</td>
                           <td>${cell.cellname }</td>
                           <td>${bscid}</td>
                           <td>${sgsnid }</td>

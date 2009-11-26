@@ -78,8 +78,10 @@ function queryit(){
 
 function savecell(){
 var cellid=$("#cellid").val();
+var lac=$("#lac").val();
+var cellkey=lac+"-"+cellid;
 var now=new Date().getTime();
-$.getJSON("../communicateguardajax/guardCellSet.action?cellid="+cellid+"&now="+now,function(json){
+$.getJSON("../communicateguardajax/guardCellSet.action?cellkey="+cellkey+"&now="+now,function(json){
   if(json.isok=="1"){
     alert("保障小区新增成功");
     closeDialogBox('#dialogBoxAdd');
@@ -104,7 +106,7 @@ function deletecell(){
   return;
   }
 var now=new Date().getTime();
-$.getJSON("../communicateguardajax/guardCellSet.action?isdelete=1&cellid="+arrayadd.join()+"&now="+now,function(json){
+$.getJSON("../communicateguardajax/guardCellSet.action?isdelete=1&cellkey="+arrayadd.join()+"&now="+now,function(json){
   if(json.isok=="1"){
     alert("保障小区删除成功");
     window.location.reload();
@@ -172,9 +174,9 @@ $.getJSON("../communicateguardajax/guardCellSet.action?isdelete=1&cellid="+array
                         <tr>
                 
                     <td align="center">
-                      <input type="checkbox" class="checkbox" name="check" value="${cellid }"/>
+                      <input type="checkbox" class="checkbox" name="check" value="${cellkey }"/>
                     </td>
-                     <td>${cellid} </td>
+                     <td>${cellkey} </td>
                           <td>${cell.cellname}</td>
                           <td>${cell.bscrncid }</td>
                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[cell.bscrncid]"/></td>
@@ -220,7 +222,12 @@ $.getJSON("../communicateguardajax/guardCellSet.action?isdelete=1&cellid="+array
 									<input type="text" id="cellid" size="20" class="txt"/>
 									</td> 
 								</tr> 
-								
+								<tr class="fEven"> 
+									<td class="w120 fname">LAC：</td> 
+									<td class="fvalue">
+									<input type="text" id="lac" size="20" class="txt"/>
+									</td> 
+								</tr> 
 							</tbody> 
 						</table> 
 					</div> 

@@ -41,7 +41,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       </tr>
       <tr>
         <th>小区编码</th>
-                          <th>类型</th>
+                          <th>小区名称</th>
                          <th>BSC/RNC编码</th>
                           <th>归属SGSN</th>
                            <th>总流量（M）</th>
@@ -51,8 +51,8 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tbody>
       <s:iterator value="page.items" status="stat">
       <tr>
-        <td class="listline2">${cellid}</td>
-     <td class="listline2">${nettype }</td>
+        <td class="listline2">${cellkey}</td>
+                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/></td>
                           <td class="listline2">${bscrncid}</td>
                           <td class="listline2">${sgsnid}</td>
                           <td class="listline2">${totalStreamStr }</td>

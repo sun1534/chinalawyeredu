@@ -21,15 +21,26 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
+if(checkvalue()){
   document.form1.resultType.value="excel";
   document.form1.submit();
+  }
 }
 function queryit(){
+if(checkvalue()){
   document.form1.resultType.value="list";
   document.form1.submit();
+  }
 }
 
-
+function checkvalue(){
+var mobile=$("#mobile").attr("value");
+if(mobile==""||mobile.length==0){
+alert("请输入要查询的手机号码");
+return false;
+}
+return true;
+}
 </script>
 </head>
 
@@ -52,7 +63,7 @@ function queryit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-                                <td>输入手机号码：<s:textfield name="mobile" cssClass="txt" size="12"/>&nbsp;</td>
+                                <td>输入手机号码：<s:textfield name="mobile" cssClass="txt" id="mobile" size="12"/>&nbsp;</td>
                                  <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								<td>您能查询最近7天之内的记录情况:${end }至${start }</td>
@@ -86,7 +97,7 @@ function queryit(){
                         <s:iterator value="page.items" status="status">
                         <tr>
                           <td>${opentimestr}</td>
-                          <td>${cellid}</td>
+                          <td>${lac }-${cellid} </td>
                           <td>${apnni }</td>
                           <td>${upvolume}</td>
                           <td>${downvolume}</td>
