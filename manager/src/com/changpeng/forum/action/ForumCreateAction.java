@@ -55,6 +55,12 @@ public class ForumCreateAction extends AbstractAction {
 			forumadd.setIsmain(false);
 			forumadd.setMainforum(mainforumid);
 		} else {
+			
+			if(forumadd.getTitle()==null||forumadd.getTitle().equals("")){
+				this.message="请输入主题帖标题标题,不能为空";
+				return "message";
+			}
+			
 			forumadd.setIsmain(true); // 是回帖还是主题帖
 		}
 
