@@ -1,8 +1,13 @@
 <#escape x as (x)!"">
 <#import "../common/home.ftl" as home>
 <@home.home myheader="user/user_h.ftl">
-<script type="text/javascript" src="${staticpath}/js/location.js"></script>
+<!--<script type="text/javascript" src="${staticpath}/js/location.js"></script>
 <script language="javascript" type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+-->
+<script type="text/javascript" src="../js/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../js/jscalendar/calendar-zh.js"></script>
+<script type="text/javascript" src="../js/jscalendar/calendar-setup.js"></script>
+<link rel="stylesheet" href="../js/jscalendar/calendar-blue.css" type="text/css"/>
 
 <div class="parentsinfo-box in-main">
 	<div class="title-h">
@@ -61,8 +66,18 @@
 		<div class="even">
 			<label class="fname" for="pname">生日：</label>
 			<span class="fvalue">
-				<!--<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput" class="normal txt-login w90"/>-->
-				<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput1" onfocus="new WdatePicker(this)"  class="normal txt-login w90"/>
+			<input type="text" name="birth" class="normal txt-login w100" size="10" value="${birth?string("yyyy-MM-dd")}" readonly="readonly" id="dateinput1"/>
+    <a href="#" id="dateinput1_button">
+    </a>
+    <script type="text/javascript">
+        Calendar.setup({
+            inputField     :    "dateinput1",
+            showsTime      :    false,
+            step           :    1
+        });
+    </script>
+				
+				
 					<font color="red">*</font>
 			</span>
 		</div>

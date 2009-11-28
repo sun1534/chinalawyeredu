@@ -15,11 +15,11 @@
 		</action>
 		<action name="paylist" class="com.changpeng.core.progress.action.PayListAction">
 			<result name="success" type="freemarker">/progress/paylist.ftl</result>
-			<result name="payshow" type="redirect">/progress/pay.html</result>
+			<result name="payshow" type="redirect">/home/home.action</result>
 		</action>
 		<action name="pay" class="com.changpeng.core.progress.action.PayAction">
 			<result name="success" type="freemarker">/progress/pay.ftl</result>
-			<result name="payshow" type="redirect">/progress/pay.html</result>
+			<result name="payshow" type="redirect">/home/home.action</result>
 		</action>
 		
 		<action name="tenpay" class="com.changpeng.core.progress.action.PayTenpayAction">

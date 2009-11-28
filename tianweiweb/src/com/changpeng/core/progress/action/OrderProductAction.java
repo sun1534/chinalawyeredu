@@ -18,9 +18,10 @@ public class OrderProductAction extends AbstractAction {
 
 	@Override
 	protected String go() throws Exception {
-		String result=SUCCESS;
+//		String result=SUCCESS;
 		if(this.currentUserid==0){
 			this.message="请登录后进行订购！";
+			this.redirectURL="../home/home.action";
 		}else{
 			CoreProduct product=(CoreProduct)service.get(CoreProduct.class, productid);
 			CoreUser user=(CoreUser)service.get(CoreUser.class, this.currentUserid);

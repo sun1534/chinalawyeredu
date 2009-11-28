@@ -86,7 +86,7 @@ public class UserbaseUpdateAction extends AbstractAction{
 			userService.update(user);
 //			this.message="ok";
 			this.message="您的身份认证提交成功,请等待身份认证通过后再订购产品";
-			this.redirectURL="";
+			this.redirectURL="javascript:$.unblockUI()";
 		}
 		return SUCCESS;
 	}

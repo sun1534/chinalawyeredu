@@ -48,6 +48,7 @@
 			   	     <#if t.statusid=5>审核通过</#if>
 			   	     <#if t.statusid=99>发布中</#if>
 			   	     <#if t.statusid=100>业务到期</#if>
+			   	      <#if t.paystatus=0>(支付成功)</#if>
 			   	   </td>
 			   	   <td><a href="../progress/publishview.action?publishid=${t.id}">查看</a>
 <#if should=1>
