@@ -73,8 +73,9 @@ function makeMenu() {
 		 //  d.add("${rightcode}","${parentcode}","${rightname}","${linkurl}","","${openTarget}");
 		    d.add("shouye","0","首页","../index/workspace.pl","","mainFrame");
 		    d.add("forum","0","培训论坛","../forum/forumList.pl","","mainFrame");
-
+ <s:if test="lawyer.provinceunion!=22">
 		   d.add("editself","0","个人资料维护","../lawyers/lawyersEditSelf!input.pl","","mainFrame");		
+			</s:if>
 		   d.add("online","0","在线课程");
 		   d.add("online00","online","全部类型","../lessons/lessonsList.pl?lessonstyle=2&lessontype=0","","mainFrame");
 		  <s:iterator value="@com.changpeng.lessons.util.CommonDatas@LessonType" status="stat">
