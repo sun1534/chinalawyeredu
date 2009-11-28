@@ -25,16 +25,16 @@ import com.sxit.netquality.models.ZeroCell;
 public class ZeroService {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
-	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyyMM-dd HH:mm:ss");
-
-	private int getDfSec(String date) {
-		try {
-			Date d = dfsec.parse(date);
-			return (int) (d.getTime() / 1000);
-		} catch (Exception e) {
-			return (int) (System.currentTimeMillis() / 1000);
-		}
-	}
+//	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy--MM-dd HH:mm:ss");
+//
+//	private int getDfSec(String date) {
+//		try {
+//			Date d = dfsec.parse(date);
+//			return (int) (d.getTime() / 1000);
+//		} catch (Exception e) {
+//			return (int) (System.currentTimeMillis() / 1000);
+//		}
+//	}
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -151,9 +151,11 @@ public class ZeroService {
 
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
-
-		int _start = getDfSec(start);
-		int _end = getDfSec(end);
+		long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
+		long _end=	com.sxit.stat.util.StatUtil.getDateHourTime(end)/1000;
+		
+//		int _start = getDfSec(start);
+//		int _end = getDfSec(end);
 
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_cell where dayflag=0 and stattime>=" + _start + " and stattime<="
@@ -201,9 +203,12 @@ public class ZeroService {
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
 
-		int _start = getDfSec(start);
-		int _end = getDfSec(end);
+//		int _start = getDfSec(start);
+//		int _end = getDfSec(end);
 
+		long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
+		long _end=	com.sxit.stat.util.StatUtil.getDateHourTime(end)/1000;
+		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_apn where dayflag=0 and stattime>=" + _start + " and stattime<="
 				+ _end;

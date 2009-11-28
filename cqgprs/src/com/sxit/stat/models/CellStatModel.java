@@ -7,21 +7,19 @@ import com.sxit.system.util.NumberUtil;
 
 /**
  * 
- * sgsn的流量分析
- * 以及sgsn按23g的流量分析
+ * sgsn的流量分析 以及sgsn按23g的流量分析
  * 
- * @author 华锋
- * Oct 16, 2009-5:03:50 PM
- *
+ * @author 华锋 Oct 16, 2009-5:03:50 PM
+ * 
  */
 public class CellStatModel extends StatModel {
 
 	private String bscrncid;
-private String sgsnid;
-private String cellid;
-private String lac;
-private String cellname;
-	
+	private String sgsnid;
+	private String cellid;
+	private String lac;
+	private String cellname;
+
 	/**
 	 * 网络类型,td,gsm等
 	 */
@@ -34,57 +32,51 @@ private String cellname;
 	 * 某天-时的数据
 	 */
 	private String datetime;
-	
 
-	public String getCellkey(){
-		if(lac==null||lac.equals(""))
-		{
+	public String getCellkey() {
+		if (lac == null || lac.equals("")) {
 			System.out.println("lac==null||lac.equals(\"\")");
 			return cellid;
 		}
-		return lac+"-"+cellid;
+		return lac + "-" + cellid;
 	}
-
 
 	/**
 	 * @return the bscrncid
 	 */
 	public String getBscrncid() {
-//		return bscrncid;
+		// return bscrncid;
 		return com.sxit.netquality.service.BasicSetService.CELL_BSC.get(getCellkey());
 	}
 
 	/**
-	 * @param bscrncid the bscrncid to set
+	 * @param bscrncid
+	 *            the bscrncid to set
 	 */
 	public void setBscrncid(String bscrncid) {
 		this.bscrncid = bscrncid;
 	}
 
-
-
-
 	/**
 	 * @return the nettype
 	 */
 	public String getNettype() {
-		if(nettype==null||nettype.equals(""))
+		if (nettype == null || nettype.equals(""))
 			return "未知";
-		if(nettype.equals("3")){
+		if (nettype.equals("3")) {
 			return "WLAN";
-		}
-		else if(nettype.equals("2")){
+		} else if (nettype.equals("2")) {
 			return "GSM";
 
-		}
-		else if(nettype.equals("1")){
+		} else if (nettype.equals("1")) {
 			return "TD";
-	    }else 
-		return nettype;
+		} else
+			return nettype;
 	}
 
 	/**
-	 * @param nettype the nettype to set
+	 * @param nettype
+	 *            the nettype to set
 	 */
 	public void setNettype(String nettype) {
 		this.nettype = nettype;
@@ -98,7 +90,8 @@ private String cellname;
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param date
+	 *            the date to set
 	 */
 	public void setDate(String date) {
 		this.date = date;
@@ -112,7 +105,8 @@ private String cellname;
 	}
 
 	/**
-	 * @param datetime the datetime to set
+	 * @param datetime
+	 *            the datetime to set
 	 */
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
@@ -123,11 +117,12 @@ private String cellname;
 	 */
 	public String getSgsnid() {
 		return com.sxit.netquality.service.BasicSetService.BSC_SGSN.get(getBscrncid());
-//		return sgsnid;
+		// return sgsnid;
 	}
 
 	/**
-	 * @param sgsnid the sgsnid to set
+	 * @param sgsnid
+	 *            the sgsnid to set
 	 */
 	public void setSgsnid(String sgsnid) {
 		this.sgsnid = sgsnid;
@@ -141,7 +136,8 @@ private String cellname;
 	}
 
 	/**
-	 * @param cellid the cellid to set
+	 * @param cellid
+	 *            the cellid to set
 	 */
 	public void setCellid(String cellid) {
 		this.cellid = cellid;
@@ -155,7 +151,8 @@ private String cellname;
 	}
 
 	/**
-	 * @param cellname the cellname to set
+	 * @param cellname
+	 *            the cellname to set
 	 */
 	public void setCellname(String cellname) {
 		this.cellname = cellname;
@@ -169,12 +166,11 @@ private String cellname;
 	}
 
 	/**
-	 * @param lac the lac to set
+	 * @param lac
+	 *            the lac to set
 	 */
 	public void setLac(String lac) {
 		this.lac = lac;
 	}
-	
-	
-	
+
 }

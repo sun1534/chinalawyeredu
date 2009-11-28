@@ -11,7 +11,7 @@ import com.sxit.query.service.QueryService;
 
 /**
  * 
- * SGSN流量分析
+ * 
  * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 

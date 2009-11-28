@@ -195,6 +195,7 @@ public class PaginationSupport {
 			
 			sb.append("<span class='page-move'>").append(totalCount).append("条记录</span> ");
 			sb.append("<span class='page-total'>共").append(pageNum).append("页,第").append(pageNo).append("页</span>");
+//			sb.append("<span class='page-total'><select name=\"pageSize\"><option value=\"10\">10</option><option value=\"20\">20</option><option value=\"50\">50</option><option value=\"100\">100</option></select></span>");
 			
 			//			if (pageNum == 1) {
 //				sb.append("首页 前页 后页 末页");

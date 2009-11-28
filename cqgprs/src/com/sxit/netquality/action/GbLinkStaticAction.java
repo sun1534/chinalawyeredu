@@ -46,7 +46,7 @@ public class GbLinkStaticAction extends AbstractListAction {
 	protected String go() throws Exception {
 		Date thedate = null;
 		if (date == null || date.equals("")) {
-			thedate = new Date();
+			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
 //			try {

@@ -4,10 +4,12 @@
 package com.sxit.useraction.action;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.sxit.common.action.AbstractAction;
+import com.sxit.common.PaginationSupport;
+import com.sxit.common.action.AbstractListAction;
 import com.sxit.useraction.service.UseractionService;
 
 /**
@@ -17,12 +19,13 @@ import com.sxit.useraction.service.UseractionService;
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class UserPdpErrorTopListAction extends AbstractAction {
+public class UserPdpErrorTopListAction extends AbstractListAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 
 	private static DateFormat dfhour = new java.text.SimpleDateFormat("HH");
+	private String firstpage="yes";
 	/**
 	 * 哪天,默认是前1天
 	 */
@@ -132,16 +135,55 @@ public class UserPdpErrorTopListAction extends AbstractAction {
 		}
 		// this.resultList = actionservice.getPdpErrorTopList(start, end,
 		// getOrderby());
-		this.resultList = actionservice.getPdpErrorTopList(stattime, getOrderby());
-		if (this.resultType.equals("list"))
-			return SUCCESS;
-		else
-			return "excel";
+		// this.resultList = actionservice.getPdpErrorTopList(stattime,
+		// getOrderby());
+		// if (this.resultType.equals("list"))
+		// return SUCCESS;
+		// else
+		// return "excel";
+
+		String result = SUCCESS;
+		List _resultList =null;
+		if (firstpage.equals("yes")) {
+			_resultList= actionservice.getPdpErrorTopList(stattime, getOrderby());
+			set("_resultList", _resultList);
+		} else {
+			_resultList = (List) get("_resultList");
+		}
+		if (resultType.equals("list")) {
+			int totalCount = _resultList.size();
+			int startIndex = (pageNo - 1) * pageSize;
+			List list = new ArrayList();
+			for (int i = startIndex; i < totalCount && i < startIndex + pageSize; i++) {
+				list.add(_resultList.get(i));
+			}
+			this.page = new PaginationSupport(list, totalCount, pageSize, startIndex);
+			resultList = list;
+			result = SUCCESS;
+		} else {
+			resultList = _resultList;
+			result = "excel";
+		}
+		return result;
 	}
 
 	private List resultList;
 
 	public List getResultList() {
 		return this.resultList;
+	}
+
+	/**
+	 * @return the firstpage
+	 */
+	public String getFirstpage() {
+		return firstpage;
+	}
+
+	/**
+	 * @param firstpage the firstpage to set
+	 */
+	public void setFirstpage(String firstpage) {
+		this.firstpage = firstpage;
 	}
 }

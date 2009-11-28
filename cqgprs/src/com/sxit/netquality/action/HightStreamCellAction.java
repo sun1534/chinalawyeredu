@@ -4,9 +4,11 @@
 package com.sxit.netquality.action;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sxit.common.PaginationSupport;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.netquality.service.HighStreamService;
 
@@ -32,6 +34,22 @@ public class HightStreamCellAction extends AbstractListAction {
 	private String flag = "1"; // 1按天统计2按小时
 
 	private String bscid;
+	private String firstpage = "yes";
+
+	/**
+	 * @return the firstpage
+	 */
+	public String getFirstpage() {
+		return firstpage;
+	}
+
+	/**
+	 * @param firstpage
+	 *            the firstpage to set
+	 */
+	public void setFirstpage(String firstpage) {
+		this.firstpage = firstpage;
+	}
 
 	/**
 	 * @return the bscid
@@ -48,6 +66,23 @@ public class HightStreamCellAction extends AbstractListAction {
 		this.bscid = bscid;
 	}
 
+	private String isinit;
+
+	/**
+	 * @return the isinit
+	 */
+	public String getIsinit() {
+		return isinit;
+	}
+
+	/**
+	 * @param isinit
+	 *            the isinit to set
+	 */
+	public void setIsinit(String isinit) {
+		this.isinit = isinit;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -60,33 +95,46 @@ public class HightStreamCellAction extends AbstractListAction {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
-//			try {
-//				thedate = df.parse(date);
-//			} catch (Exception e) {
-//				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-//			}
-			thedate= com.sxit.stat.util.StatUtil.getDate(date);
-		}
-		
-		if(orderfield==null||orderfield.equals("")){
-			orderfield="allvolume";
-			ascdesc="desc";
+			thedate = com.sxit.stat.util.StatUtil.getDate(date);
 		}
 
+		if (orderfield == null || orderfield.equals("")) {
+			orderfield = "allvolume";
+			ascdesc = "desc";
+		}
 		HighStreamService hightService = (HighStreamService) this.getBean("highStreamService");
-		
-		if(flag.equals("1"))
-		    topcelllist = hightService.getHightStreamDayCell(thedate,standard, condition, bscid, getOrderby());
-		else
-			topcelllist = hightService.getHightStreamHourCell(date, hour, bscid, standard, condition, getOrderby());
+		String result = SUCCESS;
 
-		if (resultType.equals("list")) {
+		List resultList = null;
 
-			return SUCCESS;
+		if (firstpage.equals("yes")) {
+			if (flag.equals("1"))
+				resultList = hightService.getHightStreamDayCell(thedate, standard, condition, bscid, getOrderby());
+			else
+				resultList = hightService.getHightStreamHourCell(date, hour, bscid, standard, condition, getOrderby());
+			set("resultList", resultList);
 		} else {
-
-			return "excel";
+			resultList = (List) get("resultList");
 		}
+		if (resultType.equals("list")) {
+			int totalCount = resultList.size();
+			int startIndex = (pageNo - 1) * pageSize;
+			List list = new ArrayList();
+
+			for (int i = startIndex; i < totalCount && i < startIndex + pageSize; i++) {
+				list.add(resultList.get(i));
+			}
+			this.page = new PaginationSupport(list, totalCount, pageSize, startIndex);
+
+			topcelllist = list;
+
+			result = SUCCESS;
+		} else {
+			topcelllist = resultList;
+
+			result = "excel";
+		}
+		return result;
 
 	}
 

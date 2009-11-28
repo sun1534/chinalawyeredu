@@ -6,18 +6,18 @@ package com.sxit.cellConference.action;
 import java.text.DateFormat;
 import java.util.Date;
 
-import com.sxit.common.action.AbstractAction;
+import com.sxit.cellConference.service.CellConferenceService;
+import com.sxit.common.action.AbstractListAction;
 
 /**
- * @author 华锋
- * Nov 20, 2009-10:09:40 PM
- *
+ * @author 华锋 Nov 20, 2009-10:09:40 PM
+ * 
  */
-public class CellConferenceAction extends AbstractAction {
+public class CellConferenceViewAction extends AbstractListAction {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	private String date;
-	
+
 	/**
 	 * @return the date
 	 */
@@ -26,13 +26,16 @@ public class CellConferenceAction extends AbstractAction {
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param date
+	 *            the date to set
 	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sxit.common.action.AbstractAction#go()
 	 */
 	@Override
@@ -41,15 +44,10 @@ public class CellConferenceAction extends AbstractAction {
 		if (date == null || date.equals("")) {
 			date = df.format(com.sxit.stat.util.StatUtil.getPrevDate());
 		}
-		Date thedate = null;
-//		try {
-//			thedate = df.parse(date);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-//		}
-		thedate= com.sxit.stat.util.StatUtil.getDate(date);
-		
+
+		CellConferenceService service = (CellConferenceService) this.getBean("cellConferenceService");
+		this.page = service.getDayConferenceList(date, pageNo, pageSize);
+
 		return SUCCESS;
 	}
 

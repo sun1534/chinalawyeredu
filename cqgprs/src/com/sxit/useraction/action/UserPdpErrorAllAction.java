@@ -23,7 +23,7 @@ import com.sxit.useraction.service.UseractionService;
 public class UserPdpErrorAllAction extends AbstractAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
+//	private static DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 	private static DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00");
 	// private static DateFormat dfsec = new
 	// java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -60,9 +60,12 @@ public class UserPdpErrorAllAction extends AbstractAction {
 		if (flag.equals("1")) {
 
 			Date today = new Date();
-
-			int nowhourstart = UseractionService.getDateHourTime(today);
-			int nowhourend = UseractionService.getHourAfterTime(nowhourstart);
+//
+//			long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
+//			long _end=	com.sxit.stat.util.StatUtil.getDateHourTime(end)/1000;
+//			
+			int nowhourstart =(int)( com.sxit.stat.util.StatUtil.getDateHourTime(today)/1000);
+			int nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhourstart);
 			int prehourstart = nowhourstart - 60 * 60;
 
 			long todaystart = com.sxit.stat.util.StatUtil.getTodaydayTime();

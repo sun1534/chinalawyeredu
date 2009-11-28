@@ -27,10 +27,30 @@ public class Volumes {
 	 * @return the allvolume
 	 */
 	public double getAllvolume() {
+//		double d = ((double) allvolume) / (1024);
+//		String totalStreamStr= NumberUtil.toMoney(d);
+//		allvolume= Double.parseDouble(totalStreamStr);
+		return allvolume;
+	}
+	public String getAllvolumeStr() {
 		double d = ((double) allvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
-		allvolume= Double.parseDouble(totalStreamStr);
-		return allvolume;
+	
+		return totalStreamStr;
+	}
+	
+	public String getUpvolumeStr() {
+		double d = ((double) upvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+	
+		return totalStreamStr;
+	}
+	
+	public String getDownvolumeStr() {
+		double d = ((double) downvolume) / (1024);
+		String totalStreamStr= NumberUtil.toMoney(d);
+	
+		return totalStreamStr;
 	}
 	/**
 	 * @param allvolume the allvolume to set
@@ -43,9 +63,9 @@ public class Volumes {
 	 */
 	public double getDownvolume() {
 		
-		double d = ((double) downvolume) / (1024);
-		String totalStreamStr= NumberUtil.toMoney(d);
-		downvolume= Double.parseDouble(totalStreamStr);
+//		double d = ((double) downvolume) / (1024);
+//		String totalStreamStr= NumberUtil.toMoney(d);
+//		downvolume= Double.parseDouble(totalStreamStr);
 		return downvolume;
 	}
 	/**
@@ -58,9 +78,9 @@ public class Volumes {
 	 * @return the upvolume
 	 */
 	public double getUpvolume() {
-		double d = ((double) upvolume) / (1024);
-		String totalStreamStr= NumberUtil.toMoney(d);
-		upvolume= Double.parseDouble(totalStreamStr);
+//		double d = ((double) upvolume) / (1024);
+//		String totalStreamStr= NumberUtil.toMoney(d);
+//		upvolume= Double.parseDouble(totalStreamStr);
 		return upvolume;
 	}
 	/**

@@ -31,37 +31,37 @@ public class UseractionService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
+//	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
 
-	public static int getDfSec(String date) {
-		try {
-			Date d = dfsec.parse(date);
-			return (int) (d.getTime() / 1000);
-		} catch (Exception e) {
-			return (int) (System.currentTimeMillis() / 1000);
-		}
-	}
+//	public static int getDfSec(String date) {
+//		try {
+//			Date d = dfsec.parse(date);
+//			return (int) (d.getTime() / 1000);
+//		} catch (Exception e) {
+//			return (int) (System.currentTimeMillis() / 1000);
+//		}
+//	}
 
-	/**
-	 * 得到这个小时的起始时间值
-	 * 
-	 * @return
-	 */
-	public static int getDateHourTime(Date date) {
-		String datestr = dfhour.format(date);
-		// String hstart = datestr + " 00:00";
-		// String hend=datestr+" 59:59";
-		try {
-			Date d = dfsec.parse(datestr);
-			return (int) (d.getTime() / 1000);
-		} catch (Exception e) {
-			return (int) (System.currentTimeMillis() / 1000);
-		}
-	}
-
-	public static int getHourAfterTime(int start) {
-		return start + 60 * 60;
-	}
+//	/**
+//	 * 得到这个小时的起始时间值
+//	 * 
+//	 * @return
+//	 */
+//	public static int getDateHourTime(Date date) {
+//		String datestr = dfhour.format(date);
+//		// String hstart = datestr + " 00:00";
+//		// String hend=datestr+" 59:59";
+//		try {
+//			Date d = dfsec.parse(datestr);
+//			return (int) (d.getTime() / 1000);
+//		} catch (Exception e) {
+//			return (int) (System.currentTimeMillis() / 1000);
+//		}
+//	}
+//
+//	public static int getHourAfterTime(int start) {
+//		return start + 60 * 60;
+//	}
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -446,10 +446,15 @@ public class UseractionService {
 	public List getHightStreamHourUser(Date date, final String hour, String standard, String condition, String orderby) {
 		final String _date = df.format(date);
 		String start = _date + " " + hour + ":00:00";
-		String end = _date + " " + hour + ":59:59";
+//		String end = _date + " " + hour + ":59:59";
 
-		int _start = getDfSec(start);
-		int _end = getDfSec(end);
+//		int _start = getDfSec(start);
+//		int _end = getDfSec(end);
+		long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
+		long _end=	com.sxit.stat.util.StatUtil.getHourAfterTime((int)_start);
+		
+	
+		
 		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
 		long now = System.currentTimeMillis();
 		String sql = "";

@@ -13,6 +13,7 @@ import com.sxit.useraction.service.UseractionService;
 /**
  * 
  * SGSN流量分析
+ * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
@@ -20,7 +21,8 @@ public class PdpErrorAllAction extends AbstractAction {
 
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00");
-//	private static DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	// private static DateFormat dfsec = new
+	// java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	// 1是实时 2是按天,也就是最近3天的
 	private String flag = "1";
@@ -42,44 +44,45 @@ public class PdpErrorAllAction extends AbstractAction {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
-//			try {
-//				thedate = df.parse(date);
-//			} catch (Exception e) {
-//				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-//				date = df.format(thedate);
-//			}
-			thedate= com.sxit.stat.util.StatUtil.getDate(date);
+			// try {
+			// thedate = df.parse(date);
+			// } catch (Exception e) {
+			// thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+			// date = df.format(thedate);
+			// }
+			thedate = com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		// 实时的方式
 		if (flag.equals("1")) {
 
 			Date today = new Date();
 
-			int nowhourstart = UseractionService.getDateHourTime(today);
-			int nowhourend = UseractionService.getHourAfterTime(nowhourstart);
+			// int nowhourstart = UseractionService.getDateHourTime(today);
+			// int nowhourend =
+			// UseractionService.getHourAfterTime(nowhourstart);
+
+			int nowhourstart = (int) (com.sxit.stat.util.StatUtil.getDateHourTime(today) / 1000);
+			int nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhourstart);
+
 			int prehourstart = nowhourstart - 60 * 60;
 
 			long todaystart = com.sxit.stat.util.StatUtil.getTodaydayTime();
 			long todayend = com.sxit.stat.util.StatUtil.getOneDayAfter(todaystart);
 
-			date1=df.format(today);
-	
-			
+			date1 = df.format(today);
+
 			errorallstat1 = service.getPdpErrorStatics((int) (todaystart / 1000), (int) (todayend / 1000));
 			errorallstat2 = service.getPdpErrorStatics(nowhourstart, nowhourend);
 			errorallstat3 = service.getPdpErrorStatics(prehourstart, nowhourstart);
 
-			date2=dfhour.format(new java.sql.Timestamp(nowhourstart*1000L));
-			date3=dfhour.format(new java.sql.Timestamp(prehourstart*1000L));
-			
-			System.out.println(date1+",,,"+date2+",,,"+date3);
-			
-			
+			date2 = dfhour.format(new java.sql.Timestamp(nowhourstart * 1000L));
+			date3 = dfhour.format(new java.sql.Timestamp(prehourstart * 1000L));
+
+			System.out.println(date1 + ",,," + date2 + ",,," + date3);
+
 		} else {
 
-			
-			date1=date;
-	
+			date1 = date;
 
 			long todaystart = com.sxit.stat.util.StatUtil.getDateTime(thedate);
 			long todayend = com.sxit.stat.util.StatUtil.getOneDayAfter(todaystart);
@@ -93,14 +96,14 @@ public class PdpErrorAllAction extends AbstractAction {
 			// 当天的
 			errorallstat1 = service.getPdpErrorStatics((int) (todaystart / 1000), (int) (todayend / 1000));
 
-			date2=df.format(new java.sql.Timestamp(pretodaystart));
-			date3=df.format(new java.sql.Timestamp(pretodaystart2));
+			date2 = df.format(new java.sql.Timestamp(pretodaystart));
+			date3 = df.format(new java.sql.Timestamp(pretodaystart2));
 		}
-		if(resultType.equals("list"))
-		return SUCCESS;
+		if (resultType.equals("list"))
+			return SUCCESS;
 		return "excel";
 	}
-	
+
 	private String date1;
 	private String date2;
 	private String date3;

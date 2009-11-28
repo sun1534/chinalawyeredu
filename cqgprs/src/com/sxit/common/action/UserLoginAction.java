@@ -35,7 +35,7 @@ public class UserLoginAction extends AbstractAction {
 	private String password;
 //	private String randnum;
 	
-	
+	private String autologin;
 
 	/**
 	 * 如果是被动登录的话,此值不为空
@@ -175,5 +175,12 @@ public class UserLoginAction extends AbstractAction {
 
 	public UserLoginAction() {
 		this.needsession = false;
+	}
+
+	/**
+	 * @param autologin the autologin to set
+	 */
+	public void setAutologin(String autologin) {
+		this.autologin = autologin;
 	}
 }

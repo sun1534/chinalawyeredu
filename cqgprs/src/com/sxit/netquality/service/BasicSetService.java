@@ -125,7 +125,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddCell() {
-		Date date = this.getPrevDate();
+		Date date =  com.sxit.stat.util.StatUtil.getPrevDate();
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
@@ -141,7 +141,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddApn() {
-		Date date = this.getPrevDate();
+		Date date = com.sxit.stat.util.StatUtil.getPrevDate();
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
@@ -156,7 +156,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddBsc() {
-		Date date = this.getPrevDate();
+		Date date = com.sxit.stat.util.StatUtil.getPrevDate();
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
@@ -171,7 +171,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddLink() {
-		Date date = this.getPrevDate();
+		Date date = com.sxit.stat.util.StatUtil.getPrevDate();
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
@@ -180,23 +180,23 @@ public class BasicSetService {
 		return jdbcTemplate.queryForInt(sql);
 	}
 
-	/*
-	 * 得到当前日期的前一天
-	 */
-	protected Date getPrevDate() {
-		return getPrevCountDate(1);
-	}
+//	/*
+//	 * 得到当前日期的前一天
+//	 */
+//	protected Date getPrevDate() {
+//		return getPrevCountDate(1);
+//	}
 
-	/*
-	 * 得到当前日期的前一天
-	 */
-	protected Date getPrevCountDate(int days) {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.DATE, 0 - days);
-		Date d = new Date();
-		d.setTime(c.getTimeInMillis());
-		return d;
-	}
+//	/*
+//	 * 得到当前日期的前一天
+//	 */
+//	protected Date getPrevCountDate(int days) {
+//		Calendar c = Calendar.getInstance();
+//		c.add(Calendar.DATE, 0 - days);
+//		Date d = new Date();
+//		d.setTime(c.getTimeInMillis());
+//		return d;
+//	}
 
 	public PaginationSupport getCells(String cellid, String lac,String bscid,String orderby, int pageNo, int pageSize) {
 		String countsql = "";
@@ -260,23 +260,36 @@ public class BasicSetService {
 					model.setBscrncid(rs.getString("BSCID"));
 					model.setCellid(rs.getString("CELLID"));
 					model.setCellname(rs.getString("CELLNAME"));
+					model.setLac(rs.getString("lac"));
 					model.setLastopt(rs.getString("OPTTYPE"));
+				
 					model.setAllvolume(rs.getDouble("allvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setUpvolume(rs.getDouble("upvolume"));
-					model.setLac(rs.getString("lac"));
 					model.setSubarea(rs.getString("subsidiary"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
 					// list.add(model);
 					ALL_CELL_LIST.add(model);
-					ALL_CELLS.put(rs.getString("lac")+"-"+rs.getString("CELLID"), model);
-					CELL_BSC.put(rs.getString("lac")+"-"+rs.getString("CELLID"), rs.getString("BSCID"));
+					ALL_CELLS.put(model.getCellkey(), model);
+					CELL_BSC.put(model.getCellkey(), rs.getString("BSCID"));
+				
+				
+
+					// if(model.getCellkey().equals("33148-11243")){
+					//					
+					// System.out.println("model.getAllvolume():::"+model.getAllvolume());
+					//		
+					//		
+					//					}
 				}
 				return null;
 			}
 		});
+		
+		
+		System.out.println("ALL_CELLS.get(\"33148-11243\").getAllvolume():::"+ALL_CELLS.get("33148-11243").getAllvolume());
 
 	}
 

@@ -41,12 +41,14 @@ public class QueryService {
 			final int pageSize) {
 		String table = StatUtil.getCdrTable(date);
 		int totalCount = 0;
+	
 		int startIndex = (pageNo - 1) * pageSize;
 		String cntsql = "select count(*) as cnt from " + table + " where 1=1 ";
 		String search = " where 1=1";
 		if (mobile != null && !mobile.equals("")) {
-			cntsql += " and msisdn='" + mobile + "'";
-			search += " and msisdn='" + mobile + "'";
+			cntsql += " and msisdn like '%" + mobile + "'";
+			search += " and msisdn like '%" + mobile + "'";
+			table="CDR_SUCC_TMP";
 		}
 		if (cellid != null && !cellid.equals("")) {
 			cntsql += " and cellid='" + cellid + "'";
@@ -60,7 +62,7 @@ public class QueryService {
 			cntsql += " and apnni='" + apnni + "'";
 			search += " and apnni='" + apnni + "'";
 		}
-
+		System.out.println("查询SQL:"+cntsql);
 		if (pageSize != Integer.MAX_VALUE) {
 			totalCount = jdbcTemplate.queryForInt(cntsql);
 		}
@@ -68,7 +70,7 @@ public class QueryService {
 		String sql = "SELECT * FROM (SELECT A.*, ROWNUM RN FROM (select * from  " + table + search
 				+ " ) A WHERE ROWNUM <= " + (startIndex + pageSize) + " )  WHERE RN >= " + startIndex;
 
-		_LOG.debug("查询SQL:"+sql);
+		System.out.println("查询SQL:"+sql);
 		
 		// String sql = "select * from(select APNNI,STATTIME,USERCOUNT,ALLVOLUME
 		// from STAT_APN where STATTIME="+_date+" and dayflag=1)";

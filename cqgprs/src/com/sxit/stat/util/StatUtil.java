@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class StatUtil {
 	
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
 
 	
 	/**
@@ -103,8 +106,6 @@ public class StatUtil {
 		return ten;
 	}
 
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	
 //	public static String getYestardayCdrTable() {
@@ -251,7 +252,49 @@ public class StatUtil {
 		return d;
 	}
 	
+
+	/**
+	 * 得到这个小时的起始时间值
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static long getDateHourTime(Date date) {
+		String datestr = dfhour.format(date);
+		try {
+			Date d = dfyyyyMmddHHmmss.parse(datestr);
+			return d.getTime();
+		} catch (Exception e) {
+			return System.currentTimeMillis();
+		}
+	}
 	
+	public static int getHourAfterTime(int start) {
+	return start + 60 * 60;
+}
+	public static long getHourAfterTime(long start) {
+		return start + 60 * 60*1000;
+	}
+
+	/**
+	 * 
+	 * @param datestr
+	 *            必须是2009-11-21 12:00:00的形式
+	 * @return
+	 */
+	public static long getDateHourTime(String datestr) {
+
+		if (!datestr.endsWith(":00:00"))
+			{
+			throw new java.lang.IllegalArgumentException("必须是2009-01-01 12:00:00的形式");
+			}
+		try {
+			Date d = dfyyyyMmddHHmmss.parse(datestr);
+			return d.getTime();
+		} catch (Exception e) {
+			return System.currentTimeMillis();
+		}
+	}
 	
 
 	public static void main(String[] args) {

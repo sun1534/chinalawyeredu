@@ -8,14 +8,19 @@
     <package name="cellConference" extends="default" namespace="/cellConference">
        <default-interceptor-ref name="visitStack"/>
 		<!-- 总流量分析 -->
-	   <action name="cellConference" class="com.sxit.cellConference.action.CellConferenceAction">
-          <result name="success" type="dispatcher">/cellConference/cellConference.jsp</result>	
+	   <action name="cellConferenceView" class="com.sxit.cellConference.action.CellConferenceViewAction">
+          <result name="success" type="dispatcher">/cellConference/cellConferenceView.jsp</result>	
        </action>
-
+       <action name="conferenceCellList" class="com.sxit.cellConference.action.ConferenceCellListAction">
+          <result name="success" type="dispatcher">/cellConference/conferenceCellList.jsp</result>	
+       </action>
+    
     </package>
-	 <package name="cellConferenceajax" extends="defaultajax" namespace="/cellConferenceajax">
+	 <package name="cellconferenceajax" extends="defaultajax" namespace="/cellconferenceajax">
        <default-interceptor-ref name="visitStack"/>
-   	 
+   	   <action name="conferenceCellSet" class="com.sxit.cellConference.action.ajax.ConferenceCellSetAction">
+          <result name="success" type="json"></result>	
+       </action>
    </package>
 	
 </struts>

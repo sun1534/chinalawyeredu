@@ -95,17 +95,9 @@ public class StatService {
 
 	}
 
-	private long getDayStartTime(Date date) {
-		try {
-			String datestr = df.format(date);
-			String startstr = datestr + " 00:00:00";
-			Date start = dfyyyyMmddHHmmss.parse(startstr);
-			return start.getTime();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return System.currentTimeMillis();
-		}
-	}
+//	private long getDayStartTime(Date date) {
+//		return com.sxit.stat.util.StatUtil.getDateTime(date);
+//	}
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -512,7 +504,7 @@ public class StatService {
 	 */
 	public List getCellDayTimeStat(Date date, String cellid,String lac) {
 
-		long start = getDayStartTime(date);
+		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
 		int _datestart = (int) (start / 1000);
 		int _dateend = (int) (end / 1000);
@@ -665,7 +657,7 @@ public class StatService {
 		String sql = "select APNNI,STATTIME,USERCOUNT,ALLVOLUME from  STAT_APN where  APNNI=? and dayflag=0 and STATTIME between ? and ? ";
 		// int _date = (int) (date.getTime() / 1000);
 
-		long start = getDayStartTime(date);
+		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
 		int _datestart = (int) (start / 1000);
 		int _dateend = (int) (end / 1000);

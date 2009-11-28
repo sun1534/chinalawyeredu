@@ -23,6 +23,11 @@ public class Error38ContinueAction extends AbstractAction {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private String date;
 
+	private String startdate;
+	public String getStartdate(){
+		return this.startdate;
+	}
+	
 	/**
 	 * 
 	 * 这里的date不能是今天吧
@@ -63,7 +68,8 @@ public class Error38ContinueAction extends AbstractAction {
 		UseractionService service=(UseractionService)this.getBean("useractionService");
 		//连续n天的38号错误情况号码
 		mobilelist=service.getConinueErrorMobileList(thedate, count, 38);
-		
+		Date lastdate = com.sxit.stat.util.StatUtil.getPrevCountDate(thedate, count - 1);
+		startdate=df.format(lastdate);
 		return SUCCESS;
 	}
 	private List mobilelist;
