@@ -8,7 +8,7 @@ body {overflow-y:auto; overflow-x:hidden}
 body {padding:0; margin:0; font: 12px/1.5 sinsum, Tahoma, Helvetica, Arial, sans-serif;color:#1E4B7E;background:url(../images/bg.gif) repeat-x left top;}
 
 .navigation {}
-	.innavigation {padding:10px 15px 0 15px;background:url(../images/bg.gif) repeat-x left top;}
+	.innavigation {padding:5px 15px 0 15px;background:url(../images/bg.gif) repeat-x left top;}
 	.navlist {padding-left:10px;line-height:24px;height:24px;border:1px solid #EAEAEA;background:url(../images/menubg.gif) repeat-x 0 0;}
 	.navlist span {background:url(../images/dot.gif) no-repeat left center;padding-left:15px;}
 	.navlist a {font-weight:bold;}

@@ -41,7 +41,7 @@ function queryit(){
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="cellConference" method="POST">	
+			<s:form name="form1" action="cellConferenceView" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -54,8 +54,6 @@ function queryit(){
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
-							
 								</tr>
 							</tbody>
 						</table>
@@ -72,33 +70,35 @@ function queryit(){
                         <tr>
                        
                           <th>小区编号</th>
-                        
-                           <th>当前用户数</th>
-                          <th>上小时用户数</th>
-                          <th>上上小用户数</th>
+                          <th>小区名称</th>
+                          <th>当前用户数</th>          
+                          <th>昨天同时段用户数</th>
+                          <th>前天同时段用户数</th>
                           <th>当前流量</th>
-                          <th>上小时流量</th>
-                          <th>上上小时流量</th>
+                
+                          <th>昨天同时段流量</th>
+                          <th>前天同时段流量</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="page.items" status="status">
+                        <s:iterator value="page.items" status="stat">
                         <tr>
                           <td>${cellkey}</td>
+                           <td>${cell.cellname}</td>
                           <td>${usercount }</td>
                           <td>${preusercount}</td>
-                          <th>${oldpreusercount}</th>
-                           <th>${allvolue}</th>
-                            <th>${preallvolume}</th>
-                             <th>${oldpreallvolume}</th>
+                          <td>${oldpreusercount}</td>
+                           <td>${allvolume}</td>
+                            <td>${preallvolume}</td>
+                             <td>${oldpreallvolume}</td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="8" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

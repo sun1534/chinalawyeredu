@@ -84,7 +84,8 @@ return true;
                         <tr>
                        
                           <th>时间</th>
-                          <th>所在小区</th>
+                           <th>所在小区</th>
+                          <th>小区名称</th>
                           <th>APN</th>
                           <th>上行流量（K）</th>
                           <th>下行流量（K）</th>
@@ -97,7 +98,8 @@ return true;
                         <s:iterator value="page.items" status="status">
                         <tr>
                           <td>${opentimestr}</td>
-                          <td>${lac }-${cellid} </td>
+                          <td>${cellkey }</td>
+                          <td>${cell.cellname} </td>
                           <td>${apnni }</td>
                           <td>${upvolume}</td>
                           <td>${downvolume}</td>

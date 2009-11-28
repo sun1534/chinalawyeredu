@@ -74,7 +74,7 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                          <th colspan="4" align="center">手机号码列表</th>
+                          <th colspan="4" align="center">${startdate }到${date }连续${count }天33号错误之手机号码列表</th>
                       
                         
                         </tr>

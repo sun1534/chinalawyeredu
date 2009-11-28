@@ -70,6 +70,7 @@ $("#hourselect").hide();
 						<table>
 							<tbody>
 								<tr>
+								<s:hidden name="pageNo"/>
 				                	<s:hidden name="firstpage"/>
 					              <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>

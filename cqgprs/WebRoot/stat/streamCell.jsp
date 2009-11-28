@@ -125,7 +125,7 @@ function confirmit(){
                         <s:iterator value="page.items" status="status">
                         <tr>
                           <td>
-                          <a href="streamCellTime.action?lac=${lac }&cellid=${cellid }&start=${start }">${cellkey}</a>
+                          <a href="streamCellTime.action?lac=${lac }&cellid=${cellid }&start=${start }" title="点此查看此小区在${start}的分时流量">${cellkey}</a>
                           </td>
                            <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/></td>
                           <td>${bscrncid}</td>

@@ -113,6 +113,7 @@ $("#hourselect").hide();
                         <tr>
                        
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编码</a></th>
+                           <th>小区名称</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                           <th>归属SGSN</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
@@ -124,6 +125,7 @@ $("#hourselect").hide();
                         <s:iterator value="topcelllist" status="status">
                         <tr>
                          <td>${cellkey}</td>
+                         <td><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/></td>
                           <td>${bscrncid}</td>
                           <td>${sgsnid }</td>
                           <td>${totalStreamStr}</td>
@@ -134,7 +136,7 @@ $("#hourselect").hide();
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="5" class="fright">
+							   <td colspan="6" class="fright">
 							  <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>

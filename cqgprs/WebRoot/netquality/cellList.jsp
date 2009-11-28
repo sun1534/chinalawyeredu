@@ -157,8 +157,9 @@ function setit(){
                       <input type="checkbox" class="checkbox" name="check" value="${lac }-${cellid }"/>
                      </s:else>
                     </td>
-                         <td>${lac }-${cellid} </td>
-                      
+                         <td>
+                          <a href="../stat/streamCellTime.action?lac=${lac }&cellid=${cellid }" title="点此查看此小区在昨天的分时流量">${cellkey}</a>
+                      </td>
                           <td>${cellname}</td>
                           <td>${bscrncid }</td>
                           <td><s:property value="@com.sxit.netquality.service.BasicSetService@BSC_SGSN[bscrncid]"/></td>

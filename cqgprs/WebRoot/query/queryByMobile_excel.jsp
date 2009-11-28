@@ -43,6 +43,7 @@ th
      
                           <th>时间</th>
                           <th>所在小区</th>
+                          <th>小区名称</th>
                           <th>APN</th>
                           <th>上行流量（K）</th>
                           <th>下行流量（K）</th>
@@ -54,7 +55,8 @@ th
       <tr>
      
        <td class="listline2">${opentimestr}</td>
-                          <td class="listline2">${cellid}</td>
+                          <td class="listline2">${cellkey}</td>
+                          <td class="listline2">${cell.cellname}</td>
                           <td class="listline2">${apnni }</td>
                           <td class="listline2">${upvolume}</td>
                           <td class="listline2">${downvolume}</td>

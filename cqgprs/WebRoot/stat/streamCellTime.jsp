@@ -108,9 +108,9 @@ if(checkvalue()){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								 <td>小区编号：<s:textfield name="cellid" size="10" id="cellid" cssClass="txt" title="小区编号不能为空"/>&nbsp;</td>
-								 <td>LAC：<s:textfield name="lac" size="10" id="lac" cssClass="txt" title="LAC不能为空"/>&nbsp;</td>
+								 <td>日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td>小区编号：<s:textfield name="cellid" size="6" id="cellid" cssClass="txt" title="小区编号不能为空"/>&nbsp;</td>
+								 <td>LAC：<s:textfield name="lac" size="6" id="lac" cssClass="txt" title="LAC不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">

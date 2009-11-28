@@ -150,8 +150,8 @@ function setit(){
                       <input type="checkbox" class="checkbox" name="check" value="${apnid }"/>
                      </s:else>
                         </td>
-                         <td>${apnid}
-                       
+                         <td>
+                   <a href="../stat/streamCellTime.action?apnid=${apnid }" title="点此查看此APN在昨天的分时流量">${apnid}</a>
                          </td>
                           <td>${usercorp}</td>
                           <td>${userphone }</td>
@@ -166,8 +166,7 @@ function setit(){
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
-						 </tfoot>
-			  
+						 </tfoot>x
                     </table>
 			  </div>
 
