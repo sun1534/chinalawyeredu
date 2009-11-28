@@ -16,7 +16,7 @@
     <img src="../imagesa/b_02.gif" width="4" height="7"> 当前位置：新建帖子 </td>
   </tr>
 </table>
-<s:form action="forumCreate" method="post" name="form1" validate="true">
+<s:form action="forumCreate" method="post" name="form1">
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#C2D6F0" >
   <tr>
     <td valign="top" bgcolor="#FFFFFF">
