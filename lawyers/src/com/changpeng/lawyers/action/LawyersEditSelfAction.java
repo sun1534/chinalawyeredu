@@ -39,6 +39,16 @@ public class LawyersEditSelfAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
+		
+		if(lawyers.getProvinceunion()==22){
+			
+			
+			this.message="对不起,广西律协的律师资料来自于律管平台,不能修改";
+			
+			return "message";
+		}
+		
+		
 		com.changpeng.common.BasicService bs = (com.changpeng.common.BasicService) this.getBean("basicService");
 		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
 

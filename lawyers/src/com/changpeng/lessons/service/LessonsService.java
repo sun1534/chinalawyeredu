@@ -173,27 +173,30 @@ public class LessonsService extends BasicService {
 		return statics;
 	}
 
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
+	
+	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid, int lessonstyle,
-			int lessontype, String title, String teachers, int pageSize, int pageNo, Timestamp start, Timestamp end) {
+			int lessontype, String title, String teachers, int pageSize, int pageNo,Timestamp start,Timestamp end) {
 
 		// 现场课程的话，如果我是admin或者group>3，则显示所有的现场课程，否则的话，
 		// 我是省的话，显示本省的所有，市的话，只显示市的
-		if (lessonstyle == 1 || lessonstyle == 100) {
-			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
-			// 这里的mygroup都是市律协
-			if (lessonstyle == 1)
-				dc.add(Restrictions.in("groupid", new Integer[] { mygroup.getGroupid(), mygroup.getParentid() }));
-			else {
-				dc.add(Restrictions.not(Restrictions.in("groupid", new Integer[] { mygroup.getGroupid(),
-						mygroup.getParentid() })));
+		// 1是显示本地的本地课程，100是显示外地的本地课程
+		if (lessonstyle == 1||lessonstyle==100) {
+		
+			
+			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));
+			if (mygroup != null && mygroup.getGrouptype() <= 3) {
+				if (mygroup.getGrouptype() == 1) { // 无权限
+					dc.add(Restrictions.eq("provinceid", -1));
+				} else if (mygroup.getGrouptype() == 2) {
+					//自己干的和省律协干的
+					dc.add(Restrictions.or(Restrictions.eq("cityid", mygroup.getGroupid()), Restrictions.eq("groupid", mygroup.getParentid())));
+				} else {
+					dc.add(Restrictions.eq("provinceid", mygroup.getGroupid()));
+				}
 			}
-			if (groupid != -1) {
-				// dc.add(Restrictions.eq("lessons.groupid", groupid));
-				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("provinceid", groupid)));
-				// hql += " and a.lessons.groupid=" + groupid;
-			}
+		
 			if (title != null && !"".equals(title)) {
 				dc.add(Restrictions.like("title", title, MatchMode.ANYWHERE));
 			}
@@ -203,10 +206,16 @@ public class LessonsService extends BasicService {
 			if (lessontype != 0) {
 				dc.add(Restrictions.eq("lessontype", lessontype));
 			}
-			if (start != null && end != null)
+			if (groupid != -1) {
+//				dc.add(Restrictions.eq("lessons.groupid", groupid));
+				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("provinceid", groupid)));
+//				hql += " and a.lessons.groupid=" + groupid;
+			}
+			if(start!=null&&end!=null)
 				dc.add(Restrictions.between("lessondate", start, end));
 			dc.add(Restrictions.in("lessonstyle", new Integer[] { 1, 3 }));
 			dc.addOrder(Order.desc("lessondate"));
+			dc.addOrder(Order.desc("lessonid"));
 			PaginationSupport page = lessonsDAO.findPageByCriteria(dc, pageSize, pageNo);
 			return page;
 		} else {
@@ -223,28 +232,33 @@ public class LessonsService extends BasicService {
 					groupids.add(mygroup.getParentid());
 					groupids.add(mygroup.getDirectgroup());
 					str = mygroup.getGroupid() + "," + mygroup.getParentid() + "," + mygroup.getDirectgroup();
-
+					dc.add(Restrictions.in("groupid", groupids));
+					hql += " and a.groupid in(" + str + ")";
 				} else if (mygroup.getGrouptype() == 2) {
 					groupids.add(mygroup.getGroupid());
 					groupids.add(mygroup.getParentid());
 					str = mygroup.getGroupid() + "," + mygroup.getParentid();
-				} else if (mygroup.getGrouptype() == 3) {
+					dc.add(Restrictions.in("groupid", groupids));
+					hql += " and a.groupid in(" + str + ")";
+				} else if (mygroup.getGrouptype() == 3) {//省律协的,我省id是这个就行了吧
 					groupids.add(mygroup.getGroupid());
 					str = mygroup.getGroupid() + "";
+					
+					dc.add(Restrictions.or(Restrictions.in("groupid", groupids), Restrictions.eq("lessons.provinceid", mygroup.getGroupid())));
+					hql += " and (a.groupid in(" + str + ") or a.lessons.provinceid =" +  mygroup.getGroupid() + ")";
+					
 				}
-				dc.add(Restrictions.in("groupid", groupids));
-				hql += " and a.groupid in(" + str + ")";
+			
 			}
 			// 不显示删除的
 			dc.add(Restrictions.eq("lessons.deleteflag", false));
 			hql += " and a.lessons.deleteflag=false";
 			// 具体的来源
 			if (groupid != -1) {
-				// dc.add(Restrictions.eq("lessons.groupid", groupid));
-				dc.add(Restrictions.or(Restrictions.eq("lessons.groupid", groupid), Restrictions.eq(
-						"lessons.provinceid", groupid)));
-				// hql += " and a.lessons.groupid=" + groupid;
-				hql += " and (a.lessons.groupid=" + groupid + " or a.lessons.provinceid=" + groupid+")";
+//				dc.add(Restrictions.eq("lessons.groupid", groupid));
+				dc.add(Restrictions.or(Restrictions.eq("lessons.groupid", groupid), Restrictions.eq("lessons.provinceid", groupid)));
+				
+				hql += " and (a.lessons.groupid=" + groupid+" or a.lessons.provinceid="+groupid+")";
 			}
 
 			if (title != null && !"".equals(title)) {
@@ -260,23 +274,26 @@ public class LessonsService extends BasicService {
 				hql += " and a.lessons.lessontype =" + lessontype;
 			}
 			if (lessonstyle != 0) {
-				if (lessonstyle == 1 || lessonstyle == 2)
+//				if (lessonstyle == 1 || lessonstyle == 2)
 					dc.add(Restrictions.in("lessons.lessonstyle", new Object[] { lessonstyle, 3 }));
-				else
-					dc.add(Restrictions.eq("lessons.lessonstyle", lessonstyle));
+//				else
+//					dc.add(Restrictions.eq("lessons.lessonstyle", lessonstyle));
 				hql += " and a.lessons.lessonstyle in(" + lessonstyle + ",3)";
 			}
-			if (start != null && end != null) {
-				String startStr = df.format(start) + " 00:00:00";
-				String endStr = df.format(end) + " 23:59:59";
+			
+			if(start!=null&&end!=null){
+				String startStr=df.format(start)+" 00:00:00";
+				String endStr=df.format(end)+" 23:59:59";
 				dc.add(Restrictions.between("lessons.lessondate", start, end));
-				dc.add(Restrictions.between("lessons.lessondate", start, end));
-				hql += " and a.lessons.lessondate between '" + startStr + "'and '" + endStr + "'";
+//				dc.add(Restrictions.between("lessons.lessondate", start, end));
+				hql += " and a.lessons.lessondate between '"+startStr+"'and '"+endStr+"'";
 			}
-
+			
 			hql += " order by a.lessons.lessondate desc";
-
+		
 			dc.setProjection(Projections.countDistinct("lessons"));
+//			dc.addOrder(Order.desc("lessons.lessondate"));
+//			dc.addOrder(Order.desc("lessons.lessonid"));
 			List list = lessonsDAO.findAllByCriteria(dc);
 			int len = list == null ? 0 : list.size();
 			int totalCount = len == 0 ? 0 : Integer.parseInt(list.get(0).toString());
@@ -285,7 +302,119 @@ public class LessonsService extends BasicService {
 			PaginationSupport page = lessonsDAO.findByQuery(hql, pageSize, pageNo, totalCount);
 			return page;
 		}
-
 	}
+	
+//	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid, int lessonstyle,
+//			int lessontype, String title, String teachers, int pageSize, int pageNo, Timestamp start, Timestamp end) {
+//
+//		// 现场课程的话，如果我是admin或者group>3，则显示所有的现场课程，否则的话，
+//		// 我是省的话，显示本省的所有，市的话，只显示市的
+//		if (lessonstyle == 1 || lessonstyle == 100) {
+//			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
+//			// 这里的mygroup都是市律协
+//			if (lessonstyle == 1)
+//				dc.add(Restrictions.in("groupid", new Integer[] { mygroup.getGroupid(), mygroup.getParentid() }));
+//			else {
+//				dc.add(Restrictions.not(Restrictions.in("groupid", new Integer[] { mygroup.getGroupid(),
+//						mygroup.getParentid() })));
+//			}
+//			if (groupid != -1) {
+//				// dc.add(Restrictions.eq("lessons.groupid", groupid));
+//				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("provinceid", groupid)));
+//				// hql += " and a.lessons.groupid=" + groupid;
+//			}
+//			if (title != null && !"".equals(title)) {
+//				dc.add(Restrictions.like("title", title, MatchMode.ANYWHERE));
+//			}
+//			if (teachers != null && !"".equals(teachers)) {
+//				dc.add(Restrictions.like("teachers", teachers, MatchMode.ANYWHERE));
+//			}
+//			if (lessontype != 0) {
+//				dc.add(Restrictions.eq("lessontype", lessontype));
+//			}
+//			if (start != null && end != null)
+//				dc.add(Restrictions.between("lessondate", start, end));
+//			dc.add(Restrictions.in("lessonstyle", new Integer[] { 1, 3 }));
+//			dc.addOrder(Order.desc("lessondate"));
+//			PaginationSupport page = lessonsDAO.findPageByCriteria(dc, pageSize, pageNo);
+//			return page;
+//		} else {
+//
+//			DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
+//			dc.createAlias("lessons", "lessons");
+//			String hql = "select distinct a.lessons from Lessonshared a where 1=1 ";
+//
+//			if (mygroup != null && mygroup.getGrouptype() <= 3) {// mygroup为null的话,能看到所有律协的
+//				List<Integer> groupids = new ArrayList<Integer>();
+//				String str = "";
+//				if (mygroup.getGrouptype() == 1) {
+//					groupids.add(mygroup.getGroupid());
+//					groupids.add(mygroup.getParentid());
+//					groupids.add(mygroup.getDirectgroup());
+//					str = mygroup.getGroupid() + "," + mygroup.getParentid() + "," + mygroup.getDirectgroup();
+//
+//				} else if (mygroup.getGrouptype() == 2) {
+//					groupids.add(mygroup.getGroupid());
+//					groupids.add(mygroup.getParentid());
+//					str = mygroup.getGroupid() + "," + mygroup.getParentid();
+//				} else if (mygroup.getGrouptype() == 3) {
+//					groupids.add(mygroup.getGroupid());
+//					str = mygroup.getGroupid() + "";
+//				}
+//				dc.add(Restrictions.in("groupid", groupids));
+//				hql += " and a.groupid in(" + str + ")";
+//			}
+//			// 不显示删除的
+//			dc.add(Restrictions.eq("lessons.deleteflag", false));
+//			hql += " and a.lessons.deleteflag=false";
+//			// 具体的来源
+//			if (groupid != -1) {
+//				// dc.add(Restrictions.eq("lessons.groupid", groupid));
+//				dc.add(Restrictions.or(Restrictions.eq("lessons.groupid", groupid), Restrictions.eq(
+//						"lessons.provinceid", groupid)));
+//				// hql += " and a.lessons.groupid=" + groupid;
+//				hql += " and (a.lessons.groupid=" + groupid + " or a.lessons.provinceid=" + groupid+")";
+//			}
+//
+//			if (title != null && !"".equals(title)) {
+//				dc.add(Restrictions.like("lessons.title", title, MatchMode.ANYWHERE));
+//				hql += " and a.lessons.title like '%" + title + "%'";
+//			}
+//			if (teachers != null && !"".equals(teachers)) {
+//				dc.add(Restrictions.like("lessons.teachers", teachers, MatchMode.ANYWHERE));
+//				hql += " and a.lessons.teachers like '%" + teachers + "%'";
+//			}
+//			if (lessontype != 0) {
+//				dc.add(Restrictions.eq("lessons.lessontype", lessontype));
+//				hql += " and a.lessons.lessontype =" + lessontype;
+//			}
+//			if (lessonstyle != 0) {
+//				if (lessonstyle == 1 || lessonstyle == 2)
+//					dc.add(Restrictions.in("lessons.lessonstyle", new Object[] { lessonstyle, 3 }));
+//				else
+//					dc.add(Restrictions.eq("lessons.lessonstyle", lessonstyle));
+//				hql += " and a.lessons.lessonstyle in(" + lessonstyle + ",3)";
+//			}
+//			if (start != null && end != null) {
+//				String startStr = df.format(start) + " 00:00:00";
+//				String endStr = df.format(end) + " 23:59:59";
+//				dc.add(Restrictions.between("lessons.lessondate", start, end));
+//				dc.add(Restrictions.between("lessons.lessondate", start, end));
+//				hql += " and a.lessons.lessondate between '" + startStr + "'and '" + endStr + "'";
+//			}
+//
+//			hql += " order by a.lessons.lessondate desc";
+//
+//			dc.setProjection(Projections.countDistinct("lessons"));
+//			List list = lessonsDAO.findAllByCriteria(dc);
+//			int len = list == null ? 0 : list.size();
+//			int totalCount = len == 0 ? 0 : Integer.parseInt(list.get(0).toString());
+//			// 根据授课时间进行排序
+//			// detachedCriteria.addOrder(Order.desc("lessons.lessondate"));
+//			PaginationSupport page = lessonsDAO.findByQuery(hql, pageSize, pageNo, totalCount);
+//			return page;
+//		}
+
+//	}
 
 }
