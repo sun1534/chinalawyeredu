@@ -49,12 +49,12 @@ public class SysParameterFCKEditAction extends AbstractAction {
 
 
 	
-	public SysParameter getSysParameter(){
-		if(sysParameter==null)
-			sysParameter= (SysParameter)get("sysParameter");
-		return sysParameter;
-		
-	}
+//	public SysParameter getSysParameter(){
+//		if(sysParameter==null)
+//			sysParameter= (SysParameter)get("sysParameter");
+//		return sysParameter;
+//		
+//	}
 	
 	public SysParameterFCKEditAction(){
 		service=(BasicService)this.getBean("basicService");
@@ -67,7 +67,10 @@ public class SysParameterFCKEditAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 
-		LOG.debug("主键值:::"+sysParameter.getParamname());
+		LOG.debug("主键值:::"+paramname);
+		
+		SysParameter sysParameter=(SysParameter)service.get(SysParameter.class, paramname);
+		sysParameter.setParamvalue(paramvalue);
 		
 		service.update(sysParameter);
 		synchronized (CommonDatas.SysParameter) {
@@ -83,8 +86,27 @@ public class SysParameterFCKEditAction extends AbstractAction {
 	@Override
 	public String input() throws Exception {
 		SysParameter sysParameter=(SysParameter)service.get(SysParameter.class, paramname);
-		set("sysParameter", sysParameter);
+//		set("sysParameter", sysParameter);
+		this.paramvalue=sysParameter.getParamvalue();
 		return INPUT;
+	}
+	
+	private String paramvalue;
+
+	public BasicService getService() {
+		return service;
+	}
+
+	public void setService(BasicService service) {
+		this.service = service;
+	}
+
+	public String getParamvalue() {
+		return paramvalue;
+	}
+
+	public void setParamvalue(String paramvalue) {
+		this.paramvalue = paramvalue;
 	}
 
 }

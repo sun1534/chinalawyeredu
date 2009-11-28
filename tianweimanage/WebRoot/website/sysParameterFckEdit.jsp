@@ -55,13 +55,13 @@ body {
         			 	<TR>
 					<s:hidden name="paramname"/>
 					  <TD width="100%" class="listline" colspan="3">
-					   <FCK:editor id="sysParameter.paramvalue" height="500" width="100%"
+					   <FCK:editor id="paramvalue" height="500" width="100%"
 									skinPath="../editor/skins/default/"
 									basePath="../" toolbarSet="custom"
 									imageBrowserURL="/editor/filemanager/browser/default/browser.html?Type=Image&Connector=connectors/jsp/connector"
 				imageUploadURL="/editor/filemanager/upload/simpleuploader?Type=Image"
 						>
-									${sysParameter.paramvalue}
+									${paramvalue}
 						</FCK:editor>
 					</TD>
 					</TR>

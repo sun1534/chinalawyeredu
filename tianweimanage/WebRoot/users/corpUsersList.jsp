@@ -74,8 +74,8 @@ function deleteit(uid){
                       <TD>注册时间</TD>
                       <TD>状态</TD>
                       <TD>联系手机</TD>
-                       <!-- 
-                      <TD>详细信息</TD>   -->  
+                       
+                      <TD>修改密码</TD>  
                        <TD>修改</TD>
                         <TD>删除</TD>               
                       
@@ -97,8 +97,8 @@ function deleteit(uid){
                        
                      </TD>
                         <TD>${mobile}</TD>
-                      <!--   <TD><a href="usersDetailCreateEdit!input.action?userid=${id}">详细信息</a></TD>     
-                        --><TD><a href="usersEdit!input.action?userid=${id}">修改</a></TD>
+                      <TD><a href="usersChangePassword!input.action?userid=${id}">修改密码</a></TD>     
+                     <TD><a href="usersEdit!input.action?userid=${id}">修改</a></TD>
                         <TD><a href="#" onclick="deleteit('${id}')">【删除】</a></TD>         
                         </TR>                        				
 					</s:iterator>

@@ -76,7 +76,7 @@ body {
 					  <TD width="15%" class="listheadline">家庭地址:</TD>
 					  <TD width="35%" class="listline"><s:textfield size="25" name="userdetail.userAddress"/></TD>
 					</TR>
-						<TR>
+				<!-- 		<TR>
 					  <TD width="15%" class="listheadline">兴趣爱好:</TD>
 					  <TD width="35%" class="listline"><s:textarea rows="2" cols="30" name="userdetail.interest"/></TD>
 					</TR>
@@ -100,7 +100,7 @@ body {
 					  <TD width="15%" class="listheadline">喜欢的运动:</TD>
 					  <TD width="35%" class="listline"><s:textarea rows="2" cols="30" name="userdetail.sports"/></TD>
 					</TR>
-					
+					-->
 					
 					
                     <TR bgcolor="#CCCCCC">

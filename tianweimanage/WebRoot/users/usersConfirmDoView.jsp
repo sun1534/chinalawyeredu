@@ -181,7 +181,7 @@ function focusit(obj){
                       ${detail.userAddress}
                       </TD>
 	 			 	</TR>
-                    	<TR>
+                  <!--   	<TR>
 	 			 	  <TD class="listheadline">兴趣爱好:</TD>
 	 			 	  <TD class="listline" colspan="3">
                      ${detail.interest}</TD>
@@ -211,7 +211,7 @@ function focusit(obj){
 	 			 	  <TD class="listline" colspan="3">
                      ${detail.sports}</TD>
 	 			 	</TR>
-                  
+                  -->
             </TABLE>       
             </s:if>  
               <br>

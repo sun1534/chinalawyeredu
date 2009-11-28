@@ -32,6 +32,10 @@
         <action name="usersDelete" class="com.sxit.users.action.UsersDeleteAction">
         </action>
        
+    <action name="usersChangePassword" class="com.sxit.users.action.UsersChangePasswordAction">
+        <result name="input" type="dispatcher">usersChangePassword.jsp</result>
+        </action>
+       
 
        
         <action name="usersCreate" class="com.sxit.users.action.UsersCreateAction">
