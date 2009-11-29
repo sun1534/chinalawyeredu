@@ -428,6 +428,7 @@ input.file{font-size:130%;border-width:1px;}
 .form div.formbtn{border-bottom:none #EFEFEF;}
 .form div.odd{border-bottom:1px solid #368CDD;}
 .form div.even ,.form div.odd ,.form div.formbtn{padding:7px 0 5px 2px;position:relative}
+.form * {z-index:2;}
 .form div.formbtn{padding:5px 0px 10px 0px;}
 .form div label.fname{color:#333333;position:absolute;top:8px;text-align:right;}
 .form div label.msg{padding-top:5px;color:#8D8D8D;display:block;}

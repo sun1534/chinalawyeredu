@@ -33,6 +33,7 @@ function HS_calender(){
 	/* http://www.codefans.net */
 	style +="<style type='text/css'>";
 	style +=".calender { width:170px; height:auto; font-size:12px; margin-right:14px; background:url(calenderbg.gif) no-repeat right center #fff; border:1px solid #397EAE; padding:1px}";
+	style +=".calender *{z-index:9;}";
 	style +=".calender ul {list-style-type:none; margin:0; padding:0;}";
 	style +=".calender .day { background-color:#EDF5FF; height:20px;}";
 	style +=".calender .day li,.calender .date li{ float:left; width:14%; height:20px; line-height:20px; text-align:center}";
@@ -71,7 +72,7 @@ function HS_calender(){
 	var thisMonthEndDay = thisMonthLastDate.getDay();
 	var todayObj = new Date();
 	today = todayObj.getFullYear()+"-"+todayObj.getMonth()+"-"+todayObj.getDate();
-	
+
 	for (i=0; i<lastMonthDate; i++){  // Last Month's Date
 		lis = "<li class='lastMonthDate'>"+lastMonthEndDate+"</li>" + lis;
 		lastMonthEndDate--;
@@ -84,7 +85,7 @@ function HS_calender(){
 		}else{
 			lis += "<li><a href=javascript:void(0) onclick='_selectThisDay(this)' title='"+now.getFullYear()+"-"+(parseInt(now.getMonth())+1)+"-"+i+"'>"+i+"</a></li>";
 		}
-		
+
 	}
 	var j=1;
 	for (i=thisMonthEndDay; i<6; i++){  // Next Month's Date
@@ -95,7 +96,7 @@ function HS_calender(){
 
 	var CalenderTitle = "<a href='javascript:void(0)' class='NextMonth' onclick=HS_calender(HS_DateAdd('m',1,'"+now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate()+"'),this) title='Next Month'>&raquo;</a>";
 	CalenderTitle += "<a href='javascript:void(0)' class='LastMonth' onclick=HS_calender(HS_DateAdd('m',-1,'"+now.getFullYear()+"-"+now.getMonth()+"-"+now.getDate()+"'),this) title='Previous Month'>&laquo;</a>";
-	CalenderTitle += "<span class='selectThisYear'><a href='javascript:void(0)' onclick='CalenderselectYear(this)' title='Click here to select other year' >"+now.getFullYear()+"</a></span>年<span class='selectThisMonth'><a href='javascript:void(0)' onclick='CalenderselectMonth(this)' title='Click here to select other month'>"+(parseInt(now.getMonth())+1).toString()+"</a></span>月"; 
+	CalenderTitle += "<span class='selectThisYear'><a href='javascript:void(0)' onclick='CalenderselectYear(this)' title='Click here to select other year' >"+now.getFullYear()+"</a></span>年<span class='selectThisMonth'><a href='javascript:void(0)' onclick='CalenderselectMonth(this)' title='Click here to select other month'>"+(parseInt(now.getMonth())+1).toString()+"</a></span>月";
 
 	if (arguments.length>1){
 		arguments[1].parentNode.parentNode.getElementsByTagName("ul")[1].innerHTML = lis;
@@ -168,10 +169,10 @@ function HS_setDate(inputObj){
 				<ul id="partents-mintag">
 					<li class="current"><a href="#" title="基本资料"><span>基本资料</span></a></li>
 						<#if currentRole=1>
-					<li><a title="更新头像" href="userimages!input.action"><span>更新头像</span></a></li>	
+					<li><a title="更新头像" href="userimages!input.action"><span>更新头像</span></a></li>
 						</#if>
 					<#if currentRole=2>
-					<li><a title="企业形象" href="userimages!input.action"><span>企业形象</span></a></li>	
+					<li><a title="企业形象" href="userimages!input.action"><span>企业形象</span></a></li>
 					<li><a title="更新LOGO" href="userlogo.action"><span>更新LOGO</span></a></li>
 					</#if>
 					<li><a title="密码修改" href="userpassword.action"><span>密码修改</span></a></li>
@@ -224,7 +225,7 @@ function HS_setDate(inputObj){
 		<div class="even">
 			<label class="fname" for="pname">公司名称：</label>
 			<span class="fvalue"><input id="sign" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="sign" size="20" value="${sign}" class="normal txt-login w200"/>
-			
+
 				<font color="red">*</font>
 			</span>
 		</div>
@@ -241,7 +242,7 @@ function HS_setDate(inputObj){
 			<label class="fname" for="pname">电话：</label>
 			<span class="fvalue"><input id="phone" type="text" name="phone" size="15" value="${phone}" class="normal txt-login w200"/>
 				<font color="red">*</font>
-			</span>	
+			</span>
 		</div>
 		<div class="even">
 			<label class="fname" for="pname">身份证号码：</label>
@@ -253,7 +254,7 @@ function HS_setDate(inputObj){
 		<div class="even">
 			<label class="fname" for="pname">营业执照号：</label>
 			<span class="fvalue"><input id="entno" <#if status=0>readonly="true"</#if><#if status=2>readonly="true"</#if> type="text" name="entno" size="15" value="${entno}" class="normal txt-login w200"/>
-			
+
 				<font color="red">*</font>
 			</span>
 		</div>
@@ -310,7 +311,7 @@ function checkIDCard (str)
  //身份证正则表达式(18位)
  isIDCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
  //验证身份证，返回结果
- 
+
  <#if currentRole=1>
  var birthday=$("#dateinput1").val();
  if(str.length==15){
@@ -347,7 +348,7 @@ function submita(){
 	    	  else if($("#cardno").val()==""){
 		alert("请输入企业法人身份证号码,不能为空");
 	    }
-	    	
+
 	</#if>
 		else if($("#address").val()==""){
 		alert("请输入您或您公司的地址,不能为空");
