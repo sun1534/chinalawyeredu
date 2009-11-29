@@ -407,7 +407,7 @@ font-weight:bold;font-size:12px;line-height:24px;color:#fefefe;padding-left:10px
 .delstaff a{color:#ff6600;}
 .form-left {float:left;width:49%;}
 .form-right {float:right;width:49%;}
-.updateimg-in {padding:10px 0;overflow:auto;}
+.updateimg-in {padding:10px 0;height:150px;}
 
 #baseadmininfo .headimg {display:block;background-color:#ddd;line-height:24px;}
 #baseadmininfo-r .headimg {display:block;background-color:#70AEE7;line-height:24px;}
@@ -427,10 +427,11 @@ input.file{font-size:130%;border-width:1px;}
 .form div.even{border-bottom:1px solid #368CDD;}
 .form div.formbtn{border-bottom:none #EFEFEF;}
 .form div.odd{border-bottom:1px solid #368CDD;}
-.form div.even ,.form div.odd ,.form div.formbtn{padding:7px 0 5px 2px;position:relative}
-.form * {z-index:2;}
+.form div.even ,.form div.odd ,.form div.formbtn{padding:7px 0 5px 2px;overflow:hidden;height:24px;}
+.form div.even * ,.form div.odd * {z-index:2;}
+.form div.even ,.form div.odd {z-index:2;}
 .form div.formbtn{padding:5px 0px 10px 0px;}
-.form div label.fname{color:#333333;position:absolute;top:8px;text-align:right;}
+.form div label.fname{color:#333333;float:left;text-align:right;}
 .form div label.msg{padding-top:5px;color:#8D8D8D;display:block;}
 .form div label.error{padding-top:5px;color:#8D8D8D;display:block;line-height:16px;color:#D66B6B;padding-left:18px;background:url(../images/ico.gif) no-repeat 0px -16px;}
 .form div label.title em{color:#FF0000;padding-left:4px;font-style:normal}
@@ -501,8 +502,8 @@ input[type="text"]:focus, input[type="password"]:focus,select:focus, textarea:fo
 #baseform.form div label.fname{width:60px;color:#333333;position:absolute;top:8px;text-align:right;}
 #baseform.form div span.fvalue{padding-left:70px;font-weight:normal;display:block;line-height:20px;}
 /*班级基本资料*/
-#baseadmininfo.form div label.fname{width:110px;color:#333333;position:absolute;top:8px;text-align:right;}
-#baseadmininfo.form div span.fvalue{padding-left:120px;font-weight:normal;display:block;line-height:20px;}
+#baseadmininfo.form div label.fname{width:110px;color:#333333;float:left;text-align:right;}
+#baseadmininfo.form div span.fvalue{float:left;font-weight:normal;display:block;line-height:20px;}
 /*发起新投票*/
 #basevote.form div label.fname{width:90px;color:#333333;position:absolute;top:8px;text-align:right;}
 #basevote.form div span.fvalue{padding-left:100px;font-weight:normal;display:block;line-height:20px;}

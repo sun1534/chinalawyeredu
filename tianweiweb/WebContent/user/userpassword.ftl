@@ -7,10 +7,10 @@
 			<ul>
 				<li ><a href="userbaseview.action" title="基本资料"><span>基本资料</span></a></li>
 						<#if currentRole=1>
-					<li><a title="更新头像" href="userimages!input.action"><span>更新头像</span></a></li>	
+					<li><a title="更新头像" href="userimages!input.action"><span>更新头像</span></a></li>
 						</#if>
 					<#if currentRole=2>
-					<li><a title="企业形象" href="userimages!input.action"><span>企业形象</span></a></li>	
+					<li><a title="企业形象" href="userimages!input.action"><span>企业形象</span></a></li>
 					<li><a title="更新LOGO" href="userlogo.action"><span>更新LOGO</span></a></li>
 					</#if>
 				<li class="current"><a title="密码修改" href="userpassword.action"><span>密码修改</span></a></li>
@@ -40,8 +40,8 @@
 						<span id="repwdtip" class="fvalue"><font color="green">密码请输入6~13个字符</font></span>
 					</div>
 					<div class="formbtn">
-						<label class="fname" for="cname"></label>
-						<span class="fvalue"><input class="delBtn igreen w80" id="saveBtn"  type="button" title="保存密码" value="保存密码"/></span>
+						<label class="fname" for="cname">　　</label>
+						<span class="fvalue"><input class="delBtn igreen w80" id="saveBtn"  type="button" title="保存密码" value="保存密码" /></span>
 					</div>
 				</div>
 			 </form>

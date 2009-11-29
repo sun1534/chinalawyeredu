@@ -152,9 +152,10 @@ function selectThisMonth(obj){
 	HS_calender(obj.parentNode.parentNode.getElementsByTagName("span")[0].getElementsByTagName("a")[0].innerHTML+"-"+obj.value+"-1",obj.parentNode);
 }
 function HS_setDate(inputObj){
-	var calenderObj = document.createElement("span");
+	var calenderObj = document.createElement("DIV");
 	calenderObj.innerHTML = HS_calender(new Date());
 	calenderObj.style.position = "absolute";
+	calenderObj.style.zIndex = "10";
 	calenderObj.targetObj = inputObj;
 	inputObj.parentNode.insertBefore(calenderObj,inputObj.nextSibling);
 }
@@ -270,7 +271,7 @@ function HS_setDate(inputObj){
 
 
 		<div class="formbtn">
-		<label class="fname" for="cname"></label>
+		<label class="fname" for="cname">　　</label>
 		<span class="fvalue">
 		<input class="delBtn igreen "   id="saveBtn11" onclick="submita()" stype="button" title="保存修改" value="保存修改"/>
 		</span>
