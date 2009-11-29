@@ -4,8 +4,11 @@
 package com.sxit.query.action;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.sxit.common.PaginationSupport;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.query.service.QueryService;
 
@@ -41,7 +44,6 @@ public class QueryByAPNAction extends AbstractListAction {
 		this.apn = apn;
 	}
 
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -50,44 +52,56 @@ public class QueryByAPNAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
-		if(this.date==null||this.date.equals("")){
-			this.date=df.format(new java.util.Date());
+		if (this.date == null || this.date.equals("")) {
+			this.date = df.format(new java.util.Date());
 		}
-		
+
 		QueryService queryservice = (QueryService) this.getBean("queryService");
 		this.start = df.format(new java.util.Date());
 		Date enddate = this.getPrevCountDate(7);
 		this.end = df.format(enddate);
 		Date _date = df.parse(date);
-		
-		if(apn!=null&&!apn.equals(""))
-		{
-		if (resultType.equals("list")){
-			this.page = queryservice.queryCdr(_date, null, null,null, apn, pageNo, pageSize);
-			return SUCCESS;
-		}
 
-		else if (resultType.equals("excel")){
-			this.page = queryservice.queryCdr(_date, null, null,null, apn, pageNo, Integer.MAX_VALUE);
-			return "excel";
+		if (apn != null && !apn.equals("")) {
+
+			if (firstpage.equals("yes")) {
+				queryList = queryservice.queryCdr(_date, null, null, null, apn);
+				set("queryList", queryList);
+				int totalCount = queryList.size();
+				int startIndex = (pageNo - 1) * pageSize;
+				List list = new ArrayList();
+				for (int i = startIndex; i < totalCount && i < startIndex + pageSize; i++) {
+					list.add(queryList.get(i));
+				}
+				this.page = new PaginationSupport(list, totalCount, pageSize, startIndex);
+			} else {
+				queryList = (List) get("List");
+			}
+
+			// if (resultType.equals("list")){
+			// this.page = queryservice.queryCdr(_date, null, null,null, apn,
+			// pageNo, pageSize);
+			// return SUCCESS;
+			// }
+			//
+			// else if (resultType.equals("excel")){
+			// this.page = queryservice.queryCdr(_date, null, null,null, apn,
+			// pageNo, Integer.MAX_VALUE);
+			// return "excel";
+			// }
 		}
-		}
-		return SUCCESS;
+		if (resultType.equals("list"))
+			return SUCCESS;
+		return "excel";
 	}
 
-	// public static void main(String[] args)throws Exception{
-	// String start=df.format(new java.util.Date());
-	//	
-	// Date enddate=com.sxit.stat.util.StatUtil.getPrevCountDate(6);
-	// String end=df.format(enddate);
-	//		
-	// System.out.println(start);
-	// System.out.println(end);
-	// Date date= df.parse("2009-11-05");
-	//		
-	// System.out.println(com.sxit.stat.util.StatUtil.getCdrTable(date));
-	// System.out.println(com.sxit.stat.util.StatUtil.getYestardayCdrTable());
-	// }
+	private String firstpage = "yes";
+
+	private List queryList;
+
+	public List getQueryList() {
+		return this.queryList;
+	}
 
 	/**
 	 * @return the date
@@ -116,6 +130,21 @@ public class QueryByAPNAction extends AbstractListAction {
 	 */
 	public String getEnd() {
 		return end;
+	}
+
+	/**
+	 * @return the firstpage
+	 */
+	public String getFirstpage() {
+		return firstpage;
+	}
+
+	/**
+	 * @param firstpage
+	 *            the firstpage to set
+	 */
+	public void setFirstpage(String firstpage) {
+		this.firstpage = firstpage;
 	}
 
 }

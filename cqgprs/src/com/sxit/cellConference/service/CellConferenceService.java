@@ -5,6 +5,7 @@ package com.sxit.cellConference.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CellConferenceService {
 	public static Map<Integer, String> TIMELIST;
 
 	static {
-		TIMELIST=new LinkedHashMap<Integer,String>();
+		TIMELIST = new LinkedHashMap<Integer, String>();
 		for (int i = 0; i <= 23; i++) {
 			TIMELIST.put(i, i + ":00-" + (i + 1) + ":00");
 		}
@@ -50,7 +51,7 @@ public class CellConferenceService {
 	 * 
 	 * @return
 	 */
-	public PaginationSupport getDayConferenceList(String date, int pageNo, int pageSize) {
+	public PaginationSupport getDayConferenceList(String date, int pageNo, int pageSize, String orderby) {
 
 		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
 		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
@@ -62,12 +63,13 @@ public class CellConferenceService {
 		int startIndex = (pageNo - 1) * pageSize;
 
 		sql = "select * from(select a.*,rownum rn from(select * from alarm_cellid where stattime between " + start
-				/ 1000 + " and " + end / 1000 + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
-				+ startIndex;
+				/ 1000 + " and " + end / 1000 + orderby + ") a where rownum<=" + (startIndex + pageSize)
+				+ ") where rn>" + startIndex;
 
 		System.out.println(countsql);
 		System.out.println(sql);
-		int totalCount = jdbcTemplate.queryForInt(countsql);
+		int totalCount=0;
+		
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
@@ -88,6 +90,12 @@ public class CellConferenceService {
 			}
 		});
 		List list = (List) object;
+		if(pageSize==Integer.MAX_VALUE){
+			totalCount=list.size();
+		}else{
+			totalCount = jdbcTemplate.queryForInt(countsql);
+		}
+		
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
@@ -153,7 +161,7 @@ public class CellConferenceService {
 
 		System.out.println(countsql);
 		System.out.println(sql);
-		int totalCount = jdbcTemplate.queryForInt(countsql);
+		int totalCount =0;
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
@@ -173,8 +181,44 @@ public class CellConferenceService {
 			}
 		});
 		List list = (List) object;
+		if(pageSize==Integer.MAX_VALUE){
+			totalCount=list.size();
+		}else{
+			totalCount = jdbcTemplate.queryForInt(countsql);
+		}
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
+	}
+
+	/**
+	 * 
+	 * @param lac
+	 * @param cellid
+	 * @return
+	 */
+	public ConferenceCell getConferenceCell(String lac, String cellid) {
+		String sql = "select * from SET_CELL_CONFERENCE where lac='" + lac + "' and cellid='" + cellid + "'";
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				if (rs.next()) {
+					ConferenceCell cell = new ConferenceCell();
+					cell.setCellid(rs.getString("cellid"));
+					cell.setCreateuserid(rs.getInt("createuserid"));
+					cell.setCreateusername(rs.getString("createusername"));
+					cell.setUpdatetime(rs.getLong("updatetime"));
+					cell.setLac(rs.getString("lac"));
+					cell.setTimeview(rs.getInt("timeview"));
+					cell.setFlowalarmvalue(rs.getInt("flowalarmvalue"));
+					cell.setUseralarmvalue(rs.getInt("useralarmvalue"));
+					return cell;
+				}
+				return null;
+			}
+		});
+		if (object == null)
+			return null;
+		return (ConferenceCell) object;
 	}
 
 	/**
@@ -199,11 +243,16 @@ public class CellConferenceService {
 	 * @param timeview
 	 */
 	public void updateConferenceCell(String cellid, String lac, int userview, int flowview, int timeview) {
+		long updatetime = System.currentTimeMillis() / 1000;
+
 		String sql = "update SET_CELL_CONFERENCE set flowalarmvalue=" + flowview + ",useralarmvalue=" + userview
-				+ ",timeview=" + timeview + ", where CELLID ='" + cellid + "' and lac='" + lac + "'";
+				+ ",timeview=" + timeview + ",updatetime=" + updatetime + " where CELLID ='" + cellid + "' and lac='"
+				+ lac + "'";
 		jdbcTemplate.execute(sql);
 
 	}
+
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
 	 * 得到连续几天这个hour的统计数据情况，这个date可以是当天时间
@@ -215,14 +264,16 @@ public class CellConferenceService {
 	public List getConitnueTimeStatCells(String cellid, String lac, final String date, String hour, int days) {
 
 		int nowhour = (int) (StatUtil.getDateHourTime(date + " " + hour + ":00:00") / 1000);
-		int nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhour);
+		long nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhour);
 
 		final List list = new ArrayList();
-		final String stattime = date + " " + hour + ":00:00";
-		for (int i = days; i >= 0; i--) {
+//		String stattime = date + " " + hour + ":00:00";
+		for (int i = days-1; i >=0; i--) {
 
-			int start = nowhour - i * 24 * 60 * 60;
-			int end = nowhourend - i * 24 * 60 * 60;
+		final	long start = nowhour - i * 24 * 60 * 60;
+			long end = nowhourend - i * 24 * 60 * 60;
+
+			System.out.println(df.format(new java.sql.Timestamp(start * 1000))+"===="+df.format(new java.sql.Timestamp(end * 1000)));
 
 			// String sql = "select cellid,lac,sum(allvolume) as
 			// allvolume,sum(upvolume) as upvolume,sum(downvolume) as
@@ -230,22 +281,28 @@ public class CellConferenceService {
 			// stattime between "
 			// + start + " and " + end+" group by cellid,lac";
 
-			String sql = "select cellid,lac,allvolume,upvolume,downvolume,usercount from stat_cellid where stattime between "
-					+ start + " and " + end;
-			// System.out.println(sql);
+			String sql = "select cellid,lac,allvolume,upvolume,downvolume,usercount,stattime from stat_cellid where cellid="
+					+ cellid + " and lac=" + lac + " and stattime between " + start + " and " + end;
+			System.out.println(sql);
 			jdbcTemplate.query(sql, new ResultSetExtractor() {
 				public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 					// List list = new ArrayList();
+					CellStatModel model = new CellStatModel();
+					model.setDate(date);
+					model.setStattime(start);
 					if (rs.next()) {
-						CellStatModel model = new CellStatModel();
+						
 						model.setTotalStream(rs.getDouble("ALLVOLUME"));
 						model.setTotalUser(rs.getInt("USERCOUNT"));
 						model.setCellid(rs.getString("cellid"));
 						model.setLac(rs.getString("lac"));
 						model.setDate(date);
-						model.setDatetime(stattime);
+						// model.setDatetime(stattime);
+						model.setStattime(rs.getLong("stattime"));
 						model.setDownvolume(rs.getDouble("downvolume"));
 						model.setUpvolume(rs.getDouble("upvolume"));
+						list.add(model);
+					}else{
 						list.add(model);
 					}
 					return null;

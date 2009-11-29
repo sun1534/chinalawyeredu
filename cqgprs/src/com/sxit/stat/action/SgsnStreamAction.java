@@ -20,11 +20,11 @@ import com.sxit.stat.util.StatUtil;
 /**
  * 
  * SGSN流量分析
+ * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
 public class SgsnStreamAction extends StatAction {
-	
 
 	/*
 	 * 得到某天的sgsn流量，分2，3g
@@ -34,9 +34,9 @@ public class SgsnStreamAction extends StatAction {
 	@Override
 	protected String go() throws Exception {
 
-		if(startDate==null){
-			startDate=getPrevDate();
-			this.start=df.format(startDate);
+		if (startDate == null) {
+			startDate = getPrevDate();
+			this.start = df.format(startDate);
 		}
 		sgsnlist = statservice.getDaySgsnStream(startDate);
 
@@ -64,7 +64,7 @@ public class SgsnStreamAction extends StatAction {
 	public List getSgsnlist() {
 		return this.sgsnlist;
 	}
-	
+
 	private Chart lineChart() {
 		double min = 0d;
 		double max = 0d;
@@ -73,52 +73,53 @@ public class SgsnStreamAction extends StatAction {
 		int len = sgsnlist.size();
 		for (int i = 0; i < len; i++) {
 			SgsnStatModel stat = (SgsnStatModel) sgsnlist.get(i);
-float value=0;
-			
-if(flashby.equals("total"))
-	value = value = (float)stat.getTotalStream();
-else if(flashby.equals("average"))
-	value = stat.getAverageStream();
-else if(flashby.equals("user"))
-	value = stat.getTotalUser();
-				if (value < min)
-					min = value;
-				if (value > max)
-					max = value;
-			
-				c2.addValues(value);
-			
-				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getSgsnid());
-				label.setRotation(ration);
-			
-				xlables.addLabels(label);
-			
+			float value = 0;
+
+			if (flashby.equals("total"))
+				value = value = (float) stat.getTotalStream();
+			else if (flashby.equals("average"))
+				value = stat.getAverageStream();
+			else if (flashby.equals("user"))
+				value = stat.getTotalUser();
+			if (value < min)
+				min = value;
+			if (value > max)
+				max = value;
+
+			c2.addValues(value);
+
+			jofc2.model.axis.Label label = new Label();
+			label.setText(stat.getSgsnid());
+			label.setRotation(ration);
+
+			xlables.addLabels(label);
+
 		}
 
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
 
 		jofc2.model.axis.XAxis xaxis = new XAxis();
-//		xlables.addLabels("rotate:315");
-//	String l="\"rotate\": 315, \"labels\": [\"0901\",\"0902\",\"0903\",\"0904\",\"0905\",\"0906\",\"0907\",\"0908\",\"0909\"]";
-//		                          xlables.addLabels(l);
+		// xlables.addLabels("rotate:315");
+		// String l="\"rotate\": 315, \"labels\":
+		// [\"0901\",\"0902\",\"0903\",\"0904\",\"0905\",\"0906\",\"0907\",\"0908\",\"0909\"]";
+		// xlables.addLabels(l);
 		xaxis.setXAxisLabels(xlables); // 显示横坐标
-		
+
 		flashChart.setXAxis(xaxis);
 
 		jofc2.model.axis.YAxis yaxis = new YAxis();
-//		System.out.println("+++++++++++++++++++++++++++++++");
+		// System.out.println("+++++++++++++++++++++++++++++++");
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
+		yaxis.setMin(min - steps <= 0 ? 0 : (min - steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
-	
+
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
 		title.setStyle("{font-size:14px}");
 		if (flashby.equals("total"))
-			title.setText(start +"各SGSN总流量分析（M）");
+			title.setText(start + "各SGSN总流量分析（M）");
 		else if (flashby.equals("average")) {
 			title.setText(start + "各SGSN平均流量分析（K）");
 		} else if (flashby.equals("user")) {
@@ -141,7 +142,7 @@ else if(flashby.equals("user"))
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value =value = (float)stat.getTotalStream();
+				value = value = (float) stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -152,9 +153,10 @@ else if(flashby.equals("user"))
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getSgsnid());label.setRotation(ration);
+			label.setText(stat.getSgsnid());
+			label.setRotation(ration);
 			xlables.addLabels(label);
-			
+
 		}
 
 		flashChart = new Chart(); // 整个图的标题
@@ -168,19 +170,19 @@ else if(flashby.equals("user"))
 
 		double steps = StatUtil.steps(max, min, 10);
 		yaxis.setSteps(steps);
-		yaxis.setMin(min - steps<=0?0:(min-steps)); // 最小值加一个步长
+		yaxis.setMin(min - steps <= 0 ? 0 : (min - steps)); // 最小值加一个步长
 		yaxis.setMax(max + steps); // 最大值加一个步长
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
 		title.setStyle("{font-size:14px}");
-		
-			if (flashby.equals("total"))
-				title.setText(start +  "各SGSN总流量分析");
-			else if (flashby.equals("average")) {
-				title.setText(start +  "各SGSN平均流量分析");
-			} else if (flashby.equals("user")) {
-				title.setText(start +  "各SGSN总用户数分析");
-			}
+
+		if (flashby.equals("total"))
+			title.setText(start + "各SGSN总流量分析");
+		else if (flashby.equals("average")) {
+			title.setText(start + "各SGSN平均流量分析");
+		} else if (flashby.equals("user")) {
+			title.setText(start + "各SGSN总用户数分析");
+		}
 
 		flashChart.setTitle(title);
 		return flashChart;

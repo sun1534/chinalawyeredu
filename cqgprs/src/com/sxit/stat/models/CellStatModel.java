@@ -3,7 +3,10 @@
  */
 package com.sxit.stat.models;
 
-import com.sxit.system.util.NumberUtil;
+import java.text.DateFormat;
+
+import com.sxit.netquality.models.Cell;
+
 
 /**
  * 
@@ -13,6 +16,10 @@ import com.sxit.system.util.NumberUtil;
  * 
  */
 public class CellStatModel extends StatModel {
+
+	private static final DateFormat dfhh = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
+
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	private String bscrncid;
 	private String sgsnid;
@@ -32,6 +39,22 @@ public class CellStatModel extends StatModel {
 	 * 某天-时的数据
 	 */
 	private String datetime;
+
+	private long stattime;
+	
+	/**
+	 * @return the stattime
+	 */
+	public long getStattime() {
+		return stattime;
+	}
+
+	/**
+	 * @param stattime the stattime to set
+	 */
+	public void setStattime(long stattime) {
+		this.stattime = stattime;
+	}
 
 	public String getCellkey() {
 		if (lac == null || lac.equals("")) {
@@ -86,7 +109,7 @@ public class CellStatModel extends StatModel {
 	 * @return the date
 	 */
 	public String getDate() {
-		return date;
+	return df.format(new java.sql.Timestamp(stattime*1000));
 	}
 
 	/**
@@ -101,7 +124,7 @@ public class CellStatModel extends StatModel {
 	 * @return the datetime
 	 */
 	public String getDatetime() {
-		return datetime;
+		return dfhh.format(new java.sql.Timestamp(stattime*1000));
 	}
 
 	/**
@@ -147,7 +170,11 @@ public class CellStatModel extends StatModel {
 	 * @return the cellname
 	 */
 	public String getCellname() {
-		return cellname;
+//		return cellname;
+		Cell cell=com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
+		if(cell!=null)
+			return cell.getCellname();
+		return getCellkey();
 	}
 
 	/**

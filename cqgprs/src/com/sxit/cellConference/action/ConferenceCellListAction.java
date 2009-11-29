@@ -45,11 +45,17 @@ public class ConferenceCellListAction extends AbstractListAction {
 	protected String go() throws Exception {
 		CellConferenceService service = (CellConferenceService) this.getBean("cellConferenceService");
 
+		if(!resultType.equals("list"))
+		{
+			this.pageNo=1;
+			this.pageSize=Integer.MAX_VALUE;
+		}
 		this.page = service.getConferenceCellids(cellid, pageNo, pageSize);
 		
 		timelist=CellConferenceService.TIMELIST;
-		
-		return SUCCESS;
+		if (resultType.equals("list"))
+			return SUCCESS;
+		return "excel";
 	}
 	
 	

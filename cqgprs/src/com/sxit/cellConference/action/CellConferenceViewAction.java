@@ -17,7 +17,8 @@ public class CellConferenceViewAction extends AbstractListAction {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	private String date;
-
+private String predate;
+private String oldpredate;
 	/**
 	 * @return the date
 	 */
@@ -44,11 +45,37 @@ public class CellConferenceViewAction extends AbstractListAction {
 		if (date == null || date.equals("")) {
 			date = df.format(com.sxit.stat.util.StatUtil.getPrevDate());
 		}
-
+		Date thedate=com.sxit.stat.util.StatUtil.getDate(date);
+		predate=df.format(com.sxit.stat.util.StatUtil.getPrevCountDate(thedate,1));
+		oldpredate=df.format(com.sxit.stat.util.StatUtil.getPrevCountDate(thedate,2));
+		if(!resultType.equals("list"))
+		{
+			this.pageNo=1;
+			this.pageSize=Integer.MAX_VALUE;
+		}
+		
+		
+		
+		
 		CellConferenceService service = (CellConferenceService) this.getBean("cellConferenceService");
-		this.page = service.getDayConferenceList(date, pageNo, pageSize);
+		this.page = service.getDayConferenceList(date, pageNo, pageSize,getOrderby());
 
-		return SUCCESS;
+		if (resultType.equals("list"))
+			return SUCCESS;
+		return "excel";
 	}
 
+	/**
+	 * @return the predate
+	 */
+	public String getPredate() {
+		return predate;
+	}
+
+	/**
+	 * @return the oldpredate
+	 */
+	public String getOldpredate() {
+		return oldpredate;
+	}
 }

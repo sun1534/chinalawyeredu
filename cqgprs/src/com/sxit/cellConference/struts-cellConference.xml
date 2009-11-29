@@ -10,9 +10,23 @@
 		<!-- 总流量分析 -->
 	   <action name="cellConferenceView" class="com.sxit.cellConference.action.CellConferenceViewAction">
           <result name="success" type="dispatcher">/cellConference/cellConferenceView.jsp</result>	
+          <result name="excel" type="dispatcher">/cellConference/cellConferenceView_excel.jsp</result>	
        </action>
        <action name="conferenceCellList" class="com.sxit.cellConference.action.ConferenceCellListAction">
-          <result name="success" type="dispatcher">/cellConference/conferenceCellList.jsp</result>	
+          <result name="success" type="dispatcher">/cellConference/conferenceCellList.jsp</result>
+         <result name="excel" type="dispatcher">/cellConference/conferenceCellList_excel.jsp</result>	
+      </action>
+
+       <action name="compareCellByHour" class="com.sxit.cellConference.action.CompareCellByHourAction">
+          <result name="success" type="dispatcher">/cellConference/compareCellByHour.jsp</result>	
+           <result name="excel" type="dispatcher">/cellConference/compareCellByHour_excel.jsp</result>	
+           <result name="ofc" type="ofc"></result>	
+       </action>
+
+
+           
+     <action name="conferenceCellEdit" class="com.sxit.cellConference.action.ajax.ConferenceCellEditAction">
+            <result name="input" type="dispatcher">/cellConference/conferenceCellEdit.jsp</result>	
        </action>
     
     </package>
@@ -21,6 +35,11 @@
    	   <action name="conferenceCellSet" class="com.sxit.cellConference.action.ajax.ConferenceCellSetAction">
           <result name="success" type="json"></result>	
        </action>
+           <action name="conferenceCellEdit" class="com.sxit.cellConference.action.ajax.ConferenceCellEditAction">
+            <result name="input" type="dispatcher">/cellConference/conferenceCellEditajax.jsp</result>	
+            <result name="success" type="json"></result>	
+       </action>
+      
    </package>
 	
 </struts>

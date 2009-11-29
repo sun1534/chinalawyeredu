@@ -37,7 +37,7 @@ public class StatService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 	private static final DateFormat dftime = new java.text.SimpleDateFormat("HH:00");
-	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static List<String> ALL_TIME_LIST = new ArrayList<String>();
 	public static Map<String, String> ALL_HOUR_LIST = new LinkedHashMap<String, String>();
