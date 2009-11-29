@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,38 +37,31 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>${apn}在${date}的使用记录</b></td>
+    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>
+ 
+   <s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/>（${cellkey }）从${date }起连续前${days}天${hour }点之详情
+    </s:if>
+  
+    </b></td>
   </tr>
       <tr>
-     
-                      
-                          <th>时间</th>
-                          <th>所在小区</th>
-                          <th>小区名称</th>
-                          <th>手机号码</th>
-                          <th>上行流量（K）</th>
-                          <th>下行流量（K）</th>
-                          <th>总流量（K）</th>
-                          <th>业务时长（秒）</th>
+                         <th>日期</th>
+                          <th>流量（M）</th>
+                          <th>用户数</th>
+                          <th>平均流量（K）</th>
                         
       </tr>
       <tbody>
-      <s:iterator value="queryList" status="stat">
-      <tr>
-     
-       <td class="listline2">${opentimestr}</td>
-                          <td class="listline2">${cellkey}</td>
-                          <td class="listline2">${cell.cellname}</td>
-                          <td class="listline2">${msisdn }</td>
-                          <td class="listline2">${upvolume}</td>
-                          <td class="listline2">${downvolume}</td>
-                          <td class="listline2">${allvolume}</td>
-                          <td class="listline2">${duration}</td>
-     
-   
-      </tr>
-   
-    </s:iterator>
+      
+        <s:iterator value="page.items" status="status">
+                        <tr>
+                           <td class="listline2">${date}</td>
+                          <td class="listline2">${totalStreamStr}</td>
+                          <td class="listline2">${totalUser}</td>
+                          <td class="listline2">${averageStreamStr}</td>
+                        </tr>
+                        </s:iterator>
+       
       </tbody>
     </table>
 

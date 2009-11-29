@@ -13,7 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
+ var orderArray=["cellid","usercount","preusercount","oldpreusercount","allvolue","preallvolue","oldpreallvolue"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
  
 
 function fanye(str){
@@ -37,7 +41,7 @@ function queryit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>会议小区</a>＞<em>会议小区监控</em>
+						<span>您所在是位置:</span><a>会议小区</a>＞<em>${date }会议小区列表</em>
 				</div>
 			</div>
 		</div>
@@ -50,6 +54,8 @@ function queryit(){
 						<table>
 							<tbody>
 								<tr>
+								<s:hidden name="orderfield" id="orderfieldid"/>
+								<s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
@@ -65,19 +71,18 @@ function queryit(){
 					</div>-->
 				
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox">
                       <thead>
                         <tr>
                        
-                          <th>小区编号</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
                           <th>小区名称</th>
-                          <th>当前用户数</th>          
-                          <th>昨天同时段用户数</th>
-                          <th>前天同时段用户数</th>
-                          <th>当前流量</th>
-                
-                          <th>昨天同时段流量</th>
-                          <th>前天同时段流量</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数(${date})</a></th>          
+                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数(${predate})</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数(${oldpredate})</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量(${date })</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量(${preddate})</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量(${oldpredate})</a></th>
                         
                         </tr>
                       </thead>
@@ -85,13 +90,13 @@ function queryit(){
                         <s:iterator value="page.items" status="stat">
                         <tr>
                           <td>${cellkey}</td>
-                           <td>${cell.cellname}</td>
+                           <td><a href="compareCellByHour.action?date=${date }&cellkey=${cellkey }&stattime=${stattime }">${cell.cellname}</a></td>
                           <td>${usercount }</td>
                           <td>${preusercount}</td>
                           <td>${oldpreusercount}</td>
-                           <td>${allvolume}</td>
-                            <td>${preallvolume}</td>
-                             <td>${oldpreallvolume}</td>
+                           <td>${allvolumeStr}</td>
+                            <td>${preAllvolumeStr}</td>
+                             <td>${oldPreAllvolumeStr}</td>
                         </tr>
                         </s:iterator>
                       

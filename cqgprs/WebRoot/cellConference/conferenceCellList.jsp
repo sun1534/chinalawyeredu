@@ -11,9 +11,9 @@
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <link rel="stylesheet" type="text/css" href="../css/dialog.css" />
-
    <script type="text/javascript" src="../js/dialog.js"></script> 
  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.blockUI.js"></script> 
  <script type="text/javascript">
  Array.prototype.clear=function(){  
     this.length=0;  
@@ -121,6 +121,17 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
   }
 });
 }
+function changeit(cellkey){
+  /*$.ajax({
+     type: "POST",
+     data:"",
+     url:"../cellconferenceajax/conferenceCellEdit!input.action?cellkey="+cellkey,
+	 success:function(data){
+		$.blockUI({message:data});
+	
+	 }
+   });*/
+}
 
 </script>
 </head>
@@ -129,7 +140,7 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>会议小区监控</a>＞<em>监控小区列表</em>
+						<span>您所在是位置:</span><a>会议小区监控</a>＞<em>会议小区监控设置列表</em>
 				</div>
 			</div>
 		</div>
@@ -174,12 +185,12 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
                        <th>流量增长率阀值</th>
                        <th>用户增长率阀值</th>
                        <th>设置时间</th>
-                          <th>设置人员</th>
+                          <th>参数修改</th>
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
-                        <tr>
+                        <tr title="双击修改配置参数值" onDblClick="changeit('${cellkey}')">
                 
                     <td align="center">
                       <input type="checkbox" class="checkbox" name="check" value="${cellkey }"/>
@@ -193,19 +204,20 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
                             <td>${useralarmvalue}%</td>
                        
                           <td>${lastupdate}</td>
-                          <td>${createusername}</td>
+                         <!--  <td>${createusername}</td>-->
+                          <td><a href="conferenceCellEdit!input.action?cellkey=${cellkey }">修改</a></td>
                         </tr>
                         </s:iterator>
                       
                       </tbody>
-                <!--     <tfoot>
-							<tr>
-							   <td colspan="7" class="fright">
+                   <tfoot>
+						<tr>
+							   <td colspan="8" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
 						 </tfoot>
-			  -->
+			
                     </table>
 			  </div>
 
@@ -221,10 +233,9 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
 <div class="Overdialog" id="Overdialog"><iframe></iframe></div> 
 			<!-- 新增  --> 
 		<form id="form11" method="post" action="../cellconferenceajax/conferenceCellSet.action">
-
 			<div class="dialogBox" id="dialogBoxAdd"> 
 				<div class="DialogWrap"> 
-					<a href="#" class="closeDialogBox" onclick="closeDialogBox('#dialogBoxAdd')" title="关闭">关闭</a> 
+		     	<a href="#" class="closeDialogBox" onclick="closeDialogBox('#dialogBoxAdd')" title="关闭">关闭</a> 
 					<div class="dialogMain"> 
 						<div class="operateTabInfo">新增监控会议小区</div> 
 						<table class="operateTabBox"> 

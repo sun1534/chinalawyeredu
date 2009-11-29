@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-SGSN流量分析</title>
+ <title>${sysName}-会议小区详情</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -20,8 +20,6 @@
  $("#tableOrder").tablesorter();
  });
  
- //var url="test.txt"
- //swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":"test.txt","loading":"正在载入数据..."} );
  
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -47,7 +45,7 @@ function imageit(){
 }
 var ishide=true;
 $(document).ready(function(){
-  $("#imageopton").hide();
+ // $("#imageopton").hide();
   $("#imgreport").hide();
   ishide=true;
 });
@@ -56,10 +54,9 @@ function confirmit(){
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
    var start=$("#start").val();
-   var url="sgsnStream.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+   var url="compareCellByHour.action?cellkey=${cellkey}%26date=${date}%26stattime=${stattime}%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "650", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
-
 }
 
 </script>
@@ -69,11 +66,11 @@ function confirmit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>SGSN流量分析</em>
+						<span>您所在是位置:</span><a>会议小区监控</a>＞<em><s:property value="@com.sxit.netquality.service.BasicSetService@ALL_CELLS[cellkey].cellname"/>（${cellkey }）从${date }起连续前${days}天${hour }点之详情</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="sgsnStream" method="POST">	
+			<s:form name="form1" action="compareCellByHour" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -82,17 +79,13 @@ function confirmit(){
 						<table>
 							<tbody>
 								<tr>
-                                 <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
-								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-								 <td><input type="button" class="btnSubmit" value="图  形"  onclick="imageit()"/></td>
+								<!--   <td><input type="button" class="btnSubmit" value="图  形"  onclick="imageit()"/></td>-->
 								 <td id="imageopton">
 								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
-								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
-								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
+								   <s:select name="flashby" id="flashby" list="#{'total':'流量','user':'用户数','average':'平均流量'}" label="维度"></s:select>
+								   <input type="button" class="btnSubmit" value="显示图形"  onclick="confirmit()" id="flashconfirm"/>
+								   <input type="button" class="btnSubmit" value="返  回"  onclick="javascript:history.go(-1)"/>
 								 </td>
-							
 								</tr>
 							</tbody>
 						</table>
@@ -110,20 +103,19 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-                          <th>覆盖范围</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
+                          <th>日期</th>
+                          <th>流量（M）</th>
+                          <th>用户数</th>
                           <th>平均流量（K）</th>
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="status">
+                        <s:iterator value="comparelist" status="status">
                         <tr>
-                         <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
-                          <td>${totalStreamStr }</td>
+                      
+                          <td>${date}</td>
+                          <td>${totalStreamStr}</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>
                         </tr>

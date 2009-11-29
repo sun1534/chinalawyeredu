@@ -37,38 +37,36 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="7" align="center" bgcolor="#FFFF00"><b>
- 
-    ${date }之会议小区列表
-    </s:if>
-  
-    </b></td>
+    <td  colspan="8" align="center" bgcolor="#FFFF00"><b>会议小区监控设置列表</b></td>
   </tr>
       <tr>
-   
-  
-                          <th>小区编号</th>
-                           <th>当前用户数</th>
-                          <th>上小时用户数</th>
-                          <th>上上小用户数</th>
-                          <th>当前流量（M）</th>
-                          <th>上小时流量（M）</th>
-                          <th>上上小时流量（M）</th>
+
+                       <th>小区编号</th>
+                       <th>小区名称</th>
+                       <th>所属BSC/RNC</th>
+                       <th>监控时间点</th>
+                       <th>流量增长率阀值</th>
+                       <th>用户增长率阀值</th>
+                       <th>设置时间</th>
+                        <th>设置人员</th>
       </tr>
       <tbody>
+      <s:iterator value="page.items" status="stat">
+      <tr>
       
-        <s:iterator value="page.items" status="status">
-                        <tr>
-                          <td class="listline2">${cellkey}</td>
-                          <td class="listline2">${usercount }</td>
-                          <td class="listline2">${preusercount}</td>
-                          <th class="listline2">${oldpreusercount}</th>
-                           <th class="listline2">${allvolue}</th>
-                            <th class="listline2">${preallvolume}</th>
-                             <th class="listline2">${oldpreallvolume}</th>
-                        </tr>
-                        </s:iterator>
-       
+        <td class="listline2">${cellkey} </td>
+                          <td class="listline2">${cell.cellname}</td>
+                          <td> class="listline2"${cell.bscrncid }</td>
+                          <td class="listline2"><s:property value="timelist[timeview]"/></td>
+                            <td class="listline2">${flowalarmvalue}%</td>
+                            <td class="listline2">${useralarmvalue}%</td>
+                          <td class="listline2">${lastupdate}</td>
+                        <td class="listline2">${createusername}</td>
+
+                       
+      </tr>
+   
+    </s:iterator>
       </tbody>
     </table>
 

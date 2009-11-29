@@ -50,7 +50,7 @@ th
                           <th>业务时长（秒）</th>
       </tr>
       <tbody>
-      <s:iterator value="page.items" status="stat">
+      <s:iterator value="queryList" status="stat">
       <tr>
      
                          <td class="listline2">${opentimestr}</td>

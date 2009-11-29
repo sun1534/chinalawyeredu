@@ -17,11 +17,13 @@
  
 
 function fanye(str){
+ document.form1.firstpage.value="no";
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
 function exportit(){
 if(checkvalue()){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="excel";
   document.form1.submit();
   }
@@ -29,6 +31,7 @@ if(checkvalue()){
 function queryit(){
 
 if(checkvalue()){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="list";
   document.form1.submit();
   }
@@ -66,7 +69,7 @@ return true;
 					<div class="searchTab">
 						<table>
 							<tbody>
-								<tr>
+								<tr>         <s:hidden name="firstpage"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								  <td>小区编号：<s:textfield name="cellid" id="cellid" cssClass="txt" size="6"/>&nbsp;</td>

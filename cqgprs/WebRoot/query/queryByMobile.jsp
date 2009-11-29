@@ -17,17 +17,20 @@
  
 
 function fanye(str){
+  document.form1.firstpage.value="no";
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
 function exportit(){
 if(checkvalue()){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="excel";
   document.form1.submit();
   }
 }
 function queryit(){
 if(checkvalue()){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="list";
   document.form1.submit();
   }
@@ -61,6 +64,7 @@ return true;
 						<table>
 							<tbody>
 								<tr>
+                                     <s:hidden name="firstpage"/>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
                                 <td>输入手机号码：<s:textfield name="mobile" cssClass="txt" id="mobile" size="12"/>&nbsp;</td>
