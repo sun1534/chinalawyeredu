@@ -54,7 +54,7 @@ public class StatDayMain {
 	 * @param con
 	 */
 	private static void insertAllvolumeSets(Connection con) {
-		String cellsql = "insert into allvolume_cellid(cellid,upvolume,downvolume,allvolume) select a.cellid,0,0,0 from set_cell a where not exists(select * from allvolume_cellid b where a.cellid= b.cellid )";
+		String cellsql = "insert into allvolume_cellid(cellid,lac,upvolume,downvolume,allvolume) select a.cellid,a.lac,0,0,0 from set_cell a where not exists(select * from allvolume_cellid b where a.cellid= b.cellid and a.lac=b.lac)";
 		String sgsngsmsql = "insert into allvolume_sgsn(sgsnid,nettype,upvolume,downvolume,allvolume) select a.sgsnid,'gsm',0,0,0 from set_sgsn a where not exists(select * from allvolume_sgsn b where a.sgsnid= b.sgsnid )";
 		String sgsntdsql = "insert into allvolume_sgsn(sgsnid,nettype,upvolume,downvolume,allvolume) select a.sgsnid,'td',0,0,0 from set_sgsn a where not exists(select * from allvolume_sgsn b where a.sgsnid= b.sgsnid )";
 		String bscsql = "insert into allvolume_bsc(bscid,upvolume,downvolume,allvolume) select distinct(a.bscid),0,0,0 from set_bsc a where not exists(select * from allvolume_bsc b where a.bscid= b.bscid )";
@@ -96,20 +96,17 @@ public class StatDayMain {
 		LOG.info("获取到数据库连接OK1111");
 
 		insertAllvolumeSets(con);
-
-		stat_cellid();
-
-		stat_apn();
-
+    	stat_apn();
 		stat_bsc();
-
 		stat_sgsn();
-
 		statapnerror();
-
+		stat_mobile_apn();
+		stat_cellid();
 		stat_cell_apn();
 
-		stat_mobile_apn();
+		DeleteDatas dd=new DeleteDatas(con,statdate,10+1);
+		dd.deleteDatas();
+		
 		con.close();
 
 		LOG.info("==============统计完毕" + df.format(statdate));

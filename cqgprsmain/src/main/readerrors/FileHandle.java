@@ -386,9 +386,9 @@ public class FileHandle {
 							+ "0,0,'"
 							+ cdr.getSgsnid()
 							+ "','"
-							+ cdr.getReqapnni()==null?"":cdr.getReqapnni()
+							+ (cdr.getReqapnni()==null?"":cdr.getReqapnni())
 							+ "','"
-							+ cdr.getSubapnni()==null?"":cdr.getSubapnni()
+							+ (cdr.getSubapnni()==null?"":cdr.getSubapnni())
 							+ "','"
 							+ cdr.getImsi()
 							+ "','"
@@ -421,9 +421,9 @@ public class FileHandle {
 			int[] s = stmt.executeBatch();
 			stmt.clearBatch();
 			// 33的错误同时入到另外一张表
-//			for(Object obj:no33sqls){
-//				LOG.debug(obj.toString());
-//			}
+			for(Object obj:no33sqls){
+				LOG.debug(obj.toString());
+			}
 			main.util.MainStatUtil.executeSql(con, no33sqls);
 			LOG.info("最后入库记录数：" + (s != null ? s.length : 0) + ",时间:" + (System.currentTimeMillis() - begin));
 		} catch (Exception e) {

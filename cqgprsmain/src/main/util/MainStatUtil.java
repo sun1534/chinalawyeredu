@@ -57,23 +57,23 @@ public class MainStatUtil {
 		return table;
 	}
 
-//	/**
-//	 * 昨天是哪个cdr表
-//	 * 
-//	 * @return
-//	 */
-//	public static String getCdrTable() {
-//		return getCdrTable(getPrevDate());
-//	}
+	// /**
+	// * 昨天是哪个cdr表
+	// *
+	// * @return
+	// */
+	// public static String getCdrTable() {
+	// return getCdrTable(getPrevDate());
+	// }
 
-//	/**
-//	 * 昨天是哪个mobile_apn表
-//	 * 
-//	 * @return
-//	 */
-//	public static String getMobileApnTable() {
-//		return getMobileApnTable(getPrevDate());
-//	}
+	// /**
+	// * 昨天是哪个mobile_apn表
+	// *
+	// * @return
+	// */
+	// public static String getMobileApnTable() {
+	// return getMobileApnTable(getPrevDate());
+	// }
 
 	/**
 	 * list转化成'a','b','c'的形式
@@ -101,30 +101,53 @@ public class MainStatUtil {
 	 * @param sqls
 	 * @throws Exception
 	 */
-	public static int executeSql(Connection con, List sqls) throws Exception {
+	public static int executeSql(Connection con, List<String> sqls) throws Exception {
 		Statement stmt = null;
 		int result = 0;
 		try {
 			int len = sqls.size();
-			System.out.println("代码个数::" + len);
 			LOG.info("要执行的SQL个数为:" + len);
+			long now = System.currentTimeMillis();
 			if (len > 0) {
 				stmt = con.createStatement();
 				int i = 1;
-				for (Object obj : sqls) {
-					stmt.addBatch(obj.toString());
-
-					if ((i++) % 500 == 0) {
+				for (String sql : sqls) {
+					stmt.addBatch(sql);
+					if ((i++) % 300 == 0) {
 						int s[] = stmt.executeBatch();
 						stmt.clearBatch();
 						result += s.length;
+						LOG.info("执行300个的时间为:" + (System.currentTimeMillis() - now));
+						now = System.currentTimeMillis();
 					}
 				}
 				int s[] = stmt.executeBatch();
+				LOG.info("执行最后" + s.length + "个的时间为:" + (System.currentTimeMillis() - now));
 				stmt.clearBatch();
 				result += s.length;
 			}
 		} finally {
+			main.util.DBUtils.closeResource(null, stmt, null);
+		}
+		return result;
+	}
+
+	public static int executeSql(Connection con, String sql) {
+		Statement stmt = null;
+		int result = 0;
+		try {
+
+			LOG.info("SQL::" + sql);
+			long now = System.currentTimeMillis();
+
+			stmt = con.createStatement();
+			result=stmt.executeUpdate(sql);
+			stmt.execute(sql);
+			LOG.info("处理"+result+"条耗费时间为:" + (System.currentTimeMillis() - now));
+
+		} catch(Exception e){
+			LOG.error(sql+"执行失败!",e);
+		}finally {
 			main.util.DBUtils.closeResource(null, stmt, null);
 		}
 		return result;
@@ -241,8 +264,8 @@ public class MainStatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
-	
-	public static Date getPrevCountDate(Date date,int days) {
+
+	public static Date getPrevCountDate(Date date, int days) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.add(Calendar.DATE, 0 - days);
@@ -253,11 +276,12 @@ public class MainStatUtil {
 
 	/**
 	 * 多少小时前
+	 * 
 	 * @param date
 	 * @param hours
 	 * @return
 	 */
-	public static Date getPrevCountHour(Date date,int hours) {
+	public static Date getPrevCountHour(Date date, int hours) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
 		c.add(Calendar.HOUR_OF_DAY, 0 - hours);
@@ -265,6 +289,7 @@ public class MainStatUtil {
 		d.setTime(c.getTimeInMillis());
 		return d;
 	}
+
 	public static void main(String[] args) {
 
 	}

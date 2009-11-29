@@ -20,35 +20,74 @@ public class CopyOfTest {
 	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	private static Connection con = null;
+
 	public static void main(String[] args) throws Exception {
-	
-		System.out.println(dfsec.parse("2009-11-22 22:00:00").getTime()/1000);
-		System.out.println(dfsec.parse("2009-11-22 23:00:00").getTime()/1000);
-		long no1w=1258981800L*1000;
+
+		System.out.println(dfsec.parse("2009-11-24 00:00:00").getTime() / 1000);
+		System.out.println(dfsec.parse("2009-11-25 00:00:00").getTime() / 1000);
+		long no1w = 1258637828L * 1000;
 		System.out.println(new java.sql.Timestamp(no1w));
-		
-//		
-//		// 更新16，15，14，13，12，11，10这几天的stat_**的dayflag=1的数据
-//		DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
-//	
-//		int now=20091115;
-//		for(int i=20091115;i<=20091119;i++){
-//			Date date=df.parse(i+"");
-//			long start = main.util.MainStatUtil.getDateTime(date)/1000;
-//			long end = start + 24 * 60 * 60;
-//			String apnimsisql="insert into stat_imsi_apn_error(imsi,apnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,"+i+" from cdr_mistake where  opentime between "+start+" and "+end+" group by reqapnni,imsi;";
-//System.out.println(apnimsisql);
-//			
-//		}
-//		
-		
-		Date date=new Date();
-		
-		Date yydate=main.util.MainStatUtil.getPrevCountHour(date, 1);
+		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
+		long daystart = daysagodate.getTime() / 1000;
+		System.out.println("=========" + daystart);
+		//		
+		// // 更新16，15，14，13，12，11，10这几天的stat_**的dayflag=1的数据
+		// DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
+		//	
+		// int now=20091115;
+		// for(int i=20091115;i<=20091119;i++){
+		// Date date=df.parse(i+"");
+		// long start = main.util.MainStatUtil.getDateTime(date)/1000;
+		// long end = start + 24 * 60 * 60;
+		// String apnimsisql="insert into
+		// stat_imsi_apn_error(imsi,apnni,errcount,dayflag,stattime) select
+		// imsi,reqapnni,count(*),1,"+i+" from cdr_mistake where opentime
+		// between "+start+" and "+end+" group by reqapnni,imsi;";
+		// System.out.println(apnimsisql);
+		//			
+		// }
+		//		
+
+		Date date = new Date();
+
+		Date yydate = main.util.MainStatUtil.getPrevCountHour(date, 1);
 		System.out.println(dfsec.format(yydate));
 
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main22(String[] args) throws Exception {
+		con = main.util.DBUtils.getOracleCon();
+
+		String sql = "select cellid,lac,sum(allvolume) as allvolume,sum(downvolume) as downvolume,sum(upvolume) as upvolume from stat_cellid where dayflag=1 group by cellid,lac";
+
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		List list = new ArrayList();
+		long now = System.currentTimeMillis();
+		int i = 1;
+		while (rs.next()) {
+			String sql1 = "update allvolume_cellid set upvolume=" + rs.getString("upvolume") + ",downvolume="
+					+ rs.getString("downvolume") + ",allvolume=" + rs.getString("allvolume") + " where cellid='"
+					+ rs.getString("cellid") + "' and lac='" + rs.getString("lac") + "'";
+			// System.out.println(sql1);
+			if (i++ % 300 == 0) {
+				System.out.println(i + "::::::::::" + (System.currentTimeMillis() - now));
+				now = System.currentTimeMillis();
+			}
+
+			list.add(sql1);
+		}
+		System.out.println((System.currentTimeMillis() - now));
+		now = System.currentTimeMillis();
+		main.util.MainStatUtil.executeSql(con, list);
+
+		System.out.println((System.currentTimeMillis() - now));
 
 	}
+
 	/**
 	 * @param args
 	 */
@@ -63,13 +102,12 @@ public class CopyOfTest {
 			long start = main.util.MainStatUtil.getDateTime(date);
 			long end = start + 24 * 60 * 60;
 			String stattime = df.format(date);
-//			sgsn(start, end, stattime);
-//			bsc(start, end, stattime);
-//			cell(start, end, stattime);
-		
-		
-//			apn(start, end, stattime);
-//			cellapn(start, end, stattime);
+			// sgsn(start, end, stattime);
+			// bsc(start, end, stattime);
+			// cell(start, end, stattime);
+
+			// apn(start, end, stattime);
+			// cellapn(start, end, stattime);
 		}
 
 	}
@@ -89,22 +127,22 @@ public class CopyOfTest {
 
 			String usql = "update stat_apn set usercount=" + usercount + " where apnni='" + apnni + "' and stattime="
 					+ stattime;
-			 System.out.println(usql+";");
+			System.out.println(usql + ";");
 			list.add(usql);
 		}
 
 		System.out.println("开始执行:" + (System.currentTimeMillis() - now));
-		
+
 		now = System.currentTimeMillis();
-		try{
-		
+		try {
+
 			main.util.MainStatUtil.executeSql(con, list);
-		
-		}catch(Exception e){
-			System.out.println("ERROR::::"+e);
+
+		} catch (Exception e) {
+			System.out.println("ERROR::::" + e);
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("执行完毕:" + (System.currentTimeMillis() - now));
 		rs.close();
 		stmt.close();
@@ -132,12 +170,12 @@ public class CopyOfTest {
 
 		System.out.println("开始执行:" + (System.currentTimeMillis() - now));
 		now = System.currentTimeMillis();
-		try{
-		
+		try {
+
 			main.util.MainStatUtil.executeSql(con, list);
-		
-		}catch(Exception e){
-			System.out.println("ERROR::::"+e);
+
+		} catch (Exception e) {
+			System.out.println("ERROR::::" + e);
 			e.printStackTrace();
 		}
 		System.out.println("执行完毕:" + (System.currentTimeMillis() - now));
@@ -165,12 +203,12 @@ public class CopyOfTest {
 		}
 		System.out.println("开始执行:" + (System.currentTimeMillis() - now));
 		now = System.currentTimeMillis();
-		try{
-		
+		try {
+
 			main.util.MainStatUtil.executeSql(con, list);
-		
-		}catch(Exception e){
-			System.out.println("ERROR::::"+e);
+
+		} catch (Exception e) {
+			System.out.println("ERROR::::" + e);
 			e.printStackTrace();
 		}
 		System.out.println("执行完毕:" + (System.currentTimeMillis() - now));
@@ -199,12 +237,12 @@ public class CopyOfTest {
 
 		System.out.println("开始执行:" + (System.currentTimeMillis() - now));
 		now = System.currentTimeMillis();
-		try{
-		
+		try {
+
 			main.util.MainStatUtil.executeSql(con, list);
-		
-		}catch(Exception e){
-			System.out.println("ERROR::::"+e);
+
+		} catch (Exception e) {
+			System.out.println("ERROR::::" + e);
 			e.printStackTrace();
 		}
 		System.out.println("执行完毕:" + (System.currentTimeMillis() - now));
@@ -233,12 +271,12 @@ public class CopyOfTest {
 
 		System.out.println("开始执行:" + (System.currentTimeMillis() - now));
 		now = System.currentTimeMillis();
-		try{
-		
+		try {
+
 			main.util.MainStatUtil.executeSql(con, list);
-		
-		}catch(Exception e){
-			System.out.println("ERROR::::"+e);
+
+		} catch (Exception e) {
+			System.out.println("ERROR::::" + e);
 			e.printStackTrace();
 		}
 		System.out.println("执行完毕:" + (System.currentTimeMillis() - now));

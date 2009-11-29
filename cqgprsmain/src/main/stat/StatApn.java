@@ -90,7 +90,7 @@ public class StatApn {
 					list0.add(stat.apnni);
 
 					String sql0 = "insert into zero_apn(apnni,dayflag,stattime,allvolume,historyvolume,prehistoryvolume)values('"
-							+ stat.apnni + "',1,"+statdatestr+",0,0,0)";
+							+ stat.apnni + "',1," + statdatestr + ",0,0,0)";
 					sqls.add(sql0);
 
 				}
@@ -185,11 +185,11 @@ public class StatApn {
 				TempApnStat stat = allapns.get(apnni);
 				stat.apnni = rs.getString("apnni");
 
-				int usercount = rs.getInt("usercount");
-				if (usercount < 10)
-					stat.usercount = usercount + "";
-				else
-					stat.usercount = "" + rs.getInt("usercount") / 8;
+//				int usercount = rs.getInt("usercount");
+				// if (usercount < 10)
+				// stat.usercount = usercount + "";
+				// else
+				// stat.usercount = "" + rs.getInt("usercount") / 8;
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
@@ -200,24 +200,23 @@ public class StatApn {
 		stmt.close();
 		LOG.info("得到APN的流量数据完毕");
 		// 这里要得到用户数
-		// String usersql = "select apnni,usercount from msisdn_apn where
-		// stattime>=" + start / 1000 + " and stattime<="
-		// + end / 1000;
-		// // + " group by apnni";
-		// LOG.info("usersql:" + usersql);
-		// stmt = con.createStatement();
-		// rs = stmt.executeQuery(usersql);
-		// while (rs.next()) {
-		// String apnni = rs.getString("apnni");
-		// int usercount = rs.getInt("usercount");
-		// TempApnStat stat = allapns.get(apnni);
-		// if (stat != null)
-		// stat.usercount = usercount + "";
-		// }
-		// rs.close();
-		// stmt.close();
-		//
-		// LOG.info("得到APN的用户数据完毕");
+		String usersql = "select apnni,usercount from msisdn_apn where	 stattime>=" + start / 1000 + " and stattime<="
+				+ end / 1000;
+		// + " group by apnni";
+		LOG.info("usersql:" + usersql);
+		stmt = con.createStatement();
+		rs = stmt.executeQuery(usersql);
+		while (rs.next()) {
+			String apnni = rs.getString("apnni");
+			int usercount = rs.getInt("usercount");
+			TempApnStat stat = allapns.get(apnni);
+			if (stat != null)
+				stat.usercount = usercount + "";
+		}
+		rs.close();
+		stmt.close();
+
+		LOG.info("得到APN的用户数据完毕");
 	}
 
 	/**

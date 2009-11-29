@@ -1,8 +1,9 @@
 package main.readerrors;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -10,7 +11,6 @@ import java.util.Properties;
 import main.util.DBUtils;
 
 import org.apache.commons.logging.Log;
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  * 
@@ -57,7 +57,7 @@ public class ReadErrorApns {
 			}
 		}
 	}
-
+private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	/**
 	 * 
 	 * 处理流程: 1.到原目录下copy所有文件到某个目录下,每天1个目录,记录下这些个文件copy后的路径
@@ -84,11 +84,24 @@ public class ReadErrorApns {
 			init();
 			FileHandle filehandle = new FileHandle();
 			Map<String, ErrorFile> mapfiles = filehandle.copyFile(SRCDIR, DESTDIR);
+			
+			con = DBUtils.getOracleCon();
+			LOG.info("成功获取到数据库连接OK");
+			//先清掉10天前的一些数据
+			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
+			long daystart = daysagodate.getTime()/1000;
+		
+			String sql="delete from cdr_mistake where opentime<="+daystart;
+			String sqlno33="delete from cdr_mistake_no33 where opentime<="+daystart;
+			long deletenow=System.currentTimeMillis();
+			main.util.MainStatUtil.executeSql(con, sql);
+			main.util.MainStatUtil.executeSql(con, sqlno33);
+			LOG.info("清除"+df.format(daysagodate)+"前的数据完毕:"+(System.currentTimeMillis()-deletenow));
+			
 			LOG.debug("mapfiles:" + mapfiles);
 			if (mapfiles.size() > 0) {
 
-				con = DBUtils.getOracleCon();
-				LOG.info("成功获取到数据库连接OK");
+			
 				ReadHandleHistory readHistory = new ReadHandleHistory(con);
 				readHistory.getFromDB(mapfiles);
 				long now = System.currentTimeMillis();
