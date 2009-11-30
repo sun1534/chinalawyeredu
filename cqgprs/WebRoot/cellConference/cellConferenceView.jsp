@@ -77,12 +77,12 @@ function queryit(){
                        
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
                           <th>小区名称</th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数(${date})</a></th>          
-                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数(${predate})</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数(${oldpredate})</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量(${date })</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量(${preddate})</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量(${oldpredate})</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数<b class="titletime">(${date})</b></a></th>          
+                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数<b class="titletime">(${predate})</b></a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数<b class="titletime">(${oldpredate})</b></a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量<b class="titletime">(${date })</b></a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量<b class="titletime">(${preddate})</b></a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量<b class="titletime">(${oldpredate})</b></a></th>
                         
                         </tr>
                       </thead>

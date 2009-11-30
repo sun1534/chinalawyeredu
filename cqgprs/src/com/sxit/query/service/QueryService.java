@@ -51,8 +51,10 @@ public class QueryService {
 		String cntsql = "select count(*) as cnt from " + table + " where 1=1 ";
 		String search = " where 1=1";
 		if (mobile != null && !mobile.equals("")) {
-			cntsql += " and msisdn like '%" + mobile + "'";
-			search += " and msisdn like '%" + mobile + "'";
+//			cntsql += " and msisdn like '%" + mobile + "'";
+//			search += " and msisdn like '%" + mobile + "'";
+			cntsql += " and msisdn = '" + mobile + "'";
+			search += " and msisdn = '" + mobile + "'";
 		}
 		if (cellid != null && !cellid.equals("")) {
 			cntsql += " and cellid='" + cellid + "'";
@@ -119,7 +121,8 @@ public class QueryService {
 
 		String search = " where 1=1";
 		if (mobile != null && !mobile.equals("")) {
-			search += " and msisdn like '%" + mobile + "'";
+//			search += " and msisdn like '%" + mobile + "'";
+			search += " and msisdn = '" + mobile + "'";
 		}
 		if (cellid != null && !cellid.equals("")) {
 			search += " and cellid='" + cellid + "'";

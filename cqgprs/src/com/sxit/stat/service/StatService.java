@@ -509,7 +509,7 @@ public class StatService {
 		int _datestart = (int) (start / 1000);
 		int _dateend = (int) (end / 1000);
 
-		String sql = "select CELLID,lac,BSCID,NETTYPE,STATTIME,NETTYPE,USERCOUNT,ALLVOLUME from  STAT_CELLID where dayflag=0 and CELLID='"
+		String sql = "select CELLID,lac,BSCID,NETTYPE,STATTIME,NETTYPE,USERCOUNT,ALLVOLUME,upvolume,downvolume from  STAT_CELLID where dayflag=0 and CELLID='"
 				+ cellid + "' AND LAC='"+lac+"' and STATTIME between " + _datestart + " and " + _dateend + " order by stattime";
 		System.out.println(sql);
 		// Object[] args = new Object[] { cellid,_datestart,_dateend };
@@ -522,18 +522,25 @@ public class StatService {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
 				while (rs.next()) {
-					int stattime = rs.getInt("STATTIME");
+					long stattime = rs.getLong("STATTIME");
 					Date date = new Date();
 					date.setTime(stattime * 1000);
 					String datetime = dftime.format(date);
 					int usercount = rs.getInt("USERCOUNT");
 					double all = rs.getDouble("ALLVOLUME");
+					double up = rs.getDouble("UPVOLUME");
+					double down = rs.getDouble("DOWNVOLUME");
+
 					if (timelist.containsKey(datetime)) {
+						
 						CellStatModel model = timelist.get(datetime);
 						model.setTotalStream(model.getTotalStream() + all);
 						model.setTotalUser(model.getTotalUser() + usercount);
+						model.setUpvolume(model.getUpvolume()+up);
+						model.setDownvolume(model.getDownvolume()+down);
 						timelist.remove(datetime);
 						timelist.put(datetime, model);
+						model.setStattime(stattime);
 
 					} else {
 
@@ -549,8 +556,8 @@ public class StatService {
 						model.setBscrncid(rs.getString("BSCID"));
 						model.setCellid(rs.getString("CELLID"));
 						model.setDatetime(datetime);
-
-						timelist.put(model.getDatetime(), model);
+						model.setStattime(stattime);
+						timelist.put(datetime, model);
 					}
 					// System.out.println(timelist);
 				}

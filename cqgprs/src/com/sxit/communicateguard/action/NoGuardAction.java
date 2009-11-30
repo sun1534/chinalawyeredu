@@ -60,17 +60,17 @@ public class NoGuardAction extends AbstractListAction {
 			if (firstpage.equals("yes")) {
 				queryList = queryservice.queryCdr(_date, mobile, null, null,null);
 				set("queryList", queryList);
-				int totalCount = queryList.size();
-				int startIndex = (pageNo - 1) * pageSize;
-				List list = new ArrayList();
-				for (int i = startIndex; i < totalCount && i < startIndex + pageSize; i++) {
-					list.add(queryList.get(i));
-				}
-				this.page = new PaginationSupport(list, totalCount, pageSize, startIndex);
+
 			} else {
-				queryList = (List) get("List");
+				queryList = (List) get("queryList");
 			}
-			
+			int totalCount = queryList.size();
+			int startIndex = (pageNo - 1) * pageSize;
+			List list = new ArrayList();
+			for (int i = startIndex; i < totalCount && i < startIndex + pageSize; i++) {
+				list.add(queryList.get(i));
+			}
+			this.page = new PaginationSupport(list, totalCount, pageSize, startIndex);
 			
 		}
 		if (resultType.equals("list"))

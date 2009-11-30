@@ -122,7 +122,7 @@ $.getJSON("../cellconferenceajax/conferenceCellSet.action?isdelete=1&cellkey="+a
 });
 }
 function changeit(cellkey){
-  /*$.ajax({
+  $.ajax({
      type: "POST",
      data:"",
      url:"../cellconferenceajax/conferenceCellEdit!input.action?cellkey="+cellkey,
@@ -130,7 +130,7 @@ function changeit(cellkey){
 		$.blockUI({message:data});
 	
 	 }
-   });*/
+   });
 }
 
 </script>

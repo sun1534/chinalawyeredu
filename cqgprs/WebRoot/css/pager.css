@@ -57,3 +57,5 @@ Msn:xiao-kevin@hotmail.com
 .pager .pageNo {border:1px solid #d3d3d3;}
 .pager .page-select {border:1px solid #d3d3d3;}
 .pager .goPage {background:url(../images/pagego.gif) no-repeat left top;}
+.pager .page-selectList {background:none;display:inline-block;height:17px;line-height:15px;overflow:hidden;padding:2px 8px;vertical-align:top;}
+.pager .page-selectList select {font-size:10px;}

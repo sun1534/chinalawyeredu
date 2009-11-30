@@ -7,7 +7,6 @@ import java.text.DateFormat;
 
 import com.sxit.netquality.models.Cell;
 
-
 /**
  * 
  * sgsn的流量分析 以及sgsn按23g的流量分析
@@ -39,9 +38,10 @@ public class CellStatModel extends StatModel {
 	 * 某天-时的数据
 	 */
 	private String datetime;
-
+	private boolean setdatetime;
+	private boolean setdate;
 	private long stattime;
-	
+
 	/**
 	 * @return the stattime
 	 */
@@ -50,7 +50,8 @@ public class CellStatModel extends StatModel {
 	}
 
 	/**
-	 * @param stattime the stattime to set
+	 * @param stattime
+	 *            the stattime to set
 	 */
 	public void setStattime(long stattime) {
 		this.stattime = stattime;
@@ -109,7 +110,9 @@ public class CellStatModel extends StatModel {
 	 * @return the date
 	 */
 	public String getDate() {
-	return df.format(new java.sql.Timestamp(stattime*1000));
+		if (setdate)
+			return date;
+		return df.format(new java.sql.Timestamp(stattime * 1000));
 	}
 
 	/**
@@ -117,6 +120,7 @@ public class CellStatModel extends StatModel {
 	 *            the date to set
 	 */
 	public void setDate(String date) {
+		setdate = true;
 		this.date = date;
 	}
 
@@ -124,7 +128,9 @@ public class CellStatModel extends StatModel {
 	 * @return the datetime
 	 */
 	public String getDatetime() {
-		return dfhh.format(new java.sql.Timestamp(stattime*1000));
+		if (setdatetime)
+			return datetime;
+		return dfhh.format(new java.sql.Timestamp(stattime * 1000));
 	}
 
 	/**
@@ -132,6 +138,7 @@ public class CellStatModel extends StatModel {
 	 *            the datetime to set
 	 */
 	public void setDatetime(String datetime) {
+		setdatetime = true;
 		this.datetime = datetime;
 	}
 
@@ -170,9 +177,9 @@ public class CellStatModel extends StatModel {
 	 * @return the cellname
 	 */
 	public String getCellname() {
-//		return cellname;
-		Cell cell=com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
-		if(cell!=null)
+		// return cellname;
+		Cell cell = com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(getCellkey());
+		if (cell != null)
 			return cell.getCellname();
 		return getCellkey();
 	}

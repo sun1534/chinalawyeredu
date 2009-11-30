@@ -181,6 +181,11 @@ public class PaginationSupport {
 //		}
 //		return sb.toString();
 //	}
+	private String selected(int value){
+		if(pageSize==value)
+			return " selected";
+		return "";
+	}
 	
 	public String getPageView() {
 		StringBuffer sb = new StringBuffer();
@@ -192,10 +197,10 @@ public class PaginationSupport {
 		if (pageNum > 0) {
 //			sb.append("总计").append(totalCount).append("条记录,第").append(pageNo).append("页,共").append(pageNum).append("页");
 
-			
+			sb.append("<span class='page-selectList'>每页显示<select name=\"pageSize\" onchange=\"document.form1.submit()\"><option value=\"10\""+selected(10)+">10</option><option value=\"15\""+selected(15)+">15</option><option value=\"20\""+selected(20)+">20</option><option value=\"50\""+selected(50)+">50</option><option value=\"100\""+selected(100)+">100</option></select>条</span>");
+
 			sb.append("<span class='page-move'>").append(totalCount).append("条记录</span> ");
 			sb.append("<span class='page-total'>共").append(pageNum).append("页,第").append(pageNo).append("页</span>");
-//			sb.append("<span class='page-total'><select name=\"pageSize\"><option value=\"10\">10</option><option value=\"20\">20</option><option value=\"50\">50</option><option value=\"100\">100</option></select></span>");
 			
 			//			if (pageNum == 1) {
 //				sb.append("首页 前页 后页 末页");
@@ -208,14 +213,14 @@ public class PaginationSupport {
 //					sb.append("<a href='javascript:void(0)'>首页</a> <a href='javascript:void(0)'>前页</a>");
 				}
 				else {
-					sb.append("<a href=\"javascript:void(0)\" onclick=fanye(").append(1).append(")>首页</a> <a href=\"#\" onclick=fanye(")
+					sb.append("<a href=\"#\" onclick=fanye(").append(1).append(")>首页</a> <a href=\"#\" onclick=fanye(")
 							.append(pageNo - 1).append(")>前页</a>");
 				}
 				if (pageNo == pageNum) {
 //					sb.append(" <a href='javascript:void(0)'>后页</a> <a href='javascript:void(0)'>末页</a>");
 				}
 				else {
-					sb.append(" <a href=\"javascript:void(0)\" onclick=fanye(").append(pageNo + 1).append(
+					sb.append(" <a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
 							")>后页</a> <a href=\"#\" onclick=fanye(").append(pageNum).append(")>末页</a>");
 				}
 			}
