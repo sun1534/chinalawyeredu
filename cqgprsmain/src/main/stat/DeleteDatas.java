@@ -117,7 +117,8 @@ public class DeleteDatas {
 			int opentime = 0;
 			String sql = "select min(opentime) as opentime from cdr_mistake";
 			Statement stmt = con.createStatement();
-			int deletetime = Integer.parseInt(hourstattime);
+	int deletetime= 1258820078;
+//			int deletetime = Integer.parseInt(hourstattime);
 			while (opentime <= deletetime) {
 				ResultSet rs = stmt.executeQuery(sql);
 				rs.next();

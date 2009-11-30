@@ -94,7 +94,7 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 			String sql="delete from cdr_mistake where opentime<="+daystart;
 			String sqlno33="delete from cdr_mistake_no33 where opentime<="+daystart;
 			long deletenow=System.currentTimeMillis();
-//			main.util.MainStatUtil.executeSql(con, sql);
+			main.util.MainStatUtil.executeSql(con, sql);
 			main.util.MainStatUtil.executeSql(con, sqlno33);
 			LOG.info("清除"+df.format(daysagodate)+"前的数据完毕:"+(System.currentTimeMillis()-deletenow));
 			

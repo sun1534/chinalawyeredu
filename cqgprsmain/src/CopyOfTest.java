@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import main.util.DBUtils;
+
 /** 
  * 
  */
@@ -25,7 +27,7 @@ public class CopyOfTest {
 
 		System.out.println(dfsec.parse("2009-11-24 00:00:00").getTime() / 1000);
 		System.out.println(dfsec.parse("2009-11-25 00:00:00").getTime() / 1000);
-		long no1w = 1258637828L * 1000;
+		long no1w =1259510400L * 1000;
 		System.out.println(new java.sql.Timestamp(no1w));
 		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
 		long daystart = daysagodate.getTime() / 1000;
@@ -48,10 +50,31 @@ public class CopyOfTest {
 		// }
 		//		
 
-		Date date = new Date();
-
-		Date yydate = main.util.MainStatUtil.getPrevCountHour(date, 1);
-		System.out.println(dfsec.format(yydate));
+		// Date date = new Date();
+		//
+		// Date yydate = main.util.MainStatUtil.getPrevCountHour(date, 1);
+		// System.out.println(dfsec.format(yydate));
+//Connection con=null;
+//		try {
+//			con=DBUtils.getOracleCon();
+//			int opentime = 0;
+//			String sql = "select min(opentime) as opentime from cdr_mistake";
+//			Statement stmt = con.createStatement();
+//			int deletetime = 1258820078;
+//			// int deletetime = Integer.parseInt(hourstattime);
+//			while (opentime <= deletetime) {
+//				ResultSet rs = stmt.executeQuery(sql);
+//				rs.next();
+//				opentime = rs.getInt("opentime");
+//				rs.close();
+//				main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
+//
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		con.close();
+//		System.out.println("妈的，我终于删完了。我尻。。。。。。。。");
 
 	}
 

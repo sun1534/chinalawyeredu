@@ -158,35 +158,53 @@ public class StatCell {
 							+ "' and cellid='" + cellid + "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
-				String allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
-						+ MainStatUtil.list2str(list0cellid) + ") and stattime=" + day2 + " group by cellid,lac";
+				int pageSize = 500;
+				int totalCount=len;
+				int mod = totalCount % pageSize;
+				int value = totalCount / pageSize;
+				int count = mod == 0 ? value : value + 1;
+				
+				LOG.info("0流量个数为:"+len+",要分成"+count+"次处理");
+				//oracle里面,in的数量不能超过1000个
+				for (int i = 0; i < count; i++) {
+					int startIndex = i * pageSize;
+					List<String> list = new ArrayList<String>();
+					
+//					System.out.println(ii+"==="+len+"==="+(startIndex+pageSize));
+//					System.out.println("ii < len && ii < startIndex + pageSize==="+(ii < len && ii < startIndex + pageSize));
+					for ( int ii = startIndex;ii < len && ii < startIndex + pageSize; ii++) {
+						list.add(list0cellid.get(ii));
+					}
+					String allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
+							+ MainStatUtil.list2str(list) + ") and stattime=" + day2 + " group by cellid,lac";
 
-				// rs.close();
-				// rs = null;
-				rs = tempstmt.executeQuery(allsql);
-				while (rs.next()) {
-					String cellid = rs.getString("cellid");
-					String lac = rs.getString("lac");
-					String allvolume = rs.getString("allvolume");
-					String zero0sql = "update zero_cellid set historyvolume=" + allvolume + " where lac='" + lac
-							+ "' and cellid='" + cellid + "' and stattime=" + day1;
-					sqls.add(zero0sql);
+		    		LOG.info("0流量SQL:"+allsql);
+					// rs.close();
+					// rs = null;
+					rs = tempstmt.executeQuery(allsql);
+					while (rs.next()) {
+						String cellid = rs.getString("cellid");
+						String lac = rs.getString("lac");
+						String allvolume = rs.getString("allvolume");
+						String zero0sql = "update zero_cellid set historyvolume=" + allvolume + " where lac='" + lac
+								+ "' and cellid='" + cellid + "' and stattime=" + day1;
+						sqls.add(zero0sql);
+					}
+
+					allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
+							+ MainStatUtil.list2str(list) + ") and stattime=" + day3 + " group by cellid,lac";
+					rs.close();
+					rs = null;
+					rs = tempstmt.executeQuery(allsql);
+					while (rs.next()) {
+						String cellid = rs.getString("cellid");
+						String lac = rs.getString("lac");
+						String allvolume = rs.getString("allvolume");
+						String zero0sql = "update zero_cellid set prehistoryvolume=" + allvolume + " where cellid='"
+								+ cellid + "' and lac='" + lac + "' and stattime=" + day1;
+						sqls.add(zero0sql);
+					}
 				}
-
-				allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
-						+ MainStatUtil.list2str(list0cellid) + ") and stattime=" + day3 + " group by cellid,lac";
-				rs.close();
-				rs = null;
-				rs = tempstmt.executeQuery(allsql);
-				while (rs.next()) {
-					String cellid = rs.getString("cellid");
-					String lac = rs.getString("lac");
-					String allvolume = rs.getString("allvolume");
-					String zero0sql = "update zero_cellid set prehistoryvolume=" + allvolume + " where cellid='"
-							+ cellid + "' and lac='" + lac + "' and stattime=" + day1;
-					sqls.add(zero0sql);
-				}
-
 			}
 
 			main.util.MainStatUtil.executeSql(con, sqls);
@@ -249,7 +267,7 @@ public class StatCell {
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
 			} else {
-				System.out.println("哈哈，零流量哦。。。。。。。。。" + (i++));
+//				System.out.println("哈哈，零流量哦。。。。。。。。。" + (i++));
 			}
 
 		}
@@ -257,7 +275,8 @@ public class StatCell {
 		LOG.info("得到CELLID的统计数据完毕");
 
 		// // 这里要得到用户数
-		String usersql = "select CELLID,lac, usercount from msisdn_CELLID where stattime>=" + start / 1000	+ " and stattime<=" + end / 1000;
+		String usersql = "select CELLID,lac, usercount from msisdn_CELLID where stattime>=" + start / 1000
+				+ " and stattime<=" + end / 1000;
 		// + " group by CELLID";
 		LOG.info("usersql:" + usersql);
 		stmt = con.createStatement();
@@ -266,7 +285,7 @@ public class StatCell {
 			String cellid = rs.getString("CELLID");
 			String lac = rs.getString("CELLID");
 			int usercount = rs.getInt("lac");
-			TempCellStat stat = allcells.get(cellid+"|"+lac);
+			TempCellStat stat = allcells.get(cellid + "|" + lac);
 			if (stat != null)
 				stat.usercount = usercount + "";
 		}
