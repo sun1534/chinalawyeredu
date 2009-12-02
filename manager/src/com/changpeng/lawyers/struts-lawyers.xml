@@ -21,6 +21,11 @@
 			<interceptor-ref name="hibernateSessionStack"/> 
 			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>
        </action>
+       
+       <action name="lawyersCreateBatch" class="com.changpeng.lawyers.action.LawyersCreateBatchAction">
+			<result name="input" type="dispatcher">/lawyers/lawyersCreateBatch.jsp</result>
+       </action>
+       
          <action name="lawyersCreateEdit" class="com.changpeng.lawyers.action.LawyersCreateEditAction">
 			
 			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>

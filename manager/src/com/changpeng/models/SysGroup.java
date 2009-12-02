@@ -13,7 +13,7 @@ import java.util.Set;
 public class SysGroup implements java.io.Serializable {
 
 	// Fields
-
+	private int excelline;
 	private int groupid;
 	private int parentid;
 	private int grouplevel;
@@ -28,6 +28,7 @@ public class SysGroup implements java.io.Serializable {
 	private String address;
 	private String postcode;
 	private String createuser;
+	private int createuserid;
 	private Timestamp createtime;
 	private String comments;
 	private int createtype;
@@ -37,8 +38,28 @@ public class SysGroup implements java.io.Serializable {
 	private SysUnionparams sysUnionparams;
 	private String systemno;
 	private int usercnts;
-
+private String district;
 	// Constructors
+
+	/**
+ * @return the district
+ */
+public String getDistrict() {
+	return district;
+}
+
+
+
+
+/**
+ * @param district the district to set
+ */
+public void setDistrict(String district) {
+	this.district = district;
+}
+
+
+
 
 	/**
 	 * @return the usercnts
@@ -299,6 +320,46 @@ public class SysGroup implements java.io.Serializable {
 	 */
 	public void setSystemno(String systemno) {
 		this.systemno = systemno;
+	}
+
+
+
+
+	/**
+	 * @return the excelline
+	 */
+	public int getExcelline() {
+		return excelline;
+	}
+
+
+
+
+	/**
+	 * @param excelline the excelline to set
+	 */
+	public void setExcelline(int excelline) {
+		this.excelline = excelline;
+	}
+
+
+
+
+	/**
+	 * @return the createuserid
+	 */
+	public int getCreateuserid() {
+		return createuserid;
+	}
+
+
+
+
+	/**
+	 * @param createuserid the createuserid to set
+	 */
+	public void setCreateuserid(int createuserid) {
+		this.createuserid = createuserid;
 	}
 
 

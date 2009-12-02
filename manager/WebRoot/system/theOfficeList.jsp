@@ -22,6 +22,9 @@ function fanye(str){
 function getAdd(){
 	window.location.href="theOfficeCreateEdit!input.pl";
 }
+function getAddBatch(){
+window.location.href="theOfficeCreateBatch!input.pl";
+}
 function delGroup(groupid,parentid,type){
 	if(confirm("确定要删除该事务所吗？"))
 		location.href="theOfficeDelete.pl?type="+type+"&groupid="+groupid+"&parentid="+parentid;
@@ -163,9 +166,8 @@ function getCities(vallll){
 							<tr>
 								<td height="24" align="center"
 									background="../imagesa/login_bg1.gif">
-									<INPUT type="button" onclick="return getAdd()" value=" 新增事务所 "
-										name="addbutton" class="button">
-
+									<INPUT type="button" onclick="return getAdd()" value=" 新增事务所 "	name="addbutton" class="button">
+<INPUT type="button" onclick="return getAddBatch()" value=" 批量新增事务所 "	name="addbutton" class="button">
 								</TD>
 							</TR>
 						</table>

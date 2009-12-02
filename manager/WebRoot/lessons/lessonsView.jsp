@@ -57,7 +57,18 @@ body {
 							
 					</div>
 					<div class="dtop">学分：${lesson.xuefen}</div>
-					<div class="dtop">时间：${lesson.lessondate}-${lesson.lessonend}</div>
+					<div class="dtop">时间：
+					
+					         <s:date name="lesson.lessondate" format="yyyy-MM-dd HH:mm"/>
+					         
+					         <s:if test="lesson.lessonend!=null">
+					         -<s:date name="lesson.lessonend" format="yyyy-MM-dd HH:mm"/>
+					         </s:if>
+					         
+				<!-- 	${lesson.lessondate}-${lesson.lessonend}
+					 -->
+					
+					</div>
 					<s:if test="lesson.lessonstyle==1||lesson.lessonstyle==3">
 					<div class="dtop">地点：${lesson.lessonaddress}</div>	
 					</s:if>	

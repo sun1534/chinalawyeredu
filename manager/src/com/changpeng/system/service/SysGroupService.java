@@ -4,7 +4,12 @@
 
 package com.changpeng.system.service;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -17,8 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.exception.ServiceException;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysGroupExcludeRights;
+import com.changpeng.models.SysRole;
 import com.changpeng.models.SysUser;
 import com.changpeng.system.dao.SysGroupDAO;
 
@@ -27,6 +34,7 @@ import com.changpeng.system.dao.SysGroupDAO;
  * 
  */
 public class SysGroupService extends BasicService {
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	private SysGroupDAO sysGroupDAO;
 
@@ -62,8 +70,77 @@ public class SysGroupService extends BasicService {
 		return getProvinceUnion(false);
 	}
 
+	public List<String> addGroupBatch(SysUser sysUser, int parentid, int directgroup, List<SysGroup> grouplist)
+			throws ServiceException {
+		List<String> result = new ArrayList<String>();
+		try {
+			List<String> oldlawyerno = new ArrayList<String>();
+
+			java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
+			for (SysGroup group : grouplist) {
+
+				StringBuffer sb = new StringBuffer();
+
+				group.setComments("批量导入");
+				group.setCreatetime(timestamp);
+				group.setCreatetype(3);
+				group.setCreateuser(sysUser.getUsername());
+				group.setGrouplevel(3);
+				group.setGrouptype(1);
+				group.setParentid(parentid);
+				group.setDirectgroup(directgroup);
+				group.setCreateuserid(sysUser.getUserid());
+
+				if (oldlawyerno.contains(group.getGroupenname())) {
+					result.add("第" + group.getExcelline() + "行错误:执业证号在此文件中已经存在:" + group.getGroupenname() + "|||");
+					continue;
+				}
+				oldlawyerno.add(group.getGroupenname());
+
+				if (sb.toString().length() == 0) {
+					try {
+						addGroup(group);
+					} catch (Exception e) {
+					e.printStackTrace();
+						result.add("第" + group.getExcelline() + "行新增错误::" + e.getMessage());
+					}
+				} else {
+					
+					result.add("第" + group.getExcelline() + "行错误::" + sb);
+				}
+			}
+			return result;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Transactional
+	public void addGroup(SysGroup group) {
+		sysGroupDAO.save(group);
+		SysUser user = new SysUser();
+		user.setCityid(group.getParentid());
+		user.setSysGroup(group);
+		user.setComments("随事务所一起新增");
+		user.setCreatetime(group.getCreatetime());
+		user.setCreateuser(group.getCreateuser());
+		user.setCreateuserid(group.getCreateuserid());
+		user.setLoginname(group.getGroupenname());
+		user.setOfficeid(group.getGroupid());
+		SysRole role = new SysRole();
+		role.setRoleid(1);
+		user.setSysRole(role);
+		user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+		user.setProvinceid(group.getDirectgroup());
+		user.setStatus(0);
+		user.setUsername(group.getGroupname());
+		sysGroupDAO.save(user);
+
+	}
+
 	public List getProvinceUnion(boolean includeother) {
-		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false)); ;
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
+		;
 		if (!includeother)
 			dc.add(Restrictions.eq("grouptype", 3)); // 省律协
 		else
@@ -78,7 +155,8 @@ public class SysGroupService extends BasicService {
 	 * @return
 	 */
 	public List getCityUnion(int provinceunion) {
-		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false)); ;
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
+		;
 		dc.add(Restrictions.eq("grouptype", 2)); // 市律协
 		if (provinceunion != 0)
 			dc.add(Restrictions.eq("parentid", provinceunion)); //
@@ -96,7 +174,7 @@ public class SysGroupService extends BasicService {
 		Criterion grouptype = Restrictions.eq("grouptype", 3);// 所有的省律协
 
 		dc.add(Restrictions.or(createtype, grouptype));
-		dc.add(Restrictions.eq("delflag",false));
+		dc.add(Restrictions.eq("delflag", false));
 
 		sysGroupDAO.setCriteriaSpecification(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 
@@ -110,45 +188,67 @@ public class SysGroupService extends BasicService {
 	 * @return
 	 */
 	public List getOffices(int cityunicon) {
-		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false)); ;
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
+		;
 		dc.add(Restrictions.eq("grouptype", 1)); // 事务所
 		if (cityunicon != 0)
 			dc.add(Restrictions.eq("parentid", cityunicon)); // 事务所
 		return sysGroupDAO.findAllByCriteria(dc);
 	}
 
-	public SysGroup getGroupBySystemno(String systemno){
-		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false)); ;
-		dc.add(Restrictions.eq("systemno", systemno)); 
-		List list= sysGroupDAO.findAllByCriteria(dc);
-		if(list!=null&&list.size()!=0){
-			return (SysGroup)list.get(0);
+	public SysGroup getGroupBySystemno(String systemno) {
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
+		;
+		dc.add(Restrictions.eq("systemno", systemno));
+		List list = sysGroupDAO.findAllByCriteria(dc);
+		if (list != null && list.size() != 0) {
+			return (SysGroup) list.get(0);
 		}
 		return null;
 	}
+
 	@Transactional
-	public void excludeRrights(int groupid,List excluedRightcode,List recursion,List remarks)throws ServiceException{
-		String hql="delete from sys_group_exclude_rights where groupid="+groupid;
+	public void excludeRrights(int groupid, List excluedRightcode, List recursion, List remarks)
+			throws ServiceException {
+		String hql = "delete from sys_group_exclude_rights where groupid=" + groupid;
 		sysGroupDAO.executeSql(hql);
-		for(int i=0;excluedRightcode!=null&&i<excluedRightcode.size();i++){
-		
-			SysGroupExcludeRights ser=new SysGroupExcludeRights();
+		for (int i = 0; excluedRightcode != null && i < excluedRightcode.size(); i++) {
+
+			SysGroupExcludeRights ser = new SysGroupExcludeRights();
 			ser.setGroupid(groupid);
 			ser.setRecursion(Byte.parseByte(recursion.get(i).toString()));
 			ser.setRemarks(remarks.get(i).toString());
 			ser.setRightcode(excluedRightcode.get(i).toString());
 			sysGroupDAO.save(ser);
-			
+
 		}
-	
+
 	}
-	
-	public List getExcludedRights(int groupid){
-		DetachedCriteria dc = DetachedCriteria.forClass(SysGroupExcludeRights.class).add(Restrictions.eq("groupid", groupid));
-		List excludedRights = sysGroupDAO.findAllByCriteria(dc); 
+
+	@Transactional
+	public void add(int groupid, List excluedRightcode, List recursion, List remarks) throws ServiceException {
+		String hql = "delete from sys_group_exclude_rights where groupid=" + groupid;
+		sysGroupDAO.executeSql(hql);
+		for (int i = 0; excluedRightcode != null && i < excluedRightcode.size(); i++) {
+
+			SysGroupExcludeRights ser = new SysGroupExcludeRights();
+			ser.setGroupid(groupid);
+			ser.setRecursion(Byte.parseByte(recursion.get(i).toString()));
+			ser.setRemarks(remarks.get(i).toString());
+			ser.setRightcode(excluedRightcode.get(i).toString());
+			sysGroupDAO.save(ser);
+
+		}
+
+	}
+
+	public List getExcludedRights(int groupid) {
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroupExcludeRights.class).add(
+				Restrictions.eq("groupid", groupid));
+		List excludedRights = sysGroupDAO.findAllByCriteria(dc);
 		return excludedRights;
 	}
-	
+
 	@Transactional
 	public int deleteGroup(int groupid) throws ServiceException {
 

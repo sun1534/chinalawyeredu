@@ -13,7 +13,7 @@ import java.util.Set;
 public class Lessons implements java.io.Serializable {
 
 	// Fields
-
+	private int excelline;
 	private int lessonid;
 	private int lessonidOfserver;
 	private int lessonstyle;
@@ -21,10 +21,14 @@ public class Lessons implements java.io.Serializable {
 	private int lessonstate;
 	private String teachers;
 	private int teachertype;
+	private String teachertypestr;
 	private int lessontype;
+	private String lessontypestr;
 	private String lessontypedesc;
 	private Float xuefen=0f;
+	private String xuefenstr;
 	private Timestamp lessondate;
+private String lessondatestr;
 	private Timestamp lessonend;
 	private String lessonaddress;
 	private String lessoncontent;
@@ -298,6 +302,76 @@ public class Lessons implements java.io.Serializable {
 	 */
 	public void setCreateuser(String createuser) {
 		this.createuser = createuser;
+	}
+
+	/**
+	 * @return the teachertypestr
+	 */
+	public String getTeachertypestr() {
+		return teachertypestr;
+	}
+
+	/**
+	 * @param teachertypestr the teachertypestr to set
+	 */
+	public void setTeachertypestr(String teachertypestr) {
+		this.teachertypestr = teachertypestr;
+	}
+
+	/**
+	 * @return the lessontypestr
+	 */
+	public String getLessontypestr() {
+		return lessontypestr;
+	}
+
+	/**
+	 * @param lessontypestr the lessontypestr to set
+	 */
+	public void setLessontypestr(String lessontypestr) {
+		this.lessontypestr = lessontypestr;
+	}
+
+	/**
+	 * @return the xuefenstr
+	 */
+	public String getXuefenstr() {
+		return xuefenstr;
+	}
+
+	/**
+	 * @param xuefenstr the xuefenstr to set
+	 */
+	public void setXuefenstr(String xuefenstr) {
+		this.xuefenstr = xuefenstr;
+	}
+
+	/**
+	 * @return the lessondatestr
+	 */
+	public String getLessondatestr() {
+		return lessondatestr;
+	}
+
+	/**
+	 * @param lessondatestr the lessondatestr to set
+	 */
+	public void setLessondatestr(String lessondatestr) {
+		this.lessondatestr = lessondatestr;
+	}
+
+	/**
+	 * @return the excelline
+	 */
+	public int getExcelline() {
+		return excelline;
+	}
+
+	/**
+	 * @param excelline the excelline to set
+	 */
+	public void setExcelline(int excelline) {
+		this.excelline = excelline;
 	}
 
 //	public Set getLessonreplies() {

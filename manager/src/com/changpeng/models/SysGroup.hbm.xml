@@ -71,6 +71,9 @@
                 <comment>区</comment>
             </column>
         </property> -->
+        <property name="district" type="java.lang.String">
+            <column name="district" length="100" />
+        </property>
         <property name="createuser" type="java.lang.String">
             <column name="CREATEUSER" length="100" />
         </property>

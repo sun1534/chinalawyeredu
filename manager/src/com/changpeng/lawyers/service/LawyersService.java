@@ -4,18 +4,29 @@
 
 package com.changpeng.lawyers.service;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
+import com.changpeng.common.context.Globals;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysUser;
+import com.changpeng.system.service.SysGroupService;
 
 /**
  * @author 华锋 2008-2-27 上午10:43:29
  * 
  */
-public class LawyersService extends BasicService{
+public class LawyersService extends BasicService {
 
 	// private static Log LOG = LogFactory.getLog(LawyersService.class);
 
@@ -41,8 +52,8 @@ public class LawyersService extends BasicService{
 	@Transactional
 	public void updateLawyers(Lawyers user) throws ServiceException {
 		try {
-//			String md5pass = MD5.md5(user.getPasswd());
-//			user.setPasswd(md5pass);
+			// String md5pass = MD5.md5(user.getPasswd());
+			// user.setPasswd(md5pass);
 			lawyersDAO.update(user);
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -62,12 +73,12 @@ public class LawyersService extends BasicService{
 		try {
 			Lawyers user = (Lawyers) lawyersDAO.get(Lawyers.class, userid);
 			String pass = user.getPasswd();
-//			String md5pass = MD5.md5(oldpass);
+			// String md5pass = MD5.md5(oldpass);
 			String md5pass = oldpass;
 			if (!pass.equals(md5pass)) {
 				return 1;// 输入的旧密码不对
 			}
-		//	String newmd5pass = MD5.md5(newpass);
+			// String newmd5pass = MD5.md5(newpass);
 			user.setPasswd(newpass);
 			lawyersDAO.update(user);
 			return 0;
@@ -75,8 +86,7 @@ public class LawyersService extends BasicService{
 			throw new ServiceException(e);
 		}
 	}
-	
-	
+
 	/**
 	 * 这里要注意<br/> 1、现在的删除，可能是逻辑删除，如果设置loginname唯一的话，看怎么处理 2、新增删除和更新了后，怎么保留修改的痕迹
 	 * 
@@ -85,15 +95,106 @@ public class LawyersService extends BasicService{
 	 */
 	public void addLawyer(Lawyers user) throws ServiceException {
 		try {
-		
-//			String md5pass = MD5.md5(user.getPasswd());
-//			user.setPasswd(md5pass);
+
+			// String md5pass = MD5.md5(user.getPasswd());
+			// user.setPasswd(md5pass);
 			lawyersDAO.save(user);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
-	
+
+	public static void main(String[] args) throws Exception {
+		String s = "2009-8-21";
+		System.out.println(df.parse(s));
+	}
+
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static Map<String, String> GENDER = new HashMap<String, String>();
+	static {
+		GENDER.put("G", "G");
+		GENDER.put("g", "G");
+		GENDER.put("女", "G");
+		GENDER.put("M", "M");
+		GENDER.put("男", "M");
+		GENDER.put("m", "M");
+
+	}
+
+	public List<String> addLawyerBatch(SysUser sysUser, int provinceunion, int directunion, List<Lawyers> lawyerslist)
+			throws ServiceException {
+		List<String> result = new ArrayList<String>();
+		try {
+			SysGroupService service = (SysGroupService) Globals.getBean("sysGroupService");
+			List<String> oldlawyerno = new ArrayList<String>();
+			List<SysGroup> groups = service.getChildGroup(directunion);// 所有的事务所
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			for (SysGroup group : groups) {
+				map.put(group.getGroupname(), group.getGroupid());
+			}
+
+			java.sql.Timestamp timestamp = new java.sql.Timestamp(System.currentTimeMillis());
+			for (Lawyers lawyer : lawyerslist) {
+
+				StringBuffer sb = new StringBuffer();
+				String officename = lawyer.getOfficename();
+				String gender = lawyer.getGender();
+				lawyer.setDirectunion(directunion);
+				lawyer.setProvinceunion(provinceunion);
+				lawyer.setCreatetime(timestamp);
+				lawyer.setCreateuser(sysUser.getUserid());
+				lawyer.setCreateusername(sysUser.getUsername());
+				lawyer.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyer.getLawyername()));
+				lawyer.setPasswd(lawyer.getCertno());
+				lawyer.setRegsrc(11); // 后台批量导入
+				lawyer.setRemarks("批量导入");
+				lawyer.setLoginname(lawyer.getLawyerno());
+				Date date = null;
+				if (oldlawyerno.contains(lawyer.getLawyerno())) {
+					result.add("第" + lawyer.getExcelline() + "行错误:执业证号在此文件中已经存在:" + lawyer.getLawyerno() + "|||");
+					continue;
+				}
+				oldlawyerno.add(lawyer.getLawyerno());
+				if (lawyer.getZhiyedatestr() != null && !"".equals(lawyer.getZhiyedate())) {
+					try {
+						date = df.parse(lawyer.getZhiyedatestr());
+					} catch (Exception e) {
+						sb.append("执业日期必须为yyyy-MM-dd的形式:" + lawyer.getZhiyedatestr());
+					}
+				}
+				if (!map.containsKey(officename)) {
+					sb.append("事务所" + officename + "在系统中不存在|||");
+				}
+				if (gender != null && !"".equals("gender") && !map.containsKey(officename)) {
+					sb.append("性别" + gender + "错误,必须为(男,女,G,M)|||");
+				}
+				if (lawyer.getLawyerno() == null || lawyer.getLawyerno().equals("")) {
+					sb.append("执业证号为空|||");
+				}
+				if (lawyer.getCertno() == null || lawyer.getCertno().equals("")) {
+					sb.append("身份证号为空|||");
+				}
+
+				if (sb.toString().length() == 0) {
+					try {
+						lawyer.setZhiyedate(date);
+						lawyer.setGender(GENDER.get(lawyer.getGender()));
+						lawyer.setPasswd(lawyer.getCertno());
+						lawyer.setTheoffice(map.get(officename));
+						lawyersDAO.save(lawyer);
+					} catch (Exception e) {
+						e.printStackTrace();
+						result.add("第" + lawyer.getExcelline() + "行新增错误::" + e.getMessage());
+					}
+				} else {
+					result.add("第" + lawyer.getExcelline() + "行::" + sb);
+				}
+			}
+			return result;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
 
 	/**
 	 * 
@@ -122,25 +223,24 @@ public class LawyersService extends BasicService{
 		}
 	}
 
-	public boolean isexist(String lawyerno,int cityid)throws ServiceException{
+	public boolean isexist(String lawyerno, int cityid) throws ServiceException {
 		try {
 
 			return lawyersDAO.isexist(lawyerno, cityid);
-			
 
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
-	
-	public Lawyers getLawyerBySystemno(String systemno)throws ServiceException {
+
+	public Lawyers getLawyerBySystemno(String systemno) throws ServiceException {
 		try {
 			return lawyersDAO.getLawyerBySystemno(systemno);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
-	
+
 	/**
 	 * 根据loginname得到律师
 	 * 
@@ -204,16 +304,16 @@ public class LawyersService extends BasicService{
 			throw new ServiceException(e);
 		}
 	}
-	
-	public int getFieldLawyerCnt(String field,int fieldvalue) throws ServiceException{
+
+	public int getFieldLawyerCnt(String field, int fieldvalue) throws ServiceException {
 		try {
-			return lawyersDAO.getFieldLawyerCnt(field,fieldvalue);
+			return lawyersDAO.getFieldLawyerCnt(field, fieldvalue);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
-	
-	public int getOfficeLawyerCnt(int officeid) throws ServiceException{
+
+	public int getOfficeLawyerCnt(int officeid) throws ServiceException {
 		try {
 			return lawyersDAO.getOfficeLawyerCnt(officeid);
 		} catch (Exception e) {
@@ -221,7 +321,7 @@ public class LawyersService extends BasicService{
 		}
 	}
 
-	public int getCityLwyerCnt(int cityid) throws ServiceException{
+	public int getCityLwyerCnt(int cityid) throws ServiceException {
 		try {
 			return lawyersDAO.getOfficeLawyerCnt(cityid);
 		} catch (Exception e) {
@@ -229,7 +329,7 @@ public class LawyersService extends BasicService{
 		}
 	}
 
-	public int getProvinceLwyerCnt(int provinceid)throws ServiceException{
+	public int getProvinceLwyerCnt(int provinceid) throws ServiceException {
 		try {
 			return lawyersDAO.getOfficeLawyerCnt(provinceid);
 		} catch (Exception e) {

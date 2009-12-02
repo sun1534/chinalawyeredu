@@ -8,6 +8,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import com.changpeng.common.CommonDatas;
+import com.changpeng.common.Constants;
+import com.changpeng.models.SysUnionparams;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -46,6 +49,7 @@ public class UserVisitInterceptor implements Interceptor {
 		// 有个问题,abc!input.pl实际上是等于abc.pl的.一个是入口,一个是保存
 
 		// webcontext初始化的时候,得到系统所有的rightcode到内存中
+    		getDomain(request);
     		result=invocation.invoke();
     	}catch(Exception e){
     	
@@ -70,18 +74,49 @@ public class UserVisitInterceptor implements Interceptor {
 		return ip;
 	}
 
-	/**
-	 * 获取当前请求的url和所有的参数信息
-	 * 
-	 * @return
-	 */
-	// public String getCururl() {
-	// ActionContext ctx = ActionContext.getContext();
-	// HttpServletRequest request = (HttpServletRequest)
-	// ctx.get(ServletActionContext.HTTP_REQUEST);
-	// String url1 = request.getRequestURL().toString();
-	// return url1;
-	// // String url2 = request.getQueryString();
-	// // return url1 + (url2 == null ? "" : "?" + url2);
-	// }
+	private void getDomain(HttpServletRequest request) {
+		Constants.CURRENT_DOMAIN = request.getHeader("x-host");
+
+		if (Constants.CURRENT_DOMAIN == null || Constants.CURRENT_DOMAIN.length() == 0
+				|| "unknown".equalsIgnoreCase(Constants.CURRENT_DOMAIN)) {
+			Constants.CURRENT_DOMAIN = request.getHeader("X-Host");
+		}
+
+		SysUnionparams params = CommonDatas.SysUnionparams.get(Constants.CURRENT_DOMAIN);
+		if (params != null) {
+			
+//			System.out.println(" params.getLogopath():"+ params.getLogopath());
+			
+			if (params.getIndexpic() != null && !"".equals(params.getIndexpic())) {
+				Constants.INDEX_PIC = params.getIndexpic();
+			} else {
+				Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+			}
+			if (params.getLogopath() != null && !"".equals(params.getLogopath())) {
+				Constants.LOGO_PATH = params.getLogopath();
+			} else {
+				Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+			}
+			if (params.getSysname() != null && !"".equals(params.getSysname())) {
+				Constants.SYS_NAME = params.getSysname();
+			} else {
+				Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+			}
+			if (params.getTopbarpic() != null && !"".equals(params.getTopbarpic())) {
+				Constants.TOP_BAR_PIC = params.getTopbarpic();
+			} else {
+				Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+			}
+
+			Constants.HAVELOCAL = params.getHavelocal();
+
+		}else{
+			Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+			Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+			Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
+		}
+		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
+	}
 }

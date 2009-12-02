@@ -42,6 +42,10 @@
 	     <action name="theOfficeCreateEdit" class="com.changpeng.system.action.TheOfficeCreateEditAction">
 			<result name="input" type="dispatcher">/system/theOfficeCreateEdit.jsp</result>
 	    </action>
+	     <action name="theOfficeCreateBatch" class="com.changpeng.system.action.TheOfficeCreateBatchAction">
+			<result name="input" type="dispatcher">/system/theOfficeCreateBatch.jsp</result>
+	    </action>
+	    
 	    
        <action name="sysUserDelete" class="com.changpeng.system.action.SysUserDeleteAction">
        </action>      	

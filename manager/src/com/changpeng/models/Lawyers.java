@@ -12,7 +12,7 @@ import java.util.Date;
 public class Lawyers implements java.io.Serializable {
 
 	// Fields
-
+private int excelline;
 	private int lawyerid;
 	private int lawyertype;
 	private String lawyername;
@@ -62,7 +62,24 @@ public class Lawyers implements java.io.Serializable {
 	private String remarks;
 	private float dabiaofen;
 
+	
+	private String officename;
+	
 	// Constructors
+
+	/**
+	 * @return the officename
+	 */
+	public String getOfficename() {
+		return officename;
+	}
+
+	/**
+	 * @param officename the officename to set
+	 */
+	public void setOfficename(String officename) {
+		this.officename = officename;
+	}
 
 	/**
 	 * @return the dabiaofen
@@ -520,6 +537,20 @@ public class Lawyers implements java.io.Serializable {
 	 */
 	public void setZhiyedatestr(String zhiyedatestr) {
 		this.zhiyedatestr = zhiyedatestr;
+	}
+
+	/**
+	 * @return the excelline
+	 */
+	public int getExcelline() {
+		return excelline;
+	}
+
+	/**
+	 * @param excelline the excelline to set
+	 */
+	public void setExcelline(int excelline) {
+		this.excelline = excelline;
 	}
 
 }

@@ -22,6 +22,10 @@ function fanye(str){
 function getAdd(){
 	window.location.href="lawyersCreateEditPre.pl";
 }
+
+function getAddBatch(){
+window.location.href="lawyersCreateBatch!input.pl";
+}
 function passwdReset(userid){
    var _url="../systemajax/passwordReset.pl";
    $.getJSON(_url, { "userid": userid,"islawyer":"true","now":new Date().getTime()}, function(json){
@@ -153,6 +157,9 @@ function getOffices(vallll){
        <tr class="list_tdfunc">
           <td height="24" colspan="10"  align="center"  >
          <INPUT type="button" onClick="return getAdd()"  value=" 新增律师 " name="addbutton" class="button">
+          <INPUT type="button" onClick="return getAddBatch()"  value=" 批量新增律师 " name="addbutton" class="button">
+         
+         
              &nbsp;    	
           </td>
         </tr>
