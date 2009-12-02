@@ -127,24 +127,24 @@ public class StatBsc {
 		}
 		LOG.info("得到BSC的统计数据完毕");
 
-		// // 这里要得到用户数
-		String usersql = "select bscid,usercount from msisdn_bsc where stattime>=" + start / 1000 + " and stattime<="
-				+ end / 1000;
-		// + " group by bscid";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String bscid = rs.getString("bscid");
-			int usercount = rs.getInt("usercount");
-			TempStat stat = allbscs.get(bscid);
-			if (stat != null)
-				stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
-
-		LOG.info("得到BSC的用户数据完毕");
+//		// // 这里要得到用户数
+//		String usersql = "select bscid,usercount from msisdn_bsc where stattime>=" + start / 1000 + " and stattime<="
+//				+ end / 1000;
+//		// + " group by bscid";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String bscid = rs.getString("bscid");
+//			int usercount = rs.getInt("usercount");
+//			TempStat stat = allbscs.get(bscid);
+//			if (stat != null)
+//				stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
+//
+//		LOG.info("得到BSC的用户数据完毕");
 
 	}
 

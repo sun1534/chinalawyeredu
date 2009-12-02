@@ -142,7 +142,7 @@ public class MainStatUtil {
 
 			stmt = con.createStatement();
 			result=stmt.executeUpdate(sql);
-			stmt.execute(sql);
+		
 			LOG.info("处理"+result+"条耗费时间为:" + (System.currentTimeMillis() - now));
 
 		} catch(Exception e){

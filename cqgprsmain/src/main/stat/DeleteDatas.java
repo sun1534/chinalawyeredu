@@ -73,6 +73,9 @@ public class DeleteDatas {
 		DAYTABLELIST.put("ZERO_APN", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("ZERO_CELLID", " where dayflag=1 and stattime<=" + daystattime);
 
+		DAYTABLELIST.put("STAT_CELLID_DAY", " where dayflag=1 and stattime<=" + daystattime);
+		DAYTABLELIST.put("STAT_CELLID_APN_DAY", " where dayflag=1 and stattime<=" + daystattime);
+
 		DAYTABLELIST.put("CDR_MISTAKE_NO33", " where opentime<=" + hourstattime); // 额外的方式
 		// DAYTABLELIST.put("CDR_MISTAKE", " where opentime<=" + hourstattime);
 	}

@@ -25,10 +25,16 @@ public class CopyOfTest {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println(dfsec.parse("2009-11-24 00:00:00").getTime() / 1000);
-		System.out.println(dfsec.parse("2009-11-25 00:00:00").getTime() / 1000);
-		long no1w =1259510400L * 1000;
+	
+		System.out.println(dfsec.parse("2009-12-01 00:00:00").getTime()/1000);
+		System.out.println(dfsec.parse("2009-12-02 00:00:00").getTime()/1000);
+		
+		long no1w =1259593800L * 1000;
 		System.out.println(new java.sql.Timestamp(no1w));
+		
+		 no1w =1259673240L * 1000;
+			System.out.println(new java.sql.Timestamp(no1w));
+		
 		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
 		long daystart = daysagodate.getTime() / 1000;
 		System.out.println("=========" + daystart);

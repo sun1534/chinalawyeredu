@@ -41,39 +41,36 @@ public class StatCellApn {
 	 */
 	public void stat() throws Exception {
 
-		String sql = "insert into stat_cellid_apn(cellid,apnni,stattime,dayflag,usercount,upvolume,downvolume,allvolume) select "
-				+ "cellid,apnni,"
+		String sql = "insert into stat_cellid_apn_day(cellid,lac,apnni,stattime,dayflag,usercount,upvolume,downvolume,allvolume) select "
+				+ "cellid,lac,apnni,"
 				+ stattime
-				+ ",1,0,sum(upvolume) as up,sum(downvolume) as down,sum(upvolume+downvolume) as allvolume from stat_cellid_apn where dayflag=0 and (stattime between "
-				+ start / 1000 + " and " + end / 1000 + ") group by apnni,cellid";
+				+ ",1,0,sum(upvolume) as up,sum(downvolume) as down,sum(upvolume+downvolume) as allvolume from stat_cellid_apn where dayflag=0 and ( lac is not null) and (stattime between "
+				+ start / 1000 + " and " + end / 1000 + ") group by apnni,cellid,lac";
 
-		Statement stmt = null;
-		try {
-			stmt = con.createStatement();
-			stmt.execute(sql);
-		} finally {
-			if (stmt != null)
-				stmt.close();
-		}
+		
+//	LOG.info(sql);
+		
+	main.util.MainStatUtil.executeSql(con, sql);
 
-		//这里要更新stat_cellid_apn里的数据情况
-		
-		String usersql="select apnni,cellid,usercount from msisdn_cellid_apn where stattime between "+start / 1000+" and "+end / 1000;
-		stmt=con.createStatement();
-		ResultSet rs=stmt.executeQuery(usersql);
-		List<String> sqls=new ArrayList<String>();
-		while(rs.next()){
-			String cellid=rs.getString("cellid");
-			String apnni=rs.getString("apnni");
-			int usercount=rs.getInt("usercount");
-			sqls.add("update stat_cellid_apn set usercount="+usercount+" where cellid="+cellid+" and apnni='"+apnni+"' and stattime="+stattime);
-		}
-		
-		
-		rs.close();
-		stmt.close();
-		
-		main.util.MainStatUtil.executeSql(con, sqls);
+//		//这里要更新stat_cellid_apn里的数据情况
+//		
+//		String usersql="select apnni,cellid,lac,usercount from msisdn_cellid_apn where stattime between "+start / 1000+" and "+end / 1000;
+//		Statement stmt=con.createStatement();
+//		ResultSet rs=stmt.executeQuery(usersql);
+//		List<String> sqls=new ArrayList<String>();
+//		while(rs.next()){
+//			String cellid=rs.getString("cellid");
+//			String apnni=rs.getString("apnni");
+//			String lac=rs.getString("lac");
+//			int usercount=rs.getInt("usercount");
+//			sqls.add("update stat_cellid_apn_day set usercount="+usercount+" where cellid="+cellid+" and lac="+lac+" and apnni='"+apnni+"' and stattime="+stattime);
+//		}
+//		
+//		
+//		rs.close();
+//		stmt.close();
+//		
+//		main.util.MainStatUtil.executeSql(con, sqls);
 		
 		
 	}

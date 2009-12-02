@@ -147,36 +147,41 @@ public class StatSgsn {
 		}
 
 		// // 这里要得到用户数
-		String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000;
-		// + " group by sgsnid,nettype";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String sgsnid = rs.getString("sgsnid");
-			String nettype = rs.getString("nettype");
-			String key = sgsnid + nettype;
-
-			int usercount = rs.getInt("usercount");
-			TempStat stat = allsgsns.get(key);
-			stat.usercount = usercount;
-		}
-		rs.close();
-		stmt.close();
-
-		String dayusersql = "select usercount,nettype from msisdn_dayall where stattime>=" + start / 1000 + " and stattime<="
-				+ end / 1000;
-		// + " group by sgsnid,nettype";
-		LOG.info("dayusersql:" + dayusersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			if(rs.getInt("nettype")==1)
-				dayusercount3g += rs.getInt("usercount");
-			else
-				dayusercount2g += rs.getInt("usercount");
-		}
+		// String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn
+		// where stattime>=" + start / 1000
+		// + " and stattime<=" + end / 1000;
+		// // + " group by sgsnid,nettype";
+		// LOG.info("usersql:" + usersql);
+		// stmt = con.createStatement();
+		// rs = stmt.executeQuery(usersql);
+		// while (rs.next()) {
+		// String sgsnid = rs.getString("sgsnid");
+		// String nettype = rs.getString("nettype");
+		// String key = sgsnid + nettype;
+		//
+		// int usercount = rs.getInt("usercount");
+		// TempStat stat = allsgsns.get(key);
+		// stat.usercount = usercount;
+		// }
+		// rs.close();
+		// stmt.close();
+		//
+		// String dayusersql = "select usercount,nettype from msisdn_dayall
+		// where stattime>=" + start / 1000 + " and stattime<="
+		// + end / 1000;
+		// // + " group by sgsnid,nettype";
+		// LOG.info("dayusersql:" + dayusersql);
+		// stmt = con.createStatement();
+		// rs = stmt.executeQuery(usersql);
+		// while (rs.next()) {
+		// if(rs.getInt("nettype")==1)
+		// dayusercount3g += rs.getInt("usercount");
+		// else
+		// dayusercount2g += rs.getInt("usercount");
+		// }
+		//		
+		//	LOG.info("3G:"+dayusercount3g+",2G:"+dayusercount2g);
+		
 		rs.close();
 		stmt.close();
 

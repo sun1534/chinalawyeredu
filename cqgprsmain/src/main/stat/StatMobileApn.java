@@ -34,26 +34,27 @@ public class StatMobileApn {
 	 * 
 	 */
 	public void stat() throws Exception {
-		// String table = MainStatUtil.getMobileApnTable();
+//		 String table = MainStatUtil.getMobileApnTable();
 
 		String sql = "insert into " + table
 				+ "(mobile,apnni,stattime,dayflag,upvolume,downvolume,allvolume,periodlen) select " + "mobile,apnni,"
 				+ stattime + ",1,sum(upvolume),sum(downvolume),sum(allvolume),sum(periodlen) from " + table
 				+ " group by mobile,apnni";
+		main.util.MainStatUtil.executeSql(con, sql);
 
-		LOG.info("StatMobileAPN:" + sql);
-		Statement stmt = null;
-		try {
-			stmt = con.createStatement();
-			stmt.execute(sql);
-
-			// } catch (Exception e) {
-			// LOG.error("统计MOBILE_APN错误：" + e);
-			// e.printStackTrace();
-		} finally {
-			if (stmt != null)
-				stmt.close();
-		}
+//		LOG.info("StatMobileAPN:" + sql);
+//		Statement stmt = null;
+//		try {
+//			stmt = con.createStatement();
+//			stmt.execute(sql);
+//
+//			// } catch (Exception e) {
+//			// LOG.error("统计MOBILE_APN错误：" + e);
+//			// e.printStackTrace();
+//		} finally {
+//			if (stmt != null)
+//				stmt.close();
+//		}
 
 	}
 

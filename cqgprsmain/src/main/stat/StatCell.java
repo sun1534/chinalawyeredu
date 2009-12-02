@@ -92,7 +92,7 @@ public class StatCell {
 					// stmt.setString(6, stat.usercount);
 					// stmt.addBatch();
 
-					String sql = "insert into stat_cellid(cellid,lac,bscid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
+					String sql = "insert into stat_cellid_day(cellid,lac,bscid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
 							+ stat.cellid
 							+ "','"
 							+ stat.lac
@@ -175,7 +175,7 @@ public class StatCell {
 					for ( int ii = startIndex;ii < len && ii < startIndex + pageSize; ii++) {
 						list.add(list0cellid.get(ii));
 					}
-					String allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
+					String allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid_day where dayflag=1 and cellid in("
 							+ MainStatUtil.list2str(list) + ") and stattime=" + day2 + " group by cellid,lac";
 
 		    		LOG.info("0流量SQL:"+allsql);
@@ -191,7 +191,7 @@ public class StatCell {
 						sqls.add(zero0sql);
 					}
 
-					allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid where dayflag=1 and cellid in("
+					allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid_day where dayflag=1 and cellid in("
 							+ MainStatUtil.list2str(list) + ") and stattime=" + day3 + " group by cellid,lac";
 					rs.close();
 					rs = null;
@@ -274,25 +274,25 @@ public class StatCell {
 
 		LOG.info("得到CELLID的统计数据完毕");
 
-		// // 这里要得到用户数
-		String usersql = "select CELLID,lac, usercount from msisdn_CELLID where stattime>=" + start / 1000
-				+ " and stattime<=" + end / 1000;
-		// + " group by CELLID";
-		LOG.info("usersql:" + usersql);
-		stmt = con.createStatement();
-		rs = stmt.executeQuery(usersql);
-		while (rs.next()) {
-			String cellid = rs.getString("CELLID");
-			String lac = rs.getString("CELLID");
-			int usercount = rs.getInt("lac");
-			TempCellStat stat = allcells.get(cellid + "|" + lac);
-			if (stat != null)
-				stat.usercount = usercount + "";
-		}
-		rs.close();
-		stmt.close();
-
-		LOG.info("得到CELLID的用户数据完毕");
+//		// // 这里要得到用户数
+//		String usersql = "select CELLID,lac, usercount from msisdn_CELLID where stattime>=" + start / 1000
+//				+ " and stattime<=" + end / 1000;
+//		// + " group by CELLID";
+//		LOG.info("usersql:" + usersql);
+//		stmt = con.createStatement();
+//		rs = stmt.executeQuery(usersql);
+//		while (rs.next()) {
+//			String cellid = rs.getString("CELLID");
+//			String lac = rs.getString("lac");
+//			int usercount = rs.getInt("usercount");
+//			TempCellStat stat = allcells.get(cellid + "|" + lac);
+//			if (stat != null)
+//				stat.usercount = usercount + "";
+//		}
+//		rs.close();
+//		stmt.close();
+//
+//		LOG.info("得到CELLID的用户数据完毕");
 	}
 
 	/**
