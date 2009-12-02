@@ -81,7 +81,9 @@ body {
 					<div class="dtop">类别：<s:property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lesson.lessontype]"/>
    				    </div>
 					<div class="dtop">学分：${lesson.xuefen}</div>
-					<div class="dtop">时间：${lesson.lessondate}</div>
+					<div class="dtop">时间：<s:date name="lesson.lessondate" format="yyyy-MM-dd HH:mm"/>
+					<!-- ${lesson.lessondate} -->
+					</div>
 					
 					<s:if test="lesson.lessonstyle==1||lesson.lessonstyle==3">
 					<div class="dtop">地点：${lesson.lessonaddress}</div>	

@@ -177,7 +177,8 @@ $.getJSON(
 						  </TD>
                       
 						<TD class="tab_content" align="center">
-						  ${lessondate}
+						
+						  <s:date name="lessondate" format="yyyy-MM-dd HH:mm"/>
 						</TD>
 						<TD class="tab_content" align="center" 
 							<s:if test="fenshuoff!=null">title="网上培训折扣:${fenshuoff}%"</s:if>	
@@ -191,7 +192,7 @@ $.getJSON(
 							</s:if>
 						</TD>
 						<TD class="tab_content" align="center">
-							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","深圳律协在线培训","toolbar=no,location=no,width=500,height=450,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>
+							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","toolbar=no,location=no,width=500,height=450,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>
 						</TD>
 						<TD class="tab_content" align="center">
 							<a href="#" onClick="javascript:refreshscore(${lessonid},1)">一般</a>

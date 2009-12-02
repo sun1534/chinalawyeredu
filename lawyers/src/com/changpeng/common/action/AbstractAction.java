@@ -60,7 +60,7 @@ public abstract class AbstractAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		userIp = getIpAddr(ServletActionContext.getRequest());
-		getDomain(ServletActionContext.getRequest());
+//		getDomain(ServletActionContext.getRequest());
 		try {
 			String result = go();
 			return result;
@@ -76,11 +76,9 @@ public abstract class AbstractAction extends ActionSupport {
 
 	@Override
 	public String input() throws Exception {
-		getDomain(ServletActionContext.getRequest());
+//		getDomain(ServletActionContext.getRequest());
 		return INPUT;
 	}
-	
-	
 	
 	/**
 	 * 
@@ -196,48 +194,48 @@ public abstract class AbstractAction extends ActionSupport {
 		return this.userIp;
 	}
 	
-	private void getDomain(HttpServletRequest request) {
-		Constants.CURRENT_DOMAIN = request.getHeader("x-host");
-
-		LOG.debug("CURRENT_DOMAIN::"+Constants.CURRENT_DOMAIN );
-		
-		if (Constants.CURRENT_DOMAIN == null || Constants.CURRENT_DOMAIN.length() == 0
-				|| "unknown".equalsIgnoreCase(Constants.CURRENT_DOMAIN)) {
-			Constants.CURRENT_DOMAIN = request.getHeader("X-Host");
-		}
-
-		SysUnionparams params = CommonDatas.SysUnionparams.get(Constants.CURRENT_DOMAIN);
-		if (params != null) {
-			if (params.getIndexpic() != null && !"".equals(params.getIndexpic())) {
-				Constants.INDEX_PIC = params.getIndexpic();
-			} else {
-				Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
-			}
-			if (params.getLogopath() != null && !"".equals(params.getLogopath())) {
-				Constants.LOGO_PATH = params.getLogopath();
-			} else {
-				Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
-			}
-			if (params.getSysname() != null && !"".equals(params.getSysname())) {
-				Constants.SYS_NAME = params.getSysname();
-			} else {
-				Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
-			}
-			if (params.getTopbarpic() != null && !"".equals(params.getTopbarpic())) {
-				Constants.TOP_BAR_PIC = params.getTopbarpic();
-			} else {
-				Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
-			}
-			Constants.HAVELOCAL = params.getHavelocal();
-		}else{
-			Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
-			Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
-			Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
-			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
-			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
-		}
-		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
-	}
+//	private void getDomain(HttpServletRequest request) {
+//		Constants.CURRENT_DOMAIN = request.getHeader("x-host");
+//
+//		LOG.debug("CURRENT_DOMAIN::"+Constants.CURRENT_DOMAIN );
+//		
+//		if (Constants.CURRENT_DOMAIN == null || Constants.CURRENT_DOMAIN.length() == 0
+//				|| "unknown".equalsIgnoreCase(Constants.CURRENT_DOMAIN)) {
+//			Constants.CURRENT_DOMAIN = request.getHeader("X-Host");
+//		}
+//
+//		SysUnionparams params = CommonDatas.SysUnionparams.get(Constants.CURRENT_DOMAIN);
+//		if (params != null) {
+//			if (params.getIndexpic() != null && !"".equals(params.getIndexpic())) {
+//				Constants.INDEX_PIC = params.getIndexpic();
+//			} else {
+//				Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+//			}
+//			if (params.getLogopath() != null && !"".equals(params.getLogopath())) {
+//				Constants.LOGO_PATH = params.getLogopath();
+//			} else {
+//				Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+//			}
+//			if (params.getSysname() != null && !"".equals(params.getSysname())) {
+//				Constants.SYS_NAME = params.getSysname();
+//			} else {
+//				Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+//			}
+//			if (params.getTopbarpic() != null && !"".equals(params.getTopbarpic())) {
+//				Constants.TOP_BAR_PIC = params.getTopbarpic();
+//			} else {
+//				Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+//			}
+//			Constants.HAVELOCAL = params.getHavelocal();
+//		}else{
+//			Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+//			Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+//			Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+//			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+//			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
+//		}
+//		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
+//	}
 	public String getLogopath() {
 		return com.changpeng.common.Constants.LOGO_PATH;
 	}
