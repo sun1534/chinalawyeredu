@@ -20,7 +20,7 @@ import com.sxit.stat.util.StatUtil;
 
 /**
  * 
- * SGSN流量分析,平均流量的排行,还不好处理
+ * 行业用户概况，要求把那个排前面
  * 
  * 排序字段：APNNI,USERCOUNT,ALLVOLUME
  * 
@@ -29,7 +29,7 @@ import com.sxit.stat.util.StatUtil;
  */
 public class TradeCustomerAllAction extends StatAction {
 
-	
+	private String apnni;
 	
 	private List apnlist;
 	/*
@@ -43,20 +43,20 @@ public class TradeCustomerAllAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-		if(orderfield==null||orderfield.equals("")){
-			orderfield="apnni";
-		}
+//		if(orderfield==null||orderfield.equals("")){
+//			orderfield="apnni";
+//		}
 		System.out.println("resultType:::"+resultType);
-		this.page = statservice.getApnDayStat(startDate,getOrderby(), pageNo, pageSize);
+		this.page = statservice.getApnDayStat(apnni,startDate,getOrderby(), pageNo, pageSize);
 		if (resultType.equals("list"))
 			return SUCCESS;
 
 		else if (resultType.equals("excel")) {
-			this.page = statservice.getApnDayStat(startDate,getOrderby(), 1, Integer.MAX_VALUE);
+			this.page = statservice.getApnDayStat(apnni,startDate,getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
 		}	
 		else if (resultType.equals("flash")) {
-			this.page=statservice.getApnDayStat(startDate,getOrderby(), pageNo, pageSize);
+			this.page=statservice.getApnDayStat(null,startDate,getOrderby(), pageNo, pageSize);
 			apnlist=page.getItems();
 			
 			if (flashType.equals("bar")) { // 产生柱状图
@@ -179,6 +179,18 @@ public class TradeCustomerAllAction extends StatAction {
 
 		flashChart.setTitle(title);
 		return flashChart;
+	}
+	/**
+	 * @return the apnni
+	 */
+	public String getApnni() {
+		return apnni;
+	}
+	/**
+	 * @param apnni the apnni to set
+	 */
+	public void setApnni(String apnni) {
+		this.apnni = apnni;
 	}
 
 }

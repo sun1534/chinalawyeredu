@@ -71,18 +71,19 @@ function queryit(){
 					</div>-->
 				
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox">
+			        <!-- <table class="tableBox" id="newTablesD">-->
+			          <table class="tableBox">
                       <thead>
                         <tr>
                        
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
                           <th>小区名称</th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数<b class="titletime">(${date})</b></a></th>          
-                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数<b class="titletime">(${predate})</b></a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数<b class="titletime">(${oldpredate})</b></a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量<b class="titletime">(${date })</b></a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量<b class="titletime">(${preddate})</b></a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量<b class="titletime">(${oldpredate})</b></a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数</a></th>          
+                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数</a></b></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量</a></th>
                         
                         </tr>
                       </thead>

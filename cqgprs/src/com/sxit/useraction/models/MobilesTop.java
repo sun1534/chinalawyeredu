@@ -10,7 +10,7 @@ import com.sxit.system.util.NumberUtil;
  * Nov 9, 2009-11:01:03 PM
  *
  */
-public class MobilesTop {
+public class MobilesTop implements java.io.Serializable{
 
 	private String mobile;
 	private String apnni;
@@ -21,14 +21,14 @@ public class MobilesTop {
 	private float allvolume;
 	
 	public String getDownvolumeStr(){
-		if(downvolume<1)
+		if(downvolume<10)
 			return downvolume+"（K）";
 		double d = ((double) downvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
 		return totalStreamStr;
 	}
 	public String getUpvolumeStr(){
-		if(upvolume<1)
+		if(upvolume<10)
 			return upvolume+"（K）";
 		double d = ((double) upvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
@@ -36,13 +36,57 @@ public class MobilesTop {
 		return totalStreamStr;
 	}
 	public String getAllvolumeStr(){
-		if(allvolume<1)
+		if(allvolume<10)
 			return allvolume+"（K）";
 		double d = ((double) allvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
 		return totalStreamStr;
 	}
 	
+	
+	public String getPeriodlenStr(){
+		
+		if(periodlen<60)
+			return periodlen+"秒";
+		else if(periodlen<3600){
+			int min=periodlen/60;
+			int mod=periodlen%60;
+			
+			if(mod==0)
+				return min+"分";
+			else
+				return min+"分"+mod+"秒";
+		}else{
+			
+			int hour=periodlen/3600;
+			int remin=periodlen%3600;
+			int min=remin/60;
+			int sec=remin%60;
+			
+			if(remin==0)
+				return hour+"小时";
+			else{
+				if(sec==0)
+					return hour+"小时"+min+"分";
+				else
+					return hour+"小时"+min+"分"+sec+"秒";
+			}
+			
+		}
+		
+	}
+	
+	public static void main(String args[]){
+		MobilesTop t=new MobilesTop();
+		t.periodlen=60;
+		System.out.println(t.getPeriodlenStr());
+		t.periodlen=1800;
+		System.out.println(t.getPeriodlenStr());
+		t.periodlen=3600;
+		System.out.println(t.getPeriodlenStr());
+		t.periodlen=20300;
+		System.out.println(t.getPeriodlenStr());
+	}
 	
 	private int periodlen;
 	/**

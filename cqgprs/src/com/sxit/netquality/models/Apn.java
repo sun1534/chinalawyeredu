@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class Apn extends Volumes{
 
+	private int orderby;
 	/**
 	 * 编号
 	 */
@@ -109,6 +110,18 @@ public class Apn extends Volumes{
 	 */
 	public void setLastopt(String lastopt) {
 		this.lastopt = lastopt;
+	}
+	/**
+	 * @return the orderby
+	 */
+	public int getOrderby() {
+		return orderby;
+	}
+	/**
+	 * @param orderby the orderby to set
+	 */
+	public void setOrderby(int orderby) {
+		this.orderby = orderby;
 	}
 	
 }

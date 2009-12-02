@@ -47,6 +47,9 @@
           <result name="success" type="dispatcher">/netquality/apnList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/apnList_excel.jsp</result>	
        </action>
+        <action name="apnEdit" class="com.sxit.netquality.action.ApnEditAction">
+          <result name="input" type="dispatcher">/netquality/apnEdit.jsp</result>	
+       </action>
         <action name="bscList" class="com.sxit.netquality.action.BscListAction">
           <result name="success" type="dispatcher">/netquality/bscList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/bscList_excel.jsp</result>	
@@ -59,7 +62,6 @@
           <result name="success" type="dispatcher">/netquality/nsvcList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/nsvcList_excel.jsp</result>	
        </action>
-       
        
        
    </package>

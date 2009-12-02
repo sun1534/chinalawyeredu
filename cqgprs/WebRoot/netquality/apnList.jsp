@@ -13,8 +13,11 @@
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
  <jscalendar:head/>
  <script type="text/javascript" src="../js/jquery.js"></script>
-  <script type="text/javascript" src="../js/orderby.js"></script>
+ <script type="text/javascript" src="../js/orderby.js"></script>
+ <script type="text/javascript" src="../js/tablegrid.js"></script>
  <script type="text/javascript">
+//$(document).ready(function(){ $("#tableBox").tablegrid();});
+
  var orderArray=["apnni"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -127,7 +130,7 @@ function setit(){
 					</div>-->
 				
 				  <div class="tablist" id="querylist">
-			        <table class="tableBox" id="a">
+			        <table class="tableBox" id="tableBox">
                       <thead>
                         <tr>
                          <th title="点中全选">
@@ -137,6 +140,7 @@ function setit(){
                        <th>使用单位</th>
                        <th>客户联系方式</th>
                        <th>最后更新时间</th>
+                       <th>修改</th>
                        </tr>
                       </thead>
                       <tbody id="checkForm">
@@ -151,14 +155,14 @@ function setit(){
                      </s:else>
                         </td>
                          <td>
-                   <a href="../stat/streamCellTime.action?apnid=${apnid }" title="点此查看此APN在昨天的分时流量">${apnid}</a>
+                   <a href="../stat/staticAPNTime.action?apnid=${apnid }" title="点此查看此APN在昨天的分时流量">${apnid}</a>
                          </td>
                           <td>${usercorp}</td>
                           <td>${userphone }</td>
                           <td><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
+                          <td><a href="apnEdit!input.action?pageNo=${pageNo }&apnni=${apnid }">修改</a></td>
                         </tr>
                         </s:iterator>
-                      
                       </tbody>
                     <tfoot>
 							<tr>
@@ -166,7 +170,7 @@ function setit(){
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
-						 </tfoot>x
+						 </tfoot>
                     </table>
 			  </div>
 

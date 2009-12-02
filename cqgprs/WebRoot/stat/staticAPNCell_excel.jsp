@@ -52,6 +52,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tr>
      
                           <td class="listline2">${cellkey}</td>
+                           <td class="listline2">${cell.cellname}</td>
                           <td class="listline2">${totalStreamStr }</td>
                           <td class="listline2">${totalUser}</td>
                           <td class="listline2">${averageStreamStr}</td>

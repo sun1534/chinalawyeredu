@@ -57,8 +57,8 @@ private static int standardhourmm=330;
 //0330
 		
 //		if (cache == null || (cache != null && cache.getKeydate()!=today)) {
-		if (cache == null || (cache != null && cache.getKeyday()!=today&&hourmm>=standardhourmm)) {
-			synchronized (this) {
+//		if (cache == null || (cache != null && cache.getKeyday()!=today&&hourmm>=standardhourmm)) {
+//			synchronized (this) {
 				com.sxit.stat.service.StatService statservice = (StatService) getBean("statService");
 				List totallist = statservice.getDaysTotalStream(start, end);
 				List total23glist = statservice.getDaysTotalStream23g(start, end);
@@ -79,10 +79,10 @@ private static int standardhourmm=330;
 				cache.setTotallist(totallist);
 				cache.setStreamlist(streamlist);
 				LOG.info("首页显示的数据从数据库拿.....");
-			}
-		}else{
-			LOG.info("获取的缓存数据.........");
-		}
+//			}
+//		}else{
+//			LOG.info("获取的缓存数据.........");
+//		}
 
 		this.userMenus = this.sysUser.getUserMenus();
 		LOG.info(sysUser.getUsername() + "进入首页成功......");

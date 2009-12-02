@@ -144,10 +144,9 @@ if(checkvalue()){
                       <thead>
                         <tr>
                           <th>时间段</th>
-                          <th>总流量（M）</th>
-                          
-                          <th>总用户数</th>
-                          <th>平均流量（K）</th>
+                          <th>时段内总流量（M）</th>
+                          <th>时段内总用户数</th>
+                          <th>时段内平均流量（K）</th>
                         
                         </tr>
                       </thead>

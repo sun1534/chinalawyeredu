@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -245,7 +244,29 @@ public class BasicSetService {
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
+/**
+ * 
+ * @param apnni
+ * @param usercorp
+ * @param userphone
+ */
+	public void updateApn(String apnni,String usercorp,String userphone){
+		long now=new Date().getTime()/1000;
+String sql="update set_apn set apnname='"+usercorp+"',apnconector='"+userphone+"',opttype=1,updatetime="+now+" where apnni='"+apnni+"'";
+jdbcTemplate.execute(sql);
+Apn apn=BasicSetService.ALL_APNS.get(apnni);
+apn.setApnname(usercorp);
+apn.setUsercorp(usercorp);
+apn.setUserphone(userphone);
+apn.setLastopt("1");
+apn.setLastupdate(new Date());
+synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
+	com.sxit.netquality.service.BasicSetService.ALL_APNS.remove(apn.getApnid());
+	com.sxit.netquality.service.BasicSetService.ALL_APNS.put(apn.getApnid(), apn);
+}
 
+	}
+	
 	private void getAllCells() {
 		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_cell a ,allvolume_cellid b where a.cellid=b.cellid(+) and a.lac=b.lac(+) and a.opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -304,12 +325,13 @@ public class BasicSetService {
 					Apn model = new Apn();
 					model.setApnid(rs.getString("APNNI"));
 					model.setApnname(rs.getString("APNNAME"));
-					model.setUsercorp(rs.getString("apnconector"));
+					model.setUsercorp(rs.getString("APNNAME"));
 					model.setUserphone(rs.getString("apnconector"));
 					model.setAllvolume(rs.getDouble("allvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setUpvolume(rs.getDouble("upvolume"));
 					model.setLastopt(rs.getString("opttype"));
+					model.setOrderby(rs.getInt("orderby"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
@@ -513,6 +535,9 @@ public class BasicSetService {
 
 	public PaginationSupport getApns(String apnid,String orderby, int pageNo, int pageSize) {
 
+		if(orderby==null||orderby.equals(""))
+			orderby=" order by orderby";
+		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from set_apn where opttype!=2";
 		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 "+orderby+") a where rownum<="
@@ -532,9 +557,10 @@ public class BasicSetService {
 					Apn model = new Apn();
 					model.setApnid(rs.getString("APNNI"));
 					model.setApnname(rs.getString("APNNAME"));
-					model.setUsercorp(rs.getString("apnconector"));
+					model.setUsercorp(rs.getString("APNNAME"));
 					model.setUserphone(rs.getString("apnconector"));
 					model.setLastopt(rs.getString("opttype"));
+					model.setOrderby(rs.getInt("orderby"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);

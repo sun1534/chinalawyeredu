@@ -14,7 +14,7 @@
  <script type="text/javascript" src="../js/swfobject.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
-  var orderArray=["apnni","allvolume","usercount"];
+  var orderArray=["stat_apn.apnni","allvolume","usercount"];
  
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -52,7 +52,7 @@ function confirmit(){
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
    var start=$("start").val();
-   var url="staticAPN.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="tradeCustomerAll.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
 
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
@@ -83,6 +83,7 @@ function confirmit(){
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								  <td>APN编号：<s:textfield name="apnni" id="apnni" cssClass="txt" size="10"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -107,24 +108,25 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="stat_apn.apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
-                        
+                           <th>参数修改</th>
                         </tr>
                       </thead>
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                          <td>${apnid}</td>
-                          <td>${apnid}</td>
-                          <td>${apnid}</td>
+                          <td><a href="staticBy24Hours.action?start=${start}&apnid=${apnid }">${apnid}</a></td>
+                          <td>${apn.usercorp}</td>
+                          <td>${apn.userphone}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>
+                          <td><a href="../netquality/apnEdit!input.action?pageNo=${pageNo }&from=tradeCustomerAll.action&apnni=${apnid }">修改</a></td>
                         </tr>
                         </s:iterator>
                       

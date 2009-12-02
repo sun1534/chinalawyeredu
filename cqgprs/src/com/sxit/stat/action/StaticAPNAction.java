@@ -27,6 +27,20 @@ import com.sxit.stat.util.StatUtil;
  */
 public class StaticAPNAction extends StatAction {
 	private List apnlist;
+private String apnni;
+	/**
+ * @return the apnni
+ */
+public String getApnni() {
+	return apnni;
+}
+
+/**
+ * @param apnni the apnni to set
+ */
+public void setApnni(String apnni) {
+	this.apnni = apnni;
+}
 
 	/*
 	 * (non-Javadoc)
@@ -39,18 +53,18 @@ public class StaticAPNAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
-		if (orderfield == null || orderfield.equals("")) {
-			orderfield = "USERCOUNT";
-		}
-		this.page = statservice.getApnDayStat(startDate, getOrderby(), pageNo, pageSize);
+//		if (orderfield == null || orderfield.equals("")) {
+//			orderfield = "USERCOUNT";
+//		}
+		this.page = statservice.getApnDayStat(apnni,startDate, getOrderby(), pageNo, pageSize);
 		if (resultType.equals("list"))
 			return SUCCESS;
 
 		else if (resultType.equals("excel")) {
-			this.page = statservice.getApnDayStat(startDate, getOrderby(), 1, Integer.MAX_VALUE);
+			this.page = statservice.getApnDayStat(apnni,startDate, getOrderby(), 1, Integer.MAX_VALUE);
 			return "excel";
 		} else if (resultType.equals("flash")) {
-			this.page = statservice.getApnDayStat(startDate, getOrderby(), pageNo, pageSize);
+			this.page = statservice.getApnDayStat(null,startDate, getOrderby(), pageNo, pageSize);
 			apnlist = page.getItems();
 
 			if (flashType.equals("bar")) { // 产生柱状图

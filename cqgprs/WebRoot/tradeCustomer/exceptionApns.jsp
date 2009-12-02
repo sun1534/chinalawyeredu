@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["apnni","allvolume"];
+ var orderArray=["stat_apn.apnni","allvolume"];
  
  
  var field="${orderfield}";
@@ -48,25 +48,27 @@ function queryit(){
 			</div>
 		</div>
 			<s:form name="form1" action="exceptionApns" method="POST">	
+			 <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
+                                 <s:hidden name="pageNo"/>
+                                  <s:hidden name="resultType"/>
+                                  <s:hidden name="dayflag"/>
+                                  <s:hidden name="date"/>
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
-					<!-- 查询模块-->
+					<!-- 查询模块
 					<div class="searchTab">
 						<table>
 							<tbody>
 								<tr>
-								 <s:hidden name="orderfield" id="orderfieldid"/>
-								      <s:hidden name="ascdesc" id="ascdescid"/>
-                                 <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
-                                  <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
+								
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								</tr>
 							</tbody>
 						</table>
-				  </div> 
+				  </div> -->
 					<!-- 操作模块
 					<div class="operate">
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
@@ -78,7 +80,7 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                      <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
+                      <th><a onclick="orderByThis(document.form1,this)" id="stat_apn.apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>

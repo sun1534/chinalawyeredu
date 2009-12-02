@@ -116,7 +116,7 @@ $("#hourselect").hide();
                            <th><a onclick="orderByThis(document.form1,this)" id="upvolume" title="点击排序">上行流量（M）</a></th>
                             <th><a onclick="orderByThis(document.form1,this)" id="downvolume" title="点击排序">下行流量（M）</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="periodlen" title="点击排序">逗留时长（秒）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="periodlen" title="点击排序">逗留时长</a></th>
                         
                         </tr>
                       </thead>
@@ -128,7 +128,7 @@ $("#hourselect").hide();
                           <td>${upvolumeStr }</td>
                           <td>${downvolumeStr}</td>
                           <td>${allvolumeStr}</td>
-                          <td>${periodlen}</td>
+                          <td>${periodlenStr}</td>
                         </tr>
                         </s:iterator>
                       

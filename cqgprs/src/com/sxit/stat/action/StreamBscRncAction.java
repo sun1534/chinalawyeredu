@@ -39,14 +39,15 @@ public class StreamBscRncAction extends StatAction {
 		com.sxit.netquality.service.BasicSetService service=(BasicSetService)this.getBean("basicSetService");
 
 		service.getAllSets();
-		this.pageSize=Integer.MAX_VALUE;
+//	
 		if(start==null||start.equals("")){
 			startDate=getPrevDate();
 			this.start=df.format(startDate);
 		}
 //		System.out.println(endDate);
 		this.page = statservice.getBscRncStat(startDate, sgsnid,getOrderby(),pageNo, pageSize);
-	
+
+		
 		this.bsclist=page.getItems();	
 		System.out.println("bsclist::"+bsclist);
 		if (resultType.equals("list"))

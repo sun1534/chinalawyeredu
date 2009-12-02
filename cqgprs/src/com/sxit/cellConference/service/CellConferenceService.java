@@ -112,6 +112,10 @@ public class CellConferenceService {
 
 		long now = System.currentTimeMillis() / 1000;
 
+		
+		String flowf=com.sxit.system.util.NumberUtil.toMoney(flow/100.0);
+		String usercountf=com.sxit.system.util.NumberUtil.toMoney(usercount/100.0);
+		
 		String sql = "insert into SET_CELL_CONFERENCE(CELLID,lac,UPDATETIME,ISACTIVE,createuserid,createusername,timeview,flowalarmvalue,useralarmvalue) values('"
 				+ cellid
 				+ "','"
@@ -122,7 +126,7 @@ public class CellConferenceService {
 				+ loginuser.getUserid()
 				+ ",'"
 				+ loginuser.getUsername()
-				+ "'," + timespam + "," + flow + "," + usercount + ")";
+				+ "'," + timespam + "," + flowf + "," + usercountf + ")";
 
 		jdbcTemplate.execute(sql);
 
@@ -173,8 +177,8 @@ public class CellConferenceService {
 					cell.setUpdatetime(rs.getLong("updatetime"));
 					cell.setLac(rs.getString("lac"));
 					cell.setTimeview(rs.getInt("timeview"));
-					cell.setFlowalarmvalue(rs.getInt("flowalarmvalue"));
-					cell.setUseralarmvalue(rs.getInt("useralarmvalue"));
+					cell.setFlowalarmvalue((int)(rs.getFloat("flowalarmvalue")*100));
+					cell.setUseralarmvalue((int)(rs.getFloat("useralarmvalue")*100));
 					list.add(cell);
 				}
 				return list;
@@ -209,8 +213,8 @@ public class CellConferenceService {
 					cell.setUpdatetime(rs.getLong("updatetime"));
 					cell.setLac(rs.getString("lac"));
 					cell.setTimeview(rs.getInt("timeview"));
-					cell.setFlowalarmvalue(rs.getInt("flowalarmvalue"));
-					cell.setUseralarmvalue(rs.getInt("useralarmvalue"));
+					cell.setFlowalarmvalue((int)(rs.getFloat("flowalarmvalue")*100));
+					cell.setUseralarmvalue((int)(rs.getFloat("useralarmvalue")*100));
 					return cell;
 				}
 				return null;
@@ -244,8 +248,10 @@ public class CellConferenceService {
 	 */
 	public void updateConferenceCell(String cellid, String lac, int userview, int flowview, int timeview) {
 		long updatetime = System.currentTimeMillis() / 1000;
-
-		String sql = "update SET_CELL_CONFERENCE set flowalarmvalue=" + flowview + ",useralarmvalue=" + userview
+		
+		String flowf=com.sxit.system.util.NumberUtil.toMoney(flowview/100.0);
+		String usercountf=com.sxit.system.util.NumberUtil.toMoney(userview/100.0);
+		String sql = "update SET_CELL_CONFERENCE set flowalarmvalue=" + flowf + ",useralarmvalue=" + usercountf
 				+ ",timeview=" + timeview + ",updatetime=" + updatetime + " where CELLID ='" + cellid + "' and lac='"
 				+ lac + "'";
 		jdbcTemplate.execute(sql);

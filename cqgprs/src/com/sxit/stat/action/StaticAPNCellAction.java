@@ -39,13 +39,20 @@ public class StaticAPNCellAction extends StatAction {
 		if(orderfield==null||orderfield.equals(""))
 			orderfield="cellid";
 		if (apnid != null && !apnid.equals("")) {
-			apncelllist = statservice.getApnCellDayStat(startDate, apnid,getOrderby());
-			if (resultType.equals("list"))
+			
+			if (resultType.equals("list")){
+			    this.page=statservice.getApnCellDayStat(startDate, apnid, getOrderby(), pageNo, pageSize);
+			     apncelllist=this.page.getItems();
 				return SUCCESS;
+			}
 
-			else if (resultType.equals("excel"))
+			else if (resultType.equals("excel")){
+				apncelllist = statservice.getApnCellDayStat(startDate, apnid,getOrderby());
 				return "excel";
+			}
 			else if (resultType.equals("flash")) {
+			    this.page=statservice.getApnCellDayStat(startDate, apnid, getOrderby(), pageNo, pageSize);
+			     apncelllist=this.page.getItems();
 				if (flashType.equals("bar")) { // 产生柱状图
 					this.flashChart = barChart();
 				} else { // 产生线图
@@ -108,7 +115,7 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellkey());
 			label.setRotation(ration);
 			xlables.addLabels(label);
 
@@ -164,7 +171,7 @@ public class StaticAPNCellAction extends StatAction {
 				max = value;
 			c2.addValues(value);
 			jofc2.model.axis.Label label = new Label();
-			label.setText(stat.getCellid());
+			label.setText(stat.getCellkey());
 			label.setRotation(ration);
 			xlables.addLabels(label);
 		}

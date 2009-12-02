@@ -108,10 +108,12 @@ public class ZeroService {
 	public PaginationSupport getDayZeroApns(final Date date,String orderby, int pageNo, int pageSize) {
 
 		String _date = df.format(date);
+		if(orderby==null||orderby.equals(""))
+			orderby=" order by orderby";
 		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_apn where dayflag=1 and stattime=" + _date;
-		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_apn where dayflag=1 and stattime="
+		String sql = "select * from(select a.*,rownum rn from(select zero_apn.* from zero_apn,set_apn where zero_apn.apnni=set_apn.apnni and dayflag=1 and stattime="
 				+ _date + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);
@@ -149,6 +151,7 @@ public class ZeroService {
 	 */
 	public PaginationSupport getHourZeroCells(final String date, String hour,String orderby, int pageNo, int pageSize) {
 
+	
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
 		long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
@@ -202,7 +205,8 @@ public class ZeroService {
 
 		String start = date + " " + hour + ":00:00";
 		String end = date + " " + hour + ":59:59";
-
+		if(orderby==null||orderby.equals(""))
+			orderby=" order by orderby";
 //		int _start = getDfSec(start);
 //		int _end = getDfSec(end);
 
@@ -212,7 +216,7 @@ public class ZeroService {
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from zero_apn where dayflag=0 and stattime>=" + _start + " and stattime<="
 				+ _end;
-		String sql = "select * from(select a.*,rownum rn from(select * from	 zero_apn where dayflag=0 and stattime>="
+		String sql = "select * from(select a.*,rownum rn from(select zero_apn.* from zero_apn,set_apn where zero_apn.apnni=set_apn.apnni  and dayflag=0 and stattime>="
 				+ _start + " and stattime<=" + _end + orderby+") a where rownum<=" + (startIndex + pageSize) + ") where rn>"
 				+ startIndex;
 

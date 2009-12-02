@@ -84,6 +84,7 @@ function confirmit(){
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td>APN编号：<s:textfield name="apnni" id="apnni" cssClass="txt" size="10"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -121,8 +122,8 @@ function confirmit(){
                         <s:iterator value="page.items" status="status">
                         <tr>
                           <td>${apnid}</td>
-                          <td>${apnid}</td>
-                          <td>${apnid}</td>
+                          <td>${apn.usercorp}</td>
+                          <td>${apn.userphone}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>

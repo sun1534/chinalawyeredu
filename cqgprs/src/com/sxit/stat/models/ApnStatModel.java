@@ -3,7 +3,7 @@
  */
 package com.sxit.stat.models;
 
-import com.sxit.system.util.NumberUtil;
+import com.sxit.netquality.models.Apn;
 
 /**
  * @author 华锋 Oct 19, 2009-10:37:32 PM
@@ -23,7 +23,9 @@ public class ApnStatModel extends StatModel {
 	 */
 	private String datetime;
 
-	
+	public Apn getApn(){
+		return com.sxit.netquality.service.BasicSetService.ALL_APNS.get(apnid);
+	}
 
 	
 

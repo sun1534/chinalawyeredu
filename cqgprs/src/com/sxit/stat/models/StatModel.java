@@ -23,7 +23,7 @@ public class StatModel {
 	 * @return
 	 */
 	public String getTotalStreamStr(){
-		if(totalStream<1)
+		if(totalStream<10)
 			return totalStream+"（K）";
 		double d = ((double) totalStream) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
@@ -31,7 +31,7 @@ public class StatModel {
 		return totalStreamStr;
 	}
 	public String getUpvolumeStr(){
-		if(upvolume<1)
+		if(upvolume<10)
 			return upvolume+"（K）";
 		double d = ((double) upvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
@@ -39,7 +39,7 @@ public class StatModel {
 		return totalStreamStr;
 	}
 	public String getDownvolumeStr(){
-		if(downvolume<1)
+		if(downvolume<10)
 			return downvolume+"（K）";
 		double d = ((double) downvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);

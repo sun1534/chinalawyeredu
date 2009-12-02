@@ -34,10 +34,13 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 
 
 
-   	.titletkime {font-size:11px;font-weight:normal;}
+   	.titletime {font-size:11px;font-weight:normal;display:block;}
 .tablist {border:1px solid #9FB4C8;padding:1px;margin-bottom:10px;}
-	.tableBox {width:100%;white-space:nowrap;border-collapse:collapse;background:url(../images/tablelistbg.gif) repeat-x left top;}
+	.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelistbg.gif) repeat-x left top;}
 	#newTables.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelist_bg_.gif) repeat-x left top;}
+	#newTablesD.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelist_bg_.gif) repeat-x left top;}
+	#newTablesD.tableBox thead tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:52px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
+	#newTablesD.tableBox thead tr th a{display:block;}
 	.tableBox .checkbox {background:none;}
 	.tableBox .tbcheckbox {width:12px;}
 	.tableBox .tboperation {text-align:center;}

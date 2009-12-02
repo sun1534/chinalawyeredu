@@ -29,7 +29,7 @@ public class ApnListAction extends AbstractListAction {
 		BasicSetService setservice = (BasicSetService) this.getBean("basicSetService");
 		setservice.getAllSets();
 		if(orderfield==null||orderfield.equals("")){
-			orderfield="apnni";
+			orderfield="orderby";
 		}
 		if (resultType.equals("list")) {
 			focuslist = setservice.getFocusApns();

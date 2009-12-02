@@ -161,12 +161,12 @@ var start=$("#start").val();
 			  
                     </table>
 			  </div>
-<!-- 
+ 
 				<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>
-					</div>-->
+					</div>
 				</div>
 			</div>
 		</div>

@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
-  var orderArray=["apnni","allvolume","historyvolume","prehistoryvolume"];
+  var orderArray=["stat_apn.apnni","allvolume","historyvolume","prehistoryvolume"];
  
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
@@ -77,7 +77,7 @@ function queryit(){
                       <thead>
                         <tr>
                        
-                         <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编码</a></th>
+                         <th><a onclick="orderByThis(document.form1,this)" id="stat_apn.apnni" title="点击排序">APN编码</a></th>
                           <th>APN使用单位</th>
                           <th>客户联系电话</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>

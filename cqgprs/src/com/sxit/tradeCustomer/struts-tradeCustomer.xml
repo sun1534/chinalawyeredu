@@ -22,12 +22,15 @@
           <result name="success" type="dispatcher">/tradeCustomer/exceptionUsers.jsp</result>	
        </action>
       
-             <action name="importantCells" class="com.sxit.tradeCustomer.action.ImportantCellsAction">
+      <action name="importantCells" class="com.sxit.tradeCustomer.action.ImportantCellsAction">
           <result name="success" type="dispatcher">/tradeCustomer/importantCells.jsp</result>	
+           <result name="excel" type="dispatcher">/tradeCustomer/importantCells_excel.jsp</result>
        </action>
        
               <action name="staticBy24Hours" class="com.sxit.tradeCustomer.action.StaticBy24HoursAction">
           <result name="success" type="dispatcher">/tradeCustomer/staticBy24Hours.jsp</result>	
+                    <result name="excel" type="dispatcher">/tradeCustomer/staticBy24Hours_excel.jsp</result>	
+          
        </action>
        
           

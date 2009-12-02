@@ -37,7 +37,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}-${apnid }之主要小区分布</b></td>
+    <td  colspan="5" align="center" bgcolor="#FFFF00"><b>${start}-${apnid }之主要小区分布</b></td>
   </tr>
       <tr>
      
@@ -51,7 +51,8 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <s:iterator value="apncelllist" status="stat">
       <tr>
      
-                          <td class="listline2">${cellid}</td>
+                          <td class="listline2">${cellkey}</td>
+                          <td class="listline2">${cell.cellname}</td>
                           <td class="listline2">${totalStreamStr }</td>
                           <td class="listline2">${totalUser}</td>
                           <td class="listline2">${averageStreamStr}</td>

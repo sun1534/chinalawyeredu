@@ -38,7 +38,7 @@ public class StaticBy24HoursAction extends StatAction {
 			this.start = df.format(startDate);
 		}
 
-		System.out.println("============================我XXXXXXXXXXXXXx");
+//		System.out.println("============================我XXXXXXXXXXXXXx");
 		
 		if (apnid != null && !"".equals(apnid)) {
 

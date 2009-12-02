@@ -42,8 +42,8 @@ public class ZeroStreamAPNAction extends AbstractListAction {
 //		}
 		thedate= com.sxit.stat.util.StatUtil.getDate(date);
 
-		if(orderfield==null||orderfield.equals(""))
-			orderfield="apnni";
+//		if(orderfield==null||orderfield.equals(""))
+//			orderfield="apnni";
 		
 		if (resultType != null && resultType.equals("excel")) {
 			this.pageNo = 1;

@@ -100,7 +100,7 @@ public class NsvcStatModel {
 	 * @return
 	 */
 	public String getTotalStreamStr(){
-		if(abs(difference)<1)
+		if(abs(difference)<10)
 			return difference+"（B）";
 		else if(abs(difference)<1024)
 		{
