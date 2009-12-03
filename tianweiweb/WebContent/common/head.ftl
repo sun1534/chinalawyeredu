@@ -76,7 +76,7 @@
 	  <option value="2">搜产品</option>
 	  <option value="5">搜活动</option>
 	</select>
-	<input type="text" id="keyword" class="input_txt fleft" name="keyword" value="请输入关键字" onfocus="clicksearch();"/><input type="submit" class="btn2 fleft" value="GO!" /><a href="#" class="fleft searcha">高级搜索</a>
+	<input type="text" id="keyword" class="input_txt fleft" name="keyword" value="请输入关键字" onfocus="clicksearch();" size="100"/><input type="submit" class="btn2 fleft" value="GO!" /><!--<a href="#" class="fleft searcha">高级搜索</a>-->
 	</div>
 	</form>
 </div>

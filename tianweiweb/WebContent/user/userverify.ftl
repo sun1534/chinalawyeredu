@@ -1,4 +1,4 @@
-<#escape x as (x)!"">
+n<#escape x as (x)!"">
 <#import "../common/home.ftl" as home>
 <@home.home myheader="user/user_h.ftl">
 <script type="text/javascript" src="${staticpath}/js/location.js"></script>
