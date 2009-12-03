@@ -115,27 +115,29 @@ img{
 	padding:0px;
 	margin:0px;
 	}
-.topmenu{
-	float:left;
-	width:675px;
-	height:33px;
-	padding-top:7px;
-	padding-right:5px;
-	background:url(../images/topmenu.jpg);
-	text-align:right;
-	display:block;
-
-	}
-.topmenu a:link,.topmenu a:visited,.topmenu a:active{
-	color:#FFFFFF;
-	font-family:"黑体","微软雅黑",Tahoma, Helvetica, Arial, sans-serif;
-	font-size:20px;
-	margin:0 4px 0 10px;
-	}
-.topmenu a:hover{
-	color:#FFFF00;
-	}
-
+.topmenu {
+background:url(../images/topmenu.jpg) repeat 0 -40px;
+display:block;
+float:left;
+height:40px;
+text-align:right;
+width:570px;
+padding-left:110px;
+}
+.topmenu a {display:block;margin:0;padding:0;
+float:left;cursor:pointer;
+}
+.topmenu a span {display:none;cursor:pointer;}
+.topmenu #topmenu_1 {width:110px;;height:40px;}
+.topmenu #topmenu_1:hover {background:url(../images/topmenu.jpg) no-repeat -110px 0;}
+.topmenu #topmenu_2 {width:130px;height:40px;}
+.topmenu #topmenu_2:hover {background:url(../images/topmenu.jpg) no-repeat -220px 0;}
+.topmenu #topmenu_3 {width:110px;height:40px;}
+.topmenu #topmenu_3:hover {background:url(../images/topmenu.jpg) no-repeat -350px 0;}
+.topmenu #topmenu_4 {width:110px;height:40px;}
+.topmenu #topmenu_4:hover {background:url(../images/topmenu.jpg) no-repeat -460px 0;}
+.topmenu #topmenu_5 {width:110px;height:40px;}
+.topmenu #topmenu_5:hover {background:url(../images/topmenu.jpg) no-repeat -570px 0;}
 #bannal{
 	height:45px;
 	width:930px;

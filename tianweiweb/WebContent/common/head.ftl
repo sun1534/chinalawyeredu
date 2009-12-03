@@ -56,11 +56,11 @@
 		</div>
 		<div class="clear"></div>
 		<div class="topmenu">
-			<a href="../home/about.action?type=adagent">广告代理</a>&nbsp;&nbsp;
-			<a href="../home/about.action?type=videoshop">影视工作室</a> &nbsp;&nbsp;
-			<a href="../home/productlist.action">产品服务</a>&nbsp;&nbsp;
-			<a href="../home/about.action?type=cooper">合作加盟</a> &nbsp;&nbsp;
-			<a href="../home/about.action?type=onlinehelp">在线帮助</a>
+			<a href="../home/about.action?type=adagent" id="topmenu_1"><span>广告代理</span></a>
+			<a href="../home/about.action?type=videoshop" id="topmenu_2"><span>影视工作室</span></a>
+			<a href="../home/productlist.action" id="topmenu_3"><span>产品服务</span></a>
+			<a href="../home/about.action?type=cooper" id="topmenu_4"><span>合作加盟</span></a>
+			<a href="../home/about.action?type=onlinehelp" id="topmenu_5"><span>在线帮助</span></a>
 		</div>
 	</div>
 </div>
