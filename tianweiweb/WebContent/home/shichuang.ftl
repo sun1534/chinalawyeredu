@@ -5,7 +5,7 @@
 	<div class="invvideo">
 		<div class="vvideoh"></div>
 		<div class="vvideom" >
-		<iframe width="640" height="526" src="../szsc/688/index.htm" frameborder="0" scrool="no"></iframe>
+		<iframe width="640" height="526" src="../szsc/index.htm" frameborder="0" scrool="no"></iframe>
 		</div>
 		<div class="vvideof"></div>
 	</div>
