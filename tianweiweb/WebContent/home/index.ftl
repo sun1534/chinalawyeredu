@@ -43,15 +43,15 @@ document.write('</object>');
 		</div>
 		<div id="nrr">
 			<div class="video">
-				<div class="media"><a target="_blank" href="../home/shichuang.action"><img width="394" height="322" src="../images/szsc.jpg" /></a></div>
+				<div class="media"><a  onclick="window.open('../home/shichuang.action','newwindow', 'height=620,width=930, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')" href="javascript:;"><img width="394" height="322" src="../images/szsc.jpg"  /></a></div>
 				<div class="dh">
 					<div class="navdl">
 					<h3>节目导航</h3>
 					<ul>
 					<#list shichuangs as shichuang>
 						<li>
-						
-						
+
+
 						<a  href="#" onclick="window.open('${shichuang.url}','newwindow', 'width=640,height=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${shichuang.title}</a></li>
 					</#list>
 					</ul>
