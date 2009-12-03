@@ -51,8 +51,10 @@ document.write('</object>');
 					<#list shichuangs as shichuang>
 						<li>
 
+						<a  href="${shichuang.url}" target="_blank">${shichuang.title}</a></li>
 
-						<a  href="#" onclick="window.open('${shichuang.url}','newwindow', 'width=640,height=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${shichuang.title}</a></li>
+				<!--		<a  href="#" onclick="window.open('${shichuang.url}','newwindow', 'width=640,height=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${shichuang.title}</a></li>
+				-->
 					</#list>
 					</ul>
 					</div>
@@ -60,7 +62,8 @@ document.write('</object>');
 						<h3>今日更新</h3>
 						<ul>
 						<#list daohangs as daohang>
-							<li><img width="7" height="7" align="absmiddle" alt="" src="../images/video_doc.gif"/><a  href="#" onclick="window.open('${daohang.url}','','newwindow', 'height=640,width=526, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${daohang.title}</a></li>
+							<li><img width="7" height="7" align="absmiddle" alt="" src="../images/video_doc.gif"/>
+							<a  href="#" onclick="window.open('${daohang.url}','newwindow', 'height=526,width=640, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${daohang.title}</a></li>
 						</#list>
 						</ul>
 					</div>

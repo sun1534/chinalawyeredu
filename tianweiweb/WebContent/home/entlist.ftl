@@ -68,7 +68,7 @@
 	  <option>搜个人</option>
 	</select>
 	<input name="" type="text" class="textfield3"/>&nbsp;&nbsp;<input name="" type="submit" class="btn" value="GO!" />
-&nbsp;&nbsp;<a href="#">高级搜索</a> <a href="#">帮助</a></span>
+&nbsp;&nbsp;<!--<a href="#">高级搜索</a> <a href="#">帮助</a>--></span>
 	  </div>
       <div class="companybar"><span class="newsl">企业展示</span></div>
 
