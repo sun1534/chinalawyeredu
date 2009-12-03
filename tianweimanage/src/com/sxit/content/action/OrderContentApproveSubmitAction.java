@@ -91,6 +91,7 @@ public class OrderContentApproveSubmitAction extends AbstractAction {
 		short msgunread = personal.getCountMsgUnread() != null ? personal.getCountMsgUnread().shortValue() : 0;
 		personal.setCountMsgUnread((short) (msgunread + 1));
 		basicService.update(personal);
+		com.sxit.wait.util.WaitWork.EndWait(publish.getWaitid(), this.getLoginUser().getUserid());
 
 		this.message = "内容审核处理成功,请返回";
 

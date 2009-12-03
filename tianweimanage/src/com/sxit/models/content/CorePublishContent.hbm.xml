@@ -44,5 +44,10 @@
             <column name="approve_time">
             </column>
         </property>
+         <property name="waitid" type="java.lang.Integer">
+            <column name="waitid">
+                <comment>待办id</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

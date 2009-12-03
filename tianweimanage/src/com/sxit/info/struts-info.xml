@@ -12,11 +12,20 @@
         <action name="newsList" class="com.sxit.info.action.NewsListAction">
             <result name="success" type="dispatcher">/info/newsList.jsp</result>
          </action>
+        <action name="xinwenList" class="com.sxit.info.action.NewsListAction">
+       
+            <result name="success" type="dispatcher">/info/newsList.jsp</result>
+         </action>
+         
          <action name="noticeList" class="com.sxit.info.action.NewsListAction">
-            <result name="success" type="redirect">newsList.action?thetype=100</result>
+          <param name="thetype">100</param>
+            <result name="success" type="dispatcher">/info/newsList.jsp</result>
+         <!--   <result name="success" type="redirect">newsList.action?thetype=100</result>-->
         </action>
          <action name="huodongList" class="com.sxit.info.action.NewsListAction">
-            <result name="success" type="redirect">newsList.action?thetype=2</result>
+            <param name="thetype">2</param>
+              <result name="success" type="dispatcher">/info/newsList.jsp</result>
+           <!-- <result name="success" type="redirect">newsList.action?thetype=2</result>-->
         </action>
         <action name="newsCreate" class="com.sxit.info.action.NewsCreateAction">
             <result name="input" type="dispatcher">newsCreate.jsp</result>

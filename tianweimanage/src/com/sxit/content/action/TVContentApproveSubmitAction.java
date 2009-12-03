@@ -25,7 +25,7 @@ import com.sxit.models.workflow.TwflDohistory;
 public class TVContentApproveSubmitAction extends AbstractAction {
 
 	public TVContentApproveSubmitAction() {
-		history=new TwflDohistory();
+		history = new TwflDohistory();
 	}
 
 	// PUBLISHSTATUS.put((short)0, "审批通过");
@@ -41,81 +41,77 @@ public class TVContentApproveSubmitAction extends AbstractAction {
 		int businessId = 5;
 
 		CorePublish publish = (CorePublish) basicService.get(CorePublish.class, serviceId);
-		int userRole=publish.getUserRole();
-		
-		
-		com.sxit.models.wait.CoreInnerMsg msg=new CoreInnerMsg();
-		com.sxit.models.wait.CoreInnerMsgDest dest=new CoreInnerMsgDest();
-		msg.setFlag((short)0);
+		int userRole = publish.getUserRole();
+
+		com.sxit.models.wait.CoreInnerMsg msg = new CoreInnerMsg();
+		com.sxit.models.wait.CoreInnerMsgDest dest = new CoreInnerMsgDest();
+		msg.setFlag((short) 0);
 		msg.setParentId(0);
 		msg.setSendTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		msg.setSendUserid(1);
 		msg.setTitle(null);
 		dest.setDestUserid(publish.getUserid());
-		
+
 		CoreUser coreuser = (CoreUser) basicService.get(CoreUser.class, publish.getUserid());
-		System.out.println("dest.getDestUserid()::"+dest.getDestUserid());
-		
-		if(history.getSimpleapprove()==1){ //审核通过
-			publish.setStatusid((short)5);
-			history.setSimpleapprove(5);		
+		System.out.println("dest.getDestUserid()::" + dest.getDestUserid());
+
+		if (history.getSimpleapprove() == 1) { // 审核通过
+			publish.setStatusid((short) 5);
+			history.setSimpleapprove(5);
 			publish.setApprovcetime(new java.sql.Timestamp(System.currentTimeMillis()));
-			
-//			0 待审核  1 审核通过  2 审核部通过
-			
-			if(userRole==1){
-				basicService.executeSql("update core_publish_content set statusid=1,approve_time=now() where publishid="+serviceId);
+
+			// 0 待审核 1 审核通过 2 审核部通过
+
+			if (userRole == 1) {
+				basicService.executeSql("update core_publish_content set statusid=1,approve_time=now() where publishid=" + serviceId);
 			}
-//			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过！</a>");
-			
-			
-			if(coreuser.getUserRole()==2&&publish.getProductid()!=22)
-			msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过，请点此上传相应文件内容！</a>");
+			// msg.setContent("<a
+			// href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核通过！</a>");
+
+			if (coreuser.getUserRole() == 2 && publish.getProductid() != 22)
+				msg.setContent("<a href=\"javascript:getUploadFile(" + serviceId + ")\">您订购的产品审核通过，请点此上传相应文件内容！</a>");
 			else
-				msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品审核通过！</a>");
+				msg.setContent("<a href=\"../progress/publishview.action?publishid=" + serviceId + "\">您订购的产品审核通过！</a>");
 
 			this.message = "审核通过处理成功";
-		}else if(history.getSimpleapprove()==2){ //通过并发布
-			publish.setStatusid((short)99);
+		} else if (history.getSimpleapprove() == 2) { // 通过并发布
+			publish.setStatusid((short) 99);
 			history.setSimpleapprove(99);
 			publish.setApprovcetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			publish.setStarttime(new java.util.Date());
 			this.message = "审核通过并发布处理成功";
 			publish.setStarttime(new java.util.Date());
-			if(coreuser.getUserRole()==2&&publish.getProductid()!=22)
-				msg.setContent("<a href=\"javascript:getUploadFile("+serviceId+")\" class=\"a_pay\">您订购的产品审核通过并已经发布到电视，请点此上传相应文件内容！</a>");
+			if (coreuser.getUserRole() == 2 && publish.getProductid() != 22)
+				msg.setContent("<a href=\"javascript:getUploadFile(" + serviceId + ")\">您订购的产品审核通过并已经发布到电视，请点此上传相应文件内容！</a>");
 			else
-			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品审核通过并已经发布到电视！</a>");
-		}else if(history.getSimpleapprove()==3){//不通过
-			publish.setStatusid((short)4);
+				msg.setContent("<a href=\"../progress/publishview.action?publishid=" + serviceId + "\">您订购的产品审核通过并已经发布到电视！</a>");
+		} else if (history.getSimpleapprove() == 3) {// 不通过
+			publish.setStatusid((short) 4);
 			history.setSimpleapprove(4);
 			this.message = "审核不通过处理成功";
-			
-			msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，上传内容审核不通过！</a>");
-			if(userRole==1){
-				basicService.executeSql("update core_publish_content set statusid=2 where publishid="+serviceId);
+
+			msg.setContent("<a href=\"../progress/publishview.action?publishid=" + serviceId + "\">您订购的产品，上传内容审核不通过！</a>");
+			if (userRole == 1) {
+				basicService.executeSql("update core_publish_content set statusid=2 where publishid=" + serviceId);
 			}
 		}
-		
+
 		basicService.update(publish);
-basicService.save(msg);
-		
-		dest.setDelflag((short)0);
+		basicService.save(msg);
+
+		dest.setDelflag((short) 0);
 		dest.setMsgId(msg.getId());
 		basicService.save(dest);
-		
-		
-		CoreUserPersonal personal=(CoreUserPersonal)basicService.get(CoreUserPersonal.class,dest.getDestUserid());
-	System.out.println(personal);
-		short msgunread=personal.getCountMsgUnread()!=null?personal.getCountMsgUnread().shortValue():0;
-		personal.setCountMsgUnread((short)(msgunread+1));
+
+		CoreUserPersonal personal = (CoreUserPersonal) basicService.get(CoreUserPersonal.class, dest.getDestUserid());
+		System.out.println(personal);
+		short msgunread = personal.getCountMsgUnread() != null ? personal.getCountMsgUnread().shortValue() : 0;
+		personal.setCountMsgUnread((short) (msgunread + 1));
 		basicService.update(personal);
-		
-		
-		
-		
-		
-		this.nextPage = "tvConfirmList.action?userRole="+userRole;
+
+		com.sxit.wait.util.WaitWork.EndWait(publish.getWaitid(), this.getLoginUser().getUserid());
+
+		this.nextPage = "tvConfirmList.action?userRole=" + userRole;
 
 		history.setBusinessid(businessId);
 		history.setServiceid(serviceId);
@@ -123,26 +119,22 @@ basicService.save(msg);
 		history.setDouserid(this.getLoginUser().getUserid());
 		history.setDousername(this.getLoginUser().getUsername());
 		history.setNodeid(0);
-//		history.setDomessage("业务发布");
-//		history.setSimpleapprove(99); // 雷同状态字段
+		// history.setDomessage("业务发布");
+		// history.setSimpleapprove(99); // 雷同状态字段
 
-		System.out.println("history.getDomessage():::"+history.getDomessage());
-		
-		
+		System.out.println("history.getDomessage():::" + history.getDomessage());
+
 		basicService.save(history);
-
-	
 
 		return SUCCESS;
 	}
-	
-	private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
-	
+
+	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
 	private String start;
 	private String end;
-	
-private TwflDohistory history ;
 
+	private TwflDohistory history;
 
 	private int serviceId;
 

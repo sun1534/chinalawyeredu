@@ -80,7 +80,8 @@ public class TVContentStopAction extends AbstractAction {
 		personal.setCountMsgUnread((short)(msgunread+1));
 		basicService.update(personal);
 		
-		
+		com.sxit.wait.util.WaitWork.EndWait(publish.getWaitid(), this.getLoginUser().getUserid());
+
 		this.message = "业务展示停止成功";
 
 		return SUCCESS;

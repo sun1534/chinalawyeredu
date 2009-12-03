@@ -19,6 +19,32 @@
 			  <param name="paramname">newmedia</param>
 			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
        </action>
+       
+          <action name="newmediaepg" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">newmediaepg</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+          <action name="newmediavod" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">newmediavod</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+                 <action name="newmediashichuang" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">newmediashichuang</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+       
+          <action name="newmedianvod" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">newmedianvod</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+          <action name="newmediahudong" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">newmediahudong</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
               <action name="unionView" class="com.sxit.system.action.SysParameterViewAction">
 			  <param name="paramname">cooper</param>
 			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>

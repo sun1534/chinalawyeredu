@@ -24,6 +24,15 @@ public class CorePublishContent implements java.io.Serializable {
 	private Timestamp approvetime;
 	private Timestamp createtime;
 	// Constructors
+	private Integer waitid;
+
+	public Integer getWaitid() {
+		return waitid;
+	}
+
+	public void setWaitid(Integer waitid) {
+		this.waitid = waitid;
+	}
 
 	public Timestamp getApprovetime() {
 		return approvetime;

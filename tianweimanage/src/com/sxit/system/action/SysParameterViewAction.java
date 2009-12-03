@@ -61,13 +61,17 @@ public class SysParameterViewAction extends AbstractAction {
 			theurl=true;
 		}else if(paramname.equals("onlinehelp")){
 			theurl=true;
-		}else if(paramname.equals("newmedia")){
+		}else if(paramname.indexOf("newmedia")!=-1){
 			theurl=true;
 		}else if(paramname.equals("cooper")){
 			theurl=true;
 		}else if(paramname.equals("videoshop")){
 			theurl=true;
 		}else if(paramname.equals("corpinfo")){
+			theurl=true;
+		}else if(paramname.equals("useragrement")){
+			theurl=true;
+		}else if(paramname.equals("corpagrement")){
 			theurl=true;
 		}
 		

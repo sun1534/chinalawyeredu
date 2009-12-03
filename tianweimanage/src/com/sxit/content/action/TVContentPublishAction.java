@@ -7,6 +7,7 @@ import java.text.DateFormat;
 
 import com.sxit.common.action.AbstractAction;
 import com.sxit.models.content.CorePublish;
+import com.sxit.models.users.CoreUser;
 import com.sxit.models.users.CoreUserPersonal;
 import com.sxit.models.wait.CoreInnerMsg;
 import com.sxit.models.wait.CoreInnerMsgDest;
@@ -39,24 +40,22 @@ public class TVContentPublishAction extends AbstractAction {
 	protected String go() throws Exception {
 		int businessId = 5;
 
-		if(start==null||start.equals("")){
-			this.message="请输入发布的起始时间";
+		if (start == null || start.equals("")) {
+			this.message = "请输入发布的起始时间";
 			return "message";
 		}
-		
-		if(end==null||end.equals("")){
-			this.message="请输入发布的终止时间";
+
+		if (end == null || end.equals("")) {
+			this.message = "请输入发布的终止时间";
 			return "message";
 		}
-		
+
 		CorePublish publish = (CorePublish) basicService.get(CorePublish.class, serviceId);
 		publish.setStatusid((short) 99);
 		publish.setStarttime(df.parse(start));
 		publish.setEndtime(df.parse(end));
-		
-		basicService.update(publish);
 
-		this.nextPage = "tvConfirmList.action?userRole="+publish.getUserRole();
+		this.nextPage = "tvConfirmList.action?userRole=" + publish.getUserRole();
 
 		TwflDohistory history = new TwflDohistory();
 		history.setBusinessid(businessId);
@@ -69,47 +68,53 @@ public class TVContentPublishAction extends AbstractAction {
 		history.setSimpleapprove(99); // 雷同状态字段
 
 		basicService.save(history);
-		
-		
-		com.sxit.models.wait.CoreInnerMsg msg=new CoreInnerMsg();
-		com.sxit.models.wait.CoreInnerMsgDest dest=new CoreInnerMsgDest();
-		msg.setFlag((short)0);
+
+		com.sxit.models.wait.CoreInnerMsg msg = new CoreInnerMsg();
+		com.sxit.models.wait.CoreInnerMsgDest dest = new CoreInnerMsgDest();
+		msg.setFlag((short) 0);
 		msg.setParentId(0);
 		msg.setSendTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		msg.setSendUserid(1);
 		msg.setTitle(null);
-		msg.setContent("<a href=\"../progress/publishview.action?publishid="+serviceId+"\">您订购的产品，在电视上已经发布，起始时间："+start+"，终止时间："+end+"</a>");
+		msg.setContent("<a href=\"../progress/publishview.action?publishid=" + serviceId + "\">您订购的产品，在电视上已经发布，起始时间：" + start + "，终止时间：" + end
+				+ "</a>");
 		dest.setDestUserid(publish.getUserid());
 		basicService.save(msg);
-		
-		dest.setDelflag((short)0);
+
+		dest.setDelflag((short) 0);
 		dest.setMsgId(msg.getId());
 		basicService.save(dest);
-		
-		
-		CoreUserPersonal personal=(CoreUserPersonal)basicService.get(CoreUserPersonal.class,dest.getDestUserid());
-		short msgunread=personal.getCountMsgUnread()!=null?personal.getCountMsgUnread().shortValue():0;
-		personal.setCountMsgUnread((short)(msgunread+1));
+
+		CoreUserPersonal personal = (CoreUserPersonal) basicService.get(CoreUserPersonal.class, dest.getDestUserid());
+		short msgunread = personal.getCountMsgUnread() != null ? personal.getCountMsgUnread().shortValue() : 0;
+		personal.setCountMsgUnread((short) (msgunread + 1));
 		basicService.update(personal);
-		
-		
-		
-		
-		
-		
-		
-		
+
+		com.sxit.wait.util.WaitWork.EndWait(publish.getWaitid(), this.getLoginUser().getUserid());
+		String url = "../content/tvContentDoView.action?actionId=stop&id=" + serviceId;
+
+		int userid = publish.getUserid();
+		CoreUser user = (CoreUser) basicService.get(CoreUser.class, userid);
+		String subject = "";
+		if (user.getUserRole() == 1) {
+			subject = "停止发布" + user.getUserName() + "订购的产品";
+		} else {
+			subject = "停止发布" + user.getSign() + "订购的产品";
+		}
+
+		int waitid = com.sxit.wait.util.WaitWork.Sendwait(this.getLoginUser().getUserid(), subject, url, 0, 0, "", "");
+		publish.setWaitid(waitid);
+		basicService.update(publish);
 
 		this.message = "业务发布成功";
 
 		return SUCCESS;
 	}
-	
-	private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
-	
+
+	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
 	private String start;
 	private String end;
-	
 
 	private int serviceId;
 
