@@ -3,9 +3,12 @@
 <@home.home>
 <div class="vvideo">
 	<div class="invvideo">
-		<div class="vvideoh"></div>
+		<div class="vvideoh">
+		<div class="ssTips2">
+		<b>温馨提示:</b>如果鼠标无法操作，请用上下左右键控制焦点 ，用删除键进行返回,回车键进行选择！
+	</div></div>
 		<div class="vvideom" >
-		<iframe width="640" height="526" src="../szsc/index.htm" frameborder="0" scrool="no"></iframe>
+		<iframe width="640" height="526" src="../szsc/index.htm" frameborder="0" scrolling="no" id="scrolling"></iframe>
 		</div>
 		<div class="vvideof"></div>
 	</div>
@@ -19,6 +22,9 @@
 		<div class="vvideolistf"></div>
 	</div>
 	<div class="clear"></div>
+	<div class="ssTips">
+		<b>温馨提示:</b>如果鼠标无法操作，请用上下左右键控制焦点 ，用删除键进行返回,回车键进行选择！
+	</div>
 </div>
 </@home.home>
 </#escape>

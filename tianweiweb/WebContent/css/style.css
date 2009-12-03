@@ -734,7 +734,7 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 .vvideo {padding:10px;}
 .invvideo {float:left;width:665px;}
 	.vvideoh {height:34px;background:url(../images/video_1.jpg) no-repeat left top;}
-	.vvideom {padding:0 13px;overflow:hidden;background: url(../images/video_2.jpg) repeat-x left top;}
+	.vvideom {padding:0 5px;text-align:center;overflow:hidden;background: url(../images/video_2.jpg) repeat-x left top;}
 	.vvideom *{overflow:hidden;}
 	.vvideof {height:8px;background:url(../images/video_3.gif) no-repeat left top;}
 .vvideolist {float:left;width:230px;padding-left:15px;}
@@ -832,3 +832,16 @@ input.normal{color:#666666;border-top:1px solid #7c7c7c;border-left:1px solid #7
 		a.a_pay:hover {color:#fff;}
 		a.a-pay {text-align:center;display:inline-block;height:25px;width:75px;background:url(../images/btn_.jpg) no-repeat left 0px;color:#fff;text-decoration:none;}
 		a.a-pay:hover {color:#fff;}
+
+
+
+		#scrolling {overflow:hidden;margin:0 auto;}
+		.ssTips {line-height:28px;}
+		.ssTips ,
+		.ssTips * {font-size:14px;}
+		.ssTips b {font-weight:bold;color:#ff6600;padding:0 5px;}
+
+		.ssTips2 {line-height:28px;}
+		.ssTips2 ,
+		.ssTips2 * {font-size:14px;color:#fff;}
+		.ssTips2 b {font-weight:bold;color:#ff6600;padding:0 5px;}
