@@ -40,9 +40,9 @@ public class StaticBy24HoursAction extends StatAction {
 
 //		System.out.println("============================我XXXXXXXXXXXXXx");
 		
-		if (apnid != null && !"".equals(apnid)) {
+		if (apnni != null && !"".equals(apnni)) {
 
-			apntimelist = statservice.getApnDayTimeStat(startDate, apnid);
+			apntimelist = statservice.getApnDayTimeStat(startDate, apnni);
 			if (resultType.equals("list"))
 				return SUCCESS;
 			else if (resultType.equals("excel"))
@@ -63,22 +63,22 @@ public class StaticBy24HoursAction extends StatAction {
 			return SUCCESS;
 	}
 
-	private String apnid;
+	private String apnni;
 	private List apntimelist;
 
+	
 	/**
-	 * @return the apnid
+	 * @return the apnni
 	 */
-	public String getApnid() {
-		return apnid;
+	public String getApnni() {
+		return apnni;
 	}
 
 	/**
-	 * @param apnid
-	 *            the apnid to set
+	 * @param apnni the apnni to set
 	 */
-	public void setApnid(String apnid) {
-		this.apnid = apnid;
+	public void setApnni(String apnni) {
+		this.apnni = apnni;
 	}
 
 	/**
@@ -132,11 +132,11 @@ public class StaticBy24HoursAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "之" + apnid + "分时总流量分析");
+			title.setText(start + "之" + apnni + "分时总流量分析");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之" + apnid + "分时平均流量分析");
+			title.setText(start + "之" + apnni + "分时平均流量分析");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "之" + apnid + "分时用户数分析");
+			title.setText(start + "之" + apnni + "分时用户数分析");
 		}
 		flashChart.setTitle(title);
 
@@ -187,11 +187,11 @@ public class StaticBy24HoursAction extends StatAction {
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start + "之" + apnid + "分时总流量分析");
+			title.setText(start + "之" + apnni + "分时总流量分析");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之" + apnid + "分时平均流量分析");
+			title.setText(start + "之" + apnni + "分时平均流量分析");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "之" + apnid + "分时用户数分析");
+			title.setText(start + "之" + apnni + "分时用户数分析");
 		}
 
 		flashChart.setTitle(title);

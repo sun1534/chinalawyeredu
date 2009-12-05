@@ -38,22 +38,22 @@ public class ImportantCellsAction extends StatAction {
 		}
 		if(orderfield==null||orderfield.equals(""))
 			orderfield="cellid";
-		if (apnid != null && !apnid.equals("")) {
+		if (apnni != null && !apnni.equals("")) {
 			
 //			System.out.println("getOrderby():"+getOrderby());
 //			apncelllist = statservice.getApnCellDayStat(startDate, apnid,getOrderby());
 			if (resultType.equals("list")){
-				   this.page=statservice.getApnCellDayStat(startDate, apnid, getOrderby(), pageNo, pageSize);
+				   this.page=statservice.getApnCellDayStat(startDate, apnni, getOrderby(), pageNo, pageSize);
 				     apncelllist=this.page.getItems();
 				return SUCCESS;
 			}
 
 			else if (resultType.equals("excel")){
-				apncelllist = statservice.getApnCellDayStat(startDate, apnid,getOrderby());
+				apncelllist = statservice.getApnCellDayStat(startDate, apnni,getOrderby());
 				return "excel";
 			}
 			else if (resultType.equals("flash")) {
-				 this.page=statservice.getApnCellDayStat(startDate, apnid, getOrderby(), pageNo, pageSize);
+				 this.page=statservice.getApnCellDayStat(startDate, apnni, getOrderby(), pageNo, pageSize);
 			     apncelllist=this.page.getItems();
 				if (flashType.equals("bar")) { // 产生柱状图
 					this.flashChart = barChart();
@@ -71,21 +71,22 @@ public class ImportantCellsAction extends StatAction {
 
 	private List apncelllist;
 
-	private String apnid;
+	private String apnni;
+
+	
 
 	/**
-	 * @return the apnid
+	 * @return the apnni
 	 */
-	public String getApnid() {
-		return apnid;
+	public String getApnni() {
+		return apnni;
 	}
 
 	/**
-	 * @param apnid
-	 *            the apnid to set
+	 * @param apnni the apnni to set
 	 */
-	public void setApnid(String apnid) {
-		this.apnid = apnid;
+	public void setApnni(String apnni) {
+		this.apnni = apnni;
 	}
 
 	/**
@@ -140,11 +141,11 @@ public class ImportantCellsAction extends StatAction {
 		Text title = new Text();
 		title.setStyle("{font-size:14px;}");
 		if (flashby.equals("total"))
-			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析（M）");
+			title.setText(start + "之APN编号" + apnni + "各CELL总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析（K）");
+			title.setText(start + "之APN编号" + apnni + "各CELL平均流量分析（K）");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL总用户数分析");
+			title.setText(start + "之APN编号" + apnni + "各CELL总用户数分析");
 		}
 		flashChart.setTitle(title);
 
@@ -196,11 +197,11 @@ public class ImportantCellsAction extends StatAction {
 		title.setStyle("{font-size:14px;}");
 
 		if (flashby.equals("total"))
-			title.setText(start + "之APN编号" + apnid + "各CELL总流量分析（M）");
+			title.setText(start + "之APN编号" + apnni + "各CELL总流量分析（M）");
 		else if (flashby.equals("average")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL平均流量分析（K）");
+			title.setText(start + "之APN编号" + apnni + "各CELL平均流量分析（K）");
 		} else if (flashby.equals("user")) {
-			title.setText(start + "之APN编号" + apnid + "各CELL总用户数分析");
+			title.setText(start + "之APN编号" + apnni + "各CELL总用户数分析");
 		}
 
 		flashChart.setTitle(title);

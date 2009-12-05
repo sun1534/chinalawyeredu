@@ -23,14 +23,17 @@ var ascdesc="${ascdesc}";
  
 
 function fanye(str){
+ document.form1.firstpage.value="no";
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
 function exportit(){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="excel";
   document.form1.submit();
 }
 function queryit(){
+ document.form1.firstpage.value="yes";
   document.form1.resultType.value="list";
   document.form1.submit();
 }
@@ -51,24 +54,26 @@ function queryit(){
 			 <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
+                                     <s:hidden name="firstpage"/>
                                   <s:hidden name="resultType"/>
                                   <s:hidden name="dayflag"/>
-                                  <s:hidden name="date"/>
+                                
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
-					<!-- 查询模块
+					<!-- 查询模块-->
 					<div class="searchTab">
 						<table>
 							<tbody>
 								<tr>
-								
-								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
+								  <s:hidden name="date"/>
+								 <td>起始时段：<s:select name="starthour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
+								 <td>终止时段：<s:select name="endhour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								</tr>
 							</tbody>
 						</table>
-				  </div> -->
+				  </div> 
 					<!-- 操作模块
 					<div class="operate">
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>

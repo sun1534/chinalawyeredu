@@ -8,7 +8,7 @@
     <package name="stat" extends="default" namespace="/stat">
 
        
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
     
 		<!-- 总流量分析 -->
 	 <action name="stream" class="com.sxit.stat.action.StreamAction">

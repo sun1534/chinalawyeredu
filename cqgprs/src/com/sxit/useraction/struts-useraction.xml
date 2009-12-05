@@ -6,7 +6,7 @@
 <struts>
 
     <package name="useraction" extends="default" namespace="/useraction">
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
 		<!-- 总流量分析 -->
 		   <action name="hightStreamUser" class="com.sxit.useraction.action.HightStreamUserAction">
           <result name="success" type="dispatcher">/useraction/hightStreamUser.jsp</result>	

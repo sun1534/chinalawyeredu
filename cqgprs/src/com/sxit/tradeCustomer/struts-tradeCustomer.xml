@@ -7,7 +7,7 @@
 
     <package name="tradeCustomer" extends="default" namespace="/tradeCustomer">
     	  
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
     	
 		<!-- 总流量分析 -->
 		   <action name="tradeCustomerAll" class="com.sxit.tradeCustomer.action.TradeCustomerAllAction">

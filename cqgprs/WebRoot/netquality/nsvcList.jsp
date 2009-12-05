@@ -58,6 +58,7 @@ function queryit(){
 								<tr>
                               <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
+								             <s:hidden name="pageNo"/>
                                     <s:hidden name="resultType"/>
 								 <td>归属BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="15"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit"  value="查　询" onclick="queryit()"/></td>

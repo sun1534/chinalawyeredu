@@ -56,7 +56,9 @@ public class UserVerifyInterceptor implements Interceptor {
 	    
 	    //如果right为空或者没有设置right的值或者不需要session
 //	    if(abstractAction.getRightCode()==null||abstractAction.getRightCode().isEmpty()||!abstractAction.isNeedsession())
-	   if(!abstractAction.isNeedsession())
+	
+//	    System.out.println("==================");
+	    if(!abstractAction.isNeedsession())
 	       return invocation.invoke();
 		Object obj=ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
 	    if(obj==null||!(obj instanceof SysUser)){
@@ -67,12 +69,12 @@ public class UserVerifyInterceptor implements Interceptor {
 	    SysUser sysUser=(SysUser)obj;
 	    
 	    ////判断当前用户是否已经被管理员删除.这个功能的必要性和这里的实现性,值得商榷
-	    WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-	    BasicDAO basicDAO = (BasicDAO) wac.getBean("basicDAO");
-	    if(null==basicDAO.get(SysUser.class, sysUser.getUserid())){
-	    	return "login";
+//	    WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+//	    BasicDAO basicDAO = (BasicDAO) wac.getBean("basicDAO");
+//	    if(null==basicDAO.get(SysUser.class, sysUser.getUserid())){
+//	    	return "login";
 	    	//当前登录的用户已被删除，跳转到登录页面。
-	    }
+//	    }
 	    //登录名admin设置为超级管理员,不做任何权限验证
 	    if(sysUser.getLoginname().equalsIgnoreCase("admin")) 
 	    	return invocation.invoke();

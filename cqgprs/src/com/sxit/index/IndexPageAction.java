@@ -54,6 +54,10 @@ private static int standardhourmm=330;
 		Date now=new java.util.Date();
 		long today =Long.parseLong(dfdate.format(now));
 		int hourmm=Integer.parseInt(dfhourmm.format(now));
+		
+		
+		if(sysUser.hasRight("allview"))
+			hasindex=true;
 //0330
 		
 //		if (cache == null || (cache != null && cache.getKeydate()!=today)) {
@@ -108,6 +112,10 @@ private static int standardhourmm=330;
 		this.topMenus = this.sysUser.getTopMenus();
 		// TODO Auto-generated method stub
 		return "left";
+	}
+	private boolean hasindex;
+	public boolean getHasindex(){
+		return hasindex;
 	}
 
 	private List<SysRight> userMenus;

@@ -621,14 +621,16 @@ public class StatService {
 			orderby = " order by orderby";
 		}
 		String where="";
+		String cntwhere="";
 		if(!(apnni==null||apnni.equals(""))){
-			where=" and stat.apnni='"+apnni+"'";
+			where=" and STAT_APN.apnni='"+apnni+"'";
+			cntwhere=" and apnni='"+apnni+"'";
 		}
 
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
 		int totalCount = 0;
 		if (pageSize != Integer.MAX_VALUE) {
-			String cntsql = "select count(*) as cnt from STAT_APN where dayflag=1 "+where+" and apnni not in('cmwap','cmnet') and STATTIME="
+			String cntsql = "select count(*) as cnt from STAT_APN where dayflag=1 "+cntwhere+" and apnni not in('cmwap','cmnet') and STATTIME="
 					+ _date + " ";
 			totalCount = jdbcTemplate.queryForInt(cntsql);
 		}

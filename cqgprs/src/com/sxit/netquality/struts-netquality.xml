@@ -6,7 +6,7 @@
 <struts>
 
     <package name="netquality" extends="default" namespace="/netquality">
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
 		<!-- 总流量分析 -->
 		   <action name="resourceList" class="com.sxit.netquality.action.ResourceListAction">
           <result name="success" type="dispatcher">/netquality/resourceList.jsp</result>	

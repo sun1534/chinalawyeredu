@@ -57,11 +57,29 @@ function confirmit(){
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 }
+function TooltipTxt(apnni){
+   var  divtxt="<a href=# onclick=tonewform(\'values\',1)>异常行业用户</a><hr/><a href=# onclick=tonewform(\'values\',2)>主要小区分布</a><hr/><a href=# onclick=tonewform(\'values\',3)>24小时业务统计</a>";
+//	str= str.replace(/＃/g,"#"); 
+   divtxt= divtxt.replace(/values/g,apnni); 
+   return divtxt;
+}
+function tonewform(apnni,types){
 
+   document.xiangxiForm.apnni.value=apnni;
+   if(types=='1'||types==1)
+     document.xiangxiForm.action="../tradeCustomer/exceptionUsers.action";
+   else if(types=='2'||types==2)
+     document.xiangxiForm.action="../tradeCustomer/importantCells.action";
+   else if(types=='3'||types==3)
+     document.xiangxiForm.action="../tradeCustomer/staticBy24Hours.action";
+   document.xiangxiForm.submit();
+ // alert(contractno);
+}
 </script>
 </head>
 
 <body >
+<script language="javascript" type="text/javascript" src="../js/wz_tooltip.js"></script>
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
@@ -120,7 +138,10 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="status">
                         <tr>
-                          <td><a href="staticBy24Hours.action?start=${start}&apnid=${apnid }">${apnid}</a></td>
+                        <!--<td><a href="staticBy24Hours.action?start=${start}&apnid=${apnid }">${apnid}</a></td>
+                          -->
+                         <td><a href="#" onmouseover="Tip(TooltipTxt('${apnid}'), WIDTH, 100, TITLE, '更多信息', BGCOLOR, '#D3E3F6',SHADOW, true, FADEIN, 300, FADEOUT, 300, STICKY, 1, OFFSETX, -20, CLOSEBTN, true, CLICKCLOSE, true,ABOVE,true)">${apnid}</a></td>
+                         
                           <td>${apn.usercorp}</td>
                           <td>${apn.userphone}</td>
                           <td>${totalStreamStr }</td>
@@ -150,6 +171,9 @@ function confirmit(){
 				</div>
 			</div>
 		</div>
+</s:form>
+<s:form name="xiangxiForm" id="xiangxiForm" method="post">
+<s:hidden name="apnni" value="in"/>
 </s:form>
 </body>
 

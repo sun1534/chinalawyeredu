@@ -18,57 +18,6 @@
  $(document).ready(function(){
  $("#tableOrder").tablesorter();
  });
-  Array.prototype.clear=function(){  
-    this.length=0;  
-}
-  $(document).ready(function() {
-			$("#checkAll").click(selectAll);
-			$("[name=check]").click(selectOne);
-		});
-	 var arrayall=new Array();
-  var arrayadd=new Array();
-	<s:iterator value="page.items">
-       arrayall.push("${apnid }");
-	</s:iterator>
-  function selectAll() {
-	var checked=$(this).attr('checked');
-	var checkboxa = $("#checkForm :checkbox");
-	$.each(checkboxa,function(){
-	   if(!checked){
-	    	$(this).attr('checked','');
-		   	$(this).parent().parent().children().addClass("nomal");
-			$(this).parent().parent().children().removeClass("current");
-	   }else{
-		    $(this).attr('checked','checked');
-		    $(this).parent().parent().children().addClass("current");
-		    $(this).parent().parent().children().removeClass("nomal");
-	   }
-	});
-  }
-
-		/*单选取值*/
-		function selectOne(){
-				if($(this).attr('checked')){
-					$(this).parent().parent().children().addClass("current");
-					$(this).parent().parent().children().removeClass("nomal");
-				}else{
-					$(this).parent().parent().children().addClass("nomal");
-					$(this).parent().parent().children().removeClass("current");
-					$("#checkAll").attr('checked','');
-				}
-      }
-      
-      
-            function getChecked(){
-         var checkbox = $("#checkForm :checkbox");
-         arrayadd.clear();
-	     $.each(checkbox,function(){
-	      if($(this).attr('checked')){
-		    arrayadd.push( $(this).attr("value"));
-	       }
-	    });
-      }
-
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();

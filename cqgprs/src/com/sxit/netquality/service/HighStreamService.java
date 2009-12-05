@@ -81,7 +81,7 @@ public class HighStreamService {
 			// a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1
 			// "+where+" and a.stattime="+_date+" and
 			// currentvolume>="+condition+orderby;
-			sql = "select cellid,lac,bscid,allvolume from stat_cellid a where dayflag=1 " + where + " and stattime="
+			sql = "select cellid,lac,bscid,allvolume from stat_cellid_day a where dayflag=1 " + where + " and stattime="
 					+ _date + " and allvolume>=" + condition + orderby;
 
 		} else {
@@ -91,7 +91,7 @@ public class HighStreamService {
 			// a,allvolume_cellid b where a.cellid=b.cellid(+) and a.dayflag=1
 			// "+where+" and a.stattime="+_date+" order by a.allvolume desc)
 			// where rownum<="+condition+orderby;
-			sql = "select * from(select cellid,lac,bscid,allvolume from stat_cellid  where dayflag=1 " + where
+			sql = "select * from(select cellid,lac,bscid,allvolume from stat_cellid_day  where dayflag=1 " + where
 					+ " and stattime=" + _date + " order by allvolume desc) where rownum<=" + condition + orderby;
 
 			// sql="select cellid,allvolume from stat_cellid where dayflag=1 and

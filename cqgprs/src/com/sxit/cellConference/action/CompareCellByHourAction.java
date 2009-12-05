@@ -135,7 +135,7 @@ public class CompareCellByHourAction extends StatAction {
 		}
 
 		comparelist = service.getConitnueTimeStatCells(cellid, lac, date, hour, days);
-		System.out.println("comparelist.size()::::::::::::::"+comparelist.size());
+		System.out.println("comparelist.size()::::::::::::::" + comparelist.size());
 
 		if (resultType.equals("list"))
 			return SUCCESS;
@@ -157,9 +157,9 @@ public class CompareCellByHourAction extends StatAction {
 	}
 
 	private Chart lineChart() {
-		String cellname="";
-		if(com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey)!=null){
-			cellname=com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getCellname();
+		String cellname = "";
+		if (com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey) != null) {
+			cellname = com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getCellname();
 		}
 		double min = 0d;
 		double max = 0d;
@@ -186,9 +186,8 @@ public class CompareCellByHourAction extends StatAction {
 			label.setText(stat.getDate());
 			label.setRotation(ration);
 			xlables.addLabels(label);
-			
-			
-			System.out.println("stat.getDate():"+stat.getDate());
+
+			System.out.println("stat.getDate():" + stat.getDate());
 
 		}
 
@@ -209,13 +208,13 @@ public class CompareCellByHourAction extends StatAction {
 		flashChart.setYAxis(yaxis);
 		Text title = new Text();
 		title.setStyle("{font-size:14px}");
-//		巴南和平桥-1（13118-10011）从2009-11-28起连续前7天11点之详情
+		// 巴南和平桥-1（13118-10011）从2009-11-28起连续前7天11点之详情
 		if (flashby.equals("total"))
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点总流量详情（M）");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点总流量详情（M）");
 		else if (flashby.equals("average")) {
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点平均流量详情（K）");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点平均流量详情（K）");
 		} else if (flashby.equals("user")) {
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点总用户数");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点总用户数");
 		}
 		flashChart.setTitle(title);
 
@@ -223,25 +222,25 @@ public class CompareCellByHourAction extends StatAction {
 	}
 
 	private Chart barChart() {
-		String cellname="";
-		if(com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey)!=null){
-			cellname=com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getCellname();
+		String cellname = "";
+		if (com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey) != null) {
+			cellname = com.sxit.netquality.service.BasicSetService.ALL_CELLS.get(cellkey).getCellname();
 		}
 		double min = 0d;
 		double max = 0d;
 		BarChart c2 = new BarChart(); // 
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
 		int len = comparelist.size();
-		
-		System.out.println("comparelist.size()::::::::::::::"+comparelist.size());
-		
+
+		System.out.println("comparelist.size()::::::::::::::" + comparelist.size());
+
 		for (int i = 0; i < len; i++) {
 			CellStatModel stat = (CellStatModel) comparelist.get(i);
 
 			float value = 0;
 			// 总流量
 			if (flashby.equals("total"))
-				value =  (float) stat.getTotalStream();
+				value = (float) stat.getTotalStream();
 			else if (flashby.equals("average"))
 				value = stat.getAverageStream();
 			else if (flashby.equals("user"))
@@ -255,10 +254,10 @@ public class CompareCellByHourAction extends StatAction {
 			label.setText(stat.getDate());
 			label.setRotation(ration);
 			xlables.addLabels(label);
-			System.out.println("stat.getDate():"+stat.getDate());
-			
+			System.out.println("stat.getDate():" + stat.getDate());
+
 		}
-	
+
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
 
@@ -277,11 +276,11 @@ public class CompareCellByHourAction extends StatAction {
 		title.setStyle("{font-size:14px}");
 
 		if (flashby.equals("total"))
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点总流量详情（M）");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点总流量详情（M）");
 		else if (flashby.equals("average")) {
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点平均流量详情（K）");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点平均流量详情（K）");
 		} else if (flashby.equals("user")) {
-			title.setText(cellname+"（"+cellkey+"）从"+date+"起连续前"+days+"天"+hour+"点总用户数");
+			title.setText(cellname + "（" + cellkey + "）从" + date + "起连续前" + days + "天" + hour + "点总用户数");
 		}
 
 		flashChart.setTitle(title);

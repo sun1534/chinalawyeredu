@@ -6,7 +6,7 @@
 <struts>
 
     <package name="cellConference" extends="default" namespace="/cellConference">
-       <default-interceptor-ref name="visitStack"/>
+       <default-interceptor-ref name="adminStack"/>
 		<!-- 总流量分析 -->
 	   <action name="cellConferenceView" class="com.sxit.cellConference.action.CellConferenceViewAction">
           <result name="success" type="dispatcher">/cellConference/cellConferenceView.jsp</result>	

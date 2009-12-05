@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["cellid","bscid","allvolume","currentvolume"];
+ var orderArray=["cellid","bscid","allvolume"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
  
@@ -116,8 +116,8 @@ $("#hourselect").hide();
                            <th>小区名称</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">归属BSC/RNC</a></th>
                           <th>归属SGSN</th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="currentvolume" title="点击排序">当前流量（M）</a></th>
+                          <th>历史总流量（M）</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">当前流量（M）</a></th>
                         
                         </tr>
                       </thead>

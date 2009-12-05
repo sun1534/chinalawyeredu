@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>Kevin's demo</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+  <link rel="stylesheet" type="text/css" href="css/dialog.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+ <script type="text/javascript">
+	function subMenu (e,o,style,style_){
+	if($(o).is(":hidden")){
+		$(o).show();
+		$(e).addClass(style_);
+		$(e).removeClass(style);
+
+	}else{
+		$(o).hide();
+		$(e).addClass(style);
+		$(e).removeClass(style_);
+
+	}
+}
+
+ </script>
+ <script type="text/javascript" src="js/dialog.js"></script>
+</head>
+
+<body >
+
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>首页</a>＞<em>个人主页管理</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块 -->
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+									<td>类型： <select name="" class="sel">
+										<option value="" selected="selected">请选择</option>
+									</select></td>
+									<td>信息：<input type="text" name="" value="" class="txt w200"/>&nbsp;</td>
+									<td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- 操作模块 -->
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="showDialogBox('#dialogBoxAdd',500);"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"  onclick="showDialogBox('#dialogBoxAdd1',500);"/>
+					</div>
+					<div class="tablist">
+						<div class="listpage">
+							<div class="pager">
+								<span class="page-selectList">每页显示
+									<select>
+										<option value="20">20</option>
+										<option value="40">40</option>
+										<option value="60">60</option>
+										<option value="80">80</option>
+										<option value="100">100</option>
+									</select>
+								条</span>
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div>
+
+						<table class="tableBox" id="a">
+							<thead>
+								<tr>
+									<th class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/></th>
+									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">类型名称</a></th>
+									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">时间</a></th>
+									<th><a  href="#" class="toggleDate__" title="点击进行排序">描述</a></th>
+									<th class="w220">操作</th>
+								</tr>
+							</thead>
+							<tbody id="checkForm">
+								<tr>
+									<td class="w30 fcenter"><a class="toggle" href="javascript:;" onclick="subMenu(this,'#aaa','toggle','toggle_')"><img height="12" align="absmiddle" width="14" alt="" src="images/icobg.gif"/></a></td>
+									<td class="w100" ><span id="apmenu" onmouseover="Apmenu('#apmenu','#apList')" class="apmenuC" onmouseout="Apmenu_('#apmenu','#apList')">111111111111</span></li>
+</td>
+									<td>2009-09-21</td>
+									<td><a href="#" class="blank"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>不错，有助于学生学习，提交自身素质！</a></td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr id="aaa">
+									<td class="w30 fcenter" colspan="5">
+												<div>1111111</div>
+									</td>
+								</tr>
+
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="2"/></td>
+									<td class="w100"><span id="apmenu1" onmouseover="Apmenu('#apmenu1','#apList')" onmouseout="Apmenu_('#apmenu1','#apList')" class="apmenuC">课外学习</span></td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="4"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4"><span class="selectInfo">已经选择<b id="checknum">0</b>项</span> | 取值为：<span id="getValue"></span></td>
+								</tr>
+							</tfoot>
+						</table>
+						</div>
+
+
+						<div class="tablist" id="m_2">
+						<table class="tableBox" id="a">
+							<thead>
+								<tr>
+									<th class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkAll"  id="checkAll"/></th>
+									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">类型名称</a></th>
+									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">时间</a></th>
+									<th><a  href="#" class="toggleDate__" title="点击进行排序">描述</a></th>
+									<th class="w220">操作</th>
+								</tr>
+							</thead>
+							<tbody id="checkForm">
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="1"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td><a href="#" class="blank"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>不错，有助于学生学习，提交自身素质！</a></td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="2"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="3"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="4"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr>
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="5"/></td>
+									<td class="w100">课外学习</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>删除</a></td>
+								</tr>
+								<tr id="6" rel="aa">
+									<td class="w30 fcenter"><input type="checkbox" class="checkbox" name="checkboxItem" value="6"/></td>
+									<td class="w100">课外学习1</td>
+									<td>2009-09-21</td>
+									<td>不错，有助于学生学习，提交自身素质！1</td>
+									<td class="tboperation w220">
+										<a href="#" class="tdAccept" title="审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>审核</a><a href="#" class="tdNoAccept" title="未审核"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>未审核</a><a href="#" class="tdLocked" title="锁定"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>锁定</a><a href="#" class="tdEdit" title="编辑"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle"/>编辑</a><a href="#" class="tdDelete" title="删除"><img src="images/icobg.gif" width="14" height="12" alt="" align="absmiddle" />删除</a></td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4"><span class="selectInfo">已经选择<b id="checknum">0</b>项</span> | 取值为：<span id="getValue"></span></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+					<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 新增  -->
+		<div class="dialogBox" id="dialogBoxAdd1">
+			<div class="DialogWrap">
+				<a href="#" class="closeDialogBox" onclick="closeDialogBox('#dialogBoxAdd')" title="关闭">关闭</a>
+				<div class="dialogMain">
+					<div class="operateTabInfo">新增</div>
+					<table class="operateTabBox">
+						<tbody>
+							<tr class="fEven">
+								<td class="w80 fname">类　　型：</td>
+								<td class="fvalue"><select name="" class="sel">
+									<option value="" selected="selected">请选择</option>
+								</select></td>
+							</tr>
+							<tr class="fOdd" valign="top">
+								<td class="fname">描　　述：</td>
+								<td><textarea id="" rows="10" cols="" class="txt w300"></textarea></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="dialogBtn"><input type="button"  value="保 存" title="保 存" class="btnSubmit" onclick="closeDialogBox('#dialogBoxAdd')"/>　<input type="button"  value="取 消" title="取 消" class="btnBack" onclick="closeDialogBox('#dialogBoxAdd')"/></div>
+			</div>
+		</div>
+	<!--  -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#checkAll").click(selectAll);
+			$("[name=checkboxItem]").click(selectOne);
+			$("#pageNo").val($("#page-current").text())
+		});
+
+		/*全选*/
+		function selectAll() {
+			 var checkbox = $("#checkForm :checkbox");
+			 if(!$(this).attr('checked')){
+				checkbox.attr('checked','');
+				checkbox.parent().parent().children().addClass("current");
+				checkbox.parent().parent().children().removeClass("nomal");
+			 }else{
+				checkbox.attr('checked','checked');
+				checkbox.parent().parent().children().addClass("nomal");
+				checkbox.parent().parent().children().removeClass("current");
+			}
+			selectOne();
+		}
+
+		/*单选取值*/
+		function selectOne(){
+			var str="";
+			var l=0;
+			$("[name=checkboxItem]").each(function(){
+				if($(this).attr('checked')){
+					$(this).parent().parent().children().addClass("current");
+					$(this).parent().parent().children().removeClass("nomal");
+					str+=$(this).val()+"|";
+					l=$("[name=checkboxItem]:checked").size();
+				}else{
+					$(this).parent().parent().children().addClass("nomal");
+					$(this).parent().parent().children().removeClass("current");
+					$("#checkAll").attr('checked','');
+				}
+			})
+			$("#getValue").text(str)//
+			$("#checknum").text(l)
+		}
+	</script>
+
+	<!-- 应用2级菜单 家长-->
+				<div style="display:none" class="apList" id="apList">
+					<div class="apListData">
+						<ul>
+							<li><a href="#">快捷菜单</a></li>
+							<li><a href="#">快捷菜单</a></li>
+							<li><a href="#">快捷菜快捷菜单单</a></li>
+						</ul>
+					</div>
+				</div>
+<style type="text/css">
+	.apmenuC {cursor:pointer;}
+	.apListData {background:#ECF5FD url(../images/menubg.gif) repeat-x  left top;border:1px solid #9FB4C8;}
+	.apListData ul {padding:10px;}
+	.apListData ul li {}
+	.apListData ul li a {color:#1E4B7E;}
+</style>
+<script type="text/javascript">
+<!--
+
+
+	function Apmenu(evt_btn,h_obj){
+		$(evt_btn).mouseover(
+		function(e) {
+			 setTimeout(function(){objPosition(evt_btn,h_obj,-20,30);},50);
+			}
+		).mouseout(
+			function(e) {
+			 setTimeout(function(){objPosition2(evt_btn,h_obj,-20,30);},50);
+			}
+		)
+		$(document).click(function() {
+			$(h_obj).fadeOut("slow");
+		});
+	};
+
+		function Apmenu_(evt_btn,h_obj){
+		$(h_obj).mouseover(
+		function(e) {
+			 setTimeout(function(){objPosition(evt_btn,h_obj,-20,30);},50);
+			}
+		).mouseout(
+			function(e) {
+			 setTimeout(function(){objPosition2(evt_btn,h_obj,-20,30);},50);
+			}
+		)
+		$(document).click(function() {
+			$(h_obj).fadeOut("slow");
+		});
+	};
+		function objPosition(ObjectID,elm,top,left,width)
+		{
+			var myValues = $(ObjectID).position();
+			$(elm).css("display","block");
+			$(elm).css("top",myValues.top+top);
+			$(elm).css("left",myValues.left+$(ObjectID).width());
+			$(elm).css("position","absolute");
+			$(elm).css("z-index","3");
+			$(elm).css("opacity","0.9");
+			$(elm).css("width",width);
+		};
+		function objPosition2(ObjectID,elm,top,left,width)
+		{
+			var myValues = $(ObjectID).position();
+			$(elm).css("display","none");
+			$(elm).css("top",myValues.top+top);
+			$(elm).css("left",myValues.left+$(ObjectID).width());
+			$(elm).css("position","absolute");
+			$(elm).css("z-index","3");
+			$(elm).css("opacity","0.9");
+			$(elm).css("width",width);
+		};
+//-->
+</script>
+
+</body>
+
+</html>
+

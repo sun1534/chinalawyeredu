@@ -46,7 +46,7 @@ th
                           <th>小区编码</th>
                           <th>归属BSC/RNC</th>
                           <th>归属SGSN</th>
-                          <th>总流量</th>
+                          <th>历史总流量</th>
                           <th>当前流量</th>
       </tr>
       <tbody>

@@ -6,7 +6,7 @@
 <struts>
 
     <package name="query" extends="default" namespace="/query">
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
 		<!-- 总流量分析 -->
 		   <action name="queryByMobile" class="com.sxit.query.action.QueryByMobileAction">
           <result name="success" type="dispatcher">/query/queryByMobile.jsp</result>	

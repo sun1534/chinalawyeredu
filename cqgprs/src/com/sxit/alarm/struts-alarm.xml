@@ -6,7 +6,7 @@
 <struts>
 
     <package name="alarm" extends="default" namespace="/alarm">
-    	<default-interceptor-ref name="visitStack"/>
+    	<default-interceptor-ref name="adminStack"/>
 		<!-- 总流量分析 -->
 		   <action name="alarmHistory" class="com.sxit.alarm.action.AlarmHistoryAction">
           <result name="success" type="dispatcher">/alarm/alarmHistory.jsp</result>	

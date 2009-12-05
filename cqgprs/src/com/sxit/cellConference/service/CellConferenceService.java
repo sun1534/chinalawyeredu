@@ -68,8 +68,8 @@ public class CellConferenceService {
 
 		System.out.println(countsql);
 		System.out.println(sql);
-		int totalCount=0;
-		
+		int totalCount = 0;
+
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
@@ -90,12 +90,12 @@ public class CellConferenceService {
 			}
 		});
 		List list = (List) object;
-		if(pageSize==Integer.MAX_VALUE){
-			totalCount=list.size();
-		}else{
+		if (pageSize == Integer.MAX_VALUE) {
+			totalCount = list.size();
+		} else {
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
-		
+
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
@@ -112,10 +112,9 @@ public class CellConferenceService {
 
 		long now = System.currentTimeMillis() / 1000;
 
-		
-		String flowf=com.sxit.system.util.NumberUtil.toMoney(flow/100.0);
-		String usercountf=com.sxit.system.util.NumberUtil.toMoney(usercount/100.0);
-		
+		String flowf = com.sxit.system.util.NumberUtil.toMoney(flow / 100.0);
+		String usercountf = com.sxit.system.util.NumberUtil.toMoney(usercount / 100.0);
+
 		String sql = "insert into SET_CELL_CONFERENCE(CELLID,lac,UPDATETIME,ISACTIVE,createuserid,createusername,timeview,flowalarmvalue,useralarmvalue) values('"
 				+ cellid
 				+ "','"
@@ -165,7 +164,7 @@ public class CellConferenceService {
 
 		System.out.println(countsql);
 		System.out.println(sql);
-		int totalCount =0;
+		int totalCount = 0;
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
@@ -177,17 +176,17 @@ public class CellConferenceService {
 					cell.setUpdatetime(rs.getLong("updatetime"));
 					cell.setLac(rs.getString("lac"));
 					cell.setTimeview(rs.getInt("timeview"));
-					cell.setFlowalarmvalue((int)(rs.getFloat("flowalarmvalue")*100));
-					cell.setUseralarmvalue((int)(rs.getFloat("useralarmvalue")*100));
+					cell.setFlowalarmvalue((int) (rs.getFloat("flowalarmvalue") * 100));
+					cell.setUseralarmvalue((int) (rs.getFloat("useralarmvalue") * 100));
 					list.add(cell);
 				}
 				return list;
 			}
 		});
 		List list = (List) object;
-		if(pageSize==Integer.MAX_VALUE){
-			totalCount=list.size();
-		}else{
+		if (pageSize == Integer.MAX_VALUE) {
+			totalCount = list.size();
+		} else {
 			totalCount = jdbcTemplate.queryForInt(countsql);
 		}
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
@@ -213,8 +212,8 @@ public class CellConferenceService {
 					cell.setUpdatetime(rs.getLong("updatetime"));
 					cell.setLac(rs.getString("lac"));
 					cell.setTimeview(rs.getInt("timeview"));
-					cell.setFlowalarmvalue((int)(rs.getFloat("flowalarmvalue")*100));
-					cell.setUseralarmvalue((int)(rs.getFloat("useralarmvalue")*100));
+					cell.setFlowalarmvalue((int) (rs.getFloat("flowalarmvalue") * 100));
+					cell.setUseralarmvalue((int) (rs.getFloat("useralarmvalue") * 100));
 					return cell;
 				}
 				return null;
@@ -248,9 +247,9 @@ public class CellConferenceService {
 	 */
 	public void updateConferenceCell(String cellid, String lac, int userview, int flowview, int timeview) {
 		long updatetime = System.currentTimeMillis() / 1000;
-		
-		String flowf=com.sxit.system.util.NumberUtil.toMoney(flowview/100.0);
-		String usercountf=com.sxit.system.util.NumberUtil.toMoney(userview/100.0);
+
+		String flowf = com.sxit.system.util.NumberUtil.toMoney(flowview / 100.0);
+		String usercountf = com.sxit.system.util.NumberUtil.toMoney(userview / 100.0);
 		String sql = "update SET_CELL_CONFERENCE set flowalarmvalue=" + flowf + ",useralarmvalue=" + usercountf
 				+ ",timeview=" + timeview + ",updatetime=" + updatetime + " where CELLID ='" + cellid + "' and lac='"
 				+ lac + "'";
@@ -273,13 +272,14 @@ public class CellConferenceService {
 		long nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhour);
 
 		final List list = new ArrayList();
-//		String stattime = date + " " + hour + ":00:00";
-		for (int i = days-1; i >=0; i--) {
+		// String stattime = date + " " + hour + ":00:00";
+		for (int i = days - 1; i >= 0; i--) {
 
-		final	long start = nowhour - i * 24 * 60 * 60;
+			final long start = nowhour - i * 24 * 60 * 60;
 			long end = nowhourend - i * 24 * 60 * 60;
 
-			System.out.println(df.format(new java.sql.Timestamp(start * 1000))+"===="+df.format(new java.sql.Timestamp(end * 1000)));
+			System.out.println(df.format(new java.sql.Timestamp(start * 1000)) + "===="
+					+ df.format(new java.sql.Timestamp(end * 1000)));
 
 			// String sql = "select cellid,lac,sum(allvolume) as
 			// allvolume,sum(upvolume) as upvolume,sum(downvolume) as
@@ -294,21 +294,21 @@ public class CellConferenceService {
 				public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 					// List list = new ArrayList();
 					CellStatModel model = new CellStatModel();
-					model.setDate(date);
+//					model.setDate(date);
 					model.setStattime(start);
 					if (rs.next()) {
-						
+
 						model.setTotalStream(rs.getDouble("ALLVOLUME"));
 						model.setTotalUser(rs.getInt("USERCOUNT"));
 						model.setCellid(rs.getString("cellid"));
 						model.setLac(rs.getString("lac"));
-						model.setDate(date);
+//						model.setDate(date);
 						// model.setDatetime(stattime);
 						model.setStattime(rs.getLong("stattime"));
 						model.setDownvolume(rs.getDouble("downvolume"));
 						model.setUpvolume(rs.getDouble("upvolume"));
 						list.add(model);
-					}else{
+					} else {
 						list.add(model);
 					}
 					return null;

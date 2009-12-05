@@ -27,8 +27,8 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入APN编号");
 return false;
@@ -37,8 +37,8 @@ return false;
   document.form1.submit();
 }
 function queryit(){
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入要查询的APN编号");
 return false;
@@ -63,8 +63,8 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入要查询的APN编号");
 return false;
@@ -73,7 +73,7 @@ var start=$("#start").val();
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var url="importantCells.action?apnid="+apnid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="importantCells.action?apnni="+apnni+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
@@ -104,7 +104,7 @@ var start=$("#start").val();
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								  <td>行业APN编号：<s:textfield name="apnid" id="apnid" cssClass="txt" size="15"/>&nbsp;</td>
+								  <td>行业APN编号：<s:textfield name="apnni" id="apnni" cssClass="txt" size="15"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">

@@ -24,8 +24,8 @@ function fanye(str){
   document.form1.submit();
 }
 function exportit(){
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入要查询的APN编号");
 return false;
@@ -34,8 +34,8 @@ return false;
   document.form1.submit();
 }
 function queryit(){
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入要查询的APN编号");
 return false;
@@ -61,8 +61,8 @@ $(document).ready(function(){
 });
 function confirmit(){
 
-var apnid=$("#apnid").val();
-if(apnid==""||apnid.length==0)
+var apnni=$("#apnni").val();
+if(apnni==""||apnni.length==0)
 {
 alert("请输入要查询的APN编号");
 return false;
@@ -72,7 +72,7 @@ return false;
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
       var start=$("#start").val();
-   var url="staticBy24Hours.action?apnid="+apnid+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
+   var url="staticBy24Hours.action?apnni="+apnni+"%26start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
  //alert(url);
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
@@ -102,7 +102,7 @@ return false;
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
-								 <td>APN编号：<s:textfield name="apnid" id="apnid" id="apnid" size="8" cssClass="txt" title="APN编号不能为空"/>&nbsp;</td>
+								 <td>APN编号：<s:textfield name="apnni" id="apnni" id="apnni" size="8" cssClass="txt" title="APN编号不能为空"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 								 <td id="imageopton">
@@ -123,11 +123,11 @@ return false;
                     <div id="barchart"></div>
                     </div>
 				  <div class="tablist" id="querylist">
-				    <s:if test="start!=null&&!start.equals(\"\")&&apnid!=null&&!apnid.equals(\"\")">
+				    <s:if test="start!=null&&!start.equals(\"\")&&apnni!=null&&!apnni.equals(\"\")">
 				  	<table class="tableBox">
                         	<thead>
 								<tr>
-									<th>${start }之APN(${apnid })分时流量分析</th>
+									<th>${start }之APN(${apnni })分时流量分析</th>
                                  </tr>
                             </thead>
                         </table>

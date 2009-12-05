@@ -88,6 +88,7 @@ $("#hourselect").hide();
 								    	<s:hidden name="firstpage"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                   <s:hidden name="resultType"/>
+                                   <s:hidden name="pageNo"/>
                                    <td><s:radio name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onclick="selectit(this)"/>&nbsp;</td>
                                    <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="6" cssClass="txt"/>&nbsp;</td>
 								   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selecthour(this)" title="按时查询可以选择当天的日期"/>&nbsp;</td>

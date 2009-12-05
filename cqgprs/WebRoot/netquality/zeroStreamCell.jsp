@@ -21,14 +21,17 @@ var ascdesc="${ascdesc}";
 
 
 function fanye(str){
+  document.form1.firstpage.value="no";
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
 function exportit(){
+  document.form1.firstpage.value="yes";
   document.form1.resultType.value="excel";
   document.form1.submit();
 }
 function queryit(){
+  document.form1.firstpage.value="yes";
   document.form1.resultType.value="list";
   document.form1.submit();
 }
@@ -57,6 +60,7 @@ function queryit(){
 								 <s:hidden name="orderfield" id="orderfieldid"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
                                  <s:hidden name="pageNo"/>
+                                     <s:hidden name="firstpage"/>
                                      <s:hidden name="resultType"/>
                                   <s:hidden name="dayflag"/><!-- 默认都为按天统计先 -->
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>&nbsp;</td>
