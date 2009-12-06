@@ -37,8 +37,17 @@ public class ExcelUtil {
 			HSSFWorkbook workbook = new HSSFWorkbook(stream);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			int lastrow = sheet.getLastRowNum();
-			// 事务所名称(必填) 事务所地址(非必填项) 执业证号(必填) 会员编号(必填) 负责人(非必填项) 联系电话(非必填项)
-			// 事务所传真(非必填项) 主管机关(非必填项)
+//			"事务所名称
+//			(必填)"	"事务所地址
+//			(非必填项)"	"邮政编码
+//			(非必填项)"	"执业证号
+//			(必填)"	"会员编号(必填)
+//			[由开发商填写]"	"负责人
+//			(非必填项)"	"联系电话
+//			(非必填项)"	"事务所传真
+//			(非必填项)"	"主管机关
+//			(非必填项)"
+
 			for (int i = 1; i <= lastrow; i++) {
 
 				HSSFRow row = sheet.getRow(i); // 琛ㄤ腑姣忎竴琛�
@@ -48,12 +57,13 @@ public class ExcelUtil {
 				if (groupname == null || groupname.equals(""))
 					break;
 				String address = HSSFCellToString.toString(row.getCell(1)).trim();
-				String groupenname = HSSFCellToString.toString(row.getCell(2)).trim();
-				String systemno = HSSFCellToString.toString(row.getCell(3)).trim();
-				String contacter = HSSFCellToString.toString(row.getCell(4)).trim();
-				String phone = HSSFCellToString.toString(row.getCell(5)).trim();
-				String fax = HSSFCellToString.toString(row.getCell(6)).trim();
-				String district = HSSFCellToString.toString(row.getCell(7)).trim();
+				String postcode = HSSFCellToString.toString(row.getCell(2)).trim();
+				String groupenname = HSSFCellToString.toString(row.getCell(3)).trim();
+				String systemno = HSSFCellToString.toString(row.getCell(4)).trim();
+				String contacter = HSSFCellToString.toString(row.getCell(5)).trim();
+				String phone = HSSFCellToString.toString(row.getCell(6)).trim();
+				String fax = HSSFCellToString.toString(row.getCell(7)).trim();
+				String district = HSSFCellToString.toString(row.getCell(8)).trim();
 
 				LOG.debug(groupname + "=" + address + "=" + groupenname + "=" + systemno + "=" + contacter + "="
 						+ phone + "=" + fax + "=" + district);
@@ -63,6 +73,7 @@ public class ExcelUtil {
 				group.setGroupenname(groupenname);
 				group.setAddress(address);
 				group.setComments("批量导入");
+				group.setPostcode(postcode);
 				group.setContacter(contacter);
 				group.setCreatetime(timestamp);
 				group.setCreatetype(3);
@@ -99,8 +110,18 @@ public class ExcelUtil {
 			HSSFWorkbook workbook = new HSSFWorkbook(stream);
 			HSSFSheet sheet = workbook.getSheetAt(0);
 			int lastrow = sheet.getLastRowNum();
-			// 律师姓名(必填) 所属事务所(必填) 执业证号(必填) 身份证号(必填) 会员编号(必填) 首次执业时间(必填) 性别(非必填项)
-			// 手机号码(非必填项) EMAIL地址(非必填项) 邮编(非必填项)
+
+//			"律师姓名
+//			(必填)"	"所属事务所
+//			(必填)"	"律师执业证号
+//			(必填)"	"律师身份证号
+//			(必填)"	"会员编号(必填)
+//			[由开发商填写]"	首次执业时间(必填)	"性别
+//			(非必填)"	"手机号码
+//			(非必填)"	"EMAIL地址
+//			(非必填)"
+
+			
 			for (int i = 1; i <= lastrow; i++) {
 
 				HSSFRow row = sheet.getRow(i);
@@ -117,9 +138,9 @@ public class ExcelUtil {
 				String gender = HSSFCellToString.toString(row.getCell(6)).trim();
 				String mobile = HSSFCellToString.toString(row.getCell(7)).trim();
 				String email = HSSFCellToString.toString(row.getCell(8)).trim();
-				String postcode = HSSFCellToString.toString(row.getCell(9)).trim();
+//				String postcode = HSSFCellToString.toString(row.getCell(9)).trim();
 				LOG.debug(lawyername + "=" + officename + "=" + lawyerno + "=" + certno + "=" + systemno + "="
-						+ zhiyedate + "=" + gender + "=" + mobile + "=" + email + "=" + postcode);
+						+ zhiyedate + "=" + gender + "=" + mobile + "=" + email );
 
 				Lawyers lawyers = new Lawyers();
 				lawyers.setCertno(certno);
@@ -131,7 +152,7 @@ public class ExcelUtil {
 				lawyers.setSystemno(systemno);
 				lawyers.setZhiyedatestr(zhiyedate);
 				lawyers.setMobile1(mobile);
-				lawyers.setPostcode(postcode);
+//				lawyers.setPostcode(postcode);
 				lawyers.setExcelline(i);
 				lawcaseList.add(lawyers);
 
