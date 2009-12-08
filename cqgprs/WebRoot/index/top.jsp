@@ -104,12 +104,6 @@ function lighttitle(){
 			    <!-- 
 					<li class="current"><a id="menu1" title="概　　况" href="javascript:void(0)"><span>概　　况</span></a></li> 
 					<li><a  id="menu2" href="javascript:void(0)" title="记录查询"><span>记录查询</span></a></li> 
-					<li><a  id="menu3" href="javascript:void(0)" title="统计分析"><span>统计分析</span></a></li> 
-					<li><a  id="menu4" href="javascript:void(0)" title="网络质量"><span>网络质量</span></a></li> 
-					<li><a  id="menu5" href="javascript:void(0)" title="通信保障"><span>通信保障</span></a></li> 
-					<li><a  id="menu6" href="javascript:void(0)" title="用户行为"><span>用户行为</span></a></li> 
-					<li><a  id="menu7" href="javascript:void(0)" title="行业客户"><span>行业客户</span></a></li> 
-					<li><a  id="menu8" href="javascript:void(0)" title="系统警告"><span>系统警告</span></a></li> 
 				 --> 
 				</ul> 
 		</div> 
@@ -126,25 +120,27 @@ function lighttitle(){
 	</s:iterator>
 	/*
 	loadUrl("#quickmenu","#menu1","left.html","info.html");
-	loadUrl("#quickmenu","#menu2","left-recordSearch.html","jilu_mobile_1.html");
-	loadUrl("#quickmenu","#menu3","left-total.html","total_total_1.html");
-	loadUrl("#quickmenu","#menu4","left-net.html","net_resource_1.html");
-	loadUrl("#quickmenu","#menu5","left-msg.html","msg_mobile_1.html");
-	loadUrl("#quickmenu","#menu6","left-user.html","user_top1000_1.html");
-	loadUrl("#quickmenu","#menu7","left-guest.html","guest_ovewview_1.html");
-	loadUrl("#quickmenu","#menu8","left-warning.html","warning_no.html");
    */ 
  
  function loadUrl(o,rightcode,infourl,haschild){
-	//alert(em+" "+o);
-	//	$(em+" "+o).each(function(){
-	//	alert("====");
 			$("#quickmenu "+o).click(function()
 			{
-			    if(infourl!="null"&&infourl.length!=0)
+			_loadUrl(rightcode,infourl,haschild,true);
+			   
+			});
+	}	
+	</script> 
+<script type="text/javascript" src="../js/top.js"></script> 
+<script type="text/javascript">
+function _loadUrl(rightcode,infourl,haschild,ismashang){
+ if(infourl!="null"&&infourl.length!=0)
 				  parent.mainFrame.location=infourl;
-				 
-				parent.leftFrame.showMenu(rightcode);  
+				if(ismashang){
+				 parent.leftFrame.showMenu(rightcode);  
+				}
+				else{
+				 setTimeout("showmenu()",500);
+				}
 				if(haschild&&haschild=="false"){
 			    //	alert("收起左边");
 				 	parent.switchFrame.document.getElementById('switchbar').className="switchbarimg";
@@ -156,11 +152,32 @@ function lighttitle(){
 		            parent.switchFrame.document.getElementById('switchbar').className="switchbarimg_";
 		            parent.switchFrame.document.getElementById('switchbar').title="关闭左侧菜单";
 				}
-			});
-		//});
-	}
-	
-	</script> 
-<script type="text/javascript" src="../js/top.js"></script> 
+}
+<s:iterator value="#session.loginUser.topMenus" status="stat">
+	<s:if test="#stat.index==0">
+		   var infourl="${linkurl}";
+		   var haschild="${hasChild}";
+		    var rightcode="${rightcode}";
+		    _loadUrl(rightcode,infourl,haschild,false);
+		 /*    if(infourl!="null"&&infourl.length!=0)
+				  parent.mainFrame.location=infourl;
+				 
+				 setTimeout("showmenu()",500);
+				parent.leftFrame.showMenu(rightcode);  
+				if(haschild&&haschild=="false"){
+				 	parent.switchFrame.document.getElementById('switchbar').className="switchbarimg";
+	        	    parent.switchFrame.document.getElementById('switchbar').title="展开左侧菜单";
+		            parent.document.getElementById('wapFrame').cols="0,9,*";   
+				}else{
+				    parent.document.getElementById('wapFrame').cols="175,9,*";
+		            parent.switchFrame.document.getElementById('switchbar').className="switchbarimg_";
+		            parent.switchFrame.document.getElementById('switchbar').title="关闭左侧菜单";
+				}*/
+		</s:if>
+</s:iterator>
+  function showmenu(){
+	parent.leftFrame.showMenu(rightcode);  
+  }
+</script>
 </body> 
 </html> 

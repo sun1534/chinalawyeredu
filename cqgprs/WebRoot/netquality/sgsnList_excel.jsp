@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="sgsnList.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>

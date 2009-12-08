@@ -13,12 +13,13 @@
 <frameset id="wapFrame" framespacing="0" border="0" frameborder="no" cols="0,9,*" >
 	<frame id="leftFrame" name="leftFrame" scrolling="no" noresize="noresize" frameborder="no" src="left.action"></frame>
 	<frame id="switchFrame" name="switchFrame" scrolling="no"  noresize="noresize"  frameborder="0"  border="0" src="swichbar.html"></frame>
-<s:if test="hasindex">
+<!--<s:if test="hasindex">
 	<frame id="mainFrame" name="mainFrame" scrolling="auto"  noresize="noresize"  frameborder="0"  border="0" src="allview.action"></frame>
 </s:if>	
 <s:else>
     <frame id="mainFrame" name="mainFrame" scrolling="auto"  noresize="noresize"  frameborder="0"  border="0" src="welcome.html"></frame>
-</s:else>
+</s:else>-->
+  <frame id="mainFrame" name="mainFrame" scrolling="auto"  noresize="noresize"  frameborder="0"  border="0" src=""></frame>
 </frameset>
 <frame scrolling="no" noresize="noresize" frameborder="no" id="footFrame" name="footFrame"  src="bottom.jsp" />
 </frameset>

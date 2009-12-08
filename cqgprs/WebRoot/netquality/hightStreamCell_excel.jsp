@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -37,7 +37,20 @@ th
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>${start}之高流量小区</b></td>
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>
+    <s:if test="flag.equals(\"1\")">
+    ${date}之高流量小区
+    </s:if>
+    <s:else>
+      ${date}之${hour }时段高流量小区
+    </s:else>
+    <s:if test="standard.equals(\"1\")">
+    （流量大于${condition} K）
+    </s:if>
+    <s:else>
+    （流量排名前${condition} 位）
+    </s:else>
+    </b></td>
   </tr>
       <tr>
      <!-- 

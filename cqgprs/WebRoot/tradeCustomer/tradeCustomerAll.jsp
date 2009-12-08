@@ -51,7 +51,7 @@ function confirmit(){
    $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var start=$("start").val();
+   var start=$("#start").val();
    var url="tradeCustomerAll.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType;
 
    swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );

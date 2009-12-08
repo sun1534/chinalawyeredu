@@ -45,28 +45,7 @@ function showMenu(rightcode){
 			</div>
 		
 		</s:iterator>
-		<!-- 
-	<div id="menuWarp"  class="Menu">
-	 	<h3 id="now_h3">业务全貌</h3>
-	 	<ul id="open">
-			<li><a href="total_total_1.html" target="mainFrame">总流量分析</a></li>
-			<li><a href="total_23g_2.html" target="mainFrame">2/3G流量分析</a></li>
-			<li><a href="total_sgsn_3.html" target="mainFrame">SGSN流量分析</a></li>
-			<li><a href="total_sgsn23g_4.html" target="mainFrame">SGSN-2/3G流量分析</a></li>
-		</ul>
-		<h3>业务细节</h3>
-		<ul>
-			<li><a href="total_bscrnc_5.html" target="mainFrame">BSC/RNC流量分析</a></li>
-			<li><a href="total_cell_6.html" target="mainFrame">CELL流量分析</a></li>
-			<li><a href="total_celltime_7.html" target="mainFrame">CELL分时流量分析</a></li>
-		</ul>
-		<h3>行业业务统计</h3>
-		<ul>
-			<li><a href="total_apn_8.html" target="mainFrame">APN业务统计</a></li>
-			<li><a href="total_apntime_9.html" target="mainFrame">行业APN分时段统计</a></li>
-			<li><a href="total_apnimport_10.html" target="mainFrame">行业APN分重点小区分析</a></li>
-		</ul>
-	</div>-->
+	
 </div>
 <script src="../js/left.js" type="text/javascript"></script>
 </body>
