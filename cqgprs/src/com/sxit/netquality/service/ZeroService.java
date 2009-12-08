@@ -243,7 +243,7 @@ public class ZeroService {
 				+ _start
 				+ " and stattime<="
 				+ _end
-				+ "group by stat_apn_zero.apnni,set_apn.orderby having count(stat_apn_zero.apnni)>=" + count + orderby;
+				+ " group by stat_apn_zero.apnni,set_apn.orderby having count(stat_apn_zero.apnni)>=" + count + orderby;
 		System.out.println(sql);
 		// int totalCount = jdbcTemplate.queryForInt(countsql);
 
@@ -299,6 +299,8 @@ public class ZeroService {
 	 */
 	private void getDateApnVolume(String stattime, List apnnilist, final Map zeroapnlist, final int which) {
 
+		if(apnnilist.size()>0)
+		{
 		String apnnis = com.sxit.stat.util.StatUtil.list2str(apnnilist);
 		String sql = "select apnni,sum(allvolume) as allvolume from stat_apn where dayflag=1 and apnni in(" + apnnis
 				+ ") and stattime=" + stattime + "  group by apnni";
@@ -321,6 +323,7 @@ public class ZeroService {
 				return null;
 			}
 		});
+		}
 	}
 
 	/**
@@ -409,7 +412,7 @@ public class ZeroService {
 	 * @param apnnilist
 	 */
 	private void getDateCellVolume(String stattime, List cellidlist, final Map zerocelllist, final int which) {
-
+		if(cellidlist.size()>0){
 		String cellids = com.sxit.stat.util.StatUtil.list2str(cellidlist);
 		String sql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid_day where dayflag=1 and cellid in("
 				+ cellids + ") and stattime=" + stattime + "  group by apnni";
@@ -439,5 +442,6 @@ public class ZeroService {
 				return null;
 			}
 		});
+		}
 	}
 }

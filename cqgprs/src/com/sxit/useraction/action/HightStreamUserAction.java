@@ -5,6 +5,7 @@ package com.sxit.useraction.action;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ import com.sxit.useraction.service.UseractionService;
 public class HightStreamUserAction extends AbstractListAction {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH");
+	private static final DateFormat dfhour = new java.text.SimpleDateFormat("HH");
 
 	private String firstpage = "yes";
 
@@ -56,7 +57,8 @@ public class HightStreamUserAction extends AbstractListAction {
 		UseractionService service = (UseractionService) this.getBean("useractionService");
 		Date thedate = null;
 		if (date == null || date.equals("")) {
-			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+//			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
+			thedate=new Date();
 			date = df.format(thedate);
 		} else {
 			// try {
@@ -73,18 +75,19 @@ public class HightStreamUserAction extends AbstractListAction {
 			ascdesc = "desc";
 		}
 
-		// if (flag.equals("1"))
-		// top1000users = service.getHightStreamDayUser(thedate, standard,
-		// condition,getOrderby());
-		// else
-		// top1000users = service.getHightStreamHourUser(thedate, hour,standard,
-		// condition, getOrderby());
-		//
-		// if (this.resultType.equals("list"))
-		//
-		// return SUCCESS;
-		// else
-		// return "excel";
+	
+		if(hour==null||hour.equals("")){
+			Calendar c = Calendar.getInstance();
+			int now = c.get(Calendar.HOUR_OF_DAY);
+			if (now == 0 || now == 1)
+				hour = "01";
+			else {
+				Date d = new Date();
+				long _now = d.getTime();
+				d.setTime(_now - 60 * 60 * 1000);
+				hour = dfhour.format(d);
+			}
+		}
 
 		String result = SUCCESS;
 
@@ -139,7 +142,7 @@ public class HightStreamUserAction extends AbstractListAction {
 	/**
 	 * 1为按天2为按小时
 	 */
-	private String flag = "1";
+	private String flag = "2";
 	private String date;
 	/**
 	 * 这里的hour为00到23，不能为00:00

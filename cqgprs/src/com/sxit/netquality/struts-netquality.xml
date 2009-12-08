@@ -13,6 +13,7 @@
        </action>
      <action name="hightStreamCell" class="com.sxit.netquality.action.HightStreamCellAction">
           <result name="success" type="dispatcher">/netquality/hightStreamCell.jsp</result>	
+           <result name="excel" type="dispatcher">/netquality/hightStreamCell_excel.jsp</result>	
        </action>
        <action name="zeroStreamCell" class="com.sxit.netquality.action.ZeroStreamCellAction">
           <result name="success" type="dispatcher">/netquality/zeroStreamCell.jsp</result>	

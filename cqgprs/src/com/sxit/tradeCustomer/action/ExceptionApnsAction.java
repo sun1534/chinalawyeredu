@@ -50,8 +50,17 @@ public class ExceptionApnsAction extends AbstractListAction {
 		}
 
 		if (starthour == null || starthour.equals("")) {
-			starthour = "01";
-
+//			starthour = "01";
+			Calendar c = Calendar.getInstance();
+			int now = c.get(Calendar.HOUR_OF_DAY);
+			if (now == 0 || now == 1)
+				starthour = "01";
+			else {
+				Date d = new Date();
+				long _now = d.getTime();
+				d.setTime(_now - 60 * 60 * 1000);
+				starthour = dfhour.format(d);
+			}
 		}
 
 		if (endhour == null || endhour.equals("")) {
@@ -60,7 +69,6 @@ public class ExceptionApnsAction extends AbstractListAction {
 			if (now == 0 || now == 1)
 				endhour = "01";
 			else {
-
 				Date d = new Date();
 				long _now = d.getTime();
 				d.setTime(_now - 60 * 60 * 1000);
