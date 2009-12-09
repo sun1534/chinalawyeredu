@@ -27,8 +27,7 @@
 				</dl>
 		    </#if>
 		  </div>
-			<span class="menu"><a href="../home/home.action" >首页<br />
-			Main</a></span>
+			<span class="menu"><a href="../home/home.action"  id="Home"><span>首页</span></a></span>
 	</div>
 	<div id="topr">
 		<div class="toptext">

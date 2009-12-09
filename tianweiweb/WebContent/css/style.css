@@ -80,16 +80,10 @@ img{
 	font-family:"黑体","微软雅黑",Tahoma, Helvetica, Arial, sans-serif;
 	text-align:center;
 	}
-.menu a:link,.menu a:visited,.menu a:active{
-	color:#FFFFFF;
-	font-size:20px;
-	line-height:24px;
-	font-family:"黑体","微软雅黑",Tahoma, Helvetica, Arial, sans-serif;
-	text-align:center;
-	}
-.menu a:hover{
-	color:#FFFF00;
-	}
+
+a#Home span {display:none;cursor:pointer;}
+a#Home {width:45px;;height:45px;display:block;background:url(../images/topl.jpg) no-repeat -202px -391px;}
+a#Home:hover {background:url(../images/topl.jpg) no-repeat -202px -151px;}
 #topr{
 	float:right;
 	width:auto;
