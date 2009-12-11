@@ -43,8 +43,9 @@ public class StatUserCnt {
 
 		daycnt();
 
-		apncellcnt();
 		cellcnt();
+		apncellcnt();
+		
 		con.close();
 
 	}
@@ -153,7 +154,7 @@ public class StatUserCnt {
 				String apnni = rs.getString("apnni");
 				String lac = rs.getString("lac");
 				int usercount = rs.getInt("usercount");
-				char a = apnni.charAt(0);
+//				char a = apnni.charAt(0);
 				// if(a<='Z'&&a>='A')
 				sqls.add("update stat_cellid_apn_day set usercount=" + usercount + " where cellid=" + cellid
 						+ " and lac=" + lac + " and apnni='" + apnni + "' and stattime=" + stattime);

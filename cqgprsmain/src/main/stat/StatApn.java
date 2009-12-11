@@ -48,8 +48,8 @@ public class StatApn {
 		this.statdatestr = df.format(statdate);
 	}
 
-	private void insert(Map<String, TempApnStat> allsgsns) throws Exception {
-		java.util.Iterator<TempApnStat> stats = allsgsns.values().iterator();
+	private void insert(Map<String, TempApnStat> allapns) throws Exception {
+		java.util.Iterator<TempApnStat> stats = allapns.values().iterator();
 
 		// String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
 		String day1 = statdatestr;
@@ -113,7 +113,7 @@ public class StatApn {
 				for (int i = 0; i < len; i++) {
 					String apnni = list0.get(i).toString();
 					// String allvolume = rs.getString("allvolume");
-					String zero0sql = "update zero_apn set allvolume=" + allsgsns.get(apnni).allall + " where apnni='"
+					String zero0sql = "update zero_apn set allvolume=" + allapns.get(apnni).allall + " where apnni='"
 							+ apnni + "' and stattime=" + day1;
 					sqls.add(zero0sql);
 				}
@@ -181,7 +181,7 @@ public class StatApn {
 
 			TempApnStat stat = null;
 			String apnni = rs.getString("apnni");
-			apnni=apnni.toLowerCase();
+			apnni = apnni.toLowerCase();
 			if (allapns.containsKey(apnni)) {
 				// LOG.info("得到的APN统计数据:" + apnni);
 				stat = allapns.get(apnni);
@@ -197,20 +197,18 @@ public class StatApn {
 				stat.all = rs.getString("allvolume");
 			} else { // 要把这些个apnni插到set_apnni里面
 				int orderby = 199;
-				if (apnni.indexOf(".cq")!= -1){
+				if (apnni.indexOf(".cq") != -1) {
 					orderby = 200;
-				}else if(apnni.indexOf(".")!=-1){
-					orderby = 20000;
-				}else
+				} else if (apnni.indexOf(".") != -1) {
+					orderby = 5000;
+				} else
 					orderby = 50000;
 
 				String inssql = "insert into set_apn(apnni,apnname,apnconector,updatetime,opttype,isactive,orderby)values('"
 						+ apnni
 						+ "','"
 						+ apnni
-						+ "','"
-						+ apnni
-						+ "',"
+						+ "','',"
 						+ System.currentTimeMillis()
 						/ 1000
 						+ ",0,1,"
@@ -221,8 +219,9 @@ public class StatApn {
 				stat.up = rs.getString("up");
 				stat.down = rs.getString("down");
 				stat.all = rs.getString("allvolume");
+				stat.allall = "0";
 
-				LOG.info("把"+apnni+"插入到set_apn中..."+inssql);
+				LOG.info("把" + apnni + "插入到set_apn中..." + inssql);
 				allapns.put(apnni, stat);
 				// 插入了1条数据到set_apn中
 				main.util.MainStatUtil.executeSql(con, inssql);
@@ -232,23 +231,24 @@ public class StatApn {
 		stmt.close();
 		LOG.info("得到APN的流量数据完毕");
 		// 这里要得到用户数
-//		String usersql = "select apnni,usercount from msisdn_apn where	 stattime>=" + start / 1000 + " and stattime<="
-//				+ end / 1000;
-//		// + " group by apnni";
-//		LOG.info("usersql:" + usersql);
-//		stmt = con.createStatement();
-//		rs = stmt.executeQuery(usersql);
-//		while (rs.next()) {
-//			String apnni = rs.getString("apnni");
-//			int usercount = rs.getInt("usercount");
-//			TempApnStat stat = allapns.get(apnni);
-//			if (stat != null)
-//				stat.usercount = usercount + "";
-//		}
-//		rs.close();
-//		stmt.close();
-//
-//		LOG.info("得到APN的用户数据完毕");
+		// String usersql = "select apnni,usercount from msisdn_apn where
+		// stattime>=" + start / 1000 + " and stattime<="
+		// + end / 1000;
+		// // + " group by apnni";
+		// LOG.info("usersql:" + usersql);
+		// stmt = con.createStatement();
+		// rs = stmt.executeQuery(usersql);
+		// while (rs.next()) {
+		// String apnni = rs.getString("apnni");
+		// int usercount = rs.getInt("usercount");
+		// TempApnStat stat = allapns.get(apnni);
+		// if (stat != null)
+		// stat.usercount = usercount + "";
+		// }
+		// rs.close();
+		// stmt.close();
+		//
+		// LOG.info("得到APN的用户数据完毕");
 	}
 
 	/**
@@ -260,11 +260,11 @@ public class StatApn {
 
 		// try {
 		// 得到所有的sgsn
-		Map<String, TempApnStat> allmap = getAllApns();
+		Map<String, TempApnStat> allapns = getAllApns();
 		// 得到每个sgsn的数据
-		getStatDatas(allmap);
+		getStatDatas(allapns);
 		// 插入统计表
-		insert(allmap);
+		insert(allapns);
 
 	}
 
@@ -278,8 +278,11 @@ public class StatApn {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				TempApnStat stat = new TempApnStat();
-				stat.apnni = rs.getString("apnni");
-				stat.allall = rs.getString("allvolume");
+				stat.apnni = rs.getString("apnni").toLowerCase();
+
+				if (!(rs.getString("allvolume") == null || rs.getString("allvolume").equals("")))
+					stat.allall = rs.getString("allvolume");
+				
 				list.put(stat.apnni, stat);
 			}
 			LOG.info("得到所有的APN个数:" + list.size());

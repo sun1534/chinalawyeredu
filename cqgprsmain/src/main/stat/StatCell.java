@@ -178,7 +178,7 @@ public class StatCell {
 					String allsql = "select cellid,lac,sum(allvolume) as allvolume from stat_cellid_day where dayflag=1 and cellid in("
 							+ MainStatUtil.list2str(list) + ") and stattime=" + day2 + " group by cellid,lac";
 
-		    		LOG.info("0流量SQL:"+allsql);
+//		    		LOG.info("0流量SQL:"+allsql);
 					// rs.close();
 					// rs = null;
 					rs = tempstmt.executeQuery(allsql);
@@ -300,27 +300,12 @@ public class StatCell {
 	 */
 	public void stat() throws Exception {
 
-		// try {
 		// 得到所有的sgsn
 		Map<String, TempCellStat> allmap = getAllCells();
 		// 得到每个sgsn的数据
 		getStatDatas(allmap);
 		// 插入统计表
 		insert(allmap);
-		// String sql="select
-		// sgsnid,nettype,sum(allvolume),sum(downvolume),sum(allvolume) from
-		// stat_sgsn
-		// where dayflag=0 and stattime between "+start+" and "+end+" group
-		// by
-		// sgsnid,nettype";
-
-		// } catch (Exception e) {
-		// LOG.error("统计错误：" + e);
-		// }
-
-		// String usersql = "select sgsnid,nettype,count(distinct(mobile)) from
-		// " +
-		// table + " group by sgsnid,nettype";
 
 	}
 

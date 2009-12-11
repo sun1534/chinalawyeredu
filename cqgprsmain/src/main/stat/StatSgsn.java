@@ -132,7 +132,7 @@ public class StatSgsn {
 			String key = sgsnid + nettype;
 
 			if (allsgsns.containsKey(key)) {
-				LOG.info("得到的SGSN统计数据:" + sgsnid + "," + nettype);
+//				LOG.info("得到的SGSN统计数据:" + sgsnid + "," + nettype);
 				TempStat stat = allsgsns.get(key);
 				stat.sgsnid = rs.getString("sgsnid");
 				stat.nettype = rs.getString("nettype");
@@ -143,9 +143,9 @@ public class StatSgsn {
 				// allsgsns.remove(key);
 				// allsgsns.put(key, stat);
 			}
-			LOG.info("得到SGSN的统计数据完毕");
+			
 		}
-
+		LOG.info("得到SGSN的统计数据完毕");
 		// // 这里要得到用户数
 		// String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn
 		// where stattime>=" + start / 1000

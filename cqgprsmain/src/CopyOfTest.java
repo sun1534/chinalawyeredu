@@ -20,24 +20,40 @@ import main.util.DBUtils;
  */
 public class CopyOfTest {
 	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+	public static byte[] long2bytes(long i) {
+		byte mybytes[] = new byte[8];
+		mybytes[7] = (byte) (int) ((long) 255 & i);
+		mybytes[6] = (byte) (int) (((long) 65280 & i) >> 8);
+		mybytes[5] = (byte) (int) (((long) 0xff0000 & i) >> 16);
+		mybytes[4] = (byte) (int) (((long) 0xff000000 & i) >> 24);
+		int high = (int) (i >> 32);
+		mybytes[3] = (byte) (0xff & high);
+		mybytes[2] = (byte) ((0xff00 & high) >> 8);
+		mybytes[1] = (byte) ((0xff0000 & high) >> 16);
+		mybytes[0] = (byte) ((0xff000000 & high) >> 24);
+		return mybytes;
+	}
 	private static Connection con = null;
 
 	public static void main(String[] args) throws Exception {
-
+		long s=3510073023L;
+byte[] b=long2bytes(9999999999L);
+for(byte bb:b){
+	System.out.print(bb+" ");
+}
 	
-		System.out.println(dfsec.parse("2009-12-01 00:00:00").getTime()/1000);
-		System.out.println(dfsec.parse("2009-12-02 00:00:00").getTime()/1000);
+//		System.out.println(dfsec.parse("2009-12-01 00:00:00").getTime()/1000);
+//		System.out.println(dfsec.parse("2009-12-02 00:00:00").getTime()/1000);
 		
-		long no1w =1259593800L * 1000;
+		long no1w =1259852400L * 1000;
 		System.out.println(new java.sql.Timestamp(no1w));
 		
-		 no1w =1259673240L * 1000;
-			System.out.println(new java.sql.Timestamp(no1w));
-		
-		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
-		long daystart = daysagodate.getTime() / 1000;
-		System.out.println("=========" + daystart);
+//		 no1w =1259673240L * 1000;
+//			System.out.println(new java.sql.Timestamp(no1w));
+//		
+//		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
+//		long daystart = daysagodate.getTime() / 1000;
+//		System.out.println("=========" + daystart);
 		//		
 		// // 更新16，15，14，13，12，11，10这几天的stat_**的dayflag=1的数据
 		// DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");

@@ -108,23 +108,43 @@ public class MainStatUtil {
 			int len = sqls.size();
 			LOG.info("要执行的SQL个数为:" + len);
 			long now = System.currentTimeMillis();
+			List<String> nowsqls = new ArrayList<String>();
 			if (len > 0) {
 				stmt = con.createStatement();
 				int i = 1;
 				for (String sql : sqls) {
 					stmt.addBatch(sql);
+					nowsqls.add(sql);
 					if ((i++) % 300 == 0) {
-						int s[] = stmt.executeBatch();
-						stmt.clearBatch();
-						result += s.length;
-						LOG.info("执行300个的时间为:" + (System.currentTimeMillis() - now));
-						now = System.currentTimeMillis();
+						try {
+
+							int s[] = stmt.executeBatch();
+							stmt.clearBatch();
+							result += s.length;
+							LOG.info("执行300个的时间为:" + (System.currentTimeMillis() - now));
+							now = System.currentTimeMillis();
+						} catch (Exception e) {
+							LOG.error("错误的SQL如下:");
+							for (int ii = 0; ii < nowsqls.size(); ii++) {
+								LOG.error("错误SQL:" + nowsqls.get(ii));
+							}
+
+						}
+						nowsqls.clear();
 					}
 				}
-				int s[] = stmt.executeBatch();
-				LOG.info("执行最后" + s.length + "个的时间为:" + (System.currentTimeMillis() - now));
-				stmt.clearBatch();
-				result += s.length;
+				try {
+					int s[] = stmt.executeBatch();
+					LOG.info("执行最后" + s.length + "个的时间为:" + (System.currentTimeMillis() - now));
+					stmt.clearBatch();
+					result += s.length;
+				} catch (Exception e) {
+					LOG.error("错误的SQL如下:");
+					for (int ii = 0; ii < nowsqls.size(); ii++) {
+						LOG.error("错误SQL:" + nowsqls.get(ii));
+					}
+				}
+				nowsqls.clear();
 			}
 		} finally {
 			main.util.DBUtils.closeResource(null, stmt, null);
@@ -141,13 +161,13 @@ public class MainStatUtil {
 			long now = System.currentTimeMillis();
 
 			stmt = con.createStatement();
-			result=stmt.executeUpdate(sql);
-		
-			LOG.info("处理"+result+"条耗费时间为:" + (System.currentTimeMillis() - now));
+			result = stmt.executeUpdate(sql);
 
-		} catch(Exception e){
-			LOG.error(sql+"执行失败!",e);
-		}finally {
+			LOG.info("处理" + result + "条耗费时间为:" + (System.currentTimeMillis() - now));
+
+		} catch (Exception e) {
+			LOG.error(sql + "执行失败!", e);
+		} finally {
 			main.util.DBUtils.closeResource(null, stmt, null);
 		}
 		return result;
