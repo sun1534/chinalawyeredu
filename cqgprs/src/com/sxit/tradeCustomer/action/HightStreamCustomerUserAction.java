@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sxit.useraction.action;
+package com.sxit.tradeCustomer.action;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -15,31 +15,33 @@ import com.sxit.useraction.service.UseractionService;
 
 /**
  * 
- * 高流量用户排名,从mobile分APN统计表中拿数据
+ * 高流量行业用户号码（只对*.CQ的做） 高流量的含义是该号码的流量是这个APN的平均流量的2倍以上（可更改）
  * 
  * @author 华锋 Oct 19, 2009-11:34:22 PM
  * 
  */
-public class HightStreamUserAction extends AbstractListAction {
+public class HightStreamCustomerUserAction extends AbstractListAction {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfhour = new java.text.SimpleDateFormat("HH");
 
 	private String firstpage = "yes";
-private String apnni;
-	/**
- * @return the apnni
- */
-public String getApnni() {
-	return apnni;
-}
+	private String apnni;
 
-/**
- * @param apnni the apnni to set
- */
-public void setApnni(String apnni) {
-	this.apnni = apnni;
-}
+	/**
+	 * @return the apnni
+	 */
+	public String getApnni() {
+		return apnni;
+	}
+
+	/**
+	 * @param apnni
+	 *            the apnni to set
+	 */
+	public void setApnni(String apnni) {
+		this.apnni = apnni;
+	}
 
 	/**
 	 * @return the firstpage
@@ -71,16 +73,9 @@ public void setApnni(String apnni) {
 		UseractionService service = (UseractionService) this.getBean("useractionService");
 		Date thedate = null;
 		if (date == null || date.equals("")) {
-//			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-			thedate=new Date();
+			thedate = new Date();
 			date = df.format(thedate);
 		} else {
-			// try {
-			// thedate = df.parse(date);
-			// } catch (Exception e) {
-			// thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-			// date = df.format(thedate);
-			// }
 			thedate = com.sxit.stat.util.StatUtil.getDate(date);
 		}
 
@@ -89,8 +84,7 @@ public void setApnni(String apnni) {
 			ascdesc = "desc";
 		}
 
-	
-		if(hour==null||hour.equals("")){
+		if (hour == null || hour.equals("")) {
 			Calendar c = Calendar.getInstance();
 			int now = c.get(Calendar.HOUR_OF_DAY);
 			if (now == 0 || now == 1)
@@ -107,14 +101,26 @@ public void setApnni(String apnni) {
 
 		List resultList = null;
 
+
 		if (firstpage.equals("yes")) {
-			if (flag.equals("1"))
-				resultList = service.getHightStreamDayUser(apnni,thedate, standard, condition, getOrderby());
-			else
-				resultList = service.getHightStreamHourUser(apnni,thedate, hour, standard, condition, getOrderby());
-			set("hightuser", resultList);
+			if (flag.equals("1")) {
+				String stattime = date.replace("-", "");
+				float avg = service.getApnDayAverageVolume(apnni, stattime);
+				condition = com.sxit.system.util.NumberUtil.toMoney(avg * Float.parseFloat(standard));
+				resultList = service.getHightStreamDayCustomerUser(apnni, thedate, condition, getOrderby());
+			} else {
+				String start = date + " " + hour + ":00:00";
+				long _start = com.sxit.stat.util.StatUtil.getDateHourTime(start) / 1000;
+				long _end = com.sxit.stat.util.StatUtil.getHourAfterTime((int) _start);
+				float avg = service.getApnHourAverageVolume(apnni, _start, _end);
+				condition = com.sxit.system.util.NumberUtil.toMoney(avg * Float.parseFloat(standard));
+				resultList = service.getHightStreamHourCustomerUser(apnni, thedate, hour, condition, getOrderby());
+			}
+			set("hightcustomeruser", resultList);
+			set("condition", condition);
 		} else {
-			resultList = (List) get("hightuser");
+			resultList = (List) get("hightcustomeruser");
+			condition = get("condition").toString();
 		}
 		if (resultType.equals("list")) {
 			int totalCount = resultList.size();
@@ -138,6 +144,7 @@ public void setApnni(String apnni) {
 
 	}
 
+	private String condition;
 	private String start;
 	private String end;
 
@@ -146,10 +153,6 @@ public void setApnni(String apnni) {
 	 * 
 	 */
 	private String standard = "2";
-	/**
-	 * 代表条件,这里的standard为2，联合这里，表示取排量靠前的1000个号码
-	 */
-	private String condition = "1000";
 
 	private List top1000users;
 
@@ -231,6 +234,20 @@ public void setApnni(String apnni) {
 	}
 
 	/**
+	 * @return the start
+	 */
+	public String getStart() {
+		return start;
+	}
+
+	/**
+	 * @return the end
+	 */
+	public String getEnd() {
+		return end;
+	}
+
+	/**
 	 * @return the condition
 	 */
 	public String getCondition() {
@@ -243,19 +260,5 @@ public void setApnni(String apnni) {
 	 */
 	public void setCondition(String condition) {
 		this.condition = condition;
-	}
-
-	/**
-	 * @return the start
-	 */
-	public String getStart() {
-		return start;
-	}
-
-	/**
-	 * @return the end
-	 */
-	public String getEnd() {
-		return end;
 	}
 }

@@ -57,7 +57,7 @@ public class ZeroService {
 	}
 
 	public int getZeroApns(Date date) {
-		String sql = "select count(*) as cnt from zero_apn where stattime=" + df.format(date);
+		String sql = "select count(*) as cnt from zero_apn where apnni like '%.cq' and stattime=" + df.format(date);
 		return jdbcTemplate.queryForInt(sql);
 	}
 
@@ -119,8 +119,8 @@ public class ZeroService {
 			orderby = " order by orderby";
 
 		int startIndex = (pageNo - 1) * pageSize;
-		String countsql = "select count(*) from zero_apn where dayflag=1 and stattime=" + _date;
-		String sql = "select * from(select a.*,rownum rn from(select zero_apn.* from zero_apn,set_apn where zero_apn.apnni=set_apn.apnni and dayflag=1 and stattime="
+		String countsql = "select count(*) from zero_apn where dayflag=1 and apnni like '%.cq' and stattime=" + _date;
+		String sql = "select * from(select a.*,rownum rn from(select zero_apn.* from zero_apn,set_apn where zero_apn.apnni=set_apn.apnni and zero_apn.apnni like '%.cq' and dayflag=1 and stattime="
 				+ _date + orderby + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		int totalCount = jdbcTemplate.queryForInt(countsql);
@@ -239,7 +239,7 @@ public class ZeroService {
 		// count(apnni)>=" + count + ")";
 
 		// System.out.println(countsql);
-		String sql = "select stat_apn_zero.apnni,sum(allvolume) as allvolume from stat_apn_zero ,set_apn where stat_apn_zero.apnni=set_apn.apnni  and dayflag=0 and stattime>="
+		String sql = "select stat_apn_zero.apnni,sum(allvolume) as allvolume from stat_apn_zero ,set_apn where stat_apn_zero.apnni=set_apn.apnni and dayflag=0 and stattime>="
 				+ _start
 				+ " and stattime<="
 				+ _end

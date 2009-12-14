@@ -48,21 +48,12 @@ public class UserPdpErrorAllAction extends AbstractAction {
 			thedate = com.sxit.stat.util.StatUtil.getPrevDate();
 			date = df.format(thedate);
 		} else {
-//			try {
-//				thedate = df.parse(date);
-//			} catch (Exception e) {
-//				thedate = com.sxit.stat.util.StatUtil.getPrevDate();
-//				date = df.format(thedate);
-//			}
 			thedate= com.sxit.stat.util.StatUtil.getDate(date);
 		}
 		// 实时的方式
 		if (flag.equals("1")) {
 
 			Date today = new Date();
-//
-//			long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
-//			long _end=	com.sxit.stat.util.StatUtil.getDateHourTime(end)/1000;
 //			
 			int nowhourstart =(int)( com.sxit.stat.util.StatUtil.getDateHourTime(today)/1000);
 			int nowhourend = com.sxit.stat.util.StatUtil.getHourAfterTime(nowhourstart);
@@ -115,6 +106,8 @@ public class UserPdpErrorAllAction extends AbstractAction {
 		}
 		if (resultType.equals("list"))
 			return SUCCESS;
+		else if(resultType.equals("toindex"))
+			return "toindex";
 		return "excel";
 	}
 

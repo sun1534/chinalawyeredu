@@ -21,6 +21,10 @@
        <action name="exceptionUsers" class="com.sxit.tradeCustomer.action.ExceptionUsersAction">
           <result name="success" type="dispatcher">/tradeCustomer/exceptionUsers.jsp</result>	
        </action>
+       
+          <action name="hightStreamCustomerUser" class="com.sxit.tradeCustomer.action.HightStreamCustomerUserAction">
+          <result name="success" type="dispatcher">/tradeCustomer/hightStreamCustomerUser.jsp</result>	
+       </action>
       
       <action name="importantCells" class="com.sxit.tradeCustomer.action.ImportantCellsAction">
           <result name="success" type="dispatcher">/tradeCustomer/importantCells.jsp</result>	

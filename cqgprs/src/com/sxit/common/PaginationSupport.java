@@ -223,6 +223,8 @@ public class PaginationSupport {
 					sb.append(" <a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
 							")>后页</a> <a href=\"#\" onclick=fanye(").append(pageNum).append(")>末页</a>");
 				}
+				sb.append("&nbsp;跳转至<input type=\"text\" value="+pageNo+"  class=\"pageNo\" id=\"pageNoText\"/>页<input type=\"button\" value=\"Go\" class=\"goPage\" onclick=\"fanye(document.getElementById('pageNoText').value)\"/>");
+
 			}
 		}
 		return sb.toString();
@@ -262,6 +264,7 @@ public class PaginationSupport {
 					sb.append(" <a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
 							")>后一个</a>");
 				}
+				sb.append("&nbsp;跳转至<input type=\"text\" value="+pageNo+"  class=\"pageNo\" id=\"pageNoText\"/><input type=\"button\" value=\"Go\" class=\"goPage\" onclick=\"fanye(document.getElementById('pageNoText').value)\"/>");
 			}
 		}
 		return sb.toString();

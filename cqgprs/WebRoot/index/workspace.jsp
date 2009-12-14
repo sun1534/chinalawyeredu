@@ -19,6 +19,9 @@ swfobject.embedSWF("../open-flash-chart.swf", "avergchart", "300", "200","9.0.0"
 swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0","",
   {"data-file":"../stat/workspaceIndex.action?flashby=user","loading":"正在载入数据..."} );
   
+  $(document).ready(function(){
+  $("#userpdperrorall").load("../useraction/userPdpErrorAll.action?resultType=toindex");
+  });
  </script>
 </head>
 
@@ -44,11 +47,18 @@ swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0",
 							
 							</ul>
 				  </div>
+				  
+				  	<div class="tablist" id="userpdperrorall">
+				  	<img src="../images/loading.gif"/>
+					</div>
+				  
 			  <div  class="tablist" style="text-align=center">
     <div  id="totalchart"></div>
     <div  id="avergchart"></div>
     <div  id="userchart"></div>
          </div>
+
+
 
 
 					<div class="tablist">

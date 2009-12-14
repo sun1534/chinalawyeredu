@@ -31,37 +31,38 @@ public class UseractionService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat dfyyyyMMdd = new java.text.SimpleDateFormat("yyyyMMdd");
 	private static final DateFormat dfsec = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	private static final DateFormat dfhour = new java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
+	// private static final DateFormat dfhour = new
+	// java.text.SimpleDateFormat("yyyy-MM-dd HH:00:00");
 
-//	public static int getDfSec(String date) {
-//		try {
-//			Date d = dfsec.parse(date);
-//			return (int) (d.getTime() / 1000);
-//		} catch (Exception e) {
-//			return (int) (System.currentTimeMillis() / 1000);
-//		}
-//	}
+	// public static int getDfSec(String date) {
+	// try {
+	// Date d = dfsec.parse(date);
+	// return (int) (d.getTime() / 1000);
+	// } catch (Exception e) {
+	// return (int) (System.currentTimeMillis() / 1000);
+	// }
+	// }
 
-//	/**
-//	 * 得到这个小时的起始时间值
-//	 * 
-//	 * @return
-//	 */
-//	public static int getDateHourTime(Date date) {
-//		String datestr = dfhour.format(date);
-//		// String hstart = datestr + " 00:00";
-//		// String hend=datestr+" 59:59";
-//		try {
-//			Date d = dfsec.parse(datestr);
-//			return (int) (d.getTime() / 1000);
-//		} catch (Exception e) {
-//			return (int) (System.currentTimeMillis() / 1000);
-//		}
-//	}
-//
-//	public static int getHourAfterTime(int start) {
-//		return start + 60 * 60;
-//	}
+	// /**
+	// * 得到这个小时的起始时间值
+	// *
+	// * @return
+	// */
+	// public static int getDateHourTime(Date date) {
+	// String datestr = dfhour.format(date);
+	// // String hstart = datestr + " 00:00";
+	// // String hend=datestr+" 59:59";
+	// try {
+	// Date d = dfsec.parse(datestr);
+	// return (int) (d.getTime() / 1000);
+	// } catch (Exception e) {
+	// return (int) (System.currentTimeMillis() / 1000);
+	// }
+	// }
+	//
+	// public static int getHourAfterTime(int start) {
+	// return start + 60 * 60;
+	// }
 
 	private JdbcTemplate jdbcTemplate;
 
@@ -396,17 +397,20 @@ public class UseractionService {
 	 * @param pageSize
 	 * @return
 	 */
-	public List getHightStreamDayUser(final Date date, String standard, String condition, String orderby) {
+	public List getHightStreamDayUser(String apnni, final Date date, String standard, String condition, String orderby) {
 
 		String stattime = dfyyyyMMdd.format(date);
 		String sql = "";
 		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		String where = "";
+		if (!(apnni == null || apnni.equals("")))
+			where = " and apnni='" + apnni + "'";
 		if (standard.equals("1")) {
 			// sql="select cellid,sum(allvolume) as allv from stat_cellid where
 			// dayflag=1 and (stattime="+_date+") group by cellid having
 			// sum(allvolume)>="+condition+") order by allv desc";
-			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from " + table
-					+ " where dayflag=1 and allvolume>=" + condition + " and stattime=" + stattime + orderby;
+			sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from " + table + " where dayflag=1 "
+					+ where + " and allvolume>=" + condition + " and stattime=" + stattime + orderby;
 
 		} else {
 			// sql = "select
@@ -416,8 +420,8 @@ public class UseractionService {
 			// allvolume desc";
 			//			
 			sql = "select * from(select mobile,apnni,upvolume,downvolume,allvolume,periodlen from  " + table
-					+ "  where dayflag=1 and stattime=" + stattime + " order by allvolume desc) where rownum<="
-					+ condition + orderby;
+					+ "  where dayflag=1 " + where + " and stattime=" + stattime
+					+ " order by allvolume desc) where rownum<=" + condition + orderby;
 		}
 		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -442,26 +446,40 @@ public class UseractionService {
 		List list = (List) object;
 		return list;
 	}
-
-	public List getHightStreamHourUser(Date date, final String hour, String standard, String condition, String orderby) {
+/**
+ * 
+ * @param apnni
+ * @param date
+ * @param hour
+ * @param standard
+ * @param condition
+ * @param orderby
+ * @return
+ */
+	public List getHightStreamHourUser(String apnni, Date date, final String hour, String standard, String condition,
+			String orderby) {
 		final String _date = df.format(date);
 		String start = _date + " " + hour + ":00:00";
-//		String end = _date + " " + hour + ":59:59";
+		// String end = _date + " " + hour + ":59:59";
 
-//		int _start = getDfSec(start);
-//		int _end = getDfSec(end);
-		long _start=	com.sxit.stat.util.StatUtil.getDateHourTime(start)/1000;
-		long _end=	com.sxit.stat.util.StatUtil.getHourAfterTime((int)_start);
-		
-	
-		
+		// int _start = getDfSec(start);
+		// int _end = getDfSec(end);
+		long _start = com.sxit.stat.util.StatUtil.getDateHourTime(start) / 1000;
+		long _end = com.sxit.stat.util.StatUtil.getHourAfterTime((int) _start);
+
+		String where = "";
+		if (!(apnni == null || apnni.equals("")))
+			where = " and apnni='" + apnni + "'";
+
 		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
 		long now = System.currentTimeMillis();
 		String sql = "";
 		if (standard.equals("1")) {
 			sql = "select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
 					+ table
-					+ " where dayflag=0 and (stattime>="
+					+ " where dayflag=0 "
+					+ where
+					+ " and (stattime>="
 					+ _start
 					+ " and stattime<="
 					+ _end
@@ -469,13 +487,174 @@ public class UseractionService {
 		} else {
 			sql = "select * from(select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
 					+ table
-					+ " where dayflag=0 and (stattime>="
+					+ " where dayflag=0 "
+					+ where
+					+ " and (stattime>="
 					+ _start
 					+ " and stattime<="
 					+ _end
 					+ ") group by mobile,apnni order by allvolume desc) where rownum<=" + condition + orderby;
 		}
 
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					MobilesTop model = new MobilesTop();
+					model.setMobile(rs.getString("mobile"));
+					model.setApnni(rs.getString("apnni"));
+					model.setUpvolume(rs.getFloat("upvolume"));
+					model.setDownvolume(rs.getFloat("downvolume"));
+					model.setPeriodlen(rs.getInt("periodlen"));
+					model.setAllvolume(rs.getFloat("allvolume"));
+					model.setDate(_date);
+
+					model.setDatehour(_date + " " + hour + ":00");
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		System.out.println((System.currentTimeMillis() - now) + "::" + sql);
+		List list = (List) object;
+		return list;
+	}
+/**
+ * 
+ * @param apnni
+ * @param stattime
+ * @return
+ */
+	public float getApnDayAverageVolume(String apnni, String stattime) {
+		String sql = "";
+		if (apnni == null || apnni.equals(""))
+			sql = "select sum(allvolume/usercount)/count(*) as avg from stat_apn where apnni like '%.cq' and usercount!=0 and stattime="
+					+ stattime;
+		else
+			sql = "select sum(allvolume/usercount)/count(*) as avg from stat_apn where apnni='" + apnni
+					+ "' and usercount!=0 and stattime=" + stattime;
+	
+		System.out.println(sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				if (rs.next()) {
+					return rs.getFloat("avg");
+				}
+				return 0f;
+			}
+		});
+		return Float.parseFloat(object.toString());
+	}
+/**
+ * 
+ * @param apnni
+ * @param start
+ * @param end
+ * @return
+ */
+	public float getApnHourAverageVolume(String apnni, long start, long end) {
+		String sql = "";
+		if (apnni == null || apnni.equals(""))
+			sql = "select sum(allvolume/usercount)/count(*) as avg from stat_apn where apnni like '%.cq' and usercount!=0 and stattime between "
+					+ start + " and " + end;
+		else
+			sql = "select sum(allvolume/usercount)/count(*) as avg from stat_apn where apnni='" + apnni
+					+ "' and usercount!=0 and stattime between " + start + " and " + end;
+		
+		System.out.println(sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				if (rs.next()) {
+					return rs.getFloat("avg");
+				}
+				return 0f;
+			}
+		});
+		return Float.parseFloat(object.toString());
+	}
+
+	/**
+	 * 统计高流量的用户排名,根据时间和所在的apn进行排名 stat_apn_mobile
+	 * 
+	 * @param date
+	 * @param apn
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public List getHightStreamDayCustomerUser(String apnni, final Date date, String condition, String orderby) {
+
+		String stattime = dfyyyyMMdd.format(date);
+		String sql = "";
+		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		String where = "";
+		if (!(apnni == null || apnni.equals(""))) {
+			where = " and apnni='" + apnni + "'";
+		}else{
+			where = " and apnni like '%.cq'";
+		}
+		
+	
+
+		// 得到当天的apn的平均流量
+
+		sql = "select mobile,apnni,upvolume,downvolume,allvolume,periodlen from " + table + " where dayflag=1 " + where
+				+ " and allvolume>=" + condition + " and stattime=" + stattime + orderby;
+
+		System.out.println(sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					MobilesTop model = new MobilesTop();
+					model.setMobile(rs.getString("mobile"));
+					model.setApnni(rs.getString("apnni"));
+					model.setUpvolume(rs.getFloat("upvolume"));
+					model.setDownvolume(rs.getFloat("downvolume"));
+					model.setPeriodlen(rs.getInt("periodlen"));
+					model.setAllvolume(rs.getFloat("allvolume"));
+					model.setDate(df.format(date));
+					model.setDatehour(dfsec.format(date));
+					list.add(model);
+				}
+				return list;
+			}
+		});
+
+		List list = (List) object;
+		return list;
+	}
+
+	public List getHightStreamHourCustomerUser(String apnni, Date date, final String hour, String condition,
+			String orderby) {
+		final String _date = df.format(date);
+		String start = _date + " " + hour + ":00:00";
+		
+		long _start = com.sxit.stat.util.StatUtil.getDateHourTime(start) / 1000;
+		long _end = com.sxit.stat.util.StatUtil.getHourAfterTime((int) _start);
+
+		String where = "";
+		if (!(apnni == null || apnni.equals("")))
+			where = " and apnni='" + apnni + "'";
+		else
+			where = " and apnni like '%.cq'";
+		
+		String table = com.sxit.stat.util.StatUtil.getMobileApnTable(date);
+		long now = System.currentTimeMillis();
+		String sql = "";
+
+		sql = "select mobile,apnni,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume,sum(periodlen) as periodlen from "
+				+ table
+				+ " where dayflag=0 "
+				+ where
+				+ " and (stattime>="
+				+ _start
+				+ " and stattime<="
+				+ _end
+				+ ") group by mobile,apnni having sum(allvolume)>=" + condition + orderby;
+		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();

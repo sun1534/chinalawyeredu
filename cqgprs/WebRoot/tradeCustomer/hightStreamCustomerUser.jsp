@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-高流量用户排名</title>
+ <title>${sysName}-高流量行业用户排名</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -36,26 +36,17 @@ function queryit(){
   document.form1.resultType.value="list";
   document.form1.submit();
 }
-function selectit(obj){
-showhint(obj.value);
-}
+
 $(document).ready(function(){
 var flag="${flag}";
 var standard="${standard}";
-showhint(standard);
 showhidehour(flag);
 });
 function selecthour(obj){
 var flag=obj.value;
 showhidehour(flag);
 }
-function showhint(_standard){
-if(_standard==2){
-$("#pahint").text("总流量前X位：");
-}else{
-$("#pahint").text("总流量大于X(单位K)：");
-}
-}
+
 function showhidehour(_flag){
 if(_flag==2){
 $("#hourselect").show();
@@ -71,11 +62,11 @@ $("#hourselect").hide();
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>用户行为</a>＞<em>高流量用户排名<s:if test="standard==2">（排名前${condition }）</s:if><s:else>（流量大于${condition}(K)）</s:else></em>
+						<span>您所在是位置:</span><a>行业客户</a>＞<em>高流量行业用户排名（流量大于平均流量${standard}倍，即${condition }K）</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="hightStreamUser" method="POST">	
+			<s:form name="form1" action="hightStreamCustomerUser" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -87,24 +78,18 @@ $("#hourselect").hide();
 								 <s:hidden name="orderfield" id="orderfieldid"/>
 								    	<s:hidden name="firstpage"/>
 								      <s:hidden name="ascdesc" id="ascdescid"/>
-                                  <s:hidden name="resultType"/>
+                                   <s:hidden name="resultType"/>
                                    <s:hidden name="pageNo"/>
+                                   <td>APN：<s:textfield name="apnni" size="10" cssClass="txt"/>
+								   </td>
                                    <td>
-                                   <s:select name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onchange="selectit(this)"></s:select>
+                                   大于平均流量<s:select name="standard" list="#{'1.5':'1.5','2':'2','2.5':'2.5','3':'3','3.5':'3.5','4':'4','4.5':'4.5','5':'5'}"/>倍
                                    </td>
-                                   <!-- 
-                                   <td><s:radio name="standard" list="#{'1':'流量大于设定值','2':'TOP设定值'}" onclick="selectit(this)"/>&nbsp;</td>
-                                   -->
-                                   <td><span id="pahint">流量前X位：</span><s:textfield name="condition" size="6" cssClass="txt"/>
-                                   </td>
-								   <td title="按时查询可以选择当天的日期">
-								    <s:select name="flag" list="#{'1':'按天','2':'按时'}" onchange="selecthour(this)" ></s:select>
-								   <!--<s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selecthour(this)" title="按时查询可以选择当天的日期"/>
-								   --></td>
+								   <td><s:radio name="flag" list="#{'1':'按天','2':'按时'}" onclick="selecthour(this)" title="按时查询可以选择当天的日期"/>
+								   </td>
 								 <td>选择日期：<jscalendar:jscalendar name="date" cssClass="txt"/>
 								 </td>
-								  <td>APN：<s:textfield name="apnni" size="10" cssClass="txt"/>
-								 </td>
+								 
 								 <td id="hourselect"><s:select name="hour" list="@com.sxit.stat.service.StatService@ALL_HOUR_LIST"/>
 								 </td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>

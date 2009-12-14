@@ -44,9 +44,9 @@ public class QueryService {
 
 		int startIndex = (pageNo - 1) * pageSize;
 
-		if (mobile != null && !mobile.equals("")) {
-			table = "CDR_SUCC_TMP";
-		}
+//		if (mobile != null && !mobile.equals("")) {
+//			table = "CDR_SUCC_TMP";
+//		}
 
 		String cntsql = "select count(*) as cnt from " + table + " where 1=1 ";
 		String search = " where 1=1";
