@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import main.readerrors.FileHandle;
-
 import org.apache.commons.logging.Log;
 
 /**
@@ -32,6 +30,7 @@ public class StatUserCnt {
 	public static void main(String[] args) throws Exception {
 
 		Date date = main.util.MainStatUtil.getPrevDate();
+//		Date _date = main.util.MainStatUtil.getPrevCountDate(7);
 		start = main.util.MainStatUtil.getDateTime(date);
 		end = main.util.MainStatUtil.getOneDayAfter(start);
 		stattime = df.format(date);
