@@ -53,8 +53,16 @@ public class CellConferenceService {
 	 */
 	public PaginationSupport getDayConferenceList(String date, int pageNo, int pageSize, String orderby) {
 
-		long start = com.sxit.stat.util.StatUtil.getDateTime(date);
-		long end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		long start=0;
+		long end=0;
+		if(date!=null){
+		 start = com.sxit.stat.util.StatUtil.getDateTime(date);
+		 end = com.sxit.stat.util.StatUtil.getOneDayAfter(start);
+		}
+		else{
+			start=0;
+			end=Long.MAX_VALUE;
+		}
 
 		String countsql = "select count(*) from alarm_cellid where stattime between " + start / 1000 + " and " + end
 				/ 1000;
@@ -78,10 +86,10 @@ public class CellConferenceService {
 					cell.setCellid(rs.getString("cellid"));
 					cell.setLac(rs.getString("lac"));
 					cell.setStattime(rs.getLong("stattime"));
-					cell.setOldpreallvolume(rs.getDouble("oldpreallvolume"));
-					cell.setOldpreusercount(rs.getInt("oldpreusercount"));
-					cell.setPreallvolume(rs.getDouble("preallvolume"));
-					cell.setPreusercount(rs.getInt("preusercount"));
+					cell.setPredayallvolume(rs.getDouble("predayallvolume"));
+					cell.setPretimeallvolume(rs.getDouble("pretimeallvolume"));
+					cell.setPredayusercount(rs.getInt("predayusercount"));
+					cell.setPretimeusercount(rs.getInt("pretimeusercount"));
 					cell.setUsercount(rs.getInt("usercount"));
 					cell.setAllvolume(rs.getDouble("allvolume"));
 					list.add(cell);

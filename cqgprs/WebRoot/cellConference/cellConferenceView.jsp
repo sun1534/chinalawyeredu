@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["cellid","usercount","preusercount","oldpreusercount","allvolue","preallvolue","oldpreallvolue"];
+ var orderArray=["cellid","usercount","predayusercount","pretimeusercount","allvolueme","predayallvolume","pretimeallvolume"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
  
@@ -79,11 +79,11 @@ function queryit(){
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
                           <th>小区名称</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数</a></th>          
-                          <th><a onclick="orderByThis(document.form1,this)" id="preusercount" title="点击排序">昨天同时用户数</a></b></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreusercount" title="点击排序">前天同时用户数</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="allvolue" title="点击排序">当前流量</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="preallvolue" title="点击排序">昨天同时流量</a></th>
-                          <th><a onclick="orderByThis(document.form1,this)" id="oldpreallvolue" title="点击排序">前天同时流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="predayusercount" title="点击排序">上小时用户数</a></b></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="pretimeusercount" title="点击排序">昨天同时用户数</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolueme" title="点击排序">当前流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="pretimeallvolume" title="点击排序">上小时流量</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="predayallvolume" title="点击排序">昨天同时流量</a></th>
                         
                         </tr>
                       </thead>
@@ -93,11 +93,11 @@ function queryit(){
                           <td>${cellkey}</td>
                            <td><a href="compareCellByHour.action?date=${date }&cellkey=${cellkey }&stattime=${stattime }">${cell.cellname}</a></td>
                           <td>${usercount }</td>
-                          <td>${preusercount}</td>
-                          <td>${oldpreusercount}</td>
+                          <td>${pretimeusercount}</td>
+                          <td>${predayusercount}</td>
                            <td>${allvolumeStr}</td>
-                            <td>${preAllvolumeStr}</td>
-                             <td>${oldPreAllvolumeStr}</td>
+                            <td>${pretimeallvolumeStr}</td>
+                             <td>${predayallvolumeStr}</td>
                         </tr>
                         </s:iterator>
                       

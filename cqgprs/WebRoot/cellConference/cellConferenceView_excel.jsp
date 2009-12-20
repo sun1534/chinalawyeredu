@@ -47,12 +47,12 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tr>
                         <th>小区编号</th>
                           <th>小区名称</th>
-                          <th>当前用户数(${date}</th>          
-                          <th>昨天同时用户数(${predate}</th>
-                          <th>前天同时用户数(${oldpredate}</th>
-                          <th>当前流量（M）(${date}</th>
-                          <th>昨天同时流量（M）(${predate}</th>
-                          <th>前天同时流量（M）(${oldpredate}</th>
+                          <th>当前用户数</th>          
+                          <th>上小时用户数</th>
+                          <th>昨天同时用户数</th>
+                          <th>当前流量（M）</th>
+                          <th>上小时流量（M）</th>
+                          <th>昨天同时流量（M）</th>
                         
       </tr>
       <tbody>
@@ -60,13 +60,13 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
         <s:iterator value="page.items" status="status">
                         <tr>
                             <td class="listline2">${cellkey}</td>
-                           <td class="listline2"><a href="compareCellByHour.action?date=${date }&cellkey=${cellkey }&stattime=${stattime }">${cell.cellname}</a></td>
-                          <td class="listline2">${usercount }</td>
-                          <td class="listline2">${preusercount}</td>
-                          <td class="listline2">${oldpreusercount}</td>
+                           <td class="listline2"><${cell.cellname}</td>
+              <td class="listline2">${usercount }</td>
+                          <td class="listline2">${pretimeusercount}</td>
+                          <td class="listline2">${predayusercount}</td>
                            <td class="listline2">${allvolumeStr}</td>
-                            <td class="listline2">${preAllvolumeStr}</td>
-                             <td class="listline2">${oldPreAllvolumeStr}</td>
+                            <td class="listline2">${pretimeallvolumeStr}</td>
+                             <td class="listline2">${predayallvolumeStr}</td>
 
                         </tr>
                         </s:iterator>

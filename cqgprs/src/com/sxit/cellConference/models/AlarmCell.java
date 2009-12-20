@@ -20,10 +20,10 @@ public class AlarmCell {
 	private long stattime;
 	private int usercount;
 	private double allvolume;
-	private double preallvolume;
-	private double oldpreallvolume;
-	private int preusercount;
-	private int oldpreusercount;
+	private double predayallvolume;
+	private double pretimeallvolume;
+	private int predayusercount;
+	private int pretimeusercount;
 
 	public String getCellkey() {
 		if (lac == null || lac.equals(""))
@@ -39,18 +39,18 @@ public class AlarmCell {
 		return totalStreamStr;
 	}
 	
-	public String getPreAllvolumeStr(){
-		if(preallvolume<1)
-			return preallvolume+"（K）";
-		double d = ((double) preallvolume) / (1024);
+	public String getPredayallvolumeStr(){
+		if(predayallvolume<1)
+			return predayallvolume+"（K）";
+		double d = ((double) predayallvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
 		return totalStreamStr;
 	}
 	
-	public String getOldPreAllvolumeStr(){
-		if(oldpreallvolume<1)
-			return oldpreallvolume+"（K）";
-		double d = ((double) oldpreallvolume) / (1024);
+	public String getPretimeallvolumeStr(){
+		if(pretimeallvolume<1)
+			return pretimeallvolume+"（K）";
+		double d = ((double) pretimeallvolume) / (1024);
 		String totalStreamStr= NumberUtil.toMoney(d);
 		return totalStreamStr;
 	}
@@ -139,63 +139,61 @@ public class AlarmCell {
 	}
 
 	/**
-	 * @return the preallvolume
+	 * @return the predayallvolume
 	 */
-	public double getPreallvolume() {
-		return preallvolume;
+	public double getPredayallvolume() {
+		return predayallvolume;
 	}
 
 	/**
-	 * @param preallvolume
-	 *            the preallvolume to set
+	 * @param predayallvolume the predayallvolume to set
 	 */
-	public void setPreallvolume(double preallvolume) {
-		this.preallvolume = preallvolume;
+	public void setPredayallvolume(double predayallvolume) {
+		this.predayallvolume = predayallvolume;
 	}
 
 	/**
-	 * @return the oldpreallvolume
+	 * @return the pretimeallvolume
 	 */
-	public double getOldpreallvolume() {
-		return oldpreallvolume;
+	public double getPretimeallvolume() {
+		return pretimeallvolume;
 	}
 
 	/**
-	 * @param oldpreallvolume
-	 *            the oldpreallvolume to set
+	 * @param pretimeallvolume the pretimeallvolume to set
 	 */
-	public void setOldpreallvolume(double oldpreallvolume) {
-		this.oldpreallvolume = oldpreallvolume;
+	public void setPretimeallvolume(double pretimeallvolume) {
+		this.pretimeallvolume = pretimeallvolume;
 	}
 
 	/**
-	 * @return the preusercount
+	 * @return the predayusercount
 	 */
-	public int getPreusercount() {
-		return preusercount;
+	public int getPredayusercount() {
+		return predayusercount;
 	}
 
 	/**
-	 * @param preusercount
-	 *            the preusercount to set
+	 * @param predayusercount the predayusercount to set
 	 */
-	public void setPreusercount(int preusercount) {
-		this.preusercount = preusercount;
+	public void setPredayusercount(int predayusercount) {
+		this.predayusercount = predayusercount;
 	}
 
 	/**
-	 * @return the oldpreusercount
+	 * @return the pretimeusercount
 	 */
-	public int getOldpreusercount() {
-		return oldpreusercount;
+	public int getPretimeusercount() {
+		return pretimeusercount;
 	}
 
 	/**
-	 * @param oldpreusercount
-	 *            the oldpreusercount to set
+	 * @param pretimeusercount the pretimeusercount to set
 	 */
-	public void setOldpreusercount(int oldpreusercount) {
-		this.oldpreusercount = oldpreusercount;
+	public void setPretimeusercount(int pretimeusercount) {
+		this.pretimeusercount = pretimeusercount;
 	}
+
+	
 
 }
