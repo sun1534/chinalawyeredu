@@ -111,6 +111,8 @@ function confirmit(){
                        
                           <th>日期</th>
                            <th>总流量（M）</th>
+                                  <th>上行流量（M）</th>
+                            <th>下行流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
                         </tr>
@@ -120,6 +122,8 @@ function confirmit(){
                         <tr>
                           <td>${date}</td>
                           <td>${totalStreamStr }</td>
+                             <td>${upvolumeStr }</td>
+                          <td>${downvolumeStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>
                         </tr>

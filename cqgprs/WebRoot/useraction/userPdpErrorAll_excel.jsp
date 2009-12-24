@@ -24,11 +24,11 @@ th
 -->
 </style>
 <%
-//String filename="export.xls";
-//response.reset();
-//response.setContentType("bin;charset=utf-8"); 
-//response.addHeader("Content-Disposition","attachment; filename="+filename);
-//out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
+String filename="export.xls";
+response.reset();
+response.setContentType("bin;charset=utf-8"); 
+response.addHeader("Content-Disposition","attachment; filename="+filename);
+out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
 %>
 </head>
 <body>
@@ -47,15 +47,14 @@ th
    </b></td>
   </tr>
       <tr>
-                       <th ></th> 
+                       <th>&nbsp;</th> 
                           <th colspan="2">当天累加值（${date1 }）</th> 
                           <th colspan="2">本时间段增加值（${date2}）</th> 
                           <th colspan="2">上次时间段增加值（${ date3}）</th> 
       </tr>
       <tbody>
   
-      <tr>
-     
+    
                  <tr > 
                           <td align="center" >错误类型</td> 
                           <td align="center" >用户数</td> 
@@ -121,7 +120,7 @@ th
                           <td>${errorallstat3.errorcountall }</td> 
                         </tr> 
    
-      </tr>
+
    
    
       </tbody>

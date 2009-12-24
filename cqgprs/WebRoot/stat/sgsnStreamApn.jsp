@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-2/3G流量分析</title>
+ <title>${sysName}-SGSN-APN流量分析</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -38,9 +38,9 @@ function imageit(){
   $("#imageopton").show();
   ishide=false;
   }else{
-     $("#imageopton").hide();
+  $("#imageopton").hide();
       $("#imgreport").hide();
-     ishide=true;
+  ishide=true;
   }
 }
 var ishide=true;
@@ -50,14 +50,13 @@ $(document).ready(function(){
   ishide=true;
 });
 function confirmit(){
-   $("#imgreport").show();
+      $("#imgreport").show();
    var flashType=$("#flashType").val();
    var flashby=$("#flashby").val();
-   var nettype=$("#nettype").val();
-      var start=$("#start").val();
-   var end=$("#end").val();
-   var url="stream23g.action?start="+start+"%26end="+end+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType+"%26nettype="+nettype;
-   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
+    var apnni=$("#apnni").val();
+   var start=$("#start").val();
+   var url="sgsnStream23g.action?start="+start+"%26resultType=flash%26flashby="+flashby+"%26flashType="+flashType+"%26nettype="+apnni;
+   swfobject.embedSWF("../open-flash-chart.swf", "barchart", "700", "300", "9.0.0","",{"data-file":url,"loading":"正在载入数据..."} );
    //alert(url);
 
 }
@@ -69,11 +68,11 @@ function confirmit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>2/3G流量分析</em>
+						<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>SGSN-GGSN-CMNET/CMWAP流量分析</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="stream23g" method="POST">	
+			<s:form name="form1" action="sgsnStreamApn" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -84,14 +83,13 @@ function confirmit(){
 								<tr>
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
-							 <td>起始日期：<jscalendar:jscalendar name="start" cssClass="txt"/></td>
-								 <td>结束日期：<jscalendar:jscalendar name="end" cssClass="txt"/></td>
-									 <td><input type="button" class="btnSubmit" title="查询" value="查询" onclick="queryit()"/></td>
-								 <td><input type="button" class="btnSubmit" title="图 形" value="图形"  onclick="imageit()"/></td>
-								 <td id="imageopton">
-								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="类型"></s:select>
+								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
+								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
+							 <td id="imageopton">
+								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
 								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
-								   <s:select name="nettype" id="nettype" list="#{'gsm':'GSM','td':'TD'}" label="网络类型"></s:select>
+								   <s:select name="apnni" id="apnni" list="#{'cmwap':'CMWAP','td':'cmnet','other':'其他'}" label="apnni"></s:select>
 								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
 								 </td>
 								</tr>
@@ -111,27 +109,28 @@ function confirmit(){
                       <thead>
                         <tr>
                        
-                          <th>日期</th>
-                          <th>用户类型</th>
+                          <th>SGSN号</th>
+                        <!--   <th>覆盖范围</th>-->
+                          <th>GGSNID</th>
+                          <th>APNNI</th>
                           <th>总流量（M）</th>
-                                 <th>上行流量（M）</th>
-                            <th>下行流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
+                        
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="streamlist" status="stat">
+                        <s:iterator value="sgsnlist" status="stat">
                         <tr>
-                     <!--     <s:if test="#stat.odd">
-                          <td rowspan="2">${date}</td>
+                        <!--   <s:if test="#stat.odd">
+                          <td rowspan="2">${sgsnid}</td>
+                          <td rowspan="2">${sgsnArea}</td>
                           </s:if>-->
-                          <td>${date}</td>
-                          <td>${nettype}</td>
+                          <td>${sgsnid}</td>
+                          <td>${ggsnid}</td>
+                          <td>${apnni}</td>
                           <td>${totalStreamStr }</td>
-                             <td>${upvolumeStr }</td>
-                          <td>${downvolumeStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>
                         </tr>
@@ -140,7 +139,7 @@ function confirmit(){
                       </tbody>
                     <tfoot>
 							<tr>
-							   <td colspan="6" class="fright">
+							   <td colspan="7" class="fright">
 							     <input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
 							   </td>
 							</tr>
@@ -148,12 +147,14 @@ function confirmit(){
 			  
                     </table>
 			  </div>
-<!-- 				<div  class="tabpagelist">
+                 <!--  
+				<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>
-					</div>-->
+					</div>	-->
 				</div>
+			
 			</div>
 		</div>
 </s:form>

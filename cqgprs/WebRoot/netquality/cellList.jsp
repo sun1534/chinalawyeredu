@@ -13,7 +13,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["cellid","lac","bscid"];
+ var orderArray=["cellid","lac","bscid","updatetime"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
  Array.prototype.clear=function(){  
@@ -142,7 +142,7 @@ function setit(){
                        <th><a onclick="orderByThis(document.form1,this)" id="bscid" title="点击排序">所属BSC/RNC</a></th>
                        <th>归属SGSN</th>
                        <th>所属城区</th>
-                       <th>最后更新时间</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="updatetime" title="点击排序">最后更新时间</a></th>
                         
                         </tr>
                       </thead>

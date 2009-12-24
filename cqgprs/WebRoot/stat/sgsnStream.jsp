@@ -111,8 +111,10 @@ function confirmit(){
                         <tr>
                        
                           <th>SGSN号</th>
-                          <th>覆盖范围</th>
+                     
                           <th>总流量（M）</th>
+                           <th>上行流量（M）</th>
+                            <th>下行流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
                         
@@ -122,8 +124,9 @@ function confirmit(){
                         <s:iterator value="sgsnlist" status="status">
                         <tr>
                          <td>${sgsnid}</td>
-                          <td>${sgsnArea}</td>
                           <td>${totalStreamStr }</td>
+                           <td>${upvolumeStr }</td>
+                            <td>${downvolumeStr }</td>
                           <td>${totalUser}</td>
                           <td>${averageStreamStr}</td>
                         </tr>

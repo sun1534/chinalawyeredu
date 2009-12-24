@@ -42,6 +42,8 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tr>
                           <th>日期</th>
                            <th>总流量（M）</th>
+                                  <th>上行流量（M）</th>
+                            <th>下行流量（M）</th>
                           <th>总用户数</th>
                           <th>平均流量（K）</th>
       </tr>
@@ -52,6 +54,8 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
 
                           <td class="listline2">${date}</td>
                           <td class="listline2">${totalStreamStr }</td>
+                           <td class="listline2">${upvolumeStr }</td>
+                            <td class="listline2">${downvolumeStr }</td>
                           <td class="listline2">${totalUser}</td>
                           <td class="listline2">${averageStreamStr}</td>
    

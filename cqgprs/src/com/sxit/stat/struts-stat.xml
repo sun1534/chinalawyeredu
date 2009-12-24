@@ -27,6 +27,10 @@
            <result name="success" type="dispatcher">/stat/sgsnStream23g.jsp</result>		
            <result name="excel" type="dispatcher">/stat/sgsnStream23g_excel.jsp</result>	
        </action>
+             <action name="sgsnStreamApn" class="com.sxit.stat.action.SgsnStreamApnAction">
+           <result name="success" type="dispatcher">/stat/sgsnStreamApn.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/sgsnStreamApn_excel.jsp</result>	
+       </action>
        <action name="staticAPN" class="com.sxit.stat.action.StaticAPNAction">
            <result name="success" type="dispatcher">/stat/staticAPN.jsp</result>	
            <result name="excel" type="dispatcher">/stat/staticAPN_excel.jsp</result>	

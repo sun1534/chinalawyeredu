@@ -42,9 +42,11 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tr>
      
                           <th class="listheadline">SGSN号</th>
-                          <th class="listheadline">覆盖范围</th>
+                     
                           <th class="listheadline">用户类型</th>
                           <th class="listheadline">总流量（M）></th>
+                                 <th class="listheadline">上行流量（M）</th>
+                            <th class="listheadline">下行流量（M）</th>
                           <th class="listheadline">总用户数</th>
                           <th class="listheadline">平均流量（K）</th>
       </tr>
@@ -53,10 +55,11 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tr>
         <s:if test="#stat.odd">
                           <td class="listline2" rowspan="2">${sgsnid}</td>
-                          <td class="listline2" rowspan="2>${sgsnArea}</td>
            </s:if>
                           <td class="listline2">${nettype}</td>
                           <td class="listline2">${totalStreamStr }</td>
+                              <td class="listline2">${upvolumeStr }</td>
+                            <td class="listline2">${downvolumeStr }</td>
                           <td class="listline2">${totalUser}</td>
                           <td class="listline2">${averageStreamStr}</td>
    

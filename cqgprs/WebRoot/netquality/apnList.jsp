@@ -18,7 +18,7 @@
  <script type="text/javascript">
 //$(document).ready(function(){ $("#tableBox").tablegrid();});
 
- var orderArray=["apnni"];
+ var orderArray=["apnni","updatetime"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
   Array.prototype.clear=function(){  
@@ -139,7 +139,7 @@ function setit(){
                        <th><a onclick="orderByThis(document.form1,this)" id="apnni" title="点击排序">APN编号</a></th>
                        <th>使用单位</th>
                        <th>客户联系方式</th>
-                       <th>最后更新时间</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="updatetime" title="点击排序">最后更新时间</a></th>
                        <th>修改</th>
                        </tr>
                       </thead>

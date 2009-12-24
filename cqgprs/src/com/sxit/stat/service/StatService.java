@@ -217,7 +217,7 @@ public class StatService {
 	 * @return
 	 */
 	public List getDaySgsnStream(Date date) {
-		String sql = "select SGSNID,sum(USERCOUNT) as USERCOUNT,sum(ALLVOLUME) as ALLVOLUME  from  STAT_SGSN where dayflag=1 and STATTIME=? group by sgsnid ";
+		String sql = "select SGSNID,sum(USERCOUNT) as USERCOUNT,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(ALLVOLUME) as ALLVOLUME  from  STAT_SGSN where dayflag=1 and STATTIME=? group by sgsnid ";
 		// int _date = (int) (date.getTime() / 1000);
 		// int _from=Integer.parseInt(dfyyyyMmdd.format(start));
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
@@ -235,8 +235,10 @@ public class StatService {
 					// Date date = new Date();
 					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
 					// model.setTotalUser(usercount);
-					model.setTotalUser((int) (usercount * 0.5));
+					model.setTotalUser((int) (usercount));
 					// model.setDate(df.format(date));
 					model.setDate(_date + "");
 					model.setSgsnid(sgsnid);
@@ -257,10 +259,8 @@ public class StatService {
 	 * @return
 	 */
 	public List getDaySgsnStream23g(Date date) {
-		String sql = "select SGSNID,USERCOUNT,ALLVOLUME,STATTIME,NETTYPE from  STAT_SGSN where dayflag=1 and STATTIME=? order by sgsnid,NETTYPE";
-		// int _date = (int) (date.getTime() / 1000);
+		String sql = "select SGSNID,sum(USERCOUNT) as usercount,sum(ALLVOLUME) as allvolume,sum(upvolume) as upvolume,sum(downvolume) as downvolume,NETTYPE from  STAT_SGSN where dayflag=1 and STATTIME=? group by sgsnid,NETTYPE";
 		System.out.println(sql);
-
 		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
 		Object[] args = new Object[] { _date };
 		int[] argTypes = new int[] { Types.INTEGER };
@@ -273,14 +273,12 @@ public class StatService {
 					double all = rs.getDouble("ALLVOLUME");
 					// int stattime = rs.getInt("STATTIME");
 					String sgsnid = rs.getString("SGSNID");
-					// Date date = new Date();
-					// date.setTime(stattime * 1000);
 					model.setTotalStream(all);
-					// model.setTotalUser(usercount);
-					model.setTotalUser((int) (usercount * 0.5));
-					// model.setDate(df.format(date));
+					model.setTotalUser((int) (usercount ));
 					model.setDate(_date + "");
 					model.setSgsnid(sgsnid);
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setNettype(rs.getString("NETTYPE"));
 					list.add(model);
 				}
@@ -289,7 +287,82 @@ public class StatService {
 		});
 		return (List) object;
 	}
+	/**
+	 * 
+	 * 得到某一天的sgsn流量,分ggsn和apn
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public List getDaySgsnStreamGgsnApn(Date date) {
+		String sql = "select SGSNID,sum(USERCOUNT) as usercount,sum(ALLVOLUME) as allvolume,sum(upvolume) as upvolume,sum(downvolume) as downvolume,ggsnid,apnni from  STAT_SGSN where dayflag=1 and STATTIME=? group by sgsnid,ggsnid,apnni";
+		System.out.println(sql);
+		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
+		Object[] args = new Object[] { _date };
+		int[] argTypes = new int[] { Types.INTEGER };
+		Object object = jdbcTemplate.query(sql, args, argTypes, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					SgsnStatModel model = new SgsnStatModel();
+					int usercount = rs.getInt("USERCOUNT");
+					double all = rs.getDouble("ALLVOLUME");
+					// int stattime = rs.getInt("STATTIME");
+					String sgsnid = rs.getString("SGSNID");
+					model.setTotalStream(all);
+					model.setTotalUser((int) (usercount ));
+					model.setDate(_date + "");
+					model.setSgsnid(sgsnid);
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setGgsnid(rs.getString("ggsnid"));
+					model.setApnni(rs.getString("apnni"));
+//					model.setNettype(rs.getString("NETTYPE"));
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		return (List) object;
+	}
+	/**
+	 * 
+	 * 得到某一天的sgsn流量,只分apn
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public List getDaySgsnStreamApn(Date date) {
+		String sql = "select SGSNID,sum(USERCOUNT) as usercount,sum(ALLVOLUME) as allvolume,sum(upvolume) as upvolume,sum(downvolume) as downvolume,apnni from  STAT_SGSN where dayflag=1 and STATTIME=? group by sgsnid,apnni";
+		System.out.println(sql);
+		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
+		Object[] args = new Object[] { _date };
+		int[] argTypes = new int[] { Types.INTEGER };
+		Object object = jdbcTemplate.query(sql, args, argTypes, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					SgsnStatModel model = new SgsnStatModel();
+					int usercount = rs.getInt("USERCOUNT");
+					double all = rs.getDouble("ALLVOLUME");
+					// int stattime = rs.getInt("STATTIME");
+					String sgsnid = rs.getString("SGSNID");
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setTotalStream(all);
+					model.setTotalUser((int) (usercount ));
+					model.setDate(_date + "");
+					model.setSgsnid(sgsnid);
+					model.setApnni(rs.getString("apnni"));
 
+//					model.setNettype(rs.getString("NETTYPE"));
+					list.add(model);
+				}
+				return list;
+			}
+		});
+		return (List) object;
+	}
 	/**
 	 * 统计某天的bsc/rnc流量
 	 * 

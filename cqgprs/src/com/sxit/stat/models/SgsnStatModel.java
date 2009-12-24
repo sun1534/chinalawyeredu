@@ -28,6 +28,32 @@ public class SgsnStatModel extends StatModel  {
 	private String nettype;
 	private String date;
 	private String datetime;
+	private String ggsnid;
+	private String apnni;
+	/**
+	 * @return the ggsnid
+	 */
+	public String getGgsnid() {
+		return ggsnid;
+	}
+	/**
+	 * @param ggsnid the ggsnid to set
+	 */
+	public void setGgsnid(String ggsnid) {
+		this.ggsnid = ggsnid;
+	}
+	/**
+	 * @return the apnni
+	 */
+	public String getApnni() {
+		return apnni;
+	}
+	/**
+	 * @param apnni the apnni to set
+	 */
+	public void setApnni(String apnni) {
+		this.apnni = apnni;
+	}
 	/**
 	 * @return the sgsnid
 	 */

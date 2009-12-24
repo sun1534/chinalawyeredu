@@ -15,7 +15,7 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["bscid","sgsnid","nsvccount"];
+ var orderArray=["bscid","sgsnid","nsvccount","updatetime"];
  var field="${orderfield}";
 var ascdesc="${ascdesc}";
   Array.prototype.clear=function(){  
@@ -135,7 +135,7 @@ function setit(){
                        <th>BSC/RNC名称</th>
                        <th><a onclick="orderByThis(document.form1,this)" id="nsvccount" title="点击排序">GB链路数量</a></th>  
                        <th><a onclick="orderByThis(document.form1,this)" id="sgsnid" title="点击排序">所属SGSN</a></th>
-                       <th>最后更新时间</th>
+                       <th><a onclick="orderByThis(document.form1,this)" id="updatetime" title="点击排序">最后更新时间</a></th>
                        </tr>
                       </thead>
                       <tbody id="checkForm">
