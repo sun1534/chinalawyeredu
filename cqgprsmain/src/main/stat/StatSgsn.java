@@ -29,6 +29,8 @@ public class StatSgsn {
 		double up = 0;
 		double down = 0;
 		int usercount = 0;
+		String ggsnid = "";
+		String apnni = "";
 
 	}
 
@@ -71,7 +73,7 @@ public class StatSgsn {
 				_3g.down += stat.down;
 				_3g.usercount += stat.usercount;
 			}
-			String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values('"
+			String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT,ggsnid,apnni)values('"
 					+ stat.sgsnid
 					+ "',"
 					+ stat.nettype
@@ -82,7 +84,7 @@ public class StatSgsn {
 					+ ","
 					+ stat.down
 					+ ","
-					+ stat.all + "," + stat.usercount + ")";
+					+ stat.all + "," + stat.usercount + ",'" + stat.ggsnid + "','" + stat.apnni + "')";
 			/**
 			 * 更新总流量
 			 */
@@ -116,8 +118,8 @@ public class StatSgsn {
 		// down,sum(upvolume+downvolume) as allvolume from "
 		// + table + " group by sgsnid,nettype";
 
-		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount from stat_sgsn where dayflag=0 and stattime>="
-				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype";
+		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount,ggsnid,apnni from stat_sgsn where stattime>="
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype,ggsnid,apnni";
 
 		LOG.info(sql);
 		Statement stmt = null;
@@ -132,7 +134,7 @@ public class StatSgsn {
 			String key = sgsnid + nettype;
 
 			if (allsgsns.containsKey(key)) {
-//				LOG.info("得到的SGSN统计数据:" + sgsnid + "," + nettype);
+				// LOG.info("得到的SGSN统计数据:" + sgsnid + "," + nettype);
 				TempStat stat = allsgsns.get(key);
 				stat.sgsnid = rs.getString("sgsnid");
 				stat.nettype = rs.getString("nettype");
@@ -140,10 +142,12 @@ public class StatSgsn {
 				stat.up = rs.getDouble("up");
 				stat.down = rs.getDouble("down");
 				stat.all = rs.getDouble("allvolume");
+				stat.ggsnid = rs.getString("ggsnid");
+				stat.apnni = rs.getString("apnni");
 				// allsgsns.remove(key);
 				// allsgsns.put(key, stat);
 			}
-			
+
 		}
 		LOG.info("得到SGSN的统计数据完毕");
 		// // 这里要得到用户数
@@ -180,8 +184,8 @@ public class StatSgsn {
 		// dayusercount2g += rs.getInt("usercount");
 		// }
 		//		
-		//	LOG.info("3G:"+dayusercount3g+",2G:"+dayusercount2g);
-		
+		// LOG.info("3G:"+dayusercount3g+",2G:"+dayusercount2g);
+
 		rs.close();
 		stmt.close();
 
