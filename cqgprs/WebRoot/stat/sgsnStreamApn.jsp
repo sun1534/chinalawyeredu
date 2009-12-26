@@ -35,12 +35,14 @@ function queryit(){
 }
 function imageit(){
  if(ishide){
-  $("#imageopton").show();
-  ishide=false;
+    $("#imageopton").show();
+    $("#sgsidopt").hide();
+    ishide=false;
   }else{
-  $("#imageopton").hide();
-      $("#imgreport").hide();
-  ishide=true;
+    $("#sgsidopt").show();
+    $("#imageopton").hide();
+    $("#imgreport").hide();
+    ishide=true;
   }
 }
 var ishide=true;
@@ -84,12 +86,13 @@ function confirmit(){
                                  <s:hidden name="pageNo"/>
                                   <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
+								 <td id="sgsidopt">SGSN编号：<s:select name="sgsnid" id="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" listKey="key" listValue="key" headerKey="" headerValue="全部" onchange="document.form1.submit()"/>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
 							 <td id="imageopton">
 								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
 								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
-								   <s:select name="apnni" id="apnni" list="#{'cmwap':'CMWAP','td':'cmnet','other':'其他'}" label="apnni"></s:select>
+								   <s:select name="apnni" id="apnni" list="#{'cmwap':'CMWAP','cmwap':'CMNET','other':'其他'}" label="apnni"></s:select>
 								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
 								 </td>
 								</tr>
@@ -147,12 +150,12 @@ function confirmit(){
 			  
                     </table>
 			  </div>
-                 <!--  
+                
 				<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>
-					</div>	-->
+					</div>	
 				</div>
 			
 			</div>
