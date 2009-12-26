@@ -43,6 +43,22 @@ import com.sxit.stat.util.StatUtil;
  */
 public class SgsnStreamApnAction extends StatAction {
 
+	private String sgsnid;
+	
+	/**
+	 * @return the sgsnid
+	 */
+	public String getSgsnid() {
+		return sgsnid;
+	}
+
+	/**
+	 * @param sgsnid the sgsnid to set
+	 */
+	public void setSgsnid(String sgsnid) {
+		this.sgsnid = sgsnid;
+	}
+
 	/*
 	 * 得到某一天的各个sgsn的流量 显示柱状图和线图
 	 * 
@@ -56,12 +72,14 @@ public class SgsnStreamApnAction extends StatAction {
 		}
 		
 		if (resultType.equals("list")){
-			sgsnlist = statservice.getDaySgsnStreamGgsnApn(startDate);
+			this.page = statservice.getDaySgsnStreamGgsnApn(startDate,sgsnid,getOrderby(),pageNo,pageSize);
+			this.sgsnlist=page.getItems();
 			return SUCCESS;
 		}
 
 		else if (resultType.equals("excel")){
-			sgsnlist = statservice.getDaySgsnStreamGgsnApn(startDate);
+			this.page = statservice.getDaySgsnStreamGgsnApn(startDate,sgsnid,getOrderby(),pageNo,pageSize);
+			this.sgsnlist=page.getItems();
 			return "excel";
 		}
 		else if (resultType.equals("flash")) {
