@@ -46,10 +46,11 @@ public class StatSgsn {
 		this.start = main.util.MainStatUtil.getDateTime(statdate);
 		this.end = main.util.MainStatUtil.getOneDayAfter(start);
 		this.stattime = df.format(statdate);
+		// this.stattime = "20100101";
 	}
 
-	private void insert(Map<String, TempStat> allsgsns) throws Exception {
-		java.util.Iterator<TempStat> stats = allsgsns.values().iterator();
+	private void insert(List<TempStat> stats) throws Exception {
+		// java.util.Iterator<TempStat> stats = allsgsns.values().iterator();
 
 		// String sql = "insert into stat_sgsn
 		// (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT)values(?,?,1,"+stattime+",?,?,?,?)";
@@ -60,8 +61,29 @@ public class StatSgsn {
 		// stmt = con.prepareStatement(sql);
 		TempStat _2g = new TempStat();
 		TempStat _3g = new TempStat();
-		while (stats.hasNext()) {
-			TempStat stat = stats.next();
+		Map<String, TempStat> ggsnother = new HashMap<String, TempStat>();
+
+		for (int i = 0; i < stats.size(); i++) {
+			// while (stats.hasNext()) {
+			TempStat stat = stats.get(i);
+			if (stat.ggsnid.indexOf("GGSN") == -1) {
+				String ggsnkey = stat.sgsnid + "," + stat.nettype + "," + stat.apnni;
+				TempStat ggsnstat = null;
+				if (ggsnother.containsKey(ggsnkey)) {
+					ggsnstat = ggsnother.get(ggsnkey);
+				} else {
+					ggsnstat = new TempStat();
+					ggsnother.put(ggsnkey, ggsnstat);
+				}
+				ggsnstat.sgsnid = stat.sgsnid;
+				ggsnstat.nettype = stat.nettype;
+				ggsnstat.apnni = stat.apnni;
+				ggsnstat.ggsnid = "GGSN其他";
+				ggsnstat.all += stat.all;
+				ggsnstat.down += stat.down;
+				ggsnstat.up += stat.up;
+				ggsnstat.usercount += stat.usercount;
+			}
 			if (stat.nettype.equals("2")) {
 				_2g.all += stat.all;
 				_2g.up += stat.up;
@@ -85,6 +107,8 @@ public class StatSgsn {
 					+ stat.down
 					+ ","
 					+ stat.all + "," + stat.usercount + ",'" + stat.ggsnid + "','" + stat.apnni + "')";
+
+			// System.out.println(sql);
 			/**
 			 * 更新总流量
 			 */
@@ -105,21 +129,85 @@ public class StatSgsn {
 		sqls.add(allsql3g);
 		main.util.MainStatUtil.executeSql(con, sqls);
 		LOG.info("SGSN统计数据入库成功");
-		// } finally {
-		// // stmt.close();
-		// }
+
+		java.util.Iterator<TempStat> ggsnotherstats = ggsnother.values().iterator();
+		sqls.clear();
+		while (ggsnotherstats.hasNext()) {
+			TempStat stat = ggsnotherstats.next();
+			String sql = "insert into stat_sgsn (sgsnid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,USERCOUNT,ggsnid,apnni)values('"
+					+ stat.sgsnid
+					+ "',"
+					+ stat.nettype
+					+ ",1,"
+					+ stattime
+					+ ","
+					+ stat.up
+					+ ","
+					+ stat.down
+					+ ","
+					+ stat.all + "," + stat.usercount + ",'" + stat.ggsnid + "','" + stat.apnni + "')";
+			sqls.add(sql);
+		}
+		main.util.MainStatUtil.executeSql(con, sqls);
+		LOG.info("GGSN其他的统计数据入库成功");
 
 	}
 
-	private void getStatDatas(Map<String, TempStat> allsgsns) throws Exception {
-		// String table = MainStatUtil.getCdrTable();
-		// String sql = "select sgsnid,nettype,count(distinct(msisdn))as
-		// usercount,sum(upvolume) as up,sum(downvolume) as
-		// down,sum(upvolume+downvolume) as allvolume from "
-		// + table + " group by sgsnid,nettype";
+	private List<TempStat> getStatDatasCqGgns() throws Exception {
 
-		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount,ggsnid,apnni from stat_sgsn where stattime>="
-				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,nettype,ggsnid,apnni";
+		// 这里groupby的顺序不能搞反了，必须是sgsnid,ggsnid,apnni,nettype
+		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount,ggsnid,apnni from stat_sgsn where apnni is not null and ggsnid is not null and ggsnid like 'GGSN%' and stattime>="
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,ggsnid,apnni,nettype";
+
+		LOG.info(sql);
+		Statement stmt = null;
+
+		stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		List<TempStat> stats = new ArrayList<TempStat>();
+		List apnnis = new ArrayList();
+		String temp = "";
+
+		while (rs.next()) {
+			String sgsnid = rs.getString("sgsnid");
+			String ggsnid = rs.getString("ggsnid") == null ? "" : rs.getString("ggsnid");
+			String apnni = rs.getString("apnni") == null ? "fuck" : rs.getString("apnni");
+			String nettype = rs.getString("nettype");
+			String key = sgsnid + "," + ggsnid;
+
+			if (!key.equals(temp)) {
+				if (!temp.equals("")) {
+					this.getReminAppni(stats, apnnis, temp);
+				}
+				apnnis.clear();
+				temp = key;
+			}
+			apnnis.add(apnni);
+
+			TempStat stat = new TempStat();
+			stat.sgsnid = sgsnid;
+			stat.nettype = nettype;
+			stat.up = rs.getDouble("up");
+			stat.down = rs.getDouble("down");
+			stat.all = rs.getDouble("allvolume");
+			stat.ggsnid = ggsnid;
+			stat.apnni = apnni;
+			stats.add(stat);
+
+		}
+		// 这里要判断最后一个是否有cmnet或者cmwap或者other
+		this.getReminAppni(stats, apnnis, temp);
+		LOG.info("得到SGSN的统计数据完毕::" + stats.size());
+		rs.close();
+		stmt.close();
+		return stats;
+	}
+
+	private List<TempStat> getStatDatasNoCqGgns(List<TempStat> stats) throws Exception {
+
+		// 这里groupby的顺序不能搞反了，必须是sgsnid,ggsnid,apnni,nettype
+		String sql = "select sgsnid,nettype,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume ,sum(usercount) as usercount,ggsnid,apnni from stat_sgsn where apnni is not null and ggsnid is not null and ggsnid not like 'GGSN%' and stattime>="
+				+ start / 1000 + " and stattime<=" + end / 1000 + " group by sgsnid,ggsnid,apnni,nettype";
 
 		LOG.info(sql);
 		Statement stmt = null;
@@ -128,67 +216,81 @@ public class StatSgsn {
 		ResultSet rs = stmt.executeQuery(sql);
 
 		while (rs.next()) {
-
 			String sgsnid = rs.getString("sgsnid");
+			String ggsnid = rs.getString("ggsnid") == null ? "" : rs.getString("ggsnid");
+			String apnni = rs.getString("apnni") == null ? "fuck" : rs.getString("apnni");
 			String nettype = rs.getString("nettype");
-			String key = sgsnid + nettype;
 
-			if (allsgsns.containsKey(key)) {
-				// LOG.info("得到的SGSN统计数据:" + sgsnid + "," + nettype);
-				TempStat stat = allsgsns.get(key);
-				stat.sgsnid = rs.getString("sgsnid");
-				stat.nettype = rs.getString("nettype");
-				// stat.usercount = rs.getInt("usercount")/9;
-				stat.up = rs.getDouble("up");
-				stat.down = rs.getDouble("down");
-				stat.all = rs.getDouble("allvolume");
-				stat.ggsnid = rs.getString("ggsnid");
-				stat.apnni = rs.getString("apnni");
-				// allsgsns.remove(key);
-				// allsgsns.put(key, stat);
-			}
-
+			TempStat stat = new TempStat();
+			stat.sgsnid = sgsnid;
+			stat.nettype = nettype;
+			stat.up = rs.getDouble("up");
+			stat.down = rs.getDouble("down");
+			stat.all = rs.getDouble("allvolume");
+			stat.ggsnid = ggsnid;
+			stat.apnni = apnni;
+			stats.add(stat);
 		}
-		LOG.info("得到SGSN的统计数据完毕");
-		// // 这里要得到用户数
-		// String usersql = "select sgsnid,nettype,usercount from msisdn_sgsn
-		// where stattime>=" + start / 1000
-		// + " and stattime<=" + end / 1000;
-		// // + " group by sgsnid,nettype";
-		// LOG.info("usersql:" + usersql);
-		// stmt = con.createStatement();
-		// rs = stmt.executeQuery(usersql);
-		// while (rs.next()) {
-		// String sgsnid = rs.getString("sgsnid");
-		// String nettype = rs.getString("nettype");
-		// String key = sgsnid + nettype;
-		//
-		// int usercount = rs.getInt("usercount");
-		// TempStat stat = allsgsns.get(key);
-		// stat.usercount = usercount;
-		// }
-		// rs.close();
-		// stmt.close();
-		//
-		// String dayusersql = "select usercount,nettype from msisdn_dayall
-		// where stattime>=" + start / 1000 + " and stattime<="
-		// + end / 1000;
-		// // + " group by sgsnid,nettype";
-		// LOG.info("dayusersql:" + dayusersql);
-		// stmt = con.createStatement();
-		// rs = stmt.executeQuery(usersql);
-		// while (rs.next()) {
-		// if(rs.getInt("nettype")==1)
-		// dayusercount3g += rs.getInt("usercount");
-		// else
-		// dayusercount2g += rs.getInt("usercount");
-		// }
-		//		
-		// LOG.info("3G:"+dayusercount3g+",2G:"+dayusercount2g);
-
+		// 这里要判断最后一个是否有cmnet或者cmwap或者other
+		LOG.info("得到SGSN的统计数据完毕::" + stats.size());
 		rs.close();
 		stmt.close();
+		return stats;
+	}
 
+	private void getReminAppni(List stats, List apnnis, String temp) {
+		int idx = temp.indexOf(",");
+		String _sgsnid = temp.substring(0, idx);
+		String _ggsnid = temp.substring(idx + 1);
+		if (!apnnis.contains("cmnet")) {
+			TempStat stat1 = new TempStat();
+			stat1.sgsnid = _sgsnid;
+			stat1.nettype = "1";
+			stat1.ggsnid = _ggsnid;
+			stat1.apnni = "cmnet";
+
+			TempStat stat2 = new TempStat();
+			stat2.sgsnid = _sgsnid;
+			stat2.nettype = "2";
+			stat2.ggsnid = _ggsnid;
+			stat2.apnni = "cmnet";
+
+			stats.add(stat1);
+			stats.add(stat2);
+		}
+		if (!apnnis.contains("cmwap")) {
+			TempStat stat1 = new TempStat();
+			stat1.sgsnid = _sgsnid;
+			stat1.nettype = "1";
+			stat1.ggsnid = _ggsnid;
+			stat1.apnni = "cmwap";
+
+			TempStat stat2 = new TempStat();
+			stat2.sgsnid = _sgsnid;
+			stat2.nettype = "2";
+			stat2.ggsnid = _ggsnid;
+			stat2.apnni = "cmwap";
+
+			stats.add(stat1);
+			stats.add(stat2);
+		}
+		if (!apnnis.contains("other")) {
+			TempStat stat1 = new TempStat();
+			stat1.sgsnid = _sgsnid;
+			stat1.nettype = "1";
+			stat1.ggsnid = _ggsnid;
+			stat1.apnni = "other";
+
+			TempStat stat2 = new TempStat();
+			stat2.sgsnid = _sgsnid;
+			stat2.nettype = "2";
+			stat2.ggsnid = _ggsnid;
+			stat2.apnni = "other";
+
+			stats.add(stat1);
+			stats.add(stat2);
+		}
+		// System.out.println("apnnis:" + apnnis);
 	}
 
 	private int dayusercount2g;
@@ -199,48 +301,11 @@ public class StatSgsn {
 	 */
 	public void stat() throws Exception {
 
-		// try {
-		// 得到所有的sgsn
-		Map<String, TempStat> allmap = getAllSgsns();
-		// 得到每个sgsn的数据
-		getStatDatas(allmap);
+		List<TempStat> stats = getStatDatasCqGgns();
+		getStatDatasNoCqGgns(stats);
 		// 插入统计表
-		insert(allmap);
+		insert(stats);
 
-		// } catch (Exception e) {
-		// LOG.error("统计错误：" + e);
-		// e.printStackTrace();
-		// }
-	}
-
-	private Map<String, TempStat> getAllSgsns() throws Exception {
-		String sql = "select sgsnid from set_sgsn where opttype!=2";
-		ResultSet rs = null;
-		Statement stmt = null;
-		Map<String, TempStat> list = new HashMap<String, TempStat>();
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				TempStat stat = new TempStat();
-				stat.sgsnid = rs.getString("sgsnid");
-				stat.nettype = "2";
-
-				list.put(stat.sgsnid + stat.nettype, stat);
-				stat = new TempStat();
-				stat.sgsnid = rs.getString("sgsnid");
-				stat.nettype = "1";
-				list.put(stat.sgsnid + stat.nettype, stat);
-			}
-			LOG.info("得到所有的SGSN个数:" + list.size());
-			return list;
-
-		} finally {
-			if (rs != null)
-				rs.close();
-			if (stmt != null)
-				stmt.close();
-		}
 	}
 
 	public static void main(String args[]) throws Exception {
