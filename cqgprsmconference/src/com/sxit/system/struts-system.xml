@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+
+
+    <package name="system" extends="default" namespace="/system">
+    <default-interceptor-ref name="adminStack"/>
+       <action name="sysUserList" class="com.sxit.system.action.SysUserListAction">
+			<interceptor-ref name="hibernateSessionStack"/> 
+			<result name="success" type="dispatcher">/system/sysUserList.jsp</result>
+       </action>
+       <action name="sysUserCreate" class="com.sxit.system.action.SysUserCreateAction">
+			<result name="input" type="dispatcher">/system/sysUserCreate.jsp</result>
+       </action>
+       <action name="sysUserEdit" class="com.sxit.system.action.SysUserEditAction">
+			<result name="input" type="dispatcher">/system/sysUserEdit.jsp</result>
+       </action>
+     <!--   <action name="sysUserEditPre" class="com.sxit.system.action.SysUserEditAction" method="input">
+			
+			<result name="input" type="dispatcher">/system/sysUserEdit.jsp</result>
+       </action>
+       --> 
+       <action name="sysUserDelete" class="com.sxit.system.action.SysUserDeleteAction">
+      
+      
+       </action>      	
+       
+             	
+	   <!--共用的success和error页面	 -->
+
+       <action name="sysUserRight" class="com.sxit.system.action.SysUserRightAction">
+			<result name="input" type="dispatcher">/system/sysUserRight.jsp</result>
+       </action>
+
+      
+       <action name="sysUserRightPre" class="com.sxit.system.action.SysUserRightAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/sysUserRight.jsp</result>
+       </action>
+     
+       <action name="sysUserRole" class="com.sxit.system.action.SysUserRoleAction">
+      
+		  <result name="input" type="dispatcher">/system/sysUserRole.jsp</result>
+       </action>
+        <action name="sysUserRolePre" class="com.sxit.system.action.SysUserRoleAction" method="input">
+		 	<interceptor-ref name="hibernateSessionStack"/>
+		  <result name="input" type="dispatcher">/system/sysUserRole.jsp</result>
+       </action>
+     
+       
+       <!--角色管理-->
+        <action name="sysRoleList" class="com.sxit.system.action.SysRoleListAction">
+			<result name="success" type="dispatcher">/system/sysRoleList.jsp</result>
+       </action>
+       
+       <action name="sysRoleCreate" class="com.sxit.system.action.SysRoleCreateAction">
+			<result name="input" type="dispatcher">/system/sysRoleCreate.jsp</result>
+       </action>
+
+       <action name="sysRoleEdit" class="com.sxit.system.action.SysRoleEditAction">
+			<result name="input" type="dispatcher">/system/sysRoleEdit.jsp</result>
+       </action>
+               <action name="sysRoleDelete" class="com.sxit.system.action.SysRoleDeleteAction">
+       </action>
+        <action name="sysRoleRight" class="com.sxit.system.action.SysRoleRightAction">
+       
+			<result name="input" type="dispatcher">/system/sysRoleRight.jsp</result>
+       </action>
+      
+       <action name="sysRoleRightPre" class="com.sxit.system.action.SysRoleRightAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/>
+			<result name="input" type="dispatcher">/system/sysRoleRight.jsp</result>
+       </action>
+       
+     
+        
+       <!--部门管理-->
+        <action name="sysGroupList" class="com.sxit.system.action.SysGroupListAction">
+			<result name="success" type="dispatcher">/system/sysGroupList.jsp</result>
+       </action>
+       <action name="sysGroupCreate" class="com.sxit.system.action.SysGroupCreateAction">
+			<result name="input" type="dispatcher">/system/sysGroupCreate.jsp</result>
+		    <result name="toparent" type="dispatcher">/common/message2parent.jsp</result>
+       </action>
+       
+        <action name="sysGroupCreatePre" class="com.sxit.system.action.SysGroupCreateAction" method="input">
+			<result name="input" type="dispatcher">/system/sysGroupCreate.jsp</result>
+	    </action>
+       
+       <action name="sysGroupEdit" class="com.sxit.system.action.SysGroupEditAction">
+			<result name="input" type="dispatcher">/system/sysGroupEdit.jsp</result>
+       </action>
+       <action name="sysGroupDelete" class="com.sxit.system.action.SysGroupDeleteAction">
+       </action>   
+    <!--     <action name="sysGroupTree" class="com.sxit.system.action.SysGroupTreeAction">
+			<result name="success" type="dispatcher">/system/sysGroupTree.jsp</result>
+       </action>
+           <action name="sysGroupManager" class="com.sxit.system.action.SysGroupManagerAction">
+			<result name="success" type="dispatcher">/system/sysGroupManager.jsp</result>
+       </action> -->
+   
+       
+        <!--参数管理-->
+       <action name="sysParameterList" class="com.sxit.system.action.SysParameterListAction">
+			<result name="success" type="dispatcher">/system/sysParameterList.jsp</result>
+       </action>
+       <action name="sysParameterCreate" class="com.sxit.system.action.SysParameterCreateAction">
+			<result name="input" type="dispatcher">/system/sysParameterCreate.jsp</result>
+       </action>
+       <action name="sysParameterEdit" class="com.sxit.system.action.SysParameterEditAction">
+			<result name="input" type="dispatcher">/system/sysParameterEdit.jsp</result>
+       </action>
+       <action name="sysParameterDelete" class="com.sxit.system.action.SysParameterDeleteAction">
+       </action>  
+       
+       
+   </package>
+   
+   <package name="systemajax" extends="defaultajax" namespace="/systemajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   
+   	   <action name="getRightChild" class="com.sxit.system.action.ajax.GetRightChildAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	 
+   	   <action name="passwordReset" class="com.sxit.system.action.ajax.PasswordResetAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <action name="checkLoginname" class="com.sxit.system.action.ajax.CheckLoginnameAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   	
+   </package>
+</struts>

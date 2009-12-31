@@ -1,0 +1,91 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+body {margin:0;padding:0;font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif ;color:#444;background:#F8F9FB}
+.loginHead {background:url(../images/loginheadbg.jpg) repeat-x left 60px;padding-bottom:10px;}
+.loginHead .inloginHead {background:#EDF6F5;padding-bottom:10px;padding-top:5px;}
+.loginHead .inloginHead h1 {display:inline;padding-left:10px;}
+.loginBox {background-color:#FBFCFF;width:440px;margin:100px auto 0 auto;}
+.loginBox h2 {line-height:28px;background:#fff url(../images/loginhd.gif) no-repeat left top;font-size:14px;font-weight:bold;text-indent:1em;}
+
+.loginArea {border:1px solid #A8BCCD;padding:10px;}
+
+fieldset.form {padding:10px;}
+fieldset.form legend{padding-right:50%;background:url(../images/Allline.png) no-repeat left 9px;}
+fieldset.form legend span{background-color:#fff;padding:0 5px;display:none;}
+fieldset.form .fmTitle {padding:5px;}
+fieldset.form .fmTitle strong {color:#ff0000;}
+		div.fmEven {padding:5px 0;}
+		div.fmOdd {padding:5px 0;}
+		div.fmBtn {padding:5px 0;}
+fieldset.form div label {}
+				  label.fmName {display:inline-block;}
+				  input.fmTxt {background-color:#FFFFFF;border:1px solid #94C1E8;padding:2px;}
+fieldset.form div label.fmName {text-align:right;height:20px;}
+	.checkCode {display:inline-block;margin-left:10px;vertical-align:top;overflow:hidden;color:#85B1C9;}
+
+
+		.t20{width:20px;}
+		.t30{width:30px;}
+		.t40{width:40px;}
+		.t50{width:50px;}
+		.t60{width:60px;}
+		.t70{width:70px;}
+		.t80{width:80px;}
+		.t90{width:90px;}
+		.t100{width:100px;}
+		.t110{width:110px;}
+		.t120{width:120px;}
+		.t130{width:130px;}
+		.t140{width:140px;}
+		.t150{width:150px;}
+		.t160{width:160px;}
+
+.fname {font-weight:bold;}
+.fvalue {background-color:#E3EDF5;}
+.ftxt {border-top:1px solid #7C7C7C;border-left:1px solid #7C7C7C;border-right:1px solid #DDDDDD;border-bottom:1px solid #DDDDDD;padding:1px 2px;}
+
+.btnlogin {background:#F0F0F0 url(../images/topnavbg_.gif) repeat-x left top;border:1px solid #0EA2F3;color:#444;display:inline-block;font-family:"宋体";overflow:hidden;padding:3px 5px 0;}
+.btnlogin:hover {background:#F0F0F0 url(../images/topnavbg_.gif) repeat-x left -24px;border:1px solid #ABC3D7;color:#444;display:inline-block;font-family:"宋体";overflow:hidden;padding:3px 5px 0;}
+
+.w60 {width:60px;}
+.w80 {width:80px;}
+.w100 {width:100px;}
+.w120 {width:120px;}
+.w150 {width:150px;}
+.w200 {width:200px;}
+.w300 {width:300px;}
+.w350 {width:350px;}
+.w400 {width:400px;}
+.w450 {width:450px;}
+
+.copyright {width:700px;margin:20px auto ;text-align:center;padding:10px 0;border-top:1px solid #ddd;}
+
+
+
+.loginbg{height:auto;margin:0; padding:0;background:url(../images/loginbody.gif) top repeat-x;}
+	.login{width:776px;height:551px; margin:0 auto;background:url(../images/loing.jpg) no-repeat;clear:both;}
+	.login_left{width:310px; height:750px;float:left; overflow:hidden;}
+	.login_right{width:270px; margin:200px 80px 50px 0;_margin-right:40px;_margin-bottom:30px;float:right;height:200px;}
+		.login_right .form{float:left;color:#000;}
+		.login_right .form p{margin:15px 0;}
+		.login_right .form p label {width:50px;display: inline-block; text-align:right;color:#005bac;}
+		.login_right .form p select {width: 80px;}
+		.login_right .form .p_button {text-indent:55px;height:40px;width:110px;}
+		.login_right .form .p_login {text-indent:50px;}
+		.login_right .form .p_login span {color: #999; margin-left:7px;}
+		.login_right .form .p_login span a {color: #0dbc26; margin-left:7px;}
+		.login_right .login_info{width:290px;height:60px;padding-top:195px; margin-left:15px;float:left;overflow:hidden; background:#0CF;}
+		.login_xm{line-height:20px;margin:20px auto;background:url(../images/icon.jpg) no-repeat left 3px; text-indent:20px;}
+		.login_xm span {font-size: 14px;font-weight: bold;color: #090;}
+		.Powered{width:776px;height:20px; margin:0 auto; text-align:center;color:#79afd0;}
+.login_left .list {}
+	.login_left .list li { margin:3px 0;line-height:20px;}
+	.login_left .list li a {color:#000;text-decoration:none;}
+	.login_left .list li a:hover {color:#000;text-decoration:underline;}
+
+	.clear {clear:bpth;}
+	.logintxt {background-color:#E8F9FF;border:1px solid #0A8FDA;font-family:Verdana,Arial,Helvetica,sans-serif;font-size:14px;padding:5px 3px;width:122px;}

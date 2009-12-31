@@ -1,0 +1,37 @@
+{
+   "elements": [{
+      "colour": "#red",
+      "font-size": 20,
+      "text": "TD用户浏览",
+      "tip": "#val#  /  #total#<br>占百分之 #percent#\n 角度 = #radius#",
+      "type": "line",
+      "values": [
+         {"value": 5},
+         {"value": 6},
+         {"value": 7},
+         {"value": 8},
+         {"value": 9},
+         {"value": 10},
+         {"value": 11}
+      ]
+   }],
+   "is_decimal_separator_comma": 0,
+   "is_fixed_num_decimals_forced": 0,
+   "is_thousand_separator_disabled": 0,
+   "num_decimals": 2,
+   "title": {
+      "style": "font-size:16px",
+      "text": "企业性质排序2009年企业性质排序2009年"
+   },
+   "x_axis": {
+      "labels": {"labels": [{
+         "colour": "#333312",
+         "size": 12,
+         "text": "x坐标",
+         "visible": true
+      }]},
+      "max": 40,
+      "min": 0,
+      "steps": 5
+   }
+}

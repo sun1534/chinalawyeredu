@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.system.SysRole" table="SYS_ROLE" >
+        <comment>系统角色表</comment>
+        <id name="roleid" type="short">
+            <column name="ROLEID" precision="5" scale="0" />
+      <!-- <generator class="identity" />-->
+          <generator class="sequence">
+            <param name="sequence">jf_sequence</param>
+            </generator>
+        </id>
+        <property name="rolename" type="string">
+            <column name="ROLENAME" length="50" not-null="true">
+                <comment>角色名</comment>
+            </column>
+        </property>
+        
+        <property name="gradeid" type="int">
+            <column name="gradeid" precision="2" scale="0">
+                <comment>角色的级别,grade越小,可分配的角色越多</comment>
+            </column>
+        </property>
+        
+        <property name="comments" type="string">
+            <column name="COMMENTS" length="300">
+                <comment>角色描述</comment>
+            </column>
+        </property>
+        
+     
+        
+        <property name="createuser" type="string">
+            <column name="CREATEUSER" length="20">
+                <comment>创建人员</comment>
+            </column>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="CREATETIME" length="7">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <set name="sysUsers" inverse="true" table="SYS_USER_ROLES">
+            <key>
+                <column name="ROLEID" precision="10" scale="0" not-null="true">
+                    <comment>角色id</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="com.sxit.models.system.SysUser">
+                <column name="USERID" precision="10" scale="0" not-null="true">
+                    <comment>对应sys_user中的主键userid</comment>
+                </column>
+            </many-to-many>
+        </set>
+        <!--希望到时候能将OpenSessionInViewFilter搞定,到时候就取消lazy=false这个-->
+        <set name="sysRights" inverse="false" table="SYS_ROLE_RIGHTS" lazy="true">
+            <key>
+                <column name="ROLEID" precision="10" scale="0" not-null="true">
+                    <comment>对应sys_role中的主键roleid</comment>
+                </column>
+            </key>
+            <many-to-many entity-name="com.sxit.models.system.SysRight">
+                <column name="RIGHTCODE" length="15" not-null="true">
+                    <comment>对应sys_right中的主键right_code;</comment>
+                </column>
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

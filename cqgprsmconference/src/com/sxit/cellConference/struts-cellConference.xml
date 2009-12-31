@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <package name="cellConference" extends="default" namespace="/cellConference">
+       <default-interceptor-ref name="adminStack"/>
+		<!-- 总流量分析 -->
+	   <action name="cellConferenceView" class="com.sxit.cellConference.action.CellConferenceViewAction">
+          <result name="success" type="dispatcher">/cellConference/cellConferenceView.jsp</result>	
+          <result name="excel" type="dispatcher">/cellConference/cellConferenceView_excel.jsp</result>	
+       </action>
+       
+      <action name="cellConferenceToday" class="com.sxit.cellConference.action.CellConferenceAlarmAction">
+          <result name="success" type="dispatcher">/cellConference/cellConferenceAlarm.jsp</result>	
+          <result name="excel" type="dispatcher">/cellConference/cellConferenceAlarm_excel.jsp</result>	
+       </action>
+       
+      <action name="cellConferenceMore" class="com.sxit.cellConference.action.CellConferenceViewAction">
+          <result name="success" type="dispatcher">/cellConference/cellConferenceView.jsp</result>	
+          <result name="excel" type="dispatcher">/cellConference/cellConferenceView_excel.jsp</result>	
+       </action>
+       
+       
+       <action name="conferenceCellList" class="com.sxit.cellConference.action.ConferenceCellListAction">
+          <result name="success" type="dispatcher">/cellConference/conferenceCellList.jsp</result>
+         <result name="excel" type="dispatcher">/cellConference/conferenceCellList_excel.jsp</result>	
+      </action>
+
+       <action name="compareCellByHour" class="com.sxit.cellConference.action.CompareCellByHourAction">
+          <result name="success" type="dispatcher">/cellConference/compareCellByHour.jsp</result>	
+           <result name="excel" type="dispatcher">/cellConference/compareCellByHour_excel.jsp</result>	
+           <result name="ofc" type="ofc"></result>	
+       </action>
+
+
+           
+     <action name="conferenceCellEdit" class="com.sxit.cellConference.action.ajax.ConferenceCellEditAction">
+            <result name="input" type="dispatcher">/cellConference/conferenceCellEdit.jsp</result>	
+       </action>
+    
+    </package>
+	 <package name="cellconferenceajax" extends="defaultajax" namespace="/cellconferenceajax">
+       <default-interceptor-ref name="visitStack"/>
+   	   <action name="conferenceCellSet" class="com.sxit.cellConference.action.ajax.ConferenceCellSetAction">
+          <result name="success" type="json"></result>	
+       </action>
+    <!-- 
+           <action name="conferenceCellEdit" class="com.sxit.cellConference.action.ajax.ConferenceCellEditAction">
+            <result name="input" type="dispatcher">/cellConference/conferenceCellEditajax.jsp</result>	
+            <result name="success" type="json"></result>	
+       </action>
+       -->
+   </package>
+	
+</struts>

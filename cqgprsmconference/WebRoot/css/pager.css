@@ -1,0 +1,59 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+
+.pagelist {padding-top:10px;}
+.pager {text-align:center;}
+.pager a,.pager a:hover {text-decoration:none;color:#666; }
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {display:inline-block;height:18px;line-height:18px;padding:2px 8px;border:1px solid #CCCCCC;background:#F1F1F1}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager a.page-move,.pager a.page-move:hover {color:#666; }
+.pager a:hover {border:1px solid #c3c3c3;color:#FFA583}
+.pager span.page-current {background:#fefefe;color:#000;border:1px solid #d3d3d3}
+.pager .pageNo {margin-left:5px;border:1px solid #d3d3d3;width:16px;padding:4px;height:14px;line-height:14px;overflow:hidden;}
+.pager .page-select {margin-left:5px;border:1px solid #d3d3d3;overflow:hidden;width:50px;}
+.pager .goPage {margin-left:5px;border:1px solid #d3d3d3;width:26px;text-align:center;padding:2px 2px 2px 2px;overflow:hidden;}
+*/
+
+/*
+.pagelist {padding-top:10px;}
+.pager {text-align:center;}
+.pager a,.pager a:hover {text-decoration:none;}
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {display:inline-block;height:18px;line-height:18px;padding:2px 8px;}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager .pageNo {margin-left:5px;width:16px;padding:4px;height:14px;line-height:14px;overflow:hidden;}
+.pager .page-select {margin-left:5px;overflow:hidden;width:50px;display:none;}
+.pager .goPage {margin-left:5px;width:26px;text-align:center;padding:2px 2px 2px 2px;overflow:hidden;}
+
+
+.pager a,.pager a:hover {color:#666; }
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {border:1px solid #CCCCCC;background:#F1F1F1}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager a.page-move,.pager a.page-move:hover {color:#666; }
+.pager a:hover {border:1px solid #c3c3c3;color:#FFA583}
+.pager span.page-current {background:#fefefe;color:#000;border:1px solid #d3d3d3;}
+.pager .pageNo {border:1px solid #d3d3d3;}
+.pager .page-select {border:1px solid #d3d3d3;}
+.pager .goPage {border:1px solid #d3d3d3;background:#F1F1F1;}
+*/
+
+.listpage {background:#167754;border-bottom:1px solid #C2D7EB;}
+.pager {text-align:right;padding:2px 10px;height:20px;}
+.pager a,.pager a:hover {text-decoration:none;}
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {display:inline-block;height:13px;line-height:13px;padding:2px 8px;overflow:hidden;}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager .pageNo {margin-left:5px;width:16px;padding:0px 4px;height:15px;line-height:17px;overflow:hidden;}
+.pager .page-select {margin-left:5px;overflow:hidden;width:50px;display:none;}
+.pager .goPage {margin-left:5px;width:25px;text-align:center;height:17px;border:none;}
+
+.pager a,.pager a:hover {color:#666; }
+.pager span.page-total,.pager span.page-current,.pager span.page-move,.pager a  {border:1px solid #CCCCCC;background:#F1F1F1}
+.pager span.page-total,.pager span.page-move,.pager a.page-move,.pager a.page-move:hover {}
+.pager a.page-move,.pager a.page-move:hover {color:#666; }
+.pager a:hover {border:1px solid #c3c3c3;color:#FFA583}
+.pager span.page-current {background:#fefefe;color:#000;border:1px solid #d3d3d3;}
+.pager .pageNo {border:1px solid #d3d3d3;}
+.pager .page-select {border:1px solid #d3d3d3;}
+.pager .goPage {background:url(../images/pagego.gif) no-repeat left top;}
