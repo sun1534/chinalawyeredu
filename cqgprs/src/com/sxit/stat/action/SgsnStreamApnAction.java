@@ -70,6 +70,8 @@ public class SgsnStreamApnAction extends StatAction {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
+		pageNo=1;
+		pageSize=Integer.MAX_VALUE;
 		
 		if (resultType.equals("list")){
 			this.page = statservice.getDaySgsnStreamGgsnApn(startDate,sgsnid,getOrderby(),pageNo,pageSize);

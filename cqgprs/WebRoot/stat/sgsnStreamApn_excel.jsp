@@ -51,8 +51,12 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <tbody>
       <s:iterator value="sgsnlist" status="stat">
       <tr>
-                          <td class="listline2">${sgsnid}</td>
-                          <td class="listline2">${ggsnid}</td>
+                                  <s:if test="sgsnidtr">
+                          <td class="listline2" rowspan="${sgsnidrowspan}">${sgsnid}</td>
+                          </s:if>
+                            <s:if test="ggsnidtr">
+                          <td class="listline2" rowspan="${ggsnidrowspan}">${ggsnid}</td>
+                          </s:if>
                           <td class="listline2">${apnni}</td>
                           <td class="listline2">${totalStreamStr }</td>
                           <td class="listline2">${totalUser}</td>

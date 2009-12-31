@@ -323,21 +323,49 @@ public class StatService {
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
+		
+				Map<String,Integer> __sgsnid=new HashMap<String,Integer>();
+				Map<String,Integer> __ggsnid=new HashMap<String,Integer>();
 				while (rs.next()) {
 					SgsnStatModel model = new SgsnStatModel();
 					int usercount = rs.getInt("USERCOUNT1");
 					double all = rs.getDouble("ALLVOLUME1");
 					String sgsnid = rs.getString("SGSNID");
+					String ggsnid=rs.getString("ggsnid");
+					String thetemp=sgsnid+ggsnid;
+					if(__sgsnid.containsKey(sgsnid)){
+						model.setSgsnidtr(false);
+						int s=__sgsnid.get(sgsnid);
+						__sgsnid.remove(sgsnid);
+						__sgsnid.put(sgsnid, s+1);
+					}else{
+						__sgsnid.put(sgsnid, 1);
+					}
+					if(__ggsnid.containsKey(thetemp)){
+						model.setGgsnidtr(false);
+						int s=__ggsnid.get(thetemp);
+						__ggsnid.remove(thetemp);
+						__ggsnid.put(thetemp, s+1);
+					}else{
+						__ggsnid.put(thetemp, 1);
+					}
+					
 					model.setTotalStream(all);
 					model.setTotalUser((int) (usercount));
 					model.setDate(_date + "");
 					model.setSgsnid(sgsnid);
 					model.setUpvolume(rs.getDouble("upvolume1"));
 					model.setDownvolume(rs.getDouble("downvolume1"));
-					model.setGgsnid(rs.getString("ggsnid"));
+					model.setGgsnid(ggsnid);
 					model.setApnni(rs.getString("apnni"));
 					list.add(model);
 				}
+				for(int i=0;i<list.size();i++){
+					SgsnStatModel model = (SgsnStatModel)list.get(i);
+					model.setSgsnidrowspan(__sgsnid.get(model.getSgsnid()));
+					model.setGgsnidrowspan(__ggsnid.get(model.getSgsnid()+model.getGgsnid()));
+				}
+				
 				return list;
 			}
 		});

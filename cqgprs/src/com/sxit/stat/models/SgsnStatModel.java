@@ -16,6 +16,12 @@ import com.sxit.system.util.NumberUtil;
  */
 public class SgsnStatModel extends StatModel  {
 
+	
+	private boolean sgsnidtr=true;
+	private boolean ggsnidtr=true;
+	private int sgsnidrowspan=1;
+	private int ggsnidrowspan=1;
+	
 	private String sgsnid;
 	/**
 	 * 覆盖范围
@@ -133,6 +139,54 @@ public class SgsnStatModel extends StatModel  {
 	 */
 	public void setNettype(String nettype) {
 		this.nettype = nettype;
+	}
+	/**
+	 * @return the sgsnidtr
+	 */
+	public boolean isSgsnidtr() {
+		return sgsnidtr;
+	}
+	/**
+	 * @param sgsnidtr the sgsnidtr to set
+	 */
+	public void setSgsnidtr(boolean sgsnidtr) {
+		this.sgsnidtr = sgsnidtr;
+	}
+	/**
+	 * @return the ggsnidtr
+	 */
+	public boolean isGgsnidtr() {
+		return ggsnidtr;
+	}
+	/**
+	 * @param ggsnidtr the ggsnidtr to set
+	 */
+	public void setGgsnidtr(boolean ggsnidtr) {
+		this.ggsnidtr = ggsnidtr;
+	}
+	/**
+	 * @return the sgsnidrowspan
+	 */
+	public int getSgsnidrowspan() {
+		return sgsnidrowspan;
+	}
+	/**
+	 * @param sgsnidrowspan the sgsnidrowspan to set
+	 */
+	public void setSgsnidrowspan(int sgsnidrowspan) {
+		this.sgsnidrowspan = sgsnidrowspan;
+	}
+	/**
+	 * @return the ggsnidrowspan
+	 */
+	public int getGgsnidrowspan() {
+		return ggsnidrowspan;
+	}
+	/**
+	 * @param ggsnidrowspan the ggsnidrowspan to set
+	 */
+	public void setGgsnidrowspan(int ggsnidrowspan) {
+		this.ggsnidrowspan = ggsnidrowspan;
 	}
 	
 

@@ -15,10 +15,14 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script>
  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
-  $(document).ready(function(){
- $("#tableOrder").tablesorter();
- });
+ var orderArray=["cellid","bscid","allvolume","usercount"];
+ var field="${orderfield}";
+var ascdesc="${ascdesc}";
+ // $(document).ready(function(){
+ //$("#tableOrder").tablesorter();
+ //});
  
  
 function fanye(str){
@@ -113,7 +117,7 @@ function confirmit(){
                         <tr>
                        
                           <th>SGSN号</th>
-                        <!--   <th>覆盖范围</th>-->
+              
                           <th>GGSNID</th>
                           <th>APNNI</th>
                           <th>总流量（M）</th>
@@ -126,12 +130,12 @@ function confirmit(){
                       <tbody id="checkForm">
                         <s:iterator value="sgsnlist" status="stat">
                         <tr>
-                        <!--   <s:if test="#stat.odd">
-                          <td rowspan="2">${sgsnid}</td>
-                          <td rowspan="2">${sgsnArea}</td>
-                          </s:if>-->
-                          <td>${sgsnid}</td>
-                          <td>${ggsnid}</td>
+                     <s:if test="sgsnidtr">
+                          <td rowspan="${sgsnidrowspan}">${sgsnid}</td>
+                          </s:if>
+                            <s:if test="ggsnidtr">
+                          <td rowspan="${ggsnidrowspan}">${ggsnid}</td>
+                          </s:if>
                           <td>${apnni}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>
@@ -151,11 +155,12 @@ function confirmit(){
                     </table>
 			  </div>
                 
-				<div  class="tabpagelist">
+			<!-- 	<div  class="tabpagelist">
 						<div class="pager">
 							${page.pageView}
 						</div>
 					</div>	
+					--> 
 				</div>
 			
 			</div>

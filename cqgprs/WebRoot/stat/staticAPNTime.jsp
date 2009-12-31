@@ -15,10 +15,14 @@
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript" src="../js/swfobject.js"></script> 
  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
+ <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
-  $(document).ready(function(){
- $("#tableOrder").tablesorter();
- });
+  var orderArray=["cellid","bscid","allvolume","usercount"];
+  var field="${orderfield}";
+  var ascdesc="${ascdesc}";
+//  $(document).ready(function(){
+// $("#tableOrder").tablesorter();
+// });
  
 function fanye(str){
   document.form1.pageNo.value=str;
