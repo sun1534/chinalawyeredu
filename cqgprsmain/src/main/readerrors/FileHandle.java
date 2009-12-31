@@ -68,9 +68,15 @@ public class FileHandle {
 		List<File> shoulds = new ArrayList<File>();
 		if (!todayDestDir.exists()) {
 			boolean b = todayDestDir.mkdirs();
-			while (!b) {
+			int k=0;
+			while (!b&&(k++)<10) {
 				b = todayDestDir.mkdirs();
-				LOG.info("创建存储目录失败,重新来过!");
+				LOG.info("创建存储目录失败,重新来过!"+k);
+			}
+			if(!b){
+//				LOG.warn("创建存储目录失败,退出系统");
+//				System.exit(0);
+				throw new RuntimeException("创建存储目录失败,退出系统");
 			}
 			LOG.info("创建存储目录成功:" + todayDestDirName);
 		}

@@ -193,9 +193,10 @@ public class StatSgsn {
 			stat.ggsnid = ggsnid;
 			stat.apnni = apnni;
 			stats.add(stat);
-
+			
 		}
 		// 这里要判断最后一个是否有cmnet或者cmwap或者other
+		if(temp!=null)
 		this.getReminAppni(stats, apnnis, temp);
 		LOG.info("得到SGSN的统计数据完毕::" + stats.size());
 		rs.close();

@@ -4,8 +4,6 @@
 package main.stat;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -39,8 +37,8 @@ public class DeleteDatas {
 
 		daystattime = df.format(daysagodate);
 		long daystart = main.util.MainStatUtil.getDateTime(daysagodate);
-		long dayend = main.util.MainStatUtil.getOneDayAfter(daystart);
-		hourstattime = "" + (dayend / 1000);
+//		long dayend = main.util.MainStatUtil.getOneDayAfter(daystart);
+		hourstattime = "" + (daystart / 1000);
 		hourstattimelhf = daystattime + "23";
 		LOG.info("删除的数据,日统计" + daystattime + ",小时统计" + hourstattime);
 
@@ -69,7 +67,8 @@ public class DeleteDatas {
 		DAYTABLELIST.put("STAT_IMSI_APN_ERROR", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_IMSI_ERRCODE_ERROR", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_NSVC", " where stattime<=" + hourstattime);
-//		DAYTABLELIST.put("STAT_SGSN", " where dayflag=1 and stattime<=" + daystattime);
+		// DAYTABLELIST.put("STAT_SGSN", " where dayflag=1 and stattime<=" +
+		// daystattime);
 		DAYTABLELIST.put("ZERO_APN", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("ZERO_CELLID", " where dayflag=1 and stattime<=" + daystattime);
 
@@ -77,13 +76,13 @@ public class DeleteDatas {
 		DAYTABLELIST.put("STAT_CELLID_APN_DAY", " where dayflag=1 and stattime<=" + daystattime);
 
 		DAYTABLELIST.put("CDR_MISTAKE_NO33", " where opentime<=" + hourstattime); // 额外的方式
-		
-		
+
 		DAYTABLELIST.put("MSISDN_APN", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_BSC", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_CELLID", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_CELLID_APN", " where stattime<=" + hourstattime); // 额外的方式
-//		DAYTABLELIST.put("MSISDN_DAYALL", " where stattime<=" + hourstattime); // 额外的方式
+		// DAYTABLELIST.put("MSISDN_DAYALL", " where stattime<=" +
+		// hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_SGSN", " where stattime<=" + hourstattime); // 额外的方式
 		// DAYTABLELIST.put("CDR_MISTAKE", " where opentime<=" + hourstattime);
 	}
@@ -111,8 +110,10 @@ public class DeleteDatas {
 			String table = iteratorday.next();
 			String where = DAYTABLELIST.get(table);
 			String sql = "delete from " + table + where;
+			long now = System.currentTimeMillis();
+			LOG.info(sql );
 			main.util.MainStatUtil.executeSql(con, sql);
-
+			LOG.info(sql + "=>" + (System.currentTimeMillis() - now));
 		}
 
 		Iterator<String> iteratorhour = HOURTABLELIST.keySet().iterator();
@@ -120,29 +121,32 @@ public class DeleteDatas {
 			String table = iteratorhour.next();
 			String where = HOURTABLELIST.get(table);
 			String sql = "delete from " + table + where;
+			long now = System.currentTimeMillis();
+			LOG.info(sql );
 			main.util.MainStatUtil.executeSql(con, sql);
-
+			LOG.info(sql + "=>" + (System.currentTimeMillis() - now));
 		}
-		LOG.info("数据删除完毕" );
+		LOG.info("数据删除完毕");
 
-//		try {
-//			int opentime = 0;
-//			String sql = "select min(opentime) as opentime from cdr_mistake";
-//			Statement stmt = con.createStatement();
-//	int deletetime= 1258820078;
-////			int deletetime = Integer.parseInt(hourstattime);
-//			while (opentime <= deletetime) {
-//				ResultSet rs = stmt.executeQuery(sql);
-//				rs.next();
-//				opentime = rs.getInt("opentime");
-//				rs.close();
-//				main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		
+		// try {
+		// int opentime = 0;
+		// String sql = "select min(opentime) as opentime from cdr_mistake";
+		// Statement stmt = con.createStatement();
+		// int deletetime= 1258820078;
+		// // int deletetime = Integer.parseInt(hourstattime);
+		// while (opentime <= deletetime) {
+		// ResultSet rs = stmt.executeQuery(sql);
+		// rs.next();
+		// opentime = rs.getInt("opentime");
+		// rs.close();
+		// main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where
+		// opentime<=" + (opentime + 3600));
+		//
+		// }
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+
 	}
 
 	private static SelfLog LOG = SelfLog.getInstance();
