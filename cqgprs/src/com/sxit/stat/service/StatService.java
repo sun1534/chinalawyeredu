@@ -285,6 +285,71 @@ public class StatService {
 		});
 		return (List) object;
 	}
+	/**
+	 * 
+	 * @param date
+	 * @param sgsnid
+	 * @param ggsnid
+	 * @param orderby
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public PaginationSupport getOtherGgsnStats(Date date, String sgsnid, String ggsnid,String orderby, int pageNo, int pageSize) {
+
+		String where = "";
+		if (!(sgsnid == null || sgsnid.equals("")))
+			where = " and sgsnid='" + sgsnid + "'";
+		if (!(ggsnid == null || ggsnid.equals("")))
+			where = " and ggsnid='" + ggsnid + "'";
+		final String _date = dfyyyyMMdd.format(date);
+		int startIndex = (pageNo - 1) * pageSize;
+		String sql = "select * from(select a.*,rownum rn from(select * from  STAT_SGSN where ggsnid not like 'GGSN%' "
+				+ where
+				+ " and dayflag=1 and STATTIME="
+				+ _date
+				+ orderby
+				+ ") a "
+				+ " where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+
+		System.out.println(sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+		
+				while (rs.next()) {
+					SgsnStatModel model = new SgsnStatModel();
+					int usercount = rs.getInt("USERCOUNT");
+					double all = rs.getDouble("ALLVOLUME");
+					String sgsnid = rs.getString("SGSNID");
+					String ggsnid=rs.getString("ggsnid");
+					model.setTotalStream(all);
+					model.setTotalUser((int) (usercount));
+					model.setDate(_date + "");
+					model.setSgsnid(sgsnid);
+					model.setUpvolume(rs.getDouble("upvolume"));
+					model.setDownvolume(rs.getDouble("downvolume"));
+					model.setGgsnid(ggsnid);
+					model.setApnni(rs.getString("apnni"));
+					model.setNettype(rs.getString("nettype"));
+					list.add(model);
+				}
+				
+				return list;
+			}
+		});
+		List list = (List) object;
+		int totalCount = 0;
+		if (pageSize == Integer.MAX_VALUE) {
+			totalCount = list.size();
+		} else {
+			String cntsql = "select count(*) from stat_sgsn where ggsnid not like 'GGSN%' " + where
+					+ " and dayflag=1 and stattime=" + _date ;
+			totalCount = jdbcTemplate.queryForInt(cntsql);
+		}
+		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+		return ps;
+	}
 
 	/**
 	 * 
@@ -295,16 +360,6 @@ public class StatService {
 	 */
 	public PaginationSupport getDaySgsnStreamGgsnApn(Date date, String sgsnid, String orderby, int pageNo, int pageSize) {
 
-		// String sql = "select * from(select a.*,rownum rn from(select
-		// CELLID,lac,BSCID,NETTYPE,STATTIME,USERCOUNT,ALLVOLUME from
-		// STAT_CELLID_DAY where dayflag=1 "
-		// + where
-		// + " and STATTIME=? "
-		// + orderby
-		// + ") a where rownum<="
-		// + (startIndex + pageSize)
-		// + ") where rn>"
-		// + startIndex;
 		String where = "";
 		if (!(sgsnid == null || sgsnid.equals("")))
 			where = " and sgsnid='" + sgsnid + "'";

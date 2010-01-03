@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-SGSN-APN流量分析</title>
+ <title>${sysName}-其他GGSN流量统计列表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -17,13 +17,9 @@
  <script type="text/javascript" src="../js/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="../js/orderby.js"></script>
  <script type="text/javascript">
- var orderArray=["cellid","bscid","allvolume","usercount"];
+ var orderArray=["sgsnid","ggsnid","allvolume","usercount"];
  var field="${orderfield}";
- var ascdesc="${ascdesc}";
- // $(document).ready(function(){
- //$("#tableOrder").tablesorter();
- //});
- 
+var ascdesc="${ascdesc}";
  
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -74,11 +70,11 @@ function confirmit(){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>SGSN-GGSN-CMNET/CMWAP流量分析</em>
+						<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>其他GGSN流量统计列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="sgsnStreamApn" method="POST">	
+			<s:form name="form1" action="otherGgsnStat" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -88,17 +84,14 @@ function confirmit(){
 							<tbody>
 								<tr>
                                  <s:hidden name="pageNo"/>
-                                  <s:hidden name="resultType"/>
+                                   <s:hidden name="orderfield" id="orderfieldid"/>
+								      <s:hidden name="ascdesc" id="ascdescid"/>
+                                      <s:hidden name="resultType"/>
 								 <td>选择日期：<jscalendar:jscalendar name="start" id="start" cssClass="txt"/>&nbsp;</td>
 								 <td id="sgsidopt">SGSN编号：<s:select name="sgsnid" id="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" listKey="key" listValue="key" headerKey="" headerValue="全部" onchange="document.form1.submit()"/>
+								 <td id="sgsidopt">GGSN编号：<s:textfield name="ggsnid" id="ggsnid" size="15" cssClass="txt"/>
 								 <td><input type="button" class="btnSubmit" title="查　询" value="查　询" onclick="queryit()"/></td>
-								 <td><input type="button" class="btnSubmit" title="图  形" value="图  形"  onclick="imageit()"/></td>
-							 <td id="imageopton">
-								   <s:select name="flashType" id="flashType" list="#{'line':'曲线图','bar':'柱状图'}" label="图形类型"></s:select>
-								   <s:select name="flashby" id="flashby" list="#{'total':'总流量','user':'总用户数','average':'平均流量'}" label="维度"></s:select>
-								   <s:select name="apnni" id="apnni" list="#{'cmwap':'CMWAP','cmwap':'CMNET','other':'其他'}" label="apnni"></s:select>
-								   <input type="button" class="btnSubmit" value="确 认"  onclick="confirmit()" id="flashconfirm"/>
-								 </td>
+						
 								</tr>
 							</tbody>
 						</table>
@@ -108,34 +101,30 @@ function confirmit(){
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
 					    <input type="button" class="btnCancel" title="返 回" value="删　除"/>
 					</div>-->
-				  <div  class="tablist" style="text-align:center" id="imgreport">
-                    <div id="barchart"></div>
-                    </div>
+	
 				  <div class="tablist" id="querylist">
 			        <table class="tableBox" id="tableOrder">
                       <thead>
                         <tr>
                        
-                          <th>SGSN号</th>
-              
-                          <th>GGSNID</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="sgsnid" title="点击排序">SGSN号</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="ggsnid" title="点击排序">GGSNID</a></th>
+                          <th>网络类型</th>
                           <th>APNNI</th>
-                          <th>总流量（M）</th>
-                          <th>总用户数</th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="allvolume" title="点击排序">总流量（M）</a></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">总用户数</a></th>
                           <th>平均流量（K）</th>
                         
                         
                         </tr>
                       </thead>
                       <tbody id="checkForm">
-                        <s:iterator value="sgsnlist" status="stat">
+                        <s:iterator value="page.items" status="stat">
                         <tr>
-                     <s:if test="sgsnidtr">
-                          <td rowspan="${sgsnidrowspan}">${sgsnid}</td>
-                          </s:if>
-                            <s:if test="ggsnidtr">
-                          <td rowspan="${ggsnidrowspan}">${ggsnid}</td>
-                          </s:if>
+                
+                          <td >${sgsnid}</td>
+                          <td>${ggsnid}</td>
+                          <td>${nettype}</td>
                           <td>${apnni}</td>
                           <td>${totalStreamStr }</td>
                           <td>${totalUser}</td>

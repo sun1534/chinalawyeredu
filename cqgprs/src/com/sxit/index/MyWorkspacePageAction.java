@@ -37,14 +37,15 @@ public class MyWorkspacePageAction extends AbstractAction {
 
 		BasicSetService service = (BasicSetService) this.getBean("basicSetService");
 
-		Date end = super.getPrevDate();
-		Date start = super.getPrevCountDate(3);
-		String today = dfdate.format(new java.util.Date());
+//		Date end = super.getPrevDate();
+//		Date start = super.getPrevCountDate(3);
+//		String today = dfdate.format(new java.util.Date());
 
 		this.newaddapn = service.getTodayAddApn();
 		this.newaddbsc = service.getTodayAddBsc();
 		this.newaddcell = service.getTodayAddCell();
 		this.totalapn = service.getTotalApns();
+		this.totalcqapn=service.getTotalCqApns();
 		this.totalbsc = service.getTotalBscs();
 		this.totalcell = service.getTotalCells();
 		this.totallink = service.getTotalLinks();
@@ -98,7 +99,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 	public List getTotal23glist() {
 		return total23glist;
 	}
-
+private int totalcqapn;
 	private int newaddcell;
 	private int totalcell;
 	private int newaddapn;
@@ -187,6 +188,14 @@ public class MyWorkspacePageAction extends AbstractAction {
 	 */
 	public int getTotallink() {
 		return totallink;
+	}
+
+
+	/**
+	 * @return the totalcqapn
+	 */
+	public int getTotalcqapn() {
+		return totalcqapn;
 	}
 
 }

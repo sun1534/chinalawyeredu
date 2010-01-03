@@ -97,7 +97,10 @@ public class BasicSetService {
 		String sql = "select count(*) from set_apn where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
-
+	public int getTotalCqApns() {
+		String sql = "select count(*) from set_apn where apnni like '%.cq' and opttype!=2";
+		return jdbcTemplate.queryForInt(sql);
+	}
 	/**
 	 * 得到前1天新增的bsc个数
 	 * 

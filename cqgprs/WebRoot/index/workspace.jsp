@@ -42,7 +42,7 @@ swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0",
 							<ul>
 								<li><a href="../netquality/bscList.action">新增<b>${newaddbsc }</b>个BSC，共<b>${totalbsc }</b>个BSC</a>，<a href="#">有<b>${exceptionbsc }</b>个BSC有异常</a></li>
 								<li><a href="../netquality/cellList.action">新增<b>${newaddcell }</b>个小区，共<b>${totalcell }</b>个小区</a>，<a href="../netquality/zeroStreamCell.action">有<b>${exceptioncell }</b>个小区有异常</a></li>
-								<li><a href="../netquality/apnList.action">新增<b>${newaddapn }</b>个APN，共<b>${totalapn }</b>个行业APN</a>，<a href="../netquality/zeroStreamAPN.action">有<b>${exceptionapn }</b>个行业APN异常</a></li>
+								<li><a href="../netquality/apnList.action">新增<b>${newaddapn }</b>个APN，共<b>${totalapn }</b>个APN，其中共<b>${totalcqapn }</b>个重庆行业APN</a>，<a href="../netquality/zeroStreamAPN.action">有<b>${exceptionapn }</b>个重庆行业APN异常</a></li>
 							 	<li><a href="../netquality/nsvcList.action">新增<b>${newlink }</b>个GB链路，共<b>${totallink}</b>个GB链路</a><!-- ，有<b>82</b>个链路流量告警，有<b>15</b>个链路需要关注</a> --></li>
 							
 							</ul>
