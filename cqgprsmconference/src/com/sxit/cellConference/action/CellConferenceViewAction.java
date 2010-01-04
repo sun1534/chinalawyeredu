@@ -17,6 +17,10 @@ import com.sxit.netquality.service.BasicSetService;
 public class CellConferenceViewAction extends AbstractListAction {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
+	
+	private String lac;
+	private String cellid;
+	
 	private String date;
 private String predate;
 private String oldpredate;
@@ -80,8 +84,9 @@ public void setToday(String today) {
 		
 		CellConferenceService service = (CellConferenceService) this.getBean("cellConferenceService");
 		service.getAllConferenceCell(false);
-
-		this.page = service.getDayConferenceList(date, pageNo, pageSize,false,getOrderby());
+		service.updatePreDayData(date);
+		
+		this.page = service.getDayConferenceList(date,cellid,lac, pageNo, pageSize,false,getOrderby());
 
 		if (resultType.equals("list"))
 			return SUCCESS;
@@ -100,5 +105,33 @@ public void setToday(String today) {
 	 */
 	public String getOldpredate() {
 		return oldpredate;
+	}
+
+	/**
+	 * @return the lac
+	 */
+	public String getLac() {
+		return lac;
+	}
+
+	/**
+	 * @param lac the lac to set
+	 */
+	public void setLac(String lac) {
+		this.lac = lac;
+	}
+
+	/**
+	 * @return the cellid
+	 */
+	public String getCellid() {
+		return cellid;
+	}
+
+	/**
+	 * @param cellid the cellid to set
+	 */
+	public void setCellid(String cellid) {
+		this.cellid = cellid;
 	}
 }

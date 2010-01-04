@@ -1,7 +1,6 @@
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.text.DecimalFormat;
-import java.util.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import jofc2.model.Chart;
 import jofc2.model.Text;
@@ -20,13 +19,42 @@ import jofc2.model.elements.PieChart;
  * 
  */
 public class Test {
-	private void testcon() throws Exception {
+	private static void testcon() throws Exception {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = java.sql.DriverManager.getConnection("jdbc:oracle:thin:@218.201.8.150:1521:ora92", "jf_gprs",
 				"jf_gprs");
+		
+		String sql="select cellid,lac,allvolume,usercount,stattime from alarm_cellid where stattime between 1262102400 and 1262188800";
+		Statement stmt=con.createStatement();
+		ResultSet rs=stmt.executeQuery(sql);
+		while(rs.next()){
+			String cellid=rs.getString("cellid");
+			String lac=rs.getString("lac");
+			String allvolume=rs.getString("allvolume");
+			String usercount=rs.getString("usercount");
+			int stattime=rs.getInt("stattime");
+			String amusersql="";
+			System.out.println("update alarm_cellid set predayallvolume="+usercount+" where predayallvolume=0 and lac='"+lac+"' and cellid='"+cellid+"' and stattime between 1262188800 and 1262275200;");
+		}
+		rs.close();
+		stmt.close();
+		con.close();
+		con=null;
+		
 		System.out.println(con);
 	}
 
+	
+	/**
+	 * today的形式为2009-12-12的形式
+	 * @param today
+	 */
+	private static void updatePreDayData(String today){
+		
+		
+	}
+	
+	
 	private static void piechart() {
 		PieChart c2 = new PieChart(); // 饼图
 
@@ -124,7 +152,8 @@ public class Test {
 	 */
 	public static void main(String[] args) throws Exception {
 	
-		System.out.println((5-3)/3);
+//		System.out.println((5-3)/3);
+		testcon();
 		
 //		piechart();
 //		linechart();

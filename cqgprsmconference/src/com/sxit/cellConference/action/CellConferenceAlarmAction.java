@@ -76,7 +76,10 @@ public void setToday(String today) {
 		CellConferenceService service = (CellConferenceService) this.getBean("cellConferenceService");
 		service.getAllConferenceCell(false);
 
-		this.page = service.getDayConferenceList(date, pageNo, pageSize,true,getOrderby());
+		
+		service.updatePreDayData(date);
+		
+		this.page = service.getDayConferenceList(date,null,null, pageNo, pageSize,true,getOrderby());
 
 		if (resultType.equals("list"))
 			return SUCCESS;

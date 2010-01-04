@@ -130,26 +130,43 @@ public class CompareCellByHourAction extends StatAction {
 		String cellid = cellkey.substring(idx + 1);
 		ConferenceCell cell = service.getConferenceCell(lac, cellid);
 
-		Date _date = new java.util.Date();
-		_date.setTime(stattime * 1000);
+		
 
 		if (cell == null) {
-			String _hour = dfyyyyMmddHHmmss.format(_date);
-			this.hour = _hour;
+//			String _hour = dfyyyyMmddHHmmss.format(_date);
+//			this.hour = _hour;
+			this.message="对不起,您的这个小区不在监控列表范围内,请返回";
+			this.nextPage="javascript:history.go(-1)";
+			return "message";
 		} else {
+			Date _date = new java.util.Date();
+			_date.setTime(stattime * 1000);
 			String _hour = dfhh.format(_date);
 			int __hour = Integer.parseInt(_hour);
-			if (__hour < 150000) {
-				if ((cell.getTimeview1() + 200) / 100 < 10)
-					this.hour = "0" + (cell.getTimeview1()) / 100 + ":" + (cell.getTimeview1()) % 100 + ":00";
-				else
-					this.hour = (cell.getTimeview1() )/ 100 + ":" + (cell.getTimeview1()) % 100 + ":00";
+			int timeview=0;
+			int minuteview=0;
+			if (__hour < 150000) {//拿上午的时间
+				
+				 timeview=cell.getTimeview1()/100;
+				 minuteview=cell.getTimeview1()%100;
+				
+//				if ((cell.getTimeview1() + 200) / 100 < 10)
+//					this.hour = "0" + (cell.getTimeview1()) / 100 + ":" + (cell.getTimeview1()) % 100 + ":00";
+//				else
+//					this.hour = (cell.getTimeview1() )/ 100 + ":" + (cell.getTimeview1()) % 100 + ":00";
 			} else {
-				if ((cell.getTimeview2() + 200) / 100 < 10)
-					this.hour = "0" +( cell.getTimeview2()) / 100 + ":" + (cell.getTimeview2()) % 100 + ":00";
-				else
-					this.hour = (cell.getTimeview2()) / 100 + ":" + (cell.getTimeview2()) % 100 + ":00";
+				 timeview=cell.getTimeview2()/100;
+				 minuteview=cell.getTimeview2()%100;
+				
+//				timeviewstr=timeview<10?"0"+timeview:""+timeview;
+//				minviewstr=minuteview<10?"0"+minuteview:""+minuteview;
+//				if ((cell.getTimeview2() + 200) / 100 < 10)
+//					this.hour = "0" +( cell.getTimeview2()) / 100 + ":" + (cell.getTimeview2()) % 100 + ":00";
+//				else
+//					this.hour = (cell.getTimeview2()) / 100 + ":" + (cell.getTimeview2()) % 100 + ":00";
 			}
+			this.hour=(timeview<10?"0"+timeview:""+timeview)+":"+(minuteview<10?"0"+minuteview:""+minuteview)+":00";
+			
 		}
 		System.out.println("hour::::::::" + hour);
 		comparelist = service.getConitnueTimeStatCells(cellid, lac, date, hour, days);

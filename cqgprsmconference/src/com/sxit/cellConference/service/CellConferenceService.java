@@ -5,6 +5,7 @@ package com.sxit.cellConference.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +33,9 @@ import com.sxit.stat.util.StatUtil;
  */
 public class CellConferenceService {
 
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static final DateFormat dff = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat dfhhmmss = new java.text.SimpleDateFormat("HHmmss");
 	private JdbcTemplate jdbcTemplate;
 	public static Map<String, String> AMTIMELIST;
 	public static Map<String, String> PMTIMELIST;
@@ -70,7 +74,8 @@ public class CellConferenceService {
 	 * 
 	 * @return
 	 */
-	public PaginationSupport getDayConferenceList(String date, int pageNo, int pageSize, boolean isalarm, String orderby) {
+	public PaginationSupport getDayConferenceList(String date, String cellid, String lac, int pageNo, int pageSize,
+			boolean isalarm, String orderby) {
 
 		long start = 0;
 		long end = 0;
@@ -84,6 +89,14 @@ public class CellConferenceService {
 		String where = "";
 		if (isalarm)
 			where = " and alarmflag=1";
+
+		if (!(lac == null || lac.equals(""))) {
+			where += " and lac="+lac;
+		}
+		if (!(cellid == null || cellid.equals(""))) {
+			where += " and cellid="+cellid;
+		}
+
 		String countsql = "select count(*) from alarm_cellid where (stattime between " + start / 1000 + " and " + end
 				/ 1000 + ") " + where;
 		String sql = "";
@@ -313,6 +326,73 @@ public class CellConferenceService {
 
 	}
 
+	private static long times=0;
+	/**
+	 * today的形式为2009-12-12的形式
+	 * 
+	 * @param today
+	 */
+	public void updatePreDayData(final String today) {
+//		if(true)
+//return;
+		if(System.currentTimeMillis()-times<60*60*1000){
+			return;
+		}
+			long now=System.currentTimeMillis();
+		times=System.currentTimeMillis();
+		Date date = com.sxit.stat.util.StatUtil.getDate(today);
+		Date predate = com.sxit.stat.util.StatUtil.getPrevCountDate(date, 1);
+		final long prestart =com.sxit.stat.util.StatUtil.getDateTime(predate);
+		final long preend = com.sxit.stat.util.StatUtil.getDateTime(date);
+		final long nowend =preend + 24 * 60 * 60 * 1000;
+		final long fenjiexian = (preend + nowend) / 2 + 3 * 60 * 60 * 1000;
+		final long yefenjiexian = (prestart + preend) / 2 + 3 * 60 * 60 * 1000;
+		System.out.println("fenjiexian:::::::::::"+fenjiexian);
+		String sql = "select cellid,lac,allvolume,usercount,stattime from alarm_cellid where stattime between "
+				+ prestart / 1000 + " and " + preend / 1000;
+		final List<String> sqls = new ArrayList<String>();
+System.out.println(sql);
+		jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+
+				while (rs.next()) {
+					String cellid = rs.getString("cellid");
+					String lac = rs.getString("lac");
+					String allvolume = rs.getString("allvolume");
+					String usercount = rs.getString("usercount");
+					long stattime = rs.getLong("stattime");
+					if (stattime > prestart / 1000 && stattime < yefenjiexian / 1000) {
+						String sql="update alarm_cellid set predayallvolume=" + allvolume
+						+ ",predayusercount="+usercount+" where lac='" + lac + "' and cellid='" + cellid
+						+ "' and stattime between " + preend / 1000 + " and " + fenjiexian / 1000;
+						
+						System.out.println("上午:"+sql+";");
+						
+						sqls.add(sql);
+					} else {
+						String sql="update alarm_cellid set predayallvolume=" + allvolume
+								+ ",predayusercount="+usercount+" where lac='" + lac + "' and cellid='" + cellid
+								+ "' and stattime between " + fenjiexian / 1000 + " and " + nowend / 1000;
+						
+						System.out.println("下午:"+sql+";");
+						
+						sqls.add(sql);
+					}
+				}
+				return null;
+			}
+		});
+
+//		System.out.println(sqls);
+		String[] sqlsarr = new String[sqls.size()];
+		sqls.toArray(sqlsarr);
+		if(sqlsarr.length>0)
+		jdbcTemplate.batchUpdate(sqlsarr);
+
+	
+		System.out.println("花费时间:"+(System.currentTimeMillis()-now));
+	}
+
 	/**
 	 * 更新
 	 * 
@@ -335,10 +415,6 @@ public class CellConferenceService {
 
 	}
 
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static final DateFormat dff = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat dfhhmmss = new java.text.SimpleDateFormat("HHmmss");
-
 	/**
 	 * 得到连续几天这个hour的统计数据情况，这个date可以是当天时间
 	 * 
@@ -349,8 +425,8 @@ public class CellConferenceService {
 	public List getConitnueTimeStatCells(String cellid, String lac, final String date, String hour, int days) {
 		long datetime = StatUtil.getDateHourTime(date + " 23:59:59") / 1000;
 		final Map<String, CellStatModel> list = new HashMap<String, CellStatModel>();
-		//得到前面7天的时间
-		Date thedate =com.sxit.stat.util.StatUtil.getDate(date) ;
+		// 得到前面7天的时间
+		Date thedate = com.sxit.stat.util.StatUtil.getDate(date);
 		for (int i = days - 1; i >= 0; i--) {
 			Date predate = com.sxit.stat.util.StatUtil.getPrevCountDate(thedate, i);
 			CellStatModel model = new CellStatModel();
@@ -358,9 +434,9 @@ public class CellConferenceService {
 			model.setDate(_date);
 			list.put(_date, model);
 		}
-		System.out.println("hour::::"+hour);
-	
-		//得到这个cellid,lac的统计时间,这个是根据那个stattime来的
+		System.out.println("hour::::" + hour);
+
+		// 得到这个cellid,lac的统计时间,这个是根据那个stattime来的
 		final int _hour = Integer.parseInt(hour.replace(":", "")) + 20000;
 
 		String sql = "select * from(select cellid,lac,allvolume,usercount,predayusercount,pretimeusercount,predayallvolume,pretimeallvolume,stattime from alarm_cellid where cellid="
@@ -369,9 +445,10 @@ public class CellConferenceService {
 				+ lac
 				+ " and stattime<="
 				+ datetime
-				+ " order by stattime desc) where rownum<"+(days+1)*2;
+				+ " order by stattime desc) where rownum<"
+				+ (days + 1) * 2;
 		System.out.println(sql);
-	jdbcTemplate.query(sql, new ResultSetExtractor() {
+		jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				while (rs.next()) {
 					long stattime = rs.getLong("stattime");
@@ -379,8 +456,8 @@ public class CellConferenceService {
 					String _date = dff.format(timestamp);
 					if (list.containsKey(_date)) {
 						int time = Integer.parseInt(dfhhmmss.format(timestamp));
-//						System.out.println(_date+",,,time:"+time+",,,_hour:"+_hour);
-						if (time <= _hour) {
+						System.out.println(_date + ",,,time:" + time + ",,,_hour:" + _hour);
+						if ((_hour < 125900 && time < 150000) || (_hour > 130000 && time >= 150000)) {
 							CellStatModel model = list.get(_date);
 							model.setTotalStream(rs.getDouble("ALLVOLUME"));
 							model.setTotalUser(rs.getInt("USERCOUNT"));
