@@ -58,6 +58,7 @@ public class GetLessonRequest extends ElearningRequests {
 			lessontemp.append("</lessons>");
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>获取课程信息异常:").append(e.getMessage()).append("</respmsg>");
 		}

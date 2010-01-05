@@ -286,7 +286,7 @@ function Start()
    oPlay.controls.play(); 
 </s:else>
 }
- 
+
 function ReLearn()
  {
   oPlay.controls.currentPosition=LearnMinutes.value*60;
@@ -296,15 +296,20 @@ function ReLearn()
    return;
  }
  var theyear=document.getElementById("jifenyear").value;
-   if(confirm("您确定您的本次培训课程的积分计算到"+theyear+"年吗？")){
+ var yes=true;
+ if(!confirmed){
+   yes=confirm("您确定您的本次培训课程的积分计算到"+theyear+"年吗？");
+   confirmed=true;
+ }
+ 
+ //  if(confirm("您确定您的本次培训课程的积分计算到"+theyear+"年吗？")){
+  if(yes){
     document.getElementById("jifenyearradio1").disabled=true;
     document.getElementById("jifenyearradio2").disabled=true;
-    if (IsPause) 
+  }
+   if (IsPause) 
       Pause();
-     else oPlay.controls.play();
- }else{
-    return;
- }
+   else oPlay.controls.play();
  
  </s:if>
  <s:else>
