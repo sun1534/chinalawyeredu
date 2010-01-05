@@ -285,6 +285,7 @@ public class StatService {
 		});
 		return (List) object;
 	}
+
 	/**
 	 * 
 	 * @param date
@@ -295,7 +296,8 @@ public class StatService {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getOtherGgsnStats(Date date, String sgsnid, String ggsnid,String orderby, int pageNo, int pageSize) {
+	public PaginationSupport getOtherGgsnStats(Date date, String sgsnid, String ggsnid, String orderby, int pageNo,
+			int pageSize) {
 
 		String where = "";
 		if (!(sgsnid == null || sgsnid.equals("")))
@@ -305,24 +307,20 @@ public class StatService {
 		final String _date = dfyyyyMMdd.format(date);
 		int startIndex = (pageNo - 1) * pageSize;
 		String sql = "select * from(select a.*,rownum rn from(select * from  STAT_SGSN where ggsnid not like 'GGSN%' "
-				+ where
-				+ " and dayflag=1 and STATTIME="
-				+ _date
-				+ orderby
-				+ ") a "
-				+ " where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+				+ where + " and dayflag=1 and STATTIME=" + _date + orderby + ") a " + " where rownum<="
+				+ (startIndex + pageSize) + ") where rn>" + startIndex;
 
 		System.out.println(sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
-		
+
 				while (rs.next()) {
 					SgsnStatModel model = new SgsnStatModel();
 					int usercount = rs.getInt("USERCOUNT");
 					double all = rs.getDouble("ALLVOLUME");
 					String sgsnid = rs.getString("SGSNID");
-					String ggsnid=rs.getString("ggsnid");
+					String ggsnid = rs.getString("ggsnid");
 					model.setTotalStream(all);
 					model.setTotalUser((int) (usercount));
 					model.setDate(_date + "");
@@ -334,7 +332,7 @@ public class StatService {
 					model.setNettype(rs.getString("nettype"));
 					list.add(model);
 				}
-				
+
 				return list;
 			}
 		});
@@ -344,7 +342,7 @@ public class StatService {
 			totalCount = list.size();
 		} else {
 			String cntsql = "select count(*) from stat_sgsn where ggsnid not like 'GGSN%' " + where
-					+ " and dayflag=1 and stattime=" + _date ;
+					+ " and dayflag=1 and stattime=" + _date;
 			totalCount = jdbcTemplate.queryForInt(cntsql);
 		}
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
@@ -378,33 +376,33 @@ public class StatService {
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
-		
-				Map<String,Integer> __sgsnid=new HashMap<String,Integer>();
-				Map<String,Integer> __ggsnid=new HashMap<String,Integer>();
+
+				Map<String, Integer> __sgsnid = new HashMap<String, Integer>();
+				Map<String, Integer> __ggsnid = new HashMap<String, Integer>();
 				while (rs.next()) {
 					SgsnStatModel model = new SgsnStatModel();
 					int usercount = rs.getInt("USERCOUNT1");
 					double all = rs.getDouble("ALLVOLUME1");
 					String sgsnid = rs.getString("SGSNID");
-					String ggsnid=rs.getString("ggsnid");
-					String thetemp=sgsnid+ggsnid;
-					if(__sgsnid.containsKey(sgsnid)){
+					String ggsnid = rs.getString("ggsnid");
+					String thetemp = sgsnid + ggsnid;
+					if (__sgsnid.containsKey(sgsnid)) {
 						model.setSgsnidtr(false);
-						int s=__sgsnid.get(sgsnid);
+						int s = __sgsnid.get(sgsnid);
 						__sgsnid.remove(sgsnid);
-						__sgsnid.put(sgsnid, s+1);
-					}else{
+						__sgsnid.put(sgsnid, s + 1);
+					} else {
 						__sgsnid.put(sgsnid, 1);
 					}
-					if(__ggsnid.containsKey(thetemp)){
+					if (__ggsnid.containsKey(thetemp)) {
 						model.setGgsnidtr(false);
-						int s=__ggsnid.get(thetemp);
+						int s = __ggsnid.get(thetemp);
 						__ggsnid.remove(thetemp);
-						__ggsnid.put(thetemp, s+1);
-					}else{
+						__ggsnid.put(thetemp, s + 1);
+					} else {
 						__ggsnid.put(thetemp, 1);
 					}
-					
+
 					model.setTotalStream(all);
 					model.setTotalUser((int) (usercount));
 					model.setDate(_date + "");
@@ -415,12 +413,14 @@ public class StatService {
 					model.setApnni(rs.getString("apnni"));
 					list.add(model);
 				}
-				for(int i=0;i<list.size();i++){
-					SgsnStatModel model = (SgsnStatModel)list.get(i);
+				for (int i = 0; i < list.size(); i++) {
+					SgsnStatModel model = (SgsnStatModel) list.get(i);
 					model.setSgsnidrowspan(__sgsnid.get(model.getSgsnid()));
-					model.setGgsnidrowspan(__ggsnid.get(model.getSgsnid()+model.getGgsnid()));
+					model.setGgsnidrowspan(__ggsnid.get(model.getSgsnid() + model.getGgsnid()));
 				}
-				
+				__ggsnid.clear();
+				__ggsnid.clear();
+
 				return list;
 			}
 		});
@@ -433,8 +433,54 @@ public class StatService {
 					+ " and dayflag=1 and stattime=" + _date + " group by sgsnid,ggsnid,apnni";
 			totalCount = jdbcTemplate.queryForInt(cntsql);
 		}
+
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
+	}
+
+	/**
+	 * 
+	 * 得到某一天的sgsn流量,分ggsn和apn,不进行分页
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public List getDaySgsnStreamGgsnApn(Date date) {
+
+		final String _date = dfyyyyMMdd.format(date);
+
+		String sql = "select SGSNID,sum(USERCOUNT) as usercount1,sum(ALLVOLUME) as allvolume1,sum(upvolume) as upvolume1,sum(downvolume) as downvolume1,ggsnid,apnni from  STAT_SGSN where ggsnid like 'GGSN%' and dayflag=1 and STATTIME="
+				+ _date + " group by sgsnid,ggsnid,apnni";
+
+		System.out.println(sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+
+				while (rs.next()) {
+					SgsnStatModel model = new SgsnStatModel();
+					int usercount = rs.getInt("USERCOUNT1");
+					double all = rs.getDouble("ALLVOLUME1");
+					String sgsnid = rs.getString("SGSNID");
+					String ggsnid = rs.getString("ggsnid");
+					String thetemp = sgsnid + ggsnid;
+
+					model.setTotalStream(all);
+					model.setTotalUser((int) (usercount));
+					model.setDate(_date + "");
+					model.setSgsnid(sgsnid);
+					model.setUpvolume(rs.getDouble("upvolume1"));
+					model.setDownvolume(rs.getDouble("downvolume1"));
+					model.setGgsnid(ggsnid);
+					model.setApnni(rs.getString("apnni"));
+					list.add(model);
+				}
+
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
 	}
 
 	/**

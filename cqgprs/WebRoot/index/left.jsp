@@ -32,13 +32,13 @@ function showMenu(rightcode){
 			   	<ul>
 			   	<s:iterator value="children" status="stat">
 			   	<s:if test="ismenu">
-			   	 <li id="${rightcode}"><a href="${linkurl}" target="mainFrame">${rightname}</a></li>
+			   	 <li id="${rightcode}"><a href="${linkurl}" target="${opentarget}">${rightname}</a></li>
 			   	</s:if>
 			   	</s:iterator>
 			   	</ul>
 			   </s:if>
 			   <s:else>
-			   <h3><a  href="${linkurl }" target="mainFrame">${rightname }</a></h3>
+			   <h3><a  href="${linkurl }" target="${opentarget} ">${rightname }</a></h3>
 			   </s:else>
 			</s:iterator>
 			</s:if>

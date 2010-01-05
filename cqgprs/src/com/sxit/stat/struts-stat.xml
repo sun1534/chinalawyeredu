@@ -69,6 +69,17 @@
        <action name="workspaceIndex" class="com.sxit.stat.action.WorkspaceIndexAction">
        </action>
        
+       <action name="sgsnGgsnTopo" class="com.sxit.stat.action.SgsnGgsnTopoAction">
+           <result name="success" type="dispatcher">/stat/sgsnGgsnTopo.jsp</result>	
+       </action>
+         <action name="sgsnGgsnTopoSVG" class="com.sxit.stat.action.SgsnGgsnTopoSVGAction">
+           <result name="success" type="stream">
+                <param name="contentType">image/svg+xml</param>
+                <param name="inputName">inputStream</param>
+                <param name="bufferSize">8192</param>
+            </result>
+           
+       </action>
    	
     </package>
 	

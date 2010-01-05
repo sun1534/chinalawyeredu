@@ -316,6 +316,6 @@ public abstract class AbstractAction extends ActionSupport  {
 	
 	static{
 		BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
-		setservice.getAllSets();
+//		setservice.getAllSets();
 	}
 }
