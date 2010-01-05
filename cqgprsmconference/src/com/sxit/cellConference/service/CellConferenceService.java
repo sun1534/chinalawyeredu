@@ -335,10 +335,10 @@ public class CellConferenceService {
 	public void updatePreDayData(final String today) {
 //		if(true)
 //return;
-		if(System.currentTimeMillis()-times<60*60*1000){
-			return;
-		}
-			long now=System.currentTimeMillis();
+//		if(System.currentTimeMillis()-times<60*60*1000){
+//			return;
+//		}
+		long now=System.currentTimeMillis();
 		times=System.currentTimeMillis();
 		Date date = com.sxit.stat.util.StatUtil.getDate(today);
 		Date predate = com.sxit.stat.util.StatUtil.getPrevCountDate(date, 1);
@@ -366,7 +366,6 @@ System.out.println(sql);
 						+ ",predayusercount="+usercount+" where lac='" + lac + "' and cellid='" + cellid
 						+ "' and stattime between " + preend / 1000 + " and " + fenjiexian / 1000;
 						
-						System.out.println("上午:"+sql+";");
 						
 						sqls.add(sql);
 					} else {
@@ -374,7 +373,6 @@ System.out.println(sql);
 								+ ",predayusercount="+usercount+" where lac='" + lac + "' and cellid='" + cellid
 								+ "' and stattime between " + fenjiexian / 1000 + " and " + nowend / 1000;
 						
-						System.out.println("下午:"+sql+";");
 						
 						sqls.add(sql);
 					}

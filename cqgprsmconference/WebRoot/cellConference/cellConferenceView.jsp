@@ -94,7 +94,7 @@ function queryit(){
                       <tbody id="checkForm">
                         <s:iterator value="page.items" status="stat">
                         <tr>
-                           <td>${stattimestr}</td>
+                           <td> ${stattimestr}</td>
                           <td>${cellkey}</td>
                            <td><a href="compareCellByHour.action?date=${date }&cellkey=${cellkey }&stattime=${stattime }">${cell.cellname}</a></td>
                           <td>${usercount }</td>

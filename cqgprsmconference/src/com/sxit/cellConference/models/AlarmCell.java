@@ -87,14 +87,16 @@ public void setAlarmflag(int alarmflag) {
 		//入库时间是监控点的2个小时后，也就是13点的监控时间，入库时间是15点
 		if(_stattime<150000)
 		{
-			
-			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
-			return cell.getTimeview1()/100+":"+cell.getTimeview1()%100;
+		
+			return "9:50";
+//			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
+//			return cell.getTimeview1()/100+":"+(cell.getTimeview1()%100<10?"0"+cell.getTimeview1()%100:""+cell.getTimeview1()%100);
 		}
 		else
 		{
-			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
-			return cell.getTimeview2()/100+":"+cell.getTimeview2()%100;
+			return "14:30";
+//			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
+//			return cell.getTimeview2()/100+":"+(cell.getTimeview2()%100<10?"0"+cell.getTimeview2()%100:""+cell.getTimeview2()%100);
 		}
 //		return dfyyyyMmddHHmmss.format(new java.sql.Timestamp(stattime * 1000));
 		
