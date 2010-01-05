@@ -127,11 +127,11 @@ public class UserLoginAction extends AbstractAction {
 	}
 
 	public void setLoginname(String loginname) {
-		this.loginname = loginname;
+		this.loginname = loginname.trim();
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = password.trim();
 	}
 
 	public void setRandnum(String randnum) {
@@ -139,7 +139,7 @@ public class UserLoginAction extends AbstractAction {
 	}
 
 	public void setPasivelogin(String login) {
-		this.pasivelogin = login;
+		this.pasivelogin = login.trim();;
 	}
 
 	private boolean savecookie;

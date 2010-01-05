@@ -37,7 +37,7 @@ public class CommonDatas {
 		LessonType.put(1, "律师实务");
 		LessonType.put(2, "新法讲坛");
 		LessonType.put(3, "涉外法务");
-		LessonType.put(4, "行业专题");
+		LessonType.put(4, "思想政治教育");
 		LessonType.put(5, "岗前培训");
 		LessonType.put(6, "专题论坛");
 		LessonType.put(7, "其他");
