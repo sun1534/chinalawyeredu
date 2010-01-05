@@ -66,6 +66,8 @@ public class TheOfficeListAction extends AbstractListAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		
+		
+		
 		//也显示全国律协的以及系统层级的
 		this.datavisible.getVisibleDatas(this.getLoginUser(),false);
 		
@@ -123,4 +125,32 @@ public class TheOfficeListAction extends AbstractListAction {
 	public boolean getHasright(){
 		return this.hasright;
 	}
+	
+	
+	private boolean candel=true;
+	private boolean canupd=true;
+	private boolean canins=true;
+
+
+	/**
+	 * @return the candel
+	 */
+	public boolean getCandel() {
+		return candel;
+	}
+
+	/**
+	 * @return the canupd
+	 */
+	public boolean getCanupd() {
+		return canupd;
+	}
+
+	/**
+	 * @return the canins
+	 */
+	public boolean getCanins() {
+		return canins;
+	}
+
 }

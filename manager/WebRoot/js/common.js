@@ -64,7 +64,7 @@ function isNotInBag(s, bag) {
 	return true;
 }
 function isGoodChar(str) {
-	if (isNotInBag(str, " -_.><,[]{}?/+=|\\'\":;~!@#$%^&()`"))
+	if (isNotInBag(str, "-_.><,[]{}?/+=|\\'\":;~!@#$%^&()`"))
 		return true;
 	else
 		return false;
@@ -76,14 +76,14 @@ function isNumber(str) {
 		return false;
 }
 function isLetter(str) {
-	if (isInBag(str, "~!@#$%^&*()abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+	if (isInBag(str, " ~!@#$%^&*()abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 		return true;
 	else
 		return false;
 }
 function isLetterNumber(str) {
 	if (isInBag(str,
-			"~!@#$%^&*()0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+			" ~!@#$%^&*()0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 		return true;
 	else
 		return false;

@@ -178,15 +178,15 @@ public class UserLoginAction extends AbstractAction {
 	}
 
 	public void setLoginname(String loginname) {
-		this.loginname = loginname;
+		this.loginname = loginname.trim();;
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = password.trim();;
 	}
 
 	public void setRandnum(String randnum) {
-		this.randnum = randnum;
+		this.randnum = randnum.trim();;
 	}
 
 	public void setPasivelogin(String login) {

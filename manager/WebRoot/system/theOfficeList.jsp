@@ -100,33 +100,20 @@ function getCities(vallll){
 						<table width="100%" border="0" cellpadding="0" cellspacing="1"
 							bgcolor="#EDEDED">
 							<tr>
-								<TD height="23" align="center"
-									background="../imagesa/top-bg1.gif">
-									事务所名称
-								</TD>
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									执业证号
-								</TD>
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									联系人
-								</TD>
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									管理员
-								</TD>
+								<TD height="23" align="center" background="../imagesa/top-bg1.gif">事务所名称</TD>
+								<TD align="center" background="../imagesa/top-bg1.gif">	执业证号</TD>
+								<TD align="center" background="../imagesa/top-bg1.gif">	联系人</TD>
+								<TD align="center" background="../imagesa/top-bg1.gif">管理员</TD>
 								
-								
-									<s:if test="hasright">
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									功能排除
-								</TD>
+								<s:if test="hasright">
+								<TD align="center" background="../imagesa/top-bg1.gif">功能排除</TD>
 								</s:if>
-								
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									修改
-								</TD>
-								<TD align="center" background="../imagesa/top-bg1.gif">
-									删除
-								</TD>
+								<s:if test="canupd">
+								<TD align="center" background="../imagesa/top-bg1.gif">修改</TD>
+								</s:if>
+								<s:if test="candel">
+								<TD align="center" background="../imagesa/top-bg1.gif">删除</TD>
+								</s:if>
 							</TR>
 							<s:iterator value="page.items" status="stat">
 								<TR>
@@ -143,17 +130,21 @@ function getCities(vallll){
 									<TD class="tab_content" align="center">
 										<a href="../system/sysGroupManager.pl?groupid=${groupid}">查看</a>
 									</TD>
-	<s:if test="hasright">
+	                          <s:if test="hasright">
 								<TD class="tab_content" align="center">
 									<a href="sysGroupExcludeRight!input.pl?groupid=${groupid }">功能排除</a>
 								</TD>
 								</s:if>
+								<s:if test="canupd">
 									<TD class="tab_content" align="center">
 										<a href="theOfficeCreateEdit!input.pl?groupid=${groupid}">修改</a>
 									</TD>
+									</s:if>
+									<s:if test="candel">
 									<TD class="tab_content" align="center">
 										<a href="#" onclick="javascript:delGroup(${groupid},${parentid},'1')">【删除】</a>
 									</TD>
+									</s:if>
 								</TR>
 							</s:iterator>
 							<tr style="background-color='#F1F1ED'">
@@ -164,10 +155,11 @@ function getCities(vallll){
 						</table>
 						<table width="100%" border="0" cellpadding="0" cellspacing="1">
 							<tr>
-								<td height="24" align="center"
-									background="../imagesa/login_bg1.gif">
+								<td height="24" align="center" background="../imagesa/login_bg1.gif">
+									<s:if test="canins">
 									<INPUT type="button" onclick="return getAdd()" value=" 新增事务所 "	name="addbutton" class="button">
 <INPUT type="button" onclick="return getAddBatch()" value=" 批量新增事务所 "	name="addbutton" class="button">
+								</s:if>
 								</TD>
 							</TR>
 						</table>

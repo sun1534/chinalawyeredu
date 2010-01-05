@@ -127,9 +127,13 @@ function getOffices(vallll){
         <TD align="center" background="../imagesa/top-bg1.gif">执业日期</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">所属事务所</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">密码重置</TD>
+          <s:if test="canupd">
         <TD align="center" background="../imagesa/top-bg1.gif">修改</TD>
+        </s:if>
         <TD align="center" background="../imagesa/top-bg1.gif">转所</TD>
+        <s:if test="candel">
         <TD align="center" background="../imagesa/top-bg1.gif">删除</TD> 
+        </s:if>
       </tr>
       
 <s:iterator value="page.items" status="stat">
@@ -142,9 +146,13 @@ function getOffices(vallll){
         <TD align="center">${zhiyedate} </TD>
         <TD align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/></TD>
         <TD align="center"><a href="#" onClick="passwdReset('${lawyerid}')">密码重置</a></TD>
+        <s:if test="canupd">
         <TD align="center"><a href="lawyersCreateEditPre.pl?lawyerid=${lawyerid}">修改</a></TD>
+        </s:if>
         <TD align="center"><a href="lawyersChangeOfficePre.pl?lawyerid=${lawyerid}">转所</a></TD>
+        <s:if test="candel">
         <TD align="center"><a href="#" onclick="deleteit(${lawyerid})">【删除】</a></TD>
+        </s:if>
       </TR>
       </s:iterator>
       <tr class="list_td01">
@@ -156,9 +164,10 @@ function getOffices(vallll){
       </tr>
        <tr class="list_tdfunc">
           <td height="24" colspan="10"  align="center"  >
+          <s:if test="candel">
          <INPUT type="button" onClick="return getAdd()"  value=" 新增律师 " name="addbutton" class="button">
           <INPUT type="button" onClick="return getAddBatch()"  value=" 批量新增律师 " name="addbutton" class="button">
-         
+         </s:if>
          
              &nbsp;    	
           </td>

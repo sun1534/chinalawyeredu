@@ -55,6 +55,34 @@ public class LawyersListAction extends AbstractListAction {
 	public LawyersListAction() {
 		this.datavisible = new DataVisible();
 	}
+	
+	private boolean candel;
+	private boolean canupd;
+	private boolean canins;
+
+
+	/**
+	 * @return the candel
+	 */
+	public boolean getCandel() {
+		return candel;
+	}
+
+	/**
+	 * @return the canupd
+	 */
+	public boolean getCanupd() {
+		return canupd;
+	}
+
+	/**
+	 * @return the canins
+	 */
+	public boolean getCanins() {
+		return canins;
+	}
+
+
 
 	/*
 	 * (non-Javadoc)
@@ -64,6 +92,10 @@ public class LawyersListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
+		candel=	super.getLoginUser().hasRight("lawyersDelete");
+		canins=	super.getLoginUser().hasRight("lawyersCreateEditPre");
+		canupd=	super.getLoginUser().hasRight("lawyersCreateEditPre");
+		
 		
 		CommonDatas.getGroups();
 		
