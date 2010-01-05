@@ -46,6 +46,15 @@ public class NumberUtil {
 			return String.valueOf(d);
 		}
 	}
+	public static String toMoney(float d) {
+		try {
+			if(d==0)
+				return "0.0";
+			return nf.format(d);
+		} catch (Exception e) {
+			return String.valueOf(d);
+		}
+	}
 	/**
 	 * 
 	 * @param b

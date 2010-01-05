@@ -164,7 +164,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				if (CommonDatas.SysParameter.get("dabiaofen") != null)
 					dabiao = Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				sql += " group by a.USERNAME,a.userid,b.GROUPNAME having sum(pxxf)>=" + dabiao;
+				sql += " group by a.USERNAME,a.userid,b.GROUPNAME having format(sum(pxxf),2)>=" + dabiao;
 
 				_LOG.info("达标数的统计SQL:" + sql);
 
@@ -218,7 +218,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				if (CommonDatas.SysParameter.get("dabiaofen") != null)
 					dabiao = Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				sql += " group by a.USERNAME,a.userid,b.GROUPNAME having sum(pxxf)<" + dabiao;
+				sql += " group by a.USERNAME,a.userid,b.GROUPNAME having format(sum(pxxf),2)<" + dabiao;
 
 				_LOG.info("未达标数的统计SQL:" + sql);
 

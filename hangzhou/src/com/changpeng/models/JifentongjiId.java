@@ -53,7 +53,8 @@ public class JifentongjiId implements java.io.Serializable {
 	}
 
 	public Double getXianchang() {
-		return this.xianchang;
+//		return this.xianchang;
+		return Double.parseDouble(com.changpeng.jifen.util.NumberUtil.toMoney(xianchang));
 	}
 
 	public void setXianchang(Double xianchang) {
@@ -61,7 +62,8 @@ public class JifentongjiId implements java.io.Serializable {
 	}
 
 	public Double getVideo() {
-		return this.video;
+//		return this.video;
+		return Double.parseDouble(com.changpeng.jifen.util.NumberUtil.toMoney(video));
 	}
 
 	public void setVideo(Double video) {
@@ -77,7 +79,8 @@ public class JifentongjiId implements java.io.Serializable {
 	}
 
 	public Double getBudeng() {
-		return this.budeng;
+//		return this.budeng;
+		return Double.parseDouble(com.changpeng.jifen.util.NumberUtil.toMoney(budeng));
 	}
 
 	public void setBudeng(Double budeng) {
@@ -93,7 +96,8 @@ public class JifentongjiId implements java.io.Serializable {
 	}
 
 	public Double getZongjifen() {
-		return this.zongjifen;
+//		return this.zongjifen;
+		return Double.parseDouble(com.changpeng.jifen.util.NumberUtil.toMoney(zongjifen));
 	}
 
 	public void setZongjifen(Double zongjifen) {

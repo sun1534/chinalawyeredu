@@ -68,6 +68,7 @@ public class SetSKRecsRequest extends ElearningRequests {
 			result.append("<respmsg>学分上传处理成功</respmsg>");
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			LOG.error("积分上传有误:" + e.getMessage());
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>上传考勤结果异常:").append(e.getMessage()).append("</respmsg>");

@@ -127,21 +127,29 @@ public class LxskrecsService extends BasicService {
 		if (lesson.getKaoqinshichang() == null || lesson.getKaoqinshichang() == 0) {
 //			SysUser lawer = (SysUser) sysUserDAO.getSysUserByCardNo(skrecs.getKahao());
 			SysUser lawer=(SysUser)sysUserDAO.getSysUserByLawerNo(skrecs.getKahao());
+			
 			if (lawer != null) {
 				Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs.getLessonid(), lawer.getUserid(), null);
 				if (oldxf != null && oldxf.getPxxf().floatValue() == lesson.getXuefen().floatValue()) {
 				skrecs.setIscheck("N");
 					skrecs.setRemarks("该律师该课程已经满分,不再积分");
+					System.out.println("该律师该课程已经满分,不再积分"+lawer.getCardno());
 				}
 				else if (skrecs.getTimelong() < lesson.getKaoqinshichang().floatValue()) {
 					skrecs.setIscheck("N");
 					skrecs.setRemarks("考勤时长为:" + skrecs.getTimelong() + ",小于设置的:" + lesson.getKaoqinshichang() + ",不积分");
+					System.out.println("考勤时长为:" + skrecs.getTimelong() + ",小于设置的:" + lesson.getKaoqinshichang() + ",不积分"+lawer.getCardno());
 				}
 				else if (oldxf != null && oldxf.getPxxf().floatValue() < lesson.getXuefen().floatValue()
 						&& skrecs.getTimelong() >= lesson.getKaoqinshichang().floatValue()) {
 					// 更新学分为满分
 					oldxf.setRemarks((oldxf.getRemarks() == null ? "" : oldxf.getRemarks()) + "之前培训方式为:" + oldxf.getLearnmode() + ",修改为现场培训,培训时间为:"
 							+ oldxf.getPxdate() + ",也修改为现在的");
+					
+					System.out.println((oldxf.getRemarks() == null ? "" : oldxf.getRemarks()) + "之前培训方式为:" + oldxf.getLearnmode() + ",修改为现场培训,培训时间为:"
+							+ oldxf.getPxdate() + ",也修改为现在的"+lawer.getCardno());
+
+					
 					oldxf.setLearnmode("现场培训");
 					oldxf.setPxdate(skrecs.getSkdate());
 					oldxf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -165,9 +173,11 @@ public class LxskrecsService extends BasicService {
 					skrecs.setIscheck("Y");
 					skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs.getRemarks()) + "|该课程设置了满分的学分");
 					lxskrecsDAO.save(xf);
+					
+System.out.println("新增培训学分:::::");
 				}
 				else {
-					LOG.debug("其他的情况，暂时还没有想出来。。。。");
+					LOG.warn("其他的情况，暂时还没有想出来。。。。");
 				}
 			}
 			else {

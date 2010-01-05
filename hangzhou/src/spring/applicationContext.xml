@@ -34,7 +34,7 @@
       <value>root</value>
     </property>
     <property name="password">
-      <value>pm5cpsoft</value>
+      <value>root</value>
     </property>
   </bean>   
   
