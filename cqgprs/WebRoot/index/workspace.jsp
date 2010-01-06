@@ -29,7 +29,7 @@ swfobject.embedSWF("../open-flash-chart.swf", "userchart", "300", "200","9.0.0",
 	<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-					<span>您所在是位置:</span><a>系统概况</a></em>
+					<span>您所在是位置:</span><a>系统概况</a>
 				</div>
 			</div>
 		</div>

@@ -277,7 +277,7 @@ function changeit(cellkey){
 					<input type="button"  value="取 消" title="取 消" class="btnBack" onclick="closeDialogBox('#dialogBoxAdd')"/></div> 
 				</div> 
 				</form>
-			</div> 
+			
 			
 </body>
 

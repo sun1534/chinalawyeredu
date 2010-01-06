@@ -133,7 +133,7 @@ function checkRole(obj,roleid){
 								<tr>
 								<td class="fname" valign="top">电话号码：</td>
 								<td><s:textfield name="sysUser.officephone" size="25" maxlength="25"/></td>
-								</td>
+							
 							</tr>
 								<tr>
 								<td class="fname" valign="top">手机号码：</td>

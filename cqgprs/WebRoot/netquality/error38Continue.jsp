@@ -56,8 +56,8 @@ function queryit(){
 								 <td>连续天数：<s:select name="count" list="#{'2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','10':'10'}"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 							 <!--      <td><input type="button" value="导　出" title="导　出" class="btnSubmit " onclick="exportit()"/>
-							      -->
-							     </td>
+							     </td> -->
+							     
 							
 								</tr>
 							</tbody>

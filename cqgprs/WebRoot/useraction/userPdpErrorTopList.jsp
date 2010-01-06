@@ -106,9 +106,9 @@ $("#hourselect").hide();
                       <tbody id="checkForm">
                         <s:iterator value="resultList" status="status">
                         <tr>
-                         <td>${imsi}</a></td>
-                          <td>${apn}</a></td>
-                          <td>${errorcount }</a></td>
+                         <td>${imsi}</td>
+                          <td>${apn}</td>
+                          <td>${errorcount }</td>
                         </tr>
                         </s:iterator>
                       

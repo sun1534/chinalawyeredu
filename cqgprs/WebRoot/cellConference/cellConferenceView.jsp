@@ -1,4 +1,4 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
+at<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib prefix="jscalendar" uri="/jscalendar"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -79,7 +79,7 @@ function queryit(){
                           <th><a onclick="orderByThis(document.form1,this)" id="cellid" title="点击排序">小区编号</a></th>
                           <th>小区名称</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="usercount" title="点击排序">当前用户数</a></th>          
-                          <th><a onclick="orderByThis(document.form1,this)" id="predayusercount" title="点击排序">上小时用户数</a></b></th>
+                          <th><a onclick="orderByThis(document.form1,this)" id="predayusercount" title="点击排序">上小时用户数</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="pretimeusercount" title="点击排序">昨天同时用户数</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="allvolueme" title="点击排序">当前流量</a></th>
                           <th><a onclick="orderByThis(document.form1,this)" id="pretimeallvolume" title="点击排序">上小时流量</a></th>

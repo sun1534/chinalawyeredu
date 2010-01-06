@@ -45,7 +45,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
 			
 		</tr>
 		<tr>			
-			<th class="listheadline">错误用户数</td> 
+			<th class="listheadline">错误用户数</th> 
 			<td  colspan="2" class="listline2">${codestat.usercount }</td> 
 		</tr> 
  <tr>

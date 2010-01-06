@@ -121,7 +121,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                           <td>${errorallstat3.errorcountall }</td> 
                         </tr> 
    
-      </tr>
+   
    
    
       </tbody>
