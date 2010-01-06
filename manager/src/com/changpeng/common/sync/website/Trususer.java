@@ -1373,10 +1373,10 @@ public class Trususer {
 	            cnt = stmt.executeUpdate();
 	            stmt.close();
 	        }
-	        catch(Exception e)
-	        {
-	            throw new SQLException(e);
-	        }
+//	        catch(Exception e)
+//	        {
+//	            throw new SQLException(e);
+//	        }
 	        finally
 	        {
 	            if(stmt != null)
