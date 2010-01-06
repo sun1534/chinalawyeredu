@@ -26,8 +26,8 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="lib/ognl-2.6.11.jar"/>
 	<classpathentry kind="lib" path="lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/pinyin4j-2.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/spring.jar"/>
-	<classpathentry kind="lib" path="lib/sqljdbc.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-core-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/struts2jscalendarplugin-0.5.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-pell-multipart-plugin-2.0.11.jar"/>
