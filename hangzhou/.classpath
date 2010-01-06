@@ -3,8 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/javalib/servlet-api.jar"/>
-	<classpathentry kind="lib" path="D:/javalib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="lib/asm-2.2.3.jar"/>
 	<classpathentry kind="lib" path="lib/asm-attrs.jar"/>
@@ -28,12 +26,13 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="lib" path="lib/ognl-2.6.11.jar"/>
 	<classpathentry kind="lib" path="lib/oscache-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/pinyin4j-2.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/spring.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-core-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/struts2jscalendarplugin-0.5.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-pell-multipart-plugin-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/struts2-spring-plugin-2.0.11.jar"/>
 	<classpathentry kind="lib" path="lib/xwork-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.2-FINAL-20081019.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
