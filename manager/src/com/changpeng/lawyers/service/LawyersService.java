@@ -18,6 +18,7 @@ import com.changpeng.common.context.Globals;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.LawyersDelete;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUser;
 import com.changpeng.system.service.SysGroupService;
@@ -59,7 +60,74 @@ public class LawyersService extends BasicService {
 			throw new ServiceException(e);
 		}
 	}
-
+	@Transactional
+	public Lawyers deleteLawyers(int lawyerid,SysUser user) throws ServiceException {
+		try {
+			Lawyers lawyers=(Lawyers)lawyersDAO.get(Lawyers.class, lawyerid);
+			lawyersDAO.delete(lawyers);
+		
+			LawyersDelete delete=new LawyersDelete();
+			delete.setLawyername(lawyers.getLawyername());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerno(lawyers.getLawyerno());
+			delete.setLoginname(lawyers.getLoginname());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setBirthday(lawyers.getBirthday());
+			delete.setCarddate(lawyers.getCarddate());
+			delete.setCardno(lawyers.getCardno());
+			delete.setCertno(lawyers.getCardno());
+			delete.setCityid(lawyers.getCityid());
+			delete.setCountryid(lawyers.getCountryid());
+			delete.setCreatetime(lawyers.getCreatetime());
+			delete.setCreateuser(lawyers.getCreateuser());
+			delete.setCreateusername(lawyers.getCardno());
+			delete.setDabiaofen(lawyers.getDabiaofen());
+			delete.setDegree(lawyers.getDegree());
+			delete.setDirectunion(lawyers.getDirectunion());
+			delete.setDistrictid(lawyers.getDistrictid());
+			delete.setEmail(lawyers.getEmail());
+			delete.setFax(lawyers.getFax());
+			delete.setForeignlan(lawyers.getForeignlan());
+			delete.setForeignlevel(lawyers.getForeignlevel());
+			delete.setGender(lawyers.getGender());
+			delete.setHomephone(lawyers.getHomephone());
+			delete.setIsmarrige(lawyers.getIsmarrige());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerid(lawyers.getDirectunion());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setMobile1(lawyers.getMobile1());
+			delete.setMobile2(lawyers.getMobile2());
+			delete.setMsn(lawyers.getMsn());
+			delete.setOfficephone(lawyers.getOfficephone());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setPhoto(lawyers.getPhoto());
+			delete.setPhotoname(lawyers.getPhotoname());
+			delete.setPolicy(lawyers.getPolicy());
+			delete.setPostcode(lawyers.getPostcode());
+			delete.setProvinceid(lawyers.getProvinceid());
+			delete.setProvinceunion(lawyers.getProvinceunion());
+			delete.setQq(lawyers.getQq());
+			delete.setRegsrc(lawyers.getRegsrc());
+			delete.setRemarks(lawyers.getRemarks());
+			delete.setSchool(lawyers.getSchool());
+			delete.setSpecility(lawyers.getSpecility());
+			delete.setStatus(lawyers.getStatus());
+			delete.setSystemno(lawyers.getSystemno());
+			delete.setTheoffice(lawyers.getTheoffice());
+			delete.setWorktime(lawyers.getWorktime());
+			delete.setZhiyedate(lawyers.getZhiyedate());
+			delete.setDeletetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			delete.setDeleteuser(user.getLoginname());
+		
+			lawyersDAO.save(delete);
+			
+			//律师删除引起的
+			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf where lawyerid="+lawyerid);
+			return lawyers;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
 	/**
 	 * 修改密码
 	 * 
