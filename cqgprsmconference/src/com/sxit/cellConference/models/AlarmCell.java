@@ -88,15 +88,15 @@ public void setAlarmflag(int alarmflag) {
 		if(_stattime<150000)
 		{
 		
-			return "9:50";
-//			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
-//			return cell.getTimeview1()/100+":"+(cell.getTimeview1()%100<10?"0"+cell.getTimeview1()%100:""+cell.getTimeview1()%100);
+//			return "9:50";
+			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
+			return cell.getTimeview1()/100+":"+(cell.getTimeview1()%100<10?"0"+cell.getTimeview1()%100:""+cell.getTimeview1()%100);
 		}
 		else
 		{
-			return "14:30";
-//			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
-//			return cell.getTimeview2()/100+":"+(cell.getTimeview2()%100<10?"0"+cell.getTimeview2()%100:""+cell.getTimeview2()%100);
+//			return "14:30";
+			ConferenceCell cell=com.sxit.cellConference.service.CellConferenceService.CCLIST.get(getCellkey());
+			return cell.getTimeview2()/100+":"+(cell.getTimeview2()%100<10?"0"+cell.getTimeview2()%100:""+cell.getTimeview2()%100);
 		}
 //		return dfyyyyMmddHHmmss.format(new java.sql.Timestamp(stattime * 1000));
 		
