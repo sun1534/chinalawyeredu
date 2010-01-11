@@ -80,7 +80,7 @@ public class LawyersService extends BasicService {
 			delete.setCountryid(lawyers.getCountryid());
 			delete.setCreatetime(lawyers.getCreatetime());
 			delete.setCreateuser(lawyers.getCreateuser());
-			delete.setCreateusername(lawyers.getCardno());
+			delete.setCreateusername(lawyers.getCreateusername());
 			delete.setDabiaofen(lawyers.getDabiaofen());
 			delete.setDegree(lawyers.getDegree());
 			delete.setDirectunion(lawyers.getDirectunion());
@@ -93,7 +93,7 @@ public class LawyersService extends BasicService {
 			delete.setHomephone(lawyers.getHomephone());
 			delete.setIsmarrige(lawyers.getIsmarrige());
 			delete.setLawyerenname(lawyers.getLawyerenname());
-			delete.setLawyerid(lawyers.getDirectunion());
+			delete.setLawyerid(lawyers.getLawyerid());
 			delete.setLawyerenname(lawyers.getLawyerenname());
 			delete.setMobile1(lawyers.getMobile1());
 			delete.setMobile2(lawyers.getMobile2());
@@ -121,8 +121,10 @@ public class LawyersService extends BasicService {
 		
 			lawyersDAO.save(delete);
 			
-			//律师删除引起的
+			//律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
 			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf where lawyerid="+lawyerid);
+			lawyersDAO.executeSql("delete from lawyerlessonxf where lawyerid="+lawyerid);
+			
 			return lawyers;
 		} catch (Exception e) {
 			throw new ServiceException(e);
