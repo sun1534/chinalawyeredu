@@ -152,12 +152,12 @@ return;
           <td align="right" class="tab_content1"> 律师执业证号: </td>
              <td class="tab_content1">
              <s:if test="isnew">
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="15" cssClass="text1" onblur="checkLoginname(this.value,0)"/>
+              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,0)"/>
              </s:if>
              <s:else>
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="15" cssClass="text1" onblur="checkLoginname(this.value,'%{lawyers.lawyerid}')"/>
+              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,'%{lawyers.lawyerid}')"/>
              </s:else>
-             <span class="hint" id="checkloginname">不为空且长度不超过15个字符</span>
+             <span class="hint" id="checkloginname">不为空且长度不超过20个字符</span>
         </tr>
         
         <tr id="loginnameid" style="display:none">
