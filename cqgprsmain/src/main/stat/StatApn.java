@@ -203,7 +203,8 @@ public class StatApn {
 					orderby = 5000;
 				} else
 					orderby = 50000;
-
+//sbswjp.wapvsmms.softbank.ne.jpkn
+		
 				String inssql = "insert into set_apn(apnni,apnname,apnconector,updatetime,opttype,isactive,orderby)values('"
 						+ apnni
 						+ "','"
@@ -224,7 +225,11 @@ public class StatApn {
 				LOG.info("把" + apnni + "插入到set_apn中..." + inssql);
 				allapns.put(apnni, stat);
 				// 插入了1条数据到set_apn中
-				main.util.MainStatUtil.executeSql(con, inssql);
+				if(apnni.indexOf("sbswjp.wapvsmms.softbank.ne")!=-1){
+				   LOG.info("该APN不再入库了:"+apnni);
+				}else{
+					main.util.MainStatUtil.executeSql(con, inssql);
+				}
 			}
 		}
 		rs.close();
