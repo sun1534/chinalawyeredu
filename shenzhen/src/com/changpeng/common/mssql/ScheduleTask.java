@@ -53,24 +53,24 @@ public class ScheduleTask extends TimerTask {
 			try {
 
 				SysGroup sysGroup = (SysGroup) service.get(SysGroup.class, updlog.id);
-//				boolean saveuser = false;
-//				if (sysGroup == null)
-//					updlog.dotype = "inserted";
-//				else
-//					updlog.dotype = "updated";
+				// boolean saveuser = false;
+				// if (sysGroup == null)
+				// updlog.dotype = "inserted";
+				// else
+				// updlog.dotype = "updated";
 
 				SysUser sysUser = (SysUser) service.get(SysUser.class, updlog.id);
-//				if (sysUser == null)
-//					saveuser = true;
-//				else
-//					saveuser = false;
+				// if (sysUser == null)
+				// saveuser = true;
+				// else
+				// saveuser = false;
 
 				// if (updlog.dotype.equals("inserted")) {
 				if (updlog.power == 1) {// 律协管理员，只新增到sysuser中,
 					// SysGroup sysGroup = updlog.getSysGroup();
 					// groupservice.addGroup(sysGroup);
 					// 这里设置所有的系统管理员都属于深圳律协
-					
+
 					userservice.addSysManager(updlog.getSysUser());
 					LOG.info("新增系统管理员成功:" + updlog.username + "," + updlog.licenceno);
 				} else if (updlog.power == 3) {// 事务所管理员
@@ -121,12 +121,12 @@ public class ScheduleTask extends TimerTask {
 		// 再对用户表进行新增修改和删除
 		for (int i = 0; i < lawersize; i++) {
 			LawyerUpdLog updlog = lawyerUpdLogs.get(i);
-			
-			if(updlog.lawername==null||updlog.lawername.indexOf("script")!=-1){
-				LOG.warn("姓名被注入脚本:"+updlog.lawno+","+updlog.lawername);
+
+			if (updlog.lawername == null || updlog.lawername.indexOf("script") != -1) {
+				LOG.warn("姓名被注入脚本:" + updlog.lawno + "," + updlog.lawername);
 				continue;
 			}
-			
+
 			LOG.info("updlog===" + updlog.lawno + "==" + updlog.dotype + ",enterpriseid=" + updlog.enterpriseid);
 			try {
 
@@ -134,17 +134,21 @@ public class ScheduleTask extends TimerTask {
 
 				if (updlog.lsxp != null && !updlog.lsxp.equals("")) {
 					if (updlog.lsxp.startsWith("/"))
-					updlog.lsxp = "/photo/" + updlog.lsxp;
+						updlog.lsxp = "/photo/" + updlog.lsxp;
 				}
 
 				String photo = "";
 
 				SysUser sysUser = (SysUser) service.get(SysUser.class, updlog.lawid);
-				if (sysUser == null)
+				SysUser sysUserLawerno = userservice.getSysUserByLawerNo(updlog.lawno);
+				if (sysUser == null && sysUserLawerno == null) {
 					updlog.dotype = "inserted";
-				else
+				} else if (sysUser != null && sysUserLawerno != null) {
 					updlog.dotype = "updated";
-				LOG.info("律师修改DOTYPE:" + updlog.dotype+","+updlog.lawid);
+				} else {
+
+				}
+				LOG.info("律师修改DOTYPE:" + updlog.dotype + "," + updlog.lawid);
 
 				if (updlog.dotype.equals("inserted")) {
 
@@ -154,7 +158,7 @@ public class ScheduleTask extends TimerTask {
 						photo = DownloadFile.downloadPic(updlog.lsxp, indexDir);
 
 					}
-				
+
 					if (updlog.lawno != null && !"".equals(updlog.lawno)) {
 						SysGroup sysGroup = (SysGroup) service.get(SysGroup.class, updlog.enterpriseid);
 						sysUser = updlog.getLawer();
@@ -172,9 +176,11 @@ public class ScheduleTask extends TimerTask {
 					// SysUser sysUser = (SysUser) service.get(SysUser.class,
 					// updlog.lawid);
 					LOG.debug("updated的图片判断:::"
-							+ (updlog.lsxp != null && !updlog.lsxp.equals("") && sysUser.getComments().indexOf(updlog.lsxp) == -1));
+							+ (updlog.lsxp != null && !updlog.lsxp.equals("") && sysUser.getComments().indexOf(
+									updlog.lsxp) == -1));
 
-					if (updlog.lsxp != null && !updlog.lsxp.equals("") && sysUser.getComments().indexOf(updlog.lsxp) == -1) {
+					if (updlog.lsxp != null && !updlog.lsxp.equals("")
+							&& sysUser.getComments().indexOf(updlog.lsxp) == -1) {
 						// String indexDir =
 						// ServletActionContext.getServletContext().getRealPath("/lawyerphotos");
 						String indexDir = CommonDatas.SysParameter.get("PicPath").toString();
@@ -202,6 +208,8 @@ public class ScheduleTask extends TimerTask {
 					userservice.deleteUser(updlog.lawid);
 
 					LOG.info("删除律师OK:" + updlog.lawno);
+				} else {
+					LOG.warn("数据不对啊,sysUser=" + sysUser + "sysUserLawerno=" + sysUserLawerno);
 				}
 			} catch (Exception e) {
 				LOG.error("律师同步异常:" + updlog.lawno + ":" + e);
