@@ -44,6 +44,7 @@ private String lessondatestr;
 	private String createuser;
 	private int createuserid;
 	private Timestamp createtime;
+	private int onlineType;
 
 	private Set lessonshareds = new HashSet(0);
 	
@@ -372,6 +373,20 @@ private String lessondatestr;
 	 */
 	public void setExcelline(int excelline) {
 		this.excelline = excelline;
+	}
+
+	/**
+	 * @return the onlineType
+	 */
+	public int getOnlineType() {
+		return onlineType;
+	}
+
+	/**
+	 * @param onlineType the onlineType to set
+	 */
+	public void setOnlineType(int onlineType) {
+		this.onlineType = onlineType;
 	}
 
 //	public Set getLessonreplies() {

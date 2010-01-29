@@ -119,6 +119,9 @@ function getCities(vallll){
 							<TD align="center" background="../imagesa/top-bg1.gif">
 								学分
 							</TD>
+								<TD align="center" background="../imagesa/top-bg1.gif">
+								文件类型
+							</TD>
                           <TD align="center" background="../imagesa/top-bg1.gif">
 								共享
 							</TD>
@@ -144,6 +147,13 @@ function getCities(vallll){
 					   	<div style="overflow:hidden;text-overflow:ellipsis;">${teachers}</div>
 							</TD>
 							<TD class="tab_content" align="center">${xuefen}</TD>
+								<TD class="tab_content" align="center">
+								<s:if test="onlineType==1">		
+								<font color='red'>音频</font>
+								</s:if>
+								<s:else>视频
+								</s:else>
+								</TD>
 							
 	                <TD class="tab_content" align="center">
 	                	<s:if test="mygroup==groupid">

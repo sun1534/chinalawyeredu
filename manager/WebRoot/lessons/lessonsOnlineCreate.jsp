@@ -202,7 +202,14 @@ function addFile(){
 							</td>
 						</tr>
                        
-                 
+                 	<tr>
+							<td class="tab_content1" align="right">
+									文件类型：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="lesson.onlineType" list="#{'1':'音频文件','0':'视频文件'}"/>
+							</td>
+						</tr>
 						
 					<tr>
 							<td class="tab_content1" align="right">

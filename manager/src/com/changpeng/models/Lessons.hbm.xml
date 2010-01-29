@@ -104,6 +104,13 @@
                 <comment>是否删除</comment>
             </column>
         </property>
+              <property name="onlineType" type="int">
+            <column name="online_type">
+                <comment>1是audio,0是video</comment>
+            </column>
+        </property>
+        
+        
         <property name="createuser" type="string">
             <column name="createuser" not-null="true" />
         </property>

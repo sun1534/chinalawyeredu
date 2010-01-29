@@ -1,0 +1,10 @@
+update sys_user set loginname='24101200211498251' where groupid=8565 and roleid=1;
+update sys_group set groupenname='24101200211498251' where groupid=8565;
+update sys_user set loginname='24101200711555369' where groupid=8514 and roleid=1;
+update sys_group set groupenname='24101200711555369' where groupid=8514;
+update sys_user set loginname='24101200911123461' where groupid=8566 and roleid=1;
+update sys_group set groupenname='24101200911123461' where groupid=8566;
+update sys_user set loginname='24101200711423508' where groupid=8567 and roleid=1;
+update sys_group set groupenname='24101200711423508' where groupid=8567;
+update sys_user set loginname='24101200911309054' where groupid=8568 and roleid=1;
+update sys_group set groupenname='24101200911309054' where groupid=8568;
