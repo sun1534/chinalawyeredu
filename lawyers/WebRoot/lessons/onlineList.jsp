@@ -134,6 +134,9 @@ $.getJSON(
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						课时学分
 					</TD>
+					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
+						文件类型
+					</TD>
                     <TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						课程来源
 					</TD>
@@ -170,6 +173,13 @@ $.getJSON(
 						<TD class="tab_content" align="center">
 							${xuefen}
 						</TD>
+										<TD class="tab_content" align="center">
+								<s:if test="onlineType==1">
+								<font color='red'>音频</font>
+								</s:if>
+								<s:else>视频
+								</s:else>
+								</TD>
                         <TD class="tab_content" align="center">
                   
                          <s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/>

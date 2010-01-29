@@ -98,7 +98,11 @@
                 <comment>课程的来源,省律协或者市律协</comment>
             </column>
         </property>
-          
+             <property name="onlineType" type="int">
+            <column name="online_type">
+                <comment>1是audio,0是video</comment>
+            </column>
+        </property>
         <property name="deleteflag" type="boolean">
             <column name="deleteflag">
                 <comment>是否删除</comment>

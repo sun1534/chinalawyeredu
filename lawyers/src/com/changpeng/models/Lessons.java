@@ -42,9 +42,23 @@ public class Lessons implements java.io.Serializable {
 	private Timestamp createtime;
 private Lawyerlessonxf yihuoxuefen;
 	private Set lessonshareds = new HashSet(0);
-	
+	private int onlineType;
 	
 	// Constructors
+
+	/**
+	 * @return the onlineType
+	 */
+	public int getOnlineType() {
+		return onlineType;
+	}
+
+	/**
+	 * @param onlineType the onlineType to set
+	 */
+	public void setOnlineType(int onlineType) {
+		this.onlineType = onlineType;
+	}
 
 	/**
 	 * @return the lessonshareds
