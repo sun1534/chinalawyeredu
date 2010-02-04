@@ -68,14 +68,14 @@ public class FileHandle {
 		List<File> shoulds = new ArrayList<File>();
 		if (!todayDestDir.exists()) {
 			boolean b = todayDestDir.mkdirs();
-			int k=0;
-			while (!b&&(k++)<10) {
+			int k = 0;
+			while (!b && (k++) < 10) {
 				b = todayDestDir.mkdirs();
-				LOG.info("创建存储目录失败,重新来过!"+k);
+				LOG.info("创建存储目录失败,重新来过!" + k);
 			}
-			if(!b){
-//				LOG.warn("创建存储目录失败,退出系统");
-//				System.exit(0);
+			if (!b) {
+				// LOG.warn("创建存储目录失败,退出系统");
+				// System.exit(0);
 				throw new RuntimeException("创建存储目录失败,退出系统");
 			}
 			LOG.info("创建存储目录成功:" + todayDestDirName);
@@ -340,10 +340,19 @@ public class FileHandle {
 							cdr.setGgsnaddr(line.substring(idx + 2).trim());
 						} else if (line.startsWith("APN Req")) {
 							cdr.setReqapnni(line.substring(idx + 2).trim());
+						} else if (line.startsWith("APN Req")) {
+							cdr.setReqapnni(line.substring(idx + 2).trim());
 						} else if (line.startsWith("APN Sub")) {
-							cdr.setSubapnni(line.substring(idx + 2).trim());
+							if (line.length() < idx + 2)
+								cdr.setSubapnni("");
+							else
+								cdr.setSubapnni(line.substring(idx + 2).trim());
+						} else if (line.startsWith("APN") && !line.startsWith("APN Req") && !line.startsWith("APN Sub")) {
+							if (line.length() < idx + 2)
+								cdr.setSubapnni("");
+							else
+								cdr.setReqapnni(line.substring(idx + 2).trim());
 						}
-
 					}
 				} catch (Exception e) {
 					LOG.error(file.getDestfile() + ":第" + i + "个区块解析有误", e);
@@ -392,24 +401,27 @@ public class FileHandle {
 							+ "0,0,'"
 							+ cdr.getSgsnid()
 							+ "','"
-							+ (cdr.getReqapnni()==null?"":cdr.getReqapnni())
+							+ (cdr.getReqapnni() == null ? "" : cdr.getReqapnni())
 							+ "','"
-							+ (cdr.getSubapnni()==null?"":cdr.getSubapnni())
+							+ (cdr.getSubapnni() == null ? "" : cdr.getSubapnni())
 							+ "','"
 							+ cdr.getImsi()
 							+ "','"
 							+ cdr.getNettype()
 							+ "','"
-							+ cdr.getErrorcode() + "'," + cdr.getOpentime() + "," + now + ",'" + cdr.getMsisdn() + "')";
+							+ cdr.getErrorcode()
+							+ "',"
+							+ cdr.getOpentime()
+							+ ","
+							+ now + ",'" + cdr.getMsisdn() + "')";
 					no33sqls.add(sqlno33);
-				
 
 				}
 				stmt.setLong(1, cdr.getLac());
 				stmt.setString(2, cdr.getCellid());
 				stmt.setString(3, cdr.getSgsnid());
-				stmt.setString(4, cdr.getReqapnni()==null?"":cdr.getReqapnni());
-				stmt.setString(5, cdr.getSubapnni()==null?"":cdr.getSubapnni());
+				stmt.setString(4, cdr.getReqapnni() == null ? "" : cdr.getReqapnni());
+				stmt.setString(5, cdr.getSubapnni() == null ? "" : cdr.getSubapnni());
 				stmt.setString(6, cdr.getImsi());
 				stmt.setInt(7, cdr.getNettype());
 				stmt.setString(8, cdr.getErrorcode());
@@ -427,7 +439,7 @@ public class FileHandle {
 			int[] s = stmt.executeBatch();
 			stmt.clearBatch();
 			// 33的错误同时入到另外一张表
-			for(Object obj:no33sqls){
+			for (Object obj : no33sqls) {
 				LOG.debug(obj.toString());
 			}
 			main.util.MainStatUtil.executeSql(con, no33sqls);
@@ -439,5 +451,18 @@ public class FileHandle {
 		} finally {
 			DBUtils.closeResource(null, stmt, null);
 		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		File file = new File("d:\\outerrr.txt");
+		ErrorFile ef = new ErrorFile();
+		ef.setDestdir("d:\\");
+		ef.setDestfile(file);
+		ef.setHandleLines(0);
+		ef.setSgsnid("SGSN09");
+		ef.setSrcfilename("d:\\outer.txt");
+		main.readerrors.FileHandle fh = new main.readerrors.FileHandle();
+		fh.parseFile(ef);
+
 	}
 }
