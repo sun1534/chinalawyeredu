@@ -1,4 +1,4 @@
-package main.readerrors;
+package main.nsvcalarm;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -22,28 +22,21 @@ import org.apache.commons.logging.Log;
  * @author 华锋 Nov 4, 2009-9:21:28 PM
  * 
  */
-public class ReadErrorApns {
+public class ReadNsvcAlarm {
 	// private static java.io.PrintWriter ERRORLOG = null;
 
-	/**
-	 * 处理前放文件的目录
-	 */
-	private static String SRCDIR = "d:\\home";
-	/**
-	 * 处理完毕后的备份目录
-	 */
-	private static String DESTDIR = "d:\\bak";
+	
 	/**
 	 * 处理gb链路告警的原始信息
 	 */
-	private static String GBSRCDIR="";
+	private static String SRCDIR="";
 	
 	/**
 	 * 处理gb链路备份后的目录
 	 */
-	private static String GBDESTDIR = "d:\\bak";
+	private static String DESTDIR = "d:\\bak";
 
-	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(ReadErrorApns.class);
+	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(ReadNsvcAlarm.class);
 
 	// public static void errorlog(String msg) {
 	// ERRORLOG.println(df.format(new Date()) + "=>" + msg);
@@ -52,12 +45,13 @@ public class ReadErrorApns {
 	private static void init() {
 		InputStream in = null;
 		try {
-			in = ReadErrorApns.class.getResourceAsStream("/main/readerrors/read.properties");
+			in = ReadNsvcAlarm.class.getResourceAsStream("/main/nsvcalarm/nsvc.properties");
 			Properties prop = new Properties();
 			prop.load(in);
 			SRCDIR = prop.getProperty("SRCDIR");
 			DESTDIR = prop.getProperty("DESTDIR");
 
+			LOG.info(SRCDIR+",,,"+DESTDIR);
 		} catch (Exception e) {
 			try {
 				if (in != null)
@@ -95,34 +89,23 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 		// System.out.println(url.getPath());
 		try {
 			init();
-			FileHandle filehandle = new FileHandle();
-			Map<String, ErrorFile> mapfiles = filehandle.copyFile(SRCDIR, DESTDIR);
+			NsvcAlarmFileHandle filehandle = new NsvcAlarmFileHandle();
+			Map<String, NsvcAlarmFile> mapfiles = filehandle.copyFile(SRCDIR, DESTDIR);
 			
 			con = DBUtils.getOracleCon();
 			LOG.info("成功获取到数据库连接OK");
 			//先清掉10天前的一些数据
-			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
-			long daystart = daysagodate.getTime()/1000;
 		
-			String sql="delete from cdr_mistake where opentime<="+daystart;
-			String sqlno33="delete from cdr_mistake_no33 where opentime<="+daystart;
-			long deletenow=System.currentTimeMillis();
-			main.util.MainStatUtil.executeSql(con, sql);
-			main.util.MainStatUtil.executeSql(con, sqlno33);
-			LOG.info("清除"+df.format(daysagodate)+"前的数据完毕:"+(System.currentTimeMillis()-deletenow));
-			
 			LOG.debug("mapfiles:" + mapfiles);
 			if (mapfiles.size() > 0) {
-
-			
-				ReadHandleHistory readHistory = new ReadHandleHistory(con);
+				NsvcAlarmHandleHistory readHistory = new NsvcAlarmHandleHistory(con);
 				readHistory.getFromDB(mapfiles);
 				long now = System.currentTimeMillis();
-				java.util.Iterator<ErrorFile> files = mapfiles.values().iterator();
-				List<ErrorApnsCdr> cdrs = null;
+				java.util.Iterator<NsvcAlarmFile> files = mapfiles.values().iterator();
+				List<NsvcAlarmCdr> cdrs = null;
 				while (files.hasNext()) {
 
-					ErrorFile file = files.next();
+					NsvcAlarmFile file = files.next();
 					cdrs = filehandle.parseFile(file);
 					filehandle.save(cdrs);
 
@@ -147,15 +130,15 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 	}
 	
 
-	public static void test(String[] args) {
-		FileHandle filehandle = new FileHandle();
-		Map<String, ErrorFile> mapfiles = filehandle.copyFile("d:\\home", "d:\\bak");
-		java.util.Iterator<ErrorFile> files = mapfiles.values().iterator();
-
-		while (files.hasNext()) {
-			ErrorFile file = files.next();
-			System.out.println(file.getDestfile().getName() + ",,," + file.getSgsnid() + ",,," + file.getSrcfilename());
-		}
-	}
+//	public static void test(String[] args) {
+//		FileHandle filehandle = new FileHandle();
+//		Map<String, ErrorFile> mapfiles = filehandle.copyFile("d:\\home", "d:\\bak");
+//		java.util.Iterator<ErrorFile> files = mapfiles.values().iterator();
+//
+//		while (files.hasNext()) {
+//			ErrorFile file = files.next();
+//			System.out.println(file.getDestfile().getName() + ",,," + file.getSgsnid() + ",,," + file.getSrcfilename());
+//		}
+//	}
 
 }

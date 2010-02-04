@@ -105,15 +105,14 @@ public class FileHandle {
 					} else {
 						shoulds.add(srcfile);
 						// 存起来,然后再处理,轮询2次吧
+					
 					}
-
 				}
 			}
 		}
 		for (File srcfile : shoulds) {
 			LOG.warn("这里需要再处理:" + srcfile);
 		}
-
 		return errorfiles;
 	}
 

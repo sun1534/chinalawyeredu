@@ -3,14 +3,11 @@ package main.stat;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 import main.readerrors.ReadErrorApns;
 import main.util.DBUtils;
-import main.util.MainStatUtil;
 import main.util.SelfLog;
 
 /**
@@ -75,6 +72,14 @@ public class StatHourMain {
 			LOG.info("APN错误代码小时统计入库成功");
 		} catch (Exception e) {
 			LOG.error("APN错误代码小时统计入库失败", e);
+		}
+
+		try {
+			StatNsvcAlarm sae = new StatNsvcAlarm(con, statdate);
+			sae.stathour();
+			LOG.info("小时NSVC警告数据统计入库成功");
+		} catch (Exception e) {
+			LOG.error("小时NSVC警告数据统计入库失败", e);
 		}
 		con.close();
 
