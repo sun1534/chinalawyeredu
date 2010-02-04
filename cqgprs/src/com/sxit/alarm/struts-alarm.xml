@@ -15,6 +15,15 @@
         <action name="gbLinkAlarm" class="com.sxit.alarm.action.GbLinkAlarmAction">
           <result name="success" type="dispatcher">/alarm/gbLinkAlarm.jsp</result>	
        </action>
+       
+        <action name="gbAlarmStatHour" class="com.sxit.alarm.action.GbAlarmStatHourAction">
+          <result name="success" type="dispatcher">/alarm/gbAlarmStatHour.jsp</result>	
+       </action>
+       
+        <action name="gbLinkAlarmLogs" class="com.sxit.alarm.action.GbLinkAlarmLogsAction">
+          <result name="success" type="dispatcher">/alarm/gbLinkAlarmLogs.jsp</result>	
+       </action>
+       
     </package>
 	 <package name="alarmajax" extends="defaultajax" namespace="/alarmajax">
        <default-interceptor-ref name="visitStack"/>
