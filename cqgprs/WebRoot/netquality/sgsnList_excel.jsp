@@ -44,7 +44,11 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                           <th class="listheadline">SGSN号</th>
                           -->
                          <th>SGSN编号</th>
-                       <th>覆盖范围</th>
+                       <th>覆盖范围</th>  
+                       <th>所在IP</th>
+                       <th>BSC个数</th>
+                       <th>时隙数</th>
+                       <th>带宽（K）</th>
                        <th>华为/爱立信</th>
                        <th>最后更新时间</th>
       </tr>
@@ -54,6 +58,10 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       
           <td class="listline2">${sgsnid}</td>
                           <td class="listline2">${sgsnarea}</td>
+                           <td class="listline2">${sgsnip}</td>
+                               <td class="listline2">${bsccount}</td>
+                                <td class="listline2">${slotcount}</td>
+                                  <td class="listline2">${capacity}</td>
                           <td class="listline2">${sgsntype }</td>
                           <td class="listline2"><s:date name="lastupdate" format="yyyy-MM-dd HH:mm:ss"/></td>
       

@@ -38,7 +38,7 @@ function showMenu(rightcode){
 			   	</ul>
 			   </s:if>
 			   <s:else>
-			   <h3><a  href="${linkurl }" target="${opentarget} ">${rightname }</a></h3>
+			   <h3><a  href="${linkurl }" target="${opentarget}">${rightname }</a></h3>
 			   </s:else>
 			</s:iterator>
 			</s:if>

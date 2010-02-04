@@ -39,17 +39,18 @@ document.form1.submit();
 							<tbody>
 								<tr>
 								 <td>输入日期：<s:textfield name="start" id="start" size="10" cssClass="txt"/>&nbsp;</td>
+								 <td>连续显示：<s:select name="count" list="#{'1':'1','2':'2','3':'3'}"/>天&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" title="显示流量示意图" value="显示流量示意图" onclick="queryit()"/></td>
                  <td><a href="http://download.adobe.com/pub/adobe/magic/svgviewer/win/3.x/3.03/zh/SVGView.exe">IE浏览器请到此下载一个SVGViewer</a></td>
 								</tr>
 							</tbody>
 						</table>
 				  </div> 
-					
+					<s:iterator value="datelist">
 				  <div  class="tablist" style="text-align:center" id="imgreport">
-               <embed src="sgsnGgsnTopoSVG.action?start=${start}" width="950" height="350" type="image/svg+xml" /> 
+               <embed src="sgsnGgsnTopoSVG.action?start=<s:property/>" width="950" height="350" type="image/svg+xml" /> 
                     </div>
-				
+				</s:iterator>
 				</div>
 			
 			</div>

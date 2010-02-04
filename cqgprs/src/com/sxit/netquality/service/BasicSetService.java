@@ -642,6 +642,7 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 					model.setSgsnip(rs.getString("sgsnip"));
 					model.setSlotcount(rs.getInt("slotcount"));
 					model.setCapacity(rs.getDouble("capacity"));
+					model.setSgsnarea(rs.getString("sgsnarea"));
 					// model.setAllvolume(rs.getDouble("allvolume"));
 					// model.setDownvolume(rs.getDouble("downvolume"));
 					// model.setUpvolume(rs.getDouble("upvolume"));

@@ -3,21 +3,9 @@
  */
 package com.sxit.stat.action;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
-import jofc2.model.Chart;
-import jofc2.model.Text;
-import jofc2.model.axis.Label;
-import jofc2.model.axis.XAxis;
-import jofc2.model.axis.XAxisLabels;
-import jofc2.model.axis.YAxis;
-import jofc2.model.elements.BarChart;
-import jofc2.model.elements.LineChart;
-
-import com.sxit.stat.models.SgsnStatModel;
-import com.sxit.stat.util.StatUtil;
 
 /**
  * <pre>
@@ -34,7 +22,29 @@ import com.sxit.stat.util.StatUtil;
  */
 public class SgsnGgsnTopoAction extends StatAction {
 
-	
+	private int count = 1;
+
+	/**
+	 * @return the count
+	 */
+	public int getCount() {
+		return count;
+	}
+
+	/**
+	 * @param count
+	 *            the count to set
+	 */
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	private List datelist=new ArrayList();
+
+	public List getDatelist() {
+		return datelist;
+	}
+
 	/*
 	 * 得到某一天的各个sgsn的流量 显示柱状图和线图
 	 * 
@@ -42,10 +52,16 @@ public class SgsnGgsnTopoAction extends StatAction {
 	 */
 	@Override
 	protected String go() throws Exception {
+
 		if (startDate == null) {
 			startDate = getPrevDate();
 			this.start = df.format(startDate);
 		}
+		for (int i = 0; i < count; i++) {
+			Date date = com.sxit.stat.util.StatUtil.getPrevCountDate(startDate, i);
+			datelist.add(df.format(date));
+		}
+
 		return SUCCESS;
 	}
 }

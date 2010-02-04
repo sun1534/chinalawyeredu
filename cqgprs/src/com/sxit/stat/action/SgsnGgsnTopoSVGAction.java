@@ -37,9 +37,11 @@ public class SgsnGgsnTopoSVGAction extends StatAction {
 	/**
 	 * 基本的量
 	 */
-	private static int BASICSTREAM = 10 * 1024;
+//	private static int BASICSTREAM = 10 * 1024;
+	private static int BASICSTREAM = 1024;
 	private static int OTHERBASICSTREAM = 1024;
-	private static int STREAMDIFF = 3 * BASICSTREAM;
+//	private static int STREAMDIFF = 3 * BASICSTREAM;
+	private static int STREAMDIFF = 3 *10 * BASICSTREAM;
 	private static int OTHERSTREAMDIFF = 2 * OTHERBASICSTREAM;
 	static {
 		SGSNIDLOC.put("SGSNCQ01", 50);
@@ -182,5 +184,6 @@ public class SgsnGgsnTopoSVGAction extends StatAction {
 	public String getSvgstr() {
 		return this.svgstr;
 	}
+
 
 }

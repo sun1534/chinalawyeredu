@@ -80,6 +80,7 @@ function setit(){
                         <tr>
                        
                        <th>SGSN编号</th>
+                        <th>覆盖区域</th>
                        <th>所在IP</th>
                        <th>BSC个数</th>
                        <th>时隙数</th>
@@ -93,6 +94,7 @@ function setit(){
                         <tr>
                         
                          <td><a title="点击查看归属BSC/RNC列表" href="bscList.action?sgsnid=${sgsnid }">${sgsnid}</a></td>
+                            <td>${sgsnarea}</td>
                           <td>${sgsnip}</td>
                              <td>${bsccount}</td>
                                 <td>${slotcount}</td>
