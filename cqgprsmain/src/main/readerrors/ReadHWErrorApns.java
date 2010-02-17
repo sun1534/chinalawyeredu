@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import main.nsvcalarm.NsvcAlarmFileHandle;
-import main.nsvcalarm.NsvcAlarmHandleHistory;
 import main.util.DBUtils;
 
 import org.apache.commons.logging.Log;
@@ -19,11 +17,15 @@ import org.apache.commons.logging.Log;
  */
 
 /**
+ * 
+ * 读华为的错误代码情况
+ * 
  * @author 华锋 Nov 4, 2009-9:21:28 PM
  * 
  */
-public class ReadErrorApns {
-	// private static java.io.PrintWriter ERRORLOG = null;
+public class ReadHWErrorApns {
+	
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/**
 	 * 处理前放文件的目录
@@ -33,9 +35,10 @@ public class ReadErrorApns {
 	 * 处理完毕后的备份目录
 	 */
 	private static String DESTDIR = "d:\\bak";
-	
 
-	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(ReadErrorApns.class);
+	public static String SGSNCMD="/export/home/jf/sgsnbill/sgsnbill";
+	private static Log LOG = org.apache.commons.logging.LogFactory.getLog(ReadHWErrorApns.class);
+
 
 	// public static void errorlog(String msg) {
 	// ERRORLOG.println(df.format(new Date()) + "=>" + msg);
@@ -44,12 +47,12 @@ public class ReadErrorApns {
 	private static void init() {
 		InputStream in = null;
 		try {
-			in = ReadErrorApns.class.getResourceAsStream("/main/readerrors/read.properties");
+			in = ReadHWErrorApns.class.getResourceAsStream("/main/readerrors/readhw.properties");
 			Properties prop = new Properties();
 			prop.load(in);
 			SRCDIR = prop.getProperty("SRCDIR");
 			DESTDIR = prop.getProperty("DESTDIR");
-
+			SGSNCMD = prop.getProperty("SGSNCMD");
 		} catch (Exception e) {
 			try {
 				if (in != null)
@@ -60,7 +63,9 @@ public class ReadErrorApns {
 			}
 		}
 	}
-private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+
 	/**
 	 * <pre>
 	 * 处理流程: 
@@ -88,25 +93,24 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 		try {
 			init();
 			FileHandle filehandle = new FileHandle();
-			Map<String, ErrorFile> mapfiles = filehandle.copyFile(SRCDIR, DESTDIR);
-			
+			Map<String, ErrorFile> mapfiles = filehandle.copyHWFile(SRCDIR, DESTDIR);
+
 			con = DBUtils.getOracleCon();
 			LOG.info("成功获取到数据库连接OK");
-			//先清掉10天前的一些数据
+			// 先清掉10天前的一些数据
 			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
-			long daystart = daysagodate.getTime()/1000;
-		
-			String sql="delete from cdr_mistake where opentime<="+daystart;
-			String sqlno33="delete from cdr_mistake_no33 where opentime<="+daystart;
-			long deletenow=System.currentTimeMillis();
+			long daystart = daysagodate.getTime() / 1000;
+
+			String sql = "delete from cdr_mistake where opentime<=" + daystart;
+			String sqlno33 = "delete from cdr_mistake_no33 where opentime<=" + daystart;
+			long deletenow = System.currentTimeMillis();
 			main.util.MainStatUtil.executeSql(con, sql);
 			main.util.MainStatUtil.executeSql(con, sqlno33);
-			LOG.info("清除"+df.format(daysagodate)+"前的数据完毕:"+(System.currentTimeMillis()-deletenow));
-			
+			LOG.info("清除" + df.format(daysagodate) + "前的数据完毕:" + (System.currentTimeMillis() - deletenow));
+
 			LOG.debug("mapfiles:" + mapfiles);
 			if (mapfiles.size() > 0) {
 
-			
 				ReadHandleHistory readHistory = new ReadHandleHistory(con);
 				readHistory.getFromDB(mapfiles);
 				long now = System.currentTimeMillis();
@@ -116,6 +120,9 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 
 					ErrorFile file = files.next();
 					cdrs = filehandle.parseFile(file);
+					
+					System.out.println(df.format(new Date())+"=>cdrs.size():::"+cdrs.size());
+					
 					filehandle.save(cdrs);
 
 					LOG.info("解析并存储" + file.getSgsnid() + "_" + file.getSrcfilename() + "所花时间:"
@@ -137,7 +144,6 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 			DBUtils.closeConnection(con);
 		}
 	}
-	
 
 	public static void test(String[] args) {
 		FileHandle filehandle = new FileHandle();

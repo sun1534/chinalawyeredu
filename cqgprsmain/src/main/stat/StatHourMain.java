@@ -82,6 +82,7 @@ public class StatHourMain {
 			LOG.error("小时NSVC警告数据统计入库失败", e);
 		}
 		con.close();
+		con=null;
 
 		LOG.info("==============统计完毕" + dfhh.format(new Date()));
 

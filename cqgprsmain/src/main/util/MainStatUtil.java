@@ -124,7 +124,8 @@ public class MainStatUtil {
 							LOG.info("执行300个的时间为:" + (System.currentTimeMillis() - now));
 							now = System.currentTimeMillis();
 						} catch (Exception e) {
-							LOG.error("错误的SQL如下:");
+						
+							LOG.error("错误的SQL如下:",e);
 							for (int ii = 0; ii < nowsqls.size(); ii++) {
 								LOG.error("错误SQL:" + nowsqls.get(ii));
 							}
@@ -139,7 +140,7 @@ public class MainStatUtil {
 					stmt.clearBatch();
 					result += s.length;
 				} catch (Exception e) {
-					LOG.error("错误的SQL如下:");
+					LOG.error("错误的SQL如下:",e);
 					for (int ii = 0; ii < nowsqls.size(); ii++) {
 						LOG.error("错误SQL:" + nowsqls.get(ii));
 					}

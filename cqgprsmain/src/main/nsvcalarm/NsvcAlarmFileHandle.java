@@ -206,7 +206,7 @@ public class NsvcAlarmFileHandle {
 				stmt.setInt(3, cdr.getAlarmdate());
 				stmt.setString(4, cdr.getReason());
 				stmt.setString(5, cdr.getTimestamp());
-				stmt.setString(6, cdr.getGbindex().replaceAll("'", ""));
+				stmt.setString(6, cdr.getGbindex().replaceAll("'", "").trim());
 				stmt.setTimestamp(7,new java.sql.Timestamp(System.currentTimeMillis()));
 				stmt.setString(8, cdr.getSgsnid());
 				stmt.addBatch();

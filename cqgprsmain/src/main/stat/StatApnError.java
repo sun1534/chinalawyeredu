@@ -44,12 +44,7 @@ public class StatApnError {
 	
 		int prehourstart=(int)(start/1000);
 		int prehourend=(int)(end/1000);
-		
-//		int prehourstart = prehourend - 60 * 60;
-		
-//		String hour=df.format(prehourstart*1000L);
-		
-//		System.out.println(hour);
+
 		
 		String errcodesql="insert into STAT_ERRCODE_ERROR (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+stattime+",0 from cdr_mistake where opentime between "+prehourstart+" and "+prehourend+" group by errcode";
 		String errcodeno33sql="insert into stat_imsi_errcode_error(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),0,"+stattime+" from cdr_mistake_no33 where  opentime between "+prehourstart+" and "+prehourend+" group by errcode,imsi,msisdn";
@@ -68,12 +63,9 @@ public class StatApnError {
 		sqls.add(nullsql);
 		sqls.add(errcodeno33sql);
 		sqls.add(apnimsisql);
-//		try {
+
 			main.util.MainStatUtil.executeSql(con, sqls);
-//			LOG.info("APN错误代码小时统计入库成功");
-//		} catch (Exception e) {
-//			LOG.error("APN错误代码小时统计入库失败", e);
-//		}
+
 
 	}
 
@@ -81,8 +73,7 @@ public class StatApnError {
 	 * 
 	 */
 	public void statday() throws Exception {
-//		long yetime=MainStatUtil.getYestardayTime();
-//		long yeendtime=MainStatUtil.getOneDayAfter(yetime);
+
 		
 		this.start=main.util.MainStatUtil.getDateTime(statdate);
 		this.end=main.util.MainStatUtil.getOneDayAfter(start);
@@ -113,15 +104,8 @@ public class StatApnError {
 	}
 	
 	public static void main(String args[]) throws Exception {
-//		SelfLog.LOGDIR = "c:/";
-//		LOG = SelfLog.getInstance();
-//		LOG.info("开始统计STAT_APN_ERROR数据");
-//		Connection con = DBUtils.getOracleCon();
-//		LOG.info("建立数据库连接成功");
-//		StatApnError s = new StatApnError(con);
-//		s.stathour();
-//		con.close();
+
 	}
-//	private static SelfLog LOG =null;
+
 	private static SelfLog LOG = SelfLog.getInstance();
 }

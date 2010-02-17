@@ -51,50 +51,49 @@ private static final int ALARMCOUNT=5;
 		int prehourend=(int)(end/1000);
 		
 		
-		String sql="insert into alarm_nsvc(sgsnid,gbindex,alarmcount,stattime,recordtime) select sgsnid,gbindex,count(*),'"+stattime+"',sysdate from alarm_nsvc_logs where alarmdate between '"+prehourstart+" and "+prehourend+" group by sgsnid,gbindex having count(*)>= "+ALARMCOUNT;
+		String sql="insert into alarm_nsvc(sgsnid,gbindex,alarmcount,stattime,recordtime) select sgsnid,gbindex,count(*),'"+stattime+"',sysdate from alarm_nsvc_logs where alarmdate between "+prehourstart+" and "+prehourend+" group by sgsnid,gbindex having count(*)>= "+ALARMCOUNT;
 		
 		LOG.info("sql::"+sql);
 
 	   main.util.MainStatUtil.executeSql(con, sql);
-
 
 	}
 
 	/**
 	 * 
 	 */
-	public void statday() throws Exception {
-//		long yetime=MainStatUtil.getYestardayTime();
-//		long yeendtime=MainStatUtil.getOneDayAfter(yetime);
-		
-		this.start=main.util.MainStatUtil.getDateTime(statdate);
-		this.end=main.util.MainStatUtil.getOneDayAfter(start);
-		this.stattime=df.format(statdate);
-		long yetime=start;
-		long yeendtime=end;
-		
-		//明细记录情况
-		String sql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),"+stattime+",1,errcode from cdr_mistake where reqapnni is not null and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by reqapnni,errcode";
-		String nullsql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),"+stattime+",1,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by errcode";
-	
-		String errcodesql="insert into STAT_ERRCODE_ERROR (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+stattime+",1 from cdr_mistake where opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode";
-		String errcodeno33sql="insert into stat_imsi_errcode_error(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),1,"+stattime+" from cdr_mistake_no33 where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode,imsi,msisdn";
-		String apnimsisql="insert into stat_imsi_apn_error(imsi,reqapnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,"+stattime+" from cdr_mistake where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by reqapnni,imsi";
-
-		LOG.info("sql::"+sql);
-		LOG.info("nullsql::"+nullsql);
-		LOG.info("errcodesql::"+errcodesql);
-		LOG.info("errcodeno33sql::"+errcodeno33sql);
-		LOG.info("apnimsisql::"+apnimsisql);
-		List<String> sqls=new ArrayList<String>();
-		sqls.add(sql);
-		sqls.add(nullsql);
-		sqls.add(errcodesql);
-		sqls.add(errcodeno33sql);
-		sqls.add(apnimsisql);
-		MainStatUtil.executeSql(con, sqls);
-	}
-	
+//	public void statday() throws Exception {
+////		long yetime=MainStatUtil.getYestardayTime();
+////		long yeendtime=MainStatUtil.getOneDayAfter(yetime);
+//		
+//		this.start=main.util.MainStatUtil.getDateTime(statdate);
+//		this.end=main.util.MainStatUtil.getOneDayAfter(start);
+//		this.stattime=df.format(statdate);
+//		long yetime=start;
+//		long yeendtime=end;
+//		
+//		//明细记录情况
+//		String sql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select reqapnni,count(reqapnni),count(distinct(imsi)),"+stattime+",1,errcode from cdr_mistake where reqapnni is not null and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by reqapnni,errcode";
+//		String nullsql="insert into stat_apn_error(reqapnni,errorcount,usercount,stattime,dayflag,errcode) select '',count(*),count(distinct(imsi)),"+stattime+",1,errcode from cdr_mistake where (reqapnni is null or reqapnni='') and (opentime between "+yetime/1000+" and "+yeendtime/1000+") group by errcode";
+//	
+//		String errcodesql="insert into STAT_ERRCODE_ERROR (errcode,errcount,usercount,stattime,dayflag) select errcode,count(errcode),count(distinct(imsi)) ,"+stattime+",1 from cdr_mistake where opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode";
+//		String errcodeno33sql="insert into stat_imsi_errcode_error(imsi,msisdn,errcode,errcount,dayflag,stattime) select imsi,msisdn,errcode,count(*),1,"+stattime+" from cdr_mistake_no33 where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by errcode,imsi,msisdn";
+//		String apnimsisql="insert into stat_imsi_apn_error(imsi,reqapnni,errcount,dayflag,stattime) select imsi,reqapnni,count(*),1,"+stattime+" from cdr_mistake where  opentime between "+yetime/1000+" and "+yeendtime/1000+" group by reqapnni,imsi";
+//
+//		LOG.info("sql::"+sql);
+//		LOG.info("nullsql::"+nullsql);
+//		LOG.info("errcodesql::"+errcodesql);
+//		LOG.info("errcodeno33sql::"+errcodeno33sql);
+//		LOG.info("apnimsisql::"+apnimsisql);
+//		List<String> sqls=new ArrayList<String>();
+//		sqls.add(sql);
+//		sqls.add(nullsql);
+//		sqls.add(errcodesql);
+//		sqls.add(errcodeno33sql);
+//		sqls.add(apnimsisql);
+//		MainStatUtil.executeSql(con, sqls);
+//	}
+//	
 	public static void main(String args[]) throws Exception {
 //		SelfLog.LOGDIR = "c:/";
 //		LOG = SelfLog.getInstance();

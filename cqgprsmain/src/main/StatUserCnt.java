@@ -121,8 +121,8 @@ public class StatUserCnt {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(usersql);
 			while (rs.next()) {
-				String cellid = rs.getString("CELLID");
-				String lac = rs.getString("lac");
+				int cellid = rs.getInt("CELLID");
+				int lac = rs.getInt("lac");
 				int usercount = rs.getInt("usercount");
 				sqls.add("update stat_cellid_day set usercount=" + usercount + " where cellid='" + cellid
 						+ "' and lac='" + lac + "' and stattime=" + stattime);
@@ -151,9 +151,9 @@ public class StatUserCnt {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(usersql);
 			while (rs.next()) {
-				String cellid = rs.getString("cellid");
+				int cellid = rs.getInt("cellid");
 				String apnni = rs.getString("apnni");
-				String lac = rs.getString("lac");
+				int lac = rs.getInt("lac");
 				int usercount = rs.getInt("usercount");
 				// char a = apnni.charAt(0);
 				// if(a<='Z'&&a>='A')
@@ -208,7 +208,7 @@ public class StatUserCnt {
 						+ "' and nettype=" + nettype + " and ggsnid='" + ggsnid + "' and apnni='" + apnni
 						+ "' and stattime=" + stattime;
 
-				System.out.println(sql);
+//				System.out.println(sql);
 
 				sqls.add(sql);
 
