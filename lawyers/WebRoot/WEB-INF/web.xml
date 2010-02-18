@@ -74,6 +74,16 @@
 		</listener-class>
 	</listener>
 	
+		<servlet>
+		<servlet-name>elearningInterface</servlet-name>
+		<servlet-class>com.changpeng.service.ElearningInterfaceServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+    <servlet-name>elearningInterface</servlet-name>
+    <url-pattern>/elearningInterface</url-pattern>
+  </servlet-mapping>
+	
 	<session-config>
 		<session-timeout>240</session-timeout>
 	</session-config>

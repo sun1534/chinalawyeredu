@@ -14,13 +14,19 @@ import org.apache.commons.logging.LogFactory;
 public class LoginRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(LoginRequest.class);
 
-	public String requestService(int groupid,org.dom4j.Element method) {
-//		StringBuilder result = new StringBuilder("");
-//		result.append("<response>");
-//		try {
-//			String loginName = method.elementText("loginname");
-//			String password = method.elementText("password");
-//			LOG.debug("loginname=" + loginName + ",password=" + password);
+	
+	private int groupid;
+	public LoginRequest(int groupid){
+		this.groupid=groupid;
+	}
+	
+	public String requestService(org.dom4j.Element method) {
+		StringBuilder result = new StringBuilder("");
+		result.append("<response>");
+		try {
+			String loginName = method.elementText("loginname");
+			String password = method.elementText("password");
+			LOG.debug("loginname=" + loginName + ",password=" + password+",groupid="+groupid);
 //			SysUserService userservice = (SysUserService) globals.getBean("sysUserService");
 //			
 //			LOG.debug("====="+userservice);
@@ -39,15 +45,17 @@ public class LoginRequest extends ElearningRequests {
 //			else {
 //				msg = "登录成功";
 //			}
-//			result.append("<respcode>").append(s).append("</respcode>");
-//			result.append("<respmsg>").append(msg).append("</respmsg>");
-//		}
-//		catch (Exception e) {
-//			result.append("<respcode>").append(-4).append("</respcode>");
-//			result.append("<respmsg>登录异常:").append(e.getMessage()).append("</respmsg>");
-//		}
-//		result.append("</response>");
-//		return result.toString();
-		return null;
+			int s=10000;
+			String msg="登录成功";
+			result.append("<respcode>").append(s).append("</respcode>");
+			result.append("<respmsg>").append(msg).append("</respmsg>");
+		}
+		catch (Exception e) {
+			result.append("<respcode>").append(-4).append("</respcode>");
+			result.append("<respmsg>登录异常:").append(e.getMessage()).append("</respmsg>");
+		}
+		result.append("</response>");
+		return result.toString();
+//		return null;
 	}
 }

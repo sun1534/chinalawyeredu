@@ -23,10 +23,13 @@ import com.changpeng.models.Lxskrecs;
 public class SetSKRecsRequest extends ElearningRequests {
 	private java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final Log LOG = LogFactory.getLog(SetSKRecsRequest.class);
-
+	private int groupid;
+	public SetSKRecsRequest(int groupid){
+		this.groupid=groupid;
+	}
 	// 设置考勤结果,cardno和lessonid判断唯一性，如果送上来重复的数据，更新lxskrecs中的
 	// timelong字段。同时判断lessons表中的刷卡的时长设限来决定积分的个数
-	public String requestService(int groupid,org.dom4j.Element method) {
+	public String requestService(org.dom4j.Element method) {
 		StringBuilder result = new StringBuilder("");
 		result.append("<response>");
 		try {

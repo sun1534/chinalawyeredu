@@ -20,6 +20,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import com.changpeng.common.BasicService;
+import com.changpeng.common.context.Globals;
+import com.changpeng.models.LogClientRequest;
+
 /**
  * <pre>
  * 和培训管理系统的接口
@@ -44,77 +48,77 @@ public class ElearningInterfaceServlet extends HttpServlet {
 	 * 
 	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	public void service(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, java.io.IOException {
+	public void service(HttpServletRequest request, HttpServletResponse response)
+			throws javax.servlet.ServletException, java.io.IOException {
 
-		// int length = request.getContentLength();
-		
-		int groupid=Integer.parseInt(request.getParameter("groupid"));
 		InputStream is = request.getInputStream();
 		java.io.BufferedReader br = new java.io.BufferedReader(new java.io.InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
-		String line="";
+		String line = "";
 		while ((line = br.readLine()) != null) {
 			sb.append(line);
 		}
 		LOG.debug("请求消息:\r\n" + sb.toString());
-
 		StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-
+		com.changpeng.models.LogClientRequest logclient = new LogClientRequest();
 		try {
-			// org.dom4j.Document doc = new SAXReader().read(is);
 			Document document = DocumentHelper.parseText(sb.toString());
-			LOG.debug("document:::"+document);
-			
-			
+			LOG.debug("document:::" + document);
 			Element element = document.getRootElement();
-			
-			
-			
-			LOG.debug("element:::"+element.getName()+",,,="+element.attributeValue("name"));
-			
-			
-//			Element method = element.element("method");
-		Element method=element;	
-			LOG.debug("method.getName()==="+method.getName());
-			
+			LOG.debug("element:::" + element.getName() + ",,,=" + element.attributeValue("name"));
+			Element method = element;
+			LOG.debug("method.getName()===" + method.getName());
+
 			String methodname = method.attributeValue("name");
-			
-			LOG.debug("methodname==="+methodname);
+			int groupid = Integer.parseInt(method.attributeValue("groupid"));
+			String cpuid = method.attributeValue("cpuid");
+			LOG.debug("methodname===" + methodname);
+
+			logclient.setCpuid(cpuid);
+			logclient.setGroupid(groupid);
+			logclient.setMethod(methodname);
+			logclient.setReqtime(new java.sql.Timestamp(System.currentTimeMillis()));
+			logclient.setReqcontent(sb.toString());
+
 			ElearningRequests learningreq = null;
 			if (methodname.equals("login")) {
-				learningreq = new LoginRequest();
-			}
-			else if (methodname.equals("getLawyersInfo")) {
+				learningreq = new LoginRequest(groupid);
+			} else if (methodname.equals("getLawyersInfo")) {
 				// 得到律师信息
-				learningreq = new GetLawyerRequest();
-			}
-			else if (methodname.equals("getLessonsInfo")) {
-				learningreq = new GetLessonRequest();
+				learningreq = new GetLawyerRequest(groupid);
+			} else if (methodname.equals("getLessonsInfo")) {
+				learningreq = new GetLessonRequest(groupid);
 			}
 			// 得到培训课程中已经有人培训了的课程信息
 			else if (methodname.equals("getClassRegInfo")) {
-				learningreq = new GetClassRegRequest();
-			}
-			else if (methodname.equals("setSKRecs")) {
-				learningreq = new SetSKRecsRequest();
-			}
-			else {
+				learningreq = new GetClassRegRequest(cpuid,groupid);
+			} else if (methodname.equals("setSKRecs")) {
+				learningreq = new SetSKRecsRequest(groupid);
+			} else {
 				learningreq = new ErrorRequest();
 			}
-			result.append(learningreq.requestService(groupid,method));
-			
-		}
-		catch (Exception e) {
+			result.append(learningreq.requestService(method));
+
+		} catch (Exception e) {
 			result.append("<response>");
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>").append("系统异常:" + e.getMessage()).append("</respmsg>");
 			result.append("</response>");
 			LOG.error("异常:::" + e);
 		}
+
 		finally {
-			
-			LOG.debug("返回消息:\r\n"+result);
-			
+			logclient.setRestime(new java.sql.Timestamp(System.currentTimeMillis()));
+			logclient.setRescontent(result.toString());
+
+			BasicService basicService = (BasicService) Globals.getBean("basicService");
+			try {
+				basicService.save(logclient);
+			} catch (Exception e) {
+				LOG.error("保存log信息失误", e);
+			}
+			LOG.debug("返回消息:\r\n" + result);
+
 			response.setCharacterEncoding("utf-8");
 			OutputStream os = response.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));

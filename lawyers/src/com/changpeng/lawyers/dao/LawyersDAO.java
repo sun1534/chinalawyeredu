@@ -10,6 +10,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicDAO;
+import com.changpeng.common.util.MD5;
 import com.changpeng.models.Lawyers;
 
 /**
@@ -36,10 +37,11 @@ public class LawyersDAO extends BasicDAO {
 
 		if (lawyers.getStatus() != 0)
 			return -2;// 帐号被禁用了
-		String md5password = lawyers.getPasswd();
-		String md5input=password;
-//		String md5input = MD5.md5(password);
-		if (!md5password.equals(md5input))
+		String dbpassword = lawyers.getPasswd();
+		String md5notinput=password;
+		String md5input = MD5.md5(password);
+		//如果不md5和md5后都不匹配,则认为不匹配
+		if (!dbpassword.equals(md5input)&&!dbpassword.equals(md5notinput))
 			return -3;// 密码错误
 		return lawyers.getLawyerid();
 	}

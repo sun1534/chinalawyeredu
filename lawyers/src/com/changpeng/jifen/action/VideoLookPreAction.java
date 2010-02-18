@@ -39,6 +39,19 @@ public class VideoLookPreAction extends AbstractAction {
 	public int getUserid() {
 		return this.userid;
 	}
+	
+	private boolean islastyear;
+	public boolean getIslastyear(){
+		return this.islastyear;
+	}
+		/**
+		 * 积分年度
+		 */
+		private int jifenyear;
+
+		public int getJifenyear() {
+			return this.jifenyear;
+		}
 
 	@Override
 	public String go() throws Exception {
@@ -58,7 +71,7 @@ public class VideoLookPreAction extends AbstractAction {
 			return "message";
 		}
 			
-		this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid, getLoginUser().getLawyerid());
+		this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid, userid);
 
 		debug("this.lxnetrecs==" + this.lxnetrecs);
 
@@ -80,6 +93,20 @@ public class VideoLookPreAction extends AbstractAction {
 	        settime=false;
 			localelesson=true;
 		}
+		
+		if (xuefen != null) {
+			jifenyear = xuefen.getTheyear();
+			islastyear=xuefen.getIslastyear()==1?true:false;
+		} else {
+			// 如果所获得的分数小于达标分，则提示是否需要设置学分到去年
+			if (yearfen < totalfen) {
+				shouldselect = true;
+			} else {
+				shouldselect = false;
+				jifenyear=nowyear;
+			}
+		}
+		
 		
 		if (lxnetrecs == null)
 			lxnetrecs = new Lxnetrecs();
@@ -122,5 +149,12 @@ public class VideoLookPreAction extends AbstractAction {
 
 	public float getVideotimeout() {
 		return videotimeout;
+	}
+
+	/**
+	 * @param userid the userid to set
+	 */
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 }

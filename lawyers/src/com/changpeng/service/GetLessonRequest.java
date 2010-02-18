@@ -21,19 +21,25 @@ import com.changpeng.models.Lessons;
  */
 public class GetLessonRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(GetLessonRequest.class);
+	private int groupid;
 
-	public String requestService(int groupid,org.dom4j.Element rootElement) {
+	public GetLessonRequest(int groupid) {
+		this.groupid = groupid;
+	}
+
+	public String requestService(org.dom4j.Element rootElement) {
 		StringBuilder result = new StringBuilder();
 		StringBuilder temp = new StringBuilder();
 		StringBuilder lessontemp = new StringBuilder();
 		result.append("<response>");
 		try {
-			BasicService userservice = (BasicService)Globals.getBean("basicService");
+			BasicService userservice = (BasicService) Globals.getBean("basicService");
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lessons.class);
-			detachedCriteria.add(Restrictions.eq("groupid",groupid));
-			detachedCriteria.add(Restrictions.ne("lessonstyle","2")); //不是在线课程
-			
-			
+			// 该律协的课程
+			detachedCriteria.add(Restrictions.eq("groupid", groupid));
+			// 不是在线课程
+			detachedCriteria.add(Restrictions.ne("lessonstyle", "2"));
+
 			List list = userservice.findAllByCriteria(detachedCriteria);
 			int lessonsize = list == null ? 0 : list.size();
 			temp.append("<respcode>").append(lessonsize).append("</respcode>");
@@ -57,15 +63,13 @@ public class GetLessonRequest extends ElearningRequests {
 				lessontemp.append("<title>").append(lesson.getTitle()).append("</title>");
 				lessontemp.append("<lessontype>").append(lessonstate).append("</lessontype>");
 				lessontemp.append("<lessondate>").append(lesson.getLessondate()).append("</lessondate>");
-//				lessontemp.append("<reqminute>").append(lesson.getKaoqinshichang()==null?0:(int)(lesson.getKaoqinshichang().floatValue())).append("</reqminute>");
 				lessontemp.append("<reqminute>0</reqminute>");
 
 				lessontemp.append("</lesson>");
 
 			}
 			lessontemp.append("</lessons>");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>获取课程信息异常:").append(e.getMessage()).append("</respmsg>");
 		}

@@ -22,8 +22,11 @@ import com.changpeng.models.SysGroup;
  */
 public class GetLawyerRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(GetLawyerRequest.class);
-
-	public String requestService(int groupid,org.dom4j.Element rootElement) {
+	private int groupid;
+	public GetLawyerRequest(int groupid){
+		this.groupid=groupid;
+	}
+	public String requestService(org.dom4j.Element rootElement) {
 
 		StringBuilder result = new StringBuilder();
 		StringBuilder temp = new StringBuilder();
@@ -32,6 +35,7 @@ public class GetLawyerRequest extends ElearningRequests {
 		try {
 			BasicService userservice = (BasicService) Globals.getBean("basicService");
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class);
+			//市级律协
 			detachedCriteria.add(Restrictions.eq("directunion", groupid));
 			
 			List list = userservice.findAllByCriteria(detachedCriteria);
@@ -44,19 +48,16 @@ public class GetLawyerRequest extends ElearningRequests {
 				Lawyers lawyer = (Lawyers) list.get(i);
 				//有事务所并且不是离职的律师了
 				String cardno=lawyer.getCardno();
-				if (lawyer.getDirectunion()!=-1&&cardno!=null&&!cardno.trim().equals("")) {
+//				if (lawyer.getDirectunion()!=-1&&cardno!=null&&!cardno.trim().equals("")) {
+				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0) {
 					lawyertemp.append("<lawyer>");
 					lawyertemp.append("<userid>").append(lawyer.getLawyerid()).append("</userid>");
-					lawyertemp.append("<cardno>").append(lawyer.getCardno() == null ? "" : lawyer.getCardno()).append("</cardno>");
+					lawyertemp.append("<cardno>").append(cardno == null ? "" : cardno).append("</cardno>");
 					lawyertemp.append("<username>").append(lawyer.getLawyername() == null ? "" : lawyer.getLawyername()).append("</username>");
-
 					int theoffice=lawyer.getTheoffice();
 					SysGroup group=(SysGroup)userservice.get(SysGroup.class, theoffice);
-					
 					lawyertemp.append("<officename>").append(group.getGroupname()).append("</officename>");
-
-					lawyertemp.append("<mobile>").append(lawyer.getSystemno() == null ? "" : lawyer.getSystemno()).append("</mobile>");
-//					lawyertemp.append("<mobile>").append(lawyer.getMobile() == null ? "" : lawyer.getMobile()).append("</mobile>");
+					lawyertemp.append("<systemno>").append(lawyer.getSystemno() == null ? "" : lawyer.getSystemno()).append("</systemno>");
 					lawyertemp.append("<lawyerno>").append(lawyer.getLawyerno()).append("</lawyerno>");
 					lawyertemp.append("<photo>").append(lawyer.getPhoto() == null ? "" : lawyer.getPhoto()).append("</photo>");
 					lawyertemp.append("</lawyer>\r\n");

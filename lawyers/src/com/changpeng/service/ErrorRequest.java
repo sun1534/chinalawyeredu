@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
 public class ErrorRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(ErrorRequest.class);
 
-	public String requestService(int groupid,org.dom4j.Element rootElement) {
+	public String requestService(org.dom4j.Element rootElement) {
 		StringBuilder result = new StringBuilder("");
 		result.append("<response>");
 		result.append("<respcode>").append(-1).append("</respcode>");

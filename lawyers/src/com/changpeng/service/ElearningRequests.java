@@ -13,5 +13,5 @@ import com.changpeng.common.context.Globals;
 public abstract class ElearningRequests {
 
 
-	public abstract String requestService(int groupid,org.dom4j.Element rootElement);
+	public abstract String requestService(org.dom4j.Element rootElement);
 }
