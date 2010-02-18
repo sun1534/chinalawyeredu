@@ -44,9 +44,7 @@
       <tr>
        
         <td class="tab_content1" align="left">
-      
-       
-        
+ 
         <s:set name="lessonid" value="goodlessonList[#goodstat.index][1]"/>
       
         

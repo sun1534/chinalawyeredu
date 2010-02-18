@@ -30,8 +30,45 @@ public class Lawyerlessonxf implements java.io.Serializable {
 	private int provinceid;
 	private int cityid;
 	private int officeid;
-
+	private int theyear;
+	private int islastyear;
 	// Constructors
+
+	/**
+	 * @return the theyear
+	 */
+	public int getTheyear() {
+		return theyear;
+	}
+
+
+
+	/**
+	 * @param theyear the theyear to set
+	 */
+	public void setTheyear(int theyear) {
+		this.theyear = theyear;
+	}
+
+
+
+	/**
+	 * @return the islastyear
+	 */
+	public int getIslastyear() {
+		return islastyear;
+	}
+
+
+
+	/**
+	 * @param islastyear the islastyear to set
+	 */
+	public void setIslastyear(int islastyear) {
+		this.islastyear = islastyear;
+	}
+
+
 
 	/**
 	 * @return the provinceid

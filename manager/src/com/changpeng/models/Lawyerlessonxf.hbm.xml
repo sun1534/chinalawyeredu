@@ -83,5 +83,11 @@
                 <comment>直属于哪个事务所</comment>
             </column>
         </property>
+             <property name="theyear" type="java.lang.Integer">
+            <column name="theyear" />
+        </property> 
+             <property name="islastyear" type="java.lang.Integer">
+            <column name="islastyear" />
+        </property> 
     </class>
 </hibernate-mapping>
