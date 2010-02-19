@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "培训刷卡管理系统", "培训刷卡管理系统\培训刷卡管理系统.csproj", "{DF310B2B-1891-418E-B499-96A66E5876C3}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "培训刷卡管理系统安装", "培训刷卡管理系统安装\培训刷卡管理系统安装.vdproj", "{E99A94B9-D513-4E1B-B556-ADA4040018A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "ConsoleApplication\ConsoleApplication.csproj", "{3F614A50-AA36-40B5-B5A1-D72781009CDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF310B2B-1891-418E-B499-96A66E5876C3}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{DF310B2B-1891-418E-B499-96A66E5876C3}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{DF310B2B-1891-418E-B499-96A66E5876C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF310B2B-1891-418E-B499-96A66E5876C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E99A94B9-D513-4E1B-B556-ADA4040018A5}.Debug|Any CPU.ActiveCfg = Release
+		{E99A94B9-D513-4E1B-B556-ADA4040018A5}.Release|Any CPU.ActiveCfg = Release
+		{3F614A50-AA36-40B5-B5A1-D72781009CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F614A50-AA36-40B5-B5A1-D72781009CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F614A50-AA36-40B5-B5A1-D72781009CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F614A50-AA36-40B5-B5A1-D72781009CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
