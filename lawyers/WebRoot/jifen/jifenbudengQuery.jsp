@@ -43,7 +43,6 @@ function fanye(str){
           <td height="24"  >
            	<div align="center"><b>您的补登积分<b/></div>
            	<div align="left">
-       
            </div>
           </td>
         </tr>

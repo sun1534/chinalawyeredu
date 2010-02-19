@@ -75,8 +75,11 @@ public class MyWorkspacePageAction extends AbstractAction {
 
 		DetachedCriteria detachedCriteria = null;
 
-		nowxuefen = xfservice.getLawyerZongjifen(this.lawyers.getLawyerid(), jifentime.getStart(), jifentime.getEnd());
+//		nowxuefen = xfservice.getLawyerZongjifen(this.lawyers.getLawyerid(), jifentime.getStart(), jifentime.getEnd());
 
+		nowxuefen = xfservice.getLawyerZongjifen(this.lawyers.getLawyerid(), jifentime.getNianshenyear());
+
+		
 		// detachedCriteria =
 		// DetachedCriteria.forClass(Lawyerlessonxf.class).add(
 		// Restrictions.eq("lawyerid", lawyers.getLawyerid())).add(

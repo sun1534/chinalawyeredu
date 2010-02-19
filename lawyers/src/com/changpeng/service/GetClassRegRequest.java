@@ -47,15 +47,18 @@ public class GetClassRegRequest extends ElearningRequests {
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
 
 			// 这里得到这个groupid,cpuid最近的一次数据
-			String sql = "select reqtime from Log_Client_Request where groupid=" + groupid + " and cpuid=" + cpuid
-					+ " order by reqtime desc limit 1";
+			String sql = "select reqtime from Log_Client_Request where method='getClassRegInfo' and groupid=" + groupid + " and cpuid='" + cpuid
+					+ "' order by reqtime desc limit 1";
 			List reqlist = basicService.findBySqlQuery(sql);
 			String lasttime = null;
+			LOG.debug("reqlist::::"+reqlist);
 			if (reqlist != null && reqlist.size() > 0) {
 				Timestamp ts = (Timestamp) (reqlist.get(0));
 				detachedCriteria.add(Restrictions.ge("lastupdate", ts));
 				lasttime = df.format(ts);
+				
 			}
+			detachedCriteria.add(Restrictions.eq("learnmode", 1));
 			detachedCriteria.add(Restrictions.eq("cityid", groupid));
 
 			List list = basicService.findAllByCriteria(detachedCriteria);

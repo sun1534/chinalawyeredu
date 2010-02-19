@@ -127,21 +127,35 @@ public class LawyerlessonxfService extends BasicService {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public float getLawyerZongjifen(int lawyerid, Timestamp start, Timestamp end) {
+	private float getLawyerZongjifen(int lawyerid, Timestamp start, Timestamp end) {
 		String sql = "select FORMAT(sum(pxxf),2) from lawyerlessonxf where (lastupdate between '" + df.format(start)
 				+ "' and '" + df.format(end) + "') and lawyerid=" + lawyerid;
 		List list = lawyersDAO.findBySqlQuery(sql);
 		System.out.println(list);
-		if (list != null && list.size() != 0){
-		Object obj=list.get(0);
-		if(obj==null)
-			return 0;
+		if (list != null && list.size() != 0) {
+			Object obj = list.get(0);
+			if (obj == null)
+				return 0;
 			return Float.parseFloat(obj.toString());
 		}
 		return 0;
 	}
 
-	public LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
+	public float getLawyerZongjifen(int lawyerid, int year) {
+		String sql = "select FORMAT(sum(pxxf),2) from lawyerlessonxf where theyear=" + year + " and lawyerid="
+				+ lawyerid;
+		List list = lawyersDAO.findBySqlQuery(sql);
+		System.out.println(list);
+		if (list != null && list.size() != 0) {
+			Object obj = list.get(0);
+			if (obj == null)
+				return 0;
+			return Float.parseFloat(obj.toString());
+		}
+		return 0;
+	}
+
+	private LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
 			throws ServiceException {
 
 		String sql = "";
@@ -179,4 +193,38 @@ public class LawyerlessonxfService extends BasicService {
 		return statics;
 	}
 
+	public LearnmodeStatics getFiledLearnmode(int year, String field, int fieldvalue) throws ServiceException {
+
+		String sql = "";
+
+		if (field != null && !field.equals("")) {
+
+			sql = "select learnmode,count(learnmode) from lawyerlessonxf where theyear=" + year + " and " + field + "="
+					+ fieldvalue + " group by learnmode";
+
+		} else {
+			sql = "select learnmode,count(learnmode) from lawyerlessonxf where theyear=" + year + " group by learnmode";
+		}
+		LearnmodeStatics statics = new LearnmodeStatics();
+
+		List tongjilist = lawyerlessonxfDAO.findBySqlQuery(sql);
+		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
+		// 1现场培训2在线视频3文本课件4积分补登
+
+		for (int i = 0; i < tongjilength; i++) {
+			Object[] obj = (Object[]) tongjilist.get(i);
+			int learnmode = Integer.parseInt(obj[0].toString());
+			if (learnmode == 1) {
+				statics.setLocal(Integer.parseInt(obj[1].toString()));
+			} else if (learnmode == 1) {
+				statics.setVideo(Integer.parseInt(obj[1].toString()));
+			} else if (learnmode == 1) {
+				statics.setWenbenkejian(Integer.parseInt(obj[1].toString()));
+			} else if (learnmode == 1) {
+				statics.setBudeng(Integer.parseInt(obj[1].toString()));
+			}
+		}
+
+		return statics;
+	}
 }

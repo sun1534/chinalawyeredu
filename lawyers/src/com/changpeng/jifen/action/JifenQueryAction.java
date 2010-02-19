@@ -58,13 +58,17 @@ public class JifenQueryAction extends AbstractListAction {
 		
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
 		detachedCriteria.add(Restrictions.eq("lawyerid",lawyerid));
-		detachedCriteria.add(Restrictions.between("lastupdate", jifentime.getStart(), jifentime.getEnd()));
+//		detachedCriteria.add(Restrictions.between("lastupdate", jifentime.getStart(), jifentime.getEnd()));
+		detachedCriteria.add(Restrictions.eq("theyear", jifentime.getNianshenyear()));
+		
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
 		this.page = basicService.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, pageNo);
 
 
-		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a where a.lawyerid="+lawyerid+" and (UNIX_TIMESTAMP(a.lastupdate) between "+jifentime.getStart().getTime()/1000 + " and " + jifentime.getEnd().getTime()/1000 + ") group by a.learnmode";
+//		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a where a.lawyerid="+lawyerid+" and (UNIX_TIMESTAMP(a.lastupdate) between "+jifentime.getStart().getTime()/1000 + " and " + jifentime.getEnd().getTime()/1000 + ") group by a.learnmode";
+		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a where a.theyear="+jifentime.getNianshenyear()+" and a.lawyerid="+lawyerid+" group by a.learnmode";
+		
 		
 		List tongjilist = basicService.findBySqlQuery(adminsql);
 		int tongjilength=tongjilist==null?0:tongjilist.size();

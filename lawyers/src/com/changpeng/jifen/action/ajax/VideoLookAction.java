@@ -27,23 +27,39 @@ public class VideoLookAction extends AbstractAction {
 	private int lessonid;
 	private float allminutes;
 	private float lookedminutes;
-	
+
 	private int userid;
-	
-	public void setUserid(int userid){
-		this.userid=userid;
+
+	private int jifenyear;
+
+	public void setJifenyear(int year) {
+		this.jifenyear = year;
 	}
+
+	private int nowyear;
+
 	
-	public VideoLookAction(){
-		this.needsession=false;
+	/**
+	 * @param nowyear the nowyear to set
+	 */
+	public void setNowyear(int nowyear) {
+		this.nowyear = nowyear;
 	}
-	
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public VideoLookAction() {
+		this.needsession = false;
+	}
 
 	public String go() throws Exception {
 
-		try {
 		
-			
+		
+		try {
+
 			LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
 			BasicService basicService = (BasicService) getBean("basicService");
 
@@ -56,30 +72,28 @@ public class VideoLookAction extends AbstractAction {
 				lxnetrecs.setLessonid(lessonid);
 				lxnetrecs.setLookedminutes(lookedminutes);
 				lxnetrecs.setUserid(userid);
-
+				lxnetrecs.setJifenyear(jifenyear);
+				lxnetrecs.setNowyear(nowyear);
 				this.huodexuefen = lxnetrecsService.saveLxnetrecs(lxnetrecs);
-				this.netrecsid=lxnetrecs.getNetrecsid();
+				this.netrecsid = lxnetrecs.getNetrecsid();
 
-			}
-			else {// 更新这个人的积分情况
+			} else {// 更新这个人的积分情况
 
 				// 如果这个人重新开始看，并lookedminutes小于已经看过的时间的话，则不予理睬
 				if (this.lookedminutes < lxnetrecs.getLookedminutes()) {
 					this.huodexuefen = 0;
-				}
-				else {
+				} else {
 					// 更新这个lesson的看视频的情况并更新这个课程的学分情况
 					lxnetrecs.setLasttime(new java.sql.Timestamp(System.currentTimeMillis()));
 					lxnetrecs.setLookedminutes(lookedminutes);
 					this.huodexuefen = lxnetrecsService.updateLxnetrecs(lxnetrecs);
-					
+
 				}
 			}
-		}
-		catch (Exception e) {
-			
-			LOG.error("视频课程有误:::"+e);
-			
+		} catch (Exception e) {
+
+			LOG.error("视频课程有误:::" + e);
+
 			this.huodexuefen = -1;
 		}
 		return SUCCESS;
@@ -101,8 +115,9 @@ public class VideoLookAction extends AbstractAction {
 	public void setNetrecsid(int netrecsid) {
 		this.netrecsid = netrecsid;
 	}
+
 	public int getNetrecsid() {
-		return this.netrecsid ;
+		return this.netrecsid;
 	}
 
 	/**
@@ -118,7 +133,8 @@ public class VideoLookAction extends AbstractAction {
 	}
 
 	/**
-	 * @param allminutes the allminutes to set
+	 * @param allminutes
+	 *            the allminutes to set
 	 */
 	public void setAllminutes(float allminutes) {
 		this.allminutes = allminutes;

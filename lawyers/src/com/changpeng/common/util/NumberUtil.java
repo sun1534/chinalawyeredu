@@ -28,7 +28,7 @@ public class NumberUtil {
 	}
 	public static String toMoney(String s) {
 		if (s == null || s.equals("")) {
-			return "0.0";
+			return "0.00";
 		}
 		try {
 			return toMoney(Double.parseDouble(s));

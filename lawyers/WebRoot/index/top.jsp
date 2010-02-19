@@ -38,9 +38,10 @@ function exitform(){
   <tr>
     <!-- <td  align="right" background="../imagesa/top-bg1.jpg">-->
      <td  align="right" background="${resourcePath }${topbarpic }">
+     <form name="form1" method="post" action="../common/logout.pl" target="_top">
        <table width="28%" border="0" cellspacing="0" cellpadding="0" background="../imagesa/bgright.jpg">
         <tr> 
-         	<form name="form1" method="post" action="../common/logout.pl" target="_top">
+         	
           <td height="26"  align="right">
                  <a href="../index/workspace.pl" target="mainFrame">返回首页</a> ｜
                  <s:if test="lawyer.provinceunion!=22">
@@ -54,14 +55,15 @@ function exitform(){
                  </s:if>
                  <a href="#" onclick="submitform()">【退出】</a>         
           </td> 
-          </form>
+       
         </tr>
         <tr>
           <td height="24" align="right">
-               ${lawyers.lawyername} 您好,欢迎登录培训系统！  
+               ${lawyer.lawyername} 您好,欢迎登录培训系统！  
           </td>
         </tr>
 </table>
+   </form>
     </td>
   </tr>
 </table>

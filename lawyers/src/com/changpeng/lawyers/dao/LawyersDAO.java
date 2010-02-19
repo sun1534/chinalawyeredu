@@ -31,17 +31,17 @@ public class LawyersDAO extends BasicDAO {
 	public int userLogin(String loginName, String password) {
 		this.lawyers = getLawyerByLoginname(loginName);
 		if (lawyers == null)
-			lawyers=this.getLawyerBySystemno(loginName);
-		if(lawyers==null)
+			lawyers = this.getLawyerBySystemno(loginName);
+		if (lawyers == null)
 			return -1;// message = "您输入的帐号在系统中不存在,请确认";
 
 		if (lawyers.getStatus() != 0)
 			return -2;// 帐号被禁用了
 		String dbpassword = lawyers.getPasswd();
-		String md5notinput=password;
+		String md5notinput = password;
 		String md5input = MD5.md5(password);
-		//如果不md5和md5后都不匹配,则认为不匹配
-		if (!dbpassword.equals(md5input)&&!dbpassword.equals(md5notinput))
+		// 如果不md5和md5后都不匹配,则认为不匹配
+		if (!dbpassword.equals(md5input) && !dbpassword.equals(md5notinput))
 			return -3;// 密码错误
 		return lawyers.getLawyerid();
 	}
@@ -63,7 +63,7 @@ public class LawyersDAO extends BasicDAO {
 			return (Lawyers) list.get(0);
 	}
 
-	public Lawyers getLawyerBySystemno(String systemno){
+	public Lawyers getLawyerBySystemno(String systemno) {
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
 		dc.add(Restrictions.eq("systemno", systemno));
 		List list = this.findAllByCriteria(dc);
@@ -72,7 +72,7 @@ public class LawyersDAO extends BasicDAO {
 		else
 			return (Lawyers) list.get(0);
 	}
-	
+
 	/**
 	 * 根据卡号获取律师信息
 	 * 
@@ -114,7 +114,10 @@ public class LawyersDAO extends BasicDAO {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
 		dc.add(Restrictions.eq("lawyerno", lawyerno));
-		dc.add(Restrictions.eq("directunion", thegroup));
+		if(thegroup!=0){
+		dc.add(Restrictions
+					.or(Restrictions.eq("directunion", thegroup), Restrictions.eq("provinceunion", thegroup)));
+		}
 		List list = this.findAllByCriteria(dc);
 		if (list == null || list.size() == 0)
 			return null;
@@ -127,10 +130,10 @@ public class LawyersDAO extends BasicDAO {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
 		dc.add(Restrictions.eq("lawyerno", lawyerno));
-		if(city!=0)
-		dc.add(Restrictions.eq("directunion", city));
-		if(province!=0)
-		dc.add(Restrictions.eq("provinceunion", province));
+		if (city != 0)
+			dc.add(Restrictions.eq("directunion", city));
+		if (province != 0)
+			dc.add(Restrictions.eq("provinceunion", province));
 		List list = this.findAllByCriteria(dc);
 		if (list == null || list.size() == 0)
 			return null;
@@ -160,6 +163,7 @@ public class LawyersDAO extends BasicDAO {
 	/**
 	 * 
 	 * 得到省、市、事务所的律师数
+	 * 
 	 * @param field
 	 * @param fieldvalue
 	 * @return

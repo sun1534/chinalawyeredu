@@ -46,7 +46,8 @@ public class ElearningInterfaceServlet extends HttpServlet {
 	/*
 	 * 这里要解析xml (non-Javadoc)
 	 * 
-	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see javax.servlet.http.HttpServlet#service(javax.servlet.http.HttpServletRequest,
+	 *      javax.servlet.http.HttpServletResponse)
 	 */
 	public void service(HttpServletRequest request, HttpServletResponse response)
 			throws javax.servlet.ServletException, java.io.IOException {
@@ -61,6 +62,8 @@ public class ElearningInterfaceServlet extends HttpServlet {
 		LOG.debug("请求消息:\r\n" + sb.toString());
 		StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 		com.changpeng.models.LogClientRequest logclient = new LogClientRequest();
+		logclient.setReqtime(new java.sql.Timestamp(System.currentTimeMillis()));
+		logclient.setReqcontent(sb.toString());
 		try {
 			Document document = DocumentHelper.parseText(sb.toString());
 			LOG.debug("document:::" + document);
@@ -77,8 +80,6 @@ public class ElearningInterfaceServlet extends HttpServlet {
 			logclient.setCpuid(cpuid);
 			logclient.setGroupid(groupid);
 			logclient.setMethod(methodname);
-			logclient.setReqtime(new java.sql.Timestamp(System.currentTimeMillis()));
-			logclient.setReqcontent(sb.toString());
 
 			ElearningRequests learningreq = null;
 			if (methodname.equals("login")) {
@@ -91,7 +92,7 @@ public class ElearningInterfaceServlet extends HttpServlet {
 			}
 			// 得到培训课程中已经有人培训了的课程信息
 			else if (methodname.equals("getClassRegInfo")) {
-				learningreq = new GetClassRegRequest(cpuid,groupid);
+				learningreq = new GetClassRegRequest(cpuid, groupid);
 			} else if (methodname.equals("setSKRecs")) {
 				learningreq = new SetSKRecsRequest(groupid);
 			} else {

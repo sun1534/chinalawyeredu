@@ -57,6 +57,7 @@
 				<property name="lawyerlessonxfDAO">
 			<ref bean="lawyerlessonxfDAO" />
 		</property>
+			
 		<property name="transactionManager">
 			<ref bean="transactionManager" />
 		</property>
@@ -72,7 +73,9 @@
 		<property name="lawyerlessonxfDAO">
 			<ref bean="lawyerlessonxfDAO" />
 		</property> 
-		
+		<property name="lawyersDAO">
+			<ref bean="lawyersDAO" />
+		</property>
 		<property name="transactionManager">
 			<ref bean="transactionManager" />
 		</property>

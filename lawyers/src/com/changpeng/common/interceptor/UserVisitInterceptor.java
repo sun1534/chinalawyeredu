@@ -52,10 +52,10 @@ public class UserVisitInterceptor implements Interceptor {
     		getDomain(request);
     		result=invocation.invoke();
     	}catch(Exception e){
-    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now));
+    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+Constants.SYS_NAME);
     		throw e;
     	}
-		LOG.info(ip + ">" + request.getRequestURI()+">"+(System.currentTimeMillis()-now));
+		LOG.info(ip + ">" + request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+Constants.SYS_NAME);
 		return result;
 	}
 
@@ -117,6 +117,6 @@ public class UserVisitInterceptor implements Interceptor {
 			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
 			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
 		}
-		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
+//		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
 	}
 }

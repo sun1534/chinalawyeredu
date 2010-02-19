@@ -18,6 +18,7 @@ import com.changpeng.common.BasicService;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.jifen.dao.LawyerlessonxfDAO;
 import com.changpeng.jifen.dao.LxskrecsDAO;
+import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
@@ -30,16 +31,14 @@ import com.changpeng.models.Lxskrecs;
  * 
  */
 public class LxskrecsService extends BasicService {
-	private java.text.DateFormat df = new java.text.SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
+	private java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final Log LOG = LogFactory.getLog(LxskrecsService.class);
 	private LxskrecsDAO lxskrecsDAO;
 	private LawyerlessonxfDAO lawyerlessonxfDAO;
-
+private LawyersDAO lawyersDAO;
 	private PlatformTransactionManager transactionManager;
 
-	public void setTransactionManager(
-			PlatformTransactionManager transactionManager) {
+	public void setTransactionManager(PlatformTransactionManager transactionManager) {
 		this.transactionManager = transactionManager;
 	}
 
@@ -59,8 +58,7 @@ public class LxskrecsService extends BasicService {
 		this.lxskrecsDAO = lxskrecsDAO;
 	}
 
-	public Lxskrecs getLxskrecs(int lessonid, String kahao)
-			throws ServiceException {
+	public Lxskrecs getLxskrecs(int lessonid, String kahao) throws ServiceException {
 		try {
 			return lxskrecsDAO.getLxskrecs(lessonid, kahao);
 		} catch (Exception e) {
@@ -81,23 +79,19 @@ public class LxskrecsService extends BasicService {
 		try {
 			for (int i = 0; i < lxskrecses.size(); i++) {
 				Lxskrecs skrec = lxskrecses.get(i);
-				Lxskrecs isskexist = lxskrecsDAO.getLxskrecs(skrec
-						.getLessonid(), skrec.getKahao().trim());
+				Lxskrecs isskexist = lxskrecsDAO.getLxskrecs(skrec.getLessonid(), skrec.getKahao().trim());
 				// 还没有刷卡记录
 				if (isskexist == null) {
-					skrec.setUploadtime(new java.sql.Timestamp(System
-							.currentTimeMillis()));
+					skrec.setUploadtime(new java.sql.Timestamp(System.currentTimeMillis()));
 
 					float xuefen = saveLxskrecsNoTransaction(skrec);
 
 					LOG.info(skrec.getKahao() + "新增刷卡记录,获得了学分:" + xuefen);
 				} else {
 
-					isskexist.setUploadtime(new java.sql.Timestamp(System
-							.currentTimeMillis()));
+					isskexist.setUploadtime(new java.sql.Timestamp(System.currentTimeMillis()));
 					updateLxskrecsNoTransaction(isskexist);
-					LOG.info(skrec.getKahao() + "重复刷卡了:" + skrec.getKahao()
-							+ ",," + skrec.getLessonid());
+					LOG.info(skrec.getKahao() + "重复刷卡了:" + skrec.getKahao() + ",," + skrec.getLessonid());
 				}
 			}
 		} catch (Exception e) {
@@ -114,18 +108,17 @@ public class LxskrecsService extends BasicService {
 	}
 
 	private float saveLxskrecsNoTransaction(Lxskrecs skrecs) {
-		Lessons lesson = (Lessons) lxskrecsDAO.get(Lessons.class, skrecs
-				.getLessonid());
+		Lessons lesson = (Lessons) lxskrecsDAO.get(Lessons.class, skrecs.getLessonid());
 		float huodexuefen = 0;
 		// xf.setPxxf(budeng.getXuefen());
 		// if (lesson.getKaoqinshichang() == null || lesson.getKaoqinshichang()
 		// == 0) {
 		// SysUser lawer = (SysUser)
 		// sysUserDAO.getSysUserByCardNo(skrecs.getKahao());
-		Lawyers lawyer = null;
+		Lawyers lawyer =lawyersDAO.getLawyerbyLawyerno(skrecs.getKahao(),skrecs.getGroupid() );
+		
 		if (lawyer != null) {
-			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs
-					.getLessonid(), lawyer.getLawyerid(), 0);
+			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs.getLessonid(), lawyer.getLawyerid(), 0);
 			// if (oldxf != null && oldxf.getPxxf().floatValue() ==
 			// lesson.getXuefen().floatValue()) {
 			if (oldxf != null && oldxf.getIsfull()) {
@@ -142,20 +135,13 @@ public class LxskrecsService extends BasicService {
 			// lesson.getXuefen().floatValue()
 			// && skrecs.getTimelong() >=
 			// lesson.getKaoqinshichang().floatValue()) {
-			else if (oldxf != null
-					&& oldxf.getPxxf().floatValue() < lesson.getXuefen()
-							.floatValue()) {
+			else if (oldxf != null && oldxf.getPxxf().floatValue() < lesson.getXuefen().floatValue()) {
 				// 更新学分为满分
-				oldxf.setRemarks((oldxf.getRemarks() == null ? "" : oldxf
-						.getRemarks())
-						+ "之前培训方式为:"
-						+ oldxf.getLearnmode()
-						+ ",修改为现场培训,培训时间为:"
-						+ oldxf.getPxdate() + ",也修改为现在的");
+				oldxf.setRemarks((oldxf.getRemarks() == null ? "" : oldxf.getRemarks()) + "之前培训方式为:"
+						+ oldxf.getLearnmode() + ",修改为现场培训,培训时间为:" + oldxf.getPxdate() + ",也修改为现在的");
 				oldxf.setLearnmode(1);
 				oldxf.setPxdate(skrecs.getSkdate());
-				oldxf.setLastupdate(new java.sql.Timestamp(System
-						.currentTimeMillis()));
+				oldxf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
 				oldxf.setPxxf(lesson.getXuefen());
 				huodexuefen = lesson.getXuefen();
 				lxskrecsDAO.update(oldxf);
@@ -172,8 +158,7 @@ public class LxskrecsService extends BasicService {
 				xf.setPxdate(skrecs.getSkdate());
 				xf.setLessonid(lesson.getLessonid());
 				xf.setTitle(lesson.getTitle());
-				xf.setLastupdate(new java.sql.Timestamp(System
-						.currentTimeMillis()));
+				xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
 				xf.setPxdate(skrecs.getSkdate());
 				xf.setLawyerid(lawyer.getLawyerid());
 				xf.setLawyername(lawyer.getLawyername());
@@ -182,12 +167,11 @@ public class LxskrecsService extends BasicService {
 				xf.setProvinceid(lawyer.getProvinceunion());
 				xf.setCityid(lawyer.getDirectunion());
 				xf.setOfficeid(lawyer.getTheoffice());
-
+				xf.setTheyear(skrecs.getJifenyear());
+				xf.setIslastyear(0);
 				xf.setRemarks("现场培训时间为" + skrecs.getTimelong() + ",设置满分");
 				skrecs.setIscheck("Y");
-				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs
-						.getRemarks())
-						+ "|该课程设置了满分的学分");
+				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs.getRemarks()) + "|该课程设置了满分的学分");
 				lxskrecsDAO.save(xf);
 			} else {
 				LOG.debug("其他的情况，暂时还没有想出来。。。。");
@@ -208,12 +192,10 @@ public class LxskrecsService extends BasicService {
 	}
 
 	private float updateLxskrecsNoTransaction(Lxskrecs skrecs) {
-		String skremarks = skrecs.getRemarks() == null ? "" : skrecs
-				.getRemarks();
+		String skremarks = skrecs.getRemarks() == null ? "" : skrecs.getRemarks();
 		LOG.debug("之前的备注信息为:" + skremarks);
 
-		Lessons lesson = (Lessons) lxskrecsDAO.get(Lessons.class, skrecs
-				.getLessonid());
+		Lessons lesson = (Lessons) lxskrecsDAO.get(Lessons.class, skrecs.getLessonid());
 		// SysUser lawer = (SysUser)
 		// sysUserDAO.getSysUserByCardNo(skrecs.getKahao());
 		// SysUser lawer = (SysUser)
@@ -222,8 +204,7 @@ public class LxskrecsService extends BasicService {
 		Lawyers lawyer = null;
 		float huodongxuefen = 0;
 		if (lawyer != null) {
-			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs
-					.getLessonid(), lawyer.getLawyerid(), 0);
+			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs.getLessonid(), lawyer.getLawyerid(), 0);
 			// if (oldxf != null && oldxf.getPxxf().floatValue() ==
 			// lesson.getXuefen().floatValue()) {
 			if (oldxf.getIsfull()) {
@@ -238,20 +219,13 @@ public class LxskrecsService extends BasicService {
 			// lesson.getXuefen().floatValue()
 			// && skrecs.getTimelong() >=
 			// lesson.getKaoqinshichang().floatValue()) {
-			else if (oldxf != null
-					&& oldxf.getPxxf().floatValue() < lesson.getXuefen()
-							.floatValue()) {
+			else if (oldxf != null && oldxf.getPxxf().floatValue() < lesson.getXuefen().floatValue()) {
 				// 更新学分为满分
-				oldxf.setRemarks((oldxf.getRemarks() == null ? "" : oldxf
-						.getRemarks())
-						+ "之前培训方式为:"
-						+ oldxf.getLearnmode()
-						+ ",修改为现场培训,培训时间为:"
-						+ oldxf.getPxdate() + ",也修改为现在的");
+				oldxf.setRemarks((oldxf.getRemarks() == null ? "" : oldxf.getRemarks()) + "之前培训方式为:"
+						+ oldxf.getLearnmode() + ",修改为现场培训,培训时间为:" + oldxf.getPxdate() + ",也修改为现在的");
 				oldxf.setLearnmode(1);
 				oldxf.setPxdate(skrecs.getSkdate());
-				oldxf.setLastupdate(new java.sql.Timestamp(System
-						.currentTimeMillis()));
+				oldxf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
 				oldxf.setPxxf(lesson.getXuefen());
 				huodongxuefen = lesson.getXuefen();
 				lxskrecsDAO.update(oldxf);
@@ -268,8 +242,7 @@ public class LxskrecsService extends BasicService {
 				xf.setPxdate(skrecs.getSkdate());
 				xf.setLessonid(lesson.getLessonid());
 				xf.setTitle(lesson.getTitle());
-				xf.setLastupdate(new java.sql.Timestamp(System
-						.currentTimeMillis()));
+				xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
 				xf.setPxdate(skrecs.getSkdate());
 				xf.setLawyerid(lawyer.getLawyerid());
 				xf.setLawyername(lawyer.getLawyername());
@@ -278,9 +251,9 @@ public class LxskrecsService extends BasicService {
 				xf.setOfficeid(lawyer.getTheoffice());
 				xf.setRemarks("现场培训时间为" + skrecs.getTimelong() + ",设置满分");
 				skrecs.setIscheck("Y");
-				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs
-						.getRemarks())
-						+ "|该课程设置了满分的学分");
+				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs.getRemarks()) + "|该课程设置了满分的学分");
+				xf.setTheyear(skrecs.getJifenyear());
+				xf.setIslastyear(0);
 				lxskrecsDAO.save(xf);
 			} else {
 				LOG.debug("其他的情况，暂时还没有想出来。。。。");
@@ -302,14 +275,12 @@ public class LxskrecsService extends BasicService {
 	 */
 	public float saveLxskrecs(final Lxskrecs skrecs) throws ServiceException {
 		try {
-			TransactionTemplate transactionTemplate = new TransactionTemplate(
-					this.transactionManager);
-			Object object = transactionTemplate
-					.execute(new TransactionCallback() {
-						public Object doInTransaction(TransactionStatus status) {
-							return saveLxskrecsNoTransaction(skrecs);
-						}
-					});
+			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
+			Object object = transactionTemplate.execute(new TransactionCallback() {
+				public Object doInTransaction(TransactionStatus status) {
+					return saveLxskrecsNoTransaction(skrecs);
+				}
+			});
 			return (Float) object;
 		} catch (Exception e) {
 			throw new ServiceException(e);
@@ -325,18 +296,23 @@ public class LxskrecsService extends BasicService {
 	 */
 	public float updateLxskrecs(final Lxskrecs skrecs) throws ServiceException {
 		try {
-			TransactionTemplate transactionTemplate = new TransactionTemplate(
-					this.transactionManager);
-			Object object = transactionTemplate
-					.execute(new TransactionCallback() {
-						public Object doInTransaction(TransactionStatus status) {
-							return updateLxskrecsNoTransaction(skrecs);
-						}
-					});
+			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
+			Object object = transactionTemplate.execute(new TransactionCallback() {
+				public Object doInTransaction(TransactionStatus status) {
+					return updateLxskrecsNoTransaction(skrecs);
+				}
+			});
 			return (Float) object;
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	/**
+	 * @param lawyersDAO the lawyersDAO to set
+	 */
+	public void setLawyersDAO(LawyersDAO lawyersDAO) {
+		this.lawyersDAO = lawyersDAO;
 	}
 
 }

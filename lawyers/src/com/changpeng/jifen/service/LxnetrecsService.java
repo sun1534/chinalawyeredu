@@ -120,6 +120,8 @@ public class LxnetrecsService extends BasicService {
 						xf.setTitle(lesson.getTitle());
 						xf.setLastupdate(netrecs.getLasttime());
 						xf.setPxdate(netrecs.getLasttime());
+						xf.setTheyear(netrecs.getJifenyear());
+						xf.setIslastyear(netrecs.getJifenyear()==netrecs.getNowyear()?0:1);
 						lxnetrecsDAO.save(xf);
 
 					}

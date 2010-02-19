@@ -4,6 +4,7 @@
 
 package com.changpeng.service;
 
+import java.text.DateFormat;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -22,7 +23,7 @@ import com.changpeng.models.Lessons;
 public class GetLessonRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(GetLessonRequest.class);
 	private int groupid;
-
+private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	public GetLessonRequest(int groupid) {
 		this.groupid = groupid;
 	}
@@ -38,7 +39,7 @@ public class GetLessonRequest extends ElearningRequests {
 			// 该律协的课程
 			detachedCriteria.add(Restrictions.eq("groupid", groupid));
 			// 不是在线课程
-			detachedCriteria.add(Restrictions.ne("lessonstyle", "2"));
+			detachedCriteria.add(Restrictions.ne("lessonstyle", 2));
 
 			List list = userservice.findAllByCriteria(detachedCriteria);
 			int lessonsize = list == null ? 0 : list.size();
@@ -62,7 +63,7 @@ public class GetLessonRequest extends ElearningRequests {
 				lessontemp.append("<lessonid>").append(lesson.getLessonid()).append("</lessonid>");
 				lessontemp.append("<title>").append(lesson.getTitle()).append("</title>");
 				lessontemp.append("<lessontype>").append(lessonstate).append("</lessontype>");
-				lessontemp.append("<lessondate>").append(lesson.getLessondate()).append("</lessondate>");
+				lessontemp.append("<lessondate>").append(lesson.getLessondate()==null?df.format(new java.util.Date()):df.format(lesson.getLessondate())).append("</lessondate>");
 				lessontemp.append("<reqminute>0</reqminute>");
 
 				lessontemp.append("</lesson>");
@@ -70,6 +71,7 @@ public class GetLessonRequest extends ElearningRequests {
 			}
 			lessontemp.append("</lessons>");
 		} catch (Exception e) {
+			LOG.error("获取课程信息异常:",e);
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>获取课程信息异常:").append(e.getMessage()).append("</respmsg>");
 		}
