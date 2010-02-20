@@ -52,7 +52,10 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 		// getOfficeDabiaoshu(jifentime.getStart(),jifentime.getEnd(),dabiaofen,selectoffice);
 
 		// 统计这个律协的律师，达标数、未达标数、未培训数
-		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen,
+//		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen,
+//				"officeid", selectoffice);
+	    
+		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,
 				"officeid", selectoffice);
 
 		// 显示律师的明细情况
@@ -60,10 +63,11 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-		this.page = xfservice.getJifentongji(jifentime.getStart(), jifentime.getEnd(), null, lawyername, lawyerno,
+		this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
 				pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
 
-	
+//		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,
+//				"officeid", selectoffice);	
 		
 		return SUCCESS;
 	}

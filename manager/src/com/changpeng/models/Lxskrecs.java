@@ -21,7 +21,23 @@ public class Lxskrecs implements java.io.Serializable {
 	private Timestamp uploadtime;
 	private Float timelong=0f;
 	private String remarks;
+	private int jifenyear;
+	// Constructors
 
+	/**
+	 * @return the jifenyear
+	 */
+	public int getJifenyear() {
+		return jifenyear;
+	}
+
+
+	/**
+	 * @param jifenyear the jifenyear to set
+	 */
+	public void setJifenyear(int jifenyear) {
+		this.jifenyear = jifenyear;
+	}
 	// Constructors
 
 	/** default constructor */

@@ -18,6 +18,7 @@ import com.changpeng.common.BasicService;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.jifen.dao.LawyerlessonxfDAO;
 import com.changpeng.jifen.dao.LxskrecsDAO;
+import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
@@ -182,7 +183,8 @@ public class LxskrecsService extends BasicService {
 				xf.setProvinceid(lawyer.getProvinceunion());
 				xf.setCityid(lawyer.getDirectunion());
 				xf.setOfficeid(lawyer.getTheoffice());
-
+				xf.setTheyear(skrecs.getJifenyear());
+				xf.setIslastyear(0);
 				xf.setRemarks("现场培训时间为" + skrecs.getTimelong() + ",设置满分");
 				skrecs.setIscheck("Y");
 				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs
@@ -281,6 +283,8 @@ public class LxskrecsService extends BasicService {
 				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs
 						.getRemarks())
 						+ "|该课程设置了满分的学分");
+				xf.setTheyear(skrecs.getJifenyear());
+				xf.setIslastyear(0);
 				lxskrecsDAO.save(xf);
 			} else {
 				LOG.debug("其他的情况，暂时还没有想出来。。。。");
@@ -338,5 +342,7 @@ public class LxskrecsService extends BasicService {
 			throw new ServiceException(e);
 		}
 	}
+	
+
 
 }

@@ -84,6 +84,26 @@ public class LawyerlessonxfService extends BasicService {
 		}
 
 	}
+	
+	public PaginationSupport getJifentongji(int year, String officename, String username,
+			String lawyerno, int pageNo, int pageSize, int isdabiao, Jifenstatics jifenstatics, String field,
+			int fieldvalue) throws ServiceException {
+		try {
+			if (isdabiao == 0)
+				return lawyerlessonxfDAO.getJifentongjiAll(year, officename, username, lawyerno, pageNo, pageSize, jifenstatics.getAllusers(), field, fieldvalue);
+			else if (isdabiao == 1)
+				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno, pageNo, pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
+			else if (isdabiao == 2)
+				return lawyerlessonxfDAO.getJifentongjiNotDabiao(year, officename, username, lawyerno, pageNo, pageSize, jifenstatics.getWeidabiao(), field, fieldvalue);
+			else if (isdabiao == 3)
+				return lawyerlessonxfDAO.getJifentongjiWeipeixun(year, officename, username, lawyerno, pageNo, pageSize, jifenstatics.getWeipeixun(), field, fieldvalue);
+			else
+				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno, pageNo, pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+
+	}
 
 	public Jifenstatics getFiledDabiaoshu(Timestamp _from, Timestamp _end, float dabiaofen, String field, int fieldvalue)
 			throws ServiceException {
@@ -129,6 +149,49 @@ public class LawyerlessonxfService extends BasicService {
 		jifenstatics.setWeidabiao(weidabiaoshu);
 		return jifenstatics;
 	}
+	
+	public Jifenstatics getFiledDabiaoshu(int year, float dabiaofen, String field, int fieldvalue)
+	throws ServiceException {
+String sql ="";
+if (field != null && !field.equals("")) {
+
+	sql=	 "select a.lawyerid,FORMAT(sum(pxxf),2) from lawyerlessonxf a where (a.theyear="+year+") and a." + field + "=" + fieldvalue
+		+ " group by a.lawyerid";
+}else{
+	sql = "select a.lawyerid,FORMAT(sum(pxxf),2) from lawyerlessonxf a where (a.theyear="+year+") group by a.lawyerid";
+}
+
+List list = lawyerlessonxfDAO.findBySqlQuery(sql);
+int length = list == null ? 0 : list.size();
+int dabiaoshu = 0;
+int weidabiaoshu = 0;
+
+for (int i = 0; i < length; i++) {
+	Object[] obj = (Object[]) list.get(i);
+	float xuefen = Float.parseFloat(obj[1].toString());
+	// debug(obj[0] + "===" + obj[1]);
+	if (xuefen >= dabiaofen) {
+		dabiaoshu++;
+	} else {
+		weidabiaoshu++;
+	}
+}
+String lawyerfield = "theoffice";
+if (field.equals("officeid"))
+	lawyerfield = "theoffice";
+else if (field.equals("cityid"))
+	lawyerfield = "directunion";
+else if (field.equals("provinceid"))
+	lawyerfield = "provinceunion";
+
+int lawyercnt = lawyersDAO.getFieldLawyerCnt(lawyerfield, fieldvalue);
+Jifenstatics jifenstatics = new Jifenstatics();
+jifenstatics.setAllusers(lawyercnt);
+jifenstatics.setWeipeixun(lawyercnt - length);
+jifenstatics.setDabiaoshu(dabiaoshu);
+jifenstatics.setWeidabiao(weidabiaoshu);
+return jifenstatics;
+}
 
 	public LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
 			throws ServiceException {
@@ -175,4 +238,47 @@ public class LawyerlessonxfService extends BasicService {
 		return statics;
 	}
 
+
+	public LearnmodeStatics getFiledLearnmode(int year, String field, int fieldvalue)
+			throws ServiceException {
+
+		
+		String sql="";
+		
+		if (field != null && !field.equals("")) {
+		
+		 sql = "select learnmode,count(distinct(lawyerid)) from lawyerlessonxf where (theyear="+year+") and " + field + "=" + fieldvalue
+				+ " group by learnmode";
+		
+		}else{
+			 sql = "select learnmode,count(distinct(lawyerid)) from lawyerlessonxf where (theyear="+year+") group by learnmode";
+		}
+		LearnmodeStatics statics = new LearnmodeStatics();
+		
+		
+	_LOG.debug("getFiledLearnmode::"+sql);
+		
+
+		List tongjilist = lawyerlessonxfDAO.findBySqlQuery(sql);
+		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
+		// 1现场培训2在线视频3文本课件4积分补登
+
+		for (int i = 0; i < tongjilength; i++) {
+			Object[] obj = (Object[]) tongjilist.get(i);
+			_LOG.debug("obj[0]:"+obj[0]+"-===>obj[1]:"+obj[1]);
+			int learnmode = Integer.parseInt(obj[0].toString());
+			if (learnmode == 1) {
+				statics.setLocal(Integer.parseInt(obj[1].toString()));
+			} else if (learnmode == 2) {
+				statics.setVideo(Integer.parseInt(obj[1].toString()));
+				_LOG.debug("video::"+statics.getVideo());
+			} else if (learnmode == 3) {
+				statics.setWenbenkejian(Integer.parseInt(obj[1].toString()));
+			} else if (learnmode == 4) {
+				statics.setBudeng(Integer.parseInt(obj[1].toString()));
+			}
+		}
+
+		return statics;
+	}
 }

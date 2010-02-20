@@ -48,20 +48,24 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
         
 //        System.out.println("year==============="+year);
 		// 统计这个律协的律师，达标数、未达标数、未培训数
-		this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen, "cityid", selectcityid);
+//		this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen, "cityid", selectcityid);
 		
-		
+    	this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, "cityid", selectcityid);
+    	
+        
 		// 显示律师的明细情况
 
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
 		
-		this.page = xfservice.getJifentongji(jifentime.getStart(), jifentime.getEnd(), null, lawyername,
+//		this.page = xfservice.getJifentongji(jifentime.getStart(), jifentime.getEnd(), null, lawyername,
+//				lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
+//	
+
+		this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername,
 				lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
 	
-
-		
 		
 		return SUCCESS;
 	}

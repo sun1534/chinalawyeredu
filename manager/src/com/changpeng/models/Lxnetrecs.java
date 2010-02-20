@@ -19,8 +19,41 @@ public class Lxnetrecs implements java.io.Serializable {
 	private Float lookedminutes=0f;
 	private Timestamp lasttime;
 	private String remarks;
-
+	private int jifenyear;
+	private int nowyear;
 	// Constructors
+
+	/**
+	 * @return the jifenyear
+	 */
+	public int getJifenyear() {
+		return jifenyear;
+	}
+
+
+	/**
+	 * @param jifenyear the jifenyear to set
+	 */
+	public void setJifenyear(int jifenyear) {
+		this.jifenyear = jifenyear;
+	}
+
+
+	/**
+	 * @return the nowyear
+	 */
+	public int getNowyear() {
+		return nowyear;
+	}
+
+
+	/**
+	 * @param nowyear the nowyear to set
+	 */
+	public void setNowyear(int nowyear) {
+		this.nowyear = nowyear;
+	}
+
 
 	/** default constructor */
 	public Lxnetrecs() {

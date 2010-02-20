@@ -48,8 +48,8 @@ function fanye(str){
           <s:hidden name="selectoffice"/>
 积分年限:<s:select name="year" list="@com.changpeng.jifen.util.CommonDatas@JifenYears"/> 
 	分类:<s:select name="isdabiao" list="#{'0':'全部','1':'已达标','2':'未达标','3':'未培训'}"/>
-	 	姓名:<s:textfield name="username" size="10"/>
-            	执业证号:<s:textfield name="lawerno" size="15"/> 
+	 	姓名:<s:textfield name="lawyername" size="10"/>
+            	执业证号:<s:textfield name="lawyerno" size="15"/> 
         	   <s:submit value=" 查 询 "/>
           </td>
         </tr>

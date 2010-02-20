@@ -170,9 +170,6 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
 				
-
-				
-			
 				List newlist=new ArrayList();
 				for(int i=0;items!=null&&i<items.size();i++){
 					Object[] obj=(Object[])items.get(i);
@@ -209,6 +206,102 @@ public class LawyerlessonxfDAO extends BasicDAO {
 		});
 		return ((PaginationSupport) object);
 	}
+	
+	
+	public PaginationSupport getJifentongjiAll(final int year, final String officename,
+			final String username, final String lawyerno, final int pageNo, final int pageSize, final int totalCount,
+			final String field, final int fieldvalue) {
+		Object object = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+
+			
+
+				String peixunsql = "";
+				String weipeixunsql = "";
+				if (field != null && !"".equals(field)) {
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year+" and c." + field + "=" + fieldvalue ;
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year+" and cc." + field + "=" + fieldvalue + ")";
+				} else {
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year;
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year;
+				}
+
+				if (officename != null && !"".equals(officename)) {
+					peixunsql += " and b.groupname like '" + officename + "%'";
+					weipeixunsql += " and bb.groupname like '" + officename + "%'";
+				}
+				if (username != null && !"".equals(username)) {
+					peixunsql += " and a.lawyername like '" + username + "%'";
+					weipeixunsql += " and aa.lawyername like '" + username + "%'";
+				}
+				if (lawyerno != null && !"".equals(lawyerno)) {
+					peixunsql += " and a.lawyerno like '" + lawyerno + "%'";
+					weipeixunsql += " and aa.lawyerno like '" + lawyerno + "%'";
+				}
+//				if (field != null && !"".equals(field)) {
+//					peixunsql += " and c." + field + " =" + fieldvalue + "";
+//				}
+			
+				if (field != null && !"".equals(field)) {
+					if(field.equals("officeid")){
+						peixunsql += " and a.theoffice =" + fieldvalue ;
+						weipeixunsql += " and aa.theoffice =" + fieldvalue ;
+					}
+					else if(field.equals("cityid")){
+						peixunsql += " and a.directunion =" + fieldvalue;
+						weipeixunsql += " and aa.directunion =" + fieldvalue;
+					}
+					else{
+						peixunsql+=" and a.provinceunion =" + fieldvalue;
+						weipeixunsql+=" and aa.provinceunion =" + fieldvalue;
+					}
+				}
+	
+				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPNAME";
+				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPNAME ";
+
+				String sql = peixunsql + " union " + weipeixunsql;
+				_LOG.info("统计SQL:" + sql);
+				
+				
+				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
+				
+				int startIndex = (pageNo - 1) * pageSize;
+
+				_LOG.debug("总数::::" + totalCount);
+
+				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				
+
+				
+			
+				List newlist=new ArrayList();
+				for(int i=0;items!=null&&i<items.size();i++){
+					Object[] obj=(Object[])items.get(i);
+					JifenTongji tongji=new JifenTongji();
+					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
+					tongji.setName(obj[1].toString());
+					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
+					tongji.setGroupname(obj[3].toString());
+					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
+					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
+					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
+					tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7].toString())));
+					tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8].toString())));
+					tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9].toString())));
+
+					
+					newlist.add(tongji);
+				}
+				
+				PaginationSupport ps = new PaginationSupport(newlist, totalCount, pageSize, startIndex);
+
+				return ps;
+			}
+		});
+		return ((PaginationSupport) object);
+	}
+
 
 	/**
 	 * 得到达标的
@@ -316,6 +409,94 @@ public class LawyerlessonxfDAO extends BasicDAO {
 		return ((PaginationSupport) object);
 	}
 
+	public PaginationSupport getJifentongjiDabiao(final int year, final String officename,
+			final String username, final String lawyerno, final int pageNo, final int pageSize, final int totalCount,
+			final String field, final int fieldvalue) {
+		Object object = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+
+		
+
+				String sql = "";
+				if (field != null && !"".equals(field)) {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
+				} else {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
+				}
+
+				if (officename != null && !"".equals(officename)) {
+					sql += " and b.groupname like '" + officename + "%'";
+				}
+				if (username != null && !"".equals(username)) {
+					sql += " and a.lawyername like '" + username + "%'";
+				}
+				if (lawyerno != null && !"".equals(lawyerno)) {
+					sql += " and a.lawyerno like '" + lawyerno + "%'";
+				}
+				if (field != null && !"".equals(field)) {
+					if(field.equals("officeid"))
+						sql += " and a.theoffice =" + fieldvalue ;
+					else if(field.equals("cityid"))
+						sql += " and a.directunion =" + fieldvalue;
+					else
+						sql+=" and a.provinceunion =" + fieldvalue;
+				}
+				// int dabiao = 30;
+				// if (CommonDatas.SysParameter.get("dabiaofen") != null)
+				// dabiao =
+				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
+
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sum(pxxf)>=" + dabiao;
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=a.dabiaofen";
+				
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=10";
+				
+				_LOG.info("达标数的统计SQL:" + sql);
+
+				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
+				int startIndex = (pageNo - 1) * pageSize;
+
+				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				
+				List newlist=new ArrayList();
+				for(int i=0;items!=null&&i<items.size();i++){
+					Object[] obj=(Object[])items.get(i);
+					JifenTongji tongji=new JifenTongji();
+					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
+					tongji.setName(obj[1].toString());
+					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
+					tongji.setGroupname(obj[3].toString());
+					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
+					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
+					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
+					tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7].toString())));
+					tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8].toString())));
+					tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9].toString())));
+//					private float dabiaofen;
+//					private String name;
+//					private int lawyerid;
+//					private String groupname;
+//					private float xianchang;
+//					private float video;
+//					private float doc;
+//					private float budeng;
+//					private float koufen;
+//					private float zongjifen;
+//					
+					
+					newlist.add(tongji);
+				}
+				
+				
+				PaginationSupport ps = new PaginationSupport(newlist, totalCount, pageSize, startIndex);
+
+				return ps;
+			}
+		});
+		return ((PaginationSupport) object);
+	}
+	
 	/**
 	 * 得到未达标的
 	 * 
@@ -347,6 +528,95 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				} else {
 					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ") ";
+				}
+
+				if (officename != null && !"".equals(officename)) {
+					sql += " and b.groupname like '" + officename + "%'";
+				}
+				if (username != null && !"".equals(username)) {
+					sql += " and a.lawyername like '" + username + "%'";
+				}
+				if (lawyerno != null && !"".equals(lawyerno)) {
+					sql += " and a.lawyerno like '" + lawyerno + "%'";
+				}
+				if (field != null && !"".equals(field)) {
+					if(field.equals("officeid"))
+						sql += " and a.theoffice =" + fieldvalue ;
+					else if(field.equals("cityid"))
+						sql += " and a.directunion =" + fieldvalue;
+					else
+						sql+=" and a.provinceunion =" + fieldvalue;
+				}
+
+
+				// int dabiao = 30;
+				// if (CommonDatas.SysParameter.get("dabiaofen") != null)
+				// dabiao =
+				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
+
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sum(pxxf)<" + dabiao;
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<a.dabiaofen";
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<10"+dabiaofen;
+				_LOG.info("未达标数的统计SQL:" + sql);
+
+				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
+				int startIndex = (pageNo - 1) * pageSize;
+
+				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				
+				List newlist=new ArrayList();
+				for(int i=0;items!=null&&i<items.size();i++){
+					Object[] obj=(Object[])items.get(i);
+					JifenTongji tongji=new JifenTongji();
+					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
+					tongji.setName(obj[1].toString());
+					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
+					tongji.setGroupname(obj[3].toString());
+					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
+					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
+					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
+					tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7].toString())));
+					tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8].toString())));
+					tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9].toString())));
+//					private float dabiaofen;
+//					private String name;
+//					private int lawyerid;
+//					private String groupname;
+//					private float xianchang;
+//					private float video;
+//					private float doc;
+//					private float budeng;
+//					private float koufen;
+//					private float zongjifen;
+//					
+					
+					newlist.add(tongji);
+				}
+				
+				
+				PaginationSupport ps = new PaginationSupport(newlist, totalCount, pageSize, startIndex);
+
+				return ps;
+			}
+		});
+		return ((PaginationSupport) object);
+	}
+	
+	public PaginationSupport getJifentongjiNotDabiao(final int year,
+			final String officename, final String username, final String lawyerno, final int pageNo,
+			final int pageSize, final int totalCount, final String field, final int fieldvalue) {
+		Object object = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+
+			
+
+				String sql = "";
+
+				if (field != null && !"".equals(field)) {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
+				} else {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -494,17 +764,73 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7].toString())));
 					tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8].toString())));
 					tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9].toString())));
-//					private float dabiaofen;
-//					private String name;
-//					private int lawyerid;
-//					private String groupname;
-//					private float xianchang;
-//					private float video;
-//					private float doc;
-//					private float budeng;
-//					private float koufen;
-//					private float zongjifen;
-//					
+					
+					newlist.add(tongji);
+				}
+				PaginationSupport ps = new PaginationSupport(newlist, totalCount, pageSize, startIndex);
+				return ps;
+			}
+		});
+		return ((PaginationSupport) object);
+	}
+	
+	public PaginationSupport getJifentongjiWeipeixun(final int year,
+			final String officename, final String username, final String lawyerno, final int pageNo,
+			final int pageSize, final int totalCount, final String field, final int fieldvalue) {
+		Object object = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+
+			
+				String sql = "";
+
+				if (field != null && !"".equals(field)) {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+") and c." + field + "=" + fieldvalue + ") ";
+				} else {
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+")) ";
+				}
+
+				if (officename != null && !"".equals(officename)) {
+					sql += " and b.groupname like '" + officename + "%'";
+				}
+				if (username != null && !"".equals(username)) {
+					sql += " and a.lawyername like '" + username + "%'";
+				}
+				if (lawyerno != null && !"".equals(lawyerno)) {
+					sql += " and a.lawyerno like '" + lawyerno + "%'";
+				}
+
+				if (field != null && !"".equals(field)) {
+					if(field.equals("officeid"))
+						sql += " and a.theoffice =" + fieldvalue ;
+					else if(field.equals("cityid"))
+						sql += " and a.directunion =" + fieldvalue;
+					else
+						sql+=" and a.provinceunion =" + fieldvalue;
+				}
+
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME ";
+				_LOG.info("未培训数的统计SQL:" + sql);
+				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
+				// Query queryObject = session.createSQLQuery(sql);
+
+				int startIndex = (pageNo - 1) * pageSize;
+				// List list =
+				// queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				List newlist=new ArrayList();
+				for(int i=0;items!=null&&i<items.size();i++){
+					Object[] obj=(Object[])items.get(i);
+					JifenTongji tongji=new JifenTongji();
+					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
+					tongji.setName(obj[1].toString());
+					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
+					tongji.setGroupname(obj[3].toString());
+					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
+					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
+					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
+					tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7].toString())));
+					tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8].toString())));
+					tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9].toString())));
 					
 					newlist.add(tongji);
 				}
