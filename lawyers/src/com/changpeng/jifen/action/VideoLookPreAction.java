@@ -13,6 +13,7 @@ import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.Lxnetrecs;
+import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 
 /**
@@ -87,7 +88,7 @@ public class VideoLookPreAction extends AbstractAction {
 	public String go() throws Exception {
 		this.videotimeout = Float.parseFloat(com.changpeng.common.CommonDatas.SysParameter.get("videotimeout")
 				.toString());
-		
+
 		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
 
 		this.userid = this.getLoginUser().getLawyerid();
@@ -98,7 +99,14 @@ public class VideoLookPreAction extends AbstractAction {
 		JifenTime jifentime = CommonDatas.getJifenTime(0, params.getNianshen());
 		nowyear = jifentime.getNianshenyear();
 		this.lastyear = nowyear - 1;
-		yearfen=xfservice.getLawyerZongjifen(userid, lastyear);
+
+		// 判断这个律协的创建年份是否在去年之后
+		JifenTime lastjifentime = CommonDatas.getJifenTime(lastyear, params.getNianshen());
+		long lastyearbegin = lastjifentime.getStart().getTime();
+		SysGroup group = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getDirectunion());
+		long groupcreate = group.getCreatetime().getTime();
+
+		yearfen = xfservice.getLawyerZongjifen(userid, lastyear);
 
 		LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
 		BasicService basicService = (BasicService) getBean("basicService");
@@ -137,6 +145,9 @@ public class VideoLookPreAction extends AbstractAction {
 		if (xuefen != null) {
 			jifenyear = xuefen.getTheyear();
 			islastyear = xuefen.getIslastyear() == 1 ? true : false;
+		} else if (groupcreate >= lastyearbegin) {
+			shouldselect = false;
+			jifenyear = nowyear;
 		} else {
 			// 如果所获得的分数小于达标分，则提示是否需要设置学分到去年
 			if (yearfen < totalfen) {
@@ -146,7 +157,6 @@ public class VideoLookPreAction extends AbstractAction {
 				jifenyear = nowyear;
 			}
 		}
-
 		if (lxnetrecs == null)
 			lxnetrecs = new Lxnetrecs();
 
