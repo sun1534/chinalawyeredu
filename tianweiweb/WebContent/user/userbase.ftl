@@ -78,12 +78,24 @@ function HS_calender(){
 		lastMonthEndDate--;
 	}
 	for (i=1; i<=thisMonthEndDate; i++){ // Current Month's Date
-
+		ti="";
+    if (i<10){
+      ti="0"+i;
+    }else{
+      ti=i;
+    }
+    
+    var tm="";
+    if(parseInt(now.getMonth())+1<10){
+     tm="0"+(parseInt(now.getMonth())+1);
+    }else{
+     tm=parseInt(now.getMonth())+1;
+    }
 		if(today == now.getFullYear()+"-"+now.getMonth()+"-"+i){
-			var todayString = now.getFullYear()+"-"+(parseInt(now.getMonth())+1).toString()+"-"+i;
-			lis += "<li><a href=javascript:void(0) class='today' onclick='_selectThisDay(this)' title='"+now.getFullYear()+"-"+(parseInt(now.getMonth())+1)+"-"+i+"'>"+i+"</a></li>";
+			var todayString = now.getFullYear()+"-"+(parseInt(now.getMonth())+1).toString()+"-"+ti;
+			lis += "<li><a href=javascript:void(0) class='today' onclick='_selectThisDay(this)' title='"+now.getFullYear()+"-"+tm+"-"+ti+"'>"+ti+"</a></li>";
 		}else{
-			lis += "<li><a href=javascript:void(0) onclick='_selectThisDay(this)' title='"+now.getFullYear()+"-"+(parseInt(now.getMonth())+1)+"-"+i+"'>"+i+"</a></li>";
+			lis += "<li><a href=javascript:void(0) onclick='_selectThisDay(this)' title='"+now.getFullYear()+"-"+tm+"-"+ti+"'>"+ti+"</a></li>";
 		}
 
 	}
@@ -140,9 +152,17 @@ function CalenderselectMonth(obj){
 		var thisMonth = obj.innerHTML;
 		for (i=1; i<=12; i++){
 			if (i==thisMonth){
-				opt += "<option value="+i+" selected>"+i+"</option>";
+			  if(i<10){
+			   opt += "<option value=0"+i+" selected>"+i+"</option>";
+			  }else{
+				 opt += "<option value="+i+" selected>"+i+"</option>";
+				}
 			}else{
-				opt += "<option value="+i+">"+i+"</option>";
+				if(i<10){
+				 opt += "<option value=0"+i+">"+i+"</option>";
+				}else{
+				 opt += "<option value="+i+">"+i+"</option>";
+				}
 			}
 		}
 		opt = "<select onblur='selectThisMonth(this)' onchange='selectThisMonth(this)' style='font-size:11px'>"+opt+"</select>";
