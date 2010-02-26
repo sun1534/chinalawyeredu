@@ -238,8 +238,82 @@ function HS_setDate(inputObj){
 		<div class="even">
 			<label class="fname" for="pname">生日：</label>
 			<span class="fvalue">
+			<select name="years" id="years" onchange="changeyear()"> 
+                <script>
+                  today=new Date();
+                  for(i=50;i>-1;i--){
+                  	document.write("<option value='"+(today.getFullYear()-i)+"'>"+(today.getFullYear()-i)+"</option>");
+                  }
+                </script> 
+            </select> 年
+            <select name="months" id="months" onchange="changemonth()"> 
+                <script>
+                  for(i=1;i<13;i++){
+                    if(i<10){
+                      document.write("<option value='0"+i+"'>0"+i+"</option>");
+                    }else{
+                  	  document.write("<option value='"+i+"'>"+i+"</option>");
+                  	}
+                  }
+                </script> 
+            </select> 月             
+            <select name="days" id="days" onchange="changeday()"> 
+                <script>
+                  for(i=1;i<32;i++){
+                    if(i<10){
+                      document.write("<option value='0"+i+"'>0"+i+"</option>");
+                    }else{
+                  	  document.write("<option value='"+i+"'>"+i+"</option>");
+                  	}
+                  }
+                </script> 
+            </select> 日 
+<input type="hidden" id="dateinput1" name="birth" value='${birth?string("yyyy-MM-dd")}' />
+<script>
+//alert($("#dateinput1").val().substring(0,4));
+$("#years").val($("#dateinput1").val().substring(0,4));
+$("#months").val($("#dateinput1").val().substring(5,7));
+$("#days").val($("#dateinput1").val().substring(8,10));
+function changeyear(){
+$("#dateinput1").val($("#years").val()+"-"+$("#months").val()+"-"+$("#days").val());
+ //birth.value=years.value+"-"+months.value+"-"+days.value;
+ //alert(document.getElementById("ddd").value);
+}
+function changeday(){
+  $("#dateinput1").val($("#years").val()+"-"+$("#months").val()+"-"+$("#days").val());
+ //$("#dateinput1").val()=$("#years").val()+"-"+$("#months").val()+"-"+$("#days").val();
+ //alert(document.getElementById("ddd").value);
+}
+function changemonth(){
+  document.getElementById("days").options.length = 0;
+  daycnt=31;
+  if($("#months").val()=="01"||$("#months").val()=="03"||$("#months").val()=="05"||$("#months").val()=="07"||$("#months").val()=="08"||$("#months").val()=="10"||$("#months").val()=="12"){
+    daycnt=31;
+  }else if($("#months").val()=="02"){
+    daycnt=28;
+    if(($("#years").val()%4==0&&$("#years").val()%100!=0)||$("#years").val()%400==0){
+    daycnt=29;
+    }
+  }else{
+    daycnt=30;
+  }
+  for(i=1;i<daycnt+1;i++){
+       if(i<10){
+            var varItem = new Option("0"+i,"0"+i);      
+             document.getElementById("days").options.add(varItem); 
+        }else{
+             var varItem = new Option(i,i);      
+             document.getElementById("days").options.add(varItem); 
+        }
+       //document.getElementById("dateinput1").value=years.value+"-"+months.value+"-"+days.value;
+  }
+  $("#dateinput1").val($("#years").val()+"-"+$("#months").val()+"-"+$("#days").val());
+// alert(document.getElementById("ddd").value);
+}
+
+</script>
 				<!--<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput" class="normal txt-login w90"/>-->
-				<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput1"  onfocus="HS_setDate(this)"  class="normal txt-login w90"/>
+				<!--<input type="text" name="birth" size="15" value="${birth?string("yyyy-MM-dd")}" id="dateinput1"  onfocus="HS_setDate(this)"  class="normal txt-login w90"/>-->
 		<font color="red">*</font>
 			</span>	
 		</div>
