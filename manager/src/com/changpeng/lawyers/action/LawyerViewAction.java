@@ -22,8 +22,8 @@ import com.changpeng.models.SysGroup;
  */
 public class LawyerViewAction extends AbstractAction {
 
-	private static Log _LOG = LogFactory.getLog(LawyerViewAction.class);
-	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+//	private static Log _LOG = LogFactory.getLog(LawyerViewAction.class);
+//	private static final DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
 	private BasicService service;
 

@@ -98,7 +98,6 @@ public class LawyersListAction extends AbstractListAction {
 		
 		
 		CommonDatas.getGroups();
-		
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class);
@@ -154,4 +153,5 @@ public class LawyersListAction extends AbstractListAction {
 		// TODO Auto-generated method stub
 		return SUCCESS;
 	}
+
 }

@@ -84,7 +84,7 @@ function getOffices(vallll){
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" class="list_box">
         <tr>
           <td height="24"  >
-             <s:hidden name="pageNo" value="1"/>
+             <s:hidden name="pageNo"/>
         	   <s:textfield name="loginname" size="12" label="登录名"/>
                <s:textfield name="username" size="12" label="姓名"/> 
               <s:if test="datavisible.provinceview">
@@ -124,6 +124,7 @@ function getOffices(vallll){
         <TD align="center" background="../imagesa/top-bg1.gif">身份证号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">执业证号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">会员编号</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">卡号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">执业日期</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">所属事务所</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">密码重置</TD>
@@ -143,6 +144,7 @@ function getOffices(vallll){
         <TD align="center">${certno}</TD>
         <TD align="center">${lawyerno}</TD>
         <TD align="center">${systemno}</TD>
+        <TD align="center">${cardno}</TD>
         <TD align="center">${zhiyedate} </TD>
         <TD align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/></TD>
         <TD align="center"><a href="#" onClick="passwdReset('${lawyerid}')">密码重置</a></TD>

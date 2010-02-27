@@ -31,12 +31,12 @@
 			
 			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>
        </action>
-           <action name="lawyersChangeOffice" class="com.changpeng.lawyers.action.LawyersChangeOfficeAction">
-			
+      <action name="lawyersChangeOffice" class="com.changpeng.lawyers.action.LawyersChangeOfficeAction">
 			<result name="input" type="dispatcher">/lawyers/lawyersChangeOffice.jsp</result>
        </action>
         <action name="lawyersChangeOfficePre" class="com.changpeng.lawyers.action.LawyersChangeOfficeAction" method="input">
 			<interceptor-ref name="hibernateSessionStack"/> 
+				<result name="toapply" type="redirect">/lawyers/officeChangeApply!input.pl?lawyerid=${lawyerid}</result>
 			<result name="input" type="dispatcher">/lawyers/lawyersChangeOffice.jsp</result>
        </action>
        <action name="lawyersDelete" class="com.changpeng.lawyers.action.LawyersDeleteAction">
@@ -44,6 +44,17 @@
        <!-- add -->
 		<action name="lawyerView" class="com.changpeng.lawyers.action.LawyerViewAction">
 			<result name="success" type="dispatcher">lawyersView.jsp</result>
+       </action>
+       
+               <action name="officeChangeApplyList" class="com.changpeng.lawyers.action.OfficeChangeApplyListAction">
+        	<result name="success" type="dispatcher">/lawyers/officeChangeApplyList.jsp</result>
+       </action>
+        
+         <action name="officeChangeApply" class="com.changpeng.lawyers.action.OfficeChangeApplyAction">
+        	<result name="input" type="dispatcher">/lawyers/officeChangeApply.jsp</result>
+       </action>
+       <action name="officeChangeHandle" class="com.changpeng.lawyers.action.OfficeChangeHandleAction">
+        	<result name="input" type="dispatcher">/lawyers/officeChangeHandle.jsp</result>
        </action>
    </package>
    

@@ -23,6 +23,16 @@ function fanye(str){
   document.form1.submit();
 }
 
+function queryit(str){
+  document.form1.resultType.value="list";
+  document.form1.submit();
+}
+
+function exportit(str){
+  document.form1.resultType.value="excel";
+  document.form1.submit();
+}
+
 </script>
 </head>
 <body>
@@ -50,7 +60,10 @@ function fanye(str){
 	分类:<s:select name="isdabiao" list="#{'0':'全部','1':'已达标','2':'未达标','3':'未培训'}"/>
 	 	姓名:<s:textfield name="lawyername" size="10"/>
             	执业证号:<s:textfield name="lawyerno" size="15"/> 
-        	   <s:submit value=" 查 询 "/>
+        	               
+        	   <s:hidden name="resultType"/>
+        	   <input type="button" name="query" value=" 查 询 " onclick="queryit()"/>
+        	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
           </td>
         </tr>
         <tr>

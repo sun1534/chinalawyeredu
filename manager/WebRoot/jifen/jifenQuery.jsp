@@ -20,7 +20,15 @@ function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
+function queryit(str){
+  document.form1.resultType.value="list";
+  document.form1.submit();
+}
 
+function exportit(str){
+  document.form1.resultType.value="excel";
+  document.form1.submit();
+}
 </script>
 </head>
 <body>
@@ -35,7 +43,14 @@ function fanye(str){
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
 				
 <s:form action="jifenQuery" name="form1" method="post">
+
+<tr>
+<td align="right">
+  <s:hidden name="resultType"/>
+        	   	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
 <s:hidden name="lawyerid"/>
+</td>
+</tr>
 	  <tr>
     <td valign="top">	
     	

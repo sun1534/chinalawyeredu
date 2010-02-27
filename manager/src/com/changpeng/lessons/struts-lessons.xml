@@ -50,6 +50,11 @@
        </action>
  
        
+      <action name="lessonStaticByView" class="com.changpeng.lessons.action.LessonsStaticByViewAction">
+         <result name="success" type="dispatcher">/lessons/lessonStaticByView.jsp</result>
+       </action>
+       
+       
        <action name="download" class="com.changpeng.lessons.action.DownloadAction">
 			<result name="success" type="stream">
 				<param name="inputName">inputStream</param>

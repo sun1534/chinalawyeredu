@@ -63,15 +63,45 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-		this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
-				pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
-
-//		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,
-//				"officeid", selectoffice);	
 		
-		return SUCCESS;
+
+
+		if(!resultType.equals("")&&resultType.equals("excel")){
+			pageNo=1;
+			pageSize=Integer.MAX_VALUE;
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
+					pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
+			return "excel";
+		}else{
+		
+		
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
+					pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
+			return SUCCESS;
+		}
+		
+		
+		
+		
 	}
 
+private String resultType="list";
+	
+	
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * @param resultType the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
+	
 	private SysGroup group;
 	private int selectoffice;
 	private Jifenstatics jifenstatics;

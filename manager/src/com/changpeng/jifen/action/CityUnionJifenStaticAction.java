@@ -20,21 +20,37 @@ import com.changpeng.models.SysUnionparams;
 public class CityUnionJifenStaticAction extends AbstractListAction {
 	public CityUnionJifenStaticAction() {
 		this.jifenstatics = new Jifenstatics();
-	
+	}
+
+	private String resultType = "list";
+
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * @param resultType
+	 *            the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
 	}
 
 	@Override
 	protected String go() throws Exception {
-		
-		if(this.selectcityid==0){
-		   this.selectcityid=super.getLoginUser().getSysGroup().getGroupid();
+
+		if (this.selectcityid == 0) {
+			this.selectcityid = super.getLoginUser().getSysGroup().getGroupid();
 		}
-//		int groupid = this.getLoginUser().getOfficeid();
-		 group =(SysGroup)basicService.get(SysGroup.class, selectcityid);
-		
-		LawyerlessonxfService xfservice=(LawyerlessonxfService)this.getBean("lawyerlessonxfService");
-		
-		SysGroup group=(SysGroup)basicService.get(SysGroup.class, selectcityid);
+		// int groupid = this.getLoginUser().getOfficeid();
+		group = (SysGroup) basicService.get(SysGroup.class, selectcityid);
+
+		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
+
+		SysGroup group = (SysGroup) basicService.get(SysGroup.class, selectcityid);
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, group.getGroupid());
 		if (params == null) {
 			this.message = "您所在的律协没有设置达标分等参数,请联系管理员";
@@ -44,32 +60,42 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 
 		// 根据用户选择的年份以及年审时间得到查询的起始终止时间段
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(year, params.getNianshen());
-        year=jifentime.getNianshenyear();
-        
-//        System.out.println("year==============="+year);
+		year = jifentime.getNianshenyear();
+
+		// System.out.println("year==============="+year);
 		// 统计这个律协的律师，达标数、未达标数、未培训数
-//		this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen, "cityid", selectcityid);
-		
-    	this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, "cityid", selectcityid);
-    	
-        
+		// this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getStart(),
+		// jifentime.getEnd(), dabiaofen, "cityid", selectcityid);
+
+		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, "cityid", selectcityid);
+
 		// 显示律师的明细情况
 
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-		
-//		this.page = xfservice.getJifentongji(jifentime.getStart(), jifentime.getEnd(), null, lawyername,
-//				lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
-//	
+		// this.page = xfservice.getJifentongji(jifentime.getStart(),
+		// jifentime.getEnd(), null, lawyername,
+		// lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid",
+		// selectcityid);
+		//	
 
-		this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername,
-				lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
-	
 		
-		return SUCCESS;
+		if(!resultType.equals("")&&resultType.equals("excel")){
+			pageNo=1;
+			pageSize=Integer.MAX_VALUE;
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo, pageSize,
+					this.isdabiao, jifenstatics, "cityid", selectcityid);
+			return "excel";
+		}else{
+		
+		
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo, pageSize,
+					this.isdabiao, jifenstatics, "cityid", selectcityid);
+			return SUCCESS;
+		}
+		
 	}
-
 
 	private SysGroup group;
 	private int selectcityid;
@@ -168,7 +194,8 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	}
 
 	/**
-	 * @param selectcityid the selectcityid to set
+	 * @param selectcityid
+	 *            the selectcityid to set
 	 */
 	public void setSelectcityid(int selectcityid) {
 		this.selectcityid = selectcityid;

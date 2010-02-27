@@ -3,12 +3,14 @@
  */
 package com.changpeng.lawyers.action;
 
+import java.util.List;
+
 import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.Lawyers;
-import com.changpeng.models.SysUnionparams;
+import com.changpeng.models.LawyersOfficeChangeApply;
 import com.changpeng.system.util.CommonDatas;
 
 /**
@@ -34,8 +36,8 @@ public class LawyersChangeOfficeAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		LawyersService bs = (LawyersService) this.getBean("lawyersService");
-	
-		int oldoffice=lawyers.getTheoffice();
+
+		int oldoffice = lawyers.getTheoffice();
 		lawyers.setDirectunion(this.datavisible.getCityid());
 		lawyers.setProvinceunion(this.datavisible.getProvinceid());
 		lawyers.setTheoffice(this.datavisible.getOfficeid());
@@ -47,11 +49,17 @@ public class LawyersChangeOfficeAction extends AbstractAction {
 
 		lawyers.setLoginname(lawyers.getLawyerno());
 		lawyers.setPasswd(lawyers.getCertno());
-		bs.updateLawyers(lawyers);
+
+		LawyersService lawyerService = (LawyersService) getBean("lawyersService");
+		lawyerService.updateLawyerOffice(lawyerid, this.datavisible.getOfficeid(), this.datavisible.getCityid(),
+				this.datavisible.getProvinceid(), true, this.getLoginUser());
+		// bs.updateLawyers(lawyers);
+		// 保存律师的转所记录
+
 		this.message = "律师转所成功";
 
-		this.opResult=lawyers.getLawyername()+"由"+oldoffice+"转移到"+lawyers.getTheoffice();
-		
+		this.opResult = lawyers.getLawyername() + "由" + oldoffice + "转移到" + lawyers.getTheoffice();
+
 		this.nextPage = "lawyersList.pl";
 		return SUCCESS;
 	}
@@ -59,21 +67,25 @@ public class LawyersChangeOfficeAction extends AbstractAction {
 	@Override
 	public String input() throws Exception {
 
-		if(this.getLoginUser().getSysGroup()!=null&&this.getLoginUser().getSysGroup().getGrouptype()==1){
-			this.message="您属于律师事务所,没有权限对律师进行转所操作";
-			
-			return "message";
-			
+		if (this.getLoginUser().getSysGroup() != null && this.getLoginUser().getSysGroup().getGrouptype() == 1) {
+			// this.message="您属于律师事务所,没有权限对律师进行转所操作";
+			return "toapply";
 		}
 		
+		String hql = "from LawyersOfficeChangeApply where status=0 and lawyerid=" + lawyerid;
+		List list = basicService.find(hql);
+		if (list != null && list.size() > 0) {
+			LawyersOfficeChangeApply apply=(LawyersOfficeChangeApply)list.get(0);
+			this.message = "该律师的转所申请已经提交,请处理";
+			this.nextPage="officeChangeHandle!input.action?id="+apply.getId();
+			return "message";
+		}
+		
+
 		CommonDatas.getGroups();
-		
-		
-		
+
 		BasicService bservice = (BasicService) this.getBean("basicService");
 		lawyers = (Lawyers) bservice.get(Lawyers.class, lawyerid);
-		
-		
 
 		this.datavisible.setCityid(lawyers.getDirectunion());
 		this.datavisible.setOfficeid(lawyers.getTheoffice());

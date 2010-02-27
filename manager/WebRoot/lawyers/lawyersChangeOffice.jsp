@@ -17,7 +17,6 @@ body {
 </style>
 <script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
-<jscalendar:head/>
 <script language="javascript">
 function getCities(vallll){
   $("#city")[0].length=0;
@@ -46,25 +45,6 @@ function getOffices(vallll){
      }
 }); 
   }
-}
-function checkLoginname(loginname,lawyerid){	
-
-	if((loginname == null) || (loginname.length == 0)){
-	    $("#checkloginname").html("不为空且长度不超过15个字符");
-		return;
-	}
-	var now=new Date().getTime();
-	var url="../systemajax/checkLawyersLoginname.pl";
-   $.getJSON(url, { lawyerid:lawyerid,"loginname": loginname,"now":now}, function(json){
-     $("#lawyerloginname").attr("value",json.loginname);
-     if(json.isrepeat == true){
-  //      $("#loginnameid").show();
-   		$("#checkloginname").html("<font color='red'>对不起，您输入的帐号【"+json.loginname+"】已经被他人使用，请选择其他名字后再试。</font>");
-   		$("#save").attr("disabled",true);
-   }else{
-	    $("#save").attr("disabled",false);
-   }
-});
 }
 </script>
 </head>

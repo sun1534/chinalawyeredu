@@ -19,6 +19,7 @@ import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.LawyersDelete;
+import com.changpeng.models.LawyersOfficeChangeApply;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUser;
 import com.changpeng.system.service.SysGroupService;
@@ -60,13 +61,86 @@ public class LawyersService extends BasicService {
 			throw new ServiceException(e);
 		}
 	}
+
+	/**
+	 * 律师换所，主要是修改律师数据和积分数据
+	 * 
+	 * @param lawyerid
+	 * @param officeid
+	 * @param ciytid
+	 * @param provinceid
+	 * @throws ServiceException
+	 */
 	@Transactional
-	public Lawyers deleteLawyers(int lawyerid,SysUser user) throws ServiceException {
+	public void updateLawyerOffice(int lawyerid, int officeid, int cityid, int provinceid, boolean islog, SysUser user)
+			throws ServiceException {
 		try {
-			Lawyers lawyers=(Lawyers)lawyersDAO.get(Lawyers.class, lawyerid);
+			String sql = "update lawyers set theoffice=" + officeid + ",directunion=" + cityid + ",provinceunion="
+					+ provinceid + " where lawyerid=" + lawyerid;
+			String sql2 = "update lawyerlessonxf set officeid=" + officeid + ",cityid=" + cityid + ",provinceid="
+					+ provinceid + " where lawyerid=" + lawyerid;
+			lawyersDAO.executeSql(sql);
+
+			lawyersDAO.executeSql(sql2);
+			if (islog) {
+				LawyersOfficeChangeApply apply = new LawyersOfficeChangeApply();
+				Lawyers lawyers = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
+				apply.setApplyReason("律协管理员直接转所");
+				apply.setLawyerid(lawyerid);
+				apply.setLawyername(lawyers.getLawyername());
+				apply.setApplyTime(new java.sql.Timestamp(System.currentTimeMillis()));
+				apply.setConfirmContent(apply.getApplyReason());
+				apply.setConfirmTime(apply.getApplyTime());
+				apply.setConfirmuserid(user.getUserid());
+				apply.setConfirmusername(user.getUsername());
+				apply.setNewcity(cityid);
+				apply.setNewoffice(officeid);
+				apply.setNewprovince(provinceid);
+				apply.setOldcity(lawyers.getDirectunion());
+				apply.setOldoffice(lawyers.getTheoffice());
+				apply.setOldprovince(lawyers.getProvinceunion());
+				apply.setStatus((short) 1);
+				apply.setRemarks(apply.getApplyReason());
+
+				lawyersDAO.save(apply);
+			}
+
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Transactional
+	public void updateLawyerOffice(int lawyerid, int officeid, int cityid, int provinceid, SysUser user,
+			LawyersOfficeChangeApply apply) throws ServiceException {
+		try {
+			// 如果认为通过的话
+			if (apply.getStatus() == 1) {
+				String sql = "update lawyers set theoffice=" + officeid + ",directunion=" + cityid + ",provinceunion="
+						+ provinceid + " where lawyerid=" + lawyerid;
+				String sql2 = "update lawyerlessonxf set officeid=" + officeid + ",cityid=" + cityid + ",provinceid="
+						+ provinceid + " where lawyerid=" + lawyerid;
+				lawyersDAO.executeSql(sql);
+
+				lawyersDAO.executeSql(sql2);
+			}
+			apply.setConfirmTime(new java.sql.Timestamp(System.currentTimeMillis()));
+			apply.setConfirmuserid(user.getUserid());
+			apply.setConfirmusername(user.getUsername());
+			lawyersDAO.update(apply);
+
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Transactional
+	public Lawyers deleteLawyers(int lawyerid, SysUser user) throws ServiceException {
+		try {
+			Lawyers lawyers = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
 			lawyersDAO.delete(lawyers);
-		
-			LawyersDelete delete=new LawyersDelete();
+
+			LawyersDelete delete = new LawyersDelete();
 			delete.setLawyername(lawyers.getLawyername());
 			delete.setLawyerenname(lawyers.getLawyerenname());
 			delete.setLawyerno(lawyers.getLawyerno());
@@ -118,18 +192,20 @@ public class LawyersService extends BasicService {
 			delete.setZhiyedate(lawyers.getZhiyedate());
 			delete.setDeletetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			delete.setDeleteuser(user.getLoginname());
-		
+
 			lawyersDAO.save(delete);
-			
-			//律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
-			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf where lawyerid="+lawyerid);
-			lawyersDAO.executeSql("delete from lawyerlessonxf where lawyerid="+lawyerid);
-			
+
+			// 律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
+			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf where lawyerid="
+					+ lawyerid);
+			lawyersDAO.executeSql("delete from lawyerlessonxf where lawyerid=" + lawyerid);
+
 			return lawyers;
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
 	}
+
 	/**
 	 * 修改密码
 	 * 

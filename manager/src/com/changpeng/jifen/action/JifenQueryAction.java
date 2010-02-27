@@ -38,6 +38,23 @@ public class JifenQueryAction extends AbstractListAction {
 
 	public JifenQueryAction() {
 	}
+	
+private String resultType="list";
+	
+	
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * @param resultType the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -71,7 +88,7 @@ public class JifenQueryAction extends AbstractListAction {
 		
 		String adminsql = "select format(sum(a.pxxf),2),a.learnmode from lawyerlessonxf a where a.lawyerid="
 			+ this.lawyerid + " and (a.theyear="+jifentime.getNianshenyear()+") group by a.learnmode";
-//System.out.println(adminsql);
+
 		List tongjilist = basicService.findBySqlQuery(adminsql);
 		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
 		for (int i = 0; i < tongjilength; i++) {
@@ -88,6 +105,8 @@ public class JifenQueryAction extends AbstractListAction {
 			}
 		}
 		// TODO Auto-generated method stub
+		if(!resultType.equals("")&&resultType.equals("excel"))
+			return "excel";
 		return SUCCESS;
 	}
 
