@@ -17,9 +17,17 @@
        		 -->
        </action>
     
+        <action name="officeChangeApplyList" class="com.changpeng.lawyers.action.OfficeChangeApplyListAction">
+        	<result name="success" type="dispatcher">/lawyers/officeChangeApplyList.jsp</result>
+       </action>
         
-        
-        
+         <action name="officeChangeApply" class="com.changpeng.lawyers.action.OfficeChangeApplyAction">
+        	<result name="input" type="dispatcher">/lawyers/officeChangeApply.jsp</result>
+       </action>
+           <action name="officeChangeApplyCancel" class="com.changpeng.lawyers.action.OfficeChangeApplyCancelAction">
+        	
+       </action>
+  
    </package>
    
    <package name="lawyersajax" extends="defaultajax" namespace="/lawyersajax">

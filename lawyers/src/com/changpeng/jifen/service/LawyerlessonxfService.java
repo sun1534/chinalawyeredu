@@ -127,7 +127,7 @@ public class LawyerlessonxfService extends BasicService {
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	private float getLawyerZongjifen(int lawyerid, Timestamp start, Timestamp end) {
+	public float getLawyerZongjifen(int lawyerid, Timestamp start, Timestamp end) {
 		String sql = "select FORMAT(sum(pxxf),2) from lawyerlessonxf where (lastupdate between '" + df.format(start)
 				+ "' and '" + df.format(end) + "') and lawyerid=" + lawyerid;
 		List list = lawyersDAO.findBySqlQuery(sql);
@@ -155,7 +155,7 @@ public class LawyerlessonxfService extends BasicService {
 		return 0;
 	}
 
-	private LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
+	public LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
 			throws ServiceException {
 
 		String sql = "";
@@ -170,9 +170,11 @@ public class LawyerlessonxfService extends BasicService {
 			sql = "select learnmode,count(learnmode) from lawyerlessonxf where (UNIX_TIMESTAMP(lastupdate) between "
 					+ _from.getTime() / 1000 + " and " + _end.getTime() / 1000 + ") group by learnmode";
 		}
+		System.out.println(sql);
 		LearnmodeStatics statics = new LearnmodeStatics();
 
 		List tongjilist = lawyerlessonxfDAO.findBySqlQuery(sql);
+		System.out.println(tongjilist);
 		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
 		// 1现场培训2在线视频3文本课件4积分补登
 

@@ -77,6 +77,7 @@ return;
           <td align="right" class="tab_content1"> 您的执业证号: </td>
              <td class="tab_content1">
               ${lawyers.lawyerno}
+              </td>
         </tr>
                 <tr id="loginnameid" style="display:none">
           <td align="right" class="tab_content1"> 您的登录账号: </td>

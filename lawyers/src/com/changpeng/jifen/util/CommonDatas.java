@@ -155,5 +155,9 @@ public class CommonDatas {
 	}
 
 	private static long huodexuefenInterval = 0;
+	public static void main(String[] args)throws Exception{
+		JifenTime time=getJifenTime(0,"12-31");
+		System.out.println(time.getNianshenyear());
+	}
 
 }

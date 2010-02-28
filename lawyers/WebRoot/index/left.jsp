@@ -73,6 +73,7 @@ function makeMenu() {
 		 //  d.add("${rightcode}","${parentcode}","${rightname}","${linkurl}","","${openTarget}");
 		    d.add("shouye","0","首页","../index/workspace.pl","","mainFrame");
 		    d.add("forum","0","培训论坛","../forum/forumList.pl","","mainFrame");
+		    d.add("forum","0","申请转所","../lawyers/officeChangeApplyList.pl","","mainFrame");
  <s:if test="lawyer.provinceunion!=22">
 		   d.add("editself","0","个人资料维护","../lawyers/lawyersEditSelf!input.pl","","mainFrame");		
 			</s:if>

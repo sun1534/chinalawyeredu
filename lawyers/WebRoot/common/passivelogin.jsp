@@ -41,13 +41,14 @@ function submitOnClick()
       alert("请输入正确用户密码，长度4-20字符！");
       document.form1.password.focus();
       return false;
-    }else{
-      if(!isLetterNumber(document.form1.password.value)){
-        alert("请输入正确用户密码，为字母、数字！");
-        document.form1.password.focus();
-        return false;
-      }
     }
+    //else{
+    //  if(!isLetterNumber(document.form1.password.value)){
+    //    alert("请输入正确用户密码，为字母、数字！");
+    //    document.form1.password.focus();
+    //    return false;
+    //  }
+    //}
   }
   document.form1.submit();
   return true;

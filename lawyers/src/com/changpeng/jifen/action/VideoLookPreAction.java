@@ -83,6 +83,15 @@ public class VideoLookPreAction extends AbstractAction {
 	public boolean getShouldselect() {
 		return shouldselect;
 	}
+	
+	private float nowfen;
+	public float getNowfen(){
+		return this.nowfen;
+	}
+	
+	public int mingnian;
+	
+	
 
 	@Override
 	public String go() throws Exception {
@@ -103,10 +112,13 @@ public class VideoLookPreAction extends AbstractAction {
 		// 判断这个律协的创建年份是否在去年之后
 		JifenTime lastjifentime = CommonDatas.getJifenTime(lastyear, params.getNianshen());
 		long lastyearbegin = lastjifentime.getStart().getTime();
+		long lastyearend = lastjifentime.getEnd().getTime();
+//		System.out.println(lastjifentime.getStart()+"==="+lastjifentime.getStart());
 		SysGroup group = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getDirectunion());
 		long groupcreate = group.getCreatetime().getTime();
-
+//System.out.println(groupcreate+"==="+group.getCreatetime());
 		yearfen = xfservice.getLawyerZongjifen(userid, lastyear);
+		nowfen=xfservice.getLawyerZongjifen(userid, nowyear);
 
 		LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
 		BasicService basicService = (BasicService) getBean("basicService");
@@ -145,7 +157,7 @@ public class VideoLookPreAction extends AbstractAction {
 		if (xuefen != null) {
 			jifenyear = xuefen.getTheyear();
 			islastyear = xuefen.getIslastyear() == 1 ? true : false;
-		} else if (groupcreate >= lastyearbegin) {
+		} else if (!(groupcreate <= lastyearend&&groupcreate>=lastyearbegin)) {
 			shouldselect = false;
 			jifenyear = nowyear;
 		} else {
