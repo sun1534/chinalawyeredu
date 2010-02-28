@@ -187,7 +187,7 @@ public class ScheduleTask extends TimerTask {
 
 			// service.findBySqlQuery("select count(*) from sys_user");
 
-			String sql = "update lawyers a inner join sys_unionparams b on a.directunion=b.groupid set a.dabiaofen=b.dabiaofen";
+			String sql = "update lawyers a inner join sys_unionparams b on a.directunion=b.groupid set a.dabiaofen=b.dabiaofen,a.localfen=b.localfen";
 
 			BasicService service = (BasicService) Globals.getMainBean("basicService");
 			service.executeSql(sql);

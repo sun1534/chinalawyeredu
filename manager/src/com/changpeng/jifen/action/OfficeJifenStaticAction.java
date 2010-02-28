@@ -44,6 +44,7 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 			return "message";
 		}
 		dabiaofen = params.getDabiaofen();
+		localfen=params.getLocalfen();
 
 		// 根据用户选择的年份以及年审时间得到查询的起始终止时间段
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(year, params.getNianshen());
@@ -55,7 +56,7 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 //		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen,
 //				"officeid", selectoffice);
 	    
-		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,
+		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,params.getLocalfen(),
 				"officeid", selectoffice);
 
 		// 显示律师的明细情况
@@ -107,6 +108,7 @@ private String resultType="list";
 	private Jifenstatics jifenstatics;
 	private JifenTime jifentime;
 	private float dabiaofen;
+	private float localfen;
 	private String lawyerno;
 	private String lawyername;
 	private int isdabiao;
@@ -210,5 +212,12 @@ private String resultType="list";
 	 */
 	public SysGroup getGroup() {
 		return group;
+	}
+
+	/**
+	 * @return the localfen
+	 */
+	public float getLocalfen() {
+		return localfen;
 	}
 }

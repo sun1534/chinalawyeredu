@@ -90,9 +90,9 @@ ${groupname}
          <tr> 
             <td align="right" class="tab_content1">律师照片: </td>
           <td class="tab_content1">
-        
-          <img src="../lawyerphotos/${sysUser.photo}" width="106" border="0"/><br/>
-
+           <s:if test="sysUser.photo!=null&&!sysUser.photo.equals(\"\")">
+         <img src="${logopath}${sysUser.photo}" width="150"/><br/>
+</s:if>
             </td>
         </tr>
         </s:if>

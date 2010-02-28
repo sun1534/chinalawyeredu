@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>%=com.changpeng.common.Constants.SYS_NAME%>-参数设置</title>
+<title><%=com.changpeng.common.Constants.SYS_NAME%>-参数设置</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -39,7 +39,7 @@ function exportit(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：律协积分统计-${group.groupname }-从【${jifentime.startstr }】到【${jifentime.endstr }】
+    	当前位置：律协积分统计-${group.groupname }-从【${jifentime.startstr }】到【${jifentime.endstr }】达标条件,总积分>=${dabiaofen }<s:if test="localfen>0">，现场培训积分>=${localfen}</s:if>
     	</td>
   </tr>
 </table>
@@ -94,43 +94,6 @@ function exportit(str){
       </tr>
       
 <s:iterator value="page.items" status="stat">
-<!--  <TR>
-        <TD class="tab_content" align="center"  title="查看律师信息"><a href="../system/lawyerView.pl?userid=${id.userid}">${id.username}</TD>
-        <TD class="tab_content" align="left">&nbsp;&nbsp;${id.groupname}</TD>
-        <TD class="tab_content" align="center">
-        	   	<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.xianchang)"/>
-        </TD>
-       <TD class="tab_content" align="center">
-     
-       	<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.video)"/>
-       	</TD>
-     <TD class="tab_content" align="center">
-     
-       	<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.doc)"/>
-       	</TD>
-         <TD class="tab_content" align="center">
-         		<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.budeng)"/>
-         	</TD>
-           <TD class="tab_content" align="center">
-           	<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.koufen)"/>
-          </TD>
-             <TD class="tab_content" align="center">
-             		<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(id.zongjifen)"/>
-             		</TD>
-               <TD class="tab_content" align="center">
-               	<s:if test="id.zongjifen!=0&&id.zongjifen<dabiaofen">
-                		 <font color="blue">未达标</font>
-               	</s:if>
-               	<s:elseif test="id.zongjifen==0"> 
-               		未培训
-               	</s:elseif>
-                <s:else><font color="red">已达标</font>
-                </s:else>
-                
-               	</TD> 
-               	<TD class="tab_content" align="center"><a href="../jifen/jifenQuery.pl?fromwhere=fromwhere&lawyerid=${id.userid}&year=${year}" title="查看积分明细">查看</TD>
-      
-               	</TR> -->
       <TR>
         <TD class="tab_content" align="center"  title="查看律师信息"><a href="../lawyers/lawyerView.pl?userid=${lawyerid}">${name}</TD>
         <TD class="tab_content" align="left">&nbsp;&nbsp;
@@ -143,12 +106,7 @@ function exportit(str){
         <TD class="tab_content" align="center">${budeng}</TD>
         <TD class="tab_content" align="center">${koufen}</TD>
         <TD class="tab_content" align="center">${zongjifen}</TD>
-        <TD class="tab_content" align="center">
-            
-               	<s:if test="zongjifen==0">未培训</s:if>
-               	<s:elseif test="zongjifen<dabiaofen"><font color="blue">未达标</font></s:elseif>
-                <s:else><font color="red">已达标</font></s:else>
-         </TD> 
+        <TD class="tab_content" align="center">${dabiaostr }</TD> 
          <TD class="tab_content" align="center">
          <a href="../jifen/jifenQuery.pl?fromwhere=fromwhere&lawyerid=${lawyerid}&year=${year}" title="查看积分明细">查看</a>
          </TD>
@@ -165,30 +123,13 @@ function exportit(str){
         	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr >
           <td height="24" align="left" background="../imagesa/login_bg1.gif" >
-        <!--  
-     <ul>
-<li>总计培训课程【${lessoncnt}】，其中有【${onlinelessoncnt}】门课程提供了视频等影像资料。</li>
-   <li>
-       有【${localecnt}】位律师参加了现场培训，
-       有【${video}】位律师观看了在线视频，
-       有【${wenbenkejian}】位律师观看了文本课件
- </li>
-<li>有【0】位律师使用了网上报名，其中有【0】位因未到被扣分；有【3】位律师参与了课程评价。</li>
 
-<li>
-       有【${budeng}】提供了外部培训记录，并获得学分
-</li>
-</ul>-->
           </td>
         </tr>
       </table>   
     </td>
   </tr>
     </s:form>
-
-
-
-
 </table>
 </body>
 </html>

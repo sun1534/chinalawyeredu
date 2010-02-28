@@ -60,8 +60,8 @@ public class StaticsViewAction extends AbstractAction {
 		} else if (sysgroup.getGrouptype() == 1) {// 事务所
 			SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, sysgroup.getParentid());
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, params.getNianshen());
-			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), params
-					.getDabiaofen(), "officeid", sysgroup.getGroupid());
+			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params
+					.getDabiaofen(),params.getLocalfen(), "officeid", sysgroup.getGroupid());
 			OfficeProperties properties= (OfficeProperties)basicService.get(OfficeProperties.class, sysgroup.getGroupid());
 			if(properties!=null)
 			this.officelogo=properties.getPhoto();
@@ -72,8 +72,8 @@ public class StaticsViewAction extends AbstractAction {
 			SysUnionparams params = sysgroup.getSysUnionparams();
 			jifentime = com.changpeng.jifen.util.CommonDatas
 					.getJifenTime(0, sysgroup.getSysUnionparams().getNianshen());
-			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), params
-					.getDabiaofen(), "cityid", sysgroup.getGroupid());
+			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params
+					.getDabiaofen(),params.getLocalfen(), "cityid", sysgroup.getGroupid());
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "cityid",
 					sysgroup.getGroupid());
 		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
@@ -84,7 +84,7 @@ public class StaticsViewAction extends AbstractAction {
 
 		} else if (sysgroup.getGrouptype() == 3) {// 省级律协
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
-			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "provinceid",
+			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getNianshenyear(), "provinceid",
 					sysgroup.getGroupid());
 		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "provinceid",sysgroup.getGroupid());
 		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);

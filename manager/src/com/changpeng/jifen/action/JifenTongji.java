@@ -11,6 +11,7 @@ package com.changpeng.jifen.action;
 public class JifenTongji {
 
 	private float dabiaofen;
+	private float localfen;
 	private String name;
 	private int lawyerid;
 	private String groupname;
@@ -20,7 +21,13 @@ public class JifenTongji {
 	private float budeng;
 	private float koufen;
 	private float zongjifen;
-	
+	public String getDabiaostr(){
+		if(zongjifen==0)
+			return "未培训";
+		else if(zongjifen<dabiaofen||xianchang<localfen)
+			return "未达标";
+		return "<font color='red'>已达标</font>";
+	}
 	
 	
 	/**
@@ -142,6 +149,18 @@ public class JifenTongji {
 	 */
 	public void setZongjifen(float zongjifen) {
 		this.zongjifen = zongjifen;
+	}
+	/**
+	 * @return the localfen
+	 */
+	public float getLocalfen() {
+		return localfen;
+	}
+	/**
+	 * @param localfen the localfen to set
+	 */
+	public void setLocalfen(float localfen) {
+		this.localfen = localfen;
 	}
 	
 	

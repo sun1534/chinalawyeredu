@@ -20,6 +20,7 @@ public class SysUnionparams implements java.io.Serializable {
 	 * 达标分是多少
 	 */
 	private float dabiaofen;
+	private float localfen;
 	/**
 	 * 是否有本地课程
 	 */
@@ -135,6 +136,20 @@ public class SysUnionparams implements java.io.Serializable {
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	/**
+	 * @return the localfen
+	 */
+	public float getLocalfen() {
+		return localfen;
+	}
+
+	/**
+	 * @param localfen the localfen to set
+	 */
+	public void setLocalfen(float localfen) {
+		this.localfen = localfen;
 	}
 
 }

@@ -70,11 +70,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
        <td class="listline2">${budeng}  </td>
         <td class="listline2">${koufen}  </td>
        <td class="listline2">${zongjifen}  </td>
-      <td class="listline2">
-               	<s:if test="zongjifen==0">未培训</s:if>
-               	<s:elseif test="zongjifen<dabiaofen"><font color="blue">未达标</font></s:elseif>
-                <s:else><font color="red">已达标</font></s:else>
-           </td>
+      <td class="listline2">${dabiaostr }</td>
                         </tr>
                         </s:iterator>
        

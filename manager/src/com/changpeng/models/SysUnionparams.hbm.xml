@@ -58,6 +58,12 @@
                 <comment>达标的分数</comment>
             </column>
         </property>
+               <property name="localfen" type="float">
+            <column name="localfen" precision="12" scale="0" not-null="true">
+                <comment>达标需满足的本地课程分</comment>
+            </column>
+        </property>
+        
         <property name="havelocal" type="boolean">
             <column name="havelocal" not-null="true">
                 <comment>是否需要现场培训</comment>
