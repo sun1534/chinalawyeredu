@@ -10,6 +10,7 @@
 <script type="text/javascript" src="../js/login.js"></script>
 <div class="navguild"><span><a href="../home/home.action">首页</a>->产品介绍</span></div>
 <div class="prolist clearfix">
+${pageString}
 <#list page.items as t>
 <dl>
 	<dt><img  width="330" height="270" src="${t.pic}"  /></dt>
@@ -22,6 +23,9 @@
 	</dd>
 </dl>
 </#list>
+<form name="pageForm" action="productlist.action">
+<input type="hidden" name="pageNo" />
+</form>
 ${pageString}
 </div>
 <script>
