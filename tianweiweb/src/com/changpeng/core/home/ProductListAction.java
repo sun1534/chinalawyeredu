@@ -13,6 +13,7 @@ public class ProductListAction extends AbstractListAction {
 
 	public ProductListAction(){
 		this.rightCode="PUBLIC";
+		this.pageSize=6;
 	}
 	
 	@Override
