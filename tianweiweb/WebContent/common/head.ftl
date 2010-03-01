@@ -21,8 +21,8 @@
 		    <#if currentUserid!=0>
 				<dl class="loginin">
 					<dt><b>${currentUsername}</b>您好！</dt>
-					<dd>欢迎来到天威广告管理系统！<br />
-					<a href="../user/userbaseview.action">我的天威</a>
+					<dd>欢迎来到深圳市天威广告有限公司网站！<br />
+					<a href="../user/userbaseview.action"><#if currentRole=1>家庭专区</#if><#if currentRole=2>商家专区</#if></a>
 		    	<a href="../common/loginOut.action">退出登录</a></dd>
 				</dl>
 		    </#if>
