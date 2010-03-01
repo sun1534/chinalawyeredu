@@ -1,5 +1,4 @@
 <#macro head>
-<title>天威广告业务管理站点</title>
 <!--<script type="text/javascript" src="../js/base/ui.datepicker.js"></script>
 <script type="text/javascript" src="../js/base/ui.datepicker-zh-CN.js"></script>
 <script type="text/javascript" src="../js/base/datepicker.js"></script>

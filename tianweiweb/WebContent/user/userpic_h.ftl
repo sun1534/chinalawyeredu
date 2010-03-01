@@ -1,5 +1,4 @@
 <#macro head>
-<title>天威广告业务管理站点</title>
 
 <script type="text/javascript" src="../js/base/jquery.MultiFile.js"></script>
 <script type="text/javascript" src="../js/sctx.js"></script>
