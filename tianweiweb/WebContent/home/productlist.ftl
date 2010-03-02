@@ -27,7 +27,9 @@
 <form name="pageForm" action="productlist.action">
 <input type="hidden" name="pageNo" />
 </form>
-${pageString}
+<div  style="text-align:right;">
+	${pageString}
+</div>
 </div>
 <script>
 function dinggou(id){
