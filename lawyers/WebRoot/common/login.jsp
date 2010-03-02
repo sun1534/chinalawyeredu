@@ -60,6 +60,12 @@ function submitForm(e){
   	   submitOnClick();
   }
 }
+function selectRole(roleid){
+ if(roleid==1)
+ document.form1.action="/common/login.pl";
+ else
+  document.form1.action="/manager/common/login.pl";
+}
 </script>
 </head>
 
@@ -89,7 +95,7 @@ function submitForm(e){
         <s:form name="form1" method="post" action="login">
         <table width="98%" height="150" border="0" align="center" cellpadding="0" cellspacing="1">
           <tr>
-            <td height="24" colspan="5" class="baseFontBold">&nbsp;            </td>
+            <td height="24" colspan="5" class="baseFontBold">&nbsp; </td>
           </tr>
           <tr>
             <td width="37%" class="tab_content1" align="right">帐号：</td>
@@ -101,6 +107,16 @@ function submitForm(e){
             <td class="tab_content" align="right">密码：</td>
             <td colspan="2" class="tab_content" align="left">
               <s:password name="password" size="25" maxlength="25" onkeydown="submitForm()"/>              
+            </td>
+          </tr>
+          <tr>
+            <td class="tab_content" align="right">登录身份：</td>
+            <td colspan="2" class="tab_content" align="left">
+             <select name="loginRole" id="loginRole" onchange="selectRole(this.value)">
+               <option value="1">律师</option>
+               <option value="2">管理员</option>
+             </select>     
+             <a href="/manager">管理员登录也可点此</a>         
             </td>
           </tr>
           <tr>
