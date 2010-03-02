@@ -10,16 +10,17 @@
 <script type="text/javascript" src="../js/login.js"></script>
 <div class="navguild"><span><a href="../home/home.action">首页</a>->产品介绍</span></div>
 <div class="prolist clearfix">
-${pageString}
+<div  style="text-align:right;">
+	${pageString}
+</div>
 <#list page.items as t>
 <dl>
 	<dt><img  width="330" height="270" src="${t.pic}"  /></dt>
 	<dd>
-		<p><b>产品介绍</b></p>
-		<p>${t.name}</p>
+		<p style="color:#FF3300;font-weight:700;font-size:14px;">${t.name}</p>
 		<p>简介：${t.description}</p>
 		<p>原价：${t.price} ${t.unit} 优惠价：<#assign yp=t.price*t.feerate/100 /> ${yp} ${t.unit}</p>
-		<p><a href="javascript:dinggou(${t.id})">订购</a> | <a href="#">详细介绍</a> | <a href="#">案例</a></p>
+		<p><a href="javascript:dinggou(${t.id})">订购</a><!--  | <a href="#">详细介绍</a> | <a href="#">案例</a> --></p>
 	</dd>
 </dl>
 </#list>
