@@ -25,6 +25,7 @@ public class InfoService  extends BasicService {
 		if(producttype==1||producttype==2){
 			dc.add(Restrictions.eq("u.producttype", producttype));
 		}
+		dc.addOrder(Order.desc("createtime"));
 		return this.findPageOnPageNo(dc, pageSize, pageNo);
 	}
 	public PaginationSupport searchProduct(int pageSize,int pageNo,int producttype,String name){
