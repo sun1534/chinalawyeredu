@@ -19,7 +19,7 @@
 	<dd>
 		<p style="color:#FF3300;font-weight:bold;font-size:14px;">${t.name}</p>
 		<p>简介：${t.description}</p>
-		<p>原价：${t.price} ${t.unit} 优惠价：<b style="color:#FF3300;font-weight:bold"><#assign yp=t.price*t.feerate/100 /></b> ${yp} ${t.unit}</p>
+		<p>原价：${t.price} ${t.unit} 优惠价：<b style="color:#FF3300;font-weight:bold"><#assign yp=t.price*t.feerate/100 /> ${yp}</b> ${t.unit}</p>
 		<p><a href="javascript:dinggou(${t.id})">订购</a> | <a href="${t.pic}" target="_blank">查看大图</a><!--  | <a href="#">详细介绍</a> | <a href="#">案例</a> --></p>
 	</dd>
 </dl>
