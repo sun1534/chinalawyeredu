@@ -81,6 +81,7 @@ function getOffices(vallll){
           <td class="tab_content">
            ${lawyers.lawyername }
            <s:hidden name="lawyers.lawyername"/>
+           <s:hidden name="lawyerid"/>
             
         </tr>
 		 <tr>

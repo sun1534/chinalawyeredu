@@ -72,7 +72,8 @@ body {
   
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
       <tr>
-      <TD height="23" align="center" background="../imagesa/top-bg1.gif">申请律师</TD> 
+      <TD height="23" align="center" background="../imagesa/top-bg1.gif">律师</TD> 
+       <TD height="23" align="center" background="../imagesa/top-bg1.gif">申请人</TD> 
             <TD height="23" align="center" background="../imagesa/top-bg1.gif">原所在事务所</TD> 
      
         <TD align="center" background="../imagesa/top-bg1.gif">申请转所事务所</TD>
@@ -85,6 +86,7 @@ body {
 <s:iterator value="page.items" status="stat">
       <TR>
         <TD class="tab_content" align="center"><a href="lawyerView.pl?lawyerid=${lawyerid }">${lawyername }</a></TD>
+         <TD class="tab_content" align="center">${applyname }</TD>
        <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[oldoffice]"/></TD>
          <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[newoffice]"/></TD>
        <TD class="tab_content" align="center"><s:date name="applyTime" format="yyyy-MM-dd HH:mm:ss"/></TD>
@@ -115,13 +117,13 @@ body {
       </tr>
      
     </table>
-        	<table width="100%" border="0" cellpadding="0" cellspacing="1">
+       <!--  	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr >
           <td height="24" align="center" background="../imagesa/login_bg1.gif" >
        <input type="button" name="addforum" value="申请转所" onclick="getAdd()"/>
           </td>
         </tr>
-      </table>   
+      </table>    -->
     </td>
   </tr>
     </s:form>

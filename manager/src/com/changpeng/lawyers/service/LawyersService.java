@@ -72,21 +72,18 @@ public class LawyersService extends BasicService {
 	 * @throws ServiceException
 	 */
 	@Transactional
-	public void updateLawyerOffice(int lawyerid, int officeid, int cityid, int provinceid, boolean islog, SysUser user)
+	public void updateLawyerOffice(Lawyers lawyers, int officeid, int cityid, int provinceid, boolean islog, SysUser user)
 			throws ServiceException {
 		try {
 			String sql = "update lawyers set theoffice=" + officeid + ",directunion=" + cityid + ",provinceunion="
-					+ provinceid + " where lawyerid=" + lawyerid;
+					+ provinceid + " where lawyerid=" + lawyers.getLawyerid();
 			String sql2 = "update lawyerlessonxf set officeid=" + officeid + ",cityid=" + cityid + ",provinceid="
-					+ provinceid + " where lawyerid=" + lawyerid;
-			lawyersDAO.executeSql(sql);
+					+ provinceid + " where lawyerid=" + lawyers.getLawyerid();
 
-			lawyersDAO.executeSql(sql2);
 			if (islog) {
 				LawyersOfficeChangeApply apply = new LawyersOfficeChangeApply();
-				Lawyers lawyers = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
 				apply.setApplyReason("律协管理员直接转所");
-				apply.setLawyerid(lawyerid);
+				apply.setLawyerid(lawyers.getLawyerid());
 				apply.setLawyername(lawyers.getLawyername());
 				apply.setApplyTime(new java.sql.Timestamp(System.currentTimeMillis()));
 				apply.setConfirmContent(apply.getApplyReason());
@@ -101,10 +98,14 @@ public class LawyersService extends BasicService {
 				apply.setOldprovince(lawyers.getProvinceunion());
 				apply.setStatus((short) 1);
 				apply.setRemarks(apply.getApplyReason());
+				apply.setApplyname(user.getUsername());
+				apply.setApplyusertype(2);
 
 				lawyersDAO.save(apply);
+//				System.out.println(lawyers.getLawyerid()+","+lawyers.getLawyername()+",,"+lawyers.getCityid());
 			}
-
+			lawyersDAO.executeSql(sql);
+			lawyersDAO.executeSql(sql2);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -138,7 +139,7 @@ public class LawyersService extends BasicService {
 	public Lawyers deleteLawyers(int lawyerid, SysUser user) throws ServiceException {
 		try {
 			Lawyers lawyers = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
-			lawyersDAO.delete(lawyers);
+			lawyersDAO.executeSql("delete from lawyers where lawyerid="+lawyerid);
 
 			LawyersDelete delete = new LawyersDelete();
 			delete.setLawyername(lawyers.getLawyername());

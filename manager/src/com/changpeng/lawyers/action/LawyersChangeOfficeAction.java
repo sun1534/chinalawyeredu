@@ -38,23 +38,44 @@ public class LawyersChangeOfficeAction extends AbstractAction {
 		LawyersService bs = (LawyersService) this.getBean("lawyersService");
 
 		int oldoffice = lawyers.getTheoffice();
-		lawyers.setDirectunion(this.datavisible.getCityid());
-		lawyers.setProvinceunion(this.datavisible.getProvinceid());
-		lawyers.setTheoffice(this.datavisible.getOfficeid());
+//		lawyers.setDirectunion(this.datavisible.getCityid());
+//		lawyers.setProvinceunion(this.datavisible.getProvinceid());
+//		lawyers.setTheoffice(this.datavisible.getOfficeid());
 
-		if (lawyers.getTheoffice() == 0) {
+		if (this.datavisible.getOfficeid()== 0) {
 			this.message = "必须选择所在的事务所,请返回";
 			return "message";
 		}
 
-		lawyers.setLoginname(lawyers.getLawyerno());
-		lawyers.setPasswd(lawyers.getCertno());
+//		lawyers.setLoginname(lawyers.getLawyerno());
+//		lawyers.setPasswd(lawyers.getCertno());
 
 		LawyersService lawyerService = (LawyersService) getBean("lawyersService");
-		lawyerService.updateLawyerOffice(lawyerid, this.datavisible.getOfficeid(), this.datavisible.getCityid(),
+		lawyerService.updateLawyerOffice(lawyers, this.datavisible.getOfficeid(), this.datavisible.getCityid(),
 				this.datavisible.getProvinceid(), true, this.getLoginUser());
-		// bs.updateLawyers(lawyers);
-		// 保存律师的转所记录
+		
+		
+//		LawyersOfficeChangeApply apply = new LawyersOfficeChangeApply();
+//	apply.setApplyReason("律协管理员直接转所");
+//	apply.setLawyerid(lawyers.getLawyerid());
+//	apply.setLawyername(lawyers.getLawyername());
+//	apply.setApplyTime(new java.sql.Timestamp(System.currentTimeMillis()));
+//	apply.setConfirmContent(apply.getApplyReason());
+//	apply.setConfirmTime(apply.getApplyTime());
+//	apply.setConfirmuserid(this.getLoginUser().getUserid());
+//	apply.setConfirmusername(this.getLoginUser().getUsername());
+//	apply.setNewcity(this.datavisible.getCityid());
+//	apply.setNewoffice(datavisible.getOfficeid());
+//	apply.setNewprovince(datavisible.getProvinceid());
+//	apply.setOldcity(lawyers.getDirectunion());
+//	apply.setOldoffice(lawyers.getTheoffice());
+//	apply.setOldprovince(lawyers.getProvinceunion());
+//	apply.setStatus((short) 1);
+//	apply.setRemarks(apply.getApplyReason());
+//	apply.setApplyname(this.getLoginUser().getUsername());
+//	apply.setApplyusertype(2);
+//	basicService.save(apply);
+		
 
 		this.message = "律师转所成功";
 

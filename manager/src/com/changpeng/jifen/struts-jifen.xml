@@ -21,7 +21,7 @@
        <action name="jifenQuery" class="com.changpeng.jifen.action.JifenQueryAction">
              	<interceptor-ref name="hibernateSessionStack"/>
        	  <result name="success" type="dispatcher">/jifen/jifenQuery.jsp</result>
-       	    <result name="success" type="dispatcher">/jifen/jifenQuery_excel.jsp</result>
+       	    <result name="excel" type="dispatcher">/jifen/jifenQuery_excel.jsp</result>
        </action> 
        
        <action name="provinceUnionJifenStatic" class="com.changpeng.jifen.action.ProvinceUnionJifenStaticAction">

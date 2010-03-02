@@ -166,7 +166,7 @@ function getOffices(vallll){
       </tr>
        <tr class="list_tdfunc">
           <td height="24" colspan="10"  align="center"  >
-          <s:if test="candel">
+          <s:if test="canins">
          <INPUT type="button" onClick="return getAdd()"  value=" 新增律师 " name="addbutton" class="button">
           <INPUT type="button" onClick="return getAddBatch()"  value=" 批量新增律师 " name="addbutton" class="button">
          </s:if>

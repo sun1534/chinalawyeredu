@@ -45,7 +45,7 @@ function exportit(str){
 <s:form action="jifenQuery" name="form1" method="post">
 
 <tr>
-<td align="right">
+<td align="left">
   <s:hidden name="resultType"/>
         	   	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
 <s:hidden name="lawyerid"/>
