@@ -36,9 +36,9 @@ public class CommonDatas {
 		PRODUCTTYPE.put(1, "面向家庭");
 		PRODUCTTYPE.put(2, "面向企业");
 
-		PRICEUNIT.put("条/元", "条/元");
-		PRICEUNIT.put("月/元", "月/元");
-		PRICEUNIT.put("年/元", "年/元");
+		PRICEUNIT.put("元/条", "元/条");
+		PRICEUNIT.put("元/月", "元/月");
+		PRICEUNIT.put("元/年", "元/年");
 
 	}
 
