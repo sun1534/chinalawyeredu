@@ -24,13 +24,14 @@ function submitOnClick()
       alert("请输入正确用户账号，长度1-20字符！");
       document.form1.loginname.focus();
       return false;
-    }else{
+    }
+    /*else{
       if(!isGoodChar(document.form1.loginname.value)){
         alert("请输入正确用户账号，为字母、数字、汉字！");
         document.form1.loginname.focus();
         return false;
       }
-    }
+    }*/
   }
   if(isEmpty(document.form1.password.value)){
     alert("请输入用户密码，不能为空！");
