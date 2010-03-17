@@ -49,17 +49,18 @@ public class GetLawyerRequest extends ElearningRequests {
 				//有事务所并且不是离职的律师了
 				String cardno=lawyer.getCardno();
 //				if (lawyer.getDirectunion()!=-1&&cardno!=null&&!cardno.trim().equals("")) {
-				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0) {
+				//如果这个律师没卡号，则就不送到下面去了
+				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0&&cardno!=null&&!cardno.trim().equals("")) {
 					lawyertemp.append("<lawyer>");
 					lawyertemp.append("<userid>").append(lawyer.getLawyerid()).append("</userid>");
-					lawyertemp.append("<cardno>").append(cardno == null ? "" : cardno).append("</cardno>");
-					lawyertemp.append("<username>").append(lawyer.getLawyername() == null ? "" : lawyer.getLawyername()).append("</username>");
+					lawyertemp.append("<cardno>").append(cardno == null ? "" : cardno.trim()).append("</cardno>");
+					lawyertemp.append("<username>").append(lawyer.getLawyername() == null ? "" : lawyer.getLawyername().trim()).append("</username>");
 					int theoffice=lawyer.getTheoffice();
 					SysGroup group=(SysGroup)userservice.get(SysGroup.class, theoffice);
-					lawyertemp.append("<officename>").append(group.getGroupname()).append("</officename>");
-					lawyertemp.append("<systemno>").append(lawyer.getSystemno() == null ? "" : lawyer.getSystemno()).append("</systemno>");
+					lawyertemp.append("<officename>").append(group.getGroupname().trim()).append("</officename>");
+					lawyertemp.append("<systemno>").append(lawyer.getSystemno() == null ? "" : lawyer.getSystemno().trim()).append("</systemno>");
 					lawyertemp.append("<lawyerno>").append(lawyer.getLawyerno()).append("</lawyerno>");
-					lawyertemp.append("<photo>").append(lawyer.getPhoto() == null ? "" : lawyer.getPhoto()).append("</photo>");
+					lawyertemp.append("<photo>").append(lawyer.getPhoto() == null ? "" : lawyer.getPhoto().trim()).append("</photo>");
 					lawyertemp.append("</lawyer>\r\n");
 				}
 				else {
