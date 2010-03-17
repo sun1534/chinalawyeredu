@@ -61,7 +61,8 @@
 							<PARAM NAME="enableErrorDialogs" VALUE="0">
 							<PARAM NAME="_cx" VALUE="9525">
 							<PARAM NAME="_cy" VALUE="7408">
-						</OBJECT>					</TD>
+						</OBJECT>					
+						</TD>
 				</TR>
 			
 			</TABLE>

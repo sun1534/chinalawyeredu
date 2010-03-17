@@ -28,60 +28,60 @@ import com.changpeng.models.SysUnionparams;
 public class VideoLookPreAction extends AbstractAction {
 
 	private int lessonid;
-	private float videotimeout = 0;
+//	private float videotimeout = 0;
 
 	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
 	}
 
-	public int getLessonid() {
-		return this.lessonid;
-	}
+//	public int getLessonid() {
+//		return this.lessonid;
+//	}
 
-	private int userid;
-
-	public int getUserid() {
-		return this.userid;
-	}
-
-	private boolean islastyear;
-
-	public boolean getIslastyear() {
-		return this.islastyear;
-	}
-
-	/**
-	 * 积分年度
-	 */
-	private int jifenyear;
-
-	public int getJifenyear() {
-		return this.jifenyear;
-	}
-
-	// 当前年度
-	private int nowyear;
-	// 去年年度
-	private int lastyear;
-
-	public int getNowyear() {
-		return this.nowyear;
-	}
-
-	public int getLastyear() {
-		return this.lastyear;
-	}
-
-	private boolean shouldselect;
-
-	/**
-	 * 看去年的积分是否ok
-	 * 
-	 * @return
-	 */
-	public boolean getShouldselect() {
-		return shouldselect;
-	}
+//	private int userid;
+//
+//	public int getUserid() {
+//		return this.userid;
+//	}
+//
+//	private boolean islastyear;
+//
+//	public boolean getIslastyear() {
+//		return this.islastyear;
+//	}
+//
+//	/**
+//	 * 积分年度
+//	 */
+//	private int jifenyear;
+//
+//	public int getJifenyear() {
+//		return this.jifenyear;
+//	}
+//
+//	// 当前年度
+//	private int nowyear;
+//	// 去年年度
+//	private int lastyear;
+//
+//	public int getNowyear() {
+//		return this.nowyear;
+//	}
+//
+//	public int getLastyear() {
+//		return this.lastyear;
+//	}
+//
+//	private boolean shouldselect;
+//
+//	/**
+//	 * 看去年的积分是否ok
+//	 * 
+//	 * @return
+//	 */
+//	public boolean getShouldselect() {
+//		return shouldselect;
+//	}
 
 	@Override
 	public String go() throws Exception {
@@ -98,7 +98,7 @@ public class VideoLookPreAction extends AbstractAction {
 //
 //		LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
 //		BasicService basicService = (BasicService) getBean("basicService");
-//		this.lessons = (Lessons) basicService.get(Lessons.class, lessonid);
+		this.lessons = (Lessons) basicService.get(Lessons.class, lessonid);
 //		if (this.lessons == null) {
 //			this.message = "系统有误,请在在线课程里,选择课程点击观看";
 //			this.nextPage = "javascript:window.close()";
@@ -151,51 +151,51 @@ public class VideoLookPreAction extends AbstractAction {
 
 	}
 
-	private boolean localelesson;
-
-	public boolean getLocalelesson() {
-		return this.localelesson;
-	}
-
-	// 是否还需要计时
-	private boolean settime = true;
-
-	public boolean getSettime() {
-		return this.settime;
-	}
-
-	private Lxnetrecs lxnetrecs;
-
-	public Lxnetrecs getLxnetrecs() {
-		return this.lxnetrecs;
-	}
-
-	private float totalfen;
-	private float yearfen;
-
-	public float getTotalfen() {
-		return this.totalfen;
-	}
-
-	public float getYearfen() {
-		return this.yearfen;
-	}
-
+//	private boolean localelesson;
+//
+//	public boolean getLocalelesson() {
+//		return this.localelesson;
+//	}
+//
+//	// 是否还需要计时
+//	private boolean settime = true;
+//
+//	public boolean getSettime() {
+//		return this.settime;
+//	}
+//
+//	private Lxnetrecs lxnetrecs;
+//
+//	public Lxnetrecs getLxnetrecs() {
+//		return this.lxnetrecs;
+//	}
+//
+//	private float totalfen;
+//	private float yearfen;
+//
+//	public float getTotalfen() {
+//		return this.totalfen;
+//	}
+//
+//	public float getYearfen() {
+//		return this.yearfen;
+//	}
+//
 	private Lessons lessons;
-
+//
 	public Lessons getLessons() {
 		return this.lessons;
 	}
-
-	public float getVideotimeout() {
-		return videotimeout;
-	}
-
-	/**
-	 * @param userid
-	 *            the userid to set
-	 */
-	public void setUserid(int userid) {
-		this.userid = userid;
-	}
+//
+//	public float getVideotimeout() {
+//		return videotimeout;
+//	}
+//
+//	/**
+//	 * @param userid
+//	 *            the userid to set
+//	 */
+//	public void setUserid(int userid) {
+//		this.userid = userid;
+//	}
 }
