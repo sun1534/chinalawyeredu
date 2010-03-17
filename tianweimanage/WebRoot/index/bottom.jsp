@@ -21,7 +21,7 @@
   </tr>
 
   <tr>
-    <td height="18" bgcolor="#EFEFEF"><div align="center" class="p9">www.tianwei.com保留所有权利,请妥善保管好您的密码！ </div></td>
+    <td height="18" bgcolor="#EFEFEF"><div align="center" class="p9">www.topway-ad.com保留所有权利,请妥善保管好您的密码！ </div></td>
   </tr>
 </table>
 </body>

@@ -66,6 +66,37 @@
 			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
        </action>
        
+       
+       
+       
+       <action name="aboutus" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">aboutus</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+               <action name="lawyers" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">lawyers</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+               <action name="fuwutiaokuan" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">fuwutiaokuan</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+               <action name="lianxiwomen" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">lianxiwomen</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+       <action name="maps" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">maps</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+         <action name="zhaopin" class="com.sxit.system.action.SysParameterViewAction">
+			  <param name="paramname">zhaopin</param>
+			<result name="success" type="dispatcher">/website/sysParameterView.jsp</result>
+       </action>
+       
+       
               <action name="sysParameterFckEdit" class="com.sxit.system.action.SysParameterFCKEditAction">
 			<result name="input" type="dispatcher">/website/sysParameterFckEdit.jsp</result>
        </action>

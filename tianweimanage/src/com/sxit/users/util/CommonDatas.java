@@ -38,6 +38,7 @@ public class CommonDatas {
 		APPROVETYPE.put(1, "证件认证");
 		APPROVETYPE.put(2, "电话认证");
 		APPROVETYPE.put(3, "上门认证");
+		APPROVETYPE.put(4, "营业执照认证");
 		
 	}
 

@@ -115,7 +115,7 @@ function focusit(obj){
 					  <TD width="20%" class="listheadline">
                          <s:if test="user.userRole==1">
                       身份证号码:                      </s:if>
-                      <s:else>工商编号                      </s:else>                      </TD>
+                      <s:else>营业执照编号                      </s:else>                      </TD>
 					  <TD width="35%" class="listline">
  <s:if test="user.userRole==1">
                       ${user.cardno}
