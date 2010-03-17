@@ -70,5 +70,11 @@
             <column name="lastupdate" length="0" not-null="true" />
         </property>
         
+             <property name="theyear" type="java.lang.Integer">
+            <column name="theyear" />
+        </property> 
+             <property name="islastyear" type="java.lang.Integer">
+            <column name="islastyear" />
+        </property> 
     </class>
 </hibernate-mapping>
