@@ -191,11 +191,15 @@ function focusit(obj){
              内容描述：${video.description}<br/>
              </s:if>
              <s:if test="photo!=null">
-             内容描述：${photo.description}<br/>
+            祝福语：${content.remarks }<br/>
              <img src="${resourcepath}${photo.pic}" width="300"/></s:if>
              <s:if test="diary!=null">
              ${diary.content}
+             
+         
              </s:if>
+             <br/>
+           
                   </div>                  </TD>
 					</TR>
             </TABLE>       
