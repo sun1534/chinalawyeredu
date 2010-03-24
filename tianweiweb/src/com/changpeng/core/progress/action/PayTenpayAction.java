@@ -26,7 +26,7 @@ public class PayTenpayAction extends AbstractListAction {
 //	private static final String KEY = "8934e7d15453e97507ef794cf7b0519d";
 	
 	private static final String KEY = "631c3aaffdcebd88e7a19ac1e756c770";
-	private static final String RETURN_URL = "http://211.148.192.252/progress/payresult.action";
+	private static final String RETURN_URL = "http://www.topway-ad.com/progress/payresult.action";
 	private int id;
 
 	
@@ -68,9 +68,9 @@ public class PayTenpayAction extends AbstractListAction {
 		}
 		
 		
-	String	fee = publish.getFee()+""; // 订单金额
+	String	fee =(int)(publish.getFee()*100)+""; // 订单金额
 	
-	fee="1"; //测试用1分钱
+//	fee="1"; //测试用1分钱
 	
 //		String feetype = "1"; // 币种 1是人民币
 	
@@ -112,7 +112,8 @@ public class PayTenpayAction extends AbstractListAction {
 
 		System.out.println("requestUrl:" + requestUrl);
 		System.out.println("debuginfo:" + debuginfo);
-
+		
+	
 		return SUCCESS;
 	}
 
