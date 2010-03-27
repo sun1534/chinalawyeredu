@@ -46,6 +46,7 @@ public class ProductCreateEditAction extends AbstractAction {
 		}
 		
 		if (exist == 1) {
+			product.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			basicService.update(product);
 
 			this.message = "产品信息修改成功";

@@ -26,7 +26,7 @@ public class ProductListAction extends AbstractListAction {
 			dc.add(Restrictions.eq("producttype",producttype));
 		}
 		
-		dc.addOrder(Order.desc("id"));
+		dc.addOrder(Order.desc("createtime"));
 		
 		this.page=basicService.findPageByCriteria(dc, pageSize, pageNo);
 		
