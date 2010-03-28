@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>律师列表</title>
+<title>实习实习实习律师列表</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -20,7 +20,7 @@ function fanye(str){
   document.form1.submit();
 }
 function getAdd(){
-	window.location.href="lawyersCreateEditPre.pl";
+	window.location.href="lawyersShixiCreateEditPre.pl";
 }
 
 function getAddBatch(){
@@ -33,7 +33,7 @@ function passwdReset(userid){
    });
 }
 function deleteit(userid){
-	  if(confirm("您确定要删除这个律师的信息吗？")){
+	  if(confirm("您确定要删除这个实习律师的信息吗？")){
 	    window.location.href="lawyersDelete.pl?lawyerid="+userid;
 	  }
 }
@@ -83,12 +83,12 @@ function exportit(str){
   <tr>
     <td height="23" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置： 律师列表
+    	当前位置： 实习律师列表
     	</td>
   </tr>
 </table>
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
-	<s:form name="form1" action="lawyersList" method="post">
+	<s:form name="form1" action="lawyersShixiList" method="post">
   <tr>
     <td valign="top">	
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" class="list_box">
@@ -96,8 +96,8 @@ function exportit(str){
           <td height="24"  >
              <s:hidden name="pageNo"/>
                <s:textfield name="lawyername" size="10" label="姓名"/> 
-                <s:textfield name="lawyerno" size="15" label="执业证号"/>
-               <s:textfield name="cardno" size="12" label="卡号"/> 
+                <s:textfield name="zigeno" size="15" label="资格证号"/>
+               <s:textfield name="shixino" size="12" label="实习证号"/> 
                <s:textfield name="certno" size="15" label="身份证号"/> 
               <s:if test="datavisible.provinceview">
              <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
@@ -137,19 +137,13 @@ function exportit(str){
 		<tr>
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif">姓名</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">身份证号</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">执业证号</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">会员编号</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">卡号</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">执业日期</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">资格证号</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">资格证时间</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">实习证号</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">实习证时间</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">所属事务所</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">密码重置</TD>
-          <s:if test="canupd">
         <TD align="center" background="../imagesa/top-bg1.gif">修改</TD>
-        </s:if>
-        <TD align="center" background="../imagesa/top-bg1.gif">转所</TD>
-        <s:if test="candel">
         <TD align="center" background="../imagesa/top-bg1.gif">删除</TD> 
-        </s:if>
       </tr>
       
 <s:iterator value="page.items" status="stat">
@@ -157,19 +151,13 @@ function exportit(str){
       
         <TD align="center">${lawyername}</TD>
         <TD align="center">${certno}</TD>
-        <TD align="center">${lawyerno}</TD>
-        <TD align="center">${systemno}</TD>
-        <TD align="center">${cardno}</TD>
-        <TD align="center">${zhiyedate} </TD>
+        <TD align="center">${zigeno}</TD>
+        <TD align="center">${zigedate}</TD>
+        <TD align="center">${shixino}</TD>
+        <TD align="center">${shixidate} </TD>
         <TD align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/></TD>
-        <TD align="center"><a href="#" onClick="passwdReset('${lawyerid}')">密码重置</a></TD>
-        <s:if test="canupd">
-        <TD align="center"><a href="lawyersCreateEditPre.pl?lawyerid=${lawyerid}">修改</a></TD>
-        </s:if>
-        <TD align="center"><a href="lawyersChangeOfficePre.pl?lawyerid=${lawyerid}">转所</a></TD>
-        <s:if test="candel">
+        <TD align="center"><a href="lawyersShixiCreateEditPre.pl?lawyerid=${lawyerid}">修改</a></TD>
         <TD align="center"><a href="#" onclick="deleteit(${lawyerid})">【删除】</a></TD>
-        </s:if>
       </TR>
       </s:iterator>
       <tr class="list_td01">
@@ -181,10 +169,7 @@ function exportit(str){
       </tr>
        <tr class="list_tdfunc">
           <td height="24" colspan="10"  align="center"  >
-          <s:if test="canins">
-         <INPUT type="button" onClick="return getAdd()"  value=" 新增律师 " name="addbutton" class="button">
-          <INPUT type="button" onClick="return getAddBatch()"  value=" 批量新增律师 " name="addbutton" class="button">
-         </s:if>
+         <INPUT type="button" onClick="return getAdd()"  value=" 新增实习律师 " name="addbutton" class="button">
          
              &nbsp;    	
           </td>

@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>律师信息新增修改</title>
+<title>实习律师信息新增修改</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <jscalendar:head/>
 <link href="../css/css.css" rel="stylesheet" type="text/css">
@@ -47,58 +47,11 @@ function getOffices(vallll){
 }); 
   }
 }
-function checkLoginname(loginname,lawyerid){	
-	if((loginname == null) || (loginname.length == 0)){
-	    $("#checkloginname").html("不为空且长度不超过15个字符");
-		return;
-	}
-	var now=new Date().getTime();
-	var url="../systemajax/checkLawyersLoginname.pl";
-   $.getJSON(url, { "lawyerid":lawyerid,"loginname": loginname,"now":now}, function(json){
-     $("#lawyerloginname").attr("value",json.loginname);
-     if(json.isrepeat == true){
-   		$("#checkloginname").html("<font color='red'>对不起，您输入的帐号【"+json.loginname+"】已经被他人使用，请选择其他名字后再试。</font>");
-   		$("#save").attr("disabled",true);
-   }else{
-	    $("#save").attr("disabled",false);
-   }
-});
-}
-function checkSystemno(systemno,lawyerid){	
-	if((systemno == null) || (systemno.length == 0)){
-		return;
-	}
-	var now=new Date().getTime();
-	var url="../lawyersajax/checkLawyersSystemno.pl";
-   $.getJSON(url, { "lawyerid":lawyerid,"systemno": systemno,"now":now}, function(json){
-     if(json.isrepeat == true){
-   		$("#checksystemno").html("<font color='red'>对不起，您输入的系统编号【"+json.systemno+"】已经被他人使用，请输入其他编号再试。</font>");
-   		$("#save").attr("disabled",true);
-   }else{
-    $("#checkcardno").html("");
-	    $("#save").attr("disabled",false);
-   }
-});
-}
-function checkCardno(cardno,lawyerid){	
-	if((cardno == null) || (cardno.length == 0)){
-		return;
-	}
-	var now=new Date().getTime();
-	var url="../lawyersajax/checkLawyersCardno.pl";
-   $.getJSON(url, { "lawyerid":lawyerid,"cardno": cardno,"now":now}, function(json){
-     if(json.isrepeat == true){
-   		$("#checkcardno").html("<font color='red'>对不起，您输入的卡号【"+json.cardno+"】已经被他人使用，请输入其他卡号。</font>");
-   		$("#save").attr("disabled",true);
-   }else{
-   $("#checkcardno").html("");
-	    $("#save").attr("disabled",false);
-   }
-});
-}
+
+
 function deletephoto(lawyerid){
 if(confirm("您确实要删除这个照片吗?")){
-var url="../systemajax/photoDelete.pl";
+var url="../lawyersajax/photoShixiDelete.pl";
   $.getJSON(url, { "lawyerid":lawyerid,"now":new Date().getTime()}, function(json){
      if(json.success == "true"){
    		$("#imgdiv").empty();
@@ -120,7 +73,7 @@ return;
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-						律师信息新增修改
+					实习律师信息新增修改
 				</td>
 			</tr>
 </table>
@@ -128,13 +81,12 @@ return;
 			align="center" class="border-table">
 	<tr>			
     <td>
-    <s:form name="form1" action="lawyersCreateEdit" method="post" validate="true" enctype="multipart/form-data">
+    <s:form name="form1" action="lawyersShixiCreateEdit" method="post" validate="true" enctype="multipart/form-data">
       <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
           <td colspan="2">&nbsp;
           	 	<font color="#FF0000"><b>
-         注意：登录名设置将设置为执业资格证号，登录密码为身份证号码
          </b></font>
          
          </td>
@@ -172,87 +124,63 @@ return;
         </tr>
         <tr>
           <td align="right" class="tab_content">
-             律师姓名:
+             实习律师姓名:
           </td>
           <td class="tab_content">
-            <s:textfield name="lawyers.lawyername" size="15" maxlength="15" cssClass="text1" required="true"/>
+            <s:textfield name="lawyersShixi.lawyername" size="15" maxlength="15" cssClass="text1" required="true"/>
               <span class="hint">不为空且长度不超过7个汉字</span> </td>
         </tr>
         <tr>
-          <td align="right" class="tab_content1"> 律师执业证号: </td>
+          <td align="right" class="tab_content1"> 实习律师实习证号: </td>
              <td class="tab_content1">
-             <s:if test="isnew">
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,0)"/>
-             </s:if>
-             <s:else>
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,'%{lawyers.lawyerid}')"/>
-             </s:else>
+              <s:textfield name="lawyersShixi.shixino" size="20" maxlength="20" cssClass="text1"/>
              <span class="hint" id="checkloginname">不为空且长度不超过20个字符</span>
         </tr>
-        
-        <tr id="loginnameid" style="display:none">
-          <td align="right" class="tab_content1"> 登录账号: </td>
-             <td class="tab_content1">
-               <s:textfield name="lawyers.loginname" id="lawyerloginname" size="20" maxlength="15" cssClass="text1"/>
-               </td>
+           <tr> 
+            <td align="right" class="tab_content1">获取实习证日期: </td>
+          <td class="tab_content1">
+           
+            <jscalendar:jscalendar name="lawyersShixi.shixidate" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
+            </td>
         </tr>
-        
+        <tr>
+          <td align="right" class="tab_content1"> 实习律师资格证号: </td>
+             <td class="tab_content1">
+              <s:textfield name="lawyersShixi.zigeno" size="20" maxlength="20" cssClass="text1"/>
+             <span class="hint" id="checkloginname">不为空且长度不超过20个字符</span>
+        </tr>
+           <tr> 
+            <td align="right" class="tab_content1">获取资格证证日期: </td>
+          <td class="tab_content1">
+           
+            <jscalendar:jscalendar name="lawyersShixi.zigedate" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
+            </td>
+        </tr>
 		<tr>
             <td align="right" class="tab_content"> 身份证号: </td>
           <td class="tab_content">
-            <s:textfield name="lawyers.certno" size="20" maxlength="20" cssClass="text1" required="true"/>
+            <s:textfield name="lawyersShixi.certno" size="20" maxlength="20" cssClass="text1" required="true"/>
             <span class="hint">不为空且长度不超过20个字符</span>
           </td>
         </tr>
-		
-	
-       <tr> 
-            <td align="right" class="tab_content1">所在律协执业日期: </td>
-          <td class="tab_content1">
-           
-            <jscalendar:jscalendar name="lawyers.zhiyedatestr" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
+        <tr>
+            <td align="right" class="tab_content">民族: </td>
+          <td class="tab_content">
+            <s:textfield name="lawyersShixi.nation" size="13" maxlength="13" cssClass="text1"/>
             </td>
         </tr>
-           <tr> 
-            <td align="right" class="tab_content1">现场考勤刷卡卡号: </td>
-            <td class="tab_content1">
-             <s:if test="isnew">
-            <s:textfield name="lawyers.cardno" size="20" cssClass="text1" onblur="checkCardno(this.value,0)"/>
-              </s:if>
-             <s:else>
-              <s:textfield name="lawyers.cardno" size="20" maxlength="20" cssClass="text1" onblur="checkCardno(this.value,'%{lawyers.lawyerid}')"/>
-             </s:else>
-             <span class="hint" id="checkcardno"></span>
-            
-            </td>
-        </tr>
-        
-        <tr> 
-            <td align="right" class="tab_content1">会员编号: </td>
-            <td class="tab_content1">
-             <s:if test="isnew">
-            <s:textfield name="lawyers.systemno" size="20" cssClass="text1" onblur="checkSystemno(this.value,0)"/>
-              </s:if>
-             <s:else>
-              <s:textfield name="lawyers.systemno" size="20" maxlength="20" cssClass="text1" onblur="checkSystemno(this.value,'%{lawyers.lawyerid}')"/>
-             </s:else>
-             <span class="hint" id="checksystemno"></span>
-            </td>
-        </tr>
-        
-        
 		<tr>
             <td align="right" class="tab_content"> 手机号码: </td>
           <td class="tab_content">
-            <s:textfield name="lawyers.mobile1" size="13" maxlength="13" cssClass="text1"/>
+            <s:textfield name="lawyersShixi.mobile1" size="13" maxlength="13" cssClass="text1"/>
             </td>
         </tr>
          <tr> 
-          <td align="right" class="tab_content1">律师照片: </td>
+          <td align="right" class="tab_content1">实习律师照片: </td>
           <td class="tab_content">
-          <s:if test="!isnew&&lawyers.photo!=null&&!lawyers.photo.equals(\"\")">
+          <s:if test="!isnew&&lawyersShixi.photo!=null&&!lawyersShixi.photo.equals(\"\")">
           <div id="imgdiv">
-          <img src="${logopath}${lawyers.photo}" width="150"/>
+          <img src="${logopath}${lawyersShixi.photo}" width="150"/>
           <a href="#" onclick="deletephoto('${lawyerid}')"/>删除照片</a>
           </div>
           </s:if>
@@ -266,14 +194,14 @@ return;
 		 <tr> 
             <td align="right" class="tab_content">性别: </td>
           <td class="tab_content">
-           <s:select name="lawyers.gender" list="#{'G':'男','M':'女'}"/>
+           <s:select name="lawyersShixi.gender" list="#{'G':'男','M':'女'}"/>
             </td>
         </tr>
-       
+      
         <tr> 
-            <td align="right" class="tab_content1">备注信息: </td>
+            <td align="right" class="tab_content1">个人经历: </td>
           <td class="tab_content1">
-            <s:textarea name="lawyers.remarks" rows="4" cols="50" cssClass="textarea1"/>
+            <s:textarea name="lawyersShixi.remarks" rows="6" cols="70" cssClass="textarea1"/>
             </td>
         </tr>
 		

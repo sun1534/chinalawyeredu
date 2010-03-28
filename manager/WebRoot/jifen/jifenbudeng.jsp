@@ -181,6 +181,15 @@ function getOffices(vallll){
          	
         </td>
         </tr>
+         <tr>
+        <td width="37%" class="tab_content" align="right">补登积分年度：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+       
+       <s:select name="budeng.theyear" list="jifentime.years"/> 
+       	
+        </td>
+        </tr>
        <tr>
         <td width="37%" class="tab_content" align="right">对应市(省直属)律协选择：
         </td>

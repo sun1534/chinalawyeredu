@@ -61,7 +61,7 @@ function getCities(vallll){
 		</table>
 		<table width="100%" border="0" cellspacing="1" cellpadding="0"
 			align="center" class="border-table">
-			<s:form name="form1" action="theOfficeList" method="post">
+			<s:form name="form1" action="theOfficeEditSelf" method="post">
 				<TR>
 					<TD valign="top">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="query-table">
