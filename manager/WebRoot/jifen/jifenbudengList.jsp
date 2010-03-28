@@ -133,7 +133,7 @@ function getOffices(vallll){
         <TD class="tab_content" align="center">${lawyername}</TD>
         <TD class="tab_content" align="center">${lawyerno}</TD>
         <TD class="tab_content" align="center">${xuefen}</TD>
-         <TD class="tab_content" align="center">${createtime}</TD>
+         <TD class="tab_content" align="center">${budengdate}</TD>
          <TD class="tab_content" align="center"><a href="#" onClick="deleteit(${budengid})">【删除】</a></TD>
       </TR> 
    
