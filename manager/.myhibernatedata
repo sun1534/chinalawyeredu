@@ -1,0 +1,22 @@
+#
+#Sat Mar 27 23:36:08 CST 2010
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=false
+reStrategyClass=
+springDaoFile=
+useJavaTypes=true
+keyGenerator=
+libInstallFolder=<no jars/zips in selected libraries>
+addLibs2Project=true
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=
+configFile=/saaspxxt_manage/src/hibernate.cfg.xml
+createConfigFile=true
+addLibs2Classpath=true
