@@ -28,8 +28,22 @@ public class Jifenbudeng implements java.io.Serializable {
 	private int provinceid;
 	private int cityid;
 	private int officeid;
-
+private int theyear;
 	// Constructors
+
+	/**
+ * @return the theyear
+ */
+public int getTheyear() {
+	return theyear;
+}
+
+/**
+ * @param theyear the theyear to set
+ */
+public void setTheyear(int theyear) {
+	this.theyear = theyear;
+}
 
 	/**
 	 * @return the provinceid

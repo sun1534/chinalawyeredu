@@ -10,9 +10,11 @@ import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.jifen.service.JifenbudengService;
+import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.Jifenbudeng;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.SysUnionparams;
 import com.changpeng.models.SysUser;
 
 /**
@@ -97,7 +99,8 @@ public class JifenbudengAction extends AbstractAction {
 	@Override
 	public String input() throws Exception {
 		
-		
+		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
+
 		BasicService basic = (BasicService) getBean("basicService");
 		this.budeng = (Jifenbudeng) basic.get(Jifenbudeng.class, budengid);
 		if (this.budeng == null) {
@@ -117,7 +120,7 @@ public class JifenbudengAction extends AbstractAction {
 
 		return INPUT;
 	}
-
+	private JifenTime jifentime;	
 	private int budengid;
 
 	public void setBudengid(int budengid) {
@@ -126,5 +129,12 @@ public class JifenbudengAction extends AbstractAction {
 
 	public int getBudengid() {
 		return this.budengid;
+	}
+
+	/**
+	 * @return the jifentime
+	 */
+	public JifenTime getJifentime() {
+		return jifentime;
 	}
 }

@@ -40,7 +40,11 @@
                 <comment>直属于哪个事务所</comment>
             </column>
         </property>
-        
+          <property name="theyear" type="int">
+            <column name="theyear">
+                <comment>积分补登到哪个年度</comment>
+            </column>
+        </property>
         <property name="xuefen" type="java.lang.Float">
             <column name="xuefen" precision="12" scale="0" not-null="true" />
         </property>

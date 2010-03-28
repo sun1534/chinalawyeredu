@@ -15,6 +15,7 @@ import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.models.Articles;
+import com.changpeng.models.Lessons;
 import com.changpeng.models.SysGroup;
 
 /**
@@ -42,17 +43,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 		SysGroup group = this.getLoginUser().getSysGroup();
 		if (group != null) {
 			Criterion province = null;
-			// if(group.getGrouptype()==1){ //事务所的可以看到省和市的
-			// province=Restrictions.in("thegroup", new
-			// Integer[]{group.getParentid(),group.getDirectgroup()});
-			// }else if(group.getGrouptype()==2){//市级律协的
-			// province=Restrictions.in("thegroup", new
-			// Integer[]{group.getParentid(),group.getGroupid()});
-			//				
-			// }else{
-			// province=Restrictions.eq("provinceid",
-			// this.getLoginUser().getProvinceid());
-			// }
+		
 			if (group.getGrouptype() == 1) { // 事务所的可以看到省和市的
 				province = Restrictions.in("thegroup", new Integer[] { group.getGroupid(), group.getParentid(),
 						group.getDirectgroup(), 0 });
@@ -73,39 +64,14 @@ public class MyWorkspacePageAction extends AbstractAction {
 		if (list != null && list.size() != 0) {
 			this.tongzhi = (Articles) list.get(0);
 		}
-
-		// 获取分享给我的课程等等
-
-		// detachedCriteria = DetachedCriteria.forClass(Lessonshared.class);
-		// detachedCriteria.createAlias("lessons", "lessons");
-		// SysGroup mygroup=this.getLoginUser().getSysGroup();
-		// if(mygroup!=null&&mygroup.getGrouptype()<=3){//mygroup为null的话,能看到所有律协的
-		// List<Integer> groupids=new ArrayList<Integer>();
-		// if(mygroup.getGrouptype()==1){
-		// groupids.add(mygroup.getGroupid());
-		// groupids.add(mygroup.getParentid());
-		// groupids.add(mygroup.getDirectgroup());
-		// }else if(mygroup.getGrouptype()==2){
-		// groupids.add(mygroup.getGroupid());
-		// groupids.add(mygroup.getParentid());
-		// }else if(mygroup.getGrouptype()==3){
-		// groupids.add(mygroup.getGroupid());
-		// }
-		// detachedCriteria.add(Restrictions.in("groupid",groupids));
-		// }
-		// // 不显示删除的
-		// detachedCriteria.add(Restrictions.eq("lessons.deleteflag", false));
-		// //课程来源的选择列表，这里就不什么省、市的选择了，统一一个课程的来源
-		// //根据授课时间进行排序
-		// detachedCriteria.addOrder(Order.desc("lessons.lessondate"));
-		// com.changpeng.common.PaginationSupport page =
-		// basicService.findPageByCriteria(detachedCriteria, 10, 1);
-		//		
-
-		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
-		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 6,
-				1, null, null);
-
+//这里的课程显示为本省的或者本市的，不分享的
+//		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
+//		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 6,
+//				1, null, null);
+		detachedCriteria=DetachedCriteria.forClass(Lessons.class);
+		detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceid(),this.getLoginUser().getCityid()}));
+		detachedCriteria.addOrder(Order.desc("lessondate"));
+		PaginationSupport page =basicService.findPageByCriteria(detachedCriteria, 6, 1);
 		this.lessonList = page.getItems();
 
 		// System.out.println(lessonList);

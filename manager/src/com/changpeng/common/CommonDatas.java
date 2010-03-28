@@ -33,6 +33,12 @@ public class CommonDatas {
 	public static Map<Integer,String> AreasIdName = new LinkedHashMap<Integer,String>();
 	
 	public static Map<Integer,String> ForumType=new LinkedHashMap<Integer,String>();
+	
+	/**
+	 * 
+	 */
+	public static Map<String,String> AllSystemNos=new LinkedHashMap<String,String>();
+
 	static{
 //		意见和建议、积分申诉、补卡申请、产品使用咨询
 		ForumType.put(1, "意见和建议");

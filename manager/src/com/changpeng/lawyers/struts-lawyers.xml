@@ -8,15 +8,30 @@
     <package name="lawyers" extends="default" namespace="/lawyers">
     <default-interceptor-ref name="adminStack"/>
        <action name="lawyersList" class="com.changpeng.lawyers.action.LawyersListAction">
-			
+			<result name="excel" type="dispatcher">/lawyers/lawyersList_excel.jsp</result>
 			<result name="success" type="dispatcher">/lawyers/lawyersList.jsp</result>
+			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
        </action>
-          <!--   <action name="lawyersCreate" class="com.changpeng.lawyers.action.LawyersCreateAction">
-			<result name="input" type="dispatcher">/lawyers/lawyersCreate.jsp</result>
+       
+        <action name="lawyersShixiList" class="com.changpeng.lawyers.action.LawyersShixiListAction">
+			<result name="excel" type="dispatcher">/lawyers/lawyersShixiList_excel.jsp</result>
+			<result name="success" type="dispatcher">/lawyers/lawyersShixiList.jsp</result>
        </action>
-<action name="lawyersEdit" class="com.changpeng.lawyers.action.LawyersEditAction">
-			<result name="input" type="dispatcher">/lawyers/lawyersEdit.jsp</result>
-       </action> -->  
+       
+       <action name="lawyersCardNoList" class="com.changpeng.lawyers.action.LawyersListAction">
+			<param name="resultType">cardnolist</param>
+			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
+       </action>
+        
+               <action name="lawyersShixiCreateEditPre" class="com.changpeng.lawyers.action.LawyersShixiCreateEditAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/> 
+			<result name="input" type="dispatcher">/lawyers/lawyersShixiCreateEdit.jsp</result>
+       </action>
+        <action name="lawyersShixiCreateEdit" class="com.changpeng.lawyers.action.LawyersShixiCreateEditAction">
+			
+			<result name="input" type="dispatcher">/lawyers/lawyersShixiCreateEdit.jsp</result>
+       </action>
+        
        <action name="lawyersCreateEditPre" class="com.changpeng.lawyers.action.LawyersCreateEditAction" method="input">
 			<interceptor-ref name="hibernateSessionStack"/> 
 			<result name="input" type="dispatcher">/lawyers/lawyersCreateEdit.jsp</result>
@@ -56,11 +71,35 @@
        <action name="officeChangeHandle" class="com.changpeng.lawyers.action.OfficeChangeHandleAction">
         	<result name="input" type="dispatcher">/lawyers/officeChangeHandle.jsp</result>
        </action>
+
+ 
+       
+       
    </package>
    
    <package name="lawyersajax" extends="defaultajax" namespace="/lawyersajax">
        <default-interceptor-ref name="visitStack"/>
    	   
-   	  
+   	   <action name="checkLawyersCardno" class="com.changpeng.lawyers.action.ajax.CheckLawyersCardnoAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	    <action name="checkLawyersLoginname" class="com.changpeng.lawyers.action.ajax.CheckLawyersLoginnameAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	    <action name="checkLawyersSystemno" class="com.changpeng.lawyers.action.ajax.CheckLawyersSystemnoAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <action name="lawyersChangeCardNo" class="com.changpeng.lawyers.action.ajax.LawyersChangeCardNoAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	     <action name="photoDelete" class="com.changpeng.lawyers.action.ajax.PhotoDeleteAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	     <action name="photoShixiDelete" class="com.changpeng.lawyers.action.ajax.PhotoShixiDeleteAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
    </package>
 </struts>

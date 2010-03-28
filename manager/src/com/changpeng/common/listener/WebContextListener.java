@@ -14,6 +14,8 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.CommonDatas;
@@ -187,11 +189,33 @@ public class WebContextListener implements ServletContextListener {
 
 			SysRightService rightService = (SysRightService) Globals.getBean("sysRightService");
 			RightTree.setRightList(rightService.findAll());
+		
+			getSysteNos();
+			LOG.info("杭州卡号和系统编号获取成功!");
+		
 		} catch (ServiceException e) {
 			LOG.error("系统启动初始化权限列表为空" + e);
 		}
+		
 		String contextid = System.currentTimeMillis() / 1000 + "";
 		event.getServletContext().setAttribute("CONTEXTID", contextid);
 		LOG.info("系统启动初始化,系统ID......" + contextid);
+	}
+	
+	private void getSysteNos()throws ServiceException{
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		BasicService service=(BasicService)wac.getBean("basicService");
+		String sql="select systemno,cardno from sys_systemcardno";
+		List list=service.findBySqlQuery(sql);
+		if(list!=null&&list.size()>0){
+			com.changpeng.common.CommonDatas.AllSystemNos.clear();
+			synchronized(com.changpeng.common.CommonDatas.AllSystemNos){
+			
+				for(int i=0;i<list.size();i++){
+					Object[] obj=(Object[])list.get(i);
+					com.changpeng.common.CommonDatas.AllSystemNos.put(obj[0].toString(), obj[1].toString());
+				}
+			}
+		}
 	}
 }

@@ -42,6 +42,11 @@
 	     <action name="theOfficeCreateEdit" class="com.changpeng.system.action.TheOfficeCreateEditAction">
 			<result name="input" type="dispatcher">/system/theOfficeCreateEdit.jsp</result>
 	    </action>
+	         <action name="theOfficeEditSelf" class="com.changpeng.system.action.TheOfficeEditSelfAction">
+			<result name="input" type="dispatcher">/system/theOfficeEditSelf.jsp</result>
+	    </action>
+	    
+	    
 	     <action name="theOfficeCreateBatch" class="com.changpeng.system.action.TheOfficeCreateBatchAction">
 			<result name="input" type="dispatcher">/system/theOfficeCreateBatch.jsp</result>
 	    </action>

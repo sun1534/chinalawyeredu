@@ -106,7 +106,9 @@ public class LawyersDAO extends BasicDAO {
 		else
 			return (Lawyers) list.get(0);
 	}
-
+	
+	
+	
 	public Lawyers getLawyerbyLawyerno(String lawyerno, int thegroup) {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);

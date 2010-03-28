@@ -1,6 +1,7 @@
 package com.changpeng.models;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @author MyEclipse Persistence Tools
  */
 
-public class Lawyers implements java.io.Serializable {
+public class LawyersShixi implements java.io.Serializable {
 
 	// Fields
 private int excelline;
@@ -17,13 +18,13 @@ private int excelline;
 	private int lawyertype;
 	private String lawyername;
 	private String lawyerenname;
-	private String lawyerno;
+	private String shixino;
 	private String certno;
-	private String systemno;
+	private String zigeno;
 	private String loginname;
 	private String passwd;
 	private String cardno;
-	private Date carddate;
+	private Date shixidate;
 	private String gender;
 	private Date birthday;
 	private boolean ismarrige;
@@ -34,7 +35,7 @@ private int excelline;
 	private int theoffice;// 属于哪个事务所
 	private int directunion; // 直属律协
 	private int provinceunion; // 省律协
-	private Date zhiyedate;
+	private Date zigedate;
 	private String zhiyedatestr;
 	private String photo;
 	private String photoname;
@@ -98,7 +99,7 @@ private int excelline;
 	}
 
 	/** default constructor */
-	public Lawyers() {
+	public LawyersShixi() {
 	}
 
 	// Property accessors
@@ -137,13 +138,7 @@ private int excelline;
 		this.lawyerenname = lawyerenname;
 	}
 
-	public String getLawyerno() {
-		return this.lawyerno;
-	}
-
-	public void setLawyerno(String lawyerno) {
-		this.lawyerno = lawyerno;
-	}
+	
 
 	public String getCertno() {
 		return this.certno;
@@ -169,13 +164,7 @@ private int excelline;
 		this.cardno = cardno;
 	}
 
-	public Date getCarddate() {
-		return this.carddate;
-	}
-
-	public void setCarddate(Date carddate) {
-		this.carddate = carddate;
-	}
+	
 
 	public String getGender() {
 		return this.gender;
@@ -257,12 +246,51 @@ private int excelline;
 		this.provinceunion = provinceunion;
 	}
 
-	public Date getZhiyedate() {
-		return this.zhiyedate;
+	
+
+	/**
+	 * @return the shixidate
+	 */
+	public Date getShixidate() {
+		return shixidate;
 	}
 
-	public void setZhiyedate(Date zhiyedate) {
-		this.zhiyedate = zhiyedate;
+	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * @return the shixidate
+	 */
+	public String getShixidatestr() {
+		if(shixidate!=null)
+		return df.format(shixidate);
+		return df.format(new java.util.Date());
+	}
+	/**
+	 * @return the shixidate
+	 */
+	public String getZigedatestr() {
+		if(zigedate!=null)
+		return df.format(zigedate);
+		return df.format(new java.util.Date());
+	}
+	/**
+	 * @param shixidate the shixidate to set
+	 */
+	public void setShixidate(Date shixidate) {
+		this.shixidate = shixidate;
+	}
+
+	/**
+	 * @return the zigedate
+	 */
+	public Date getZigedate() {
+		return zigedate;
+	}
+
+	/**
+	 * @param zigedate the zigedate to set
+	 */
+	public void setZigedate(Date zigedate) {
+		this.zigedate = zigedate;
 	}
 
 	public String getPhoto() {
@@ -511,19 +539,34 @@ private int excelline;
 		this.loginname = loginname;
 	}
 
+	
+
 	/**
-	 * @return the systemno
+	 * @return the shixino
 	 */
-	public String getSystemno() {
-		return systemno;
+	public String getShixino() {
+		return shixino;
 	}
 
 	/**
-	 * @param systemno
-	 *            the systemno to set
+	 * @param shixino the shixino to set
 	 */
-	public void setSystemno(String systemno) {
-		this.systemno = systemno;
+	public void setShixino(String shixino) {
+		this.shixino = shixino;
+	}
+
+	/**
+	 * @return the zigeno
+	 */
+	public String getZigeno() {
+		return zigeno;
+	}
+
+	/**
+	 * @param zigeno the zigeno to set
+	 */
+	public void setZigeno(String zigeno) {
+		this.zigeno = zigeno;
 	}
 
 	/**

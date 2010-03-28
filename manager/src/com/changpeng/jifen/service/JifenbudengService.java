@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -73,7 +74,7 @@ public class JifenbudengService extends BasicService {
 					xf.setLearnmode(4);
 					xf.setPxxf(budeng.getXuefen());
 					xf.setRemarks(budeng.getCreateuser() + "补登的积分");
-					xf.setLessonid(budeng.getBudengid());
+					xf.setLessonid(0-budeng.getBudengid());
 					xf.setProvinceid(budeng.getProvinceid());
 					xf.setCityid(budeng.getCityid());
 					xf.setOfficeid(budeng.getOfficeid());
@@ -81,7 +82,8 @@ public class JifenbudengService extends BasicService {
 					xf.setLastupdate(budeng.getCreatetime());
 					xf.setPxdate(budeng.getBudengdate());
 					xf.setIsfull(true);
-
+					xf.setTheyear(budeng.getTheyear());
+					
 					// xf.setPxdate(budeng.getBudengdate());
 					basicDAO.save(xf);
 					// 客户的话，先不分配，由主办律师自己去进行分配
@@ -144,7 +146,7 @@ public class JifenbudengService extends BasicService {
 								Lawyerlessonxf xf = new Lawyerlessonxf();
 								xf.setLawyerid(budeng.getLawyerid());
 								xf.setLawyername(budeng.getLawyername());
-								xf.setLessonid(budeng.getBudengid());
+								xf.setLessonid(0-budeng.getBudengid());
 								xf.setLearnmode(4);
 								xf.setPxxf(budeng.getXuefen());
 								xf.setRemarks(budeng.getCreateuser() + "补登的积分");
@@ -156,6 +158,7 @@ public class JifenbudengService extends BasicService {
 								xf.setLastupdate(budeng.getCreatetime());
 								xf.setPxdate(budeng.getBudengdate());
 								xf.setIsfull(true);
+								xf.setTheyear(budeng.getTheyear());
 								basicDAO.save(xf);
 								success++;
 							} else {
@@ -207,8 +210,7 @@ public class JifenbudengService extends BasicService {
 					basicDAO.execute("delete from com.changpeng.models.Jifenbudeng budeng where budeng.budengid="
 							+ budengid);
 					basicDAO
-							.execute("delete from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=4 and xf.lessonid="
-									+ budengid);
+							.execute("delete from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=4 and xf.lessonid="	+(0- budengid));
 
 				}
 			});

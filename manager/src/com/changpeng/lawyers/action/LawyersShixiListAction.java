@@ -15,7 +15,7 @@ import org.hibernate.criterion.Restrictions;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractListAction;
-import com.changpeng.models.Lawyers;
+import com.changpeng.models.LawyersShixi;
 import com.changpeng.models.SysRole;
 import com.changpeng.models.SysRoleVisible;
 import com.changpeng.system.util.CommonDatas;
@@ -28,17 +28,13 @@ import com.changpeng.system.util.CommonDatas;
  * @author 华锋 2008-2-25 上午11:12:05
  * 
  */
-public class LawyersListAction extends AbstractListAction {
+public class LawyersShixiListAction extends AbstractListAction {
 
 	private String resultType = "list";
-	// private String loginname;
 	private String lawyername;
-	private String lawyerno;
+	private String zigeno;
+	private String shixino;
 	private String certno;
-	private String cardno;
-
-	// private String groupname;
-
 	/**
 	 * @return the resultType
 	 */
@@ -54,79 +50,13 @@ public class LawyersListAction extends AbstractListAction {
 		this.resultType = resultType;
 	}
 
-	/**
-	 * @return the lawyerno
-	 */
-	public String getLawyerno() {
-		return lawyerno;
-	}
+	
 
-	/**
-	 * @param lawyerno
-	 *            the lawyerno to set
-	 */
-	public void setLawyerno(String lawyerno) {
-		this.lawyerno = lawyerno;
-	}
 
-	/**
-	 * @return the certno
-	 */
-	public String getCertno() {
-		return certno;
-	}
-
-	/**
-	 * @param certno
-	 *            the certno to set
-	 */
-	public void setCertno(String certno) {
-		this.certno = certno;
-	}
-
-	/**
-	 * @return the cardno
-	 */
-	public String getCardno() {
-		return cardno;
-	}
-
-	/**
-	 * @param cardno
-	 *            the cardno to set
-	 */
-	public void setCardno(String cardno) {
-		this.cardno = cardno;
-	}
-
-	public LawyersListAction() {
+	public LawyersShixiListAction() {
 		this.datavisible = new DataVisible();
 	}
 
-	private boolean candel;
-	private boolean canupd;
-	private boolean canins;
-
-	/**
-	 * @return the candel
-	 */
-	public boolean getCandel() {
-		return candel;
-	}
-
-	/**
-	 * @return the canupd
-	 */
-	public boolean getCanupd() {
-		return canupd;
-	}
-
-	/**
-	 * @return the canins
-	 */
-	public boolean getCanins() {
-		return canins;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -136,31 +66,24 @@ public class LawyersListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
-		candel = super.getLoginUser().hasRight("lawyersDelete");
-		canins = super.getLoginUser().hasRight("lawyersCreateEditPre");
-		canupd = super.getLoginUser().hasRight("lawyersCreateEditPre");
 
 		CommonDatas.getGroups();
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class);
-		System.out.println("0002552187:::" + cardno);
-
-		// if (loginname != null && !"".equals(loginname))
-		// detachedCriteria.add(Restrictions.like("loginname", loginname,
-		// MatchMode.START));
-//将实习律师的显示和律师的显示合并在一起
-		detachedCriteria.add(Restrictions.eq("lawyertype", lawyertype));
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LawyersShixi.class);
+		
+//		if (loginname != null && !"".equals(loginname))
+//			detachedCriteria.add(Restrictions.like("loginname", loginname, MatchMode.START));
 		if (lawyername != null && !"".equals(lawyername))
 			detachedCriteria.add(Restrictions.like("lawyername", lawyername, MatchMode.START));
-		if (cardno != null && !"".equals(cardno))
-			detachedCriteria.add(Restrictions.eq("cardno", cardno));
+	
+		if (shixino != null && !"".equals(shixino))
+			detachedCriteria.add(Restrictions.eq("shixino", shixino));
+		if (zigeno != null && !"".equals(zigeno))
+			detachedCriteria.add(Restrictions.eq("zigeno", zigeno));
 		if (certno != null && !"".equals(certno))
 			detachedCriteria.add(Restrictions.eq("certno", certno));
-		if (lawyerno != null && !"".equals(lawyerno))
-			detachedCriteria.add(Restrictions.eq("lawyerno", lawyerno));
-		if (systemno != null && !"".equals(systemno))
-			detachedCriteria.add(Restrictions.eq("systemno", systemno));
+		
 
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {
@@ -168,7 +91,7 @@ public class LawyersListAction extends AbstractListAction {
 			SysRoleVisible rolevisible = null;
 			for (SysRoleVisible v : rolevisibles) {
 
-				if (v.getThetable().equalsIgnoreCase("lawyers")) {
+				if (v.getThetable().equalsIgnoreCase("lawyers")) { //跟律师表一样的可见性
 					rolevisible = v;
 					break;
 				}
@@ -204,31 +127,14 @@ public class LawyersListAction extends AbstractListAction {
 		if (resultType.equals("list")) {
 			this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
 			return SUCCESS;
-		} else if (resultType.equals("excel")) {
+		} else if(resultType.equals("excel")) {
 			this.page = service.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, 1);
 			return "excel";
-		} else {
+		}else{
 			this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
-			// System.out.println(resultType);
+//			System.out.println(resultType);
 			return "cardnolist";
 		}
-	}
-
-	private int lawyertype;
-
-	/**
-	 * @return the lawyertype
-	 */
-	public int getLawyertype() {
-		return lawyertype;
-	}
-
-	/**
-	 * @param lawyertype
-	 *            the lawyertype to set
-	 */
-	public void setLawyertype(int lawyertype) {
-		this.lawyertype = lawyertype;
 	}
 
 	/**
@@ -239,28 +145,51 @@ public class LawyersListAction extends AbstractListAction {
 	}
 
 	/**
-	 * @param lawyername
-	 *            the lawyername to set
+	 * @param lawyername the lawyername to set
 	 */
 	public void setLawyername(String lawyername) {
 		this.lawyername = lawyername;
 	}
 
-	private String systemno;
-
 	/**
-	 * @return the systemno
+	 * @return the shixino
 	 */
-	public String getSystemno() {
-		return systemno;
+	public String getShixino() {
+		return shixino;
 	}
 
 	/**
-	 * @param systemno
-	 *            the systemno to set
+	 * @param shixino the shixino to set
 	 */
-	public void setSystemno(String systemno) {
-		this.systemno = systemno;
+	public void setShixino(String shixino) {
+		this.shixino = shixino;
 	}
 
+	/**
+	 * @return the zigeno
+	 */
+	public String getZigeno() {
+		return zigeno;
+	}
+
+	/**
+	 * @param zigeno the zigeno to set
+	 */
+	public void setZigeno(String zigeno) {
+		this.zigeno = zigeno;
+	}
+
+	/**
+	 * @return the certno
+	 */
+	public String getCertno() {
+		return certno;
+	}
+
+	/**
+	 * @param certno the certno to set
+	 */
+	public void setCertno(String certno) {
+		this.certno = certno;
+	}
 }
