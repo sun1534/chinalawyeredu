@@ -23,6 +23,7 @@ import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.models.Articles;
 import com.changpeng.models.Forum;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.Lessons;
 import com.changpeng.models.Lessonscore;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
@@ -123,10 +124,18 @@ public class MyWorkspacePageAction extends AbstractAction {
 		// 我的所属市律协
 		SysGroup group = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getDirectunion());
 
-		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
-		PaginationSupport __page = lessonsService.getPages(group, -1, 0, 0, null, null, 6, 1,null,null);
-
+//		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
+//		PaginationSupport __page = lessonsService.getPages(group, -1, 0, 0, null, null, 6, 1,null,null);
+		//这里的课程显示为本省的或者本市的，不分享的
+		detachedCriteria=DetachedCriteria.forClass(Lessons.class);
+		detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceunion(),this.getLoginUser().getDirectunion()}));
+		detachedCriteria.addOrder(Order.desc("lessondate"));
+		PaginationSupport __page =basicService.findPageByCriteria(detachedCriteria, 6, 1);
+		
 		this.lessonList = __page.getItems();
+		
+		
+		
 
 		// 好评课程，这里也只要显示共享给我的，也就是共享到市律协和省律协的
 
