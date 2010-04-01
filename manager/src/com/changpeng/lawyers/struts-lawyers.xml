@@ -93,6 +93,7 @@
    	   </action>
    	   <action name="lawyersChangeCardNo" class="com.changpeng.lawyers.action.ajax.LawyersChangeCardNoAction">
 			<result name="success" type="json"></result>
+		   <result name="exception" type="dispatcher">/common/exception.jsp</result>
    	   </action>
    	     <action name="photoDelete" class="com.changpeng.lawyers.action.ajax.PhotoDeleteAction">
 			<result name="success" type="json"></result>

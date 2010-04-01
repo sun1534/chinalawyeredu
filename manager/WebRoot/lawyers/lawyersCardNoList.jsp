@@ -25,8 +25,7 @@ var _lawyerid=0;
 	_lawyerid=lawyerid;
 	 var _url="../lawyersajax/lawyersChangeCardNo.pl";
 	 var _cardno=document.getElementById("cardno"+lawyerid).value;
-	// var _carddate=document.getElementById("carddate"+lawyerid).value;
-	var _carddate="";
+	 var _carddate=document.getElementById("carddate"+lawyerid).value;
 	 var _systemno=document.getElementById("systemno"+lawyerid).value;
 	 if(_systemno==""||_systemno.length==0){
 	  alert("请输入会员编号,不能为空");
@@ -40,11 +39,13 @@ var _lawyerid=0;
       
          document.getElementById("cardno"+_lawyerid).value=resp.cardno;
             document.getElementById("systemno"+_lawyerid).value=resp.systemno;
-        //       document.getElementById("carddate"+_lawyerid).value=resp.carddate;
+             document.getElementById("carddate"+_lawyerid).value=resp.carddate;
          
       }else if(resp.changeok=="repeat"){
        alert("这个会员编号已经被使用,使用人员为:"+resp.lawyername);
-      } 
+      } else if(resp.changeok=="systemnoexist"){
+       alert("这个会员编号没有和卡号的对应信息,请联系技术人员");
+      }
       else{
          alert("会员编号修失败,请联系管理员");
       }
@@ -153,9 +154,9 @@ var _lawyerid=0;
         <TD align="center" background="../imagesa/top-bg1.gif">执业证号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">卡号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">会员编号</TD>
-       <!-- 
+    
         <TD align="center" background="../imagesa/top-bg1.gif">发卡日期</TD>
-     -->
+   
         <TD align="center" background="../imagesa/top-bg1.gif">修改卡号信息</TD>
       
       </tr>
@@ -167,9 +168,9 @@ var _lawyerid=0;
         <TD class="tab_content" align="center">${lawyerno}</TD>
         <TD class="tab_content" align="center" title="不需要直接修改,随着会员编号的变动而变动"><input value='${cardno}' id="cardno${lawyerid}" size="10"/></TD>
         <TD class="tab_content" align="center"><input value='${systemno}' id="systemno${lawyerid}" size="10"/></TD>
-       <!-- 
+       
         <TD class="tab_content" align="center"><input value='${carddate}' id="carddate${lawyerid}" size="10"/></TD>
-          -->
+       
         <TD class="tab_content" align="center"><a href="#" onclick="changeCardNo('${lawyerid}','change')">修改</a>
         <a href="#" onclick="changeCardNo('${lawyerid}','clear')" title="清除这个人的卡号信息">清除</a>
         </TD>

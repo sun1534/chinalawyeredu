@@ -4,6 +4,7 @@
 package com.changpeng.lawyers.action.ajax;
 
 import java.text.DateFormat;
+import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -12,8 +13,6 @@ import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.Lawyers;
-import com.changpeng.models.SysUser;
-import com.changpeng.system.service.SysUserService;
 
 /**
  * 密码重置
@@ -23,6 +22,16 @@ import com.changpeng.system.service.SysUserService;
  */
 public class LawyersChangeCardNoAction extends AbstractAction {
 	private static Log LOG = LogFactory.getLog(LawyersChangeCardNoAction.class);
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+	private static Date parse(String d) throws Exception {
+		try {
+			return df.parse(d);
+		} catch (Exception e) {
+			LOG.error("发卡日期解析失败", e);
+			return df.parse(df.format(new Date()));
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -34,47 +43,64 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 
 		try {
 			BasicService basicService = (BasicService) getBean("basicService");
-			debug("======basicService::" + basicService);
 
 			LawyersService lawyersService = (LawyersService) this.getBean("lawyersService");
 
 			if (theact != null && theact.equals("clear")) {
 				Lawyers newlawyer = (Lawyers) basicService.get(Lawyers.class, lawyerid);
 				newlawyer.setCarddate(null);
-				newlawyer.setSystemno(null);
+				// newlawyer.setSystemno(null);
 				newlawyer.setCardno(null);
 				basicService.update(newlawyer);
-				cardno="";
-				carddate="";
-				systemno="";
-				changeok="true";
+				cardno = "";
+				carddate = "";
+				// systemno="";
+				changeok = "true";
 			} else {
 
 				Lawyers lawyer = lawyersService.getLawyerBySystemno(systemno);
 				Lawyers thelawyer = (Lawyers) basicService.get(Lawyers.class, lawyerid);
-				if(lawyer!=null&&lawyer.getSystemno().equals(thelawyer.getSystemno())){
-					cardno=lawyer.getCardno();
-//					carddate=lawyer.getCarddate();
-					changeok = "true";
-				}
-				else if (lawyer!=null&&!lawyer.getSystemno().equals(thelawyer.getSystemno())) {
-					this.lawyername = lawyer.getLawyername();
-					cardno="";
-					carddate="";
-					systemno="";
-					changeok = "repeat";
-				} else {
-		
-					// debug("========="+lawer);
-					// debug("==cardno+"+cardno+"===carddate==="+carddate);
+				if (lawyer != null && lawyer.getSystemno().equals(thelawyer.getSystemno())) {
+					cardno = lawyer.getCardno();
+					// carddate=lawyer.getCarddate();
 					thelawyer.setSystemno(systemno);
 					cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
-					thelawyer.setCardno(cardno);
-					if (carddate == null || carddate.equals(""))
-						carddate = df.format(new java.util.Date());
-//					thelawyer.setCarddate(carddate);
-					basicService.update(thelawyer);
-					changeok = "true";
+					LOG.debug("cardno:::::::" + cardno);
+					if (cardno == null || cardno.equals("")) {
+						changeok = "systemnoexist";
+					} else {
+						thelawyer.setCardno(cardno);
+						if (carddate == null || carddate.equals(""))
+							carddate = df.format(new java.util.Date());
+
+						Date cd = parse(carddate);
+						thelawyer.setCarddate(cd);
+						basicService.update(thelawyer);
+						changeok = "true";
+					}
+				} else if (lawyer != null && !lawyer.getSystemno().equals(thelawyer.getSystemno())) {
+					this.lawyername = lawyer.getLawyername();
+					cardno = "";
+					carddate = "";
+					systemno = "";
+					changeok = "repeat";
+				} else {
+
+					thelawyer.setSystemno(systemno);
+					cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
+					LOG.debug("cardno:::::::" + cardno);
+					if (cardno == null || cardno.equals("")) {
+						changeok = "systemnoexist";
+					} else {
+						thelawyer.setCardno(cardno);
+						if (carddate == null || carddate.equals(""))
+							carddate = df.format(new java.util.Date());
+
+						Date cd = parse(carddate);
+						thelawyer.setCarddate(cd);
+						basicService.update(thelawyer);
+						changeok = "true";
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -86,7 +112,6 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 		return SUCCESS;
 	}
 
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private String changeok;
 
 	public String getChangeok() {
@@ -129,8 +154,6 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 		this.carddate = carddate;
 	}
 
-
-
 	private String systemno;
 
 	/**
@@ -147,7 +170,6 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 	public void setSystemno(String systemno) {
 		this.systemno = systemno;
 	}
-
 
 	/**
 	 * @return the lawyername
@@ -179,7 +201,8 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 	}
 
 	/**
-	 * @param lawyerid the lawyerid to set
+	 * @param lawyerid
+	 *            the lawyerid to set
 	 */
 	public void setLawyerid(int lawyerid) {
 		this.lawyerid = lawyerid;
