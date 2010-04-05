@@ -93,7 +93,9 @@ public class MyWorkspacePageAction extends AbstractAction {
 		// nowxuefen += xf.getPxxf();
 		// }
 
-		detachedCriteria = DetachedCriteria.forClass(Forum.class).add(Restrictions.eq("ismain", true)).add(Restrictions.eq("provinceid",lawyers.getProvinceunion()));
+//		detachedCriteria = DetachedCriteria.forClass(Forum.class).add(Restrictions.eq("ismain", true)).add(Restrictions.eq("provinceid",lawyers.getProvinceunion()));
+		detachedCriteria = DetachedCriteria.forClass(Forum.class).add(Restrictions.eq("ismain", true)).add(Restrictions.eq("cityid",lawyers.getCityid()));
+		
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
 		PaginationSupport page = basicService.findPageByCriteria(detachedCriteria, 6, 1);

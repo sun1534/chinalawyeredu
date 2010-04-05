@@ -58,7 +58,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	@Override
 	protected String go() throws Exception {
-
+		this.pageSize = 20;
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
@@ -88,7 +88,7 @@ public class LessonsListAction extends AbstractListAction {
 				groupid = datavisible.getCityid();
 		}
 
-		this.page = lessonservice.getPages(mygroup, groupid, lessonstyle, lessontype, title, teachers, pageSize,
+		this.page = lessonservice.getPages(mygroup, groupid,onlineType,lessonstyle, lessontype, title, teachers, pageSize,
 				pageNo, start, end);
 
 		int lawyerid = this.getLoginUser().getLawyerid();
@@ -118,7 +118,7 @@ public class LessonsListAction extends AbstractListAction {
 		}
 		return "online";
 	}
-
+private int onlineType=-1;
 	private List lessonlist;
 
 	public List getLessonlist() {
@@ -213,5 +213,19 @@ public class LessonsListAction extends AbstractListAction {
 	 */
 	public void setLessontype(int lessontype) {
 		this.lessontype = lessontype;
+	}
+
+	/**
+	 * @return the onlineType
+	 */
+	public int getOnlineType() {
+		return onlineType;
+	}
+
+	/**
+	 * @param onlineType the onlineType to set
+	 */
+	public void setOnlineType(int onlineType) {
+		this.onlineType = onlineType;
 	}
 }

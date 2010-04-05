@@ -35,13 +35,13 @@ public class CommonDatas {
 
 	static {
 		LessonType.put(1, "律师实务");
-		LessonType.put(2, "新法讲坛");
+		LessonType.put(2, "民、商实务");
 		LessonType.put(3, "涉外法务");
 		LessonType.put(4, "思想政治教育");
-		LessonType.put(5, "岗前培训");
-		LessonType.put(6, "专题论坛");
+		LessonType.put(5, "刑事实务");
+		LessonType.put(6, "行政实务");
 		LessonType.put(7, "其他");
-
+//		改成”律师实务，民、商实务，刑事实务，行政实务，涉外实务，思想政治教育，其它”几个类型
 		LessonState.put(1, "内容编辑");
 		LessonState.put(2, "培训课程");
 		LessonState.put(3, "往期课程");

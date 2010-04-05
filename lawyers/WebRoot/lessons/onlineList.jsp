@@ -98,7 +98,7 @@ $.getJSON(
                     老师:<s:textfield name="teachers" size="12"/>
             
    			 	    名称:<s:textfield name="title" size="15"/>
-                 
+                  文件类型:<s:select name="onlineType" list="#{'-1':'全部','0':'视频','1':'音频'}"/>
   
 				 课程年份:<s:select name="nianshenyear" list="jifentime.years" headerKey="0" headerValue="全部" onchange="document.form1.submit()"/>
 			 <s:if test="nianshenyear!=0">

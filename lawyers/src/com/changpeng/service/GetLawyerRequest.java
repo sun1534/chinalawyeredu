@@ -44,13 +44,19 @@ public class GetLawyerRequest extends ElearningRequests {
 			temp.append("<respmsg>").append("有" + lawyersize + "个律师").append("</respmsg>");
 
 			lawyertemp.append("<lawyers>");
+			int j=0;
 			for (int i = 0; i < lawyersize; i++) {
 				Lawyers lawyer = (Lawyers) list.get(i);
 				//有事务所并且不是离职的律师了
 				String cardno=lawyer.getCardno();
 //				if (lawyer.getDirectunion()!=-1&&cardno!=null&&!cardno.trim().equals("")) {
+				
+				if(cardno==null||cardno.equals("")){
+					cardno="0000990000"+(j++);
+				}
+				
 				//如果这个律师没卡号，则就不送到下面去了
-				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0&&cardno!=null&&!cardno.trim().equals("")) {
+				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0) {
 					lawyertemp.append("<lawyer>");
 					lawyertemp.append("<userid>").append(lawyer.getLawyerid()).append("</userid>");
 					lawyertemp.append("<cardno>").append(cardno == null ? "" : cardno.trim()).append("</cardno>");
