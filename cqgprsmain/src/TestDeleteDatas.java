@@ -1,18 +1,13 @@
-/**
- * 
- */
-package main.stat;
+
 
 import java.sql.Connection;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
-import main.util.SelfLog;
+import main.util.DBUtils;
 
 /**
  * 删除10天前的数据
@@ -20,42 +15,36 @@ import main.util.SelfLog;
  * @author 华锋 Nov 5, 2009-10:02:00 AM
  * 
  */
-public class DeleteDatas {
+public class TestDeleteDatas {
 
-	
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
 
 	private Connection con;
 
-	private String daystattime;
-	private String hourstattime;
-	private String hourstattimelhf;
-
+	private long daystattime;
+	private long hourstattime;
+	private long hourstattimelhf;
+	
 	private static Map<String, String> DAYTABLELIST = new LinkedHashMap<String, String>();
 	private static Map<String, String> HOURTABLELIST = new LinkedHashMap<String, String>();
 
-	
-	public DeleteDatas(Connection con, Date statdat, int days) {
+	public TestDeleteDatas(Connection con, Date statdat, int days) {
 		this.con = con;
 		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(statdat, days);
-
-		daystattime = df.format(daysagodate);
+		daystattime = Long.parseLong(df.format(daysagodate));
 		long daystart = main.util.MainStatUtil.getDateTime(daysagodate);
-//		long dayend = main.util.MainStatUtil.getOneDayAfter(daystart);
-		hourstattime = "" + (daystart / 1000);
-		hourstattimelhf = daystattime + "23";
-		LOG.info("删除的数据,日统计" + daystattime + ",小时统计" + hourstattime);
+		hourstattime =  daystart / 1000;
+		hourstattimelhf = Long.parseLong( daystattime + "23");
+		
+		System.out.println("删除的数据,日统计" + daystattime + ",小时统计" + hourstattime);
 
 		addday();
 		addhour();
 	}
 
 	private void addday() {
-		
-		
 		DAYTABLELIST.put("ALARM_CELLID", " where stattime<=" + hourstattime);
 		DAYTABLELIST.put("ALARM_GB", " where alarmtime<=" + hourstattime);
-
 		DAYTABLELIST.put("MSISDN_APN", " where stattime<=" + hourstattime);
 		DAYTABLELIST.put("MSISDN_BSC", " where stattime<=" + hourstattime);
 		DAYTABLELIST.put("MSISDN_CELLID", " where stattime<=" + hourstattime);
@@ -63,34 +52,25 @@ public class DeleteDatas {
 		DAYTABLELIST.put("MSISDN_SGSN", " where stattime<=" + hourstattime);
 		DAYTABLELIST.put("STAT_APN", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_APN_ERROR", " where dayflag=1 and stattime<=" + daystattime);
-		// DAYTABLELIST.put("STAT_APN_ZERO", daystattime);
 		DAYTABLELIST.put("STAT_BSC", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_CELLID", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_CELLID_APN", " where dayflag=1 and stattime<=" + daystattime);
-		// DAYTABLELIST.put("STAT_CELLID_TOP", daystattime);不需要
 		// DAYTABLELIST.put("STAT_CELLID_ZERO", daystattime);
 		DAYTABLELIST.put("STAT_ERRCODE_ERROR", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_IMSI_APN_ERROR", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_IMSI_ERRCODE_ERROR", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_NSVC", " where stattime<=" + hourstattime);
-		// DAYTABLELIST.put("STAT_SGSN", " where dayflag=1 and stattime<=" +
-		// daystattime);
 		DAYTABLELIST.put("ZERO_APN", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("ZERO_CELLID", " where dayflag=1 and stattime<=" + daystattime);
-
 		DAYTABLELIST.put("STAT_CELLID_DAY", " where dayflag=1 and stattime<=" + daystattime);
 		DAYTABLELIST.put("STAT_CELLID_APN_DAY", " where dayflag=1 and stattime<=" + daystattime);
-
 		DAYTABLELIST.put("CDR_MISTAKE_NO33", " where opentime<=" + hourstattime); // 额外的方式
-
 		DAYTABLELIST.put("MSISDN_APN", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_BSC", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_CELLID", " where stattime<=" + hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_CELLID_APN", " where stattime<=" + hourstattime); // 额外的方式
-		// DAYTABLELIST.put("MSISDN_DAYALL", " where stattime<=" +
-		// hourstattime); // 额外的方式
 		DAYTABLELIST.put("MSISDN_SGSN", " where stattime<=" + hourstattime); // 额外的方式
-		// DAYTABLELIST.put("CDR_MISTAKE", " where opentime<=" + hourstattime);
+		 DAYTABLELIST.put("CDR_MISTAKE", " where opentime<=" + hourstattime);
 	}
 
 	private void addhour() {
@@ -104,10 +84,7 @@ public class DeleteDatas {
 		HOURTABLELIST.put("STAT_ERRCODE_ERROR", " where dayflag=0 and stattime<=" + hourstattimelhf);
 		HOURTABLELIST.put("STAT_IMSI_APN_ERROR", " where dayflag=0 and stattime<=" + hourstattimelhf);
 		HOURTABLELIST.put("STAT_IMSI_ERRCODE_ERROR", " where dayflag=0 and stattime<=" + hourstattimelhf);
-		// DAYTABLELIST.put("STAT_NSVC", hourstattime);
 		HOURTABLELIST.put("STAT_SGSN", " where dayflag=0 and stattime<=" + hourstattime);
-		// DAYTABLELIST.put("ZERO_APN", hourstattime);
-		// DAYTABLELIST.put("ZERO_CELLID", hourstattime);
 	}
 
 	public void deleteDatas() {
@@ -117,9 +94,9 @@ public class DeleteDatas {
 			String where = DAYTABLELIST.get(table);
 			String sql = "delete from " + table + where;
 			long now = System.currentTimeMillis();
-			LOG.info(sql );
+			System.out.println(sql);
 			main.util.MainStatUtil.executeSql(con, sql);
-			LOG.info(sql + "=>" + (System.currentTimeMillis() - now));
+			System.out.println(sql + "=>" + (System.currentTimeMillis() - now));
 		}
 
 		Iterator<String> iteratorhour = HOURTABLELIST.keySet().iterator();
@@ -128,11 +105,11 @@ public class DeleteDatas {
 			String where = HOURTABLELIST.get(table);
 			String sql = "delete from " + table + where;
 			long now = System.currentTimeMillis();
-			LOG.info(sql );
+			System.out.println(sql);
 			main.util.MainStatUtil.executeSql(con, sql);
-			LOG.info(sql + "=>" + (System.currentTimeMillis() - now));
+			System.out.println(sql + "=>" + (System.currentTimeMillis() - now));
 		}
-		LOG.info("数据删除完毕");
+		System.out.println("数据删除完毕");
 
 		// try {
 		// int opentime = 0;
@@ -155,5 +132,11 @@ public class DeleteDatas {
 
 	}
 
-	private static SelfLog LOG = SelfLog.getInstance();
+	public static void main(String[] args) {
+		Connection con = DBUtils.getOracleCon();
+		Date statdate = main.util.MainStatUtil.getPrevDate();
+		TestDeleteDatas dd = new TestDeleteDatas(con, statdate, 3 + 1);
+		dd.deleteDatas();
+	}
+
 }

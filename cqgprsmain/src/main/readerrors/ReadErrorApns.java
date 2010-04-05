@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import main.nsvcalarm.NsvcAlarmFileHandle;
-import main.nsvcalarm.NsvcAlarmHandleHistory;
 import main.util.DBUtils;
 
 import org.apache.commons.logging.Log;
@@ -93,7 +91,7 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 			con = DBUtils.getOracleCon();
 			LOG.info("成功获取到数据库连接OK");
 			//先清掉10天前的一些数据
-			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
+			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(3);
 			long daystart = daysagodate.getTime()/1000;
 		
 			String sql="delete from cdr_mistake where opentime<="+daystart;

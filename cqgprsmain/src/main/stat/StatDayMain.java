@@ -104,7 +104,11 @@ public class StatDayMain {
 		stat_cellid();
 		stat_cell_apn();
 
-		DeleteDatas dd=new DeleteDatas(con,statdate,6+1);
+//		DeleteDatas dd=new DeleteDatas(con,statdate,6+1);
+//		dd.deleteDatas();
+	
+		DeleteDatasDay dd = new DeleteDatasDay(con, statdate, 3 + 1);
+		
 		dd.deleteDatas();
 		
 		con.close();

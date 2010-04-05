@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-
 import main.util.DBUtils;
 
 import org.apache.commons.logging.Log;
@@ -32,7 +31,7 @@ public class NsvcAlarmFileHandle {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final DateFormat dftime = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 	private static final DateFormat dfdate = new java.text.SimpleDateFormat("yyyyMMdd");
-	private static String BASE_STR = "======== SESSION EVENT (G): MS INITIATED ACTIVATE REQUEST =========";
+//	private static String BASE_STR = "======== SESSION EVENT (G): MS INITIATED ACTIVATE REQUEST =========";
 
 	private NsvcAlarmFile moveFile(File srcfile, String todayDestDirName, String sgsnid, String timestamp) {
 		String newFileName = srcfile.getName() + "_" + sgsnid + "_" + timestamp;
@@ -60,10 +59,20 @@ public class NsvcAlarmFileHandle {
 	 */
 	public Map<String, NsvcAlarmFile> copyFile(String srcdir, String destdir) {
 		java.util.Date today = new java.util.Date();
+
 		String timestamp = dftime.format(today);
 		File srcrootdir = new File(srcdir);
 		String[] srcchilddirs = srcrootdir.list();
 		String todayDestDirName = destdir + SEPARATOR + dfdate.format(today);
+
+		java.util.Date yestarday = main.util.MainStatUtil.getPrevCountDate(1);
+		String yestardayDestDirName = destdir + SEPARATOR + dfdate.format(yestarday);
+		File yesdir = new File(yestardayDestDirName);
+		if (yesdir.exists()) {
+			boolean b = yesdir.delete();
+			LOG.info(yestardayDestDirName + "目录删除成功!!!" + b);
+		}
+
 		File todayDestDir = new File(todayDestDirName);
 
 		Map<String, NsvcAlarmFile> errorfiles = new HashMap<String, NsvcAlarmFile>();
@@ -107,7 +116,7 @@ public class NsvcAlarmFileHandle {
 					} else {
 						shoulds.add(srcfile);
 						// 存起来,然后再处理,轮询2次吧
-					
+
 					}
 				}
 			}
@@ -117,6 +126,7 @@ public class NsvcAlarmFileHandle {
 		}
 		return errorfiles;
 	}
+
 	/**
 	 * 
 	 * @param file
@@ -127,45 +137,72 @@ public class NsvcAlarmFileHandle {
 		java.io.BufferedReader br = null;
 		int handledLines = file.getHandleLines();
 		LOG.info(file.getDestfile() + "已经处理过" + handledLines + "行数据");
-		List<NsvcAlarmCdr> cdrs = new ArrayList<NsvcAlarmCdr>();
-		int lastCount = 0; // 实际处理的个数
+	
+		List<NsvcAlarmCdr> really=new ArrayList<NsvcAlarmCdr>();
 		try {
+			List<NsvcAlarmCdr> cdrs = new ArrayList<NsvcAlarmCdr>();
 			br = new BufferedReader(new java.io.InputStreamReader(new FileInputStream(file.getDestfile())));
 
 			String line = null;
-			
+
 			int i = 0;
 			while ((line = br.readLine()) != null) {
 
-//				alarm;	pmSupThresholdCrossedWar;	qos;	warning;	2009-12-29 11:06:50;	The value of measurement type frWanWanFlows has reached its threshold.;	{2132543023};	'measTypeIndex 2.3.6.1';
+				// alarm; pmSupThresholdCrossedWar; qos; warning; 2009-12-29
+				// 11:06:50; The value of measurement type frWanWanFlows has
+				// reached its threshold.; {2132543023}; 'measTypeIndex
+				// 2.3.6.1';
 
-				if(line.startsWith("alarm;")&&line.indexOf("warning;")!=-1){
-					lastCount++;
-					StringTokenizer st=new StringTokenizer(line,";");
-					String type=st.nextToken();
-					String pcm=st.nextToken();
-					String communication=st.nextToken();
-					String _warnning=st.nextToken();
-					String date=st.nextToken();
-					String reason=st.nextToken();
-					String timestamp=st.nextToken();
-					String gbindex=st.nextToken();
-					
-					NsvcAlarmCdr cdr=new NsvcAlarmCdr();
-					cdr.setCommunication(communication);
-					cdr.setAlarmdate((int)(df.parse(date).getTime()/1000));
-					cdr.setGbindex(gbindex);
-					cdr.setPcm(pcm);
-					cdr.setQos(communication);
-					cdr.setReason(reason);
-					cdr.setTimestamp(timestamp);
-					cdr.setSgsnid(file.getSgsnid());
-					cdrs.add(cdr);
+				if (line.startsWith("alarm;") && line.indexOf("warning;") != -1) {
+
+					StringTokenizer st = new StringTokenizer(line, ";");
+					String type = st.nextToken();
+					String pcm = st.nextToken();
+					String communication = st.nextToken();
+					String _warnning = st.nextToken();
+					String date = st.nextToken();
+					String reason = st.nextToken();
+					String timestamp = st.nextToken();
+					String gbindex = st.nextToken();
+					String[] gbindexarr = gbindex.split("\\.");
+					System.out.println("gbindexarr:::"+gbindexarr);
+					if (gbindexarr.length >= 4) {
+						i++;
+//						if (i >= handledLines) {
+						
+							NsvcAlarmCdr cdr = new NsvcAlarmCdr();
+							cdr.setCommunication(communication);
+							cdr.setAlarmdate((int) (df.parse(date).getTime() / 1000));
+							cdr.setGbindex(gbindex);
+							cdr.setPcm(pcm);
+							cdr.setQos(communication);
+							cdr.setReason(reason);
+							cdr.setTimestamp(timestamp);
+							cdr.setSgsnid(file.getSgsnid());
+							cdr.setFile(file.getSrcfilename());
+							cdrs.add(cdr);
+//						}
+					}
 				}
 			}
-			file.setHandleLines(handledLines + lastCount);
+			int lastCount = i-handledLines;
+			//这里只取从handlelines到当前总数的数据
+			
+			
+			if(i>=handledLines){
+				for(int k=handledLines;k<i;k++){
+					really.add(cdrs.get(k));
+				}
+			}else{
+				for(int k=0;k<i;k++){
+					really.add(cdrs.get(k));
+				}
+			}	
+			file.setHandleLines(i);
 			LOG.info(file.getDestfile() + "解析时间为:" + (System.currentTimeMillis() - now) + "总共:" + i + "区块,实际处理"
-					+ lastCount + "块," + cdrs.size());
+					+ lastCount + "块"+cdrs.size());
+			cdrs.clear();
+			cdrs=null;
 		} catch (Exception e) {
 			LOG.error("解析文件有误", e);
 		} finally {
@@ -177,7 +214,7 @@ public class NsvcAlarmFileHandle {
 				}
 		}
 
-		return cdrs;
+		return really;
 	}
 
 	/**
@@ -192,23 +229,24 @@ public class NsvcAlarmFileHandle {
 		try {
 			con = DBUtils.getOracleCon();
 
-			String sql = "insert into alarm_nsvc_logs(PCM,COMMUNICATION,ALARMDATE,REASON,TIMESTAMP,GBINDEX,RECORDTIME,sgsnid) values(?,?,?,?,?,?,?,?)";
+			String sql = "insert into alarm_nsvc_logs(PCM,COMMUNICATION,ALARMDATE,REASON,TIMESTAMP,GBINDEX,RECORDTIME,sgsnid,filename) values(?,?,?,?,?,?,?,?,?)";
 
 			stmt = con.prepareStatement(sql);
 			int len = cdrs.size();
 			long begin = System.currentTimeMillis();
-		
+
 			for (int i = 0; i < len; i++) {
 				NsvcAlarmCdr cdr = cdrs.get(i);
-			
+
 				stmt.setString(1, cdr.getPcm());
 				stmt.setString(2, cdr.getCommunication());
 				stmt.setInt(3, cdr.getAlarmdate());
 				stmt.setString(4, cdr.getReason());
 				stmt.setString(5, cdr.getTimestamp());
 				stmt.setString(6, cdr.getGbindex().replaceAll("'", "").trim());
-				stmt.setTimestamp(7,new java.sql.Timestamp(System.currentTimeMillis()));
+				stmt.setTimestamp(7, new java.sql.Timestamp(System.currentTimeMillis()));
 				stmt.setString(8, cdr.getSgsnid());
+				stmt.setString(9, cdr.getFile());
 				stmt.addBatch();
 				if (((i + 1) % 300) == 0) {
 					stmt.executeBatch();
@@ -221,8 +259,7 @@ public class NsvcAlarmFileHandle {
 			int[] s = stmt.executeBatch();
 			stmt.clearBatch();
 			// 33的错误同时入到另外一张表
-		
-		
+
 			LOG.info("最后入库记录数：" + (s != null ? s.length : 0) + ",时间:" + (System.currentTimeMillis() - begin));
 		} catch (Exception e) {
 			LOG.error("插入数据库错误:", e);
@@ -234,15 +271,18 @@ public class NsvcAlarmFileHandle {
 	}
 
 	public static void main(String[] args) throws Exception {
-		File file = new File("d:\\outerrr.txt");
-		NsvcAlarmFile ef = new NsvcAlarmFile();
-		ef.setDestdir("d:\\");
-		ef.setDestfile(file);
-		ef.setHandleLines(0);
-		ef.setSgsnid("SGSN01");
-		ef.setSrcfilename("d:\\outer.txt");
-		NsvcAlarmFileHandle fh = new NsvcAlarmFileHandle();
-		fh.parseFile(ef);
+		// File file = new File("d:\\outerrr.txt");
+		// NsvcAlarmFile ef = new NsvcAlarmFile();
+		// ef.setDestdir("d:\\");
+		// ef.setDestfile(file);
+		// ef.setHandleLines(0);
+		// ef.setSgsnid("SGSN01");
+		// ef.setSrcfilename("d:\\outer.txt");
+		// NsvcAlarmFileHandle fh = new NsvcAlarmFileHandle();
+		// fh.parseFile(ef);
+
+		String[] s = "measTypeIndex 3.1.1.1".split("\\.");
+		System.out.println(s.length);
 
 	}
 }

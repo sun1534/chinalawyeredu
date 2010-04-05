@@ -24,7 +24,7 @@ public class NsvcAlarmHandleHistory {
 	/**
 	 * 超过这个，即使相同也不换行
 	 */
-	private static final long INTERVAL =2 * 60 * 60 * 1000;
+//	private static final long INTERVAL = 30 * 60 * 1000;
 	private Connection con;
 	private static final String selectSql = "select sgsnid,srcfile,destfile,modifytime,lastlines from nsvc_alarm_handle";
 
@@ -54,9 +54,9 @@ public class NsvcAlarmHandleHistory {
 					NsvcAlarmFile file = files.get(key);
 					long thefiletime = file.getModified().getTime();
 					LOG.info(sgsnid+"_"+srcfile+"上次处理行数:"+rs.getInt("lastlines")+",间隔:"+(thefiletime - modified));
-					if (thefiletime - modified < INTERVAL){
+//					if (thefiletime - modified < INTERVAL){
 						file.setHandleLines(rs.getInt("lastlines"));
-					}
+//					}
 					sqls
 							.add("delete from nsvc_alarm_handle where sgsnid='" + sgsnid + "' and srcfile='" + srcfile
 									+ "'");

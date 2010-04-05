@@ -19,6 +19,19 @@ public class NsvcAlarmCdr {
 	private String timestamp;
 	private String gbindex;
 	private String sgsnid;
+	private String file;
+	/**
+	 * @return the file
+	 */
+	public String getFile() {
+		return file;
+	}
+	/**
+	 * @param file the file to set
+	 */
+	public void setFile(String file) {
+		this.file = file;
+	}
 	/**
 	 * @return the pcm
 	 */

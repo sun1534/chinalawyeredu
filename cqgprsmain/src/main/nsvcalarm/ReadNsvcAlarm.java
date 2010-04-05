@@ -3,13 +3,10 @@ package main.nsvcalarm;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import main.nsvcalarm.NsvcAlarmFileHandle;
-import main.nsvcalarm.NsvcAlarmHandleHistory;
 import main.util.DBUtils;
 
 import org.apache.commons.logging.Log;
@@ -96,7 +93,7 @@ private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH
 			LOG.info("成功获取到数据库连接OK");
 			//先清掉10天前的一些数据
 		
-			LOG.debug("mapfiles:" + mapfiles);
+			LOG.debug("mapfiles:" + mapfiles+",,"+mapfiles.size());
 			if (mapfiles.size() > 0) {
 				NsvcAlarmHandleHistory readHistory = new NsvcAlarmHandleHistory(con);
 				readHistory.getFromDB(mapfiles);

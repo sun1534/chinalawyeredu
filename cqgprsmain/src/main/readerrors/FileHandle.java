@@ -48,24 +48,34 @@ public class FileHandle {
 	}
 
 	private ErrorFile moveHWFile(File srcfile, String todayDestDirName, String sgsnid, String timestamp) {
-		String destFileName = todayDestDirName + SEPARATOR + srcfile.getName() + "_" + sgsnid + "_" + timestamp;
+		String destFileName = todayDestDirName + SEPARATOR + srcfile.getName() + "_" + sgsnid + "_" + timestamp
+				+ ".txt";
 		String destFileNameNoChange = todayDestDirName + SEPARATOR + srcfile.getName() + "_" + sgsnid + "_" + timestamp
-				+ ".chr";
+				+ ".bak";
 
 		String srcFileName = srcfile.getAbsolutePath();
 		File destfile = new File(destFileName);
 		File destfileNoChange = new File(destFileNameNoChange);
 
 		HWSessionLogHandle handle = new HWSessionLogHandle(srcFileName, destFileName);
+
 		handle.convert();
+		while (!handle.isover) {
+			System.out.println("===================waiting...");
+			try {
+				Thread.sleep(10L);
+			} catch (Exception e) {
+
+			}
+		}
 
 		ErrorFile errorfile = new ErrorFile();
 		errorfile.setSgsnid(sgsnid);
 		errorfile.setDestdir(todayDestDirName);
 		errorfile.setDestfile(destfile);
 		errorfile.setSrcfilename(srcfile.getName());
-		//移动cdr文件
-		 srcfile.renameTo(destfileNoChange);
+		// 移动cdr文件
+		srcfile.renameTo(destfileNoChange);
 		LOG.info(".chr文件移动到:" + destFileNameNoChange);
 		return errorfile;
 	}
@@ -86,6 +96,19 @@ public class FileHandle {
 		String[] srcchilddirs = srcrootdir.list();
 		String todayDestDirName = destdir + SEPARATOR + dfdate.format(today);
 		File todayDestDir = new File(todayDestDirName);
+
+		java.util.Date yestarday = main.util.MainStatUtil.getPrevCountDate(1);
+		String yestardayDestDirName = destdir + SEPARATOR + dfdate.format(yestarday);
+		File yesdir = new File(yestardayDestDirName);
+		if (yesdir.exists()) {
+			File[] deletefiles = yesdir.listFiles();
+			if (deletefiles != null && deletefiles.length > 0) {
+				for (File deletefile : deletefiles)
+					deletefile.delete();
+			}
+			boolean b = yesdir.delete();
+			LOG.info(yestardayDestDirName + "爱立信目录删除成功!!!" + b);
+		}
 
 		Map<String, ErrorFile> errorfiles = new HashMap<String, ErrorFile>();
 		List<File> shoulds = new ArrayList<File>();
@@ -157,6 +180,19 @@ public class FileHandle {
 		String todayDestDirName = destdir + SEPARATOR + dfdate.format(today);
 		File todayDestDir = new File(todayDestDirName);
 
+		java.util.Date yestarday = main.util.MainStatUtil.getPrevCountDate(1);
+		String yestardayDestDirName = destdir + SEPARATOR + dfdate.format(yestarday);
+		File yesdir = new File(yestardayDestDirName);
+		if (yesdir.exists()) {
+			File[] deletefiles = yesdir.listFiles();
+			if (deletefiles != null && deletefiles.length > 0) {
+				for (File deletefile : deletefiles)
+					deletefile.delete();
+			}
+			boolean b = yesdir.delete();
+			LOG.info(yestardayDestDirName + "华为目录删除成功!!!" + b);
+		}
+
 		Map<String, ErrorFile> errorfiles = new HashMap<String, ErrorFile>();
 		List<File> shoulds = new ArrayList<File>();
 		if (!todayDestDir.exists()) {
@@ -164,14 +200,14 @@ public class FileHandle {
 			int k = 0;
 			while (!b && (k++) < 10) {
 				b = todayDestDir.mkdirs();
-				LOG.info("创建存储目录失败,重新来过!" + k);
+				LOG.info("创建华为存储目录失败,重新来过!" + k);
 			}
 			if (!b) {
 				// LOG.warn("创建存储目录失败,退出系统");
 				// System.exit(0);
-				throw new RuntimeException("创建存储目录失败,退出系统");
+				throw new RuntimeException("创建华为存储目录失败,退出系统");
 			}
-			LOG.info("创建存储目录成功:" + todayDestDirName);
+			LOG.info("创建华为存储目录成功:" + todayDestDirName);
 		}
 
 		for (String srchilddir : srcchilddirs) {

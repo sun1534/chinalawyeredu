@@ -35,17 +35,16 @@ public class HWSessionLogHandle {
 			String command=cmd + " " + srcFileName + " " + destFileName;
 			
 			System.out.println(command);
-			
+			long now=System.currentTimeMillis();
 			Process process = java.lang.Runtime.getRuntime().exec(command);
 			br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String line = null;
 			while ((line = br.readLine()) != null) {
-				LOG.info("解析" + srcFileName + ":" + line);
+				LOG.info("解析华为:" + srcFileName + ":" + line);
 			}
-	
+			LOG.info("解析时间:"+(System.currentTimeMillis()-now));
 			
 			br.close();
-			
 		
 				
 		} catch (Exception e) {

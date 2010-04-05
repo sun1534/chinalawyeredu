@@ -98,15 +98,15 @@ public class ReadHWErrorApns {
 			con = DBUtils.getOracleCon();
 			LOG.info("成功获取到数据库连接OK");
 			// 先清掉10天前的一些数据
-			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(8);
-			long daystart = daysagodate.getTime() / 1000;
+			Date daysagodate = main.util.MainStatUtil.getPrevCountDate(5);
+//			long daystart = daysagodate.getTime() / 1000;
 
-			String sql = "delete from cdr_mistake where opentime<=" + daystart;
-			String sqlno33 = "delete from cdr_mistake_no33 where opentime<=" + daystart;
+//			String sql = "delete from cdr_mistake where opentime<=" + daystart;
+//			String sqlno33 = "delete from cdr_mistake_no33 where opentime<=" + daystart;
 			long deletenow = System.currentTimeMillis();
-			main.util.MainStatUtil.executeSql(con, sql);
-			main.util.MainStatUtil.executeSql(con, sqlno33);
-			LOG.info("清除" + df.format(daysagodate) + "前的数据完毕:" + (System.currentTimeMillis() - deletenow));
+//			main.util.MainStatUtil.executeSql(con, sql);
+//			main.util.MainStatUtil.executeSql(con, sqlno33);
+//			LOG.info("清除" + df.format(daysagodate) + "前的数据完毕:" + (System.currentTimeMillis() - deletenow));
 
 			LOG.debug("mapfiles:" + mapfiles);
 			if (mapfiles.size() > 0) {

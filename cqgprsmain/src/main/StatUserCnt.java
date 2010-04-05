@@ -40,10 +40,10 @@ public class StatUserCnt {
 		stattime = df.format(date);
 		// stattime = "20100101";
 		con = main.util.DBUtils.getOracleCon();
+		daycnt();
 		apnusercnt();
 		sgsncnt();
 		bsccnt();
-		daycnt();
 		cellcnt();
 		apncellcnt();
 
@@ -208,7 +208,7 @@ public class StatUserCnt {
 						+ "' and nettype=" + nettype + " and ggsnid='" + ggsnid + "' and apnni='" + apnni
 						+ "' and stattime=" + stattime;
 
-//				System.out.println(sql);
+				System.out.println(sql);
 
 				sqls.add(sql);
 

@@ -36,17 +36,19 @@ public class CopyOfTest {
 	private static Connection con = null;
 
 	public static void main(String[] args) throws Exception {
-		long s=3510073023L;
-byte[] b=long2bytes(9999999999L);
-for(byte bb:b){
-	System.out.print(bb+" ");
-}
+//		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(3);
+//		System.out.println(daysagodate);
+//		long s=3510073023L;
+//byte[] b=long2bytes(9999999999L);
+//for(byte bb:b){
+//	System.out.print(bb+" ");
+//}
 	
 //		System.out.println(dfsec.parse("2009-12-01 00:00:00").getTime()/1000);
 //		System.out.println(dfsec.parse("2009-12-02 00:00:00").getTime()/1000);
 		
-		long no1w =1259852400L * 1000;
-		System.out.println(new java.sql.Timestamp(no1w));
+//		long no1w =1259852400L * 1000;
+//		System.out.println(new java.sql.Timestamp(no1w));
 		
 //		 no1w =1259673240L * 1000;
 //			System.out.println(new java.sql.Timestamp(no1w));
@@ -77,26 +79,29 @@ for(byte bb:b){
 		// Date yydate = main.util.MainStatUtil.getPrevCountHour(date, 1);
 		// System.out.println(dfsec.format(yydate));
 //Connection con=null;
-//		try {
-//			con=DBUtils.getOracleCon();
-//			int opentime = 0;
+		try {
+			con=DBUtils.getOracleCon();
+			int opentime = 0;
 //			String sql = "select min(opentime) as opentime from cdr_mistake";
-//			Statement stmt = con.createStatement();
-//			int deletetime = 1258820078;
-//			// int deletetime = Integer.parseInt(hourstattime);
-//			while (opentime <= deletetime) {
-//				ResultSet rs = stmt.executeQuery(sql);
-//				rs.next();
-//				opentime = rs.getInt("opentime");
-//				rs.close();
-//				main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
-//
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		con.close();
-//		System.out.println("妈的，我终于删完了。我尻。。。。。。。。");
+			String sql = "select min(stattime) as opentime from stat_cellid";
+			Statement stmt = con.createStatement();
+			int deletetime = 1266948122;
+//			 int deletetime = Integer.parseInt(hourstattime);
+			while (opentime <= deletetime) {
+				ResultSet rs = stmt.executeQuery(sql);
+				rs.next();
+				opentime = rs.getInt("opentime");
+				rs.close();
+				long now=System.currentTimeMillis();
+//			int ii=	main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
+			int ii=	main.util.MainStatUtil.executeSql(con, "delete from stat_cellid where stattime<=" + (opentime));
+System.out.println("删除了"+ii+"条..."+(System.currentTimeMillis()-now));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		con.close();
+		System.out.println("妈的，我终于删完了。我尻。。。。。。。。");
 
 	}
 
