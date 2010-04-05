@@ -27,7 +27,8 @@ import com.changpeng.models.SysUnionparams;
  */
 public class LawyersCreateEditAction extends AbstractAction {
 	private static Log _LOG = LogFactory.getLog(LawyersCreateEditAction.class);
-private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
 	public LawyersCreateEditAction() {
 
 		this.datavisible = new DataVisible();
@@ -41,32 +42,29 @@ private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-		if(this.datavisible.getOfficeid()==0){
+		if (this.datavisible.getOfficeid() == 0) {
 			this.message = "必须选择所在的事务所,请返回";
 			return "message";
 		}
-		
-if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
-{
-	try{
-		Date date=df.parse(lawyers.getZhiyedatestr());
-		lawyers.setZhiyedate(date);
-	}catch(Exception e){
-		this.message="执业日期输入不对,请重新输入:"+lawyers.getZhiyedatestr();
-		return "message";
-	}
-}
-		
-		
+
+		if (lawyers.getZhiyedatestr() != null && !lawyers.getZhiyedatestr().equals("")) {
+			try {
+				Date date = df.parse(lawyers.getZhiyedatestr());
+				lawyers.setZhiyedate(date);
+			} catch (Exception e) {
+				this.message = "执业日期输入不对,请重新输入:" + lawyers.getZhiyedatestr();
+				return "message";
+			}
+		}
+
 		LawyersService bs = (LawyersService) this.getBean("lawyersService");
 		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
 		lawyers.setDirectunion(this.datavisible.getCityid());
 		lawyers.setProvinceunion(this.datavisible.getProvinceid());
 		lawyers.setTheoffice(this.datavisible.getOfficeid());
-		SysUnionparams params=(SysUnionparams)basicService.get(SysUnionparams.class, lawyers.getDirectunion());
-		
-		lawyers.setDabiaofen(params.getDabiaofen());
+		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
 
+		lawyers.setDabiaofen(params.getDabiaofen());
 
 		if (upload != null && upload.length() != 0) {
 			try {
@@ -85,14 +83,14 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 
 				if (!filedir.exists()) {
 					boolean s = filedir.mkdirs();
-					debug("文件路径:::" + indexDir + "创建成功..."+s);
+					debug("文件路径:::" + indexDir + "创建成功..." + s);
 				}
 
 				File file = new File(indexDir + System.getProperty("file.separator") + name);
 				upload.renameTo(file);
 
 				debug("=================" + indexDir);
-				lawyers.setPhoto(lawyers.getDirectunion()+"/"+name);
+				lawyers.setPhoto(lawyers.getDirectunion() + "/" + name);
 				lawyers.setPhotoname(fileName);
 			} catch (Exception e) {
 				debug("照片上传失败..." + e);
@@ -111,8 +109,8 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 			lawyers.setCreateusername(this.getLoginUser().getUsername());
 
 			lawyers.setPasswd(lawyers.getCertno());
-			if(lawyers.getSystemno()==null||lawyers.getSystemno().equals(""))
-			lawyers.setSystemno(System.currentTimeMillis() / 1000 + "");
+			if (lawyers.getSystemno() == null || lawyers.getSystemno().equals(""))
+				lawyers.setSystemno(System.currentTimeMillis() / 1000 + "");
 
 			BasicService bservice = (BasicService) this.getBean("basicService");
 			SysUnionparams union = (SysUnionparams) bservice.get(SysUnionparams.class, lawyers.getDirectunion());
@@ -123,6 +121,7 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 
 			bs.addLawyer(lawyers);
 			this.message = "律师信息新增成功";
+			this.opResult="新增律师信息:"+lawyers.getLawyername();
 
 		} else {
 
@@ -130,6 +129,7 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 			lawyers.setPasswd(lawyers.getCertno());
 			bs.updateLawyers(lawyers);
 			this.message = "律师信息修改成功";
+			this.opResult="修改律师信息:"+lawyers.getLawyername();
 		}
 
 		this.nextPage = "lawyersList.pl";
@@ -155,8 +155,8 @@ if(lawyers.getZhiyedatestr()!=null&&!lawyers.getZhiyedatestr().equals(""))
 			this.datavisible.setCityid(lawyers.getDirectunion());
 			this.datavisible.setOfficeid(lawyers.getTheoffice());
 			this.datavisible.setProvinceid(lawyers.getProvinceunion());
-			if(lawyers.getZhiyedate()!=null)
-			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
+			if (lawyers.getZhiyedate() != null)
+				lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
 
 		}
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);

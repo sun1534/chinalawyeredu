@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.changpeng.lawyers.action;
+package com.changpeng.jifen.action;
 
 import java.io.File;
 import java.util.List;
@@ -9,11 +9,10 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
-import com.changpeng.lawyers.service.LawyersService;
-import com.changpeng.models.Lawyers;
+import com.changpeng.jifen.service.JifenbudengService;
+import com.changpeng.models.Jifenbudeng;
 
 /**
  * 
@@ -22,10 +21,10 @@ import com.changpeng.models.Lawyers;
  * @author 华锋
  * 
  */
-public class LawyersCreateBatchAction extends AbstractAction {
-	private static Log _LOG = LogFactory.getLog(LawyersCreateBatchAction.class);
+public class JifenbudengBatchAction extends AbstractAction {
+	private static Log _LOG = LogFactory.getLog(JifenbudengBatchAction.class);
 
-	public LawyersCreateBatchAction() {
+	public JifenbudengBatchAction() {
 		this.datavisible = new DataVisible();
 	}
 
@@ -42,43 +41,25 @@ public class LawyersCreateBatchAction extends AbstractAction {
 			return "message";
 		}
 
-		LawyersService bs = (LawyersService) this.getBean("lawyersService");
+		JifenbudengService budengservice = (JifenbudengService) this.getBean("jifenbudengService");
 		if (upload != null && upload.length() != 0) {
 			try {
 
-				List<Lawyers> lawyerslist = com.changpeng.system.util.ExcelUtil.parseLawyersXls(upload);
+				List<JifenbudengBatch> budenglist = com.changpeng.system.util.ExcelUtil.parseBudengjifen(upload);
 
-				List<String> list = bs.addLawyerBatch(this.getLoginUser(), datavisible.getProvinceid(), datavisible
-						.getCityid(), lawyerslist);
+				List<String> list = budengservice.saveJifenbudeng(budenglist, this.getLoginUser(), datavisible
+						.getProvinceid(), datavisible.getCityid());
+			
+				int success = budenglist.size() - list.size();
 
-				int success = lawyerslist.size() - list.size();
-
-				this.message = "律师数据批量导入处理完成,总计" + lawyerslist.size() + "个,成功导入" + success + "个";
+				this.message = "批量积分补登处理完成,总计" + budenglist.size() + "个,成功导入" + success + "个";
 				if (list.size() > 0) {
 					this.message += "<br/>失败情况如下<br/><hr/>";
 					for (int i = 0; i < list.size(); i++) {
-						this.message += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+  list.get(i)+"<br/>";
+						this.message +="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+ list.get(i) + "<br/>";
 					}
 				}
-
-				// int index = fileName.lastIndexOf(".");
-				// String name = System.currentTimeMillis() +
-				// fileName.substring(index);
-				//
-				// String indexDir =
-				// com.changpeng.common.Constants.PHOTO_SAVE_PATH +
-				// lawyers.getDirectunion() + "/";
-				// File filedir = new File(indexDir);
-				//
-				// if (!filedir.exists()) {
-				// boolean s = filedir.mkdirs();
-				// debug("文件路径:::" + indexDir + "创建成功..." + s);
-				// }
-				//
-				// File file = new File(indexDir +
-				// System.getProperty("file.separator") + name);
-				// upload.renameTo(file);
-this.opResult="批量新增律师,总计" + lawyerslist.size() + "个,成功导入" + success + "个";
+				this.opResult = "批量补登积分,总计" + budenglist.size() + "个,成功导入" + success + "个";
 			} catch (Exception e) {
 				_LOG.error("文件解析失败:", e);
 				this.message = "上传文件解析失败,请返回:" + e.getMessage();

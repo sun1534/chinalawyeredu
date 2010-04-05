@@ -198,7 +198,14 @@ public class LawyersListAction extends AbstractListAction {
 		}
 
 		// 按userid逆序排序
-		detachedCriteria.addOrder(Order.desc("lawyerid"));
+		
+		
+		if(resultType!=null&&resultType.equals("cardnolist")){
+			detachedCriteria.addOrder(Order.desc("systemno"));
+		}else{
+			detachedCriteria.addOrder(Order.desc("lawyerid"));
+		}
+		
 		BasicService service = (BasicService) getBean("basicService");
 
 		if (resultType.equals("list")) {

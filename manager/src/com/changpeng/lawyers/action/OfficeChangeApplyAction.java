@@ -61,6 +61,7 @@ public class OfficeChangeApplyAction extends AbstractAction {
 		}
 		
 		this.message = lawyers.getLawyername()+"的转所申请已提交成功";
+		this.opResult="提交转所申请:"+lawyers.getLawyername();
 
 		this.nextPage = "officeChangeApplyList.pl";
 

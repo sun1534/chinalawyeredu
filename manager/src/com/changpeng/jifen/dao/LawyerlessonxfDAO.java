@@ -94,13 +94,13 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String peixunsql = "";
 				String weipeixunsql = "";
 				if (field != null && !"".equals(field)) {
-					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where (UNIX_TIMESTAMP(c.lastupdate) between "
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + " and c." + field + "=" + fieldvalue + ")";
-					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and (UNIX_TIMESTAMP(cc.lastupdate) between "+ _from + " and " + _end + ") and cc." + field + "=" + fieldvalue + ")";
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and (UNIX_TIMESTAMP(cc.lastupdate) between "+ _from + " and " + _end + ") and cc." + field + "=" + fieldvalue + ")";
 				} else {
-					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where (UNIX_TIMESTAMP(c.lastupdate) between "
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ")";
-					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and (UNIX_TIMESTAMP(cc.lastupdate) between "+ _from + " and " + _end + ") ";
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and (UNIX_TIMESTAMP(cc.lastupdate) between "+ _from + " and " + _end + ") ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -155,8 +155,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 //						weipeixunsql += " and aa." + field + " =" + fieldvalue + "";
 //				}
 				
-				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPNAME";
-				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPNAME ";
+				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPID";
+				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPID ";
 
 				String sql = peixunsql + " union " + weipeixunsql;
 				_LOG.info("统计SQL:" + sql);
@@ -177,7 +177,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -220,11 +221,11 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String peixunsql = "";
 				String weipeixunsql = "";
 				if (field != null && !"".equals(field)) {
-					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year+" and c." + field + "=" + fieldvalue ;
-					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year+" and cc." + field + "=" + fieldvalue + ")";
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year+" and c." + field + "=" + fieldvalue ;
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year+" and cc." + field + "=" + fieldvalue + ")";
 				} else {
-					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year;
-					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year;
+					peixunsql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where c.theyear="+year;
+					weipeixunsql = "select aa.dabiaofen,aa.lawyername ,aa.lawyerid,bb.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,aa.localfen from lawyers aa left outer join sys_group bb on aa.theoffice = bb.GROUPID where aa.lawyerid not in (select cc.lawyerid from lawyerlessonxf cc where cc.lawyerid=aa.lawyerid and cc.theyear="+year;
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -258,8 +259,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					}
 				}
 	
-				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPNAME";
-				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPNAME ";
+				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPID";
+				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPID ";
 
 				String sql = peixunsql + " union " + weipeixunsql;
 				_LOG.info("统计SQL:" + sql);
@@ -283,7 +284,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -330,10 +332,10 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String sql = "";
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ") and c." + field + "=" + fieldvalue ;
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ") ";
 				}
 
@@ -359,11 +361,11 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				// dabiao =
 				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)>=" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
 				
-//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=10";
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=10";
 				
 				_LOG.info("达标数的统计SQL:" + sql);
 
@@ -379,7 +381,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -421,9 +424,9 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String sql = "";
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -448,11 +451,11 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				// dabiao =
 				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)>=" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
 				
-//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)>=10";
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=10";
 				
 				_LOG.info("达标数的统计SQL:" + sql);
 
@@ -468,7 +471,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -526,10 +530,10 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String sql = "";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ") and c." + field + "=" + fieldvalue ;
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (UNIX_TIMESTAMP(c.lastupdate) between "
 							+ _from + " and " + _end + ") ";
 				}
 
@@ -557,10 +561,10 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				// dabiao =
 				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)<" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
-//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<10"+dabiaofen;
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<10"+dabiaofen;
 				_LOG.info("未达标数的统计SQL:" + sql);
 
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
@@ -575,7 +579,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -618,9 +623,9 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String sql = "";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") and c." + field + "=" + fieldvalue ;
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,sum((case when (c.learnmode = 1) then c.pxxf else 0 end)) AS xianchang,sum((case when (c.learnmode = 2) then c.pxxf else 0 end)) AS video,sum((case when (c.learnmode = 3) then c.pxxf else 0 end)) AS doc,sum((case when (c.learnmode = 4) then c.pxxf else 0 end)) AS budeng,sum((case when (c.learnmode = 5) then c.pxxf else 0 end)) AS koufen,(case when sum(c.pxxf) is null then 0 else sum(c.pxxf) end) AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID inner join lawyerlessonxf c on a.lawyerid = c.lawyerid  where  (c.theyear="+year+") ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -647,10 +652,10 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				// dabiao =
 				// Integer.parseInt(CommonDatas.SysParameter.get("dabiaofen").toString());
 
-				// sql += " group by c.lawyername,c.lawyerid,b.GROUPNAME having
+				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)<" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
-//				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME having FORMAT(sum(pxxf),2)<10"+dabiaofen;
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
+//				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<10"+dabiaofen;
 				_LOG.info("未达标数的统计SQL:" + sql);
 
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
@@ -665,7 +670,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -722,9 +728,9 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String sql = "";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.localfen,a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (UNIX_TIMESTAMP(c.lastupdate) between "+ _from + " and " + _end + ") and c." + field + "=" + fieldvalue + ") ";
+					sql = "select a.localfen,a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (UNIX_TIMESTAMP(c.lastupdate) between "+ _from + " and " + _end + ") and c." + field + "=" + fieldvalue + ") ";
 				} else {
-					sql = "select a.localfen,a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (UNIX_TIMESTAMP(c.lastupdate) between "+ _from + " and " + _end + ")) ";
+					sql = "select a.localfen,a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (UNIX_TIMESTAMP(c.lastupdate) between "+ _from + " and " + _end + ")) ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -746,7 +752,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql+=" and a.provinceunion =" + fieldvalue;
 				}
 
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME ";
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID ";
 				_LOG.info("未培训数的统计SQL:" + sql);
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
 				// Query queryObject = session.createSQLQuery(sql);
@@ -762,7 +768,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));
@@ -789,9 +796,9 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				String sql = "";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+") and c." + field + "=" + fieldvalue + ") ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+") and c." + field + "=" + fieldvalue + ") ";
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPNAME ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+")) ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a left outer join sys_group b on a.theoffice = b.GROUPID where a.lawyerid not in (select lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid and (c.theyear="+year+")) ";
 				}
 
 				if (officename != null && !"".equals(officename)) {
@@ -813,7 +820,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql+=" and a.provinceunion =" + fieldvalue;
 				}
 
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPNAME ";
+				sql += " group by a.lawyername,a.lawyerid,b.GROUPID ";
 				_LOG.info("未培训数的统计SQL:" + sql);
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
 				// Query queryObject = session.createSQLQuery(sql);
@@ -829,7 +836,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
 					tongji.setName(obj[1].toString());
 					tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-					tongji.setGroupname(obj[3].toString());
+//					tongji.setGroupname(obj[3].toString());
+					tongji.setGroupid(Integer.parseInt(obj[3].toString()));
 					tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4].toString())));
 					tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5].toString())));
 					tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6].toString())));

@@ -45,7 +45,7 @@ public class OfficeChangeHandleAction extends AbstractAction {
 				.getNewcity(), changeApply.getNewprovince(), this.getLoginUser(), changeApply);
 
 		this.message = "转所申请处理通过";
-
+		this.opResult = "申请人" + changeApply.getApplyname() + "提交的" + changeApply.getLawyername() + "律师转所申请处理通过";
 		this.nextPage = "officeChangeApplyList.pl";
 
 		return SUCCESS;

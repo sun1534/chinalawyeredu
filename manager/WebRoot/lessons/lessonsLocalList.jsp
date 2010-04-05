@@ -165,8 +165,7 @@ function deleteid(lessonid){
 						<tr>
 				<td height="24" align="center" background="../imagesa/login_bg1.gif">
 				
-								<INPUT type="button" onClick="return getAdd()" value="新增现场课程"
-									name="addbutton" class="button">
+								<INPUT type="button" onClick="return getAdd()" value="发布现场培训通知" name="addbutton" class="button">
 								
 
 								&nbsp;

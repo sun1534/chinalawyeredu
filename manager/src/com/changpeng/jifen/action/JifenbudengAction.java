@@ -25,21 +25,21 @@ public class JifenbudengAction extends AbstractAction {
 
 	private Jifenbudeng budeng;
 
-	private boolean beupload;
-	private File uploadfile; // 上传文件
+	// private boolean beupload;
+	// private File uploadfile; // 上传文件
 
 	// private String fileName;
 
-	public void setUploadfile(File uploadfile) {
-		this.uploadfile = uploadfile;
-	}
-
-	// public void setUploadfileFileName(String fileName) {
-	// this.fileName = fileName;
+	// public void setUploadfile(File uploadfile) {
+	// this.uploadfile = uploadfile;
 	// }
-	public void setBeupload(boolean beupload) {
-		this.beupload = beupload;
-	}
+	//
+	// // public void setUploadfileFileName(String fileName) {
+	// // this.fileName = fileName;
+	// // }
+	// public void setBeupload(boolean beupload) {
+	// this.beupload = beupload;
+	// }
 
 	public Jifenbudeng getBudeng() {
 		if (budeng == null)
@@ -61,29 +61,30 @@ public class JifenbudengAction extends AbstractAction {
 		Lawyers lawyer = null;
 		if (get("budengexist") != null && "0".equals(get("budengexist"))) {
 
-			if (!beupload) {
-				lawyer = (Lawyers) lawyersService.getLawyerbyLawyerno(budeng.getLawyerno(),
-						datavisible.getProvinceid(), datavisible.getCityid());
-				if (lawyer == null) {
-					this.message = "执业资格证号:" + budeng.getLawyerno() + "对应的律师资料已不存在,请返回";
-					this.nextPage = "jifenbudeng!input.pl?budengid=" + this.budengid;
-					return "message";
-				}
-				budeng.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-				budeng.setCreateuser(user.getUsername());
-				budeng.setLawyerid(lawyer.getLawyerid());
-				budeng.setProvinceid(lawyer.getProvinceunion());
-				budeng.setCityid(lawyer.getDirectunion());
-				budeng.setOfficeid(lawyer.getTheoffice());
-				budeng.setLawyername(lawyer.getLawyername());
-				budengservice.saveJifenbudeng(budeng);
-			} else { // 解析上传文件
-
-				this.message = budengservice.saveJifenbudeng(budeng.getTitle(), budeng.getXuefen(), uploadfile,
-						getLoginUser(), datavisible);
-				this.nextPage = "jifenbudengList.pl";
-				return SUCCESS;
+			// if (!beupload) {
+			lawyer = (Lawyers) lawyersService.getLawyerbyLawyerno(budeng.getLawyerno(), datavisible.getProvinceid(),
+					datavisible.getCityid());
+			if (lawyer == null) {
+				this.message = "执业资格证号:" + budeng.getLawyerno() + "对应的律师资料已不存在,请返回";
+				this.nextPage = "jifenbudeng!input.pl?budengid=" + this.budengid;
+				return "message";
 			}
+			budeng.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			budeng.setCreateuser(user.getUsername());
+			budeng.setLawyerid(lawyer.getLawyerid());
+			budeng.setProvinceid(lawyer.getProvinceunion());
+			budeng.setCityid(lawyer.getDirectunion());
+			budeng.setOfficeid(lawyer.getTheoffice());
+			budeng.setLawyername(lawyer.getLawyername());
+			budengservice.saveJifenbudeng(budeng);
+			// } else { // 解析上传文件
+			//
+			// this.message = budengservice.saveJifenbudeng(budeng.getTitle(),
+			// budeng.getXuefen(), uploadfile,
+			// getLoginUser(), datavisible);
+			// this.nextPage = "jifenbudengList.pl";
+			// return SUCCESS;
+			// }
 		} else {
 			Float oldxuefen = (Float) get("oldbudeng");
 
@@ -98,7 +99,7 @@ public class JifenbudengAction extends AbstractAction {
 
 	@Override
 	public String input() throws Exception {
-		
+
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
 
 		BasicService basic = (BasicService) getBean("basicService");
@@ -107,20 +108,21 @@ public class JifenbudengAction extends AbstractAction {
 			set("budengexist", "0");
 			this.budeng = new Jifenbudeng();
 		} else {
-			
+
 			this.datavisible.setCityid(budeng.getCityid());
 			this.datavisible.setProvinceid(budeng.getProvinceid());
-			
+
 			set("oldbudeng", this.budeng.getXuefen());
 			set("budengexist", "1");
 		}
-		
+
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 		set("budeng", budeng);
 
 		return INPUT;
 	}
-	private JifenTime jifentime;	
+
+	private JifenTime jifentime;
 	private int budengid;
 
 	public void setBudengid(int budengid) {

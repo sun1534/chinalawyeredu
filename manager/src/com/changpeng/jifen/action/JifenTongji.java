@@ -14,7 +14,8 @@ public class JifenTongji {
 	private float localfen;
 	private String name;
 	private int lawyerid;
-	private String groupname;
+//	private String groupname;
+	private int groupid;
 	private float xianchang;
 	private float video;
 	private float doc;
@@ -70,14 +71,14 @@ public class JifenTongji {
 	 * @return the groupname
 	 */
 	public String getGroupname() {
-		return groupname;
+		return com.changpeng.system.util.CommonDatas.groups.get(groupid);
 	}
 	/**
 	 * @param groupname the groupname to set
 	 */
-	public void setGroupname(String groupname) {
-		this.groupname = groupname;
-	}
+//	public void setGroupname(String groupname) {
+//		this.groupname = groupname;
+//	}
 	/**
 	 * @return the xianchang
 	 */
@@ -161,6 +162,22 @@ public class JifenTongji {
 	 */
 	public void setLocalfen(float localfen) {
 		this.localfen = localfen;
+	}
+
+
+	/**
+	 * @return the groupid
+	 */
+	public int getGroupid() {
+		return groupid;
+	}
+
+
+	/**
+	 * @param groupid the groupid to set
+	 */
+	public void setGroupid(int groupid) {
+		this.groupid = groupid;
 	}
 	
 	

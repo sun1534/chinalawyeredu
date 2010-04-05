@@ -33,30 +33,33 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 
 	@Override
 	protected String go() throws Exception {
-		this.selectoffice = getLoginUser().getOfficeid();
+		if (selectoffice == 0)
+			this.selectoffice = getLoginUser().getOfficeid();
 		LawyerlessonxfService xfservice = (LawyerlessonxfService) getBean("lawyerlessonxfService");
 
 		// int groupid=this.getLoginUser().getOfficeid();
 		group = (SysGroup) basicService.get(SysGroup.class, selectoffice);
+
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, group.getParentid());
 		if (params == null) {
 			this.message = "您所在的律协没有设置达标分等参数,请联系管理员";
 			return "message";
 		}
 		dabiaofen = params.getDabiaofen();
-		localfen=params.getLocalfen();
+		localfen = params.getLocalfen();
 
 		// 根据用户选择的年份以及年审时间得到查询的起始终止时间段
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(year, params.getNianshen());
-	    year=jifentime.getNianshenyear();
+		year = jifentime.getNianshenyear();
 		// 统计这个事务所的律师，达标数、未达标数、未培训数
 		// getOfficeDabiaoshu(jifentime.getStart(),jifentime.getEnd(),dabiaofen,selectoffice);
 
 		// 统计这个律协的律师，达标数、未达标数、未培训数
-//		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(), jifentime.getEnd(), dabiaofen,
-//				"officeid", selectoffice);
-	    
-		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,params.getLocalfen(),
+		// this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getStart(),
+		// jifentime.getEnd(), dabiaofen,
+		// "officeid", selectoffice);
+
+		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, params.getLocalfen(),
 				"officeid", selectoffice);
 
 		// 显示律师的明细情况
@@ -64,31 +67,23 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-		
-
-
-		if(!resultType.equals("")&&resultType.equals("excel")){
-			pageNo=1;
-			pageSize=Integer.MAX_VALUE;
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
-					pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
+		if (!resultType.equals("") && resultType.equals("excel")) {
+			pageNo = 1;
+			pageSize = Integer.MAX_VALUE;
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo,
+					pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
 			return "excel";
-		}else{
-		
-		
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno,
-					pageNo, pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
+		} else {
+
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo,
+					pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
 			return SUCCESS;
 		}
-		
-		
-		
-		
+
 	}
 
-private String resultType="list";
-	
-	
+	private String resultType = "list";
+
 	/**
 	 * @return the resultType
 	 */
@@ -97,12 +92,13 @@ private String resultType="list";
 	}
 
 	/**
-	 * @param resultType the resultType to set
+	 * @param resultType
+	 *            the resultType to set
 	 */
 	public void setResultType(String resultType) {
 		this.resultType = resultType;
 	}
-	
+
 	private SysGroup group;
 	private int selectoffice;
 	private Jifenstatics jifenstatics;

@@ -98,7 +98,7 @@ if(nianshenyear!=0){
 //		System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
 
 	
-		this.page = lessonsService.getPages(_mygroup, groupid, lessonstyle, lessontype, title, teachers, pageSize,
+		this.page = lessonsService.getPages(_mygroup, groupid, onlineType,lessonstyle, lessontype, title, teachers, pageSize,
 				pageNo, start, end);
 		com.changpeng.system.util.CommonDatas.getGroups();
 
@@ -136,6 +136,9 @@ if(nianshenyear!=0){
 	public void setTeachers(String teachers) {
 		this.teachers = teachers;
 	}
+	
+	private int onlineType=-1;
+	
 
 //	/**
 //	 * @return the groupid
@@ -151,6 +154,20 @@ if(nianshenyear!=0){
 //	public void setGroupid(int groupid) {
 //		this.groupid = groupid;
 //	}
+
+	/**
+	 * @return the onlineType
+	 */
+	public int getOnlineType() {
+		return onlineType;
+	}
+
+	/**
+	 * @param onlineType the onlineType to set
+	 */
+	public void setOnlineType(int onlineType) {
+		this.onlineType = onlineType;
+	}
 
 	/**
 	 * @return the fromlist

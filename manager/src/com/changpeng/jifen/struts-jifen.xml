@@ -11,6 +11,10 @@
        <action name="jifenbudeng" class="com.changpeng.jifen.action.JifenbudengAction">
        	  <result name="input" type="dispatcher">/jifen/jifenbudeng.jsp</result>
        </action>  
+       <action name="jifenbudengBatch" class="com.changpeng.jifen.action.JifenbudengBatchAction">
+       	  <result name="input" type="dispatcher">/jifen/jifenbudengBatch.jsp</result>
+       </action>         
+       
        <action name="jifenbudengDelete" class="com.changpeng.jifen.action.JifenbudengDeleteAction">
      
        </action> 

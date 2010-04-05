@@ -198,7 +198,7 @@ public class LessonsService extends BasicService {
 		return statics;
 	}
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
-	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid, int lessonstyle,
+	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid,int onlinetype, int lessonstyle,
 			int lessontype, String title, String teachers, int pageSize, int pageNo,Timestamp start,Timestamp end) {
 
 		// 现场课程的话，如果我是admin或者group>3，则显示所有的现场课程，否则的话，
@@ -227,6 +227,9 @@ public class LessonsService extends BasicService {
 			}
 			if (lessontype != 0) {
 				dc.add(Restrictions.eq("lessontype", lessontype));
+			}
+			if (onlinetype != -1) {
+				dc.add(Restrictions.eq("onlineType", onlinetype));
 			}
 			if (groupid != -1) {
 //				dc.add(Restrictions.eq("lessons.groupid", groupid));
@@ -286,6 +289,11 @@ public class LessonsService extends BasicService {
 			if (title != null && !"".equals(title)) {
 				dc.add(Restrictions.like("lessons.title", title, MatchMode.ANYWHERE));
 				hql += " and a.lessons.title like '%" + title + "%'";
+			}
+			if (onlinetype != -1) {
+//				dc.add(Restrictions.eq("onlinetype", onlinetype));
+				dc.add(Restrictions.eq("lessons.onlineType",onlinetype ));
+				hql += " and a.lessons.onlineType = " + onlinetype ;
 			}
 			if (teachers != null && !"".equals(teachers)) {
 				dc.add(Restrictions.like("lessons.teachers", teachers, MatchMode.ANYWHERE));

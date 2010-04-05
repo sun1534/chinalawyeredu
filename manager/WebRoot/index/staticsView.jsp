@@ -7,7 +7,7 @@
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EDEDED">
       <tr>
-        <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;统计信息</td>
+        <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/jifenStaticsQuery.pl">培训统计信息</a></td>
         </tr>
          <tr>
         <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
@@ -70,7 +70,7 @@
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EDEDED">
       <tr>
-        <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;市律协统计信息(达标分:${sysgroup.sysUnionparams.dabiaofen})</td>
+        <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/cityUnionJifenStatic.pl">市律协统计信息(达标分:${sysgroup.sysUnionparams.dabiaofen})</a></td>
         </tr>
       <tr>
         <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
@@ -78,7 +78,7 @@
       </tr>
         
       <tr  bgcolor="#F2F8FF" >
-        <td align="right" width="45%" height="18" valign="middle">
+        <td align="right" width="55%" height="18" valign="middle">
         <b>现场培训课程数：</b></td>
         <td align="left" >${lessonstatics.local}</td>      
         </tr>
@@ -172,5 +172,41 @@
     </table></td>
   </tr>
 </table>
+<br/>
+<table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#C2D6F0" >
+  <tr>
+    <td valign="top" bgcolor="#FFFFFF">
+    
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EDEDED">
+      <tr>
+        <td height="24" colspan="2" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/officeJifenStatic.pl">培训统计信息</a></td>
+        </tr>
+         <tr>
+        <td height="23" colspan="2"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
+            到 【${jifentime.endstr}】</b></td>
+      </tr>
+    
+  
+     <tr bgcolor="#F2F8FF" >
+        <td align="right" height="18" width="55%"><b>参加网上培训数： </b> </td>                  
+        <td align="left" >${learnmodestatics.video}</td>
+        </tr> 
+	<tr  bgcolor="#F2F8FF" >
+        <td align="right" height="18"><b>已达标人数： </b>   </td>                
+        <td align="left" >${jifenstatics.dabiaoshu}</td>
+        </tr>
+      <tr bgcolor="#F2F8FF" >
+        <td align="right" height="18"><b>未达标人数：</b> </td>                   
+        <td align="left" >${jifenstatics.weidabiao}</td>
+        </tr>
+         <tr bgcolor="#F2F8FF" >
+        <td align="right" height="18"><b>未培训人数：</b></td>                   
+        <td align="left" >${jifenstatics.weipeixun}</td>
+        </tr>    
+     
+    </table></td>
+  </tr>
+</table>
+
 <br/>
 </s:elseif>

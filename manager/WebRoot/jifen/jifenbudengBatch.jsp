@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>律师信息新增修改</title>
+<title>${sysName }-积分批量补登</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <jscalendar:head/>
 <link href="../css/css.css" rel="stylesheet" type="text/css">
@@ -57,7 +57,7 @@ function getOffices(vallll){
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-					批量新增律师信息
+					批量补登积分
 				</td>
 			</tr>
 </table>
@@ -65,29 +65,29 @@ function getOffices(vallll){
 			align="center" class="border-table">
 	<tr>			
     <td>
-    <s:form name="form1" action="lawyersCreateBatch" method="post" validate="true" enctype="multipart/form-data">
+    <s:form name="form1" action="jifenbudengBatch" method="post" validate="true" enctype="multipart/form-data">
       <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">
 		
 		 <tr>
           <td align="right" width="20%" class="tab_content1">
-             所属律协:
+            对应市(省直属)律协选择：
           </td>
           <td class="tab_content1">
-             <s:if test="datavisible.provinceview">
-             <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
-             </s:if>
-            <s:else>
-              <s:hidden name="datavisible.provinceid"/>
+        <s:if test="datavisible.provinceview">
+          <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省级律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
+        </s:if>
+        <s:else>
               <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.provinceid]"/>
-              
-            </s:else>
-                  <s:if test="datavisible.cityview">
-             <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择"/>
-              </s:if>
-           <s:else>
-              <s:hidden name="datavisible.cityid"/>
-              <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
-             </s:else>
+              <s:hidden name="datavisible.provinceid"/>
+        </s:else>
+              <!-- 具体到某个律协就行了 -->
+        <s:if test="datavisible.cityview">
+             <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname"/>
+        </s:if>
+        <s:else>
+            <s:hidden name="datavisible.cityid"/>
+            <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
+        </s:else>
            </td>
         </tr>
         <tr>
@@ -103,7 +103,7 @@ function getOffices(vallll){
      &nbsp;
           </td>
           <td class="tab_content">
-           <a href="../template/lawyers.xls">导入模板下载</a> （注：在批量新增时请先下载"导入模板"并制作表格）
+           <a href="../template/jifenbudeng.xls">导入模板下载</a> （注：在批量新增时请先下载"导入模板"并制作表格）
           </td>
      
      </tr>

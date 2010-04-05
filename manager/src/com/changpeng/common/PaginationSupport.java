@@ -155,13 +155,15 @@ public class PaginationSupport {
 		int pageNum=this.count;
 		
 		if (pageNum > 0) {
-			sb.append("总计").append(totalCount).append("条记录,第").append(pageNo).append("页,共").append(pageNum).append("页");
+			sb.append("<font color='red'>总计").append(totalCount).append("条记录,第").append(pageNo).append("页,共").append(pageNum).append("页</font>");
 //			if (pageNum == 1) {
 //				sb.append("首页 前页 后页 末页");
 //			}
 //			else {
+			
 			if(pageNum>1)
 			{
+				
 				sb.append(",");
 				if (pageNo == 1) {
 					sb.append("首页 前页");
@@ -174,9 +176,10 @@ public class PaginationSupport {
 					sb.append(" 后页 末页");
 				}
 				else {
-					sb.append("<a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
-							")> 后页</a> <a href=\"#\" onclick=fanye(").append(pageNum).append(")>末页</a>");
+					sb.append(" <a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
+							")>后页</a> <a href=\"#\" onclick=fanye(").append(pageNum).append(")>末页</a>");
 				}
+				
 			}
 		}
 		return sb.toString();

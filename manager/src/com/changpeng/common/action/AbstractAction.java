@@ -319,6 +319,10 @@ public abstract class AbstractAction extends ActionSupport {
 		return com.changpeng.common.Constants.RESOURCE_PATH;
 	}
 	
+	public String getSysName(){
+		return com.changpeng.common.Constants.SYS_NAME;
+	}
+	
 	public void setNow(String now){
 		
 	}

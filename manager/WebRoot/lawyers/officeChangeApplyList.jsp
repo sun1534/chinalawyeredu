@@ -104,8 +104,7 @@ body {
        </s:else>
        </TD>
         <TD class="tab_content" align="center">${confirmusername}</TD>
-      </TR>
-      
+   
       </TR>
      </s:iterator> 
      

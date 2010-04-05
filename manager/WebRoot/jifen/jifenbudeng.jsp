@@ -3,7 +3,7 @@
 <%@ taglib prefix="jscalendar" uri="/jscalendar"%>
 <html>
 <head>
-<title>参数新增</title>
+<title>${sysName }-补登积分</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <jscalendar:head/>
@@ -86,8 +86,8 @@
             }
         }
        
-       if (form.elements['beupload']) {
-            field = form.elements['beupload'];
+     //  if (form.elements['beupload']) {
+       /*     field = form.elements['beupload'];
             
             if(field.checked){
             	var upload = form.elements['uploadfile'];
@@ -104,7 +104,7 @@
 				    errors = true;
 				    return !errors;
 				}
-            }else{
+            }else{*/
             	field = form.elements['budeng.lawerno'];
 	            var error = "请输入律师执业证号!";
 	            if (field.value != null && (field.value == "" || field.value.replace(/^\s+|\s+$/g,"").length == 0)) {
@@ -112,8 +112,8 @@
 	            errors = true;
 	            return !errors;
 	            }
-            }
-        }
+        //    }
+        //}
        return !errors;
       // return false;
     }
@@ -187,7 +187,7 @@ function getOffices(vallll){
         <td width="63%" colspan="2" class="tab_content1" align="left">
        
        <s:select name="budeng.theyear" list="jifentime.years"/> 
-       	
+       	&nbsp;&nbsp;&nbsp;<font color='red'>补登的积分,将会计算到所选择的补登年度</font>
         </td>
         </tr>
        <tr>
@@ -196,32 +196,29 @@ function getOffices(vallll){
         <td width="63%" colspan="2" class="tab_content1" align="left">
         <s:if test="datavisible.provinceview">
           <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省级律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
-       
         </s:if>
         <s:else>
               <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.provinceid]"/>
-                     
-        <s:hidden name="datavisible.provinceid"/>
+              <s:hidden name="datavisible.provinceid"/>
         </s:else>
               <!-- 具体到某个律协就行了 -->
-                <s:if test="datavisible.cityview">
+        <s:if test="datavisible.cityview">
              <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname"/>
-           </s:if>
-             <s:else>
-        <s:hidden name="datavisible.cityid"/>
-               <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
-                     
+        </s:if>
+        <s:else>
+            <s:hidden name="datavisible.cityid"/>
+            <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
         </s:else>
         </td>
         </tr>
-        <tr>
+      <!--   <tr>
 			<td width="20%" class="tab_content" align="right">
 				   是否上传：
 			</td>
 			<td width="80%" colspan="2" class="tab_content1">
 				<s:checkbox name="beupload" onclick="isupload(this.checked)"/>
 			</td>
-		</tr>
+		</tr> 
 		<tr id="upload" style="display:none">
 			<td width="20%" class="tab_content" align="right">
 				   律师执业证号：
@@ -231,7 +228,7 @@ function getOffices(vallll){
 				<div style="color:red">上传文件必须为文本文件，律师执业证号间用回车分隔</div>
 			</td>
 		</tr>
-		
+		-->
       <tr id="input">
         <td width="37%" class="tab_content" align="right">律师执业证号：
         </td>

@@ -127,12 +127,16 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 
 			bs.save(lawyersShixi);
 			this.message = "实习律师信息新增成功";
+			
+			this.opResult="新增实习律师信息:"+lawyersShixi.getLawyername();
 
 		} else {
 
 		
 			bs.update(lawyersShixi);
 			this.message = "实习律师信息修改成功";
+			
+			this.opResult="修改实习律师信息:"+lawyersShixi.getLawyername();
 		}
 
 		this.nextPage = "lawyersShixiList.pl";

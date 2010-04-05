@@ -68,7 +68,7 @@ return;
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-				事务所新增修改
+				批量新增律师事务所信息
 				</td>
 			</tr>
 		</table>
@@ -119,6 +119,15 @@ return;
            <s:file name="upload" size="35" cssClass="text1"/>
           </td>
         </tr>
+     <tr>
+      <td align="right" class="tab_content">
+     &nbsp;
+          </td>
+          <td class="tab_content">
+           <a href="../template/offices.xls">导入模板下载</a> （注：在批量新增时请先下载"导入模板"并制作表格）
+          </td>
+     
+     </tr>
      
       
         <tr>

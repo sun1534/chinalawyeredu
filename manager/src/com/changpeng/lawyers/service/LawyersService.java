@@ -367,6 +367,7 @@ public class LawyersService extends BasicService {
 				lawyer.setCreateusername(sysUser.getUsername());
 				lawyer.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyer.getLawyername()));
 				lawyer.setPasswd(lawyer.getCertno());
+			
 				lawyer.setRegsrc(11); // 后台批量导入
 				lawyer.setRemarks("批量导入");
 				lawyer.setLoginname(lawyer.getLawyerno());

@@ -19,6 +19,9 @@ body {
 	function getAdd(){
 		window.location.href="jifenbudeng!input.pl";
 	}
+		function getBatchAdd(){
+		window.location.href="jifenbudengBatch!input.pl";
+	}
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();
@@ -136,15 +139,11 @@ function getOffices(vallll){
          <TD class="tab_content" align="center">${budengdate}</TD>
          <TD class="tab_content" align="center"><a href="#" onClick="deleteit(${budengid})">【删除】</a></TD>
       </TR> 
-   
      </s:iterator> 
      
       
       <tr bgcolor="#F1F1ED">
         <td  colspan="7" align="center">&nbsp;
-    
-  
-        	
        </td>
       </tr>
      
@@ -152,7 +151,8 @@ function getOffices(vallll){
         	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr >
           <td height="24" align="center" background="../imagesa/login_bg1.gif" >
-       <input type="button" name="budeng" value="补登积分" onClick="getAdd()"/>
+       <input type="button" name="budeng" value="补登积分" onClick="getAdd()"/>&nbsp;&nbsp;&nbsp;
+          <input type="button" name="budeng" value="批量补登积分" onClick="getBatchAdd()"/>
           </td>
         </tr>
       </table>   

@@ -4,8 +4,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class CopyOfTest {
-
 	public static void main(String args[]) throws Exception {
+		System.out.println(com.changpeng.common.util.MD5.md5("123456"));
+	}
+	public static void main1(String args[]) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = java.sql.DriverManager.getConnection(
 				"jdbc:mysql://211.154.157.174:3306/saaspxxt?characterEncoding=utf-8", "root", "password");

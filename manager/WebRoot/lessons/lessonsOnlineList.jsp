@@ -82,8 +82,8 @@ function getCities(vallll){
           
              <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" label="市律协" headerKey="0" headerValue="请选择"/>
             
-						 	
-                            类型:
+						 	文件类型:<s:select name="onlineType" list="#{'-1':'全部','0':'视频','1':'音频'}"/>
+                            课程类型:
                             	<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="0" headerValue="全部"/>
 						
 						 		<s:hidden name="lessonstyle"/>

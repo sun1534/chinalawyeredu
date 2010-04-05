@@ -29,15 +29,13 @@ $("#staticid").load("staticsView.pl?now="+new Date().getTime());
       <tr>
       <td class="baseFontBold" align="center" width="4"></td>
         <td height="24" colspan="2" class="baseFontBold"  align="left">
-      重要通知(
-              <s:if test="@com.changpeng.system.util.CommonDatas@groups.containsKey(tongzhi.thegroup)">
+      重要通知(<s:if test="@com.changpeng.system.util.CommonDatas@groups.containsKey(tongzhi.thegroup)">
       <s:property value="@com.changpeng.system.util.CommonDatas@groups[tongzhi.thegroup]"/>
       </s:if>
       <s:else>
       系统发布
       </s:else>
-      
-      )：${tongzhi.title}               
+      )：<font color='red'>${tongzhi.title}</font>             
         </td>
         </tr>
         <tr>
@@ -83,12 +81,7 @@ $("#staticid").load("staticsView.pl?now="+new Date().getTime());
      
         </tr>
     </s:iterator>
-     <tr>
-        <td class="tab_content1" align="left" colspan="7" height="4px">
-     
-        </td>
-      
-      </tr>
+
     </table></td>
   </tr>
 </table> 

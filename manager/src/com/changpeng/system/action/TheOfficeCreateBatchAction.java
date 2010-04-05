@@ -47,7 +47,8 @@ public class TheOfficeCreateBatchAction extends AbstractAction {
 
 				List<SysGroup> grouplist = com.changpeng.system.util.ExcelUtil.parseGroupXls(upload);
 
-				List<String> list = bs.addGroupBatch(this.getLoginUser(), datavisible.getCityid(), datavisible.getProvinceid(), grouplist);
+				List<String> list = bs.addGroupBatch(this.getLoginUser(), datavisible.getCityid(), datavisible
+						.getProvinceid(), grouplist);
 
 				int success = grouplist.size() - list.size();
 
@@ -55,7 +56,7 @@ public class TheOfficeCreateBatchAction extends AbstractAction {
 				if (list.size() > 0) {
 					this.message += "<br/>失败情况如下<br/><hr/>";
 					for (int i = 0; i < list.size(); i++) {
-						this.message +=  list.get(i)+"<br/>";
+						this.message += list.get(i) + "<br/>";
 					}
 				}
 

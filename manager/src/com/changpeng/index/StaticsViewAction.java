@@ -47,57 +47,59 @@ public class StaticsViewAction extends AbstractAction {
 		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
 		LessonsService lessonsservice = (LessonsService) this.getBean("lessonsService");
 		LawyersService lawyersservice = (LawyersService) this.getBean("lawyersService");
-		
-		if (sysgroup == null || sysgroup.getGrouptype() > 3) {// 系统管理员层级
-			
-			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
-			this.lawyerscnt=lawyersservice.getFieldLawyerCnt(null, 0);
-			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(),null,0);
-//			 this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
-		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
 
-			
+		if (sysgroup == null || sysgroup.getGrouptype() > 3) {// 系统管理员层级
+
+			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
+			this.lawyerscnt = lawyersservice.getFieldLawyerCnt(null, 0);
+			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), null, 0);
+			// this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(),
+			// jifentime.getEnd(), null,0);
+			this.alllessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null, 0);
+
 		} else if (sysgroup.getGrouptype() == 1) {// 事务所
 			SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, sysgroup.getParentid());
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, params.getNianshen());
-			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params
-					.getDabiaofen(),params.getLocalfen(), "officeid", sysgroup.getGroupid());
-			OfficeProperties properties= (OfficeProperties)basicService.get(OfficeProperties.class, sysgroup.getGroupid());
-			if(properties!=null)
-			this.officelogo=properties.getPhoto();
-		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
-
-
+			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params.getDabiaofen(), params
+					.getLocalfen(), "officeid", sysgroup.getGroupid());
+			OfficeProperties properties = (OfficeProperties) basicService.get(OfficeProperties.class, sysgroup
+					.getGroupid());
+			if (properties != null)
+				this.officelogo = properties.getPhoto();
+			this.alllessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null, 0);
+			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "officeid",
+					sysgroup.getGroupid());
 		} else if (sysgroup.getGrouptype() == 2) {// 市级律协
 			SysUnionparams params = sysgroup.getSysUnionparams();
 			jifentime = com.changpeng.jifen.util.CommonDatas
 					.getJifenTime(0, sysgroup.getSysUnionparams().getNianshen());
-			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params
-					.getDabiaofen(),params.getLocalfen(), "cityid", sysgroup.getGroupid());
+			this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), params.getDabiaofen(), params
+					.getLocalfen(), "cityid", sysgroup.getGroupid());
 			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getStart(), jifentime.getEnd(), "cityid",
 					sysgroup.getGroupid());
-		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+			this.alllessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null, 0);
 
-			this.lawyerscnt=this.jifenstatics.getAllusers();
+			this.lawyerscnt = this.jifenstatics.getAllusers();
 
-		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "cityid",sysgroup.getGroupid());
+			this.lessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "cityid",
+					sysgroup.getGroupid());
 
 		} else if (sysgroup.getGrouptype() == 3) {// 省级律协
 			jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
-			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getNianshenyear(), "provinceid",
+			this.learnmodestatics = xfservice.getFiledLearnmode(jifentime.getNianshenyear(), "provinceid", sysgroup
+					.getGroupid());
+			this.lessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "provinceid",
 					sysgroup.getGroupid());
-		    this.lessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), "provinceid",sysgroup.getGroupid());
-		    this.alllessonstatics=lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null,0);
+			this.alllessonstatics = lessonsservice.getFiledLessons(jifentime.getStart(), jifentime.getEnd(), null, 0);
 
-			this.lawyerscnt=lawyersservice.getFieldLawyerCnt("provinceunion", sysgroup.getGroupid());
+			this.lawyerscnt = lawyersservice.getFieldLawyerCnt("provinceunion", sysgroup.getGroupid());
 		}
 
-		
-//		System.out.println(lawyerscnt);
-		
+		// System.out.println(lawyerscnt);
+
 		return SUCCESS;
 	}
-	
+
 	private String officelogo;
 	private int lawyerscnt;
 
@@ -107,11 +109,10 @@ public class StaticsViewAction extends AbstractAction {
 	private Lessonstatics lessonstatics;
 	private Lessonstatics alllessonstatics;
 
-
 	public Lessonstatics getAlllessonstatics() {
 		return alllessonstatics;
 	}
-	
+
 	/**
 	 * @return the lessonstatics
 	 */

@@ -97,7 +97,7 @@ function exportit(str){
       <TR>
         <TD class="tab_content" align="center"  title="查看律师信息"><a href="../lawyers/lawyerView.pl?userid=${lawyerid}">${name}</TD>
         <TD class="tab_content" align="left">&nbsp;&nbsp;
-        ${groupname}
+        <a href="officeJifenStatic.pl?selectoffice=${groupid }">${groupname}</a>
       
         </TD>
          <TD class="tab_content" align="center"> ${xianchang}</TD>

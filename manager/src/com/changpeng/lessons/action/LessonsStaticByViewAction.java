@@ -98,7 +98,7 @@ if(nianshenyear!=0){
 //		System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
 
 	
-		this.page = lessonsService.getPages(_mygroup, groupid, lessonstyle, lessontype, title, teachers, pageSize,
+		this.page = lessonsService.getPages(_mygroup, groupid, -1,lessonstyle, lessontype, title, teachers, pageSize,
 				pageNo, start, end);
 		com.changpeng.system.util.CommonDatas.getGroups();
 
