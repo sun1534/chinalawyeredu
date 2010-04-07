@@ -58,16 +58,20 @@ public class FileHandle {
 		File destfileNoChange = new File(destFileNameNoChange);
 
 		HWSessionLogHandle handle = new HWSessionLogHandle(srcFileName, destFileName);
-
-		handle.convert();
-		while (!handle.isover) {
-			System.out.println("===================waiting...");
-			try {
-				Thread.sleep(10L);
-			} catch (Exception e) {
-
-			}
+		try {
+			Thread.sleep(10 * 1000L);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		handle.convert();
+//		while (!handle.isover) {
+//			System.out.println("===================waiting...");
+//			try {
+//				Thread.sleep(10L);
+//			} catch (Exception e) {
+//
+//			}
+//		}
 
 		ErrorFile errorfile = new ErrorFile();
 		errorfile.setSgsnid(sgsnid);
