@@ -41,16 +41,16 @@ public class HuaweiRAU {
 		Map<Integer, List<RauData>> map = new LinkedHashMap<Integer, List<RauData>>();
 		try {
 			if (sleep)
-				Thread.sleep(40 * 1000L);
+				Thread.sleep(50 * 1000L);
 			List<RauData> sgsn7 = getHuaweiDatas(7, COMMONAD7);
 			if (sleep)
-				Thread.sleep(40 * 1000L);
+				Thread.sleep(50 * 1000L);
 			List<RauData> sgsn8 = getHuaweiDatas(8, COMMONAD8);
 			if (sleep)
-				Thread.sleep(40 * 1000L);
+				Thread.sleep(50 * 1000L);
 			List<RauData> sgsn9 = getHuaweiDatas(9, COMMONAD9);
 			if (sleep)
-				Thread.sleep(30 * 1000L);
+				Thread.sleep(50 * 1000L);
 
 			map.put(7, sgsn7);
 			map.put(8, sgsn8);
@@ -66,9 +66,8 @@ public class HuaweiRAU {
 		// 这里要获得连个ip
 		List<String> ips = new ArrayList<String>();
 		List<RauData> raus = new ArrayList<RauData>();
-
 		List<RauData> result = new ArrayList<RauData>();
-
+		List<String> list = new ArrayList<String>();
 		try {
 			Runtime runtime = Runtime.getRuntime();
 			Process p = runtime.exec(command);
@@ -93,12 +92,16 @@ public class HuaweiRAU {
 						String rac = line.substring(idx0x + 2, idx0x + 2 + 1);
 						String racint = "000" + rac;
 						String s = "RAC" + racint + ".LAC" + lac;
-						RauData raudata=new RauData();
-						raudata.line=line;
-						raudata.rau=s;
+						RauData raudata = new RauData();
+						raudata.line = line;
+						raudata.rau = s;
+						if (!list.contains(s)) {
+							raus.add(raudata);
+						}
 						
-						raus.add(raudata);
-						iii++;
+						list.add(s);
+						
+//						iii++;
 					} else {
 						String s = "SGSNCQ0" + sgsnid + "存在异常LAC数据:" + line;
 						System.out.println(s);
@@ -116,25 +119,27 @@ public class HuaweiRAU {
 			}
 			br.close();
 			for (int j = 0; j < raus.size(); j++) {
-//				String lacrac = raus.get(j);
-				RauData raudata=raus.get(j);
-				String lacrac=raudata.rau;
-				String _line=raudata.line;
+				// String lacrac = raus.get(j);
+				RauData raudata = raus.get(j);
+				String lacrac = raudata.rau;
+				String _line = raudata.line;
+				// 同一个sgsn的相同的raclac*不再进了
 				for (int i = 0; i < ips.size(); i++) {
-					RauData _raudata=new RauData();
+					RauData _raudata = new RauData();
 					String s = lacrac + "|A|" + ips.get(i);
-					_raudata.rau=s;
-					_raudata.line=_line;
-//					if (i >= 1)
-//						s = lacrac.replaceAll(".", " ") + "|A|" + ips.get(i);
+					_raudata.rau = s;
+					_raudata.line = _line;
+					_raudata.linenum = 10000 + j;
+					// if (i >= 1)
+					// s = lacrac.replaceAll(".", " ") + "|A|" + ips.get(i);
 					result.add(_raudata);
 				}
 			}
 			raus.clear();
 			ips.clear();
-
+			list.clear();
+			
 			System.out.println("Command:::" + result.size() + "===" + iii);
-
 		} catch (Exception e) {
 			System.out.println(command + "执行失败!");
 			e.printStackTrace();

@@ -12,6 +12,6 @@ public class RauData {
 
 	public String rau;//对应的RAC****.LAC****|A|211.137.31.1的形式
 	public String line;//对应命令中的原始行数据460003309           0x1                 723      5        0这样的形式
-	
+	public int linenum;
 	
 }

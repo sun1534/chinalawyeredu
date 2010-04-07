@@ -79,82 +79,89 @@ public class GenerateRAU {
 	private static void repeatRoute(Map<Integer, List<RauData>> news) {
 		// Iterator<List<String>> rds=news.values().iterator();
 		Iterator<Integer> newsgsnid = news.keySet().iterator();
-//		Map<String, String> alls = new HashMap<String, String>();
+		// Map<String, String> alls = new HashMap<String, String>();
 		Map<String, List<RauRepeat>> repeats = new HashMap<String, List<RauRepeat>>();
 		while (newsgsnid.hasNext()) {
 			int sgsnid = newsgsnid.next();
-			List<RauData> raudatas = news.get(sgsnid);
-
+			List<RauData> raudatas = news.get(sgsnid); // 这里面华为的raclac有重复的
+			int templine = -1;
 			for (RauData raudata : raudatas) {
 				String s = raudata.rau;
 				String raclac = s.substring(0, s.indexOf("|"));
+				int linenum = raudata.linenum;
+			
 				// System.out.println("repeat:::" + raclac);
 				RauRepeat e = new RauRepeat();
 				e.sgsnid = sgsnid;
 				e.line = raudata.line;
-				if (repeats.containsKey(raclac)) {
-					// 这个路由有重复
-					
-					List<RauRepeat> repeat = repeats.get(raclac);
-					repeat.add(e);
-					
-//					String _sgsnid = alls.get(raclac);
-					// if (!_sgsnid.equals(sgsnid + "")) { //
-					// 如果前后的sgsnid一样,则不考虑了
-//					if (_sgsnid.indexOf(sgsnid + "") == -1) {
-//						alls.remove(raclac);
-//						alls.put(raclac, sgsnid + "," + _sgsnid);
-//					}
-				} else {
-//					alls.put(raclac, sgsnid + "");
-					List<RauRepeat> repeat = new ArrayList<RauRepeat>();
-					repeat.add(e);
-					repeats.put(raclac, repeat);
+			
+				if (linenum != templine) {//排除掉华为2个ip的情况
+					if (repeats.containsKey(raclac)) {
+						// 这个路由有重复
+
+						List<RauRepeat> repeat = repeats.get(raclac);
+						repeat.add(e);
+
+						// String _sgsnid = alls.get(raclac);
+						// if (!_sgsnid.equals(sgsnid + "")) { //
+						// 如果前后的sgsnid一样,则不考虑了
+						// if (_sgsnid.indexOf(sgsnid + "") == -1) {
+						// alls.remove(raclac);
+						// alls.put(raclac, sgsnid + "," + _sgsnid);
+						// }
+					} else {
+						// alls.put(raclac, sgsnid + "");
+						List<RauRepeat> repeat = new ArrayList<RauRepeat>();
+						repeat.add(e);
+						repeats.put(raclac, repeat);
+					}
 				}
+				templine = linenum;
 			}
 		}
 		WARNINGS.add("===================================================");
+//		System.out.println(repeats);
 		Iterator<String> repeatsiterator = repeats.keySet().iterator();
 		while (repeatsiterator.hasNext()) {
 			String raclac = repeatsiterator.next();
 			List<RauRepeat> sgsnids = repeats.get(raclac);
-			if (sgsnids.size()>1) {
-				int temp=0;
-				List<String> lines=new ArrayList<String>();
-				Map<Integer,Integer> sgsnidre=new HashMap<Integer,Integer>();
-				String s=raclac + "数据有重复,同时存在于";
-				for(RauRepeat rr:sgsnids){
-					int sgsnid=rr.sgsnid;
-					String line=rr.line;
-					
-					if(!sgsnidre.containsKey(sgsnid)){
-						s+="SGSNCQ"+sgsnid+",";
-						sgsnidre.put(sgsnid,1);
-					}else{
-						int rrr=sgsnidre.get(sgsnid);
-						sgsnidre.remove(sgsnid);
-						sgsnidre.put(sgsnid, rrr+1);
-					}
-					
-					lines.add("\t\tSGSNCQ"+sgsnid+"中的数据为:"+line);
+			if (sgsnids.size() > 1) {
+//				int temp = 0;
+				List<String> lines = new ArrayList<String>();
+//				Map<Integer, Integer> sgsnidre = new HashMap<Integer, Integer>();
+				String s = raclac + "数据有重复,同时存在于";
+				for (RauRepeat rr : sgsnids) {
+					int sgsnid = rr.sgsnid;
+					String line = rr.line;
+
+//					if (!sgsnidre.containsKey(sgsnid)) {
+						s += "SGSNCQ" + sgsnid + ",";
+//						sgsnidre.put(sgsnid, 1);
+//					} else {
+//						int rrr = sgsnidre.get(sgsnid);
+//						sgsnidre.remove(sgsnid);
+//						sgsnidre.put(sgsnid, rrr + 1);
+//					}
+
+					lines.add("\t\tSGSNCQ" + sgsnid + "中的数据为:" + line);
 				}
-				
-				s=s.substring(0,s.lastIndexOf(","))+"。";//去掉最后一个逗号
-				Iterator<Integer> sgsnidreite=sgsnidre.keySet().iterator();
-				while(sgsnidreite.hasNext()){
-					int sgsnid=sgsnidreite.next();
-					if(sgsnidre.get(sgsnid)>1)
-					s+="SGSNCQ0"+sgsnid+"重复"+sgsnidre.get(sgsnid)+"个,";
-				}
-				s=s.substring(0,s.lastIndexOf(","));//去掉最后一个逗号
-				
-//				WARNINGS.add(raclac + "数据有重复,在SGSN" + sgsnids + "中都有");
+
+				s = s.substring(0, s.lastIndexOf(",")) + "。";// 去掉最后一个逗号
+//				Iterator<Integer> sgsnidreite = sgsnidre.keySet().iterator();
+//				while (sgsnidreite.hasNext()) {
+//					int sgsnid = sgsnidreite.next();
+//					if (sgsnidre.get(sgsnid) > 1)
+//						s += "SGSNCQ0" + sgsnid + "重复" + sgsnidre.get(sgsnid) + "个,";
+//				}
+//				s = s.substring(0, s.lastIndexOf(","));// 去掉最后一个逗号
+
+				// WARNINGS.add(raclac + "数据有重复,在SGSN" + sgsnids + "中都有");
 				WARNINGS.add(s);
 				WARNINGS.addAll(lines);
 			}
 		}
 		repeats.clear();
-		repeats=null;
+		repeats = null;
 	}
 
 	private static void compare(Map<Integer, List<RauData>> old, Map<Integer, List<RauData>> news) {

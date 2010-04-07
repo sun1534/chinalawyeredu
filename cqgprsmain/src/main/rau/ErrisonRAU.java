@@ -109,21 +109,23 @@ public class ErrisonRAU {
 			java.io.BufferedReader br = new java.io.BufferedReader(new java.io.InputStreamReader(
 					new java.io.FileInputStream(_2gfilename)));
 			String line = null;
-
+			int k = 0;
 			while ((line = br.readLine()) != null) {
 				// if (!line.startsWith("RAI")) {
 				if (line.trim().startsWith("460")) {
 					String[] s = line.trim().split(" |\t");
 					if (!s[0].trim().equals("")) {
+						k++;
 						// System.out.println(s[0]);
 						String[] lacrac = s[0].split("-");
 						String lac = RauUtil.tohex(Integer.parseInt(lacrac[2])).toUpperCase();
 						String rac = RauUtil.tohex(Integer.parseInt(lacrac[3])).toUpperCase();
 
 						String rau = "RAC" + rac + ".LAC" + lac + "|A|" + ip;
-						RauData raudata=new RauData();
-						raudata.rau=rau;
-						raudata.line=line;
+						RauData raudata = new RauData();
+						raudata.rau = rau;
+						raudata.line = line;
+						raudata.linenum = k;
 						raus.add(raudata);
 					}
 				}
@@ -140,10 +142,10 @@ public class ErrisonRAU {
 					String rac = RauUtil.tohex(Integer.parseInt(lacrac[3])).toUpperCase();
 					String rau = "RAC" + rac + ".LAC" + lac + "|A|" + ip;
 					System.out.println("SGSN" + sgsnid + "之爱立信3G路由:" + rau);
-//					raus.add(rau);
-					RauData raudata=new RauData();
-					raudata.rau=rau;
-					raudata.line=line;
+					// raus.add(rau);
+					RauData raudata = new RauData();
+					raudata.rau = rau;
+					raudata.line = line;
 					raus.add(raudata);
 				}
 			}
