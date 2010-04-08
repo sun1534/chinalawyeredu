@@ -116,6 +116,7 @@ private LawyersDAO lawyersDAO;
 		// SysUser lawer = (SysUser)
 		// sysUserDAO.getSysUserByCardNo(skrecs.getKahao());
 		Lawyers lawyer =lawyersDAO.getLawyerbyLawyerno(skrecs.getKahao(),skrecs.getGroupid() );
+//		Lawyers lawyer =lawyersDAO.getLawyerByCardno(skrecs.getKahao(),skrecs.getGroupid());
 		
 		if (lawyer != null) {
 			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs.getLessonid(), lawyer.getLawyerid(), 0);
@@ -200,8 +201,8 @@ private LawyersDAO lawyersDAO;
 		// sysUserDAO.getSysUserByCardNo(skrecs.getKahao());
 		// SysUser lawer = (SysUser)
 		// sysUserDAO.getSysUserByLawerNo(skrecs.getKahao());
-
-		Lawyers lawyer = null;
+		Lawyers lawyer =lawyersDAO.getLawyerbyLawyerno(skrecs.getKahao(),skrecs.getGroupid() );
+//		Lawyers lawyer = null;
 		float huodongxuefen = 0;
 		if (lawyer != null) {
 			Lawyerlessonxf oldxf = lawyerlessonxfDAO.getXuefen(skrecs.getLessonid(), lawyer.getLawyerid(), 0);

@@ -50,8 +50,8 @@ public class SetSKRecsRequest extends ElearningRequests {
 			String nianshen = "01-01";
 			if (params != null)
 				nianshen = params.getNianshen();
-			else{
-				LOG.warn("GROUPID:"+groupid+"在sys_unionparmas中的数据不存在");
+			else {
+				LOG.warn("GROUPID:" + groupid + "在sys_unionparmas中的数据不存在");
 			}
 			JifenTime jifentime = CommonDatas.getJifenTime(0, nianshen);
 			int jifenyear = jifentime.getNianshenyear();
@@ -81,7 +81,6 @@ public class SetSKRecsRequest extends ElearningRequests {
 						skrecs.setLessonid(lessonid);
 						skrecs.setGroupid(groupid);
 						lxskrecses.add(skrecs);
-						
 
 						LOG.debug("刷卡记录:" + (i++) + ":卡号:" + cardno + ",课程:" + lessonid + ",时间:" + skdate + ",刷卡:"
 								+ skmode);

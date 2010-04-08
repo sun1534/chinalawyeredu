@@ -79,10 +79,12 @@ public class LawyersDAO extends BasicDAO {
 	 * @param cardno
 	 * @return
 	 */
-	public Lawyers getLawyerByCardno(String cardno) {
+	public Lawyers getLawyerByCardno(String cardno,int directunion) {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
 		dc.add(Restrictions.eq("cardno", cardno));
+		if(directunion!=0)
+			dc.add(Restrictions.eq("directunion", directunion));
 		List list = this.findAllByCriteria(dc);
 		if (list == null || list.size() == 0)
 			return null;
