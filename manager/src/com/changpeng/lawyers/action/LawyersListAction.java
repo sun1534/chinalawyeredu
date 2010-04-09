@@ -150,7 +150,7 @@ public class LawyersListAction extends AbstractListAction {
 		// detachedCriteria.add(Restrictions.like("loginname", loginname,
 		// MatchMode.START));
 //将实习律师的显示和律师的显示合并在一起
-		detachedCriteria.add(Restrictions.eq("lawyertype", lawyertype));
+//		detachedCriteria.add(Restrictions.eq("lawyertype", lawyertype));
 		if (lawyername != null && !"".equals(lawyername))
 			detachedCriteria.add(Restrictions.like("lawyername", lawyername, MatchMode.START));
 		if (cardno != null && !"".equals(cardno))
@@ -221,22 +221,22 @@ public class LawyersListAction extends AbstractListAction {
 		}
 	}
 
-	private int lawyertype;
+//	private int lawyertype;
 
 	/**
 	 * @return the lawyertype
 	 */
-	public int getLawyertype() {
-		return lawyertype;
-	}
-
-	/**
-	 * @param lawyertype
-	 *            the lawyertype to set
-	 */
-	public void setLawyertype(int lawyertype) {
-		this.lawyertype = lawyertype;
-	}
+//	public int getLawyertype() {
+//		return lawyertype;
+//	}
+//
+//	/**
+//	 * @param lawyertype
+//	 *            the lawyertype to set
+//	 */
+//	public void setLawyertype(int lawyertype) {
+//		this.lawyertype = lawyertype;
+//	}
 
 	/**
 	 * @return the lawyername

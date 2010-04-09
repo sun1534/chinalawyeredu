@@ -96,13 +96,13 @@ function getOffices(vallll){
           </td>
           <td class="tab_content">
             <s:hidden name="sysUser.userid"/>
-            <s:textfield name="sysUser.username" size="15" maxlength="15" cssClass="text1" required="true"/>
+            <s:textfield name="sysUser.username" size="15" maxlength="25" cssClass="text1" required="true"/>
               <span class="hint">不为空且长度不超过7个汉字</span> </td>
         </tr>
         <tr>
             <td align="right" class="tab_content1"> 登录名称: </td>
           <td class="tab_content1">
-            <s:textfield name="sysUser.loginname" size="15" maxlength="15" cssClass="text1" required="true" readonly="true"/>
+            <s:textfield name="sysUser.loginname" size="15" maxlength="25" cssClass="text1" required="true" readonly="true"/>
               <span class="hint">不能修改</span> </td>
         </tr>
 		<!--<tr>

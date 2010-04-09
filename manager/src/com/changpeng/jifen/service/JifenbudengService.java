@@ -168,7 +168,7 @@ public class JifenbudengService extends BasicService {
 						xf.setLessonid(budeng.getBudengid());
 						xf.setProvinceid(lawyer.getProvinceunion());
 						xf.setCityid(lawyer.getDirectunion());
-						xf.setOfficeid(lawyer.getDirectunion());
+						xf.setOfficeid(lawyer.getTheoffice());
 						xf.setTitle(budeng.getTitle());
 						xf.setLastupdate(budeng.getCreatetime());
 						xf.setPxdate(budeng.getBudengdate());

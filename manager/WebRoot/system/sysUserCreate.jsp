@@ -134,26 +134,26 @@ body {
              管理员姓名:
           </td>
           <td class="tab_content">
-            <s:textfield name="sysUser.username" size="15" maxlength="15" cssClass="text1" required="true"/>
+            <s:textfield name="sysUser.username" size="15" maxlength="25" cssClass="text1" required="true"/>
               <span class="hint">不为空且长度不超过7个汉字</span> </td>
         </tr>
         <tr>
             <td align="right" class="tab_content1"> 登录名称: </td>
           <td class="tab_content1">
-            <s:textfield name="sysUser.loginname" size="15" maxlength="15" cssClass="text1" onblur="checkLoginname(this.value)" required="true"/>
+            <s:textfield name="sysUser.loginname" size="15" maxlength="25" cssClass="text1" onblur="checkLoginname(this.value)" required="true"/>
               <span class="hint" id="checkloginname">不为空且长度不超过15个字符</span> </td>
         </tr>
 		<tr>
             <td align="right" class="tab_content"> 登录密码: </td>
           <td class="tab_content">
-            <s:password name="sysUser.password" size="20" maxlength="20" cssClass="text1" required="true"/>
+            <s:password name="sysUser.password" size="20" maxlength="25" cssClass="text1" required="true"/>
             <span class="hint">不为空且长度不超过20个字符</span>
           </td>
         </tr>
 		<tr>
             <td align="right" class="tab_content1"> 重复输入登录密码: </td>
           <td class="tab_content1">
-            <s:password name="passagain" size="20" maxlength="20" cssClass="text1"/>
+            <s:password name="passagain" size="20" maxlength="25" cssClass="text1"/>
             
           </td>
         </tr>

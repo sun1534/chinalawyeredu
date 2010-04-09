@@ -60,6 +60,8 @@ public class LawyerlessonxfService extends BasicService {
 		}
 	}
 
+	
+	
 	public PaginationSupport getJifentongji(Timestamp from, Timestamp end, String officename, String username,
 			String lawerno, int pageNo, int pageSize, int isdabiao, Jifenstatics jifenstatics, String field,
 			int fieldvalue) throws ServiceException {

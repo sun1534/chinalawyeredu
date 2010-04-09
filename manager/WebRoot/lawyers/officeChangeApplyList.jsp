@@ -2,9 +2,58 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>%=com.changpeng.common.Constants.SYS_NAME%>-申请转所</title>
+<title>${sysName }-申请转所</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/common.js"></script>
+<script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
+<script language="javascript">
+function fanye(str){
+  document.form1.pageNo.value=str;
+  document.form1.submit();
+}
+
+
+function getCities(vallll){
+
+  $("#city")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#city")[0].options.add(_o);  
+  if(vallll!=0){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#city")[0].options.add(_o);  
+     }
+}); 
+  }
+}
+function getOffices(vallll){
+  $("#office")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#office")[0].options.add(_o);  
+  if(vallll!=0){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#office")[0].options.add(_o);  
+     }
+}); 
+  }
+}
+
+function queryit(str){
+  document.form1.resultType.value="list";
+  document.form1.submit();
+}
+
+function exportit(str){
+  document.form1.resultType.value="excel";
+  document.form1.submit();
+}
+</script>
 <style type="text/css">
 <!--
 body {
@@ -65,7 +114,7 @@ body {
         <tr >
           <td height="24" align="right" background="../imagesa/login_bg1.gif" >
            ${page.pageView}
-             <s:hidden name="pageNo"/>
+          
           </td>
         </tr>
       </table>
