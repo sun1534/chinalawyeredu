@@ -11,6 +11,7 @@ import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.OfficeProperties;
 import com.changpeng.models.SysGroup;
+import com.changpeng.system.service.SysGroupService;
 import com.changpeng.system.util.CommonDatas;
 
 /**
@@ -22,6 +23,7 @@ import com.changpeng.system.util.CommonDatas;
  */
 public class TheOfficeEditSelfAction extends AbstractAction {
 	private BasicService bservice = null;
+	private SysGroupService groupservice=null;
 	private SysGroup sysGroup;
 
 	public SysGroup getSysGroup() {
@@ -32,7 +34,7 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 
 	public TheOfficeEditSelfAction() {
 		this.datavisible = new DataVisible();
-
+groupservice=(SysGroupService)this.getBean("sysGroupService");
 		bservice = (BasicService) this.getBean("basicService");
 	}
 
@@ -44,7 +46,11 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 
-		
+		if(sysGroup.getGroupenname()==null||sysGroup.getGroupenname().equals("")){
+			this.message = "律师事务所执业证号不能为空,请输入";
+			this.nextPage = "theOfficeList.pl";
+			return "message";
+		}
 		
 		sysGroup.setDelflag(false);
 
@@ -80,8 +86,20 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 			}
 		}
 
-	
-			bservice.update(sysGroup);
+	int s=	groupservice.updateTheOffice(oldloginname, sysGroup);
+	if(s==0){
+		this.opResult="律所自己修改事务所信息修改登录帐号";
+	}
+	if(s==3){
+		this.opResult="律所自己修改事务所信息同时新增一个事务所帐号";
+	}
+	else if(s==1){
+		this.opResult="律所自己修改事务所信息,但该执业证号已经被其他所使用,修改为该所";
+	}
+	else if(s==2){
+		this.opResult="律所自己修改事务所信息，帐号不变化";
+}
+//			bservice.update(sysGroup);
 			this.message = "事务所信息修改成功";
 	
 
@@ -115,7 +133,7 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 		}
 		
 		sysGroup = (SysGroup) bservice.get(SysGroup.class, this.getLoginUser().getOfficeid());
-
+		oldloginname=sysGroup.getGroupenname();
 		properties = (OfficeProperties) bservice.get(OfficeProperties.class, this.getLoginUser().getOfficeid());
 
 		if (sysGroup.getGrouptype() != 1) {
@@ -139,6 +157,7 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 		return INPUT;
 	}
 
+	private String oldloginname;
 	private boolean isedit = false;
 	private boolean propertiesedit = false;
 	private OfficeProperties properties;
@@ -201,5 +220,19 @@ public class TheOfficeEditSelfAction extends AbstractAction {
 	 */
 	public void setPropertiesedit(boolean propertiesedit) {
 		this.propertiesedit = propertiesedit;
+	}
+
+	/**
+	 * @return the oldloginname
+	 */
+	public String getOldloginname() {
+		return oldloginname;
+	}
+
+	/**
+	 * @param oldloginname the oldloginname to set
+	 */
+	public void setOldloginname(String oldloginname) {
+		this.oldloginname = oldloginname;
 	}
 }

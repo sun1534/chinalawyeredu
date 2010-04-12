@@ -63,7 +63,9 @@
 	</bean>
 	<bean id="sysGroupService"
 		class="com.changpeng.system.service.SysGroupService">
-
+	<property name="sysUserDAO">
+			<ref bean="sysUserDAO" />
+		</property>
 		<property name="sysGroupDAO">
 			<ref bean="sysGroupDAO" />
 		</property>

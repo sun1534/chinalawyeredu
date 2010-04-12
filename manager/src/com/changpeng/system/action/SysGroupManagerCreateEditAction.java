@@ -22,6 +22,7 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 
 	private SysUser sysUser;
 	private String oldloginname;
+
 	public SysUser getSysUser() {
 		if (sysUser == null)
 			this.sysUser = (SysUser) get("sysUser");
@@ -76,13 +77,13 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 			this.opResult = "管理员" + super.getLoginUser().getUsername() + "新增了用户" + sysUser.getUsername();
 			this.message = "管理员信息新增成功";
 		} else {
-			
-			SysUser olduser=service.getSysUserByLoginname(sysUser.getLoginname()) ;
-			if(olduser!=null&&sysUser.getLoginname().equals(oldloginname)){
-				this.message = "对不起，您输入的帐号【" + sysUser.getLoginname() + "】已经被他人使用。";
-				return "message";
+			if (!oldloginname.equals(sysUser.getLoginname())) {
+				SysUser olduser = service.getSysUserByLoginname(sysUser.getLoginname());
+				if (olduser != null && sysUser.getLoginname().equals(oldloginname)) {
+					this.message = "对不起，您输入的帐号【" + sysUser.getLoginname() + "】已经被他人使用。";
+					return "message";
+				}
 			}
-			
 			this.message = "管理员信息修改成功";
 			bs.update(sysUser);
 			this.opResult = "管理员" + super.getLoginUser().getUsername() + "修改了用户" + sysUser.getUsername();
@@ -96,21 +97,21 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 	public String input() throws Exception {
 
 		BasicService bs = (BasicService) this.getBean("basicService");
-		
+
 		SysGroup group = (SysGroup) bs.get(SysGroup.class, groupid);
 		if (group == null) {
 			this.message = "这个部门已经不存在,请重新选择";
 			return "message";
 		}
 		SysUser sysuser = (SysUser) bs.get(SysUser.class, userid);
-		
+
 		if (sysuser == null) { // 要新增的
 			sysuser = new SysUser();
 			isedit = false;
-			this.oldloginname="";
+			this.oldloginname = "";
 		} else {
 			isedit = true;
-			this.oldloginname=sysuser.getLoginname();
+			this.oldloginname = sysuser.getLoginname();
 		}
 
 		set("sysUser", sysuser);
@@ -186,7 +187,8 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 	}
 
 	/**
-	 * @param oldloginname the oldloginname to set
+	 * @param oldloginname
+	 *            the oldloginname to set
 	 */
 	public void setOldloginname(String oldloginname) {
 		this.oldloginname = oldloginname;

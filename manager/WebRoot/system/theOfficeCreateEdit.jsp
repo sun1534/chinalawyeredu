@@ -139,6 +139,7 @@ return;
              事务所执业证号:
           </td>
           <td class="tab_content1">
+            <s:hidden name="oldloginname"/>
             <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1"/>
           </td>
         </tr>

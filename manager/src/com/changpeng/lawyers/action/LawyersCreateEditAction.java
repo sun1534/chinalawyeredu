@@ -126,6 +126,7 @@ public class LawyersCreateEditAction extends AbstractAction {
 		} else {
 
 			lawyers.setLoginname(lawyers.getLawyerno());
+			
 			lawyers.setPasswd(lawyers.getCertno());
 			bs.updateLawyers(lawyers);
 			this.message = "律师信息修改成功";

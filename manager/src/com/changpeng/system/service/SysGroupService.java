@@ -6,10 +6,7 @@ package com.changpeng.system.service;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -22,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.exception.ServiceException;
-import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysGroupExcludeRights;
 import com.changpeng.models.SysRole;
 import com.changpeng.models.SysUser;
 import com.changpeng.system.dao.SysGroupDAO;
+import com.changpeng.system.dao.SysUserDAO;
 
 /**
  * @author 华锋 2008-2-26 下午02:23:53
@@ -37,6 +34,7 @@ public class SysGroupService extends BasicService {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	private SysGroupDAO sysGroupDAO;
+	private SysUserDAO sysUserDAO;
 
 	private static Log _LOG = LogFactory.getLog(SysGroupService.class);
 
@@ -99,13 +97,13 @@ public class SysGroupService extends BasicService {
 
 				if (sb.toString().length() == 0) {
 					try {
-						addGroup(group);
+						addTheOffice(group);
 					} catch (Exception e) {
-					e.printStackTrace();
+						e.printStackTrace();
 						result.add("第" + group.getExcelline() + "行新增错误::" + e.getMessage());
 					}
 				} else {
-					
+
 					result.add("第" + group.getExcelline() + "行错误::" + sb);
 				}
 			}
@@ -115,27 +113,92 @@ public class SysGroupService extends BasicService {
 		}
 	}
 
-	@Transactional
-	public void addGroup(SysGroup group) {
-		sysGroupDAO.save(group);
-		SysUser user = new SysUser();
-		user.setCityid(group.getParentid());
-		user.setSysGroup(group);
-		user.setComments("随事务所一起新增");
-		user.setCreatetime(group.getCreatetime());
-		user.setCreateuser(group.getCreateuser());
-		user.setCreateuserid(group.getCreateuserid());
-		user.setLoginname(group.getGroupenname());
-		user.setOfficeid(group.getGroupid());
-		SysRole role = new SysRole();
-		role.setRoleid(1);
-		user.setSysRole(role);
-		user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
-		user.setProvinceid(group.getDirectgroup());
-		user.setStatus(0);
-		user.setUsername(group.getGroupname());
-		sysGroupDAO.save(user);
+	/**
+	 * 修改事务所信息
+	 * 
+	 * @param theoffice
+	 */
+	public int updateTheOffice(String oldloginname, SysGroup theoffice) {
+		sysGroupDAO.update(theoffice);
+		// 不管,如果新的登录名不存在,不管,直接新增一个。也就是这个事务所2个都能用
 
+		SysUser olduser = (SysUser) sysUserDAO.getSysUserByLoginname(oldloginname);
+		SysUser newuser = (SysUser) sysUserDAO.getSysUserByLoginname(theoffice.getGroupenname());
+		if (olduser != null && newuser == null) {// 老的有新的没有
+			olduser.setLoginname(theoffice.getGroupenname());
+			sysUserDAO.update(olduser);
+			return 0;
+		} else if (olduser == null && newuser == null) { // 新增
+
+			SysUser user = new SysUser();
+			user.setCityid(theoffice.getParentid());
+			user.setSysGroup(theoffice);
+			user.setComments("随事务所一起新增");
+			user.setCreatetime(theoffice.getCreatetime());
+			user.setCreateuser(theoffice.getCreateuser());
+			user.setCreateuserid(theoffice.getCreateuserid());
+			user.setLoginname(theoffice.getGroupenname());
+			user.setOfficeid(theoffice.getGroupid());
+			SysRole role = new SysRole();
+			role.setRoleid(1);
+			user.setSysRole(role);
+			user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+			user.setProvinceid(theoffice.getDirectgroup());
+			user.setStatus(0);
+			user.setUsername(theoffice.getGroupname());
+			sysGroupDAO.save(user);
+			return 3;
+		}
+
+		else if (olduser != null && newuser != null && newuser.getOfficeid() != theoffice.getGroupid()) { // 新的登录名有了，但不是同一个事务所的。修改为同一个事务所
+
+			newuser.setComments(newuser.getComments() + "|这个帐号之前归属事务所:" + newuser.getOfficeid() + ".修改为这个事务所");
+			newuser.setOfficeid(theoffice.getGroupid());
+			newuser.setCityid(theoffice.getParentid());
+			newuser.setProvinceid(theoffice.getDirectgroup());
+			sysUserDAO.update(newuser);
+			return 1;
+		}
+
+		return 2;
+
+	}
+
+	@Transactional
+	public int addTheOffice(SysGroup group) {
+		sysGroupDAO.save(group);
+		SysUser user = (SysUser) sysUserDAO.getSysUserByLoginname(group.getGroupenname());
+		if (user == null) {
+			user = new SysUser();
+			user.setCityid(group.getParentid());
+			user.setSysGroup(group);
+			user.setComments("随事务所一起新增");
+			user.setCreatetime(group.getCreatetime());
+			user.setCreateuser(group.getCreateuser());
+			user.setCreateuserid(group.getCreateuserid());
+			user.setLoginname(group.getGroupenname());
+			user.setOfficeid(group.getGroupid());
+			SysRole role = new SysRole();
+			role.setRoleid(1);
+			user.setSysRole(role);
+			user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+			user.setProvinceid(group.getDirectgroup());
+			user.setStatus(0);
+			user.setUsername(group.getGroupname());
+			sysGroupDAO.save(user);
+			return 0;
+		} else {
+			if (user.getOfficeid() != group.getGroupid()) { // 新的登录名有了，但不是同一个事务所的。修改为同一个事务所
+
+				user.setComments(user.getComments() + "|这个帐号之前归属事务所:" + user.getOfficeid() + ".修改为这个事务所");
+				user.setOfficeid(group.getGroupid());
+				user.setCityid(group.getParentid());
+				user.setProvinceid(group.getDirectgroup());
+				sysUserDAO.update(user);
+				return 1;
+			}
+			return 2;
+		}
 	}
 
 	public List getProvinceUnion(boolean includeother) {
@@ -267,5 +330,13 @@ public class SysGroupService extends BasicService {
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	/**
+	 * @param sysUserDAO
+	 *            the sysUserDAO to set
+	 */
+	public void setSysUserDAO(SysUserDAO sysUserDAO) {
+		this.sysUserDAO = sysUserDAO;
 	}
 }
