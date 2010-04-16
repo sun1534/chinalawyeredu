@@ -39,7 +39,7 @@ public class SqlServerDataUtil {
 //	 private static String url = "jdbc:sqlserver://localhost:1433;DatabaseName=szlxcs";
 //	 private static String username = "szlxcs";
 //	 private static String password = "123456";
-	 private static String url = "jdbc:sqlserver://localhost:1433;DatabaseName=szlawyers";
+	 private static String url = "jdbc:sqlserver://211.154.139.95:1433;DatabaseName=szlawyers";
 	 private static String username = "szlawyers";
 	 private static String password = "123456";
 	 private static String userupdsql = "select * from userupdlog";

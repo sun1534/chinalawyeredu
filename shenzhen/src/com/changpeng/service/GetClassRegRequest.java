@@ -4,8 +4,10 @@
 
 package com.changpeng.service;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -26,6 +28,13 @@ public class GetClassRegRequest extends ElearningRequests {
 	private static final Log LOG = LogFactory.getLog(GetClassRegRequest.class);
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	private long lastyear(){
+		Calendar c=Calendar.getInstance();
+	
+		c.add(Calendar.YEAR,-1);
+		return c.getTimeInMillis();
+	}
+	
 	public String requestService(org.dom4j.Element rootElement) {
 
 		StringBuilder result = new StringBuilder("");
@@ -37,8 +46,10 @@ public class GetClassRegRequest extends ElearningRequests {
 			BasicService basicService = (BasicService) globals.getBean("basicService");
 			List peixunlist = new ArrayList();
 
-			// 状态为培训课程
+			// 状态为培训课程,并且是1年内新增的课程
 			DetachedCriteria detachedCriteria1 = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("lessonstate", (byte) 1));
+			detachedCriteria1.add(Restrictions.ge("createtime", new Timestamp(lastyear())));
+			
 			List _list = basicService.findAllByCriteria(detachedCriteria1);
 			int lessonsize = _list == null ? 0 : _list.size();
 			for (int i = 0; i < lessonsize; i++) {
@@ -49,6 +60,10 @@ public class GetClassRegRequest extends ElearningRequests {
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
 			detachedCriteria.createAlias("lawer", "lawer").add(Restrictions.eq("lawer.roleid", 1));
 			detachedCriteria.add(Restrictions.in("lessonid", peixunlist));
+			detachedCriteria.add(Restrictions.eq("learnmode", "现场培训"));
+			detachedCriteria.add(Restrictions.ge("lastupdate", new Timestamp(lastyear())));
+			
+			//培训方式只是现场培训
 
 			List list = basicService.findAllByCriteria(detachedCriteria);
 			int xflen = list == null ? 0 : list.size();

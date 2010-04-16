@@ -12,7 +12,7 @@ import com.changpeng.models.system.SysUser;
  */
 public class LawyerUpdLog {
 
-	private static String theurl="http://www.szlawyers.com/";
+//	private static String theurl="http://www.szlawyers.com/";
 	
 	public int updlogid;
 	public int lawid;
