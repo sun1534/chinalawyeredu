@@ -37,7 +37,7 @@ public class LawyersDAO extends BasicDAO {
 
 		if (lawyers.getStatus() != 0)
 			return -2;// 帐号被禁用了
-		String dbpassword = lawyers.getPasswd();
+		String dbpassword = lawyers.getPasswd().trim();
 		String md5notinput = password;
 		String md5input = MD5.md5(password);
 		// 如果不md5和md5后都不匹配,则认为不匹配

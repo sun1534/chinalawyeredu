@@ -6,6 +6,7 @@ package com.changpeng.jifen.service;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.changpeng.common.BasicService;
@@ -16,6 +17,7 @@ import com.changpeng.jifen.util.Jifenstatics;
 import com.changpeng.jifen.util.LearnmodeStatics;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.Lawyers;
 
 /**
  * @author 华锋 2008-5-4 下午11:55:50
@@ -54,6 +56,40 @@ public class LawyerlessonxfService extends BasicService {
 			return lawyerlessonxfDAO.getXuefen(lessonid, userid, learnmode);
 		} catch (Exception e) {
 			throw new ServiceException(e);
+		}
+	}
+
+	public void saveDianjingJifen(int lawyerid, String lawyername, int djlessonid, String title, float learnjifen,String maxjifen,
+			Date learndate, int theyear) {
+		int lessonid = Integer.parseInt("-9" + djlessonid);
+		Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(lessonid, lawyerid, 0);
+		if (xf == null) {
+
+			xf = new Lawyerlessonxf();
+			xf.setPxxf(learnjifen);
+			xf.setLearnmode(2); // 特别针对杭州的点睛课程的统计
+			xf.setPxdate(learndate);
+			xf.setLessonid(lessonid);
+			xf.setTitle(title);
+			xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
+			xf.setPxdate(learndate);
+			xf.setLawyerid(lawyerid);
+			xf.setLawyername(lawyername);
+			Lawyers lawyer = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
+			xf.setIsfull(true);
+			xf.setProvinceid(lawyer.getProvinceunion());
+			xf.setCityid(lawyer.getDirectunion());
+			xf.setOfficeid(lawyer.getTheoffice());
+			xf.setTheyear(theyear);
+			xf.setIslastyear(0);
+			xf.setRemarks("点睛课程最大"+maxjifen+"分,此次学习" + learnjifen);
+
+			lawyerlessonxfDAO.save(xf);
+		} else {
+			xf.setPxxf(learnjifen);
+			xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
+			xf.setRemarks(xf.getRemarks() + "|再设置为" + learnjifen);
+			lawyerlessonxfDAO.update(xf);
 		}
 	}
 

@@ -70,7 +70,14 @@ function fanye(str){
       <s:set name="zongjifen" value="0"/>
 <s:iterator value="page.items" status="stat">
       <TR>
-        <TD class="tab_content" align="left">${title}</TD>
+        <TD class="tab_content" align="left">
+        <s:if test="lessonid>0">
+        <a href="../lessons/lessonsView.action?lessonid=${lessonid }">${title}</a>
+        </s:if>
+        <s:else>
+        ${title}
+        </s:else>
+        </TD>
         <TD class="tab_content" align="center"><s:property value="@com.changpeng.jifen.util.CommonDatas@LEARNMODE[learnmode]"/></TD>
         <TD class="tab_content" align="center">${pxdate}</TD>
         <TD class="tab_content" align="center">${pxreqminutes} </TD>

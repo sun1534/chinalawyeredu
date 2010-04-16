@@ -76,7 +76,7 @@ public class UserLoginAction extends AbstractAction {
 		// SysUserDAO dao=new SysUserDAO();
 		LawyersService lawyersService = (LawyersService) getBean("lawyersService");
 
-		int loginResult = lawyersService.userLogin(this.loginname, this.password);
+		int loginResult = lawyersService.userLogin(this.loginname.trim(), this.password.trim());
 		LOG.debug("登录验证结果:::" + loginResult);
 		if (loginResult == -1) {
 			message = "您输入的帐号在系统中不存在,请确认";
