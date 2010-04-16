@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="lawyers.lawyername">
+                <field-validator type="requiredstring">
+                  <message>请输入律师的姓名，不能为空！</message>
+                </field-validator>
+	</field>
+	<field name="lawyers.lawyerno">
+                <field-validator type="requiredstring">
+                  <message>请输入律师的执业证号，不能为空！</message>
+                </field-validator>
+                <field-validator type="stringlength">
+                  <param name="minLength">5</param>
+                  <param name="maxLength">20</param>
+                  <message><![CDATA[ 执业证号长度必须介于5到20之间!]]></message>
+                </field-validator>
+              
+	</field>
+	<field name="lawyers.certno">
+                <field-validator type="requiredstring">
+                  <message>请输入律师身份证号码，不能为空！</message>
+                </field-validator>
+                <field-validator type="stringlength">
+                  <param name="minLength">15</param>
+                  <param name="maxLength">18</param>
+                  <message><![CDATA[ 身份证号码长度必须介于15到18之间!]]></message>
+                </field-validator>
+              
+	</field>
+</validators>

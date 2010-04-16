@@ -37,8 +37,9 @@ public class LawyerlessonxfDAO extends BasicDAO {
 	 * @return
 	 */
 	public Lawyerlessonxf getXfByBudengid(int budengid) {
-
-		List list = find("from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=4 and xf.lessonid=" + budengid);
+		List list = find("from com.changpeng.models.Lawyerlessonxf xf where xf.lessonid=" + budengid);
+		
+//		List list = find("from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=4 and xf.lessonid=" + budengid);
 		if (list == null || list.size() == 0)
 			return null;
 		return (Lawyerlessonxf) list.get(0);
@@ -155,8 +156,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 //						weipeixunsql += " and aa." + field + " =" + fieldvalue + "";
 //				}
 				
-				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPID";
-				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPID ";
+				peixunsql += " group by b.GROUPID,a.lawyername,a.lawyerid";
+				weipeixunsql += " group by bb.GROUPID,aa.lawyername,aa.lawyerid ";
 
 				String sql = peixunsql + " union " + weipeixunsql;
 				_LOG.info("统计SQL:" + sql);
@@ -259,8 +260,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					}
 				}
 	
-				peixunsql += " group by a.lawyername,a.lawyerid,b.GROUPID";
-				weipeixunsql += " group by aa.lawyername,aa.lawyerid,bb.GROUPID ";
+				peixunsql += " group by b.GROUPID,a.lawyername,a.lawyerid";
+				weipeixunsql += " group by bb.GROUPID,aa.lawyername,aa.lawyerid";
 
 				String sql = peixunsql + " union " + weipeixunsql;
 				_LOG.info("统计SQL:" + sql);
@@ -363,7 +364,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)>=" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
 				
 //				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=10";
 				
@@ -453,7 +454,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)>=" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid having FORMAT(sum(pxxf),2)>=a.dabiaofen and format(xianchang,2)>=a.localfen";
 				
 //				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)>=10";
 				
@@ -563,7 +564,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)<" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
 //				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<10"+dabiaofen;
 				_LOG.info("未达标数的统计SQL:" + sql);
 
@@ -654,7 +655,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				// sql += " group by c.lawyername,c.lawyerid,b.GROUPID having
 				// sum(pxxf)<" + dabiao;
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid having FORMAT(sum(pxxf),2)<a.dabiaofen or format(xianchang,2)<a.localfen";
 //				sql += " group by a.lawyername,a.lawyerid,b.GROUPID having FORMAT(sum(pxxf),2)<10"+dabiaofen;
 				_LOG.info("未达标数的统计SQL:" + sql);
 
@@ -752,7 +753,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql+=" and a.provinceunion =" + fieldvalue;
 				}
 
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID ";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid ";
 				_LOG.info("未培训数的统计SQL:" + sql);
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
 				// Query queryObject = session.createSQLQuery(sql);
@@ -820,7 +821,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql+=" and a.provinceunion =" + fieldvalue;
 				}
 
-				sql += " group by a.lawyername,a.lawyerid,b.GROUPID ";
+				sql += " group by b.GROUPID,a.lawyername,a.lawyerid ";
 				_LOG.info("未培训数的统计SQL:" + sql);
 				Query queryObject = session.createSQLQuery(sql);//.addEntity(Jifentongji.class);
 				// Query queryObject = session.createSQLQuery(sql);

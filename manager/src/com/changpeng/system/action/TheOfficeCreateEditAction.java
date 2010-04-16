@@ -76,6 +76,9 @@ public class TheOfficeCreateEditAction extends AbstractAction {
 		sysGroup.setGrouplevel(grouplevel);
 		sysGroup.setDelflag(false);
 
+		
+		sysGroup.setGroupenname(sysGroup.getGroupenname()==null?"":sysGroup.getGroupenname().trim());
+		
 		if (upload != null && upload.length() != 0) {
 			try {
 

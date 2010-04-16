@@ -36,7 +36,7 @@
       <tr>
         <td height="24" colspan="5"  align="left" background="../imagesa/top-bg2.gif" class="baseFontBold">&nbsp;&nbsp;转所申请列表</td>
         <td height="24" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="center">
-        <a href="../lawyers/officeChangeList.pl">更多...</a>
+        <a href="../lawyers/officeChangeApplyList.pl">更多...</a>
         </td>
       </tr>
       <tr>
@@ -56,7 +56,7 @@
        <TD class="tab_content" align="center"><s:date name="applyTime" format="yyyy-MM-dd HH:mm:ss"/></TD>
        <TD class="tab_content" align="center">${statusStr}
        <s:if test="status==0">
-      &nbsp;<s:if test="canhandle"><a href="officeChangeHandle!input.pl?id=${id }">【处理】</a></s:if>
+      &nbsp;<s:if test="canhandle"><a href="../lawyers/officeChangeHandle!input.pl?id=${id }">【处理】</a></s:if>
        </s:if>
        </TD>    
         </s:iterator>

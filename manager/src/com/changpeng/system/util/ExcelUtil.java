@@ -207,8 +207,8 @@ public class ExcelUtil {
 				String lawyerno = HSSFCellToString.toString(row.getCell(2)).trim();
 				String theyear = HSSFCellToString.toString(row.getCell(3)).trim();
 				String xuefen = HSSFCellToString.toString(row.getCell(4)).trim();
-
-				LOG.debug(title + "=" + budengdate + "=" + lawyerno + "=" + theyear + "=" + xuefen);
+				String islocal= HSSFCellToString.toString(row.getCell(5)).trim();
+				LOG.debug(title + "=" + budengdate + "=" + lawyerno + "=" + theyear + "=" + xuefen+"="+islocal);
 
 				JifenbudengBatch budeng = new JifenbudengBatch();
 				budeng
@@ -219,6 +219,7 @@ public class ExcelUtil {
 				budeng.setTheyear(theyear);
 				budeng.setTitle(title);
 				budeng.setExcelline(i);
+				budeng.setIslocal(islocal==null||islocal.equals("")?"否":islocal);
 				budenglist.add(budeng);
 
 			}// end for row

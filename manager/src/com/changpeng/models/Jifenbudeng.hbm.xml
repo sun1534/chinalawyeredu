@@ -57,5 +57,10 @@
         <property name="createtime" type="timestamp">
             <column name="createtime" length="0" not-null="true" />
         </property>
+       
+          <property name="islocal" type="boolean">
+            <column name="islocal" not-null="true">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

@@ -69,7 +69,7 @@ public class JifenbudengBatchAction extends AbstractAction {
 			this.message = "您上传的文件为空,请返回";
 			return "message";
 		}
-
+		
 		this.nextPage = "lawyersList.pl";
 		return SUCCESS;
 	}

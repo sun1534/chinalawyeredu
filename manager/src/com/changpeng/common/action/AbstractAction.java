@@ -87,10 +87,10 @@ public abstract class AbstractAction extends ActionSupport {
 			this.opResult += e.getMessage();
 			throw e;
 		} finally {
-			if (right != null && right.getLogflag()) {// 记录日志，如果这个模块需要记录日志的话
-				_LOG.debug("===RightCode:" + rightCode + ",LOGFLAG=" + right.getLogflag());
+//			if (right != null && right.getLogflag()) {// 记录日志，如果这个模块需要记录日志的话
+//				_LOG.debug("===RightCode:" + rightCode + ",LOGFLAG=" + right.getLogflag());
 				this.logOperation();
-			}
+//			}
 		}
 	}
 

@@ -70,7 +70,10 @@ public class JifenbudengService extends BasicService {
 					Lawyerlessonxf xf = new Lawyerlessonxf();
 					xf.setLawyerid(budeng.getLawyerid());
 					xf.setLawyername(budeng.getLawyername());
-					xf.setLearnmode(4);
+					if(budeng.getIslocal())
+					xf.setLearnmode(1);
+					else
+						xf.setLearnmode(4);
 					xf.setPxxf(budeng.getXuefen());
 					xf.setRemarks(budeng.getCreateuser() + "补登的积分");
 					xf.setLessonid(0 - budeng.getBudengid());
@@ -142,7 +145,17 @@ public class JifenbudengService extends BasicService {
 					if (lawyer != null) {
 
 						Jifenbudeng budeng = new Jifenbudeng();
-
+						Lawyerlessonxf xf = new Lawyerlessonxf();
+						
+						
+						if(budengbatch.getIslocal().equals("否")){
+							xf.setLearnmode(4);
+							budeng.setIslocal(false);
+						}
+							else{
+								xf.setLearnmode(1);
+								budeng.setIslocal(true);
+							}
 						budeng.setLawyerno(budengbatch.getLawyerno());
 						budeng.setTitle(budengbatch.getTitle());
 						budeng.setTheyear(theyear);
@@ -158,11 +171,11 @@ public class JifenbudengService extends BasicService {
 						budeng.setCreateuser(sysUser.getUsername());
 						budeng.setCreateuserid(sysUser.getUserid());
 						basicDAO.save(budeng);
-						Lawyerlessonxf xf = new Lawyerlessonxf();
+						
 						xf.setLawyerid(budeng.getLawyerid());
 						xf.setLawyername(budeng.getLawyername());
 						xf.setLessonid(0 - budeng.getBudengid());
-						xf.setLearnmode(4);
+					
 						xf.setPxxf(budeng.getXuefen());
 						xf.setRemarks(budeng.getCreateuser() + "批量补登的积分");
 						xf.setLessonid(budeng.getBudengid());
@@ -331,10 +344,16 @@ public class JifenbudengService extends BasicService {
 
 					basicDAO.update(budeng);
 
-					Lawyerlessonxf xf = lawyerlessonxfDAO.getXfByBudengid(budeng.getBudengid());
+					Lawyerlessonxf xf = lawyerlessonxfDAO.getXfByBudengid(0-budeng.getBudengid());
 					if (xf != null) {
 						float chayi = budeng.getXuefen().floatValue() - oldbudengjifen;
+						
+						if(budeng.getIslocal())
+							xf.setLearnmode(1);
+					else
+						xf.setLearnmode(4);
 
+						xf.setTheyear(budeng.getTheyear());
 						xf.setPxxf(xf.getPxxf().floatValue() + chayi);
 						basicDAO.update(xf);
 					}

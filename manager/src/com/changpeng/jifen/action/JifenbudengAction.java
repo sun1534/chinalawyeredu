@@ -85,12 +85,14 @@ public class JifenbudengAction extends AbstractAction {
 			// this.nextPage = "jifenbudengList.pl";
 			// return SUCCESS;
 			// }
+			this.opResult="为"+budeng.getLawyerno()+"新增补登积分成功";
 		} else {
 			Float oldxuefen = (Float) get("oldbudeng");
 
 			debug("补登前后的积分差异为:::" + (budeng.getXuefen().floatValue() - oldxuefen.floatValue()));
 
 			budengservice.updateJifenbudeng(budeng, oldxuefen);
+			this.opResult="为"+budeng.getLawyerno()+"修改补登积分成功";
 		}
 		this.message = "积分补登成功";
 		this.nextPage = "jifenbudengList.pl";

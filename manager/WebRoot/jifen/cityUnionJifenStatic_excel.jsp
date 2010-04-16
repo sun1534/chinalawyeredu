@@ -39,8 +39,10 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
      <tr>
     <td  colspan="12" align="center" bgcolor="#FFFF00"><b>
  
-  律协积分统计-${group.groupname }-从【${jifentime.startstr }】到【${jifentime.endstr }】
-  
+  律协积分统计-${group.groupname }
+  <s:if test="group.groupid!=8078">
+  -从【${jifentime.startstr }】到【${jifentime.endstr }】
+  </s:if>
     </b></td>
   </tr>
       <tr>

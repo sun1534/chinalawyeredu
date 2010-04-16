@@ -18,6 +18,21 @@ private int excelline;
 	private String xuefen;
 
 	private String theyear;
+	private String islocal="否";
+
+	/**
+	 * @return the islocal
+	 */
+	public String getIslocal() {
+		return islocal;
+	}
+
+	/**
+	 * @param islocal the islocal to set
+	 */
+	public void setIslocal(String islocal) {
+		this.islocal = islocal;
+	}
 
 	/**
 	 * @return the title

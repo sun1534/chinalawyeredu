@@ -61,7 +61,7 @@ function getCities(vallll){
 		</table>
 		<table width="100%" border="0" cellspacing="1" cellpadding="0"
 			align="center" class="border-table">
-			<s:form name="form1" action="theOfficeEditSelf" method="post">
+			<s:form name="form1" action="theOfficeList" method="post">
 				<TR>
 					<TD valign="top">
 						<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" class="query-table">
@@ -118,7 +118,7 @@ function getCities(vallll){
 							<s:iterator value="page.items" status="stat">
 								<TR>
 									<TD class="tab_content" align="center">
-										${groupname}
+										<a href="../lawyers/lawyersList.pl?datavisible.officeid=${groupid }">${groupname}</a>
 									</TD>
 									<TD class="tab_content" align="center">
 										${groupenname}

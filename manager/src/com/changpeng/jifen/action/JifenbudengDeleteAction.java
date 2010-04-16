@@ -25,6 +25,7 @@ public class JifenbudengDeleteAction extends AbstractAction {
 
 		this.message = "补登的积分删除成功";
 		this.nextPage = "jifenbudengList.pl";
+		this.opResult="补登积分删除:"+budengid;
 		return SUCCESS;
 	}
 

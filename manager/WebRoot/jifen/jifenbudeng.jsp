@@ -181,6 +181,14 @@ function getOffices(vallll){
          	
         </td>
         </tr>
+          <tr>
+        <td width="37%" class="tab_content" align="right">是否计为现场培训：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <s:checkbox name="budeng.islocal" />
+       	&nbsp;&nbsp;&nbsp;<font color='red'>如果计为现场培训,则补登的积分,在积分统计处,培训方式显示为"现场培训"</font>
+        </td>
+        </tr>
          <tr>
         <td width="37%" class="tab_content" align="right">补登积分年度：
         </td>

@@ -39,7 +39,10 @@ function exportit(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：律协积分统计-${group.groupname }-从【${jifentime.startstr }】到【${jifentime.endstr }】达标条件,总积分>=${dabiaofen }<s:if test="localfen>0">，现场培训积分>=${localfen}</s:if>
+    	当前位置：律协积分统计-${group.groupname }
+    	  <s:if test="group.groupid!=8078">
+    	-从【${jifentime.startstr }】到【${jifentime.endstr }】达标条件,总积分>=${dabiaofen }<s:if test="localfen>0">，现场培训积分>=${localfen}</s:if>
+    	</s:if>
     	</td>
   </tr>
 </table>

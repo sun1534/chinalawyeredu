@@ -121,7 +121,8 @@ return;
           </td>
           <td class="tab_content1">
           <s:hidden name="oldloginname"/>
-            <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1"/>
+            <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1" readonly="true"/>
+            <font color='red'>事务所执业证号请由律协管理员进行修改</font>
           </td>
         </tr>
          <tr> 

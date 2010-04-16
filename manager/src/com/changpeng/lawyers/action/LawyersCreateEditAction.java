@@ -118,14 +118,17 @@ public class LawyersCreateEditAction extends AbstractAction {
 				float dabiaofen = union.getDabiaofen();
 				lawyers.setDabiaofen(dabiaofen);
 			}
-
+			
+			//排除掉输入进去的空格
+			lawyers.setLawyerno(lawyers.getLawyerno().trim());
+			lawyers.setLoginname(lawyers.getLoginname().trim());
 			bs.addLawyer(lawyers);
 			this.message = "律师信息新增成功";
 			this.opResult="新增律师信息:"+lawyers.getLawyername();
 
 		} else {
-
-			lawyers.setLoginname(lawyers.getLawyerno());
+			lawyers.setLawyerno(lawyers.getLawyerno().trim());
+			lawyers.setLoginname(lawyers.getLawyerno().trim());
 			
 			lawyers.setPasswd(lawyers.getCertno());
 			bs.updateLawyers(lawyers);

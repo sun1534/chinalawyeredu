@@ -19,6 +19,7 @@ body {
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <jscalendar:head/>
 <script language="javascript">
+
 function getCities(vallll){
   $("#city")[0].length=0;
   var _o=new Option('请选择',0);
@@ -48,8 +49,9 @@ function getOffices(vallll){
   }
 }
 function checkLoginname(loginname,lawyerid){	
-	if((loginname == null) || (loginname.length == 0)){
-	    $("#checkloginname").html("不为空且长度不超过15个字符");
+	if(loginname == null || $.trim(loginname).length == 0){
+	    $("#checkloginname").html("<font color='red'>不为空且长度不超过20个字符</font>");
+	    $("#save").attr("disabled",true);
 		return;
 	}
 	var now=new Date().getTime();
@@ -60,12 +62,13 @@ function checkLoginname(loginname,lawyerid){
    		$("#checkloginname").html("<font color='red'>对不起，您输入的帐号【"+json.loginname+"】已经被他人使用，请选择其他名字后再试。</font>");
    		$("#save").attr("disabled",true);
    }else{
+        $("#checkloginname").html("");
 	    $("#save").attr("disabled",false);
    }
 });
 }
 function checkSystemno(systemno,lawyerid){	
-	if((systemno == null) || (systemno.length == 0)){
+	if((systemno == null) || ($.trim(systemno).length == 0)){
 		return;
 	}
 	var now=new Date().getTime();
@@ -81,7 +84,7 @@ function checkSystemno(systemno,lawyerid){
 });
 }
 function checkCardno(cardno,lawyerid){	
-	if((cardno == null) || (cardno.length == 0)){
+	if((cardno == null) || ($.trim(cardno).length == 0)){
 		return;
 	}
 	var now=new Date().getTime();
@@ -111,6 +114,24 @@ else{
 return;
 }
 }
+function checkvalues(){
+ if($.trim($("#lawyername").val()).length==0)
+ {
+ alert("请输入律师姓名,不能为空");
+ return false;
+ }
+  if($.trim($("#lawyerno").val()).length==0)
+  {
+   alert("请输入律师执业证号,不能为空");
+ return false;
+ }
+   if($.trim($("#certno").val()).length==0)
+   {
+    alert("请输入律师身份证号码,不能为空");
+ return false;
+ }
+ return true;
+}
 </script>
 </head>
 <body leftmargin="0" marginwidth="0" marginheight="0" topmargin="0">
@@ -128,7 +149,7 @@ return;
 			align="center" class="border-table">
 	<tr>			
     <td>
-    <s:form name="form1" action="lawyersCreateEdit" method="post" validate="true" enctype="multipart/form-data">
+    <s:form name="form1" action="lawyersCreateEdit" method="post" enctype="multipart/form-data" validate="true">
       <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
@@ -175,17 +196,17 @@ return;
              律师姓名:
           </td>
           <td class="tab_content">
-            <s:textfield name="lawyers.lawyername" size="15" maxlength="15" cssClass="text1" required="true"/>
+            <s:textfield name="lawyers.lawyername" id="lawyername" size="15" maxlength="15" cssClass="text1" required="true"/>
               <span class="hint">不为空且长度不超过7个汉字</span> </td>
         </tr>
         <tr>
           <td align="right" class="tab_content1"> 律师执业证号: </td>
              <td class="tab_content1">
              <s:if test="isnew">
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,0)"/>
+              <s:textfield name="lawyers.lawyerno"  id="lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,0)"/>
              </s:if>
              <s:else>
-              <s:textfield name="lawyers.lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,'%{lawyers.lawyerid}')"/>
+              <s:textfield name="lawyers.lawyerno"  id="lawyerno" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value,'%{lawyers.lawyerid}')"/>
              </s:else>
              <span class="hint" id="checkloginname">不为空且长度不超过20个字符</span>
         </tr>
@@ -200,7 +221,7 @@ return;
 		<tr>
             <td align="right" class="tab_content"> 身份证号: </td>
           <td class="tab_content">
-            <s:textfield name="lawyers.certno" size="20" maxlength="20" cssClass="text1" required="true"/>
+            <s:textfield name="lawyers.certno" id="certno" size="20" maxlength="20" cssClass="text1" required="true"/>
             <span class="hint">不为空且长度不超过20个字符</span>
           </td>
         </tr>

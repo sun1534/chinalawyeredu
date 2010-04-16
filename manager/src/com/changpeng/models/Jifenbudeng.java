@@ -29,6 +29,7 @@ public class Jifenbudeng implements java.io.Serializable {
 	private int cityid;
 	private int officeid;
 private int theyear;
+private boolean islocal;
 	// Constructors
 
 	/**
@@ -176,6 +177,20 @@ public void setTheyear(int theyear) {
 
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
+	}
+
+	/**
+	 * @return the islocal
+	 */
+	public boolean getIslocal() {
+		return islocal;
+	}
+
+	/**
+	 * @param islocal the islocal to set
+	 */
+	public void setIslocal(boolean islocal) {
+		this.islocal = islocal;
 	}
 
 	
