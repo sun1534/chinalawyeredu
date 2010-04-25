@@ -1,0 +1,15 @@
+测试说明：
+ 
+1、页面的支付请求提交到/cmb/cmbpay这个servlet，可以参见cmb/demo.jsp
+2、商城提交如下form信息至支付页
+ <form action="http://****/cmb/cmbpay">
+  <input type="hidden" name="orderid">
+  <input type="hidden" name="amount">
+  <input type="hidden" name="notifyurl">
+ </form>
+ 其中orderid为商城订单号，amount为订单金额(单位为分)，notifyurl为支付完成后，支付平台反馈充值结果至该url。3个参数都为必填
+反馈方式为http get的方式，如http://*****/?orderid="+orderid+"&tranStat=1"
+商城接收该结果，对应参数意义为：
+orderid代表商城提交的订单号，tranStat代表该笔订单支付结果(1-“交易成功”；2-“交易失败”；3-“交易可疑”)
+3、classes\com\cmb\cmb.properties为一些参数的配置
+4、classes\com\cmb\public.key为招行提供的公钥，验证签名的时候使用。如果部署路径修改，请修改CMBPayBackServlet.java类中的76行,即Security类构造函数中的参数

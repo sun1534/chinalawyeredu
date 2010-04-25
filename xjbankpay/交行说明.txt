@@ -1,0 +1,27 @@
+测试说明：
+ 
+1、页面的支付请求提交到/bocom/bocompay这个servlet，可以参见bocom/demo.jsp
+2、商城提交如下form信息至支付页
+ <form action="http://****/bocom/bocompay">
+  <input type="text" name="orderid">
+  <input type="text" name="amount">
+  <input type="text" name="notifyurl">
+   <input type="text" name="orderContent"><!--订单内容说明-->
+    <input type="text" name="orderMono"><!--商家备注信息-->
+ </form>
+ 其中orderid为商城订单号，amount为订单金额(单位为分)，notifyurl为支付完成后，支付平台反馈充值结果至该url。3个参数都为必填,这里注意的是,notifyurl长度不能超过60位
+反馈方式为http get的方式，如http://*****/?orderid="+orderid+"&tranStat=1"
+商城接收该结果，对应参数意义为：orderid代表商城提交的订单号，tranStat代表该笔订单支付结果(1-“交易成功”；2-“交易失败”；3-“交易可疑”)
+3、classes\com\bocom\bocom.properties为一些参数的配置,主要修改那个notifyurl的值即可
+4、classes\com\bocom\301310063009501.PFX为从交行下载的测试证书
+5、classes\com\bocom\test_root.cer为需要导入到jvm的根证书(正式环境请导入root.cer),验证交行返回的结果签名时有效
+   导入命令为:keytool -import -keystore /home/tomcat/java/jre/lib/security/cacerts -storepass changeit -keypass changeit -alias bocommca -file /home/koojj/tomcat6/webapps/pay/WEB-INF/classes/com/bocom/test_root.cer
+   删除命令为:keytool -delete -alias bocommca -keystore /home/tomcat/java/jre/lib/security/cacerts -storepass changeit 
+   其中 /home/tomcat/java/jre/lib/security/cacerts 中的/home/tomcat/java更换为所在机器的jvm虚拟环境
+        /home/koojj/tomcat6/webapps/pay/WEB-INF/classes/com/bocom/test_root.cer更换为test_root.cer所在的真实路径
+   导入的用户需为root
+6、提供给交行的测试结果,可以访问http://211.154.157.174:5080/pay/bocom/demo.jsp或者
+                                http://211.154.157.174:5080/pay/bocom/demo/merchant.htm进行测试报告的编写
+                                
+7、测试环境在提交到交行的时候,可能会存在证书不正确的情况,请点继续访问     
+8、

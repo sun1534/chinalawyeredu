@@ -1,0 +1,18 @@
+测试说明：
+ 
+B2B接口由于在本机需要安装相关证书等，不具备测试条件；
+B2C接口部署及测试方法如下：
+1、WebRoot\B2C\b2c.jsp为商城调用页（以下简称支付页）；
+2、商城提交如下form信息至支付页
+ <form action="http://****/B2C/b2c.jsp">
+  <input type="hidden" name="orderid">
+  <input type="hidden" name="amount">
+  <input type="hidden" name="notifyurl">
+ </form>
+ 其中orderid为商城订单号，amount为订单金额(单位为分)，notifyurl为支付完成后，支付平台反馈充值结果至该url
+反馈方式为http get的方式，如http://*****/?orderid="+orderid+"&tranStat=1"
+商城接收该结果，对应参数意义为：
+orderid代表商城提交的订单号，tranStat代表该笔订单支付结果(1-“交易成功”；2-“交易失败”；3-“交易可疑”)
+3、classes\com\icbc\common\icbc.properties的配置
+   需按对应属性指定公钥及私钥的部署路径
+   其中B2C通知地址为支付平台接收银联端通知地址，其值为http://*******/B2C/notify.jsp

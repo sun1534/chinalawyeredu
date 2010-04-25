@@ -1,0 +1,16 @@
+测试说明：
+ 
+1、页面的支付请求提交到/ccb/ccbpay这个servlet，可以参见ccb/demo.jsp
+2、商城提交如下form信息至支付页
+ <form action="http://****/ccb/ccbpay">
+  <input type="hidden" name="orderid">
+  <input type="hidden" name="amount">
+  <input type="hidden" name="notifyurl">
+ </form>
+ 其中orderid为商城订单号，amount为订单金额(单位为分)，notifyurl为支付完成后，支付平台反馈充值结果至该url。3个参数都为必填,这里注意的是,notifyurl长度不能超过60位
+反馈方式为http get的方式，如http://*****/?orderid="+orderid+"&tranStat=1"
+商城接收该结果，对应参数意义为：
+orderid代表商城提交的订单号，tranStat代表该笔订单支付结果(1-“交易成功”；2-“交易失败”；3-“交易可疑”)
+3、classes\com\ccb\ccb.properties为一些参数的配置
+4、classes\com\ccb\公钥.txt为从建行网站上下载的公钥
+5、现在的支付方式为采用建好的旧接口进行的支付,也就是最后的mac值那里,没有用到公钥的前30位

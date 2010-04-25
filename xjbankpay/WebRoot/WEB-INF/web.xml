@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	
+		<servlet>
+		<servlet-name>ccbpay</servlet-name>
+		<servlet-class>com.ccb.CCBPayServlet</servlet-class>
+	</servlet>
+	
+			<servlet>
+		<servlet-name>ccbpayback</servlet-name>
+		<servlet-class>com.ccb.CCBPayBackServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>cmbpay</servlet-name>
+		<servlet-class>com.cmb.CMBPayServlet</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>cmbpayback</servlet-name>
+		<servlet-class>com.cmb.CMBPayBackServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>bocompay</servlet-name>
+		<servlet-class>com.bocom.BOCOMPayServlet</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>bocompayback</servlet-name>
+		<servlet-class>com.bocom.BOCOMPayBackServlet</servlet-class>
+	</servlet>
+	
+		<servlet>
+		<servlet-name>abcpay</servlet-name>
+		<servlet-class>com.bocom.ABCPayServlet</servlet-class>
+	</servlet>
+		<servlet>
+		<servlet-name>abcpayback</servlet-name>
+		<servlet-class>com.bocom.ABCPayBackServlet</servlet-class>
+	</servlet>
+
+
+
+<servlet-mapping>
+		<servlet-name>abcpay</servlet-name>
+		<url-pattern>/abc/abcpay</url-pattern>
+	</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>abcpayback</servlet-name>
+		<url-pattern>/abc/abcpayback</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>bocompay</servlet-name>
+		<url-pattern>/bocom/bocompay</url-pattern>
+	</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>bocompayback</servlet-name>
+		<url-pattern>/bocom/bocompayback</url-pattern>
+	</servlet-mapping>
+
+
+<servlet-mapping>
+		<servlet-name>ccbpay</servlet-name>
+		<url-pattern>/ccb/ccbpay</url-pattern>
+	</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>ccbpayback</servlet-name>
+		<url-pattern>/ccb/ccbpayback</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>cmbpay</servlet-name>
+		<url-pattern>/cmb/cmbpay</url-pattern>
+	</servlet-mapping>
+		<servlet-mapping>
+		<servlet-name>cmbpayback</servlet-name>
+		<url-pattern>/cmb/cmbpayback</url-pattern>
+	</servlet-mapping>
+	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

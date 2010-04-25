@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="lib/icbc/dom4j.jar"/>
+	<classpathentry kind="lib" path="lib/icbc/icbc.jar"/>
+	<classpathentry kind="lib" path="lib/icbc/InfosecCrypto_Java1_02_JDK14+.jar"/>
+	<classpathentry kind="lib" path="lib/cmb/cmbJava15.zip"/>
+	<classpathentry kind="lib" path="lib/cmb/jcert.jar"/>
+	<classpathentry kind="lib" path="lib/cmb/jnet.jar"/>
+	<classpathentry kind="lib" path="lib/ccb/netpay.jar"/>
+	<classpathentry kind="lib" path="lib/bocom/bocomm-netsign1.8.jar"/>
+	<classpathentry kind="lib" path="lib/bocom/ISFJ_v2_0_119_2_BAISC_JDK14.jar"/>
+	<classpathentry kind="lib" path="lib/bocom/jsse.jar"/>
+	<classpathentry kind="lib" path="lib/abc/TrustPayClient-V2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/bocom/bocommapi1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/bocom/ibmjsseprovider2.jar"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>
