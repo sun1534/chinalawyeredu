@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=GBK" %>
 <%@ page language="java"%>
-<%@page import="com.ccb.CCBDatas"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
