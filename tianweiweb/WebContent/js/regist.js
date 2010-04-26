@@ -33,7 +33,7 @@ function checkIDCard (str)
 } 
 
 function isEmail(str){
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+   var reg = /^([a-zA-Z0-9_-].{0,1})+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     return reg.test(str);
 }
 
@@ -45,6 +45,7 @@ function isUsername(str){
 function checkusername(){
 	if(!isUsername($("#username").val())){
 		$('#nametip').html("<font color='red'>用户名必须是字母或和数字的组合</font>");
+		return false;
 	}
 	$.ajax({
 	    type: "POST",
