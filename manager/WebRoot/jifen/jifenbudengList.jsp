@@ -84,7 +84,7 @@ function getOffices(vallll){
         <tr>
           <td height="24" background="../imagesa/top-bg2.gif" >
             	姓名:<s:textfield name="lawyername" size="6"/>
-            	执业证号:<s:textfield name="lawyerno" size="8"/> 
+            	执业证号:<s:textfield name="lawyerno" size="17"/> 
             	        <s:if test="datavisible.provinceview">
                <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省级律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
           </s:if>

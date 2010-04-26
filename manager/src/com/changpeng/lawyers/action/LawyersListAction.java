@@ -143,7 +143,7 @@ public class LawyersListAction extends AbstractListAction {
 		CommonDatas.getGroups();
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class);
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class).add(Restrictions.ge("lawyertype", 0));;
 		System.out.println("0002552187:::" + cardno);
 
 		// if (loginname != null && !"".equals(loginname))

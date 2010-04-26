@@ -15,14 +15,12 @@ public abstract class AbstractListAction extends AbstractAction {
 	
 	protected PaginationSupport page;
 	
-	protected int pageNo=1;
+
 	
 	protected int pageSize=10;
 	
 	protected int startIndex;
-	public void setPageNo(int pageNo){
-		this.pageNo=pageNo;
-	}
+	
 	public void setPageSize(int size){
 		this.pageSize=size;
 	}
@@ -30,10 +28,7 @@ public abstract class AbstractListAction extends AbstractAction {
 	public PaginationSupport getPage(){
 		return page;
 	}
-	public int getPageNo(){
-		return this.pageNo;
-	}
-	
+
 
 
 /**

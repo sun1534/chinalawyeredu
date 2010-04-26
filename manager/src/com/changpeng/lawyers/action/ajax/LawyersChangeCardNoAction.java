@@ -49,57 +49,88 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 			if (theact != null && theact.equals("clear")) {
 				Lawyers newlawyer = (Lawyers) basicService.get(Lawyers.class, lawyerid);
 				newlawyer.setCarddate(null);
-				// newlawyer.setSystemno(null);
 				newlawyer.setCardno(null);
 				basicService.update(newlawyer);
 				cardno = "";
 				carddate = "";
-				// systemno="";
 				changeok = "true";
 			} else {
-
-				Lawyers lawyer = lawyersService.getLawyerBySystemno(systemno);
+				Lawyers lawyer =null;
+				if(systemno!=null&&!systemno.equals(""))
+					lawyer= lawyersService.getLawyerBySystemno(systemno);
 				Lawyers thelawyer = (Lawyers) basicService.get(Lawyers.class, lawyerid);
-				if (lawyer != null && lawyer.getSystemno().equals(thelawyer.getSystemno())) {
-					cardno = lawyer.getCardno();
-					// carddate=lawyer.getCarddate();
-					thelawyer.setSystemno(systemno);
-					cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
-					LOG.debug("cardno:::::::" + cardno);
-					if (cardno == null || cardno.equals("")) {
+				// 先要判断这个系统编号是否已经使用
+
+				int groupid = this.getLoginUser().getSysGroup() == null ? 0 : this.getLoginUser().getSysGroup()
+						.getGroupid();
+				
+				if(groupid!=8078){
+					
+					//判断卡号是否已使用,判断编号是否已使用
+					Lawyers cardnolawyer=null;
+					if(cardno!=null&&!cardno.equals(""))
+					 cardnolawyer=lawyersService.getLawyerByCardno(cardno);
+					if(lawyer!=null&&!lawyer.getSystemno().equals(thelawyer.getSystemno())){//系统编号重复
 						changeok = "systemnoexist";
-					} else {
+						lawyername=lawyer.getLawyername();
+					}
+					else if(cardnolawyer!=null&&!cardnolawyer.getSystemno().equals(thelawyer.getCardno())){//卡号重复
+						changeok = "cardnoexist";
+						lawyername=cardnolawyer.getLawyername();
+					}else{
+						thelawyer.setSystemno(systemno);
 						thelawyer.setCardno(cardno);
 						if (carddate == null || carddate.equals(""))
 							carddate = df.format(new java.util.Date());
-
 						Date cd = parse(carddate);
 						thelawyer.setCarddate(cd);
 						basicService.update(thelawyer);
 						changeok = "true";
 					}
-				} else if (lawyer != null && !lawyer.getSystemno().equals(thelawyer.getSystemno())) {
-					this.lawyername = lawyer.getLawyername();
-					cardno = "";
-					carddate = "";
-					systemno = "";
-					changeok = "repeat";
-				} else {
+				}
 
-					thelawyer.setSystemno(systemno);
-					cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
-					LOG.debug("cardno:::::::" + cardno);
-					if (cardno == null || cardno.equals("")) {
-						changeok = "systemnoexist";
+				else {//杭州的这样判断，他要能自动去获取数据
+					if (lawyer != null && lawyer.getSystemno().equals(thelawyer.getSystemno())) {
+						cardno = lawyer.getCardno();
+						// carddate=lawyer.getCarddate();
+						thelawyer.setSystemno(systemno);
+						cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
+						LOG.debug("cardno:::::::" + cardno);
+						if (cardno == null || cardno.equals("")) {
+							changeok = "systemnoerror";
+						} else {
+							thelawyer.setCardno(cardno);
+							if (carddate == null || carddate.equals(""))
+								carddate = df.format(new java.util.Date());
+
+							Date cd = parse(carddate);
+							thelawyer.setCarddate(cd);
+							basicService.update(thelawyer);
+							changeok = "true";
+						}
+					} else if (lawyer != null && !lawyer.getSystemno().equals(thelawyer.getSystemno())) {
+						this.lawyername = lawyer.getLawyername();
+						cardno = "";
+						carddate = "";
+						systemno = "";
+						changeok = "repeat";
 					} else {
-						thelawyer.setCardno(cardno);
-						if (carddate == null || carddate.equals(""))
-							carddate = df.format(new java.util.Date());
 
-						Date cd = parse(carddate);
-						thelawyer.setCarddate(cd);
-						basicService.update(thelawyer);
-						changeok = "true";
+						thelawyer.setSystemno(systemno);
+						cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
+						LOG.debug("cardno:::::::" + cardno);
+						if (cardno == null || cardno.equals("")) {
+							changeok = "systemnoerror";
+						} else {
+							thelawyer.setCardno(cardno);
+							if (carddate == null || carddate.equals(""))
+								carddate = df.format(new java.util.Date());
+
+							Date cd = parse(carddate);
+							thelawyer.setCarddate(cd);
+							basicService.update(thelawyer);
+							changeok = "true";
+						}
 					}
 				}
 			}

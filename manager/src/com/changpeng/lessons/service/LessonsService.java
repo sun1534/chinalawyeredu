@@ -319,7 +319,7 @@ public class LessonsService extends BasicService {
 				hql += " and a.lessons.lessondate between '"+startStr+"'and '"+endStr+"'";
 			}
 			
-			hql += " order by a.lessons.lessondate desc";
+			hql += " order by a.lessons.lessondate,a.lessons.lessonid desc";
 		
 			dc.setProjection(Projections.countDistinct("lessons"));
 //			dc.addOrder(Order.desc("lessons.lessondate"));

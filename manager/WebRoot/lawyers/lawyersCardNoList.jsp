@@ -43,8 +43,12 @@ var _lawyerid=0;
          
       }else if(resp.changeok=="repeat"){
        alert("这个会员编号已经被使用,使用人员为:"+resp.lawyername);
-      } else if(resp.changeok=="systemnoexist"){
+      } else if(resp.changeok=="systemnoerror"){
        alert("这个会员编号没有和卡号的对应信息,请联系技术人员");
+      }else if(resp.changeok=="systemnoexist"){
+       alert("会员编号已经被律师"+resp.lawyername+"使用,请联系技术人员");
+      }else if(resp.changeok=="cardnoexist"){
+       alert("卡号已经被律师"+resp.lawyername+"使用,请联系技术人员");
       }
       else{
          alert("会员编号修失败,请联系管理员");

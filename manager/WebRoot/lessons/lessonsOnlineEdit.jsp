@@ -204,7 +204,7 @@ function showResponse(originalRequest){
 							<td class="tab_content">
 							</td>
 							<td colspan="2" class="tab_content">
-					
+					<s:hidden name="pageNo"/>
 									<input type="submit" class="button" value=" 确认 ">
 									&nbsp;&nbsp;
 									<input type="reset" class="button" value=" 重置 ">

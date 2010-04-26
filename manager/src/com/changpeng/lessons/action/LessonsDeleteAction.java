@@ -31,7 +31,7 @@ public class LessonsDeleteAction extends AbstractAction {
 		
 		this.message = "课程删除成功";
 	//	this.nextPage = "lessonsList.pl";
-		this.nextPage="lessonsOnlineList.pl?lessonstyle=2";
+		this.nextPage="lessonsOnlineList.pl?lessonstyle=2&pageNo="+pageNo;
 		return SUCCESS;
 	}
 }

@@ -28,7 +28,7 @@ function getAddOnline(){
 function deleteid(lessonid){
   if(confirm('您确定要删除这个课程吗')){
  
-  	 window.location.href="lessonsDelete.pl?lessonid="+lessonid;
+  	 window.location.href="lessonsDelete.pl?lessonid="+lessonid+"&pageNo=${pageNo}";
   }
 }
 </script>
@@ -136,7 +136,7 @@ function deleteid(lessonid){
 							</TD>
 							<TD class="tab_content" align="center">
 									<s:if test="mygroup==groupid">
-                                    <a href="lessonsEdit!input.pl?onlyonline=0&lessonid=${lessonid}">修改</a>
+                                    <a href="lessonsEdit!input.pl?onlyonline=0&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
 								</s:if>
 								<s:else>
 									&nbsp;

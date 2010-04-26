@@ -136,7 +136,7 @@ public class LawyersCreateEditAction extends AbstractAction {
 			this.opResult="修改律师信息:"+lawyers.getLawyername();
 		}
 
-		this.nextPage = "lawyersList.pl";
+		this.nextPage = "lawyersList.pl?pageNo="+pageNo;
 		return SUCCESS;
 	}
 

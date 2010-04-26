@@ -34,7 +34,7 @@ function passwdReset(userid){
 }
 function deleteit(userid){
 	  if(confirm("您确定要删除这个律师的信息吗？")){
-	    window.location.href="lawyersDelete.pl?lawyerid="+userid;
+	    window.location.href="lawyersDelete.pl?lawyerid="+userid+"&pageNo=${pageNo}";
 	  }
 }
 function getCities(vallll){

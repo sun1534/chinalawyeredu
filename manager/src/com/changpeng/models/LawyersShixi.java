@@ -15,7 +15,7 @@ public class LawyersShixi implements java.io.Serializable {
 	// Fields
 private int excelline;
 	private int lawyerid;
-	private int lawyertype;
+	private int lawyertype=-1; //-1代表是实习律师
 	private String lawyername;
 	private String lawyerenname;
 	private String shixino;
@@ -112,13 +112,13 @@ private int excelline;
 		this.lawyerid = lawyerid;
 	}
 
-	public int getLawyertype() {
-		return this.lawyertype;
-	}
-
-	public void setLawyertype(int lawyertype) {
-		this.lawyertype = lawyertype;
-	}
+//	public int getLawyertype() {
+//		return this.lawyertype;
+//	}
+//
+//	public void setLawyertype(int lawyertype) {
+//		this.lawyertype = lawyertype;
+//	}
 
 	public String getLawyername() {
 		return this.lawyername;
@@ -609,6 +609,20 @@ private int excelline;
 	 */
 	public void setNation(String nation) {
 		this.nation = nation;
+	}
+
+	/**
+	 * @return the lawyertype
+	 */
+	public int getLawyertype() {
+		return lawyertype;
+	}
+
+	/**
+	 * @param lawyertype the lawyertype to set
+	 */
+	public void setLawyertype(int lawyertype) {
+		this.lawyertype = lawyertype;
 	}
 
 }

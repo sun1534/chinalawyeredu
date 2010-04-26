@@ -70,7 +70,7 @@ public class LawyersShixiListAction extends AbstractListAction {
 		CommonDatas.getGroups();
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LawyersShixi.class);
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LawyersShixi.class).add(Restrictions.eq("lawyertype", -1));
 		
 //		if (loginname != null && !"".equals(loginname))
 //			detachedCriteria.add(Restrictions.like("loginname", loginname, MatchMode.START));
@@ -83,7 +83,6 @@ public class LawyersShixiListAction extends AbstractListAction {
 			detachedCriteria.add(Restrictions.eq("zigeno", zigeno));
 		if (certno != null && !"".equals(certno))
 			detachedCriteria.add(Restrictions.eq("certno", certno));
-		
 
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {

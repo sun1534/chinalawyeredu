@@ -34,7 +34,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * 
  */
 public abstract class AbstractAction extends ActionSupport {
-
+	protected int pageNo=1;
 	protected BasicService basicService;
 
 	private static Log _LOG = LogFactory.getLog(AbstractAction.class);
@@ -329,7 +329,12 @@ public abstract class AbstractAction extends ActionSupport {
 	public void setTime(String time){
 		
 	}
-
+	public int getPageNo(){
+		return this.pageNo;
+	}
+	public void setPageNo(int pageNo){
+		this.pageNo=pageNo;
+	}
 	static {
 
 	}

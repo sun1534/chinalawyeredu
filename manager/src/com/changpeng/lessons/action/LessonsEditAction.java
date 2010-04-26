@@ -182,9 +182,9 @@ public class LessonsEditAction extends AbstractAction {
 		service.updateLesson(lesson, sharedgroupids, this.getLoginUser());
 		//this.nextPage = "lessonsList.pl";
 		if(onlyonline==1)
-		   this.nextPage="lessonsOnlineList.pl?lessonstyle=2";
+		   this.nextPage="lessonsOnlineList.pl?lessonstyle=2&pageNo="+pageNo;
 		 else
-			this.nextPage="lessonsLocalList.pl?lessonstyle=1";
+			this.nextPage="lessonsLocalList.pl?lessonstyle=1&pageNo="+pageNo;
 		this.message = "课程信息修改成功";
 		return SUCCESS;
 	}
