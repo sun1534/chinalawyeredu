@@ -37,8 +37,15 @@ function isEmail(str){
     return reg.test(str);
 }
 
+function isUsername(str){
+    var reg = /^([a-zA-Z0-9_-])+$/;
+    return reg.test(str);
+}
 
 function checkusername(){
+	if(!isUsername($("#username").val())){
+		$('#nametip').html("<font color='red'>用户名必须是字母或和数字的组合</font>");
+	}
 	$.ajax({
 	    type: "POST",
 	    data:"type=1&username="+$("#username").val(),
