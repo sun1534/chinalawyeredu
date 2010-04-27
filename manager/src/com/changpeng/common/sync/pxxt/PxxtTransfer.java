@@ -45,10 +45,10 @@ public class PxxtTransfer {
 
 	public static void syncLawyers(PersonInfo person) throws Exception {
 
-		if (person.getRoleCode().equals("7")) {
-			LOG.warn("实习人员,不进行同步!" + person.getPersonName());
-			return;
-		}
+		// if (person.getRoleCode().equals("7")) {
+		// LOG.warn("实习人员,不进行同步!" + person.getPersonName());
+		// return;
+		// }
 
 		Lawyers lawyers = null;
 		try {
@@ -100,7 +100,10 @@ public class PxxtTransfer {
 			lawyers.setLawyerenname(Chinese2Pinyin.to2pinyin(person.getPersonName()));
 			lawyers.setLawyername(person.getPersonName());
 			lawyers.setLawyerno(person.getCertificateNo());
-			lawyers.setLawyertype(Integer.parseInt(person.getRoleCode()));
+			if (person.getRoleCode().equals("7"))
+				lawyers.setLawyertype(-1); // 实习律师
+			else
+				lawyers.setLawyertype(Integer.parseInt(person.getRoleCode()));
 			lawyers.setLoginname(person.getCertificateNo());
 			lawyers.setMobile1(person.getMobilePhone());
 			lawyers.setMobile2(person.getMobilePhone());
