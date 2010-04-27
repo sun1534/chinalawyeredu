@@ -2,11 +2,10 @@
  * 
  */
 
-import java.util.Date;
-
-import net.sourceforge.pinyin4j.*;
-import net.sourceforge.pinyin4j.format.*;
-import net.sourceforge.pinyin4j.format.exception.*;
+import com.changpeng.common.BasicService;
+import com.changpeng.common.context.Globals;
+import com.changpeng.jifen.service.LxnetrecsService;
+import com.changpeng.models.Lxnetrecs;
 
 /**
  * @author 华锋
@@ -34,10 +33,26 @@ public class Test {
 //		for(int i=0;i<s.length;i++){
 //			System.out.println(s[i]);
 //		}
+		LxnetrecsService lxnetrecsService = (LxnetrecsService) Globals.getMainBean("lxnetrecsService");
+		System.out.println(lxnetrecsService);
+		BasicService basicService = (BasicService) Globals.getMainBean("basicService");
+//		Lxnetrecs lxnetrecs = new Lxnetrecs();
+		Lxnetrecs lxnetrecs = (Lxnetrecs) basicService.get(Lxnetrecs.class, 114069);
+		lxnetrecs.setAllminutes(300f);
+		lxnetrecs.setLasttime(new java.sql.Timestamp(System.currentTimeMillis()));
+		lxnetrecs.setLessonid(93);
+		lxnetrecs.setLookedminutes(300f);
+		lxnetrecs.setUserid(1426);
+		lxnetrecs.setJifenyear(2009);
+		lxnetrecs.setNowyear(2009);
+//		float huodexuefen = lxnetrecsService.saveLxnetrecs(lxnetrecs);
+		float huodexuefen = lxnetrecsService.updateLxnetrecs(lxnetrecs);
+		int netrecsid = lxnetrecs.getNetrecsid();
 		
-		Date date=new Date();
-		date.setTime(1255881610723L);
-		System.out.println(date);
+		
+		System.out.println(huodexuefen);
+		
+		System.out.println(netrecsid);
 	}
 
 }

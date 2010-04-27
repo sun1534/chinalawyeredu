@@ -12,9 +12,9 @@
        <!--修改详细信息-->
         <action name="lawyersEditSelf" class="com.changpeng.lawyers.action.LawyersEditSelfAction">
         	<result name="input" type="dispatcher">/lawyers/lawyersEditSelf.jsp</result>
-			<!-- 
-			<result name="success" type="dispatcher">/lawyers/lawyersEditSelf.jsp</result>
-       		 -->
+		
+			<result name="shixi" type="dispatcher">/lawyers/lawyersShixiEditSelf.jsp</result>
+       		
        </action>
     
         <action name="officeChangeApplyList" class="com.changpeng.lawyers.action.OfficeChangeApplyListAction">

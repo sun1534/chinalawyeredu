@@ -19,6 +19,7 @@ import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.models.Jifentongji;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfShixi;
 
 /**
  * @author 华锋 2008-5-4 下午11:57:36
@@ -64,7 +65,28 @@ public class LawyerlessonxfDAO extends BasicDAO {
 			return null;
 		return (Lawyerlessonxf) list.get(0);
 	}
+/**
+ * 得到实习律师的学分
+ * @param lessonid
+ * @param userid
+ * @param learnmode
+ * @return
+ */
+	public LawyerlessonxfShixi getXuefenShixi(int lessonid, int userid, int learnmode) {
+		String sql = "";
 
+		if (learnmode == 0)
+			sql = "from com.changpeng.models.LawyerlessonxfShixi xf where xf.lessonid=" + lessonid + " and xf.lawyerid="
+					+ userid;
+		else
+			sql = "from com.changpeng.models.LawyerlessonxfShixi xf where xf.lessonid=" + lessonid + " and xf.lawyerid="
+					+ userid + " and xf.learnmode=" + learnmode;
+		List list = find(sql);
+
+		if (list == null || list.size() == 0)
+			return null;
+		return (LawyerlessonxfShixi) list.get(0);
+	}
 	/**
 	 * 
 	 * @param from

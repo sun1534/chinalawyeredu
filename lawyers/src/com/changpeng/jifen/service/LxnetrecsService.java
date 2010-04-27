@@ -16,7 +16,9 @@ import com.changpeng.common.exception.ServiceException;
 import com.changpeng.common.util.NumberUtil;
 import com.changpeng.jifen.dao.LawyerlessonxfDAO;
 import com.changpeng.jifen.dao.LxnetrecsDAO;
+import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.Lxnetrecs;
@@ -87,12 +89,15 @@ public class LxnetrecsService extends BasicService {
 				public Object doInTransaction(TransactionStatus status) {
 
 					lxnetrecsDAO.save(netrecs);
-					
-					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
-
-					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
+					System.out.println(netrecs.getUserid());
 					Lawyers lawyer = (Lawyers) lxnetrecsDAO.get(Lawyers.class, netrecs.getUserid());
-
+System.out.println(lawyer);
+					BasicLawyerlessonxf xf=null;
+					if(lawyer.getLawyertype()==-1)
+						xf = lawyerlessonxfDAO.getXuefenShixi(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					else
+						xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
 					float huodexuefen = Float.parseFloat(NumberUtil.toMoney(lesson.getXuefen()
 							* (netrecs.getLookedminutes() / netrecs.getAllminutes())));
 
@@ -102,7 +107,10 @@ public class LxnetrecsService extends BasicService {
 					}
 					
 					if (xf == null) {
-						xf = new Lawyerlessonxf();
+						if(lawyer.getLawyertype()==-1)
+						xf = new LawyerlessonxfShixi();
+						else
+							xf = new Lawyerlessonxf();
 						xf.setLawyerid(lawyer.getLawyerid());
 						xf.setLawyername(lawyer.getLawyername());
 						xf.setProvinceid(lawyer.getProvinceunion());
@@ -159,7 +167,16 @@ public class LxnetrecsService extends BasicService {
 					// 更新这个课程
 					lxnetrecsDAO.update(netrecs);
 
-					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					
+					Lawyers lawyer = (Lawyers) lxnetrecsDAO.get(Lawyers.class, netrecs.getUserid());
+
+					BasicLawyerlessonxf xf=null;
+					if(lawyer.getLawyertype()==-1)
+						xf = lawyerlessonxfDAO.getXuefenShixi(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					else
+						xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					
+//					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
 					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
 
 

@@ -147,7 +147,9 @@
         <td align="left" bgcolor="#F2F8FF">${needfen}分才能达标	</td></tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>执： </b>   </td>                
-        <td align="left" bgcolor="#F2F8FF">${lawyers.zhiyedate}</td></tr>
+        <td align="left" bgcolor="#F2F8FF">${lawyers.zhiyedate}</td>
+      </tr>
+      <s:if test="lawyers.lawyertype>=0">
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>审：</b> </td>                   
         <td align="left" bgcolor="#F2F8FF">
@@ -157,7 +159,9 @@
             </s:if>
              <s:else>未通过
             </s:else> </font>
-        </td></tr>
+        </td>
+        </tr>
+        </s:if>
          <tr>
         <td align="center" bgcolor="#F2F8FF" height="10"> </td>                   
         <td align="left" bgcolor="#F2F8FF"></td></tr>     

@@ -4,20 +4,17 @@
 
 package com.changpeng.jifen.action;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysUnionparams;
 
@@ -29,12 +26,8 @@ import com.changpeng.models.SysUnionparams;
  */
 public class JifenQueryAction extends AbstractListAction {
 
-
-
-	
-	
 	public JifenQueryAction() {
-		
+
 	}
 
 	/*
@@ -45,80 +38,88 @@ public class JifenQueryAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 		// SysUser lawer = ;
-	
-		
-		int lawyerid=this.getLoginUser().getLawyerid();
-		this.lawyers=this.getLoginUser();
+
+		int lawyerid = this.getLoginUser().getLawyerid();
+		this.lawyers = this.getLoginUser();
 		// 根据查询的年来查,默认为当前时间所在的积分年
-		
+
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
-		dabiaofen=params.getDabiaofen();
+		dabiaofen = params.getDabiaofen();
 		jifentime = CommonDatas.getJifenTime(nianshenyear, params.getNianshen());
-		this.nianshenyear=jifentime.getNianshenyear();
-		
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
-		detachedCriteria.add(Restrictions.eq("lawyerid",lawyerid));
-//		detachedCriteria.add(Restrictions.between("lastupdate", jifentime.getStart(), jifentime.getEnd()));
+		this.nianshenyear = jifentime.getNianshenyear();
+		DetachedCriteria detachedCriteria = null;
+		String table = "lawyerlessonxf";
+		if (this.lawyers.getLawyertype() == -1) {
+			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
+			table = "lawyerlessonxf_shixi";
+		} else
+			detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
+		detachedCriteria.add(Restrictions.eq("lawyerid", lawyerid));
+		// detachedCriteria.add(Restrictions.between("lastupdate",
+		// jifentime.getStart(), jifentime.getEnd()));
 		detachedCriteria.add(Restrictions.eq("theyear", jifentime.getNianshenyear()));
-		
+
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
 		this.page = basicService.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, pageNo);
 
+		// String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a
+		// where a.lawyerid="+lawyerid+" and (UNIX_TIMESTAMP(a.lastupdate)
+		// between "+jifentime.getStart().getTime()/1000 + " and " +
+		// jifentime.getEnd().getTime()/1000 + ") group by a.learnmode";
+		String adminsql = "select sum(a.pxxf),a.learnmode from " + table + " a where a.theyear="
+				+ jifentime.getNianshenyear() + " and a.lawyerid=" + lawyerid + " group by a.learnmode";
 
-//		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a where a.lawyerid="+lawyerid+" and (UNIX_TIMESTAMP(a.lastupdate) between "+jifentime.getStart().getTime()/1000 + " and " + jifentime.getEnd().getTime()/1000 + ") group by a.learnmode";
-		String adminsql="select sum(a.pxxf),a.learnmode from lawyerlessonxf a where a.theyear="+jifentime.getNianshenyear()+" and a.lawyerid="+lawyerid+" group by a.learnmode";
-		
-		
 		List tongjilist = basicService.findBySqlQuery(adminsql);
-		int tongjilength=tongjilist==null?0:tongjilist.size();
-		for(int i=0;i<tongjilength;i++){
-			Object[] obj=(Object[])tongjilist.get(i);
-			if(obj[1].toString().equals("1")){
-				this.localecnt= Double.parseDouble(obj[0].toString());
-			}else if(obj[1].toString().equals("2")){
-				this.video= Double.parseDouble(obj[0].toString());
-			}else if(obj[1].toString().equals("3")){
-				this.wenbenkejian= Double.parseDouble(obj[0].toString());
-			}else if(obj[1].toString().equals("4")){
-				this.budeng= Double.parseDouble(obj[0].toString());
+		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
+		for (int i = 0; i < tongjilength; i++) {
+			Object[] obj = (Object[]) tongjilist.get(i);
+			if (obj[1].toString().equals("1")) {
+				this.localecnt = Double.parseDouble(obj[0].toString());
+			} else if (obj[1].toString().equals("2")) {
+				this.video = Double.parseDouble(obj[0].toString());
+			} else if (obj[1].toString().equals("3")) {
+				this.wenbenkejian = Double.parseDouble(obj[0].toString());
+			} else if (obj[1].toString().equals("4")) {
+				this.budeng = Double.parseDouble(obj[0].toString());
 			}
 		}
 		// TODO Auto-generated method stub
 		return SUCCESS;
 	}
 
-	
 	private Lawyers lawyers;
-	public Lawyers getLawyers(){
+
+	public Lawyers getLawyers() {
 		return this.lawyers;
 	}
 
 	private float dabiaofen;
-	
-	
+
 	private int nianshenyear;
 	private double video;
 	private double localecnt;
 	private double budeng;
 	private double wenbenkejian;
-	public double getVideo(){
+
+	public double getVideo() {
 		return this.video;
 	}
-	public double getLocalecnt(){
+
+	public double getLocalecnt() {
 		return this.localecnt;
 	}
-	public double getBudeng(){
+
+	public double getBudeng() {
 		return this.budeng;
 	}
-	public double getWenbenkejian(){
+
+	public double getWenbenkejian() {
 		return this.wenbenkejian;
 	}
 
-	
-
-	
 	private JifenTime jifentime;
+
 	/**
 	 * @return the jifentime
 	 */
@@ -141,7 +142,8 @@ public class JifenQueryAction extends AbstractListAction {
 	}
 
 	/**
-	 * @param nianshenyear the nianshenyear to set
+	 * @param nianshenyear
+	 *            the nianshenyear to set
 	 */
 	public void setNianshenyear(int nianshenyear) {
 		this.nianshenyear = nianshenyear;

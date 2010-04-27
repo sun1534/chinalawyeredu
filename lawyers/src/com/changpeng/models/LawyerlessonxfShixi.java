@@ -9,12 +9,10 @@ import java.util.Date;
  * @author MyEclipse Persistence Tools
  */
 
-public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Serializable {
-
-	private int isshixi=0;
-	
+public class LawyerlessonxfShixi extends BasicLawyerlessonxf implements java.io.Serializable {
+	private int isshixi=1;
 	// Fields
-
+//
 //	private int xfid;
 //	private int lessonid;
 //	private String title;
@@ -128,7 +126,7 @@ public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Seria
 //
 //
 //	/** default constructor */
-//	public Lawyerlessonxf() {
+//	public LawyerlessonxfShixi() {
 //	}
 //
 //

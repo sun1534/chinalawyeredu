@@ -99,17 +99,17 @@ function fanye(str){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#EDEDED">
 				<tr>
-					<TD height="23" width="27%" align="center" background="../imagesa/top-bg1.gif">
+					<TD height="23" width="22%" align="center" background="../imagesa/top-bg1.gif">
 						课程名称
 					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
+					<TD height="23" width="12%" align="center" background="../imagesa/top-bg1.gif">
 						主讲人
 					</TD>
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						课程类别
+						类别
 					</TD>
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						课时学分
+						学分
 					</TD>
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						授课时间

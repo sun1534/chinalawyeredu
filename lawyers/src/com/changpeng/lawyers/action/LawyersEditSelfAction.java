@@ -125,7 +125,8 @@ public class LawyersEditSelfAction extends AbstractAction {
 			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
 		com.changpeng.common.CommonDatas.getGroups();
 //		set("lawyers", lawyers);
-
+if(lawyers.getLawyertype()==-1)
+	return "shixi";
 		return INPUT;
 	}
 

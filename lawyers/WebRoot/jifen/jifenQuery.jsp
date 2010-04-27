@@ -72,7 +72,7 @@ function fanye(str){
       <TR>
         <TD class="tab_content" align="left">
         <s:if test="lessonid>0">
-        <a href="../lessons/lessonsView.action?lessonid=${lessonid }">${title}</a>
+        <a href="../lessons/lessonsView.pl?lessonid=${lessonid }">${title}</a>
         </s:if>
         <s:else>
         ${title}
