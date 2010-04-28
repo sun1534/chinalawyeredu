@@ -9,10 +9,10 @@ import java.util.Date;
  * @author MyEclipse Persistence Tools
  */
 
-public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Serializable {
-
+public class LawyerlessonxfShixi extends BasicLawyerlessonxf implements java.io.Serializable {
+	private int isshixi=1;
 	// Fields
-	private int isshixi=0;
+//
 //	private int xfid;
 //	private int lessonid;
 //	private String title;
@@ -30,6 +30,7 @@ public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Seria
 //	private int provinceid;
 //	private int cityid;
 //	private int officeid;
+//
 //	private int theyear;
 //	private int islastyear;
 //	// Constructors
@@ -125,7 +126,7 @@ public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Seria
 //
 //
 //	/** default constructor */
-//	public Lawyerlessonxf() {
+//	public LawyerlessonxfShixi() {
 //	}
 //
 //
@@ -228,7 +229,7 @@ public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Seria
 //	}
 //
 //	public Float getPxxf() {
-//			return Float.parseFloat(com.changpeng.jifen.util.NumberUtil.toMoney(this.pxxf+""));
+//		return Float.parseFloat(com.changpeng.jifen.util.NumberUtil.toMoney(this.pxxf+""));
 //	}
 //
 //	public void setPxxf(Float pxxf) {
@@ -296,7 +297,7 @@ public class Lawyerlessonxf extends BasicLawyerlessonxf implements java.io.Seria
 //	public void setIsfull(boolean isfull) {
 //		this.isfull = isfull;
 //	}
-//
+
 
 
 	

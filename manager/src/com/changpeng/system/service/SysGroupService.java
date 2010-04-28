@@ -149,7 +149,8 @@ public class SysGroupService extends BasicService {
 				SysRole role = new SysRole();
 				role.setRoleid(1);
 				user.setSysRole(role);
-				user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+//				user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+				user.setPassword(com.changpeng.common.util.MD5.md5("123456"));
 				user.setProvinceid(theoffice.getDirectgroup());
 				user.setStatus(0);
 				user.setUsername(theoffice.getGroupname());
@@ -191,7 +192,8 @@ public class SysGroupService extends BasicService {
 			SysRole role = new SysRole();
 			role.setRoleid(1);
 			user.setSysRole(role);
-			user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+//			user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+			user.setPassword(com.changpeng.common.util.MD5.md5("123456"));
 			user.setProvinceid(group.getDirectgroup());
 			user.setStatus(0);
 			user.setUsername(group.getGroupname());

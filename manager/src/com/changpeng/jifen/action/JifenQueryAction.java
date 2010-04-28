@@ -4,23 +4,19 @@
 
 package com.changpeng.jifen.action;
 
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysUnionparams;
-import com.changpeng.models.SysUser;
 
 /**
  * 积分查询，都查自己的律师积分
@@ -38,10 +34,9 @@ public class JifenQueryAction extends AbstractListAction {
 
 	public JifenQueryAction() {
 	}
-	
-private String resultType="list";
-	
-	
+
+	private String resultType = "list";
+
 	/**
 	 * @return the resultType
 	 */
@@ -50,7 +45,8 @@ private String resultType="list";
 	}
 
 	/**
-	 * @param resultType the resultType to set
+	 * @param resultType
+	 *            the resultType to set
 	 */
 	public void setResultType(String resultType) {
 		this.resultType = resultType;
@@ -72,40 +68,56 @@ private String resultType="list";
 		dabiaofen = params.getDabiaofen();
 		jifentime = CommonDatas.getJifenTime(year, params.getNianshen());
 		this.year = jifentime.getNianshenyear();
+		DetachedCriteria detachedCriteria = null;
+		String table = "lawyerlessonxf";
+		Lawyers lawyers = (Lawyers) basicService.get(Lawyers.class, lawyerid);
 
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
+		if (lawyers == null) {
+			this.message = "对应的律师信息不存在,请返回";
+			return "message";
+		}
+
+		if (lawyers.getLawyertype() == -1) {
+			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
+			table = "lawyerlessonxf_shixi";
+		} else
+			detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
 		detachedCriteria.add(Restrictions.eq("lawyerid", lawyerid));
-//		detachedCriteria.add(Restrictions.between("lastupdate", jifentime.getStart(), jifentime.getEnd()));
+		// detachedCriteria.add(Restrictions.between("lastupdate",
+		// jifentime.getStart(), jifentime.getEnd()));
 		detachedCriteria.add(Restrictions.eq("theyear", jifentime.getNianshenyear()));
-		
+
 		detachedCriteria.addOrder(Order.desc("lastupdate"));
 
 		this.page = basicService.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, pageNo);
 
-//		String adminsql = "select format(sum(a.pxxf),2),a.learnmode from lawyerlessonxf a where a.lawyerid="
-//				+ this.lawyerid + " and (UNIX_TIMESTAMP(a.lastupdate) between " + jifentime.getStart().getTime() / 1000
-//				+ " and " + jifentime.getEnd().getTime() / 1000 + ") group by a.learnmode";
-		
-		String adminsql = "select format(sum(a.pxxf),2),a.learnmode from lawyerlessonxf a where a.lawyerid="
-			+ this.lawyerid + " and (a.theyear="+jifentime.getNianshenyear()+") group by a.learnmode";
+		// String adminsql = "select format(sum(a.pxxf),2),a.learnmode from
+		// lawyerlessonxf a where a.lawyerid="
+		// + this.lawyerid + " and (UNIX_TIMESTAMP(a.lastupdate) between " +
+		// jifentime.getStart().getTime() / 1000
+		// + " and " + jifentime.getEnd().getTime() / 1000 + ") group by
+		// a.learnmode";
+
+		String adminsql = "select format(sum(a.pxxf),2),a.learnmode from " + table + " a where a.lawyerid="
+				+ this.lawyerid + " and (a.theyear=" + jifentime.getNianshenyear() + ") group by a.learnmode";
 
 		List tongjilist = basicService.findBySqlQuery(adminsql);
 		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
 		for (int i = 0; i < tongjilength; i++) {
 			Object[] obj = (Object[]) tongjilist.get(i);
-//			System.out.println(obj[0]+"=="+obj[1]);
+			// System.out.println(obj[0]+"=="+obj[1]);
 			if (obj[1].toString().equals("1")) {
 				this.localecnt = Double.parseDouble(obj[0].toString());
 			} else if (obj[1].toString().equals("2")) {
-				this.video =  Double.parseDouble(obj[0].toString());
+				this.video = Double.parseDouble(obj[0].toString());
 			} else if (obj[1].toString().equals("3")) {
 				this.wenbenkejian = Double.parseDouble(obj[0].toString());
 			} else if (obj[1].toString().equals("4")) {
-				this.budeng =  Double.parseDouble(obj[0].toString());
+				this.budeng = Double.parseDouble(obj[0].toString());
 			}
 		}
 		// TODO Auto-generated method stub
-		if(!resultType.equals("")&&resultType.equals("excel"))
+		if (!resultType.equals("") && resultType.equals("excel"))
 			return "excel";
 		return SUCCESS;
 	}

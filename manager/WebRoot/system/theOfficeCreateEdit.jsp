@@ -80,11 +80,14 @@ return;
      <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
-          <td colspan="2">
-          	&nbsp;         
-          </td>
+          <td colspan="2">&nbsp;
+          	 	<font color="#FF0000"><b>
+         注意：登录名设置将设置为执业资格证号，登录密码默认为123456
+         </b></font>
+         
+         </td>
         </tr>
-      
+		 <tr>
      
       <tr>
           <td align="right" width="20%" class="tab_content1">
