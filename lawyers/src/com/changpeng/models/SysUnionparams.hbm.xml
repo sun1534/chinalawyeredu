@@ -63,7 +63,11 @@
                 <comment>是否需要现场培训</comment>
             </column>
         </property>
-        
+          <property name="isloglast" type="boolean">
+            <column name="isloglast" not-null="true">
+                <comment>去年积分没满的时候提示是否记录到去年</comment>
+            </column>
+        </property>
         
     </class>
 </hibernate-mapping>

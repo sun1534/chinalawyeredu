@@ -30,7 +30,7 @@ public class SysUnionparams implements java.io.Serializable {
 	private String logopath;
 	
 
-
+private boolean isloglast;
 	/** default constructor */
 	public SysUnionparams() {
 	}
@@ -135,6 +135,20 @@ public class SysUnionparams implements java.io.Serializable {
 	 */
 	public void setDomain(String domain) {
 		this.domain = domain;
+	}
+
+	/**
+	 * @return the isloglast
+	 */
+	public boolean getIsloglast() {
+		return isloglast;
+	}
+
+	/**
+	 * @param isloglast the isloglast to set
+	 */
+	public void setIsloglast(boolean isloglast) {
+		this.isloglast = isloglast;
 	}
 
 }
