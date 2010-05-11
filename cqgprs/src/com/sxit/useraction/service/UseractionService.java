@@ -108,7 +108,15 @@ public class UseractionService {
 					} else if (errcode == 38) {
 						ecas.setErrorcount38(ecas.getErrorcount38() + errcount);
 						ecas.setUsercount38(ecas.getUsercount38() + usercount);
-					} else {
+					}else if (errcode == 4328) {
+						ecas.setErrorcount4328(ecas.getErrorcount4328() + errcount);
+						ecas.setUsercount4328(ecas.getUsercount4328() + usercount);
+					} else if (errcode == 4329) {
+						ecas.setErrorcount4329(ecas.getErrorcount4329() + errcount);
+						ecas.setUsercount4329(ecas.getUsercount4329() + usercount);
+					}  
+					
+					else {
 						ecas.setErrorcountothers(ecas.getErrorcountothers() + errcount);
 						ecas.setUsercountothers(ecas.getUsercountothers() + usercount);
 					}
@@ -158,6 +166,12 @@ public class UseractionService {
 					} else if (errcode == 38) {
 						ecas.setErrorcount38(ecas.getErrorcount38() + errcount);
 						ecas.setUsercount38(ecas.getUsercount38() + usercount);
+					} else if (errcode == 4328) {
+						ecas.setErrorcount4328(ecas.getErrorcount4328() + errcount);
+						ecas.setUsercount4328(ecas.getUsercount4328() + usercount);
+					} else if (errcode == 4329) {
+						ecas.setErrorcount4329(ecas.getErrorcount4329() + errcount);
+						ecas.setUsercount4329(ecas.getUsercount4329() + usercount);
 					} else {
 						ecas.setErrorcountothers(ecas.getErrorcountothers() + errcount);
 						ecas.setUsercountothers(ecas.getUsercountothers() + usercount);

@@ -37,12 +37,22 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
     
    <table id="data" width="100%"  border=1 align=center cellpadding=3 cellspacing=1 bgcolor="#F9F9F7">
      <tr>
-    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>$
+    <td  colspan="6" align="center" bgcolor="#FFFF00"><b>
     <s:if test="standard==2">
-    {start}之高流量用户排名（前${condition}）
+    <s:if test="flag.equals(\"2\")">
+    ${start} ${hour }:00之高流量用户排名（前${condition}）
     </s:if>
     <s:else>
-      {start}之流量大于${condition }（K）用户排名
+    ${start}之高流量用户排名（前${condition}）
+    </s:else>
+    </s:if>
+    <s:else>
+       <s:if test="flag.equals(\"2\")">
+    ${start} ${hour }:00之高流量用户排名（前${condition}）
+    </s:if>
+    <s:else>
+      ${start}之流量大于${condition }（K）用户排名
+      </s:else>
     </s:else>
     </b></td>
   </tr>
@@ -52,7 +62,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                            <th>上行流量（M）</th>
                             <th>下行流量（M）</th>
                           <th>总流量（M）</th>
-                          <th>逗留时长（秒）</th>
+                          <th>逗留时长</th>
       </tr>
       <tbody>
      <s:iterator value="top1000users" status="status">
@@ -62,7 +72,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                           <td class="listline2">${upvolumeStr }</td>
                           <td class="listline2">${downvolumeStr}</td>
                           <td class="listline2">${allvolumeStr}</td>
-                          <td class="listline2">${periodlen}</td>
+                          <td class="listline2">${periodlenStr}</td>
       </tr>
     </s:iterator>
       </tbody>

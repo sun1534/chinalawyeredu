@@ -265,6 +265,7 @@ public class AlarmService {
 					model.setCommunication(rs.getString("communication"));
 					model.setSgsnid(rs.getString("sgsnid"));
 					model.setReason(rs.getString("reason"));
+					model.setTimestamp(rs.getString("timestamp"));
 					list.add(model);
 				}
 				return list;
@@ -278,6 +279,11 @@ public class AlarmService {
 		return ps;
 	}
 	
+	public void updateGbAlarmStatReaded(){
+		String sql="update alarm_nsvc set ishistory=1 where ishistory=0";
+		jdbcTemplate.execute(sql);
+		_LOG.info("此次NSVC警告信息已读完毕");
+	}
 	
 	/**
 	 * 查询告警信息的统计情况
@@ -322,6 +328,8 @@ public class AlarmService {
 					model.setSgsnid(rs.getString("sgsnid"));
 					model.setAlarmcount(rs.getInt("alarmcount"));
 					model.setStattime(rs.getInt("stattime"));
+					model.setIsHistory(rs.getInt("ishistory"));
+					
 					list.add(model);
 				}
 				return list;

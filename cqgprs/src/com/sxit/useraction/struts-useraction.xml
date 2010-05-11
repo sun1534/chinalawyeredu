@@ -10,6 +10,7 @@
 		<!-- 总流量分析 -->
 		   <action name="hightStreamUser" class="com.sxit.useraction.action.HightStreamUserAction">
           <result name="success" type="dispatcher">/useraction/hightStreamUser.jsp</result>	
+            <result name="excel" type="dispatcher">/useraction/hightStreamUser_excel.jsp</result>	
        </action>
      <action name="raduiasErrors" class="com.sxit.useraction.action.RaduiasErrorsAction">
           <result name="success" type="dispatcher">/useraction/raduiasErrors.jsp</result>	

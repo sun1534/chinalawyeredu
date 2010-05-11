@@ -26,6 +26,12 @@ public class ErrorCodeAllStat {
 	
 	private int errorcount29;
 	private int usercount29;
+	
+	private int errorcount4328;
+	private int usercount4328;
+	
+	private int errorcount4329;
+	private int usercount4329;
 
 	private int errorcountothers;
 	private int usercountothers;
@@ -175,6 +181,54 @@ public class ErrorCodeAllStat {
 	 */
 	public void setUsercountall(int usercountall) {
 		this.usercountall = usercountall;
+	}
+	/**
+	 * @return the errorcount4328
+	 */
+	public int getErrorcount4328() {
+		return errorcount4328;
+	}
+	/**
+	 * @param errorcount4328 the errorcount4328 to set
+	 */
+	public void setErrorcount4328(int errorcount4328) {
+		this.errorcount4328 = errorcount4328;
+	}
+	/**
+	 * @return the usercount4328
+	 */
+	public int getUsercount4328() {
+		return usercount4328;
+	}
+	/**
+	 * @param usercount4328 the usercount4328 to set
+	 */
+	public void setUsercount4328(int usercount4328) {
+		this.usercount4328 = usercount4328;
+	}
+	/**
+	 * @return the errorcount4329
+	 */
+	public int getErrorcount4329() {
+		return errorcount4329;
+	}
+	/**
+	 * @param errorcount4329 the errorcount4329 to set
+	 */
+	public void setErrorcount4329(int errorcount4329) {
+		this.errorcount4329 = errorcount4329;
+	}
+	/**
+	 * @return the usercount4329
+	 */
+	public int getUsercount4329() {
+		return usercount4329;
+	}
+	/**
+	 * @param usercount4329 the usercount4329 to set
+	 */
+	public void setUsercount4329(int usercount4329) {
+		this.usercount4329 = usercount4329;
 	}
 	
 	

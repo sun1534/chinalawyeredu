@@ -54,8 +54,8 @@ public class SgsnGgsnTopoSVGAction extends StatAction {
 		SGSNIDLOC.put("SGSNCQ08", 750);
 		SGSNIDLOC.put("SGSNCQ09", 850);
 
-		GGSNIDLOC.put("GGSN02", 150);
-		GGSNIDLOC.put("GGSN03", 450);
+		GGSNIDLOC.put("GGSN02", 450);
+		GGSNIDLOC.put("GGSN03", 150);
 		GGSNIDLOC.put("GGSN04", 650);
 		GGSNIDLOC.put("GGSN05", 750);
 		GGSNIDLOC.put("GGSN其他", 850);

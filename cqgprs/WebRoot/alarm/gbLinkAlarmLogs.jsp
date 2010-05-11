@@ -82,6 +82,7 @@ function queryit(){
                           <th><a onclick="orderByThis(document.form1,this)" id="gbindex" title="点击排序">告警链路</a></th>
                           <th>告警原因</th>
                           <th><a onclick="orderByThis(document.form1,this)" id="sgsnid" title="点击排序">所属SGSN</a></th>
+                         <!--  <th>{timestamp}</th>-->
                           <th><a onclick="orderByThis(document.form1,this)" id="alarmdate" title="点击排序">告警时间</a></th>
                         
                         </tr>
@@ -93,6 +94,7 @@ function queryit(){
                           <td>${reason }
                           </td>
                           <td>${sgsnid }</td>
+                         <!--    <th>${timestamp}</th> -->
                           <td>${alarmdate}</td>
                         </tr>
                         </s:iterator>

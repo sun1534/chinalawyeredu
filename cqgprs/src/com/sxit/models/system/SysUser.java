@@ -110,6 +110,7 @@ public class SysUser implements java.io.Serializable {
 	}
 
 	public void setUserMenus(List<SysRight> userMenus) {
+		topMenus.clear();
 		for (SysRight right : userMenus) {
 			if (right.getParentcode().equals("0") || right.getGrade() == 1)
 				topMenus.add(right);

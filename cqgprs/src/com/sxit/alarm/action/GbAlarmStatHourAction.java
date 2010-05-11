@@ -58,6 +58,8 @@ public class GbAlarmStatHourAction extends AbstractListAction {
 		AlarmService service = (AlarmService) this.getBean("alarmService");
 //		this.page = service.getAlarmhishory(startdate, enddate, nsvc,getOrderby(),pageNo, pageSize);
 		this.page = service.getGbAlarmStat(date, hour, getOrderby(), pageNo, pageSize);
+		service.updateGbAlarmStatReaded();
+	
 		return SUCCESS;
 	}
 

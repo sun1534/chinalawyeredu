@@ -18,6 +18,19 @@ public class GbAlarmFromFile {
 	private String reason;
 	private String communication;
 	private String pcm;
+	private String timestamp;
+	/**
+	 * @return the timestamp
+	 */
+	public String getTimestamp() {
+		return timestamp;
+	}
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 	/**
 	 * @return the gbindex
 	 */

@@ -16,6 +16,19 @@ public class GbAlarmStatFromFile {
 	private String sgsnid;
 	private int  stattime;
 	private int alarmcount;
+	private int isHistory;
+	/**
+	 * @return the isHistory
+	 */
+	public int getIsHistory() {
+		return isHistory;
+	}
+	/**
+	 * @param isHistory the isHistory to set
+	 */
+	public void setIsHistory(int isHistory) {
+		this.isHistory = isHistory;
+	}
 	/**
 	 * @return the gbindex
 	 */

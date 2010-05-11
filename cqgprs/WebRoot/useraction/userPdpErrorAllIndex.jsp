@@ -36,6 +36,26 @@
                           <td>${errorallstat3.usercount33 }</td> 
                           <td>${errorallstat3.errorcount33 }</td> 
                         </tr> 
+                     <!--
+                        <tr> 
+                          <td align="center" >华为#4328错误 </td> 
+                          <td>${errorallstat1.usercount4328 }</td> 
+                          <td>${errorallstat1.errorcount4328 }</td> 
+                          <td>${errorallstat2.usercount4328 }</td> 
+                          <td>${errorallstat2.errorcount4328 }</td> 
+                          <td>${errorallstat3.usercount4328 }</td> 
+                          <td>${errorallstat3.errorcount4328 }</td> 
+                        </tr>
+                        -->         
+                        <tr> 
+                          <td align="center" >华为#4329错误 </td> 
+                          <td>${errorallstat1.usercount4329 }</td> 
+                          <td>${errorallstat1.errorcount4329 }</td> 
+                          <td>${errorallstat2.usercount4329 }</td> 
+                          <td>${errorallstat2.errorcount4329 }</td> 
+                          <td>${errorallstat3.usercount4329 }</td> 
+                          <td>${errorallstat3.errorcount4329 }</td> 
+                        </tr> 
                         <tr> 
                           <td align="center" >#27漫游错误 </td> 
                            <td>${errorallstat1.usercount27 }</td> 
