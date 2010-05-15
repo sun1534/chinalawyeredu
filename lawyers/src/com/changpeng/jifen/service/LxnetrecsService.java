@@ -91,7 +91,7 @@ public class LxnetrecsService extends BasicService {
 					lxnetrecsDAO.save(netrecs);
 					System.out.println(netrecs.getUserid());
 					Lawyers lawyer = (Lawyers) lxnetrecsDAO.get(Lawyers.class, netrecs.getUserid());
-System.out.println(lawyer);
+//System.out.println(lawyer);
 					BasicLawyerlessonxf xf=null;
 					if(lawyer.getLawyertype()==-1)
 						xf = lawyerlessonxfDAO.getXuefenShixi(netrecs.getLessonid(), netrecs.getUserid(), 2);
