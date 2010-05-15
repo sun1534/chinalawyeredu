@@ -152,6 +152,58 @@ function getOffices(vallll){
   }
 }
 </script>
+<script language="javascript"> 
+
+function islocalclick(obj){
+  if(obj.checked){
+    $("#locallisttr").show();
+    $("#titleidtr").hide();
+       $("#budengdateid").attr("readonly",true);
+       $("#applytitleid").attr("readonly",true);
+       $("#xuefenid").attr("readonly",true);
+       var cityid=$("#city").val();
+      $("#budenglessonid")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#budenglessonid")[0].options.add(_o);  
+  if(cityid!=0){
+     $.getJSON("../lessonajax/getLocalLessonsByCityId.pl", { "cityid": cityid,"now":new Date().getTime()}, function(json){
+     for(var k in json.locallessons)  
+     {     
+        var _o=new Option(json.locallessons[k.toString()],k);
+		$("#budenglessonid")[0].options.add(_o);  
+     }
+}); 
+  }   
+       
+  }
+  else{
+      $("#locallisttr").hide();
+      $("#titleidtr").show();
+       $("#budengdateid").attr("readonly",false);
+       $("#applytitleid").attr("readonly",false);
+       $("#xuefenid").attr("readonly",false);
+  }
+}
+function selectlocal(lessonid){
+  if(lessonid==0){
+    alert("请选择您需要补登的对应现场课程");
+  }else{
+     if(lessonid!=0){
+       $.getJSON("../lessonajax/getLessonsById.pl", { "lessonid": lessonid,"now":new Date().getTime()}, function(json){
+          var exist=json.exist;
+       
+          if(exist==1){
+             $("#budengdateid").attr("value",json.lessondatestr);
+              $("#applytitleid").attr("value",json.title);
+               $("#xuefenid").attr("value",json.xuefen);
+          }
+       }); 
+       
+    }
+  
+  }
+}
+</script>
 </head>
 <body>
 <table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -166,39 +218,10 @@ function getOffices(vallll){
     <td valign="top" bgcolor="#FFFFFF">
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">
       <tr>
-        <td height="24" colspan="5" background="../imagesa/top-bg2.gif" class="baseFontBold"><div align="left">　</div>
-        </td>
-        </tr>
-      <tr>
-        <td width="37%" class="tab_content" align="right">内容标题：
-        </td>
-        <td width="63%" colspan="2" class="tab_content1" align="left"><s:textfield name="budeng.title" size="40"/></td>
-        </tr>
-   <tr>
-        <td width="37%" class="tab_content" align="right">计分日期：
-        </td>
-        <td width="63%" colspan="2" class="tab_content1" align="left"><jscalendar:jscalendar name="budeng.budengdate" format="%Y-%m-%d" showstime="false" />
-         	
+        <td height="24" colspan="5" background="../imagesa/top-bg2.gif" class="baseFontBold">
         </td>
         </tr>
           <tr>
-        <td width="37%" class="tab_content" align="right">是否计为现场培训：
-        </td>
-        <td width="63%" colspan="2" class="tab_content1" align="left">
-        <s:checkbox name="budeng.islocal" />
-       	&nbsp;&nbsp;&nbsp;<font color='red'>如果计为现场培训,则补登的积分,在积分统计处,培训方式显示为"现场培训"</font>
-        </td>
-        </tr>
-         <tr>
-        <td width="37%" class="tab_content" align="right">补登积分年度：
-        </td>
-        <td width="63%" colspan="2" class="tab_content1" align="left">
-       
-       <s:select name="budeng.theyear" list="jifentime.years"/> 
-       	&nbsp;&nbsp;&nbsp;<font color='red'>补登的积分,将会计算到所选择的补登年度</font>
-        </td>
-        </tr>
-       <tr>
         <td width="37%" class="tab_content" align="right">对应市(省直属)律协选择：
         </td>
         <td width="63%" colspan="2" class="tab_content1" align="left">
@@ -214,41 +237,66 @@ function getOffices(vallll){
              <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname"/>
         </s:if>
         <s:else>
-            <s:hidden name="datavisible.cityid"/>
+            <s:hidden name="datavisible.cityid" id="city"/>
             <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
         </s:else>
         </td>
         </tr>
-      <!--   <tr>
-			<td width="20%" class="tab_content" align="right">
-				   是否上传：
-			</td>
-			<td width="80%" colspan="2" class="tab_content1">
-				<s:checkbox name="beupload" onclick="isupload(this.checked)"/>
-			</td>
-		</tr> 
-		<tr id="upload" style="display:none">
-			<td width="20%" class="tab_content" align="right">
-				   律师执业证号：
-			</td>
-			<td width="80%" colspan="2" class="tab_content1">
-				<s:file name="uploadfile" size="60"/>
-				<div style="color:red">上传文件必须为文本文件，律师执业证号间用回车分隔</div>
-			</td>
-		</tr>
-		-->
+    
       <tr id="input">
         <td width="37%" class="tab_content" align="right">律师执业证号：
         </td>
         <td width="63%" colspan="2" class="tab_content1" align="left"><s:textfield name="budeng.lawyerno" size="20"/></td>
         </tr>
             <tr>
+        <td width="37%" class="tab_content" align="right">是否计为现场培训：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <s:checkbox name="budeng.islocal" onclick="islocalclick(this)"/>
+       	&nbsp;&nbsp;&nbsp;<font color='red'>如果计为现场培训,则补登的积分,在积分统计处,培训方式显示为"现场培训"</font>
+        </td>
+        </tr>
+        
+         <tr id="locallisttr" style="display:none">
+        <td width="37%" class="tab_content" align="right">选择现场课程：</td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <select name="budeng.lessonid" id="budenglessonid"  onchange="selectlocal(this.value)"/>
+        </td>
+        </tr>
+        
+      <tr id="titleidtr">
+        <td width="37%" class="tab_content" align="right">内容标题：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <s:textfield name="budeng.title" size="40" id="applytitleid"/></td>
+        </tr>
+   <tr>
+        <td width="37%" class="tab_content" align="right">计分日期：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <jscalendar:jscalendar name="budeng.budengdate" format="%Y-%m-%d" showstime="false" id="budengdateid"/>
+         	
+        </td>
+        </tr>
+         <tr>
         <td width="37%" class="tab_content" align="right">学分：
         </td>
-        <td width="63%" colspan="2" class="tab_content1" align="left"><s:textfield name="budeng.xuefen" size="5"/>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+        <s:textfield name="budeng.xuefen" size="5" id="xuefenid"/> 
         	</td>
         </tr>
-      <tr>
+         <tr>
+        <td width="37%" class="tab_content" align="right">补登积分年度：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">
+       
+       <s:select name="budeng.theyear" list="jifentime.years"/> 
+       	&nbsp;&nbsp;&nbsp;<font color='red'>补登的积分,将会计算到所选择的补登年度</font>
+        </td>
+        </tr>
+     
+         
+   
       <tr>
        	
         <td class="tab_content1"></td>

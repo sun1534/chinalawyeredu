@@ -21,8 +21,9 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	public CityUnionJifenStaticAction() {
 		this.jifenstatics = new Jifenstatics();
 	}
-private String title;
-private String officename;
+
+	private String title;
+	private String officename;
 	private String resultType = "list";
 
 	/**
@@ -58,35 +59,33 @@ private String officename;
 			return "message";
 		}
 		dabiaofen = params.getDabiaofen();
-		localfen=params.getLocalfen();
+		localfen = params.getLocalfen();
 
 		// 根据用户选择的年份以及年审时间得到查询的起始终止时间段
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(year, params.getNianshen());
 		year = jifentime.getNianshenyear();
 
-		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,localfen, "cityid", selectcityid);
+		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, localfen, "cityid",
+				selectcityid);
 
 		// 显示律师的明细情况
 
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-
-		
-		if(!resultType.equals("")&&resultType.equals("excel")){
-			pageNo=1;
-			pageSize=Integer.MAX_VALUE;
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno, title,pageNo, pageSize,
-					this.isdabiao, jifenstatics, "cityid", selectcityid);
+		if (!resultType.equals("") && resultType.equals("excel")) {
+			pageNo = 1;
+			pageSize = Integer.MAX_VALUE;
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno, title,
+					pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
 			return "excel";
-		}else{
-		
-		
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno,title, pageNo, pageSize,
-					this.isdabiao, jifenstatics, "cityid", selectcityid);
+		} else {
+
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno, title,
+					pageNo, pageSize, this.isdabiao, jifenstatics, "cityid", selectcityid);
 			return SUCCESS;
 		}
-		
+
 	}
 
 	private SysGroup group;
@@ -216,7 +215,8 @@ private String officename;
 	}
 
 	/**
-	 * @param title the title to set
+	 * @param title
+	 *            the title to set
 	 */
 	public void setTitle(String title) {
 		this.title = title;
@@ -230,7 +230,8 @@ private String officename;
 	}
 
 	/**
-	 * @param officename the officename to set
+	 * @param officename
+	 *            the officename to set
 	 */
 	public void setOfficename(String officename) {
 		this.officename = officename;

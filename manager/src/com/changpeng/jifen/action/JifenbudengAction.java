@@ -4,7 +4,7 @@
 
 package com.changpeng.jifen.action;
 
-import java.io.File;
+import java.util.List;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
@@ -14,7 +14,6 @@ import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.Jifenbudeng;
 import com.changpeng.models.Lawyers;
-import com.changpeng.models.SysUnionparams;
 import com.changpeng.models.SysUser;
 
 /**
@@ -25,21 +24,14 @@ public class JifenbudengAction extends AbstractAction {
 
 	private Jifenbudeng budeng;
 
-	// private boolean beupload;
-	// private File uploadfile; // 上传文件
+	private List locallessonlist;
 
-	// private String fileName;
-
-	// public void setUploadfile(File uploadfile) {
-	// this.uploadfile = uploadfile;
-	// }
-	//
-	// // public void setUploadfileFileName(String fileName) {
-	// // this.fileName = fileName;
-	// // }
-	// public void setBeupload(boolean beupload) {
-	// this.beupload = beupload;
-	// }
+	/**
+	 * @return the locallessonlist
+	 */
+	public List getLocallessonlist() {
+		return locallessonlist;
+	}
 
 	public Jifenbudeng getBudeng() {
 		if (budeng == null)
@@ -76,16 +68,17 @@ public class JifenbudengAction extends AbstractAction {
 			budeng.setCityid(lawyer.getDirectunion());
 			budeng.setOfficeid(lawyer.getTheoffice());
 			budeng.setLawyername(lawyer.getLawyername());
+			budeng.setBudengfrom(0);
 			budengservice.saveJifenbudeng(budeng);
-		
-			this.opResult="为"+budeng.getLawyerno()+"新增补登积分成功";
+
+			this.opResult = "为" + budeng.getLawyerno() + "新增补登积分成功";
 		} else {
 			Float oldxuefen = (Float) get("oldbudeng");
 
 			debug("补登前后的积分差异为:::" + (budeng.getXuefen().floatValue() - oldxuefen.floatValue()));
 
 			budengservice.updateJifenbudeng(budeng, oldxuefen);
-			this.opResult="为"+budeng.getLawyerno()+"修改补登积分成功";
+			this.opResult = "为" + budeng.getLawyerno() + "修改补登积分成功";
 		}
 		this.message = "积分补登成功";
 		this.nextPage = "jifenbudengList.pl";
@@ -99,6 +92,7 @@ public class JifenbudengAction extends AbstractAction {
 
 		BasicService basic = (BasicService) getBean("basicService");
 		this.budeng = (Jifenbudeng) basic.get(Jifenbudeng.class, budengid);
+
 		if (this.budeng == null) {
 			set("budengexist", "0");
 			this.budeng = new Jifenbudeng();
@@ -110,7 +104,7 @@ public class JifenbudengAction extends AbstractAction {
 			set("oldbudeng", this.budeng.getXuefen());
 			set("budengexist", "1");
 		}
-
+		budeng.setTheyear(jifentime.getNianshenyear());
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 		set("budeng", budeng);
 
