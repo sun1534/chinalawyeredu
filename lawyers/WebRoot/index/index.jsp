@@ -6,7 +6,7 @@
 </head>
 <frameset rows="52,*,20" cols="*" frameborder="NO" border="0" framespacing="0">
   <frame src="../index/top.pl" name="top" scrolling="NO" noresize >
-  <frameset rows="*" cols="180,*" framespacing="0" frameborder="NO" border="0">
+  <frameset rows="*" cols="210,*" framespacing="0" frameborder="NO" border="0">
     <!--<frame src="../index/left.pl" name="left" scrolling="no" noresize>-->
      <frame src="../index/left.pl" name="left" >
     <frame src="../index/workspace.pl" name="mainFrame">

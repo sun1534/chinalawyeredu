@@ -66,7 +66,7 @@ public class HzlawyersJfServlet extends HttpServlet {
 		while ((line = br.readLine()) != null) {
 			sb.append(line);
 		}
-		LOG.debug("积分请求消息:\r\n" + sb.toString());
+		LOG.debug("杭州点睛积分请求消息:\r\n" + sb.toString());
 		StringBuilder result = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 		result.append("<resps>\r\n");
 		com.changpeng.models.LogClientRequest logclient = new LogClientRequest();
@@ -110,8 +110,8 @@ public class HzlawyersJfServlet extends HttpServlet {
 					int djlessonid = Integer.parseInt(lessonid);
 					float learnjifen = Float.parseFloat(jifen);
 					Date learndate = df.parse(date);
-					int lawyerid = Integer.parseInt(_lawyerid);
-					skservice.saveDianjingJifen(lawyerid, lawyername, djlessonid, title, learnjifen, maxjifen,
+//					int lawyerid = Integer.parseInt(_lawyerid);
+					skservice.saveDianjingJifen(_lawyerid, lawyername, djlessonid, title, learnjifen, maxjifen,
 							learndate, theyear);
 
 					// <resps>

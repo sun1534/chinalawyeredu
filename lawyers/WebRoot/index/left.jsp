@@ -77,12 +77,48 @@ function makeMenu() {
  <s:if test="lawyer.provinceunion!=22">
 		   d.add("editself","0","个人资料维护","../lawyers/lawyersEditSelf!input.pl","","mainFrame");		
 			</s:if>
+			 <s:if test="lawyer.directunion==8078">
+			 d.add("thirdlessons","0","点睛课程","../lessons/thirdLessons.pl","","_blank");
+			 </s:if>
 		   d.add("online","0","在线课程");
 		   d.add("online00","online","全部类型","../lessons/lessonsList.pl?lessonstyle=2&lessontype=0","","mainFrame");
+		  
+		  	d.add("online1","online","民商事法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=1","","mainFrame");
+		  		d.add("online101","online1","民事诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=101","","mainFrame");
+		  		d.add("online102","online1","合同、担保法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=102","","mainFrame");
+		  		d.add("online103","online1","侵权法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=103","","mainFrame");
+		  		d.add("online104","online1","物权法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=104","","mainFrame");
+		  		d.add("online105","online1","公司、证券法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=105","","mainFrame");
+		  		d.add("online106","online1","知识产权法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=106","","mainFrame");
+		  		d.add("online107","online1","建筑工程、房地产法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=107","","mainFrame");
+		  		d.add("online108","online1","破产法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=108","","mainFrame");
+		  		d.add("online109","online1","国有资产法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=109","","mainFrame");
+		  		d.add("online110","online1","金融保险法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=110","","mainFrame");
+		  		d.add("online111","online1","涉外法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=111","","mainFrame");
+		  		d.add("online112","online1","其他民商法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=112","","mainFrame");
+		  	d.add("online2","online","刑事法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=2","","mainFrame");
+		  		d.add("online201","online2","刑法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=201","","mainFrame");
+		  		d.add("online202","online2","刑事诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=202","","mainFrame");
+		  	d.add("online3","online","行政法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=3","","mainFrame");
+		  		d.add("online301","online3","行政法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=201","","mainFrame");
+		  		d.add("online302","online3","行政诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=202","","mainFrame");
+		  	d.add("online4","online","思想政治教育","../lessons/lessonsList.pl?lessonstyle=2&lessontype=4","","mainFrame");
+		  	d.add("online5","online","执行法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=5","","mainFrame");
+		  	d.add("online6","online","律师事务所管理","../lessons/lessonsList.pl?lessonstyle=2&lessontype=6","","mainFrame");
+		  	d.add("online7","online","商务礼仪及业务拓展","../lessons/lessonsList.pl?lessonstyle=2&lessontype=7","","mainFrame");
+		  	d.add("online8","online","其他","../lessons/lessonsList.pl?lessonstyle=2&lessontype=8","","mainFrame");
+		  
+		<!--  
 		  <s:iterator value="@com.changpeng.lessons.util.CommonDatas@LessonType" status="stat">
-		  	d.add("online${stat.index}","online","${value}","../lessons/lessonsList.pl?lessonstyle=2&lessontype=${key}","","mainFrame");
+		  	d.add("online${key}","online","${value}","../lessons/lessonsList.pl?lessonstyle=2&lessontype=${key}","","mainFrame");
+		 <s:set name="parentid" value="@com.changpeng.lessons.util.CommonDatas@LessonType.key"/>
+		
+		 
+		  	<s:iterator value="value" status="stat">
+		  		d.add("online${key}","online","${value}","../lessons/lessonsList.pl?lessonstyle=2&lessontype=${key}","","mainFrame");
+		  	</s:iterator>
 		  </s:iterator>
-	
+	-->
 		  
 		   d.add("local","0","现场课程");
 		   d.add("local1","local","本地现场课程","../lessons/lessonsList.pl?lessonstyle=1","","mainFrame");
@@ -90,6 +126,7 @@ function makeMenu() {
 		   
 		    d.add("jifenquery","0","积分查询");
 		    d.add("jifenquery1","jifenquery","积分查询","../jifen/jifenQuery.pl","","mainFrame");
+		     d.add("jifenbudengApply","jifenquery","积分补登申请","../jifen/jifenbudengApplyList.pl","","mainFrame");
 		    d.add("jifenquery2","jifenquery","积分补登查询","../jifen/jifenbudengQuery.pl","","mainFrame");
 		    
 		    d.add("sys","0","系统管理");

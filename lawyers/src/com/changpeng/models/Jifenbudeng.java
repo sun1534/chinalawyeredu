@@ -14,6 +14,7 @@ public class Jifenbudeng implements java.io.Serializable {
 	// Fields
 
 	private int budengid;
+	private int lessonid;
 	private String title;
 	private Date budengdate;
 	private String lawyerno;
@@ -21,15 +22,54 @@ public class Jifenbudeng implements java.io.Serializable {
 	private String lawyername;
 
 	private Float xuefen;
+	
+
+	private int provinceid;
+	private int cityid;
+	private int officeid;
+	
 	private int createuserid;
 	private String createuser;
 	private Timestamp createtime;
 	
-	private int provinceid;
-	private int cityid;
-	private int officeid;
+	private int theyear;
+	private boolean islocal;
+	/**
+	 * >=1来自自己申请，2来自管理员主动添加
+	 */
+	private int budengfrom;
 
 	// Constructors
+
+	/**
+	 * @return the budengfrom
+	 */
+	public int getBudengfrom() {
+		return budengfrom;
+	}
+
+	/**
+	 * @param budengfrom
+	 *            the budengfrom to set
+	 */
+	public void setBudengfrom(int budengfrom) {
+		this.budengfrom = budengfrom;
+	}
+
+	/**
+	 * @return the theyear
+	 */
+	public int getTheyear() {
+		return theyear;
+	}
+
+	/**
+	 * @param theyear
+	 *            the theyear to set
+	 */
+	public void setTheyear(int theyear) {
+		this.theyear = theyear;
+	}
 
 	/**
 	 * @return the provinceid
@@ -39,7 +79,8 @@ public class Jifenbudeng implements java.io.Serializable {
 	}
 
 	/**
-	 * @param provinceid the provinceid to set
+	 * @param provinceid
+	 *            the provinceid to set
 	 */
 	public void setProvinceid(int provinceid) {
 		this.provinceid = provinceid;
@@ -53,7 +94,8 @@ public class Jifenbudeng implements java.io.Serializable {
 	}
 
 	/**
-	 * @param cityid the cityid to set
+	 * @param cityid
+	 *            the cityid to set
 	 */
 	public void setCityid(int cityid) {
 		this.cityid = cityid;
@@ -67,7 +109,8 @@ public class Jifenbudeng implements java.io.Serializable {
 	}
 
 	/**
-	 * @param officeid the officeid to set
+	 * @param officeid
+	 *            the officeid to set
 	 */
 	public void setOfficeid(int officeid) {
 		this.officeid = officeid;
@@ -76,10 +119,6 @@ public class Jifenbudeng implements java.io.Serializable {
 	/** default constructor */
 	public Jifenbudeng() {
 	}
-
-	
-
-	
 
 	// Property accessors
 
@@ -131,7 +170,6 @@ public class Jifenbudeng implements java.io.Serializable {
 		this.lawyername = lawyername;
 	}
 
-	
 	public Float getXuefen() {
 		return this.xuefen;
 	}
@@ -164,6 +202,37 @@ public class Jifenbudeng implements java.io.Serializable {
 		this.createtime = createtime;
 	}
 
-	
+	/**
+	 * @return the islocal
+	 */
+	public boolean getIslocal() {
+		return islocal;
+	}
+
+	/**
+	 * @param islocal
+	 *            the islocal to set
+	 */
+	public void setIslocal(boolean islocal) {
+		this.islocal = islocal;
+	}
+
+	public String getIslocalstr(){
+		return islocal?"是":"否";
+	}
+	/**
+	 * @return the lessonid
+	 */
+	public int getLessonid() {
+		return lessonid;
+	}
+
+	/**
+	 * @param lessonid
+	 *            the lessonid to set
+	 */
+	public void setLessonid(int lessonid) {
+		this.lessonid = lessonid;
+	}
 
 }

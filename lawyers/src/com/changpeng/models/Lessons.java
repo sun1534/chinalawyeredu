@@ -1,6 +1,7 @@
 package com.changpeng.models;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,27 +24,34 @@ public class Lessons implements java.io.Serializable {
 	private int teachertype;
 	private int lessontype;
 	private String lessontypedesc;
-	private Float xuefen=0f;
+	private Float xuefen = 0f;
 	private Timestamp lessondate;
 	private Timestamp lessonend;
 	private String lessonaddress;
 	private String lessoncontent;
 	private String onlinefile;
-	private String fenshuoff="100";
+	private String fenshuoff = "100";
 	private String attach;
-//	private String shared;
+	// private String shared;
 	private int provinceid;
 	private int cityid;
-	 //课程来源，课件平台的groupid为0。这里事务所的话，不考虑往上扔课程。即使往上扔课程的话，也记到市律协里面
+	// 课程来源，课件平台的groupid为0。这里事务所的话，不考虑往上扔课程。即使往上扔课程的话，也记到市律协里面
 	private int groupid;
 	private boolean deleteflag;
 	private String createuser;
 	private int createuserid;
 	private Timestamp createtime;
-private Lawyerlessonxf yihuoxuefen;
-	private Set lessonshareds = new HashSet(0);
+	private Lawyerlessonxf yihuoxuefen;
+//	private Set lessonshareds = new HashSet(0);
 	private int onlineType;
+	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
 	
+	public String getLessondatestr(){
+		if(lessondate!=null)
+		return df.format(lessondate);
+		return df.format(new java.util.Date());
+	}
+
 	// Constructors
 
 	/**
@@ -54,7 +62,8 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param onlineType the onlineType to set
+	 * @param onlineType
+	 *            the onlineType to set
 	 */
 	public void setOnlineType(int onlineType) {
 		this.onlineType = onlineType;
@@ -63,23 +72,21 @@ private Lawyerlessonxf yihuoxuefen;
 	/**
 	 * @return the lessonshareds
 	 */
-	public Set getLessonshareds() {
-		return lessonshareds;
-	}
+//	public Set getLessonshareds() {
+//		return lessonshareds;
+//	}
 
 	/**
-	 * @param lessonshareds the lessonshareds to set
+	 * @param lessonshareds
+	 *            the lessonshareds to set
 	 */
-	public void setLessonshareds(Set lessonshareds) {
-		this.lessonshareds = lessonshareds;
-	}
+//	public void setLessonshareds(Set lessonshareds) {
+//		this.lessonshareds = lessonshareds;
+//	}
 
 	/** default constructor */
 	public Lessons() {
 	}
-
-
-
 
 	// Property accessors
 
@@ -219,15 +226,13 @@ private Lawyerlessonxf yihuoxuefen;
 		this.attach = attach;
 	}
 
-//	public String getShared() {
-//		return this.shared;
-//	}
-//
-//	public void setShared(String shared) {
-//		this.shared = shared;
-//	}
-
-
+	// public String getShared() {
+	// return this.shared;
+	// }
+	//
+	// public void setShared(String shared) {
+	// this.shared = shared;
+	// }
 
 	public boolean getDeleteflag() {
 		return this.deleteflag;
@@ -240,8 +245,6 @@ private Lawyerlessonxf yihuoxuefen;
 	public String getCreateuser() {
 		return this.createuser;
 	}
-
-
 
 	public Timestamp getCreatetime() {
 		return this.createtime;
@@ -259,7 +262,8 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param provinceid the provinceid to set
+	 * @param provinceid
+	 *            the provinceid to set
 	 */
 	public void setProvinceid(int provinceid) {
 		this.provinceid = provinceid;
@@ -273,7 +277,8 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param cityid the cityid to set
+	 * @param cityid
+	 *            the cityid to set
 	 */
 	public void setCityid(int cityid) {
 		this.cityid = cityid;
@@ -287,7 +292,8 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param groupid the groupid to set
+	 * @param groupid
+	 *            the groupid to set
 	 */
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
@@ -301,14 +307,16 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param createuserid the createuserid to set
+	 * @param createuserid
+	 *            the createuserid to set
 	 */
 	public void setCreateuserid(int createuserid) {
 		this.createuserid = createuserid;
 	}
 
 	/**
-	 * @param createuser the createuser to set
+	 * @param createuser
+	 *            the createuser to set
 	 */
 	public void setCreateuser(String createuser) {
 		this.createuser = createuser;
@@ -322,34 +330,35 @@ private Lawyerlessonxf yihuoxuefen;
 	}
 
 	/**
-	 * @param yihuoxuefen the yihuoxuefen to set
+	 * @param yihuoxuefen
+	 *            the yihuoxuefen to set
 	 */
 	public void setYihuoxuefen(Lawyerlessonxf yihuoxuefen) {
 		this.yihuoxuefen = yihuoxuefen;
 	}
 
-//	public Set getLessonreplies() {
-//		return this.lessonreplies;
-//	}
-//
-//	public void setLessonreplies(Set lessonreplies) {
-//		this.lessonreplies = lessonreplies;
-//	}
-//
-//	public Set getLessonscores() {
-//		return this.lessonscores;
-//	}
-//
-//	public void setLessonscores(Set lessonscores) {
-//		this.lessonscores = lessonscores;
-//	}
-//
-//	public Set getLawyerlessonxfs() {
-//		return this.lawyerlessonxfs;
-//	}
-//
-//	public void setLawyerlessonxfs(Set lawyerlessonxfs) {
-//		this.lawyerlessonxfs = lawyerlessonxfs;
-//	}
+	// public Set getLessonreplies() {
+	// return this.lessonreplies;
+	// }
+	//
+	// public void setLessonreplies(Set lessonreplies) {
+	// this.lessonreplies = lessonreplies;
+	// }
+	//
+	// public Set getLessonscores() {
+	// return this.lessonscores;
+	// }
+	//
+	// public void setLessonscores(Set lessonscores) {
+	// this.lessonscores = lessonscores;
+	// }
+	//
+	// public Set getLawyerlessonxfs() {
+	// return this.lawyerlessonxfs;
+	// }
+	//
+	// public void setLawyerlessonxfs(Set lawyerlessonxfs) {
+	// this.lawyerlessonxfs = lawyerlessonxfs;
+	// }
 
 }

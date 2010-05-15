@@ -20,6 +20,7 @@ public class SysUnionparams implements java.io.Serializable {
 	 * 达标分是多少
 	 */
 	private float dabiaofen;
+	private float localfen;
 	/**
 	 * 是否有本地课程
 	 */
@@ -31,6 +32,22 @@ public class SysUnionparams implements java.io.Serializable {
 	
 
 private boolean isloglast;
+private String areacode;
+
+	/**
+ * @return the areacode
+ */
+public String getAreacode() {
+	return areacode;
+}
+
+/**
+ * @param areacode the areacode to set
+ */
+public void setAreacode(String areacode) {
+	this.areacode = areacode;
+}
+
 	/** default constructor */
 	public SysUnionparams() {
 	}
@@ -149,6 +166,20 @@ private boolean isloglast;
 	 */
 	public void setIsloglast(boolean isloglast) {
 		this.isloglast = isloglast;
+	}
+
+	/**
+	 * @return the localfen
+	 */
+	public float getLocalfen() {
+		return localfen;
+	}
+
+	/**
+	 * @param localfen the localfen to set
+	 */
+	public void setLocalfen(float localfen) {
+		this.localfen = localfen;
 	}
 
 }

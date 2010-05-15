@@ -117,13 +117,13 @@
         <property name="createtime" type="timestamp">
             <column name="createtime" length="0" not-null="true" />
         </property>
-                <set name="lessonshareds" inverse="true">
+               <!--       <set name="lessonshareds" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />
             </key>
             <one-to-many class="com.changpeng.models.Lessonshared" />
         </set>
-     <!--    <set name="lessonreplies" inverse="true">
+   <set name="lessonreplies" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />
             </key>

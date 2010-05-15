@@ -59,9 +59,53 @@ public class LawyerlessonxfService extends BasicService {
 		}
 	}
 
-	public void saveDianjingJifen(int lawyerid, String lawyername, int djlessonid, String title, float learnjifen,String maxjifen,
-			Date learndate, int theyear) {
+	public void saveDianjingJifen(String lawyerno, String lawyername, int djlessonid, String title, float learnjifen,
+			String maxjifenstr, Date learndate, int theyear) {
 		int lessonid = Integer.parseInt("-9" + djlessonid);
+		float maxjifen = Float.parseFloat(maxjifenstr);
+
+		Lawyers lawyers = (Lawyers) lawyersDAO.getLawyerbyLawyerno(lawyerno, 0, 0);
+		if (lawyers != null) {
+			int lawyerid=lawyers.getLawyerid();
+			Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(lessonid, lawyerid, 0);
+			if (xf == null) {
+
+				xf = new Lawyerlessonxf();
+				xf.setPxxf(learnjifen);
+				xf.setLearnmode(2); // 特别针对杭州的点睛课程的统计
+				xf.setPxdate(learndate);
+				xf.setLessonid(lessonid);
+				xf.setTitle(title);
+				xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
+				xf.setPxdate(learndate);
+				xf.setLawyerid(lawyerid);
+				xf.setLawyername(lawyername);
+				Lawyers lawyer = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
+				xf.setIsfull(learnjifen == maxjifen ? true : false);
+				xf.setProvinceid(lawyer.getProvinceunion());
+				xf.setCityid(lawyer.getDirectunion());
+				xf.setOfficeid(lawyer.getTheoffice());
+				xf.setTheyear(theyear);
+				xf.setIslastyear(0);
+				xf.setRemarks("点睛课程最大" + maxjifen + "分,此次学习" + learnjifen);
+
+				lawyerlessonxfDAO.save(xf);
+			} else {
+
+				// xf.setPxxf(xf.getPxxf()+learnjifen);
+				xf.setPxxf(learnjifen);
+				xf.setIsfull(learnjifen == maxjifen ? true : false);
+				xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
+				xf.setRemarks(xf.getRemarks() + "|再设置为" + learnjifen);
+				lawyerlessonxfDAO.update(xf);
+			}
+		}
+	}
+
+	public void saveDianjingJifen(int lawyerid, String lawyername, int djlessonid, String title, float learnjifen,
+			String maxjifenstr, Date learndate, int theyear) {
+		int lessonid = Integer.parseInt("-9" + djlessonid);
+		float maxjifen = Float.parseFloat(maxjifenstr);
 		Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(lessonid, lawyerid, 0);
 		if (xf == null) {
 
@@ -76,17 +120,20 @@ public class LawyerlessonxfService extends BasicService {
 			xf.setLawyerid(lawyerid);
 			xf.setLawyername(lawyername);
 			Lawyers lawyer = (Lawyers) lawyersDAO.get(Lawyers.class, lawyerid);
-			xf.setIsfull(true);
+			xf.setIsfull(learnjifen == maxjifen ? true : false);
 			xf.setProvinceid(lawyer.getProvinceunion());
 			xf.setCityid(lawyer.getDirectunion());
 			xf.setOfficeid(lawyer.getTheoffice());
 			xf.setTheyear(theyear);
 			xf.setIslastyear(0);
-			xf.setRemarks("点睛课程最大"+maxjifen+"分,此次学习" + learnjifen);
+			xf.setRemarks("点睛课程最大" + maxjifen + "分,此次学习" + learnjifen);
 
 			lawyerlessonxfDAO.save(xf);
 		} else {
+
+			// xf.setPxxf(xf.getPxxf()+learnjifen);
 			xf.setPxxf(learnjifen);
+			xf.setIsfull(learnjifen == maxjifen ? true : false);
 			xf.setLastupdate(new java.sql.Timestamp(System.currentTimeMillis()));
 			xf.setRemarks(xf.getRemarks() + "|再设置为" + learnjifen);
 			lawyerlessonxfDAO.update(xf);

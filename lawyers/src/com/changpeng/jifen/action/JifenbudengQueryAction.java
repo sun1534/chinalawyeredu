@@ -18,9 +18,9 @@ import com.changpeng.models.Lawyers;
  * @author 华锋 2008-5-5 上午12:08:59
  * 
  */
-public class JifenBudengQueryAction extends AbstractListAction {
+public class JifenbudengQueryAction extends AbstractListAction {
 
-	public JifenBudengQueryAction() {
+	public JifenbudengQueryAction() {
 
 	}
 
