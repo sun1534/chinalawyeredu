@@ -161,7 +161,12 @@ public class LawyersListAction extends AbstractListAction {
 			detachedCriteria.add(Restrictions.eq("lawyerno", lawyerno));
 		if (systemno != null && !"".equals(systemno))
 			detachedCriteria.add(Restrictions.eq("systemno", systemno));
-
+		if(hascardno==1){//1未分配卡
+			detachedCriteria.add(Restrictions.isNull("cardno"));
+		}else if(hascardno==2){//有卡
+			detachedCriteria.add(Restrictions.isNotNull("cardno"));
+		}
+		
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {
 			Set<SysRoleVisible> rolevisibles = role.getSysRoleVisibles();
@@ -221,22 +226,22 @@ public class LawyersListAction extends AbstractListAction {
 		}
 	}
 
-//	private int lawyertype;
+	//是否有卡
+private int hascardno;
 
 	/**
-	 * @return the lawyertype
-	 */
-//	public int getLawyertype() {
-//		return lawyertype;
-//	}
-//
-//	/**
-//	 * @param lawyertype
-//	 *            the lawyertype to set
-//	 */
-//	public void setLawyertype(int lawyertype) {
-//		this.lawyertype = lawyertype;
-//	}
+ * @return the hascardno
+ */
+public int getHascardno() {
+	return hascardno;
+}
+
+/**
+ * @param hascardno the hascardno to set
+ */
+public void setHascardno(int hascardno) {
+	this.hascardno = hascardno;
+}
 
 	/**
 	 * @return the lawyername

@@ -11,13 +11,7 @@
             <param name="property">sysGroup</param>
             </generator>
         </id>
-        <!-- 
-        <many-to-one name="sysGroup" class="com.changpeng.models.SysGroup" upTimestamp="false" insert="false" fetch="select">
-            <column name="groupid" not-null="true" unique="true">
-                <comment>和那个律协的id一一对应</comment>
-            </column>
-        </many-to-one>-->
-        
+       
          <one-to-one name="sysGroup" class="com.changpeng.models.SysGroup"  constrained="true"/>
         
         
@@ -69,7 +63,15 @@
                 <comment>是否需要现场培训</comment>
             </column>
         </property>
-        
-        
+          <property name="isloglast" type="boolean">
+            <column name="isloglast" not-null="true">
+                <comment>去年积分没满的时候提示是否记录到去年</comment>
+            </column>
+        </property>
+          <property name="areacode" type="java.lang.String">
+            <column name="areacode" length="20">
+                <comment>所在地市的区号信息</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

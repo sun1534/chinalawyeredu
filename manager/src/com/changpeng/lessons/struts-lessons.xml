@@ -72,6 +72,9 @@
    	   <action name="refreshScore" class="com.changpeng.lessons.action.ajax.RefreshScoreAction">
 			<result name="success" type="json"></result>
    	   </action> 
+   	    <action name="getLessonsById" class="com.changpeng.lessons.action.ajax.GetLessonsByIdAction">
+			<result name="success" type="json"></result>
+   	   </action> 
    	   
    	      	
    	      <action name="attachDelete" class="com.changpeng.lessons.action.ajax.AttachDeleteAction">

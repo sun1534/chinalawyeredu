@@ -33,7 +33,20 @@ public class NumberUtil {
 		try {
 			return toMoney(Double.parseDouble(s));
 		} catch (Exception e) {
+			e.printStackTrace();
 			return s;
+		}
+	}
+	
+	public static String toMoney(Object s) {
+		if (s == null || s.equals("")) {
+			return "0.0";
+		}
+		try {
+			return toMoney(Double.parseDouble(s.toString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "0.0";
 		}
 	}
 
@@ -43,6 +56,7 @@ public class NumberUtil {
 				return "0.0";
 			return nf.format(d);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return String.valueOf(d);
 		}
 	}

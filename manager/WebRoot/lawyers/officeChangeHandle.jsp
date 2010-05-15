@@ -108,6 +108,7 @@ body {
           <td align="right" class="tab_content1">处理备注: </td>
              <td class="tab_content1">
              <s:textarea name="changeApply.confirmContent" cols="50" rows="5"/>
+             	&nbsp;&nbsp;&nbsp;<font color='red'>如果审批不通过,请在此说明理由</font>
               </td>
         </tr>
      

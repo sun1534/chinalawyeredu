@@ -75,7 +75,10 @@ public class OfficeChangeApplyListAction extends AbstractListAction {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LawyersOfficeChangeApply.class);
 		if (lawyername != null && !"".equals(lawyername))
 			detachedCriteria.add(Restrictions.like("lawyername", lawyername, MatchMode.START));
-
+if(status!=-1){
+	detachedCriteria.add(Restrictions.eq("status", status));
+}
+		
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {
 			Set<SysRoleVisible> rolevisibles = role.getSysRoleVisibles();
@@ -116,4 +119,20 @@ public class OfficeChangeApplyListAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
+	private short status=-1;
+
+	/**
+	 * @return the status
+	 */
+	public short getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(short status) {
+		this.status = status;
+	}
+	
 }

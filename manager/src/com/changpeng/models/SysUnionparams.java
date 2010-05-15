@@ -30,7 +30,36 @@ public class SysUnionparams implements java.io.Serializable {
 	//图片logo的来源等
 	private String logopath;
 	
+	private boolean isloglast;
+	private String areacode;
 
+	/**
+	 * @return the isloglast
+	 */
+	public boolean isIsloglast() {
+		return isloglast;
+	}
+
+	/**
+	 * @param isloglast the isloglast to set
+	 */
+	public void setIsloglast(boolean isloglast) {
+		this.isloglast = isloglast;
+	}
+
+	/**
+	 * @return the areacode
+	 */
+	public String getAreacode() {
+		return areacode;
+	}
+
+	/**
+	 * @param areacode the areacode to set
+	 */
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
 
 	/** default constructor */
 	public SysUnionparams() {

@@ -57,11 +57,12 @@ function exportit(str){
         <tr>
           <td height="24" background="../imagesa/top-bg2.gif" >
           <s:hidden name="pageNo"/>
-积分年限:<s:select name="year" list="jifentime.years"/> 
+积分年度:<s:select name="year" list="jifentime.years"/> 
 	分类:<s:select name="isdabiao" list="#{'0':'全部','1':'已达标','2':'未达标','3':'未培训'}"/>
 	 	姓名:<s:textfield name="lawyername" size="10"/>
             	执业证号:<s:textfield name="lawyerno" size="15"/> 
-            		
+            课程名称:<s:textfield name="title" size="20"/> 
+             事务所:<s:textfield name="officename" size="20"/> 		
                <s:hidden name="resultType"/>
         	   <input type="button" name="query" value=" 查 询 " onclick="queryit()"/>
         	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
@@ -69,7 +70,7 @@ function exportit(str){
         </tr>
         <tr>
           <td height="24" background="../imagesa/top-bg2.gif" align="center">
-<b> 当前查询条件下：达标人数【${jifenstatics.dabiaoshu}】 未达标人数【${jifenstatics.weidabiao}】 未培训人数【${jifenstatics.weipeixun}】</b>
+<b> 积分年度${year }：达标人数【${jifenstatics.dabiaoshu}】 未达标人数【${jifenstatics.weidabiao}】 未培训人数【${jifenstatics.weipeixun}】</b>
           </td>
         </tr>
       </table>

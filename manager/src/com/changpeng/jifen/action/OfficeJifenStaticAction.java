@@ -70,12 +70,12 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 		if (!resultType.equals("") && resultType.equals("excel")) {
 			pageNo = 1;
 			pageSize = Integer.MAX_VALUE;
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo,
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, title,pageNo,
 					pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
 			return "excel";
 		} else {
 
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo,
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, title,pageNo,
 					pageSize, this.isdabiao, jifenstatics, "officeid", selectoffice);
 			return SUCCESS;
 		}
@@ -98,7 +98,7 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 	public void setResultType(String resultType) {
 		this.resultType = resultType;
 	}
-
+private String title;
 	private SysGroup group;
 	private int selectoffice;
 	private Jifenstatics jifenstatics;
@@ -215,5 +215,19 @@ public class OfficeJifenStaticAction extends AbstractListAction {
 	 */
 	public float getLocalfen() {
 		return localfen;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

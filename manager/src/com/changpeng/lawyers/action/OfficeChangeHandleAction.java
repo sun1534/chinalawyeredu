@@ -44,6 +44,12 @@ public class OfficeChangeHandleAction extends AbstractAction {
 		lawyerService.updateLawyerOffice(changeApply.getLawyerid(), changeApply.getNewoffice(), changeApply
 				.getNewcity(), changeApply.getNewprovince(), this.getLoginUser(), changeApply);
 
+		
+		if(changeApply.getStatus()==2&&(changeApply.getConfirmContent()==null||changeApply.getConfirmContent().equals(""))){
+			this.message="请输入转所不通过的原因";
+			return "message";
+		}
+		
 		this.message = "转所申请处理通过";
 		this.opResult = "申请人" + changeApply.getApplyname() + "提交的" + changeApply.getLawyername() + "律师转所申请处理通过";
 		this.nextPage = "officeChangeApplyList.pl";

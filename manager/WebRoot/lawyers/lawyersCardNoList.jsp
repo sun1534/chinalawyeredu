@@ -62,6 +62,12 @@ var _lawyerid=0;
 	
 	function queryit(str){
   document.form1.resultType.value="cardnolist";
+  document.form1.hascardno.value="0";
+  document.form1.submit();
+}
+function querynocardit(){
+  document.form1.resultType.value="cardnolist";
+   document.form1.hascardno.value="1";
   document.form1.submit();
 }
 
@@ -119,6 +125,7 @@ var _lawyerid=0;
                 <s:textfield name="lawyerno" size="15" label="执业证号"/>
                <s:textfield name="cardno" size="12" label="卡号"/> 
                <s:textfield name="systemno" size="15" label="会员编号"/> 
+               
               <s:if test="datavisible.provinceview">
              <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
                          </s:if>
@@ -138,7 +145,9 @@ var _lawyerid=0;
               <s:hidden name="datavisible.officeid"/>
             </s:else>
              <s:hidden name="resultType"/>
-               <input type="button" name="query" value=" 查 询 " onclick="queryit()"/>
+             <s:hidden name="hascardno"/>
+                <input type="button" name="query" value=" 查 询 " onclick="queryit()"/>
+                <input type="button" name="querynocard" value="无卡律师查询" onclick="querynocardit()"/>
           </td>
         </tr>
       </table>

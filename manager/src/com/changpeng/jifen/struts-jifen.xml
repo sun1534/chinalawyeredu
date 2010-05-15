@@ -60,7 +60,15 @@
        	     <result name="province" type="redirect">/jifen/provinceUnionJifenStatic.pl</result>
        </action> 
      
+      <action name="jifenbudengApplyList" class="com.changpeng.jifen.action.JifenbudengApplyListAction">
+        	
+       	  <result name="success" type="dispatcher">/jifen/jifenbudengApplyList.jsp</result>
+       </action> 
      
+       <action name="jifenbudengApplyHandle" class="com.changpeng.jifen.action.JifenbudengApplyHandleAction">
+        	
+       	  <result name="input" type="dispatcher">/jifen/jifenbudengApplyHandle.jsp</result>
+       </action> 
    </package>
   
 </struts>

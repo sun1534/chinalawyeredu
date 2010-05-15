@@ -48,7 +48,7 @@
         </property>
         <property name="status" type="java.lang.Short">
             <column name="status">
-                <comment>0刚申请未处理,1申请通过2申请未通过</comment>
+                <comment>0刚申请未处理,1申请通过2申请未通过4取消申请</comment>
             </column>
         </property>
         <property name="remarks" type="java.lang.String">

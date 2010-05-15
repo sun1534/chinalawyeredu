@@ -21,7 +21,8 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	public CityUnionJifenStaticAction() {
 		this.jifenstatics = new Jifenstatics();
 	}
-
+private String title;
+private String officename;
 	private String resultType = "list";
 
 	/**
@@ -63,11 +64,6 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(year, params.getNianshen());
 		year = jifentime.getNianshenyear();
 
-		// System.out.println("year==============="+year);
-		// 统计这个律协的律师，达标数、未达标数、未培训数
-		// this.jifenstatics=xfservice.getFiledDabiaoshu(jifentime.getStart(),
-		// jifentime.getEnd(), dabiaofen, "cityid", selectcityid);
-
 		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen,localfen, "cityid", selectcityid);
 
 		// 显示律师的明细情况
@@ -75,23 +71,18 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 		// 得到统计数据列表
 		debug("===from:::" + jifentime.getStartstr() + ",===end:::" + jifentime.getEndstr());
 
-		// this.page = xfservice.getJifentongji(jifentime.getStart(),
-		// jifentime.getEnd(), null, lawyername,
-		// lawyerno, pageNo, pageSize, this.isdabiao, jifenstatics, "cityid",
-		// selectcityid);
-		//	
 
 		
 		if(!resultType.equals("")&&resultType.equals("excel")){
 			pageNo=1;
 			pageSize=Integer.MAX_VALUE;
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo, pageSize,
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno, title,pageNo, pageSize,
 					this.isdabiao, jifenstatics, "cityid", selectcityid);
 			return "excel";
 		}else{
 		
 		
-			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), null, lawyername, lawyerno, pageNo, pageSize,
+			this.page = xfservice.getJifentongji(jifentime.getNianshenyear(), officename, lawyername, lawyerno,title, pageNo, pageSize,
 					this.isdabiao, jifenstatics, "cityid", selectcityid);
 			return SUCCESS;
 		}
@@ -215,5 +206,33 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	 */
 	public float getLocalfen() {
 		return localfen;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the officename
+	 */
+	public String getOfficename() {
+		return officename;
+	}
+
+	/**
+	 * @param officename the officename to set
+	 */
+	public void setOfficename(String officename) {
+		this.officename = officename;
 	}
 }

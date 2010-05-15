@@ -87,6 +87,7 @@ body {
              <s:hidden name="pageNo"/>
         	
                <s:textfield name="lawyername" size="12" label="律师姓名"/> 
+               申请状态:<s:select name="status" list="#{'-1':'全部','0':'暂未处理','1':'申请通过','2':'申请未通过','4':'申请已取消'}"/>
               <s:if test="datavisible.provinceview">
              <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
               </s:if>

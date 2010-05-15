@@ -77,14 +77,7 @@ public class JifenbudengAction extends AbstractAction {
 			budeng.setOfficeid(lawyer.getTheoffice());
 			budeng.setLawyername(lawyer.getLawyername());
 			budengservice.saveJifenbudeng(budeng);
-			// } else { // 解析上传文件
-			//
-			// this.message = budengservice.saveJifenbudeng(budeng.getTitle(),
-			// budeng.getXuefen(), uploadfile,
-			// getLoginUser(), datavisible);
-			// this.nextPage = "jifenbudengList.pl";
-			// return SUCCESS;
-			// }
+		
 			this.opResult="为"+budeng.getLawyerno()+"新增补登积分成功";
 		} else {
 			Float oldxuefen = (Float) get("oldbudeng");

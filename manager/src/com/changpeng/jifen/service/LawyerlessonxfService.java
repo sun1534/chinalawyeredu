@@ -62,49 +62,49 @@ public class LawyerlessonxfService extends BasicService {
 
 	
 	
-	public PaginationSupport getJifentongji(Timestamp from, Timestamp end, String officename, String username,
-			String lawerno, int pageNo, int pageSize, int isdabiao, Jifenstatics jifenstatics, String field,
-			int fieldvalue) throws ServiceException {
-		try {
-			if (isdabiao == 0)
-				return lawyerlessonxfDAO.getJifentongjiAll(from, end, officename, username, lawerno, pageNo, pageSize,
-						jifenstatics.getAllusers(), field, fieldvalue);
-			else if (isdabiao == 1)
-				return lawyerlessonxfDAO.getJifentongjiDabiao(from, end, officename, username, lawerno, pageNo,
-						pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
-			else if (isdabiao == 2)
-				return lawyerlessonxfDAO.getJifentongjiNotDabiao(from, end, officename, username, lawerno, pageNo,
-						pageSize, jifenstatics.getWeidabiao(), field, fieldvalue);
-			else if (isdabiao == 3)
-				return lawyerlessonxfDAO.getJifentongjiWeipeixun(from, end, officename, username, lawerno, pageNo,
-						pageSize, jifenstatics.getWeipeixun(), field, fieldvalue);
-			else
-				return lawyerlessonxfDAO.getJifentongjiDabiao(from, end, officename, username, lawerno, pageNo,
-						pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
-		} catch (Exception e) {
-			throw new ServiceException(e);
-		}
+//	public PaginationSupport getJifentongji(Timestamp from, Timestamp end, String officename, String username,
+//			String lawerno,String title, int pageNo, int pageSize, int isdabiao, Jifenstatics jifenstatics, String field,
+//			int fieldvalue) throws ServiceException {
+//		try {
+//			if (isdabiao == 0)
+//				return lawyerlessonxfDAO.getJifentongjiAll(from, end, officename, username, lawerno, title,pageNo, pageSize,
+//						jifenstatics.getAllusers(), field, fieldvalue);
+//			else if (isdabiao == 1)
+//				return lawyerlessonxfDAO.getJifentongjiDabiao(from, end, officename, username, lawerno, title,pageNo,
+//						pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
+//			else if (isdabiao == 2)
+//				return lawyerlessonxfDAO.getJifentongjiNotDabiao(from, end, officename, username, lawerno,title,pageNo,
+//						pageSize, jifenstatics.getWeidabiao(), field, fieldvalue);
+//			else if (isdabiao == 3)
+//				return lawyerlessonxfDAO.getJifentongjiWeipeixun(from, end, officename, username, lawerno,title, pageNo,
+//						pageSize, jifenstatics.getWeipeixun(), field, fieldvalue);
+//			else
+//				return lawyerlessonxfDAO.getJifentongjiDabiao(from, end, officename, username, lawerno, title,pageNo,
+//						pageSize, jifenstatics.getDabiaoshu(), field, fieldvalue);
+//		} catch (Exception e) {
+//			throw new ServiceException(e);
+//		}
+//
+//	}
 
-	}
-
-	public PaginationSupport getJifentongji(int year, String officename, String username, String lawyerno, int pageNo,
+	public PaginationSupport getJifentongji(int year, String officename, String username, String lawyerno, String title, int pageNo,
 			int pageSize, int isdabiao, Jifenstatics jifenstatics, String field, int fieldvalue)
 			throws ServiceException {
 		try {
 			if (isdabiao == 0)
-				return lawyerlessonxfDAO.getJifentongjiAll(year, officename, username, lawyerno, pageNo, pageSize,
+				return lawyerlessonxfDAO.getJifentongjiAll(year, officename, username, lawyerno, title,pageNo, pageSize,
 						jifenstatics.getAllusers(), field, fieldvalue);
 			else if (isdabiao == 1)
-				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno, pageNo, pageSize,
+				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno,title, pageNo, pageSize,
 						jifenstatics.getDabiaoshu(), field, fieldvalue);
 			else if (isdabiao == 2)
-				return lawyerlessonxfDAO.getJifentongjiNotDabiao(year, officename, username, lawyerno, pageNo,
+				return lawyerlessonxfDAO.getJifentongjiNotDabiao(year, officename, username, lawyerno,title, pageNo,
 						pageSize, jifenstatics.getWeidabiao(), field, fieldvalue);
 			else if (isdabiao == 3)
-				return lawyerlessonxfDAO.getJifentongjiWeipeixun(year, officename, username, lawyerno, pageNo,
+				return lawyerlessonxfDAO.getJifentongjiWeipeixun(year, officename, username, lawyerno,title, pageNo,
 						pageSize, jifenstatics.getWeipeixun(), field, fieldvalue);
 			else
-				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno, pageNo, pageSize,
+				return lawyerlessonxfDAO.getJifentongjiDabiao(year, officename, username, lawyerno,title, pageNo, pageSize,
 						jifenstatics.getDabiaoshu(), field, fieldvalue);
 		} catch (Exception e) {
 			throw new ServiceException(e);

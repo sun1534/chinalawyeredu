@@ -165,7 +165,16 @@ public class BasicDAO extends HibernateDaoSupport {
 		}, true);
 		return count.intValue();
 	}
-
+	public int getCountBySqlQuery(final String sql) {
+		Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query queryObject = session.createSQLQuery(sql);
+		      	Object obj=	queryObject.uniqueResult();
+				return Integer.parseInt(obj.toString());
+			}
+		}, true);
+		return count.intValue();
+	}
 
 	public int execute(final String hql, final Object[] values) {
 		Object object = getHibernateTemplate().execute(new HibernateCallback() {

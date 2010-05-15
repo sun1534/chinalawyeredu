@@ -16,21 +16,10 @@ body {
 
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="javascript">
-	function getAdd(){
-		window.location.href="jifenbudeng!input.pl";
-	}
-		function getBatchAdd(){
-		window.location.href="jifenbudengBatch!input.pl";
-	}
+
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();
-}
-function deleteit(budengid){
-  if(confirm('您确定要删除这个补登的积分吗')){
- 
-  	 window.location.href="jifenbudengDelete.pl?budengid="+budengid;
-  }
 }
 
 function getCities(vallll){
@@ -69,13 +58,13 @@ function getOffices(vallll){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：积分补登
+    	当前位置：积分补登申请列表
     	</td>
   </tr>
 </table>
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
 				
-<s:form action="jifenbudengList" name="form1" method="post">
+<s:form action="jifenbudengApplyList" name="form1" method="post">
 <s:hidden name="pageNo" />
 	  <tr>
     <td valign="top">	
@@ -85,7 +74,8 @@ function getOffices(vallll){
           <td height="24" background="../imagesa/top-bg2.gif" >
             	姓名:<s:textfield name="lawyername" size="6"/>
             	执业证号:<s:textfield name="lawyerno" size="17"/> 
-            	        <s:if test="datavisible.provinceview">
+            	申请状态:<s:select name="status" list="#{'-1':'全部','0':'暂未处理','1':'申请通过','2':'申请未通过','3':'申请已取消'}"/>
+           <s:if test="datavisible.provinceview">
                <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省级律协" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
           </s:if>
             <s:else>
@@ -116,47 +106,46 @@ function getOffices(vallll){
         </tr>
       </table>
   
-    	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
+    <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
       <tr>
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif" >补登内容标题</TD>
-       	<TD align="center" background="../imagesa/top-bg1.gif">是否现场课程</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">事务所</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">所在事务所</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">律师姓名</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">执业资格证号</TD>
+     <!--    <TD align="center" background="../imagesa/top-bg1.gif">执业资格证号</TD>-->
+        <TD align="center" background="../imagesa/top-bg1.gif">是否现场课程</TD>        
+        <TD align="center" background="../imagesa/top-bg1.gif">补登学分</TD>            
         <TD align="center" background="../imagesa/top-bg1.gif">积分年度</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">学分</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">积分日期</TD>
-          <TD align="center" background="../imagesa/top-bg1.gif">删除</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">当前状态</TD> 
+         <TD align="center" background="../imagesa/top-bg1.gif">处理时间</TD>
+       <TD align="center" background="../imagesa/top-bg1.gif">处理人</TD>
       </tr>
       
 <s:iterator value="page.items" status="stat">
 	
       <TR>
-       <s:if test="budengfrom==0">
-        <TD class="tab_content" align="left" title="点击修改">
-        <a href="jifenbudeng!input.pl?budengid=${budengid}">&nbsp;&nbsp;${title}</a>
-         </TD>
-        </s:if>
-        <s:else>
-        <TD class="tab_content" align="left" title="律师申请的课程,不能修改">
-        &nbsp;&nbsp;${title}
-        </TD>
-        </s:else>
-       
-        <TD class="tab_content" align="center">${islocalstr}</TD>
+        <TD class="tab_content" align="left">&nbsp;&nbsp;${title}</TD>
         <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[officeid]"/></TD>
         <TD class="tab_content" align="center">${lawyername}</TD>
-        <TD class="tab_content" align="center">${lawyerno}</TD>
-        <TD class="tab_content" align="center">${theyear}</TD>
+       <!--    <TD class="tab_content" align="center">${lawyerno}</TD> -->
+        <TD class="tab_content" align="center">${islocalstr}</TD>
         <TD class="tab_content" align="center">${xuefen}</TD>
+        <TD class="tab_content" align="center">${theyear}</TD>
          <TD class="tab_content" align="center">${budengdate}</TD>
-         <TD class="tab_content" align="center">
-         <s:if test="budengfrom==0">
-         <a href="#" onClick="deleteit(${budengid})">【删除】</a>
-         </s:if>
-         <s:else>&nbsp;
-         </s:else>
-         </TD>
+          <TD class="tab_content" align="center">${statusStr}
+       <s:if test="status==0">
+      &nbsp;<a href="jifenbudengApplyHandle!input.pl?budengid=${budengid }">【处理】</a>
+       </s:if>
+       </TD>
+       <TD class="tab_content" align="center">
+       <s:if test="status==0">
+      &nbsp;
+       </s:if>
+       <s:else>
+       <s:date name="confirmtime" format="yyyy-MM-dd HH:mm:ss"/>
+       </s:else>
+       </TD>
+        <TD class="tab_content" align="center">${confirmuser}</TD>
       </TR> 
      </s:iterator> 
      
@@ -167,14 +156,7 @@ function getOffices(vallll){
       </tr>
      
     </table>
-        	<table width="100%" border="0" cellpadding="0" cellspacing="1">
-        <tr >
-          <td height="24" align="center" background="../imagesa/login_bg1.gif" >
-       <input type="button" name="budeng" value="补登积分" onClick="getAdd()"/>&nbsp;&nbsp;&nbsp;
-          <input type="button" name="budeng" value="批量补登积分" onClick="getBatchAdd()"/>
-          </td>
-        </tr>
-      </table>   
+        
     </td>
   </tr>
     </s:form>

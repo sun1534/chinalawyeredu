@@ -28,7 +28,8 @@ import com.changpeng.system.service.SysLoginLogService;
 public class CommonDatas {
 	private static Log LOG = LogFactory.getLog(CommonDatas.class);
 
-	public static HashMap<Integer, String> LessonType = new LinkedHashMap<Integer, String>();
+	public static Map<Integer, String> LessonType = new LinkedHashMap<Integer, String>();
+	public static Map<Integer, Map<Integer,String>> ChildLessonType = new LinkedHashMap<Integer, Map<Integer,String>>();
 	public static HashMap<Integer, String> LessonState = new LinkedHashMap<Integer, String>();
 	public static HashMap<Integer, String> SharedName = new LinkedHashMap<Integer, String>();
 	public static HashMap<Integer, String> TeacherType = new LinkedHashMap<Integer, String>();
@@ -44,13 +45,47 @@ public class CommonDatas {
 //		LessonType.put(6, "专题论坛");
 //		LessonType.put(7, "其他");
 		
-		LessonType.put(1, "律师实务");
-		LessonType.put(2, "民、商实务");
-		LessonType.put(3, "涉外法务");
+//		LessonType.put(1, "律师实务");
+//		LessonType.put(2, "民、商实务");
+//		LessonType.put(3, "涉外法务");
+//		LessonType.put(4, "思想政治教育");
+//		LessonType.put(5, "刑事实务");
+//		LessonType.put(6, "行政实务");
+//		LessonType.put(7, "其他");
+		LessonType.put(1, "民商事法律业务");
+		LessonType.put(2, "刑事法律业务");
+		LessonType.put(3, "行政法律业务");
 		LessonType.put(4, "思想政治教育");
-		LessonType.put(5, "刑事实务");
-		LessonType.put(6, "行政实务");
-		LessonType.put(7, "其他");
+		LessonType.put(5, "执行法律业务");
+		LessonType.put(6, "律师事务所管理");
+		LessonType.put(7, "商务礼仪及业务拓展");
+		LessonType.put(8, "其他");
+		
+//		Map<Integer,String> map=new HashMap<Integer,String>();
+		LessonType.put(101, "民事诉讼");
+		LessonType.put(102, "合同、担保法律业务");
+		LessonType.put(103, "侵权法");
+		LessonType.put(104, "物权法");
+		LessonType.put(105, "公司、证券法律业务");
+		LessonType.put(106, "知识产权法律业务");
+		LessonType.put(107, "建筑工程、房地产法律业务");
+		LessonType.put(108, "破产法律业务");
+		LessonType.put(109, "国有资产法律业务");
+		LessonType.put(110, "金融保险法律业务");
+		LessonType.put(111, "涉外法律业务");
+		LessonType.put(112, "其他民商法律业务");
+		
+//		ChildLessonType.put(1, map);
+		
+//		map=new HashMap<Integer,String>();
+		LessonType.put(201, "刑法");
+		LessonType.put(202, "刑事诉讼");
+//		ChildLessonType.put(2, map);
+		
+//		map=new HashMap<Integer,String>();
+		LessonType.put(301, "行政法");
+		LessonType.put(302, "行政诉讼");
+//		ChildLessonType.put(3, map);
 
 		LessonState.put(1, "内容编辑");
 		LessonState.put(2, "培训课程");

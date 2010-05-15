@@ -64,7 +64,7 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 //		lawyersShixi.setDabiaofen(params.getDabiaofen());
 		Random random = new java.util.Random();
 		lawyersShixi.setLoginname(lawyersShixi.getZigeno() + "_" + random.nextInt(9999));
-		lawyersShixi.setPasswd(lawyersShixi.getZigeno());
+		lawyersShixi.setPasswd(lawyersShixi.getCertno());
 		lawyersShixi.setStatus(0);//不能登录.要求登录并听课
 		if (upload != null && upload.length() != 0) {
 			try {
