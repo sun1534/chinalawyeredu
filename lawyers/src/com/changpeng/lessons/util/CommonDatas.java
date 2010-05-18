@@ -47,20 +47,18 @@ public class CommonDatas {
 		LessonType.put(1, "民商事法律业务");
 		LessonType.put(2, "刑事法律业务");
 		LessonType.put(3, "行政法律业务");
-		LessonType.put(4, "思想政治教育");
 		LessonType.put(5, "执行法律业务");
-		LessonType.put(6, "律师事务所管理");
-		LessonType.put(7, "商务礼仪及业务拓展");
+		LessonType.put(6, "律师事务所管理");		
 		LessonType.put(8, "其他");
 		
 		Map<Integer,String> map=new HashMap<Integer,String>();
 		map.put(101, "民事诉讼");
-		map.put(102, "合同、担保法律业务");
+		map.put(102, "合同担保法律业务");
 		map.put(103, "侵权法");
 		map.put(104, "物权法");
-		map.put(105, "公司、证券法律业务");
+		map.put(105, "公司证券法律业务");
 		map.put(106, "知识产权法律业务");
-		map.put(107, "建筑工程、房地产法律业务");
+		map.put(107, "建筑房地产法律业务");
 		map.put(108, "破产法律业务");
 		map.put(109, "国有资产法律业务");
 		map.put(110, "金融保险法律业务");
@@ -78,6 +76,15 @@ public class CommonDatas {
 		map.put(301, "行政法");
 		map.put(302, "行政诉讼");
 		ChildLessonType.put(3, map);
+		
+		map=new HashMap<Integer,String>();
+		map.put(7, "商务礼仪及业务拓展");
+		ChildLessonType.put(6, map);
+		
+		map=new HashMap<Integer,String>();
+		map.put(4, "思想政治教育");
+		ChildLessonType.put(8, map);
+		
 //	民商事法律业务	
 //		民事诉讼
 //		合同、担保法律业务

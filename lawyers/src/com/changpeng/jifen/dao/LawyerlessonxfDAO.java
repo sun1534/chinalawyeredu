@@ -19,6 +19,7 @@ import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.models.Jifentongji;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfGongzheng;
 import com.changpeng.models.LawyerlessonxfShixi;
 
 /**
@@ -86,6 +87,28 @@ public class LawyerlessonxfDAO extends BasicDAO {
 		if (list == null || list.size() == 0)
 			return null;
 		return (LawyerlessonxfShixi) list.get(0);
+	}
+	/**
+	 * 得到公证员的学分
+	 * @param lessonid
+	 * @param userid
+	 * @param learnmode
+	 * @return
+	 */
+	public LawyerlessonxfGongzheng getXuefenGongzheng(int lessonid, int userid, int learnmode) {
+		String sql = "";
+
+		if (learnmode == 0)
+			sql = "from com.changpeng.models.LawyerlessonxfGongzheng xf where xf.lessonid=" + lessonid + " and xf.lawyerid="
+					+ userid;
+		else
+			sql = "from com.changpeng.models.LawyerlessonxfGongzheng xf where xf.lessonid=" + lessonid + " and xf.lawyerid="
+					+ userid + " and xf.learnmode=" + learnmode;
+		List list = find(sql);
+
+		if (list == null || list.size() == 0)
+			return null;
+		return (LawyerlessonxfGongzheng) list.get(0);
 	}
 	/**
 	 * 

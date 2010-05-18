@@ -12,7 +12,7 @@
        <!--修改详细信息-->
         <action name="lawyersEditSelf" class="com.changpeng.lawyers.action.LawyersEditSelfAction">
         	<result name="input" type="dispatcher">/lawyers/lawyersEditSelf.jsp</result>
-		
+        	<result name="gongzheng" type="dispatcher">/lawyers/gongzhengEditSelf.jsp</result>		
 			<result name="shixi" type="dispatcher">/lawyers/lawyersShixiEditSelf.jsp</result>
        		
        </action>

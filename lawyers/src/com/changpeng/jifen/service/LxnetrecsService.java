@@ -18,6 +18,7 @@ import com.changpeng.jifen.dao.LawyerlessonxfDAO;
 import com.changpeng.jifen.dao.LxnetrecsDAO;
 import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfGongzheng;
 import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
@@ -95,6 +96,8 @@ public class LxnetrecsService extends BasicService {
 					BasicLawyerlessonxf xf=null;
 					if(lawyer.getLawyertype()==-1)
 						xf = lawyerlessonxfDAO.getXuefenShixi(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					else if(lawyer.getLawyertype()==-2)
+						xf = lawyerlessonxfDAO.getXuefenGongzheng(netrecs.getLessonid(), netrecs.getUserid(), 2);
 					else
 						xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
 					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
@@ -109,6 +112,8 @@ public class LxnetrecsService extends BasicService {
 					if (xf == null) {
 						if(lawyer.getLawyertype()==-1)
 						xf = new LawyerlessonxfShixi();
+						else if(lawyer.getLawyertype()==-2)
+							xf = new LawyerlessonxfGongzheng();
 						else
 							xf = new Lawyerlessonxf();
 						xf.setLawyerid(lawyer.getLawyerid());
@@ -173,6 +178,9 @@ public class LxnetrecsService extends BasicService {
 					BasicLawyerlessonxf xf=null;
 					if(lawyer.getLawyertype()==-1)
 						xf = lawyerlessonxfDAO.getXuefenShixi(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					else if(lawyer.getLawyertype()==-2)
+						xf = lawyerlessonxfDAO.getXuefenGongzheng(netrecs.getLessonid(), netrecs.getUserid(), 2);
+					
 					else
 						xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
 					
