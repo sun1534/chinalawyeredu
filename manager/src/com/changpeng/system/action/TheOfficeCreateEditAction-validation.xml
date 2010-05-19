@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="sysGroup.groupname">
+                <field-validator type="requiredstring">
+                    <message>请输入部门名称！</message>
+                </field-validator>
+                <field-validator type="stringlength">
+                  <param name="minLength">1</param>
+                  <param name="maxLength">50</param>
+                  <message><![CDATA[ 客户名称不能多于25个汉字 50个字母!]]></message>
+                </field-validator>
+	</field>
+		<field name="sysGroup.groupenname">
+  <field-validator type="regex">
+   <param name="trim">true</param>
+   <param name="expression"><![CDATA[^(\d){10,20}$]]></param>
+   <message>事务所执业证号必须全部为数字,长度为10-20位！</message>
+  </field-validator>
+ </field>
+</validators>

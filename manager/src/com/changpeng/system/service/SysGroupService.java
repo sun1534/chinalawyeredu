@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,7 +56,22 @@ public class SysGroupService extends BasicService {
 	public List getChildGroup(int parentid) {
 
 		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class);
+		dc.add(Restrictions.not(Restrictions.like("groupname", "公证处",MatchMode.END)));
 		dc.add(Restrictions.eq("parentid", parentid)).add(Restrictions.eq("delflag", false)); // 省律协
+		return sysGroupDAO.findAllByCriteria(dc);
+	}
+
+	/**
+	 * 得到公证处数据,结尾必须以”公证处”结尾
+	 * 
+	 * @param parentid
+	 * @return
+	 */
+	public List getUnionGongzhengchu(int cityid) {
+
+		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class);
+		dc.add(Restrictions.like("groupname", "公证处", MatchMode.END)).add(Restrictions.eq("parentid", cityid)).add(
+				Restrictions.eq("delflag", false)); // 省律协
 		return sysGroupDAO.findAllByCriteria(dc);
 	}
 
@@ -132,7 +148,7 @@ public class SysGroupService extends BasicService {
 			SysUser newuser = (SysUser) sysUserDAO.getSysUserByLoginname(theoffice.getGroupenname());
 			if (olduser != null && newuser == null) {// 老的有新的没有
 				olduser.setLoginname(theoffice.getGroupenname());
-				olduser.setPassword(com.changpeng.common.util.MD5.md5("123456"));//密码初始化为123456
+				olduser.setPassword(com.changpeng.common.util.MD5.md5("123456"));// 密码初始化为123456
 				sysUserDAO.update(olduser);
 				return 0;
 			} else if (olduser == null && newuser == null) { // 新增
@@ -147,9 +163,12 @@ public class SysGroupService extends BasicService {
 				user.setLoginname(theoffice.getGroupenname());
 				user.setOfficeid(theoffice.getGroupid());
 				SysRole role = new SysRole();
-				role.setRoleid(1);
+				if (theoffice.getGroupname().endsWith("公证处"))
+					role.setRoleid(11);
+				else
+					role.setRoleid(1);
 				user.setSysRole(role);
-//				user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+				// user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
 				user.setPassword(com.changpeng.common.util.MD5.md5("123456"));
 				user.setProvinceid(theoffice.getDirectgroup());
 				user.setStatus(0);
@@ -178,23 +197,28 @@ public class SysGroupService extends BasicService {
 	@Transactional
 	public int addTheOffice(SysGroup group) {
 		sysGroupDAO.save(group);
+		System.out.println("group.getGroupid()：：：：" + group.getGroupid());
 		SysUser user = (SysUser) sysUserDAO.getSysUserByLoginname(group.getGroupenname());
 		if (user == null) {
 			user = new SysUser();
-			user.setCityid(group.getParentid());
+
 			user.setSysGroup(group);
 			user.setComments("随事务所一起新增");
 			user.setCreatetime(group.getCreatetime());
 			user.setCreateuser(group.getCreateuser());
 			user.setCreateuserid(group.getCreateuserid());
 			user.setLoginname(group.getGroupenname());
-			user.setOfficeid(group.getGroupid());
 			SysRole role = new SysRole();
-			role.setRoleid(1);
+			if (group.getGroupname().endsWith("公证处"))
+				role.setRoleid(11);
+			else
+				role.setRoleid(1);
 			user.setSysRole(role);
-//			user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
+			// user.setPassword(com.changpeng.common.util.MD5.md5(user.getLoginname()));
 			user.setPassword(com.changpeng.common.util.MD5.md5("123456"));
 			user.setProvinceid(group.getDirectgroup());
+			user.setCityid(group.getParentid());
+			user.setOfficeid(group.getGroupid());
 			user.setStatus(0);
 			user.setUsername(group.getGroupname());
 			sysGroupDAO.save(user);
@@ -263,8 +287,23 @@ public class SysGroupService extends BasicService {
 	 * @return
 	 */
 	public List getOffices(int cityunicon) {
+		// DetachedCriteria dc =
+		// DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag",
+		// false));
+		// dc.add(Restrictions.eq("grouptype", 1)); // 事务所
+		// if (cityunicon != 0)
+		// dc.add(Restrictions.eq("parentid", cityunicon)); // 事务所
+		// return sysGroupDAO.findAllByCriteria(dc);
+		return getOffices(cityunicon, false);
+	}
+
+	public List getOffices(int cityunicon, boolean isgongzhengchu) {
 		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
-		;
+		if (isgongzhengchu) {
+			dc.add(Restrictions.like("groupname", "公证处", MatchMode.END));
+		}else{
+			dc.add(Restrictions.not(Restrictions.like("groupname", "公证处",MatchMode.END)));
+		}
 		dc.add(Restrictions.eq("grouptype", 1)); // 事务所
 		if (cityunicon != 0)
 			dc.add(Restrictions.eq("parentid", cityunicon)); // 事务所
@@ -273,7 +312,6 @@ public class SysGroupService extends BasicService {
 
 	public SysGroup getGroupBySystemno(String systemno) {
 		DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class).add(Restrictions.eq("delflag", false));
-		;
 		dc.add(Restrictions.eq("systemno", systemno));
 		List list = sysGroupDAO.findAllByCriteria(dc);
 		if (list != null && list.size() != 0) {

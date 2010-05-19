@@ -31,11 +31,9 @@ public class DataVisible {
 	private boolean officeview;
 
 	
+	public void getVisibleDatas(SysUser user,boolean includeother,boolean isgongzhengchu) {
 
-	
-	public void getVisibleDatas(SysUser user,boolean includeother) {
-
-	
+		
 		SysRole role = user.getSysRole();
 		SysGroupService groups = (SysGroupService) Globals.getBean("sysGroupService");
 		BasicDAO dao = (BasicDAO) Globals.getBean("basicDAO");
@@ -50,7 +48,7 @@ public class DataVisible {
 				this.citylist = groups.getCityUnion(provinceid);
 			}
 			if(this.cityid!=0){
-				this.officelist = groups.getOffices(cityid);
+				this.officelist = groups.getOffices(cityid,isgongzhengchu);
 				
 			}
 			
@@ -74,7 +72,7 @@ public class DataVisible {
 			SysGroup city = (SysGroup) dao.get(SysGroup.class, user.getCityid());
 			this.provincelist.add(province);
 			this.citylist.add(city);
-			this.officelist = groups.getOffices(user.getCityid());
+			this.officelist = groups.getOffices(user.getCityid(),isgongzhengchu);
 
 		} else if (role.getGradeid() == 3) {// 省市区都默认，没得选择咯
 			provinceid = user.getProvinceid();
@@ -90,6 +88,65 @@ public class DataVisible {
 			this.officelist.add(office);
 
 		}
+	}
+	
+	public void getVisibleDatas(SysUser user,boolean includeother) {
+
+		getVisibleDatas(user,includeother,false);
+//		SysRole role = user.getSysRole();
+//		SysGroupService groups = (SysGroupService) Globals.getBean("sysGroupService");
+//		BasicDAO dao = (BasicDAO) Globals.getBean("basicDAO");
+//
+//		if (role == null || role.getGradeid() == 0) { // 所有的都得到
+//			provinceview = true;
+//			cityview = true;
+//			officeview = true;
+//			this.provincelist = groups.getProvinceUnion(includeother);
+//			
+//			if(this.provinceid!=0){
+//				this.citylist = groups.getCityUnion(provinceid);
+//			}
+//			if(this.cityid!=0){
+//				this.officelist = groups.getOffices(cityid);
+//				
+//			}
+//			
+//		} else if (role.getGradeid() == 1) {// 省的默认,其他的都得到
+//			provinceid = user.getProvinceid();
+//
+//			cityview = true;
+//			officeview = true;
+//			SysGroup province = (SysGroup) dao.get(SysGroup.class, user.getProvinceid());
+//			this.provincelist.add(province);
+//			this.citylist = groups.getCityUnion(user.getProvinceid());
+//			 if(this.cityid!=0){
+//				this.officelist = groups.getOffices(cityid);
+//			}
+//
+//		} else if (role.getGradeid() == 2) {// 省市默认，其他的都选择
+//			provinceid = user.getProvinceid();
+//			cityid = user.getCityid();
+//			officeview = true;
+//			SysGroup province = (SysGroup) dao.get(SysGroup.class, user.getProvinceid());
+//			SysGroup city = (SysGroup) dao.get(SysGroup.class, user.getCityid());
+//			this.provincelist.add(province);
+//			this.citylist.add(city);
+//			this.officelist = groups.getOffices(user.getCityid());
+//
+//		} else if (role.getGradeid() == 3) {// 省市区都默认，没得选择咯
+//			provinceid = user.getProvinceid();
+//			cityid = user.getCityid();
+//			officeid = user.getOfficeid();
+//
+//			SysGroup province = (SysGroup) dao.get(SysGroup.class, user.getProvinceid());
+//			SysGroup city = (SysGroup) dao.get(SysGroup.class, user.getCityid());
+//			SysGroup office = (SysGroup) dao.get(SysGroup.class, user.getOfficeid());
+//
+//			this.provincelist.add(province);
+//			this.citylist.add(city);
+//			this.officelist.add(office);
+//
+//		}
 	}
 
 	/**

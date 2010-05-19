@@ -211,7 +211,7 @@ function addFile(){
 							</td>
 						</tr>
 						
-					<tr>
+					<!-- <tr>
 							<td class="tab_content1" align="right">
 									分数折扣：
 							</td>
@@ -220,7 +220,7 @@ function addFile(){
                                  <font color="red">*</font>
 							</td>
 						</tr>
-					
+					 -->
                           <tr id="sharedto" >
 							<td class="tab_content" align="right">
 									共享给：

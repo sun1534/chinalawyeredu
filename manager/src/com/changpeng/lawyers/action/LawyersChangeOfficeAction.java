@@ -97,8 +97,8 @@ public class LawyersChangeOfficeAction extends AbstractAction {
 		List list = basicService.find(hql);
 		if (list != null && list.size() > 0) {
 			LawyersOfficeChangeApply apply=(LawyersOfficeChangeApply)list.get(0);
-			this.message = "该律师的转所申请已经提交,请处理";
-			this.nextPage="officeChangeHandle!input.action?id="+apply.getId();
+			this.message = "该律师的转所申请已经提交,请点\"返回\"进行处理";
+			this.nextPage="officeChangeHandle!input.pl?id="+apply.getId();
 			return "message";
 		}
 		

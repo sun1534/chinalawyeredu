@@ -19,6 +19,7 @@ import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.LawyersDelete;
+import com.changpeng.models.LawyersGongzheng;
 import com.changpeng.models.LawyersOfficeChangeApply;
 import com.changpeng.models.LawyersShixi;
 import com.changpeng.models.SysGroup;
@@ -213,67 +214,67 @@ public class LawyersService extends BasicService {
 	public LawyersShixi deleteLawyersShixi(int lawyerid, SysUser user) throws ServiceException {
 		try {
 			LawyersShixi lawyers = (LawyersShixi) lawyersDAO.get(LawyersShixi.class, lawyerid);
-			lawyersDAO.executeSql("delete from lawyers_shixi where lawyerid="+lawyerid);
+//			lawyersDAO.executeSql("delete from lawyers_shixi where lawyerid="+lawyerid);
 
-//			LawyersDelete delete = new LawyersDelete();
-//			delete.setLawyername(lawyers.getLawyername());
-//			delete.setLawyerenname(lawyers.getLawyerenname());
-//			delete.setLawyerno(lawyers.getLawyerno());
-//			delete.setLoginname(lawyers.getLoginname());
-//			delete.setPasswd(lawyers.getPasswd());
-//			delete.setBirthday(lawyers.getBirthday());
-//			delete.setCarddate(lawyers.getCarddate());
-//			delete.setCardno(lawyers.getCardno());
-//			delete.setCertno(lawyers.getCardno());
-//			delete.setCityid(lawyers.getCityid());
-//			delete.setCountryid(lawyers.getCountryid());
-//			delete.setCreatetime(lawyers.getCreatetime());
-//			delete.setCreateuser(lawyers.getCreateuser());
-//			delete.setCreateusername(lawyers.getCreateusername());
-//			delete.setDabiaofen(lawyers.getDabiaofen());
-//			delete.setDegree(lawyers.getDegree());
-//			delete.setDirectunion(lawyers.getDirectunion());
-//			delete.setDistrictid(lawyers.getDistrictid());
-//			delete.setEmail(lawyers.getEmail());
-//			delete.setFax(lawyers.getFax());
-//			delete.setForeignlan(lawyers.getForeignlan());
-//			delete.setForeignlevel(lawyers.getForeignlevel());
-//			delete.setGender(lawyers.getGender());
-//			delete.setHomephone(lawyers.getHomephone());
-//			delete.setIsmarrige(lawyers.getIsmarrige());
-//			delete.setLawyerenname(lawyers.getLawyerenname());
-//			delete.setLawyerid(lawyers.getLawyerid());
-//			delete.setLawyerenname(lawyers.getLawyerenname());
-//			delete.setMobile1(lawyers.getMobile1());
-//			delete.setMobile2(lawyers.getMobile2());
-//			delete.setMsn(lawyers.getMsn());
-//			delete.setOfficephone(lawyers.getOfficephone());
-//			delete.setPasswd(lawyers.getPasswd());
-//			delete.setPhoto(lawyers.getPhoto());
-//			delete.setPhotoname(lawyers.getPhotoname());
-//			delete.setPolicy(lawyers.getPolicy());
-//			delete.setPostcode(lawyers.getPostcode());
-//			delete.setProvinceid(lawyers.getProvinceid());
-//			delete.setProvinceunion(lawyers.getProvinceunion());
-//			delete.setQq(lawyers.getQq());
-//			delete.setRegsrc(lawyers.getRegsrc());
-//			delete.setRemarks(lawyers.getRemarks());
-//			delete.setSchool(lawyers.getSchool());
-//			delete.setSpecility(lawyers.getSpecility());
-//			delete.setStatus(lawyers.getStatus());
-//			delete.setSystemno(lawyers.getSystemno());
-//			delete.setTheoffice(lawyers.getTheoffice());
-//			delete.setWorktime(lawyers.getWorktime());
-//			delete.setZhiyedate(lawyers.getZhiyedate());
-//			delete.setDeletetime(new java.sql.Timestamp(System.currentTimeMillis()));
-//			delete.setDeleteuser(user.getLoginname());
-//
-//			lawyersDAO.save(delete);
-//
-//			// 律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
-//			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf where lawyerid="
-//					+ lawyerid);
-//			lawyersDAO.executeSql("delete from lawyerlessonxf where lawyerid=" + lawyerid);
+			LawyersDelete delete = new LawyersDelete();
+			delete.setLawyername(lawyers.getLawyername());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerno(lawyers.getShixino());
+			delete.setLoginname(lawyers.getLoginname());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setBirthday(lawyers.getBirthday());
+			delete.setCarddate(lawyers.getShixidate());
+			delete.setCardno(lawyers.getCardno());
+			delete.setCertno(lawyers.getCardno());
+			delete.setCityid(lawyers.getCityid());
+			delete.setCountryid(lawyers.getCountryid());
+			delete.setCreatetime(lawyers.getCreatetime());
+			delete.setCreateuser(lawyers.getCreateuser());
+			delete.setCreateusername(lawyers.getCreateusername());
+			delete.setDabiaofen(lawyers.getDabiaofen());
+			delete.setDegree(lawyers.getDegree());
+			delete.setDirectunion(lawyers.getDirectunion());
+			delete.setDistrictid(lawyers.getDistrictid());
+			delete.setEmail(lawyers.getEmail());
+			delete.setFax(lawyers.getFax());
+			delete.setForeignlan(lawyers.getForeignlan());
+			delete.setForeignlevel(lawyers.getForeignlevel());
+			delete.setGender(lawyers.getGender());
+			delete.setHomephone(lawyers.getHomephone());
+			delete.setIsmarrige(lawyers.getIsmarrige());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerid(lawyers.getLawyerid());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setMobile1(lawyers.getMobile1());
+			delete.setMobile2(lawyers.getMobile2());
+			delete.setMsn(lawyers.getMsn());
+			delete.setOfficephone(lawyers.getOfficephone());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setPhoto(lawyers.getPhoto());
+			delete.setPhotoname(lawyers.getPhotoname());
+			delete.setPolicy(lawyers.getPolicy());
+			delete.setPostcode(lawyers.getPostcode());
+			delete.setProvinceid(lawyers.getProvinceid());
+			delete.setProvinceunion(lawyers.getProvinceunion());
+			delete.setQq(lawyers.getQq());
+			delete.setRegsrc(lawyers.getRegsrc());
+			delete.setRemarks(lawyers.getRemarks());
+			delete.setSchool(lawyers.getSchool());
+			delete.setSpecility(lawyers.getSpecility());
+			delete.setStatus(lawyers.getStatus());
+			delete.setSystemno(lawyers.getZigeno());
+			delete.setTheoffice(lawyers.getTheoffice());
+			delete.setWorktime(lawyers.getWorktime());
+			delete.setZhiyedate(lawyers.getZigedate());
+			delete.setDeletetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			delete.setDeleteuser(user.getLoginname());
+
+			lawyersDAO.save(delete);
+
+			// 律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
+			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf_shixi where lawyerid="
+					+ lawyerid);
+			lawyersDAO.executeSql("delete from lawyerlessonxf_shixi where lawyerid=" + lawyerid);
 
 			return lawyers;
 		} catch (Exception e) {
@@ -281,6 +282,77 @@ public class LawyersService extends BasicService {
 		}
 	}
 
+	@Transactional
+	public LawyersGongzheng deleteGongzheng(int lawyerid, SysUser user) throws ServiceException {
+		try {
+			LawyersGongzheng lawyers = (LawyersGongzheng) lawyersDAO.get(LawyersGongzheng.class, lawyerid);
+//			lawyersDAO.executeSql("delete from lawyers_shixi where lawyerid="+lawyerid);
+
+			LawyersDelete delete = new LawyersDelete();
+			delete.setLawyername(lawyers.getLawyername());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerno(lawyers.getLawyerno());
+			delete.setLoginname(lawyers.getLoginname());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setBirthday(lawyers.getBirthday());
+			delete.setCarddate(lawyers.getCarddate());
+			delete.setCardno(lawyers.getCardno());
+			delete.setCertno(lawyers.getCardno());
+			delete.setCityid(lawyers.getCityid());
+			delete.setCountryid(lawyers.getCountryid());
+			delete.setCreatetime(lawyers.getCreatetime());
+			delete.setCreateuser(lawyers.getCreateuser());
+			delete.setCreateusername(lawyers.getCreateusername());
+			delete.setDabiaofen(lawyers.getDabiaofen());
+			delete.setDegree(lawyers.getDegree());
+			delete.setDirectunion(lawyers.getDirectunion());
+			delete.setDistrictid(lawyers.getDistrictid());
+			delete.setEmail(lawyers.getEmail());
+			delete.setFax(lawyers.getFax());
+			delete.setForeignlan(lawyers.getForeignlan());
+			delete.setForeignlevel(lawyers.getForeignlevel());
+			delete.setGender(lawyers.getGender());
+			delete.setHomephone(lawyers.getHomephone());
+			delete.setIsmarrige(lawyers.getIsmarrige());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setLawyerid(lawyers.getLawyerid());
+			delete.setLawyerenname(lawyers.getLawyerenname());
+			delete.setMobile1(lawyers.getMobile1());
+			delete.setMobile2(lawyers.getMobile2());
+			delete.setMsn(lawyers.getMsn());
+			delete.setOfficephone(lawyers.getOfficephone());
+			delete.setPasswd(lawyers.getPasswd());
+			delete.setPhoto(lawyers.getPhoto());
+			delete.setPhotoname(lawyers.getPhotoname());
+			delete.setPolicy(lawyers.getPolicy());
+			delete.setPostcode(lawyers.getPostcode());
+			delete.setProvinceid(lawyers.getProvinceid());
+			delete.setProvinceunion(lawyers.getProvinceunion());
+			delete.setQq(lawyers.getQq());
+			delete.setRegsrc(lawyers.getRegsrc());
+			delete.setRemarks(lawyers.getRemarks());
+			delete.setSchool(lawyers.getSchool());
+			delete.setSpecility(lawyers.getSpecility());
+			delete.setStatus(lawyers.getStatus());
+			delete.setSystemno(lawyers.getSystemno());
+			delete.setTheoffice(lawyers.getTheoffice());
+			delete.setWorktime(lawyers.getWorktime());
+			delete.setZhiyedate(lawyers.getZhiyedate());
+			delete.setDeletetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			delete.setDeleteuser(user.getLoginname());
+
+			lawyersDAO.save(delete);
+
+			// 律师删除引起的,删除积分以及将这个人的积分移动到另外一个表里面
+			lawyersDAO.executeSql("insert into lawyerlessonxf_delete select * from lawyerlessonxf_shixi where lawyerid="
+					+ lawyerid);
+			lawyersDAO.executeSql("delete from lawyerlessonxf_gongzheng where lawyerid=" + lawyerid);
+
+			return lawyers;
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
 	/**
 	 * 修改密码
 	 * 

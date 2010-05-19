@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>${sysName }-事务所新增修改</title>
+<title>${sysName }-公证处新增修改</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 		<style type="text/css">
@@ -34,7 +34,7 @@ function getOffices(vallll){
   var _o=new Option('请选择',0);
   $("#office")[0].options.add(_o);  
   if(vallll!=0){
-     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"gongzhengchu":"gongzhengchu","time":new Date().getTime()}, function(json){
      for(var k in json.groups)  
      {     
         var _o=new Option(json.groups[k.toString()],k);
@@ -58,24 +58,6 @@ else{
 return;
 }
 }
-function checkLoginname(loginname){	
-
-	if((loginname == null) || (loginname.length == 0)){
-	    $("#checkloginname").html("不为空且长度不超过15个字符");
-		return;
-	}
-	var now=new Date().getTime();
-	var url="../systemajax/checkLoginname.pl";
-   $.getJSON(url, { "loginname": loginname,"now":now}, function(json){
-
-     if(json.isrepeat == true){
-   		$("#checkloginname").html("<font color='red'>对不起，您输入的帐号【"+json.loginname+"】已经被其他事务所使用，请选择其他名字后再试。</font>");
-   		$("#save").attr("disabled",true);
-   }else{
-	    $("#save").attr("disabled",false);
-   }
-});
-}
 </script>
 
 </head>
@@ -86,7 +68,7 @@ function checkLoginname(loginname){
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-				事务所新增修改
+				本所信息修改
 				</td>
 			</tr>
 		</table>
@@ -94,50 +76,28 @@ function checkLoginname(loginname){
 			align="center" class="border-table">
 	<tr>		
     <td>
-    <s:form name="form1" action="theOfficeCreateEdit" method="post" validate="true" enctype="multipart/form-data">
+    <s:form name="form1" action="gongzhengchuEditSelf" method="post" validate="true" enctype="multipart/form-data">
      <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
-          <td colspan="2">&nbsp;
-          	 	<font color="#FF0000"><b>
-         注意：登录名设置将设置为执业资格证号，登录密码默认为123456
-         </b></font>
-         
-         </td>
+          <td colspan="2">
+          	&nbsp;         
+          </td>
         </tr>
-		 <tr>
+      
      
       <tr>
           <td align="right" width="20%" class="tab_content1">
              所属律协:
           </td>
           <td class="tab_content1">
-          <s:if test="!isedit">
 
-  <s:if test="datavisible.provinceview">
-             <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
-             </s:if>
-            <s:else>
-              <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.provinceid]"/>-
-             
-              <s:hidden name="datavisible.provinceid"/>
-            </s:else>
-                  <s:if test="datavisible.cityview">
-             <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getOffices(this.value)"/>
-            </s:if>
-           <s:else>
-             <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
-             
-              <s:hidden name="datavisible.cityid"/>
-            </s:else>
-               
-               </s:if>
-               <s:else><!-- 不能修改所属律协 -->
-                  <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.provinceid]"/>-
-              <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.cityid]"/>
-            <s:hidden name="datavisible.provinceid"/>
-              <s:hidden name="datavisible.cityid"/>
-               </s:else>
+
+
+              <s:property value="@com.changpeng.system.util.CommonDatas@groups[sysGroup.directgroup]"/>-
+              <s:property value="@com.changpeng.system.util.CommonDatas@groups[sysGroup.parentid]"/>
+           
+            
             <s:hidden name="isedit"/>
              <s:hidden name="propertiesedit"/>
              <s:hidden name="properties.filename"/>
@@ -147,7 +107,7 @@ function checkLoginname(loginname){
        
         <tr>
           <td align="right" class="tab_content">
-       事务所名称：
+       公证处名称：
           </td>
           <td class="tab_content">
             <s:textfield name="sysGroup.groupname" size="30" maxlength="50" cssClass="text1"/>
@@ -157,16 +117,16 @@ function checkLoginname(loginname){
        
           <tr>
           <td align="right" class="tab_content1">
-             事务所执业证号:
+             公证处执业证号:
           </td>
           <td class="tab_content1">
-            <s:hidden name="oldloginname"/>
-            <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1" onblur="checkLoginname(this.value)" required="true"/>
-         	<span class="hint" id="checkloginname">不为空且长度不超过15个字符</span>
+          <s:hidden name="oldloginname"/>
+            <s:textfield name="sysGroup.groupenname" size="20" maxlength="20" cssClass="text1" readonly="true"/>
+            <font color='red'>公证处执业证号请由律协管理员进行修改</font>
           </td>
         </tr>
          <tr> 
-          <td align="right" class="tab_content1">事务所LOGO: </td>
+          <td align="right" class="tab_content1">公证处LOGO:${properties.photo } </td>
           <td class="tab_content">
           <s:if test="propertiesedit&&properties.photo!=null&&!properties.photo.equals(\"\")">
           <div id="imgdiv">
@@ -230,7 +190,7 @@ function checkLoginname(loginname){
         </tr>
         <tr>
           <td colspan="2" align="center">
-          	<input type="submit" value=" 保 存 " id="save" class="button">&nbsp;
+          	<input type="submit" value=" 保 存 " class="button">&nbsp;
            	<input type="reset" value=" 重 置 " class="button">&nbsp;
           	<input type="button" value=" 返 回 " onClick="javascript:history.back(-1)" class="button">
           </td>

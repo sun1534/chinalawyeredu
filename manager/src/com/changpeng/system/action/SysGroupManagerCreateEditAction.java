@@ -59,7 +59,10 @@ public class SysGroupManagerCreateEditAction extends AbstractListAction {
 				sysUser.setCityid(group.getParentid());
 				sysUser.setProvinceid(group.getDirectgroup());
 				sysUser.setOfficeid(group.getGroupid());
-				role.setRoleid(1);
+				if (group.getGroupname().endsWith("公证处"))
+					role.setRoleid(11);
+				else
+					role.setRoleid(1);
 			} else if (group.getGrouptype() == 2) {
 				sysUser.setCityid(groupid);
 				sysUser.setProvinceid(group.getParentid());

@@ -69,9 +69,14 @@ public class JifenbudengAction extends AbstractAction {
 			budeng.setOfficeid(lawyer.getTheoffice());
 			budeng.setLawyername(lawyer.getLawyername());
 			budeng.setBudengfrom(0);
-			budengservice.saveJifenbudeng(budeng);
-
-			this.opResult = "为" + budeng.getLawyerno() + "新增补登积分成功";
+			int result = budengservice.saveJifenbudeng(budeng);
+			if (result == 0) {
+				this.opResult = "为" + budeng.getLawyerno() + "新增补登积分成功";
+				this.message = "积分补登成功";
+			} else {
+				this.opResult = "为" + budeng.getLawyerno() + "新增补登积分不成功,该课程已经获得过积分";
+				this.message = "积分补登失败:该律师已经获得该现场培训课程的积分";
+			}
 		} else {
 			Float oldxuefen = (Float) get("oldbudeng");
 
@@ -80,7 +85,7 @@ public class JifenbudengAction extends AbstractAction {
 			budengservice.updateJifenbudeng(budeng, oldxuefen);
 			this.opResult = "为" + budeng.getLawyerno() + "修改补登积分成功";
 		}
-		this.message = "积分补登成功";
+
 		this.nextPage = "jifenbudengList.pl";
 		return SUCCESS;
 	}
@@ -96,6 +101,7 @@ public class JifenbudengAction extends AbstractAction {
 		if (this.budeng == null) {
 			set("budengexist", "0");
 			this.budeng = new Jifenbudeng();
+			budeng.setTheyear(jifentime.getNianshenyear());
 		} else {
 
 			this.datavisible.setCityid(budeng.getCityid());
@@ -104,7 +110,7 @@ public class JifenbudengAction extends AbstractAction {
 			set("oldbudeng", this.budeng.getXuefen());
 			set("budengexist", "1");
 		}
-		budeng.setTheyear(jifentime.getNianshenyear());
+
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 		set("budeng", budeng);
 

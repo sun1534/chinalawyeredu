@@ -3,14 +3,14 @@
   		"-//OpenSymphony Group//XWork Validator 1.0//EN"
   		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 <validators>
-	<field name="lawyers.lawyername">
+	<field name="gongzhengyuan.lawyername">
                 <field-validator type="requiredstring">
-                  <message>请输入律师的姓名，不能为空！</message>
+                  <message>请输入公证员的姓名，不能为空！</message>
                 </field-validator>
 	</field>
-	<field name="lawyers.lawyerno">
+	<field name="gongzhengyuan.lawyerno">
                 <field-validator type="requiredstring">
-                  <message>请输入律师的执业证号，不能为空！</message>
+                  <message>请输入公证员的执业证号，不能为空！</message>
                 </field-validator>
                 <field-validator type="stringlength">
                   <param name="minLength">10</param>
@@ -19,16 +19,16 @@
                 </field-validator>
               
 	</field>
-	<field name="lawyers.lawyerno">
+	<field name="gongzhengyuan.lawyerno">
   <field-validator type="regex">
    <param name="trim">true</param>
    <param name="expression"> <![CDATA[^(\d){10,20}$]]></param>
    <message>执业证号必须全部为数字且长度为10-20位</message>
   </field-validator>
  </field>
-	<field name="lawyers.certno">
+	<field name="gongzhengyuan.certno">
                 <field-validator type="requiredstring">
-                  <message>请输入律师身份证号码，不能为空！</message>
+                  <message>请输入公证员身份证号码，不能为空！</message>
                 </field-validator>
                 <field-validator type="stringlength">
                   <param name="minLength">15</param>
@@ -37,11 +37,11 @@
                 </field-validator>
               
 	</field>
-	<field name="lawyers.certno">
+	<field name="gongzhengyuan.certno">
   <field-validator type="regex">
    <param name="trim">true</param>
-   <param name="expression"><![CDATA[(\w{4,18})]]></param>
-   <message>律师身份证号必须全部为数字,且不能为空！</message>
+   <param name="expression"><![CDATA[(\w{15,18})]]></param>
+   <message>公证员身份证号必须全部为数字,且不能为空！</message>
   </field-validator>
  </field>
 </validators>

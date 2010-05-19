@@ -111,7 +111,7 @@ function getOffices(vallll){
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif" >补登内容标题</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">所在事务所</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">律师姓名</TD>
-     <!--    <TD align="center" background="../imagesa/top-bg1.gif">执业资格证号</TD>-->
+        <TD align="center" background="../imagesa/top-bg1.gif">申请时间</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">是否现场课程</TD>        
         <TD align="center" background="../imagesa/top-bg1.gif">补登学分</TD>            
         <TD align="center" background="../imagesa/top-bg1.gif">积分年度</TD>
@@ -127,7 +127,7 @@ function getOffices(vallll){
         <TD class="tab_content" align="left">&nbsp;&nbsp;${title}</TD>
         <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[officeid]"/></TD>
         <TD class="tab_content" align="center">${lawyername}</TD>
-       <!--    <TD class="tab_content" align="center">${lawyerno}</TD> -->
+        <TD class="tab_content" align="center"><s:date name="applytime" format="yyyy-MM-dd HH:mm:ss"/></TD> 
         <TD class="tab_content" align="center">${islocalstr}</TD>
         <TD class="tab_content" align="center">${xuefen}</TD>
         <TD class="tab_content" align="center">${theyear}</TD>

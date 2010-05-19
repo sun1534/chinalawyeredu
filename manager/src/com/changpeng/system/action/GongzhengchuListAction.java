@@ -17,18 +17,15 @@ import com.changpeng.models.SysUser;
 
 /**
  * 
- * 事务所列表，显示所有
+ * 公证处列表，显示所有
  * 
  * 
  * @author 华锋 2008-2-25 上午11:12:05
  * 
  */
-public class TheOfficeListAction extends AbstractListAction {
+public class GongzhengchuListAction extends AbstractListAction {
 
-	
-	
 	private String groupname;
-
 
 	/**
 	 * @return the groupname
@@ -45,14 +42,13 @@ public class TheOfficeListAction extends AbstractListAction {
 		this.groupname = groupname;
 	}
 
-	
 	private String groupenname;
-	
-	
-//	private SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 
-	public TheOfficeListAction() {
-		this.datavisible=new DataVisible();
+	// private SysGroupService groupservice = (SysGroupService)
+	// this.getBean("sysGroupService");
+
+	public GongzhengchuListAction() {
+		this.datavisible = new DataVisible();
 	}
 
 	/*
@@ -65,21 +61,21 @@ public class TheOfficeListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-		
-		
-		
-		//也显示全国律协的以及系统层级的
-		this.datavisible.getVisibleDatas(this.getLoginUser(),false);
-		
+
+		// 也显示全国律协的以及系统层级的
+		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
+
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
-		if (mygroup!=null&&mygroup.getGrouptype() == 1) {
-			this.message = "您没有查看事务所列表的权利,请返回";
+		if (mygroup != null && mygroup.getGrouptype() == 1) {
+			this.message = "您没有查看公证处列表的权利,请返回";
 			this.nextPage = "javascript:history.go(-1)";
 			return "message";
-		} 
-		
+		}
+
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(SysGroup.class).add(
-				Restrictions.eq("grouptype", 1)).add(Restrictions.not(Restrictions.like("groupname", "公证处",MatchMode.END))).add(Restrictions.eq("delflag", false));
+				Restrictions.like("groupname", "公证处", MatchMode.END)).add(Restrictions.eq("grouptype", 1)).add(
+				Restrictions.eq("delflag", false));
+		;
 
 		if (groupname != null && !"".equals(groupname)) {
 			detachedCriteria.add(Restrictions.like("groupname", groupname.trim(), MatchMode.ANYWHERE));
@@ -97,14 +93,14 @@ public class TheOfficeListAction extends AbstractListAction {
 
 		detachedCriteria.addOrder(Order.desc("groupid"));
 
-		BasicService service=(BasicService)this.getBean("basicService");
+		BasicService service = (BasicService) this.getBean("basicService");
 		this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
 
-		SysUser user=this.getLoginUser();
-		if(user.getLoginname().equals("admin")||user.getRightList().contains("sysGroupExcludeRight")){
-			hasright=true;
+		SysUser user = this.getLoginUser();
+		if (user.getLoginname().equals("admin") || user.getRightList().contains("sysGroupExcludeRight")) {
+			hasright = true;
 		}
-		
+
 		return SUCCESS;
 	}
 
@@ -116,21 +112,22 @@ public class TheOfficeListAction extends AbstractListAction {
 	}
 
 	/**
-	 * @param groupenname the groupenname to set
+	 * @param groupenname
+	 *            the groupenname to set
 	 */
 	public void setGroupenname(String groupenname) {
 		this.groupenname = groupenname;
 	}
+
 	private boolean hasright;
-	public boolean getHasright(){
+
+	public boolean getHasright() {
 		return this.hasright;
 	}
-	
-	
-	private boolean candel=true;
-	private boolean canupd=true;
-	private boolean canins=true;
 
+	private boolean candel = true;
+	private boolean canupd = true;
+	private boolean canins = true;
 
 	/**
 	 * @return the candel

@@ -39,17 +39,7 @@
 	    </action>
 	    
 	    
-	     <action name="theOfficeCreateEdit" class="com.changpeng.system.action.TheOfficeCreateEditAction">
-			<result name="input" type="dispatcher">/system/theOfficeCreateEdit.jsp</result>
-	    </action>
-	         <action name="theOfficeEditSelf" class="com.changpeng.system.action.TheOfficeEditSelfAction">
-			<result name="input" type="dispatcher">/system/theOfficeEditSelf.jsp</result>
-	    </action>
-	    
-	    
-	     <action name="theOfficeCreateBatch" class="com.changpeng.system.action.TheOfficeCreateBatchAction">
-			<result name="input" type="dispatcher">/system/theOfficeCreateBatch.jsp</result>
-	    </action>
+
 	    
 	    
        <action name="sysUserDelete" class="com.changpeng.system.action.SysUserDeleteAction">
@@ -111,6 +101,17 @@
 			<result name="success" type="dispatcher">/system/sysGroupList.jsp</result>
        </action>
        
+       	     <action name="theOfficeCreateEdit" class="com.changpeng.system.action.TheOfficeCreateEditAction">
+			<result name="input" type="dispatcher">/system/theOfficeCreateEdit.jsp</result>
+	    </action>
+	         <action name="theOfficeEditSelf" class="com.changpeng.system.action.TheOfficeEditSelfAction">
+			<result name="input" type="dispatcher">/system/theOfficeEditSelf.jsp</result>
+	    </action>
+	    
+	    
+	     <action name="theOfficeCreateBatch" class="com.changpeng.system.action.TheOfficeCreateBatchAction">
+			<result name="input" type="dispatcher">/system/theOfficeCreateBatch.jsp</result>
+	    </action>
          <action name="theOfficeList" class="com.changpeng.system.action.TheOfficeListAction">
 			<result name="success" type="dispatcher">/system/theOfficeList.jsp</result>
        </action>
@@ -123,14 +124,7 @@
 			<result name="input" type="dispatcher">/system/sysGroupCreateEdit.jsp</result>
 		    <result name="toparent" type="dispatcher">/common/message2parent.jsp</result>
        </action>
-       
-       <!--  <action name="sysGroupCreatePre" class="com.changpeng.system.action.SysGroupCreateAction" method="input">
-			<result name="office" type="dispatcher">/system/theOfficeCreate.jsp</result>
-			<result name="city" type="dispatcher">/system/theUnionCreate.jsp</result>
-			<result name="input" type="dispatcher">/system/sysGroupCreate.jsp</result>
-	    </action>
-        -->
-      
+             
        <action name="sysGroupDelete" class="com.changpeng.system.action.SysGroupDeleteAction">
        </action>   
          <action name="theOfficeDelete" class="com.changpeng.system.action.SysGroupDeleteAction">
@@ -144,6 +138,20 @@
 			<result name="success" type="dispatcher">/system/sysGroupManager.jsp</result>
        </action>
   
+  <!--公证处 -->
+      <action name="gongzhengchuList" class="com.changpeng.system.action.GongzhengchuListAction">
+			<result name="success" type="dispatcher">/system/gongzhengchuList.jsp</result>
+       </action>
+  	     <action name="gongzhengchuCreateEdit" class="com.changpeng.system.action.GongzhengchuCreateEditAction">
+			<result name="input" type="dispatcher">/system/gongzhengchuCreateEdit.jsp</result>
+	    </action>
+	      <action name="gongzhengchuCreateEditPre" class="com.changpeng.system.action.GongzhengchuCreateEditAction" method="input">
+			<result name="input" type="dispatcher">/system/gongzhengchuCreateEdit.jsp</result>
+	    </action>
+	         <action name="gongzhengchuEditSelf" class="com.changpeng.system.action.GongzhengchuEditSelfAction">
+			<result name="input" type="dispatcher">/system/gongzhengchuEditSelf.jsp</result>
+	    </action>
+       
        
         <!--参数管理-->
        <action name="sysParameterList" class="com.changpeng.system.action.SysParameterListAction">

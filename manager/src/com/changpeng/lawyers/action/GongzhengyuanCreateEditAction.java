@@ -5,7 +5,6 @@ package com.changpeng.lawyers.action;
 
 import java.io.File;
 import java.text.DateFormat;
-import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
-import com.changpeng.models.LawyersShixi;
+import com.changpeng.models.LawyersGongzheng;
 import com.changpeng.models.SysUnionparams;
 
 /**
@@ -23,11 +22,11 @@ import com.changpeng.models.SysUnionparams;
  * @author 华锋
  * 
  */
-public class LawyersShixiCreateEditAction extends AbstractAction {
-	private static Log _LOG = LogFactory.getLog(LawyersShixiCreateEditAction.class);
+public class GongzhengyuanCreateEditAction extends AbstractAction {
+	private static Log _LOG = LogFactory.getLog(GongzhengyuanCreateEditAction.class);
 	private static DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
-	public LawyersShixiCreateEditAction() {
+	public GongzhengyuanCreateEditAction() {
 
 		this.datavisible = new DataVisible();
 	}
@@ -41,30 +40,20 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		if (this.datavisible.getOfficeid() == 0) {
-			this.message = "必须选择所在的事务所,请返回";
+			this.message = "必须选择所在的公证处,请返回";
 			return "message";
-		}
-		if(lawyersShixi.getZigeno()==null||lawyersShixi.getZigeno().equals(""))
-		{
-		
-				this.message="必须输入资格证号,请返回";
-				return "message";
-			
 		}
 
 		BasicService bs = (BasicService) this.getBean("basicService");
-		lawyersShixi.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyersShixi.getLawyername()));
-		lawyersShixi.setDirectunion(this.datavisible.getCityid());
-		lawyersShixi.setProvinceunion(this.datavisible.getProvinceid());
-		lawyersShixi.setTheoffice(this.datavisible.getOfficeid());
-//		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyersShixi.getDirectunion());
-
-//		lawyersShixi.setDabiaofen(params.getDabiaofen());
-		Random random = new java.util.Random();
-//		lawyersShixi.setLoginname(lawyersShixi.getZigeno() + "_" + random.nextInt(9999));
-		lawyersShixi.setLoginname(lawyersShixi.getZigeno());
-		lawyersShixi.setPasswd(lawyersShixi.getCertno());
-		lawyersShixi.setStatus(0);//不能登录.要求登录并听课
+		gongzhengyuan.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(gongzhengyuan.getLawyername()));
+		gongzhengyuan.setDirectunion(this.datavisible.getCityid());
+		gongzhengyuan.setProvinceunion(this.datavisible.getProvinceid());
+		gongzhengyuan.setTheoffice(this.datavisible.getOfficeid());
+//		Random random = new java.util.Random();
+//		gongzhengyuan.setLoginname(gongzhengyuan.getZigeno() + "_" + random.nextInt(9999));
+		gongzhengyuan.setLoginname(gongzhengyuan.getLawyerno());
+		gongzhengyuan.setPasswd(gongzhengyuan.getCertno());
+		gongzhengyuan.setStatus(0);//不能登录.要求登录并听课
 		if (upload != null && upload.length() != 0) {
 			try {
 
@@ -77,7 +66,7 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 				int index = fileName.lastIndexOf(".");
 				String name = System.currentTimeMillis() + fileName.substring(index);
 
-				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + lawyersShixi.getDirectunion() + "/";
+				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + gongzhengyuan.getDirectunion() + "/";
 				File filedir = new File(indexDir);
 
 				if (!filedir.exists()) {
@@ -89,8 +78,8 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 				upload.renameTo(file);
 
 				debug("=================" + indexDir);
-				lawyersShixi.setPhoto(lawyersShixi.getDirectunion() + "/" + name);
-				lawyersShixi.setPhotoname(fileName);
+				gongzhengyuan.setPhoto(gongzhengyuan.getDirectunion() + "/" + name);
+				gongzhengyuan.setPhotoname(fileName);
 			} catch (Exception e) {
 				debug("照片上传失败..." + e);
 			}
@@ -98,47 +87,46 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 
 		if (isnew) {
 
-			// if (bs.isexist(lawyersShixi.getLawyerno(),
-			// lawyersShixi.getDirectunion())) {
+			// if (bs.isexist(gongzhengyuan.getLawyerno(),
+			// gongzhengyuan.getDirectunion())) {
 			// this.message = "您所填入的执业证号已重复,请重新填入";
 			// return "message";
 			// }
 
-			lawyersShixi.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-			lawyersShixi.setCreateuser(this.getLoginUser().getUserid());
-			lawyersShixi.setCreateusername(this.getLoginUser().getUsername());
+			gongzhengyuan.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			gongzhengyuan.setCreateuser(this.getLoginUser().getUserid());
+			gongzhengyuan.setCreateusername(this.getLoginUser().getUsername());
 
-			lawyersShixi.setPasswd(lawyersShixi.getCertno());
-			if (lawyersShixi.getZigeno() == null || lawyersShixi.getZigeno().equals(""))
-				lawyersShixi.setZigeno(System.currentTimeMillis() / 1000 + "");
+			gongzhengyuan.setPasswd(gongzhengyuan.getCertno());
+			if (gongzhengyuan.getSystemno() == null || gongzhengyuan.getSystemno().equals(""))
+				gongzhengyuan.setSystemno(System.currentTimeMillis() / 1000 + "");
 
-			if (lawyersShixi.getShixino() == null || lawyersShixi.getShixino().equals(""))
-				lawyersShixi.setShixino(System.currentTimeMillis() / 1000 + "");
+		
 
 			BasicService bservice = (BasicService) this.getBean("basicService");
-			SysUnionparams union = (SysUnionparams) bservice.get(SysUnionparams.class, lawyersShixi.getDirectunion());
+			SysUnionparams union = (SysUnionparams) bservice.get(SysUnionparams.class, gongzhengyuan.getDirectunion());
 			if (union != null) {
 				float dabiaofen = union.getDabiaofen();
-				lawyersShixi.setDabiaofen(dabiaofen);
+				gongzhengyuan.setDabiaofen(dabiaofen);
 			}
 			
 		
 
-			bs.save(lawyersShixi);
-			this.message = "实习律师信息新增成功";
+			bs.save(gongzhengyuan);
+			this.message = "公证员信息新增成功";
 			
-			this.opResult="新增实习律师信息:"+lawyersShixi.getLawyername();
+			this.opResult="新增公证员信息:"+gongzhengyuan.getLawyername();
 
 		} else {
 
 		
-			bs.update(lawyersShixi);
-			this.message = "实习律师信息修改成功";
+			bs.update(gongzhengyuan);
+			this.message = "公证员信息修改成功";
 			
-			this.opResult="修改实习律师信息:"+lawyersShixi.getLawyername();
+			this.opResult="修改公证员信息:"+gongzhengyuan.getLawyername();
 		}
 
-		this.nextPage = "lawyersShixiList.pl";
+		this.nextPage = "gongzhengyuanList.pl";
 		return SUCCESS;
 	}
 
@@ -146,39 +134,39 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 	public String input() throws Exception {
 
 		BasicService bservice = (BasicService) this.getBean("basicService");
-		lawyersShixi = (LawyersShixi) bservice.get(LawyersShixi.class, lawyerid);
+		gongzhengyuan = (LawyersGongzheng) bservice.get(LawyersGongzheng.class, lawyerid);
 
-		if (lawyersShixi == null) {
+		if (gongzhengyuan == null) {
 			this.datavisible.setCityid(this.getLoginUser().getCityid());
 			this.datavisible.setOfficeid(this.getLoginUser().getOfficeid());
 			this.datavisible.setProvinceid(this.getLoginUser().getProvinceid());
 
 			isnew = true;
-			lawyersShixi = new LawyersShixi();
+			gongzhengyuan = new LawyersGongzheng();
 
 		} else {
 			isnew = false;
-			this.datavisible.setCityid(lawyersShixi.getDirectunion());
-			this.datavisible.setOfficeid(lawyersShixi.getTheoffice());
-			this.datavisible.setProvinceid(lawyersShixi.getProvinceunion());
-			if (lawyersShixi.getZigedate() != null)
-				lawyersShixi.setZhiyedatestr(df.format(lawyersShixi.getZigedate()));
+			this.datavisible.setCityid(gongzhengyuan.getDirectunion());
+			this.datavisible.setOfficeid(gongzhengyuan.getTheoffice());
+			this.datavisible.setProvinceid(gongzhengyuan.getProvinceunion());
+			if (gongzhengyuan.getZhiyedate() != null)
+				gongzhengyuan.setZhiyedatestr(df.format(gongzhengyuan.getZhiyedate()));
 
 		}
-		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
+		this.datavisible.getVisibleDatas(this.getLoginUser(), false,true);
 
-		set("lawyersShixi", lawyersShixi);
+		set("gongzhengyuan", gongzhengyuan);
 
 		return INPUT;
 	}
 
-	private LawyersShixi lawyersShixi;
+	private LawyersGongzheng gongzhengyuan;
 
-	public LawyersShixi getLawyersShixi() {
-		if (lawyersShixi == null)
-			lawyersShixi = (LawyersShixi) this.get("lawyersShixi");
+	public LawyersGongzheng getGongzhengyuan() {
+		if (gongzhengyuan == null)
+			gongzhengyuan = (LawyersGongzheng) this.get("gongzhengyuan");
 
-		return this.lawyersShixi;
+		return this.gongzhengyuan;
 	}
 
 	private int lawyerid;
@@ -233,5 +221,4 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 	public void setUpload(File upload) {
 		this.upload = upload;
 	}
-
 }

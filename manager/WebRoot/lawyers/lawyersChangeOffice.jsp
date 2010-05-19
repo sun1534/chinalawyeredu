@@ -116,7 +116,7 @@ function getOffices(vallll){
              
               <s:hidden name="datavisible.cityid"/>
             </s:else>
-            ${ datavisible.officeid}
+      
                  <s:if test="datavisible.officeview">
              <s:select name="datavisible.officeid" id="office" list="datavisible.officelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择"/>
  </s:if>

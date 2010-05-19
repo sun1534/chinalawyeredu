@@ -35,7 +35,7 @@ import com.changpeng.models.SysUser;
  * 
  */
 public class LessonsService extends BasicService {
-	private static Log _LOG = LogFactory.getLog(AbstractAction.class);
+	private static Log _LOG = LogFactory.getLog(LessonsService.class);
 	private LessonsDAO lessonsDAO;
 
 	// private PlatformTransactionManager transactionManager;
@@ -81,26 +81,32 @@ public class LessonsService extends BasicService {
 			}
 		
 	}
-
+/**
+ * 这里不考虑共享的变化情况
+ * @param lesson
+ * @param groupids
+ * @param user
+ * @throws ServiceException
+ */
 	@Transactional
 	public void updateLesson(Lessons lesson, List groupids, SysUser user) throws ServiceException {
 		lessonsDAO.update(lesson);
-		String hql = "delete from com.changpeng.models.Lessonshared share where share.lessons.lessonid=?";
-		lessonsDAO.execute(hql, lesson.getLessonid());
-		// 保存共享的情况
-		if (groupids != null && groupids.size() > 0) {
-			for (int i = 0; i < groupids.size(); i++) {
-				com.changpeng.models.Lessonshared share = new Lessonshared();
-				share.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-				share.setCreateuserid(user.getUserid());
-				share.setCreateusername(user.getUsername());
-				share.setLessons(lesson);
-				share.setGroupid(Integer.parseInt(groupids.get(i).toString()));
-				share.setXuefen(lesson.getXuefen());
-
-				lessonsDAO.save(share);
-			}
-		}
+//		String hql = "delete from com.changpeng.models.Lessonshared share where share.lessons.lessonid=?";
+//		lessonsDAO.execute(hql, lesson.getLessonid());
+//		// 保存共享的情况
+//		if (groupids != null && groupids.size() > 0) {
+//			for (int i = 0; i < groupids.size(); i++) {
+//				com.changpeng.models.Lessonshared share = new Lessonshared();
+//				share.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+//				share.setCreateuserid(user.getUserid());
+//				share.setCreateusername(user.getUsername());
+//				share.setLessons(lesson);
+//				share.setGroupid(Integer.parseInt(groupids.get(i).toString()));
+//				share.setXuefen(lesson.getXuefen());
+//
+//				lessonsDAO.save(share);
+//			}
+//		}
 	}
 
 	/**

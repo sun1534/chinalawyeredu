@@ -254,7 +254,7 @@ function showResponse(originalRequest){
 									<s:textfield  id="fileid" name="lesson.onlinefile" size="60" onblur="checkifempty()"/>
 							</td>
 						</tr>
-						
+						<!-- 
 						<tr>
 							<td class="tab_content1" align="right">
 									分数折扣：
@@ -263,7 +263,7 @@ function showResponse(originalRequest){
 								<s:textfield  name="lesson.fenshuoff" size="4" />%
 							</td>
 						</tr>
-                      
+                
 					  <tr id="sharedto" style="display:${display}">
 							<td class="tab_content1" align="right">
 									共享给：
@@ -274,7 +274,7 @@ function showResponse(originalRequest){
 							</td>
 						</tr>
 						
-                        
+                            -->  
 						<s:if test="hasattach">
 						<tr>
 							<td class="tab_content" align="right">

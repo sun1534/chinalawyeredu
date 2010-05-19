@@ -62,7 +62,10 @@ public class SysGroupManagerAction extends AbstractListAction {
 		}
 		this.groupname = group.getGroupname();
 		if (group.getGrouptype() == 1) {
-			backurl = "theOfficeList.pl";
+			if(group.getGroupname().endsWith("公证处"))
+			backurl = "gongzhengchuList.pl";
+			else
+				backurl = "theOfficeList.pl";
 		} else if (group.getGrouptype() == 2) {
 			backurl = "theUnionList.pl";
 		} else if (group.getGrouptype() == 3) {

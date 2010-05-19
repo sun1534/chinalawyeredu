@@ -191,6 +191,7 @@ function showResponse(originalRequest){
 							 <s:radio name="lesson.onlineType" list="#{'1':'音频文件','0':'视频文件'}"/>
 							</td>
 						</tr>
+						<!-- 
 						<tr>
 							<td class="tab_content1" align="right">
 									分数折扣：
@@ -199,7 +200,7 @@ function showResponse(originalRequest){
 								<s:textfield  name="lesson.fenshuoff" size="4"/>%
 							</td>
 						</tr>
-				
+				 -->
 						<tr>
 							<td class="tab_content">
 							</td>

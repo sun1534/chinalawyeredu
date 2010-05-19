@@ -112,7 +112,14 @@ function getOffices(vallll){
          <s:property value="@com.changpeng.system.util.CommonDatas@groups[budengApply.cityid]"/>->
          <s:property value="@com.changpeng.system.util.CommonDatas@groups[budengApply.officeid]"/>
         </td>
+        
         </tr>
+         <tr>
+        <td width="37%" class="tab_content" align="right">申请原因：
+        </td>
+        <td width="63%" colspan="2" class="tab_content1" align="left">${ budengApply.applyreason}</td>
+        </tr>
+      <tr>
             <tr>
           <td align="right" class="tab_content">处理结果: </td>
              <td class="tab_content1">

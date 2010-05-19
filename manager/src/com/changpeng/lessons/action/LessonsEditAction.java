@@ -93,7 +93,7 @@ public class LessonsEditAction extends AbstractAction {
 
 	public LessonsEditAction() {
 		service = (BasicService) this.getBean("basicService");
-		datavisible=new DataVisible();
+		datavisible = new DataVisible();
 	}
 
 	@Override
@@ -180,11 +180,11 @@ public class LessonsEditAction extends AbstractAction {
 		lesson.setAttach(attach);
 		// service.update(lesson);
 		service.updateLesson(lesson, sharedgroupids, this.getLoginUser());
-		//this.nextPage = "lessonsList.pl";
-		if(onlyonline==1)
-		   this.nextPage="lessonsOnlineList.pl?lessonstyle=2&pageNo="+pageNo;
-		 else
-			this.nextPage="lessonsLocalList.pl?lessonstyle=1&pageNo="+pageNo;
+		// this.nextPage = "lessonsList.pl";
+		if (onlyonline == 1)
+			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2&pageNo=" + pageNo;
+		else
+			this.nextPage = "lessonsLocalList.pl?lessonstyle=1&pageNo=" + pageNo;
 		this.message = "课程信息修改成功";
 		return SUCCESS;
 	}
@@ -216,34 +216,34 @@ public class LessonsEditAction extends AbstractAction {
 			}
 		}
 
-		sharedgroupids=new ArrayList();
+		sharedgroupids = new ArrayList();
 		DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
 		dc.createAlias("lessons", "lessons");
 		dc.add(Restrictions.eq("lessons.lessonid", lessonid));
 		List list = basicService.findAllByCriteria(dc);
 		for (int i = 0; list != null && i < list.size(); i++) {
 			Lessonshared shared = (Lessonshared) list.get(i);
-//			System.out.println("==============="+shared.getGroupid());
+			// System.out.println("==============="+shared.getGroupid());
 			if (mygroup == null || (mygroup != null && shared.getGroupid() != mygroup.getGroupid()))
 				sharedgroupids.add(shared.getGroupid());
 		}
-		
-		
-	String s=df.format(lesson.getLessondate());
-		int index=s.indexOf(" ");
-		datestart=s.substring(0,index);
-		hmstart=s.substring(index+1);
-//		LessonsUtil.timestamp2str(lesson.getLessondate(), datestart, hmstart);
+
+		String s = df.format(lesson.getLessondate());
+		int index = s.indexOf(" ");
+		datestart = s.substring(0, index);
+		hmstart = s.substring(index + 1);
+		// LessonsUtil.timestamp2str(lesson.getLessondate(), datestart,
+		// hmstart);
 
 		System.out.println(datestart + ",,," + hmstart);
 
-		if(lesson.getLessondate()!=null&&!lesson.getLessondate().equals("")){
-		s=df.format(lesson.getLessonend());
-		 index=s.indexOf(" ");
-		 dateend=s.substring(0,index);
-		 hmend=s.substring(index+1);
+		if (lesson.getLessondate() != null && !lesson.getLessondate().equals("")) {
+			s = df.format(lesson.getLessondate());
+			index = s.indexOf(" ");
+			dateend = s.substring(0, index);
+			hmend = s.substring(index + 1);
 		}
-//		LessonsUtil.timestamp2str(lesson.getLessonend(), dateend, hmend);
+		// LessonsUtil.timestamp2str(lesson.getLessonend(), dateend, hmend);
 
 		String attach = lesson.getAttach();
 		filelist = new java.util.ArrayList<String>();
@@ -258,21 +258,15 @@ public class LessonsEditAction extends AbstractAction {
 			hasattach = true;
 
 		set("lesson", lesson);
-//		if (lesson.getLessonstyle() == 1 || lesson.getLessonstyle() == 3)
-//			return "local";
-//		else {
-//			this.onlyonline = 1;
-//			return "online";
-//		}
-		
-		if(onlyonline==1){
+
+		if (onlyonline == 1) {
 			return "online";
 		}
 		return "local";
-		
+
 	}
 
-	private List sharedgroupids=new ArrayList();
+	private List sharedgroupids = new ArrayList();
 
 	/**
 	 * @param sharedgroupids
@@ -330,6 +324,7 @@ public class LessonsEditAction extends AbstractAction {
 	public void setOnlyonline(int onlyonline) {
 		this.onlyonline = onlyonline;
 	}
-	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-	
+
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+
 }

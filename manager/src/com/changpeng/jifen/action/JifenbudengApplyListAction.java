@@ -43,7 +43,7 @@ public class JifenbudengApplyListAction extends AbstractListAction {
 
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(JifenbudengApply.class);
 		if(status!=-1){
-			detachedCriteria.add(Restrictions.eq("status",-1));
+			detachedCriteria.add(Restrictions.eq("status",status));
 		}
 
 		SysRole role = this.getLoginUser().getSysRole();

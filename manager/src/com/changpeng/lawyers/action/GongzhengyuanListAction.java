@@ -28,7 +28,7 @@ import com.changpeng.system.util.CommonDatas;
  * @author 华锋 2008-2-25 上午11:12:05
  * 
  */
-public class LawyersListAction extends AbstractListAction {
+public class GongzhengyuanListAction extends AbstractListAction {
 
 	private String resultType = "list";
 	// private String loginname;
@@ -99,7 +99,7 @@ public class LawyersListAction extends AbstractListAction {
 		this.cardno = cardno;
 	}
 
-	public LawyersListAction() {
+	public GongzhengyuanListAction() {
 		this.datavisible = new DataVisible();
 	}
 
@@ -136,37 +136,32 @@ public class LawyersListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
-		candel = super.getLoginUser().hasRight("lawyersDelete");
-		canins = super.getLoginUser().hasRight("lawyersCreateEditPre");
-		canupd = super.getLoginUser().hasRight("lawyersCreateEditPre");
+		candel = super.getLoginUser().hasRight("gongzhengyuanDelete");
+		canins = super.getLoginUser().hasRight("gongzhengyuanCreateEditPre");
+		canupd = super.getLoginUser().hasRight("gongzhengyuanCreateEditPre");
 
 		CommonDatas.getGroups();
-		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
+		this.datavisible.getVisibleDatas(this.getLoginUser(), false,true);
+		// -2代表温州的公证员
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class).add(
+				Restrictions.eq("lawyertype", -2));
 
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lawyers.class).add(Restrictions.ge("lawyertype", 0));;
-		System.out.println("0002552187:::" + cardno);
-
-		// if (loginname != null && !"".equals(loginname))
-		// detachedCriteria.add(Restrictions.like("loginname", loginname,
-		// MatchMode.START));
-//将实习律师的显示和律师的显示合并在一起
-//		detachedCriteria.add(Restrictions.eq("lawyertype", lawyertype));
 		if (lawyername != null && !"".equals(lawyername))
 			detachedCriteria.add(Restrictions.like("lawyername", lawyername, MatchMode.START));
-		if (cardno != null && !"".equals(cardno))
-			detachedCriteria.add(Restrictions.eq("cardno", cardno));
+		// if (cardno != null && !"".equals(cardno))
+		// detachedCriteria.add(Restrictions.eq("cardno", cardno));
 		if (certno != null && !"".equals(certno))
 			detachedCriteria.add(Restrictions.eq("certno", certno));
 		if (lawyerno != null && !"".equals(lawyerno))
 			detachedCriteria.add(Restrictions.eq("lawyerno", lawyerno));
 		if (systemno != null && !"".equals(systemno))
 			detachedCriteria.add(Restrictions.eq("systemno", systemno));
-		if(hascardno==1){//1未分配卡
-			detachedCriteria.add(Restrictions.or(Restrictions.isNull("cardno"), Restrictions.eq("cardno","")));
-		}else if(hascardno==2){//有卡
-			detachedCriteria.add(Restrictions.and(Restrictions.isNotNull("cardno"), Restrictions.ne("cardno","")));
-		}
-		
+		// if(hascardno==1){//1未分配卡
+		// detachedCriteria.add(Restrictions.isNull("cardno"));
+		// }else if(hascardno==2){//有卡
+		// detachedCriteria.add(Restrictions.isNotNull("cardno"));
+		// }
+
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {
 			Set<SysRoleVisible> rolevisibles = role.getSysRoleVisibles();
@@ -203,14 +198,9 @@ public class LawyersListAction extends AbstractListAction {
 		}
 
 		// 按userid逆序排序
-		
-		
-		if(resultType!=null&&resultType.equals("cardnolist")){
-			detachedCriteria.addOrder(Order.desc("systemno"));
-		}else{
-			detachedCriteria.addOrder(Order.desc("lawyerid"));
-		}
-		
+
+		detachedCriteria.addOrder(Order.desc("lawyerid"));
+
 		BasicService service = (BasicService) getBean("basicService");
 
 		if (resultType.equals("list")) {
@@ -220,28 +210,28 @@ public class LawyersListAction extends AbstractListAction {
 			this.page = service.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, 1);
 			return "excel";
 		} else {
-			this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
-			// System.out.println(resultType);
-			return "cardnolist";
+			this.message = "页面返回类型错误,请返回";
+			return "message";
 		}
 	}
 
-	//是否有卡
-private int hascardno;
+	// 是否有卡
+	private int hascardno;
 
 	/**
- * @return the hascardno
- */
-public int getHascardno() {
-	return hascardno;
-}
+	 * @return the hascardno
+	 */
+	public int getHascardno() {
+		return hascardno;
+	}
 
-/**
- * @param hascardno the hascardno to set
- */
-public void setHascardno(int hascardno) {
-	this.hascardno = hascardno;
-}
+	/**
+	 * @param hascardno
+	 *            the hascardno to set
+	 */
+	public void setHascardno(int hascardno) {
+		this.hascardno = hascardno;
+	}
 
 	/**
 	 * @return the lawyername

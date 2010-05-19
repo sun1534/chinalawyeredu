@@ -13,24 +13,42 @@
 			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
        </action>
        
-        <action name="lawyersShixiList" class="com.changpeng.lawyers.action.LawyersShixiListAction">
-			<result name="excel" type="dispatcher">/lawyers/lawyersShixiList_excel.jsp</result>
-			<result name="success" type="dispatcher">/lawyers/lawyersShixiList.jsp</result>
-       </action>
+      
        
        <action name="lawyersCardNoList" class="com.changpeng.lawyers.action.LawyersListAction">
 			<param name="resultType">cardnolist</param>
 			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
        </action>
         
+          <action name="lawyersShixiList" class="com.changpeng.lawyers.action.LawyersShixiListAction">
+			<result name="excel" type="dispatcher">/lawyers/lawyersShixiList_excel.jsp</result>
+			<result name="success" type="dispatcher">/lawyers/lawyersShixiList.jsp</result>
+       </action>
                <action name="lawyersShixiCreateEditPre" class="com.changpeng.lawyers.action.LawyersShixiCreateEditAction" method="input">
 			<interceptor-ref name="hibernateSessionStack"/> 
 			<result name="input" type="dispatcher">/lawyers/lawyersShixiCreateEdit.jsp</result>
        </action>
         <action name="lawyersShixiCreateEdit" class="com.changpeng.lawyers.action.LawyersShixiCreateEditAction">
-			
 			<result name="input" type="dispatcher">/lawyers/lawyersShixiCreateEdit.jsp</result>
        </action>
+        <action name="lawyersShixiDelete" class="com.changpeng.lawyers.action.LawyersShixiDeleteAction">
+       </action>
+       
+       
+        <action name="gongzhengyuanList" class="com.changpeng.lawyers.action.GongzhengyuanListAction">
+			<result name="excel" type="dispatcher">/lawyers/gongzhengyuanList_excel.jsp</result>
+			<result name="success" type="dispatcher">/lawyers/gongzhengyuanList.jsp</result>
+       </action>
+               <action name="gongzhengyuanCreateEditPre" class="com.changpeng.lawyers.action.GongzhengyuanCreateEditAction" method="input">
+			<interceptor-ref name="hibernateSessionStack"/> 
+			<result name="input" type="dispatcher">/lawyers/gongzhengyuanCreateEdit.jsp</result>
+       </action>
+        <action name="gongzhengyuanCreateEdit" class="com.changpeng.lawyers.action.GongzhengyuanCreateEditAction">
+			<result name="input" type="dispatcher">/lawyers/gongzhengyuanCreateEdit.jsp</result>
+       </action>
+        <action name="gongzhengyuanDelete" class="com.changpeng.lawyers.action.GongzhengyuanDeleteAction">
+       </action>
+       
         
        <action name="lawyersCreateEditPre" class="com.changpeng.lawyers.action.LawyersCreateEditAction" method="input">
 			<interceptor-ref name="hibernateSessionStack"/> 

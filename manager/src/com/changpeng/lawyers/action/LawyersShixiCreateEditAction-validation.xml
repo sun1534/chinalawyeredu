@@ -3,30 +3,27 @@
   		"-//OpenSymphony Group//XWork Validator 1.0//EN"
   		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
 <validators>
-	<field name="lawyers.lawyername">
+	<field name="lawyersShixi.lawyername">
                 <field-validator type="requiredstring">
-                  <message>请输入律师的姓名，不能为空！</message>
+                  <message>请输入实习律师的姓名，不能为空！</message>
                 </field-validator>
 	</field>
-	<field name="lawyers.lawyerno">
-                <field-validator type="requiredstring">
-                  <message>请输入律师的执业证号，不能为空！</message>
-                </field-validator>
-                <field-validator type="stringlength">
-                  <param name="minLength">10</param>
-                  <param name="maxLength">20</param>
-                  <message><![CDATA[ 执业证号长度必须介于10到20之间!]]></message>
-                </field-validator>
-              
-	</field>
-	<field name="lawyers.lawyerno">
+<field name="lawyersShixi.zigeno">
   <field-validator type="regex">
    <param name="trim">true</param>
    <param name="expression"> <![CDATA[^(\d){10,20}$]]></param>
-   <message>执业证号必须全部为数字且长度为10-20位</message>
+   <message>资格证号必须全部为数字且长度为10-20位</message>
   </field-validator>
  </field>
-	<field name="lawyers.certno">
+	<field name="lawyersShixi.shixino">
+  <field-validator type="regex">
+   <param name="trim">true</param>
+   <param name="expression"> <![CDATA[^(\d){10,20}$]]></param>
+   <message>实习证号必须全部为数字且长度为10-20位</message>
+  </field-validator>
+ </field>
+ <!--  
+	<field name="lawyersShixi.certno">
                 <field-validator type="requiredstring">
                   <message>请输入律师身份证号码，不能为空！</message>
                 </field-validator>
@@ -36,11 +33,11 @@
                   <message><![CDATA[ 身份证号码长度必须介于15到18之间!]]></message>
                 </field-validator>
               
-	</field>
-	<field name="lawyers.certno">
+	</field>-->
+	<field name="lawyersShixi.certno">
   <field-validator type="regex">
    <param name="trim">true</param>
-   <param name="expression"><![CDATA[(\w{4,18})]]></param>
+   <param name="expression"><![CDATA[(\w{15,18})]]></param>
    <message>律师身份证号必须全部为数字,且不能为空！</message>
   </field-validator>
  </field>

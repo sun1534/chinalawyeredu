@@ -45,11 +45,17 @@ public class JifenbudengApplyHandleAction extends AbstractAction {
 		budengApply.setConfirmtime(new java.sql.Timestamp(System.currentTimeMillis()));
 		budengApply.setConfirmuser(this.getLoginUser().getUsername());
 		budengApply.setConfirmuserid(this.getLoginUser().getUserid());
-		jifenbudengService.handleJifenbudengApply(budengApply);
+		int result=jifenbudengService.handleJifenbudengApply(budengApply);
 
+		if(result==-1){
+			this.message = "该律师的本地课程积分补登申请不能通过,该律师已有该补登课程的听课记录";
+			this.opResult = "申请人" + budengApply.getApplyuser() + "补登课程:" + budengApply.getTitle() + ",学分:"
+			+ budengApply.getXuefen() + "的申请处理通过,记录为失败,原因:"+message;
+			return "message";
+		}
 		this.message = "课程补登申请处理通过";
 		this.opResult = "申请人" + budengApply.getApplyuser() + "补登课程:" + budengApply.getTitle() + ",学分:"
-				+ budengApply.getXuefen() + "的申请处理通过";
+		+ budengApply.getXuefen() + "的申请处理通过";
 		this.nextPage = "jifenbudengApplyList.pl";
 
 		return SUCCESS;
