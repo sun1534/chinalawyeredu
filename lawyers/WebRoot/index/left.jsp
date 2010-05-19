@@ -102,8 +102,8 @@ function makeMenu() {
 		  		d.add("online201","online2","刑法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=201","","mainFrame");
 		  		d.add("online202","online2","刑事诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=202","","mainFrame");
 		  	d.add("online3","online","行政法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=3","","mainFrame");
-		  		d.add("online301","online3","行政法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=201","","mainFrame");
-		  		d.add("online302","online3","行政诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=202","","mainFrame");
+		  		d.add("online301","online3","行政法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=301","","mainFrame");
+		  		d.add("online302","online3","行政诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=302","","mainFrame");
 		  	
 		  	d.add("online5","online","执行法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=5","","mainFrame");
 		  	d.add("online6","online","律师事务所管理","../lessons/lessonsList.pl?lessonstyle=2&lessontype=6","","mainFrame");
