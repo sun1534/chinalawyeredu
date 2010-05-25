@@ -10,7 +10,7 @@
 	</field>
 	
 	<field name="budengApply.budengdate">
-                <field-validator type="requiredstring">
+                <field-validator type="required">
                   <message>补登积分之计分日期不能为空,请输入</message>
                 </field-validator>              
 	</field>
@@ -23,7 +23,7 @@
 	
 	
 	<field name="budengApply.applyreason">
-                <field-validator type="required">
+                <field-validator type="requiredstring">
                   <message>补登积分的理由不能为空,请输入</message>
                 </field-validator>              
 	</field>

@@ -69,7 +69,7 @@ function selectlocal(lessonid){
 <table width="100%" border="0" cellspacing="1" cellpadding="0" align="center" class="border-table">
 	<tr>			
     <td>
-    <s:form name="form1" action="jifenbudengApply" method="post">
+    <s:form name="form1" action="jifenbudengApply" method="post" validate="true">
       <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">
 		<tr>
           <td colspan="2">&nbsp;
