@@ -54,7 +54,10 @@ public class LessonsSharedAction extends AbstractAction {
 		service.updateLessonShared(lessons, sharedgroupids, this.getLoginUser());
 		
 		this.message="课程共享设置完成";
-		this.nextPage="lessonsOnlineList.pl?lessonstyle=2";
+		this.nextPage="lessonsOnlineList.pl?lessonstyle=2&pageNo="+pageNo;
+		
+		
+		this.opResult+="课程共享,名称:"+lessons.getTitle()+",同步到:"+sharedgroupids;
 		
 		return "message";
 	}

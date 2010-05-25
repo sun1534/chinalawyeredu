@@ -186,6 +186,10 @@ public class LessonsEditAction extends AbstractAction {
 		else
 			this.nextPage = "lessonsLocalList.pl?lessonstyle=1&pageNo=" + pageNo;
 		this.message = "课程信息修改成功";
+		
+		
+		this.opResult+="修改课程,名称:"+lesson.getTitle();
+		
 		return SUCCESS;
 	}
 

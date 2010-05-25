@@ -80,123 +80,123 @@ public class LxnetrecsService extends BasicService {
 	 * @param netrecs
 	 * @throws ServiceException
 	 */
-	public float saveLxnetrecs(final Lxnetrecs netrecs) throws ServiceException {
-		try {
-			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
-			Object object = transactionTemplate.execute(new TransactionCallback() {
-				public Object doInTransaction(TransactionStatus status) {
-
-					lxnetrecsDAO.save(netrecs);
-					
-					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
-
-					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
-					Lawyers lawyer = (Lawyers) lxnetrecsDAO.get(Lawyers.class, netrecs.getUserid());
-
-					float huodexuefen = Float.parseFloat(NumberUtil.toMoney(lesson.getXuefen()
-							* (netrecs.getLookedminutes() / netrecs.getAllminutes())));
-
-					if(lesson.getFenshuoff()!=null&&!"".equals(lesson.getFenshuoff())){//获得的学分要打折
-						int zhekou=Integer.parseInt(lesson.getFenshuoff());
-						huodexuefen=Float.parseFloat(NumberUtil.toMoney((huodexuefen*zhekou)/100));
-					}
-					
-					if (xf == null) {
-						xf = new Lawyerlessonxf();
-						xf.setLawyerid(lawyer.getLawyerid());
-						xf.setLawyername(lawyer.getLawyername());
-						xf.setProvinceid(lawyer.getProvinceunion());
-						xf.setCityid(lawyer.getDirectunion());
-						xf.setOfficeid(lawyer.getTheoffice());
-						xf.setLearnmode(2);
-						xf.setPxxf(huodexuefen);
-		
-						
-						xf.setRemarks("视频积分:"+xf.getPxxf());
-						xf.setPxminutes(netrecs.getLookedminutes());
-						xf.setPxreqminutes(netrecs.getAllminutes());
-						xf.setLessonid(netrecs.getLessonid());
-
-						xf.setTitle(lesson.getTitle());
-						xf.setLastupdate(netrecs.getLasttime());
-						xf.setPxdate(netrecs.getLasttime());
-						xf.setTheyear(netrecs.getJifenyear());
-						xf.setIslastyear(netrecs.getJifenyear()==netrecs.getNowyear()?0:1);
-						lxnetrecsDAO.save(xf);
-
-					}
-					else if (huodexuefen > xf.getPxxf()) {// 获得的学分大于现有的学分的时候，才更新
-						xf.setPxxf(huodexuefen);
-						xf.setRemarks((xf.getRemarks() != null ? xf.getRemarks() : "") + "|视频:"+huodexuefen);
-						xf.setPxminutes(netrecs.getLookedminutes());
-						xf.setPxreqminutes(netrecs.getAllminutes());
-						lxnetrecsDAO.update(xf);
-					}
-
-					// 客户的话，先不分配，由主办律师自己去进行分配
-					return huodexuefen;
-				}
-			});
-			return (Float) object;
-		}
-		catch (Exception e) {
-			_LOG.error("新增视频获得学分失败:::" + e);
-			throw new ServiceException(e);
-		}
-	}
-
-	/**
-	 * 一个视频看了很多次的情况下,对这个进来进行更新
-	 * @param netrecs
-	 * @return
-	 * @throws ServiceException
-	 */
-	public float updateLxnetrecs(final Lxnetrecs netrecs) throws ServiceException {
-		try {
-			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
-			Object object = transactionTemplate.execute(new TransactionCallback() {
-				public Object doInTransaction(TransactionStatus status) {
-					// 更新这个课程
-					lxnetrecsDAO.update(netrecs);
-
-					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
-					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
-
-
-					float weidazhefen = Float.parseFloat(NumberUtil.toMoney(lesson.getXuefen()
-							* (netrecs.getLookedminutes() / netrecs.getAllminutes())));
-					float dazhefen=weidazhefen;
-					if(lesson.getFenshuoff()!=null&&!"".equals(lesson.getFenshuoff())){//获得的学分要打折
-						int zhekou=Integer.parseInt(lesson.getFenshuoff());
-						dazhefen=Float.parseFloat(NumberUtil.toMoney((weidazhefen*zhekou)/100));
-					}
-					_LOG.debug("获得的学分::::::" + dazhefen+",打了几折:::"+lesson.getFenshuoff());
-
-					if (dazhefen > xf.getPxxf().floatValue()) {//大于的时候才更新
-						xf.setPxxf(dazhefen);
-						xf.setRemarks((xf.getRemarks() != null ? xf.getRemarks() : "") + "|视频:"+dazhefen);
-
-						xf.setTitle(lesson.getTitle());
-						xf.setLastupdate(netrecs.getLasttime());
-						xf.setPxminutes(netrecs.getLookedminutes());
-                        xf.setPxdate(netrecs.getLasttime());  
-                        
-                        
-                        if(lesson.getXuefen().floatValue()==weidazhefen)
-                        	xf.setIsfull(true);
-                        
-						// xf.setPxdate(budeng.getBudengdate());
-						lxnetrecsDAO.update(xf);
-					}
-					return dazhefen;
-				}
-			});
-			return (Float) object;
-		}
-		catch (Exception e) {
-			_LOG.error("更新视频获得学分失败:::" + e);
-			throw new ServiceException(e);
-		}
-
-	}
+//	public float saveLxnetrecs(final Lxnetrecs netrecs) throws ServiceException {
+//		try {
+//			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
+//			Object object = transactionTemplate.execute(new TransactionCallback() {
+//				public Object doInTransaction(TransactionStatus status) {
+//
+//					lxnetrecsDAO.save(netrecs);
+//					
+//					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
+//
+//					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
+//					Lawyers lawyer = (Lawyers) lxnetrecsDAO.get(Lawyers.class, netrecs.getUserid());
+//
+//					float huodexuefen = Float.parseFloat(NumberUtil.toMoney(lesson.getXuefen()
+//							* (netrecs.getLookedminutes() / netrecs.getAllminutes())));
+//
+//					if(lesson.getFenshuoff()!=null&&!"".equals(lesson.getFenshuoff())){//获得的学分要打折
+//						int zhekou=Integer.parseInt(lesson.getFenshuoff());
+//						huodexuefen=Float.parseFloat(NumberUtil.toMoney((huodexuefen*zhekou)/100));
+//					}
+//					
+//					if (xf == null) {
+//						xf = new Lawyerlessonxf();
+//						xf.setLawyerid(lawyer.getLawyerid());
+//						xf.setLawyername(lawyer.getLawyername());
+//						xf.setProvinceid(lawyer.getProvinceunion());
+//						xf.setCityid(lawyer.getDirectunion());
+//						xf.setOfficeid(lawyer.getTheoffice());
+//						xf.setLearnmode(2);
+//						xf.setPxxf(huodexuefen);
+//		
+//						
+//						xf.setRemarks("视频积分:"+xf.getPxxf());
+//						xf.setPxminutes(netrecs.getLookedminutes());
+//						xf.setPxreqminutes(netrecs.getAllminutes());
+//						xf.setLessonid(netrecs.getLessonid());
+//
+//						xf.setTitle(lesson.getTitle());
+//						xf.setLastupdate(netrecs.getLasttime());
+//						xf.setPxdate(netrecs.getLasttime());
+//						xf.setTheyear(netrecs.getJifenyear());
+//						xf.setIslastyear(netrecs.getJifenyear()==netrecs.getNowyear()?0:1);
+//						lxnetrecsDAO.save(xf);
+//
+//					}
+//					else if (huodexuefen > xf.getPxxf()) {// 获得的学分大于现有的学分的时候，才更新
+//						xf.setPxxf(huodexuefen);
+//						xf.setRemarks((xf.getRemarks() != null ? xf.getRemarks() : "") + "|视频:"+huodexuefen);
+//						xf.setPxminutes(netrecs.getLookedminutes());
+//						xf.setPxreqminutes(netrecs.getAllminutes());
+//						lxnetrecsDAO.update(xf);
+//					}
+//
+//					// 客户的话，先不分配，由主办律师自己去进行分配
+//					return huodexuefen;
+//				}
+//			});
+//			return (Float) object;
+//		}
+//		catch (Exception e) {
+//			_LOG.error("新增视频获得学分失败:::" + e);
+//			throw new ServiceException(e);
+//		}
+//	}
+//
+//	/**
+//	 * 一个视频看了很多次的情况下,对这个进来进行更新
+//	 * @param netrecs
+//	 * @return
+//	 * @throws ServiceException
+//	 */
+//	public float updateLxnetrecs(final Lxnetrecs netrecs) throws ServiceException {
+//		try {
+//			TransactionTemplate transactionTemplate = new TransactionTemplate(this.transactionManager);
+//			Object object = transactionTemplate.execute(new TransactionCallback() {
+//				public Object doInTransaction(TransactionStatus status) {
+//					// 更新这个课程
+//					lxnetrecsDAO.update(netrecs);
+//
+//					Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(netrecs.getLessonid(), netrecs.getUserid(), 2);
+//					Lessons lesson = (Lessons) lxnetrecsDAO.get(Lessons.class, netrecs.getLessonid());
+//
+//
+//					float weidazhefen = Float.parseFloat(NumberUtil.toMoney(lesson.getXuefen()
+//							* (netrecs.getLookedminutes() / netrecs.getAllminutes())));
+//					float dazhefen=weidazhefen;
+//					if(lesson.getFenshuoff()!=null&&!"".equals(lesson.getFenshuoff())){//获得的学分要打折
+//						int zhekou=Integer.parseInt(lesson.getFenshuoff());
+//						dazhefen=Float.parseFloat(NumberUtil.toMoney((weidazhefen*zhekou)/100));
+//					}
+//					_LOG.debug("获得的学分::::::" + dazhefen+",打了几折:::"+lesson.getFenshuoff());
+//
+//					if (dazhefen > xf.getPxxf().floatValue()) {//大于的时候才更新
+//						xf.setPxxf(dazhefen);
+//						xf.setRemarks((xf.getRemarks() != null ? xf.getRemarks() : "") + "|视频:"+dazhefen);
+//
+//						xf.setTitle(lesson.getTitle());
+//						xf.setLastupdate(netrecs.getLasttime());
+//						xf.setPxminutes(netrecs.getLookedminutes());
+//                        xf.setPxdate(netrecs.getLasttime());  
+//                        
+//                        
+//                        if(lesson.getXuefen().floatValue()==weidazhefen)
+//                        	xf.setIsfull(true);
+//                        
+//						// xf.setPxdate(budeng.getBudengdate());
+//						lxnetrecsDAO.update(xf);
+//					}
+//					return dazhefen;
+//				}
+//			});
+//			return (Float) object;
+//		}
+//		catch (Exception e) {
+//			_LOG.error("更新视频获得学分失败:::" + e);
+//			throw new ServiceException(e);
+//		}
+//
+//	}
 }

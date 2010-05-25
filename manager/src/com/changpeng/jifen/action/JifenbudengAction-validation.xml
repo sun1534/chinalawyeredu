@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="budeng.lawyerno">
+                <field-validator type="requiredstring">
+                  <message>律师执业证号不能为空,请输入</message>
+                </field-validator>
+	</field>
+	<field name="budeng.title">
+                <field-validator type="requiredstring">
+                  <message>补登课程标题不能为空,请输入</message>
+                </field-validator>              
+	</field>
+	
+	<field name="budeng.budengdate">
+                <field-validator type="required">
+                  <message>补登积分之计分日期不能为空,请输入</message>
+                </field-validator>              
+	</field>
+	
+	<field name="budeng.xuefen">
+                <field-validator type="required">
+                  <message>补登的学分不能为空并且全部应为数字,请输入</message>
+                </field-validator>              
+	</field>
+</validators>

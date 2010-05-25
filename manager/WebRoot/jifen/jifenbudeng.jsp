@@ -7,121 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <jscalendar:head/>
-<script language="javascript">
-	function isupload(val){
-		if(val==true){
-			document.getElementById("upload").style.display="";
-			document.getElementById("show").style.display="";
-			document.getElementById("input").style.display="none";
-		}else{
-			document.getElementById("upload").style.display="none";
-			document.getElementById("show").style.display="none";
-			document.getElementById("input").style.display="";
-		}
-	}
-	function alertError(field, error){
-  		alert(error);
-  		field.focus();
-	}
-	function isFloat(val){ 
-	  var parten = /^\d+(\.\d+)?$/; 
-	  if(parten.exec(val)){ 
-	    return true;
-	  }else{ 
-	    return false;
-	  } 
-	}
-    function validateForm_jifenbudeng() {
-        form = document.getElementById("jifenbudeng");
-		var errors = false;
-        if (form.elements['budeng.title']) {
-            field = form.elements['budeng.title'];
-            var error = "请输入内容标题!";
-            if (field.value != null && (field.value == "" || field.value.replace(/^\s+|\s+$/g,"").length == 0)) {
-                alertError(field, error);
-            errors = true;
-            return !errors;
-            }
-        }
-        // field name: ware.warename
-        // validator name: stringlength
-        if (form.elements['budeng.title']) {
-            field = form.elements['budeng.title'];
-            var error = " 内容标题长度必须小于22个汉字或45个字母!";
-            if (field.value != null) {
-                var value = field.value;
-                    //trim field value
-                    while (value.substring(0,1) == ' ')
-                        value = value.substring(1, value.length);
-                    while (value.substring(value.length-1, value.length) == ' ')
-                        value = value.substring(0, value.length-1);
-                if ((-1 > -1 && value.length < -1) ||
-                    (100 > -1 && value.length > 45)) {
-                    alertError(field, error);
-		            errors = true;
-		            return !errors;
-                }
-            } 
-        }
-        
-        if (form.elements['budeng.budengdate']) {
-            field = form.elements['budeng.budengdate'];
-            var error = "请选择积分日期!";
-            if (field.value != null && (field.value == "" || field.value.replace(/^\s+|\s+$/g,"").length == 0)) {
-                alertError(field, error);
-            errors = true;
-            return !errors;
-            }
-        }
-        
-        // field name: budeng.xuefen
-        // validator name: double
-        if (form.elements['budeng.xuefen']) {
-            field = form.elements['budeng.xuefen'];
-            var error = "学分必须为数字!";
-            if (!isFloat(field.value)) {
-	             alertError(field, error);
-			     errors = true;
-			     return !errors;
-            }
-        }
-       
-     //  if (form.elements['beupload']) {
-       /*     field = form.elements['beupload'];
-            
-            if(field.checked){
-            	var upload = form.elements['uploadfile'];
-            	filename=upload.value.toLowerCase();
-            
-            	index=filename.lastIndexOf(".");
-            	endfix="";
-            	if(index>0)
-					endfix=filename.substring(index+1);
-				var error = "上传文件必须为文本文件!";	
-				
-				if(endfix!="txt"&&endfix!="text"){
-					alertError(field, error);
-				    errors = true;
-				    return !errors;
-				}
-            }else{*/
-            	field = form.elements['budeng.lawerno'];
-	            var error = "请输入律师执业证号!";
-	            if (field.value != null && (field.value == "" || field.value.replace(/^\s+|\s+$/g,"").length == 0)) {
-	                alertError(field, error);
-	            errors = true;
-	            return !errors;
-	            }
-        //    }
-        //}
-       return !errors;
-      // return false;
-    }
-</script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="javascript">
-
-
 function getCities(vallll){
 
   $("#city")[0].length=0;
@@ -212,7 +99,7 @@ function selectlocal(lessonid){
     <img src="../imagesa/b_02.gif" width="4" height="7"> 当前位置：积分补登 &gt; 新增补登积分 </td>
   </tr>
 </table>
-<s:form action="jifenbudeng" method="post" name="form1" onsubmit="return validateForm_jifenbudeng();" enctype="multipart/form-data">
+<s:form action="jifenbudeng" method="post" name="form1" validate="true" enctype="multipart/form-data">
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#C2D6F0" >
   <tr>
     <td valign="top" bgcolor="#FFFFFF">
@@ -309,16 +196,7 @@ function selectlocal(lessonid){
           <input type="button" name="Submit3" value=" 返回 " onClick="javascript:history.go(-1)">
           </td>
         </tr>
-         <tr style="display:none" id="show">
-         	<td class="tab_content1" colspan="3">
-         			<span style="color:red;padding-left: 25px">注意，上传文件格式如下：</span><br>
-         			<div style="color:blue;padding-left: 50px">
-         			19020311007390<br>
-         			19020311007391<br>
-         			19020311007392<br>
-         			</div>
-         	</td>
-         </tr>
+       
     </table>
     </s:form>
     </td>

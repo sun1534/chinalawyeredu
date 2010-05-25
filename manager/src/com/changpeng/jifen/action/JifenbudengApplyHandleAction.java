@@ -63,7 +63,7 @@ public class JifenbudengApplyHandleAction extends AbstractAction {
 
 	public String input() throws Exception {
 		if (this.getLoginUser().getSysGroup() != null && this.getLoginUser().getSysGroup().getGrouptype() == 1) {
-			this.message = "您是事务所,不能处理转所事宜";
+			this.message = "您是事务所管理员,不能处理转所事宜";
 			return "message";
 		}
 		budengApply = (JifenbudengApply) basicService.get(JifenbudengApply.class, budengid);

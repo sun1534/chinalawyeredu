@@ -69,7 +69,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 			return null;
 		return (Lawyerlessonxf) list.get(0);
 	}
-private String getStaticSql(int theyear, String field, int fieldvalue, String title) {
+
+	private String getStaticSql(int theyear, String field, int fieldvalue, String title) {
 		String sql = "";
 		String condition = "";
 		if (title != null && !title.equals(""))
@@ -84,21 +85,21 @@ private String getStaticSql(int theyear, String field, int fieldvalue, String ti
 		return sql;
 	}
 
-private JifenTongji getTongjiObject(Object[] obj){
-	JifenTongji tongji = new JifenTongji();
-	tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
-	tongji.setName(obj[1].toString());
-	tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
-	tongji.setGroupid(Integer.parseInt(obj[3].toString()));
-	tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4])));
-	tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5])));
-	tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6])));
-	tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7])));
-	tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8])));
-	tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9])));
-	tongji.setLocalfen(Float.parseFloat(NumberUtil.toMoney(obj[10])));
-	return tongji;
-}
+	private JifenTongji getTongjiObject(Object[] obj) {
+		JifenTongji tongji = new JifenTongji();
+		tongji.setDabiaofen(Float.parseFloat(NumberUtil.toMoney(obj[0].toString())));
+		tongji.setName(obj[1].toString());
+		tongji.setLawyerid(Integer.parseInt(obj[2].toString()));
+		tongji.setGroupid(Integer.parseInt(obj[3].toString()));
+		tongji.setXianchang(Float.parseFloat(NumberUtil.toMoney(obj[4])));
+		tongji.setVideo(Float.parseFloat(NumberUtil.toMoney(obj[5])));
+		tongji.setDoc(Float.parseFloat(NumberUtil.toMoney(obj[6])));
+		tongji.setBudeng(Float.parseFloat(NumberUtil.toMoney(obj[7])));
+		tongji.setKoufen(Float.parseFloat(NumberUtil.toMoney(obj[8])));
+		tongji.setZongjifen(Float.parseFloat(NumberUtil.toMoney(obj[9])));
+		tongji.setLocalfen(Float.parseFloat(NumberUtil.toMoney(obj[10])));
+		return tongji;
+	}
 
 	public PaginationSupport getJifentongjiAll(final int year, final String officename, final String username,
 			final String lawyerno, final String title, final int pageNo, final int pageSize, final int totalCount,
@@ -117,7 +118,7 @@ private JifenTongji getTongjiObject(Object[] obj){
 					sql += " and a.lawyername like '%" + username + "%'";
 				}
 				if (lawyerno != null && !"".equals(lawyerno)) {
-					sql += " and a.lawyerno = '" + officename + "'";
+					sql += " and a.lawyerno like '" + lawyerno + "%'";
 				}
 
 				if (field != null && !"".equals(field)) {
@@ -129,16 +130,13 @@ private JifenTongji getTongjiObject(Object[] obj){
 						sql += " and a.provinceunion =" + fieldvalue;
 					}
 				}
-String coutnsql="select count(*) from ("+sql+") a";
-System.out.println(coutnsql);
-int totalCount=getCountBySqlQuery(coutnsql);
-
+				String coutnsql = "select count(*) from (" + sql + ") a";
+				System.out.println(coutnsql);
+				int totalCount = getCountBySqlQuery(coutnsql);
 
 				sql += " order by b.groupid";
 				_LOG.info("统计SQL:" + sql);
-				
-				
-				
+
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
 				int startIndex = (pageNo - 1) * pageSize;
 				_LOG.debug("总数::::" + totalCount);
@@ -147,7 +145,7 @@ int totalCount=getCountBySqlQuery(coutnsql);
 				List newlist = new ArrayList();
 				for (int i = 0; items != null && i < items.size(); i++) {
 					Object[] obj = (Object[]) items.get(i);
-				
+
 					newlist.add(getTongjiObject(obj));
 				}
 
@@ -159,7 +157,6 @@ int totalCount=getCountBySqlQuery(coutnsql);
 		return ((PaginationSupport) object);
 	}
 
-
 	public PaginationSupport getJifentongjiDabiao(final int year, final String officename, final String username,
 			final String lawyerno, final String title, final int pageNo, final int pageSize, final int totalCount,
 			final String field, final int fieldvalue) {
@@ -168,7 +165,7 @@ int totalCount=getCountBySqlQuery(coutnsql);
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-					+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -187,20 +184,20 @@ int totalCount=getCountBySqlQuery(coutnsql);
 					else
 						sql += " and a.provinceunion =" + fieldvalue;
 				}
-			sql+=" and format(c.zongjifen,2)>=a.dabiaofen and format(c.xianchang,2)>=a.localfen";
+				sql += " and format(c.zongjifen,2)>=a.dabiaofen and format(c.xianchang,2)>=a.localfen";
 				_LOG.info("达标数的统计SQL:" + sql);
-			
-				String coutnsql="select count(*) from ("+sql+") a";
-				int totalCount=getCountBySqlQuery(coutnsql);
-				sql+=" order by b.groupid";
-				
+
+				String coutnsql = "select count(*) from (" + sql + ") a";
+				int totalCount = getCountBySqlQuery(coutnsql);
+				sql += " order by b.groupid";
+
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
 				int startIndex = (pageNo - 1) * pageSize;
 				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
 				List newlist = new ArrayList();
 				for (int i = 0; items != null && i < items.size(); i++) {
 					Object[] obj = (Object[]) items.get(i);
-				
+
 					newlist.add(getTongjiObject(obj));
 				}
 
@@ -218,10 +215,9 @@ int totalCount=getCountBySqlQuery(coutnsql);
 		Object object = getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
 
-
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-					+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -241,14 +237,12 @@ int totalCount=getCountBySqlQuery(coutnsql);
 						sql += " and a.provinceunion =" + fieldvalue;
 				}
 
-			
-				sql+=" and (format(c.zongjifen,2)<a.dabiaofen or format(c.xianchang,2)<a.localfen)";
+				sql += " and (format(c.zongjifen,2)<a.dabiaofen or format(c.xianchang,2)<a.localfen)";
 
-				String coutnsql="select count(*) from ("+sql+") a";
-				int totalCount=getCountBySqlQuery(coutnsql);
-				sql+=" order by b.groupid";
-				
-				
+				String coutnsql = "select count(*) from (" + sql + ") a";
+				int totalCount = getCountBySqlQuery(coutnsql);
+				sql += " order by b.groupid";
+
 				_LOG.info("未达标数的统计SQL:" + sql);
 
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
@@ -282,13 +276,15 @@ int totalCount=getCountBySqlQuery(coutnsql);
 					condition = " and title like '%" + title + "%'";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "+condition+" and c.theyear="+ year + " and c." + field + "=" + fieldvalue + ") ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
+							+ condition + " and c.theyear=" + year + " and c." + field + "=" + fieldvalue + ") ";
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "+condition+" and c.theyear="+ year + ") ";
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
+							+ condition + " and c.theyear=" + year + ") ";
 				}
-//				if (title != null && !"".equals(title)) {
-//					sql += " and c.title like '" + title + "%'";
-//				}
+				// if (title != null && !"".equals(title)) {
+				// sql += " and c.title like '" + title + "%'";
+				// }
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
 				}
@@ -308,14 +304,14 @@ int totalCount=getCountBySqlQuery(coutnsql);
 						sql += " and a.provinceunion =" + fieldvalue;
 				}
 
-				String coutnsql="select count(*) from ("+sql+") a";
-				int totalCount=getCountBySqlQuery(coutnsql);
-				sql+=" order by b.groupid";
+				String coutnsql = "select count(*) from (" + sql + ") a";
+				int totalCount = getCountBySqlQuery(coutnsql);
+				sql += " order by b.groupid";
 				_LOG.info("未培训数的统计SQL:" + sql);
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
 
 				int startIndex = (pageNo - 1) * pageSize;
-			
+
 				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
 				List newlist = new ArrayList();
 				for (int i = 0; items != null && i < items.size(); i++) {

@@ -24,6 +24,7 @@ public class BasicLawyerlessonxf implements java.io.Serializable {
 	protected Float pxreqminutes=0f;
 	protected Float pxminutes=0f;
 	protected Float pxxf=0f;
+	protected Float zongjifen=0f;
 	protected String remarks;
 	protected Timestamp lastupdate;
 	protected boolean isfull;
@@ -296,6 +297,24 @@ public class BasicLawyerlessonxf implements java.io.Serializable {
 	 */
 	public void setIsfull(boolean isfull) {
 		this.isfull = isfull;
+	}
+
+
+
+	/**
+	 * @return the zongjifen
+	 */
+	public Float getZongjifen() {
+		return zongjifen;
+	}
+
+
+
+	/**
+	 * @param zongjifen the zongjifen to set
+	 */
+	public void setZongjifen(Float zongjifen) {
+		this.zongjifen = zongjifen;
 	}
 
 

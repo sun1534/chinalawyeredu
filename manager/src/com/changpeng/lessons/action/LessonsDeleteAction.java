@@ -1,17 +1,12 @@
 package com.changpeng.lessons.action;
 
-import java.io.*;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
-
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
-
-import com.changpeng.models.*;
+import com.changpeng.models.Lessons;
 
 public class LessonsDeleteAction extends AbstractAction {
 	private int lessonid;
+	private String type = "local";
 
 	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
@@ -26,12 +21,31 @@ public class LessonsDeleteAction extends AbstractAction {
 		BasicService service = (BasicService) this.getBean("basicService");
 
 		Lessons lesson = (Lessons) service.get(Lessons.class, lessonid);
-		lesson.setDeleteflag(true);
-		service.update(lesson);
-		
+		// lesson.setDeleteflag(true);
+		// service.update(lesson);
+		service.delete(lesson);
+		this.opResult += "删除课程:" + lesson.getTitle() + ",类型:" + lesson.getLessonstyle();
 		this.message = "课程删除成功";
-	//	this.nextPage = "lessonsList.pl";
-		this.nextPage="lessonsOnlineList.pl?lessonstyle=2&pageNo="+pageNo;
+		// this.nextPage = "lessonsList.pl";
+		if (type != null && type.equals("online"))
+			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2&pageNo=" + pageNo;
+		else
+			this.nextPage = "lessonsLocalList.pl?lessonstyle=1&pageNo=" + pageNo;
 		return SUCCESS;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }

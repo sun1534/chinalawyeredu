@@ -28,7 +28,7 @@ function getAddOnline(){
 function deleteid(lessonid){
   if(confirm('您确定要删除这个课程吗')){
  
-  	 window.location.href="lessonsDelete.pl?lessonid="+lessonid+"&pageNo=${pageNo}";
+  	 window.location.href="lessonsDelete.pl?type=local&lessonid="+lessonid+"&pageNo=${pageNo}";
   }
 }
 </script>

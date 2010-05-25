@@ -11,13 +11,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.context.Globals;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.models.Lessons;
-import com.changpeng.models.SysGroup;
-import com.changpeng.system.service.SysLoginLogService;
 
 /**
  * <pre>
@@ -35,6 +34,7 @@ public class CommonDatas {
 	public static HashMap<Integer, String> TeacherType = new LinkedHashMap<Integer, String>();
 
 	public static Map<Integer, String> AllLessonMap = new LinkedHashMap<Integer, String>();
+	public static Map<String,Integer> ALL_LOCAL_LESSONS = new LinkedHashMap<String, Integer>();
 
 	static {
 //		LessonType.put(1, "律师实务");
@@ -118,12 +118,15 @@ public class CommonDatas {
 			synchronized (AllLessonMap) {
 				int size = AllLessonMap.size();
 				AllLessonMap.clear();
-				DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
+				ALL_LOCAL_LESSONS.clear();
+				DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag",false));
 
 				List list = service.findAllByCriteria(dc);
 				int len = list == null ? 0 : list.size();
 				for (int i = 0; i < len; i++) {
 					Lessons lessons = (Lessons) list.get(i);
+//					if(lessons.getLessonstyle()==1||lessons.getLessonstyle()==3)
+						ALL_LOCAL_LESSONS.put(lessons.getTitle(), lessons.getLessonid());
 					AllLessonMap.put(lessons.getLessonid(), lessons.getTitle());
 				}
 				LOG.info("课程更新成功!::前:" + size + "后:" + AllLessonMap.size());

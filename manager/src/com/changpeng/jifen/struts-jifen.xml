@@ -59,6 +59,10 @@
        	    <result name="city" type="redirect">/jifen/cityUnionJifenStatic.pl</result>
        	     <result name="province" type="redirect">/jifen/provinceUnionJifenStatic.pl</result>
        </action> 
+       
+        <action name="jifenQueryStatic" class="com.changpeng.jifen.action.JifenQueryStaticAction">
+       	  <result name="success" type="dispatcher">/jifen/jifenQueryStatic.jsp</result>
+       </action> 
      
       <action name="jifenbudengApplyList" class="com.changpeng.jifen.action.JifenbudengApplyListAction">
         	

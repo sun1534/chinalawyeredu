@@ -174,6 +174,7 @@ public class LessonsCreateAction extends AbstractAction {
 		}else
 			 this.nextPage = "lessonsOnlineList.pl?lessonstyle=2";
 		
+		this.opResult+="新增课程,名称:"+lesson.getTitle();
 		this.message = "课程新增成功";
 		return SUCCESS;
 	}

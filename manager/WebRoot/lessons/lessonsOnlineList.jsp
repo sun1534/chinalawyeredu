@@ -29,7 +29,7 @@ function getAddOnline(){
 function deleteid(lessonid){
   if(confirm('您确定要删除这个课程吗')){
  
-  	 window.location.href="lessonsDelete.pl?lessonid="+lessonid+"&pageNo=${pageNo}";
+  	 window.location.href="lessonsDelete.pl?type=online&lessonid="+lessonid+"&pageNo=${pageNo}";
   }
 }
 function getCities(vallll){
@@ -157,7 +157,7 @@ function getCities(vallll){
 							
 	                <TD class="tab_content" align="center">
 	                	<s:if test="mygroup==groupid">
-	                <a href="lessonsShared!input.pl?lessonid=${lessonid}">共享</a>
+	                <a href="lessonsShared!input.pl?lessonid=${lessonid}&pageNo=${pageNo }">共享</a>
 	                </s:if>
 	                <s:else>&nbsp;
 	                </s:else>

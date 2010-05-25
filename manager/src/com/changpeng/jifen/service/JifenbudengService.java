@@ -35,6 +35,7 @@ import com.changpeng.models.SysUser;
  */
 public class JifenbudengService extends BasicService {
 	private static final Log LOG = LogFactory.getLog(JifenbudengService.class);
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 	private BasicDAO basicDAO = null;
 	private LawyerlessonxfDAO lawyerlessonxfDAO;
 
@@ -64,14 +65,6 @@ public class JifenbudengService extends BasicService {
 	public int handleJifenbudengApply(JifenbudengApply budengApply) throws ServiceException {
 
 		if (budengApply.getStatus() == 1) {// 通过,补登积分,即要新增的jifenbudeng以及lawyerlessonxf表中
-			// 判断是否已经补登过，对本地课程
-//			if (budengApply.getIslocal()) {
-//				Lawyerlessonxf xf = lawyerlessonxfDAO
-//						.getXuefen(budengApply.getLessonid(), budengApply.getLawyerid(), 0);
-//				if (xf != null) {
-//					return -1;
-//				}
-//			}
 			Jifenbudeng budeng = new Jifenbudeng();
 			budeng.setBudengdate(budengApply.getBudengdate());
 			budeng.setCityid(budengApply.getCityid());
@@ -89,8 +82,8 @@ public class JifenbudengService extends BasicService {
 			budeng.setTitle(budengApply.getTitle());
 			budeng.setBudengfrom(budengApply.getBudengid());
 			budeng.setXuefen(budengApply.getXuefen());
-			int result=saveJifenbudengNoTransaction(budeng);
-			if(result==-1)
+			int result = saveJifenbudengNoTransaction(budeng);
+			if (result == -1)
 				return -1;
 		}
 		basicDAO.update(budengApply);
@@ -98,28 +91,29 @@ public class JifenbudengService extends BasicService {
 	}
 
 	public int saveJifenbudengNoTransaction(final Jifenbudeng budeng) {
-		
+
 		if (budeng.getIslocal()) {
-			Lawyerlessonxf xf = lawyerlessonxfDAO
-					.getXuefen(budeng.getLessonid(), budeng.getLawyerid(), 0);
+			Lawyerlessonxf xf = lawyerlessonxfDAO.getXuefen(budeng.getLessonid(), budeng.getLawyerid(), 0);
 			if (xf != null) {
 				return -1;
 			}
 		}
-		
-		
+
+		budeng.setBudengfrom(budeng.getLessonid());
 		basicDAO.save(budeng);
-		
+
 		Lawyerlessonxf xf = new Lawyerlessonxf();
 		xf.setLawyerid(budeng.getLawyerid());
 		xf.setLawyername(budeng.getLawyername());
 		if (budeng.getIslocal()) {
 			xf.setLearnmode(1);
 			xf.setLessonid(budeng.getLessonid());
+
 		} else {
 			xf.setLearnmode(4);
 			xf.setLessonid(0 - budeng.getBudengid());
 		}
+		xf.setZongjifen(budeng.getXuefen());
 		xf.setPxxf(budeng.getXuefen());
 		xf.setRemarks(budeng.getCreateuser() + "补登的积分");
 
@@ -134,7 +128,7 @@ public class JifenbudengService extends BasicService {
 
 		// xf.setPxdate(budeng.getBudengdate());
 		basicDAO.save(xf);
-		
+
 		return 0;
 	}
 
@@ -147,24 +141,9 @@ public class JifenbudengService extends BasicService {
 	@Transactional
 	public int saveJifenbudeng(final Jifenbudeng budeng) throws ServiceException {
 
-		// try {
-		// TransactionTemplate transactionTemplate = new
-		// TransactionTemplate(this.transactionManager);
-		// transactionTemplate.execute(new TransactionCallbackWithoutResult() {
-		// public void doInTransactionWithoutResult(TransactionStatus status) {
-
 		return saveJifenbudengNoTransaction(budeng);
-		// 客户的话，先不分配，由主办律师自己去进行分配
-		// return null;
-		// }
-		// });
-		// } catch (Exception e) {
-		// throw new ServiceException(e);
-		// }
 
 	}
-
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * 积分补登的话
@@ -208,21 +187,30 @@ public class JifenbudengService extends BasicService {
 							cityid);
 					if (lawyer != null) {
 
+						// 根据课程名得到课程的id
+
 						Jifenbudeng budeng = new Jifenbudeng();
 						Lawyerlessonxf xf = new Lawyerlessonxf();
-
-						if (budengbatch.getIslocal().equals("否")) {
-							xf.setLearnmode(4);
-							budeng.setIslocal(false);
-						} else {
-							xf.setLearnmode(1);
-							budeng.setIslocal(true);
-						}
+						int lessonid = 0;
+						// if (budengbatch.getIslocal().equals("否")) {
+						xf.setLearnmode(4);
+						budeng.setIslocal(false);
+						// } else {
+						// Integer _lessonid =
+						// com.changpeng.lessons.util.CommonDatas.ALL_LOCAL_LESSONS
+						// .get(budengbatch.getTitle());
+						// if (_lessonid != null)
+						// lessonid = _lessonid.intValue();
+						// xf.setLearnmode(1);
+						// budeng.setIslocal(true);
+						// }
 						budeng.setLawyerno(budengbatch.getLawyerno());
 						budeng.setTitle(budengbatch.getTitle());
 						budeng.setTheyear(theyear);
 						budeng.setBudengdate(budengdate);
 						budeng.setXuefen(xuefen);
+						budeng.setLessonid(lessonid);
+						budeng.setBudengfrom(lessonid);
 
 						budeng.setLawyerid(lawyer.getLawyerid());
 						budeng.setLawyername(lawyer.getLawyername());
@@ -236,11 +224,13 @@ public class JifenbudengService extends BasicService {
 
 						xf.setLawyerid(budeng.getLawyerid());
 						xf.setLawyername(budeng.getLawyername());
+
 						xf.setLessonid(0 - budeng.getBudengid());
 
+						xf.setZongjifen(budeng.getXuefen());
 						xf.setPxxf(budeng.getXuefen());
+						xf.setZongjifen(xf.getPxxf());
 						xf.setRemarks(budeng.getCreateuser() + "批量补登的积分");
-						xf.setLessonid(budeng.getBudengid());
 						xf.setProvinceid(lawyer.getProvinceunion());
 						xf.setCityid(lawyer.getDirectunion());
 						xf.setOfficeid(lawyer.getTheoffice());

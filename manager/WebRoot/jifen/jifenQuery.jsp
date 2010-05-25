@@ -36,34 +36,31 @@ function exportit(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：积分查询
+    	当前位置：${lawyers.lawyername}<s:if test="year>0">在${year }年度</s:if>的积分明细
     	</td>
   </tr>
 </table>
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
 				
 <s:form action="jifenQuery" name="form1" method="post">
-
-<tr>
-<td align="left">
-  <s:hidden name="resultType"/>
-        	   	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
-<s:hidden name="lawyerid"/>
-</td>
-</tr>
-	  <tr>
-    <td valign="top">	
-    	
+ <tr>
+    <td valign="top">	    	
     	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr>
-          <td height="24"  >
-           	<div align="center"><b>${lawyers.lawyername} 律师的培训积分<b/></div>
-           	<div align="left">
-          积分年限:<s:select name="year" list="jifentime.years" onchange="document.form1.submit()"/>
-           	(积分计算：从【${jifentime.startstr}】到【${jifentime.endstr}】。达标需满【${dabiaofen}】分)
-           </div>
+          <td height="24" background="../imagesa/top-bg2.gif" >
+          <s:hidden name="pageNo"/>
+          <s:hidden name="lawyerid"/>
+            <s:hidden name="resultType"/>
+		
+  			积分年限:<s:select name="year" list="jifentime.years" onchange="document.form1.submit()" headerKey="0" headerValue="全部"/>
+           	<s:if test="year>0">
+           	(积分计算：从【${jifentime.startstr}】到【${jifentime.endstr}】。达标需满【${dabiaofen}】分) 
+           	</s:if>
+        	   &nbsp;&nbsp;&nbsp;
+        	   <input type="button" name="export" value=" 导 出 " onclick="exportit()"/>
           </td>
         </tr>
+   
       </table>
    
     	<table width="100%" border="0" cellpadding="0" cellspacing="1">
@@ -79,12 +76,12 @@ function exportit(str){
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif" width="35%">课程名称</TD>
         <TD align="center" background="../imagesa/top-bg1.gif" >培训方式</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">培训日期</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">要求时长（分）</TD>
-     
+        <TD align="center" background="../imagesa/top-bg1.gif">要求时长（分）</TD>     
         <TD align="center" background="../imagesa/top-bg1.gif">培训时长（分）</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">获得积分</TD>
+         <TD align="center" background="../imagesa/top-bg1.gif">课程积分</TD>
       </tr>
-      <s:set name="zongjifen" value="0"/>
+      <s:set name="jifenall" value="0"/>
 <s:iterator value="page.items" status="stat">
       <TR>
         <TD class="tab_content" align="left">${title}</TD>
@@ -96,7 +93,8 @@ function exportit(str){
         <TD class="tab_content" align="center">${pxreqminutes} </TD>
         <TD class="tab_content" align="center">${pxminutes}</TD>
          <TD class="tab_content" align="center">${pxxf}</TD>
-          <s:set name="zongjifen" value="#zongjifen+pxxf"/>
+        <TD class="tab_content" align="center">${zongjifen}</TD>
+          <s:set name="jifenall" value="#jifenall+pxxf"/>
       </TR>
      </s:iterator> 
      
@@ -110,7 +108,7 @@ function exportit(str){
        文本课件:<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(wenbenkejian)"/>&nbsp;
        补登积分:<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(budeng)"/>&nbsp;
   总积分:
-  <s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(#zongjifen)"/></font>
+  <s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(#jifenall)"/></font>
    &nbsp;&nbsp; &nbsp; &nbsp;
         	
        </td>

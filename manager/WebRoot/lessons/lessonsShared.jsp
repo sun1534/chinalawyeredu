@@ -56,6 +56,7 @@
 							<td width="15%" class="tab_content1" align="right">
 								已共享给：
 								<s:hidden name="lessonid"/>
+								<s:hidden name="pageNo"/>
 							</td>
 							<td width="85%" colspan="2" class="tab_content1">
 							<s:iterator value="sharedgroupids" status="stat">

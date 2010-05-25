@@ -5,6 +5,10 @@ import java.sql.Statement;
 
 public class CopyOfTest {
 	public static void main(String args[]) throws Exception {
+//		
+		System.out.println(new String(com.changpeng.common.util.Base64.decode("MTgxODR8za/P/sP3".getBytes("gb2312")),"gb2312"));
+		
+		System.out.println(new String(com.changpeng.common.util.Base64.encode("18184|童晓明".getBytes("gb2312")),"gb2312"));
 		System.out.println(com.changpeng.common.util.MD5.md5("123456"));
 	}
 	public static void main1(String args[]) throws Exception {
