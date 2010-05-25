@@ -28,7 +28,7 @@ public class GlobalsJifenStaticAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 		cityunions = new ArrayList();
-		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
+		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class).add(Restrictions.ge("lawyertype", 0));
 		dc.setProjection(Projections.projectionList().add(Projections.groupProperty("directunion")).add(
 				Projections.count("directunion")));
 

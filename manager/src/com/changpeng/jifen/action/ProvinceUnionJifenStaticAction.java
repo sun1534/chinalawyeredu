@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.models.Lawyers;
@@ -35,7 +36,7 @@ public class ProvinceUnionJifenStaticAction extends AbstractListAction {
 		if (list != null && list.size() > 0) {
 			cityunions = new ArrayList();
 
-			DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
+			DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class).add(Restrictions.ge("lawyertype", 0));
 			dc.setProjection(Projections.projectionList().add(Projections.groupProperty("directunion")).add(
 					Projections.count("directunion")));
 
