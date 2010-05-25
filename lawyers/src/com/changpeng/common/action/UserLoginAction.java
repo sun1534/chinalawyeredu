@@ -147,4 +147,9 @@ public class UserLoginAction extends AbstractAction {
 	public void setSavecookie(boolean savecookie) {
 		this.savecookie = savecookie;
 	}
+	
+
+	public void setLoginRole(String loginRole){
+		
+	}
 }

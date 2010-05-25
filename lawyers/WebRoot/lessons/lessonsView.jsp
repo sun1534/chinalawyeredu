@@ -89,7 +89,7 @@ body {
 					<div class="dtop">地点：${lesson.lessonaddress}</div>	
 					</s:if>	
 			     	<s:if test="lesson.lessonstyle==2||lesson.lessonstyle==3">
-				    <div class="dtop">观看：<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lesson.lessonid}","在线培训","toolbar=no,location=no,width=500,height=450,menubar=no,scrollbars=no,resizable=no,status=no")>点击观看</a></div>
+				    <div class="dtop">观看：<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lesson.lessonid}","在线培训","toolbar=no,location=no,width=600,height=550,menubar=no,scrollbars=no,resizable=no,status=no")>点击观看</a></div>
 					</s:if>		
 					<s:if test="hasattach">
 					<div class="dtop">附件（右键点击下载）：<s:iterator value="filelist" status="stat"><a href="download.pl?filename=${filelist[stat.index]}">${filelist[stat.index]}</a>&nbsp;&nbsp;&nbsp;</s:iterator></div>

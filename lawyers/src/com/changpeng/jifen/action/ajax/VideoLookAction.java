@@ -10,6 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.jifen.service.LxnetrecsService;
+import com.changpeng.models.BasicLawyerlessonxf;
+import com.changpeng.models.LogVideoJifen;
 import com.changpeng.models.Lxnetrecs;
 
 /**
@@ -23,13 +25,13 @@ import com.changpeng.models.Lxnetrecs;
  */
 public class VideoLookAction extends AbstractAction {
 	private static Log LOG = LogFactory.getLog(VideoLookAction.class);
-	private int netrecsid;
+	// private int netrecsid;
 	private int lessonid;
 	private float allminutes;
 	private float lookedminutes;
 
 	private int userid;
-
+	private int visitid;
 	private int jifenyear;
 
 	public void setJifenyear(int year) {
@@ -38,9 +40,9 @@ public class VideoLookAction extends AbstractAction {
 
 	private int nowyear;
 
-	
 	/**
-	 * @param nowyear the nowyear to set
+	 * @param nowyear
+	 *            the nowyear to set
 	 */
 	public void setNowyear(int nowyear) {
 		this.nowyear = nowyear;
@@ -56,40 +58,22 @@ public class VideoLookAction extends AbstractAction {
 
 	public String go() throws Exception {
 
-		
-		
 		try {
 
 			LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
-			BasicService basicService = (BasicService) getBean("basicService");
+			LogVideoJifen videojifen = new LogVideoJifen();
+			videojifen.setAllminutes(allminutes);
+			videojifen.setLessonid(lessonid);
+			videojifen.setLookedminutes(lookedminutes);
+//			System.out.println("lookedminutes:::"+lookedminutes);
+			videojifen.setLawyerid(userid);
+			videojifen.setJifenyear(jifenyear);
+			videojifen.setNowyear(nowyear);
+			videojifen.setVisitid(visitid);
+			BasicLawyerlessonxf xf = lxnetrecsService.saveLxnetrecs(videojifen);
+			if (xf != null)
+				this.huodexuefen = xf.getPxxf();
 
-			Lxnetrecs lxnetrecs = (Lxnetrecs) basicService.get(Lxnetrecs.class, netrecsid);
-			// 新增网上看视频的情况，同时对这个人的积分表进行新增，如果没有这个人对这个课程的积分的话
-			if (lxnetrecs == null) {
-				lxnetrecs = new Lxnetrecs();
-				lxnetrecs.setAllminutes(allminutes);
-				lxnetrecs.setLasttime(new java.sql.Timestamp(System.currentTimeMillis()));
-				lxnetrecs.setLessonid(lessonid);
-				lxnetrecs.setLookedminutes(lookedminutes);
-				lxnetrecs.setUserid(userid);
-				lxnetrecs.setJifenyear(jifenyear);
-				lxnetrecs.setNowyear(nowyear);
-				this.huodexuefen = lxnetrecsService.saveLxnetrecs(lxnetrecs);
-				this.netrecsid = lxnetrecs.getNetrecsid();
-
-			} else {// 更新这个人的积分情况
-
-				// 如果这个人重新开始看，并lookedminutes小于已经看过的时间的话，则不予理睬
-				if (this.lookedminutes < lxnetrecs.getLookedminutes()) {
-					this.huodexuefen = 0;
-				} else {
-					// 更新这个lesson的看视频的情况并更新这个课程的学分情况
-					lxnetrecs.setLasttime(new java.sql.Timestamp(System.currentTimeMillis()));
-					lxnetrecs.setLookedminutes(lookedminutes);
-					this.huodexuefen = lxnetrecsService.updateLxnetrecs(lxnetrecs);
-
-				}
-			}
 		} catch (Exception e) {
 
 			LOG.error("视频课程有误:::" + e);
@@ -106,18 +90,6 @@ public class VideoLookAction extends AbstractAction {
 
 	public float getHuodexuefen() {
 		return this.huodexuefen;
-	}
-
-	/**
-	 * @param netrecsid
-	 *            the netrecsid to set
-	 */
-	public void setNetrecsid(int netrecsid) {
-		this.netrecsid = netrecsid;
-	}
-
-	public int getNetrecsid() {
-		return this.netrecsid;
 	}
 
 	/**
@@ -138,5 +110,13 @@ public class VideoLookAction extends AbstractAction {
 	 */
 	public void setAllminutes(float allminutes) {
 		this.allminutes = allminutes;
+	}
+
+	/**
+	 * @param visitid
+	 *            the visitid to set
+	 */
+	public void setVisitid(int visitid) {
+		this.visitid = visitid;
 	}
 }

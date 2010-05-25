@@ -27,13 +27,13 @@ body {
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="images/b_02.gif" width="4" height="7"> 
-    	当前位置：积分补登申请
+    	当前位置：您的积分补登申请列表
     	</td>
   </tr>
 </table>
 <table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
 				
-<s:form action="officeChangeApplyList" name="form1" method="post">
+<s:form action="jifenbudengApplyList" name="form1" method="post">
 	  <tr>
     <td valign="top">	
     	

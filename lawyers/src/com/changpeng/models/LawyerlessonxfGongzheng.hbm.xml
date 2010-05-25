@@ -53,6 +53,11 @@
                 <comment>获得的学分</comment>
             </column>
         </property>
+        <property name="zongjifen" type="java.lang.Float">
+            <column name="zongjifen" precision="12" scale="0" not-null="true">
+                <comment>课程总积分分</comment>
+            </column>
+        </property>
         <property name="remarks" type="java.lang.String">
             <column name="remarks" length="500">
                 <comment>备注</comment>

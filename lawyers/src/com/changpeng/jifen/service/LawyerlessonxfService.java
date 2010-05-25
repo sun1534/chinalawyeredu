@@ -72,6 +72,7 @@ public class LawyerlessonxfService extends BasicService {
 
 				xf = new Lawyerlessonxf();
 				xf.setPxxf(learnjifen);
+				xf.setZongjifen(maxjifen);
 				xf.setLearnmode(2); // 特别针对杭州的点睛课程的统计
 				xf.setPxdate(learndate);
 				xf.setLessonid(lessonid);
@@ -111,6 +112,7 @@ public class LawyerlessonxfService extends BasicService {
 
 			xf = new Lawyerlessonxf();
 			xf.setPxxf(learnjifen);
+			xf.setZongjifen(maxjifen);
 			xf.setLearnmode(2); // 特别针对杭州的点睛课程的统计
 			xf.setPxdate(learndate);
 			xf.setLessonid(lessonid);
@@ -228,7 +230,7 @@ public class LawyerlessonxfService extends BasicService {
 		String sql = "select FORMAT(sum(pxxf),2) from lawyerlessonxf where theyear=" + year + " and lawyerid="
 				+ lawyerid;
 		List list = lawyersDAO.findBySqlQuery(sql);
-		System.out.println(list);
+//		System.out.println(list);
 		if (list != null && list.size() != 0) {
 			Object obj = list.get(0);
 			if (obj == null)

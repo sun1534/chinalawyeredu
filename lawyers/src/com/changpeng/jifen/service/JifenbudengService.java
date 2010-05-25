@@ -72,6 +72,7 @@ public class JifenbudengService extends BasicService {
 					xf.setLawyername(budeng.getLawyername());
 					xf.setLearnmode(4);
 					xf.setPxxf(budeng.getXuefen());
+					xf.setZongjifen(budeng.getXuefen());
 					xf.setRemarks(budeng.getCreateuser() + "补登的积分");
 					xf.setLessonid(budeng.getBudengid());
 					xf.setProvinceid(budeng.getProvinceid());
@@ -147,6 +148,7 @@ public class JifenbudengService extends BasicService {
 								xf.setLessonid(budeng.getBudengid());
 								xf.setLearnmode(4);
 								xf.setPxxf(budeng.getXuefen());
+								xf.setZongjifen(budeng.getXuefen());
 								xf.setRemarks(budeng.getCreateuser() + "补登的积分");
 								xf.setLessonid(budeng.getBudengid());
 								xf.setProvinceid(lawyer.getProvinceunion());
@@ -238,6 +240,8 @@ public class JifenbudengService extends BasicService {
 						float chayi = budeng.getXuefen().floatValue() - oldbudengjifen;
 
 						xf.setPxxf(xf.getPxxf().floatValue() + chayi);
+						xf.setZongjifen(budeng.getXuefen());
+						xf.setIsfull(true);
 						basicDAO.update(xf);
 					}
 

@@ -13,7 +13,6 @@ body {
 -->
 </style>
 <script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/prototype-1.6.0.2.js"></script>
 <script language="javascript">
 	function getAdd(){
 		window.location.href="officeChangeApply!input.pl";

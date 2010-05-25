@@ -28,7 +28,7 @@ function fanye(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：补登积分查询
+    	当前位置：您的补登积分
     	</td>
   </tr>
 </table>
@@ -37,17 +37,7 @@ function fanye(str){
 <s:form action="jifenQuery" name="form1" method="post">
 	  <tr>
     <td valign="top">	
-    	
-    	<table width="100%" border="0" cellpadding="0" cellspacing="1">
-        <tr>
-          <td height="24"  >
-           	<div align="center"><b>您的补登积分<b/></div>
-           	<div align="left">
-           </div>
-          </td>
-        </tr>
-      </table>
-   
+    
     	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr >
           <td height="24" align="right" background="../imagesa/login_bg1.gif" >

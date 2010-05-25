@@ -116,7 +116,7 @@
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EDEDED">
       <tr>
-        <td height="24" colspan="11" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left" title="点此修改您的个人信息">&nbsp;&nbsp;<a href="../system/lawyerEditSelfPre.pl">个人信息</a></td>
+        <td height="24" colspan="11" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left" title="点此修改您的个人信息">&nbsp;&nbsp;<a href="../lawyers/lawyersEditSelf!input.pl">个人信息</a></td>
         </tr>
       <tr>
         <td height="23" colspan="3"  align="left" background="../imagesa/top-bg1.gif"><b>&nbsp;&nbsp;积分年度：${jifentime.startstr} 至 ${jifentime.endstr}</b></td>

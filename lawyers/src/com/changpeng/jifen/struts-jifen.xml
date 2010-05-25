@@ -42,5 +42,13 @@
    	   <action name="videoLook" class="com.changpeng.jifen.action.ajax.VideoLookAction">
 			<result name="success" type="json"></result>
    	   </action>
+   	   
+   	    <action name="logVideoLookIn" class="com.changpeng.jifen.action.ajax.LogVideoLookInAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	    <action name="logVideoLookOut" class="com.changpeng.jifen.action.ajax.LogVideoLookOutAction">
+			<result name="success" type="json"></result>
+   	   </action>
    </package>
 </struts>

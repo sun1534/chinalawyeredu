@@ -27,7 +27,7 @@ function fanye(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：积分查询
+    	当前位置：您的积分查询
     	</td>
   </tr>
 </table>
@@ -40,7 +40,7 @@ function fanye(str){
     	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr>
           <td height="24"  >
-           	<div align="center"><b>您的培训积分<b/></div>
+        
            	<div align="left">
           积分年限:<s:select name="nianshenyear" list="jifentime.years" onchange="document.form1.submit()"/>
            	(积分计算：从【${jifentime.startstr}】到【${jifentime.endstr}】。达标需满【${dabiaofen }】分)
@@ -66,8 +66,10 @@ function fanye(str){
      
         <TD align="center" background="../imagesa/top-bg1.gif">培训时长（分）</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">获得积分</TD>
+         <TD align="center" background="../imagesa/top-bg1.gif">课程积分</TD>
+         <TD align="center" background="../imagesa/top-bg1.gif">积分年度</TD>
       </tr>
-      <s:set name="zongjifen" value="0"/>
+      <s:set name="alljifen" value="0"/>
 <s:iterator value="page.items" status="stat">
       <TR>
         <TD class="tab_content" align="left">
@@ -83,7 +85,9 @@ function fanye(str){
         <TD class="tab_content" align="center">${pxreqminutes} </TD>
         <TD class="tab_content" align="center">${pxminutes}</TD>
          <TD class="tab_content" align="center">${pxxf}</TD>
-          <s:set name="zongjifen" value="#zongjifen+pxxf"/>
+         <TD class="tab_content" align="center">${zongjifen}</TD>
+         <TD class="tab_content" align="center">${theyear}</TD>
+          <s:set name="alljifen" value="#alljifen+pxxf"/>
       </TR>
      </s:iterator> 
      
@@ -97,20 +101,14 @@ function fanye(str){
        文本课件:<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(wenbenkejian)"/>&nbsp;
        补登积分:<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(budeng)"/>&nbsp;
   总积分:
-  <s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(#zongjifen)"/></font>
+  <s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(#alljifen)"/></font>
    &nbsp;&nbsp; &nbsp; &nbsp;
         	
        </td>
       </tr>
      
     </table>
-        	<table width="100%" border="0" cellpadding="0" cellspacing="1">
-        <tr >
-          <td height="24" align="center" background="../imagesa/login_bg1.gif" >
-       
-          </td>
-        </tr>
-      </table>   
+        	
     </td>
   </tr>
     </s:form>

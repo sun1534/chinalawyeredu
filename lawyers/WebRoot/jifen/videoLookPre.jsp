@@ -8,9 +8,10 @@
 		<meta HTTP-EQUIV="Expires" content="0" />
 		<META NAME="ROBOTS" CONTENT="NOHTMLINDEX" />
 		<title><%=com.changpeng.common.Constants.SYS_NAME%>-在线视频</title>
-		<script type="text/javascript" src="../js/prototype-1.6.0.2.js"></script>
+		
+		<script type="text/javascript" src="../js/jquery-1.2.6.pack.js"></script>
 	</HEAD>
-	<BODY scroll="yes">
+	<BODY scroll="yes" onunload="exitform()">
 		<form name="form1" method="post" action="" onSubmit="" id="form1">
 			<TABLE id="Table1" height="100%" cellSpacing="0" cellPadding="0"
 				width="100%" border="0" bgColor="#99ccff">
@@ -18,15 +19,15 @@
 				<TR>
 					<TD vAlign="middle" align="center" bgColor="#99ccff" rowspan="">
 						<TABLE id="Table2"
-							style="FONT-SIZE: 9pt; TEXT-TRANSFORM: none; WIDTH: 384px; FONT-FAMILY: 宋体; HEIGHT: 387px"
-							borderColor="#336699" cellSpacing="1" cellPadding="4" width="384"
+							style="FONT-SIZE: 9pt; TEXT-TRANSFORM: none; WIDTH: 484px; FONT-FAMILY: 宋体; HEIGHT: 487px"
+							borderColor="#336699" cellSpacing="1" cellPadding="4" width="484"
 							bgColor="#adc7e7" border="1">
 							<TR>
-								<TD vAlign="middle" style="width: 380px" align="center">
+								<TD vAlign="middle" style="width: 480px" align="center">
 									<FONT face="宋体">
 										<!-- <P align="left">-->
 											<span id="LessonNameLab"
-												style="display: inline-block; border-width: 0px; font-size: 9.5pt; font-weight: bold; width: 367px;">
+												style="display: inline-block; border-width: 0px; font-size: 9.5pt; font-weight: bold; width: 467px;">
 												${lessons.title}<br>讲师:${lessons.teachers} 
 												<s:if test="!settime">
 													<s:if test="!localelesson">
@@ -57,18 +58,18 @@
 								</TD>
 							</TR>
 							<TR style="">
-								<TD style="width: 380px" align="left" valign="middle">
+								<TD style="width: 480px" align="left" valign="middle">
 									<FONT face="宋体"> 
 									<STRONG>课时总长：<input	name="Duration" type="text" readonly="readonly"	id="Duration" style="color:#0000C0;border-color:#0000C0;border-width:1px;border-style:Solid;font-size:9pt;font-weight:bold;width:56px;" />
 									</STRONG>分钟
 									&nbsp;&nbsp;&nbsp;&nbsp; 
-									<STRONG>已培训时长： <input type="text" value="${lxnetrecs.lookedminutes}" 	name="LearnMinutes" value="30" readonly id="LearnMinutes" style="color: Red; border-color: #C00000; border-style: Solid; font-size: 9pt; font-weight: bold; width: 56px;" />
+									<STRONG>已培训时长： <input type="text" value="${lookedminutes}" 	name="LearnMinutes" value="30" readonly id="LearnMinutes" style="color: Red; border-color: #C00000; border-style: Solid; font-size: 9pt; font-weight: bold; width: 56px;" />
 									</STRONG>分钟 
 									</FONT>
 								</TD>
 							</TR>
 							<TR style="">
-								<TD style="width: 380px" align="left" valign="middle">
+								<TD style="width: 480px" align="left" valign="middle">
 									<STRONG>播放时间：</STRONG>
 									<input name="CurrentMinutes" type="text" value="0" readonly="readonly" id="CurrentMinutes" style="color: #0000C0; border-color: #0000C0; border-width: 1px; border-style: Solid; font-size: 9pt; font-weight: bold; width: 56px;" />
 									分钟&nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,8 +78,7 @@
 								</TD>
 							</TR>
 							<TR>
-								<TD vAlign="middle" align="center" style="width: 380px"
-									height="100%">
+								<TD vAlign="middle" align="center" style="width: 480px"	height="100%">
 									<OBJECT id="Player" height="100%" width="100%"
 										classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
 										<PARAM NAME="URL" VALUE="${lessons.onlinefile}">
@@ -121,7 +121,7 @@
 							<s:if test="settime">
 								<TR>
 									<TD vAlign="middle" align="center" bgColor="#3366cc"
-										style="width: 380px">
+										style="width: 480px">
 										<P align="right">
 											&nbsp;
 											<input type="submit" name="PlayBtn" value="从头播放" onClick="Start();return false;" id="PlayBtn" style="color:DarkSlateGray; background-color: PaleTurquoise; border-color: Teal; border-width: 1px; border-style: Solid; font-size: 9pt; font-weight: bold;" />
@@ -142,6 +142,7 @@
 
 			</TABLE>
 		</form>
+
 		<script language="JavaScript">
 var Duration=document.getElementById("Duration");
 var CurrentMinutes=document.getElementById("CurrentMinutes");
@@ -154,12 +155,23 @@ var HaveSeted=false;
 //var ShowNextMinutes=10+Math.floor(Math.random()*10);
 var ShowNextMinutes=${videotimeout};
 //var ShowNextMinutes=0.8;
-var netrecsid =${lxnetrecs.netrecsid};
+var visitid=${visitid};
 var nowyear=${nowyear};
 //var ShowNextMinutes=5+twoPlaces(Math.random())*10;
 //     alert(ShowNextMinutes);
 setTimeout('GetInfo()', 1000);
 var setTimeSuccess=false;
+
+function exitform(){
+   $.ajax({
+		type: "POST",
+		async: true,
+		url:"../jifenajax/logVideoLookOut.pl",
+		data:"id="+visitid,
+	    success:function(resp){
+	    }
+	 });
+}
 function twoPlaces(amount)
 {
    //return (amount==Math.floor(amount))?amount + '.00':((amount*10== Math.floor(amount*10)) ? amount + '0':Math.floor(amount*100)/100);
@@ -205,7 +217,6 @@ function ShowLearnMinutes(Minutes)
 
     GetLearnMinutes();
         
-   //PutInBtn.style.display="";
 }
 
 function GetLearnMinutes()
@@ -213,30 +224,12 @@ function GetLearnMinutes()
    var SetMode=(NewLearnMinutes==-1)?"All":"";   
    var SetMinutes=(NewLearnMinutes==-1)?Duration.value:NewLearnMinutes;
    var LookedAllMinutes=(NewLearnMinutes==-1)?Duration.value:twoPlaces(Number(LearnMinutes.value)+Number(SetMinutes));
-   //   alert(SetMode+"==="+SetMinutes );
-   //if (LawUserControls.NetLearn.SetLearnMinutes("szlxadmin","46",twoPlaces(Number(Duration.value)),twoPlaces(Number(SetMinutes)),SetMode).value)
-   //{ 
-   // 
-   //  alert(twoPlaces(Number(Duration.value))+"==="+twoPlaces(Number(CurrentMinutes.value)));
-   // 	SetLearnMinutes (twoPlaces(Number(Duration.value)),twoPlaces(Number(SetMinutes)));
-		
-		  SetLearnMinutes (twoPlaces(Number(Duration.value)),twoPlaces(Number(LookedAllMinutes)));
-	
-		if(setTimeSuccess){
-	    	LearnMinutes.value=(NewLearnMinutes==-1)?SetMinutes:twoPlaces(Number(LearnMinutes.value)+Number(SetMinutes));
-		//PutInBtn.style.display="none";
-    
-   //  alert("LearnMinutes.value="+LearnMinutes.value);
-   
-		    HaveSeted=false;
-		    NewLearnMinutes=0; 
-	  }
-   //}
-   //else
-   //{
-   //   alert("无法保存网上培训时间，请与系统管理员联系...")
-   //}
-   
+   SetLearnMinutes (twoPlaces(Number(Duration.value)),twoPlaces(Number(LookedAllMinutes)));
+   if(setTimeSuccess){
+	  	LearnMinutes.value=(NewLearnMinutes==-1)?SetMinutes:twoPlaces(Number(LearnMinutes.value)+Number(SetMinutes));
+   	    HaveSeted=false;
+	    NewLearnMinutes=0; 
+   }
    ReLearn();
 }
 var hasselect=false;
@@ -245,32 +238,30 @@ function selectit(val){
   document.getElementById("jifenyear").value=val;
 }
 //利用ajax,异步的方式将看视频的时间保存到服务器上
-//
 function SetLearnMinutes(allminutes,lookedminutes) {
 	 var _url="../jifenajax/videoLook.pl";
 	 var jifenyear=document.getElementById("jifenyear").value;
-     var pars = "userid=${userid}&lessonid=${lessonid}&netrecsid="+netrecsid+"&allminutes="+allminutes+"&lookedminutes="+lookedminutes+"&jifenyear="+jifenyear+"&nowyear="+nowyear;
-    // alert(_url+"=" +pars);
-     var myAjax = new Ajax.Request(
-                  _url,{
-                        method: 'post',asynchronous:false,parameters: pars,onComplete: getXuefen
-                      }
-                  );
+     var pars = "userid=${userid}&lessonid=${lessonid}&allminutes="+allminutes+"&lookedminutes="+lookedminutes+"&jifenyear="+jifenyear+"&nowyear="+nowyear+"&visitid="+visitid;
+    $.ajax({
+		type: "POST",
+		async: false,
+		url:_url,
+		data:pars,
+		dataType:"json",
+		beforeSend:function(){
+	    },
+	    success:function(resp){
+		   if(parseFloat(resp.huodexuefen)==-1){
+           	 alert("无法保存网上培训时间，请与系统管理员联系...");
+         	 setTimeSuccess =false;
+       	   }
+       	   else{
+         	 alert("到现在为止,该课程您获得了"+resp.huodexuefen+"个学分!!!");
+         	 setTimeSuccess =true;
+          }
+	   }
+	 });
 
-}
-function getXuefen(originalRequest)
-{
-  var resp = eval('(' + originalRequest.responseText + ')');
-  if(parseFloat(resp.huodexuefen)==-1){
-     alert("无法保存网上培训时间，请与系统管理员联系...");
-     setTimeSuccess =false;
-  }
-  else{
-   	netrecsid =resp.netrecsid ;
-    alert("到现在为止,该课程您获得了"+resp.huodexuefen+"个学分!!!");
-     setTimeSuccess =true;
-  }
-   
 }
 var confirmed=false;
 function Start()

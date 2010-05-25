@@ -77,7 +77,7 @@ $.getJSON(
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-					${navigator}
+					在线课程列表
 				</td>
 			</tr>
 		</table>
@@ -202,7 +202,7 @@ $.getJSON(
 							</s:if>
 						</TD>
 						<TD class="tab_content" align="center">
-							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","toolbar=no,location=no,width=500,height=450,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>
+							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","toolbar=no,location=no,width=600,height=550,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>
 						</TD>
 						<TD class="tab_content" align="center">
 							<a href="#" onClick="javascript:refreshscore(${lessonid},1)">一般</a>

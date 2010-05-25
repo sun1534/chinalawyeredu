@@ -46,11 +46,11 @@ public class Test {
 		lxnetrecs.setJifenyear(2009);
 		lxnetrecs.setNowyear(2009);
 //		float huodexuefen = lxnetrecsService.saveLxnetrecs(lxnetrecs);
-		float huodexuefen = lxnetrecsService.updateLxnetrecs(lxnetrecs);
+//		float huodexuefen = lxnetrecsService.updateLxnetrecs(lxnetrecs);
 		int netrecsid = lxnetrecs.getNetrecsid();
 		
 		
-		System.out.println(huodexuefen);
+//		System.out.println(huodexuefen);
 		
 		System.out.println(netrecsid);
 	}

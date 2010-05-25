@@ -6,7 +6,7 @@
 <title><%=com.changpeng.common.Constants.SYS_NAME%>
 </title>
 <link href="../css/css.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="../js/prototype-1.6.0.2.js"></script>
+<script type="text/javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="javascript" type="text/javascript">
  
 var issubmit=false;
@@ -16,18 +16,10 @@ function submitform (){
 }
 function exitform(){
   if(!issubmit){//如果没有提交,直接关闭窗口的话
-     var url="../commonajax/ajaxlogout.pl";
-     var pars = 'now=' + new Date().getTime();
-     var myAjax = new Ajax.Request(
-                    url,
-                    {method: 'post', parameters: pars, 
-                     onComplete: function(transport){
-                        // var response = transport.responseText || "no response text";
-                        // alert("Success! \n\n" + response);
-                                                    }
-                    }
-                    );
-
+  
+    $.getJSON("../commonajax/ajaxlogout.pl", {"now":new Date().getTime()}, function(resp){
+      }
+    ); 
   }
 }
 </script>

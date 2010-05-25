@@ -4,6 +4,9 @@
 
 package com.changpeng.jifen.action;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.jifen.service.LawyerlessonxfService;
@@ -11,9 +14,10 @@ import com.changpeng.jifen.service.LxnetrecsService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
+import com.changpeng.models.LogVideoLook;
 import com.changpeng.models.Lxnetrecs;
-import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 
 /**
@@ -27,9 +31,14 @@ import com.changpeng.models.SysUnionparams;
  * 
  */
 public class VideoLookPreAction extends AbstractAction {
-
+	private static Log _LOG = LogFactory.getLog(VideoLookPreAction.class);
 	private int lessonid;
 	private float videotimeout = 0;
+	private int visitid;
+
+	public int getVisitid() {
+		return this.visitid;
+	}
 
 	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
@@ -51,6 +60,7 @@ public class VideoLookPreAction extends AbstractAction {
 		return this.islastyear;
 	}
 
+	private float lookedminutes;
 	/**
 	 * 积分年度
 	 */
@@ -83,15 +93,35 @@ public class VideoLookPreAction extends AbstractAction {
 	public boolean getShouldselect() {
 		return shouldselect;
 	}
-	
+
 	private float nowfen;
-	public float getNowfen(){
+
+	public float getNowfen() {
 		return this.nowfen;
 	}
-	
+
 	public int mingnian;
-	
-	
+
+	private int loglook(int lawyerid, int provinceid, int cityid, int officeid) {
+		try {
+
+			LogVideoLook log = new LogVideoLook();
+
+			log.setLawyerid(lawyerid);
+			log.setCityid(cityid);
+			log.setProvinceid(provinceid);
+			log.setOfficeid(officeid);
+			log.setLessonid(lessonid);
+			log.setIntime(new java.sql.Timestamp(System.currentTimeMillis()));
+			basicService.save(log);
+			return log.getId();
+
+		} catch (Exception e) {
+
+			LOG.error("记录访问有误:::" + e);
+			return -1;
+		}
+	}
 
 	@Override
 	public String go() throws Exception {
@@ -108,21 +138,13 @@ public class VideoLookPreAction extends AbstractAction {
 		JifenTime jifentime = CommonDatas.getJifenTime(0, params.getNianshen());
 		nowyear = jifentime.getNianshenyear();
 		this.lastyear = nowyear - 1;
-boolean isloglast=params.getIsloglast();
-debug("isloglast:::"+isloglast);
-		// 判断这个律协的创建年份是否在去年之后
-		JifenTime lastjifentime = CommonDatas.getJifenTime(lastyear, params.getNianshen());
-		long lastyearbegin = lastjifentime.getStart().getTime();
-		long lastyearend = lastjifentime.getEnd().getTime();
-//		System.out.println(lastjifentime.getStart()+"==="+lastjifentime.getStart());
-//		SysGroup group = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getDirectunion());
-//		long groupcreate = group.getCreatetime().getTime();
-//System.out.println(groupcreate+"==="+group.getCreatetime());
+		boolean isloglast = params.getIsloglast();// 去年的分数没满，听的课是否记录到去年
 		yearfen = xfservice.getLawyerZongjifen(userid, lastyear);
-		nowfen=xfservice.getLawyerZongjifen(userid, nowyear);
+		nowfen = xfservice.getLawyerZongjifen(userid, nowyear);
 
-		LxnetrecsService lxnetrecsService = (LxnetrecsService) getBean("lxnetrecsService");
-		BasicService basicService = (BasicService) getBean("basicService");
+		// LxnetrecsService lxnetrecsService = (LxnetrecsService)
+		// getBean("lxnetrecsService");
+		// BasicService basicService = (BasicService) getBean("basicService");
 		this.lessons = (Lessons) basicService.get(Lessons.class, lessonid);
 		if (this.lessons == null) {
 			this.message = "系统有误,请在在线课程里,选择课程点击观看";
@@ -134,16 +156,18 @@ debug("isloglast:::"+isloglast);
 			return "message";
 		}
 
-		this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid, userid);
+		// this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid,
+		// userid);
 
-		debug("this.lxnetrecs==" + this.lxnetrecs);
+		// debug("this.lxnetrecs==" + this.lxnetrecs);
 
 		Lawyerlessonxf xuefen = xfservice.getXuefen(lessonid, this.userid, 0);
 		// 满分了，不管是通过什么方式的
 		if (xuefen != null) {
-			debug("xuefen.getPxxf().floatValue() == lessons.getXuefen().floatValue()"
+			this.lookedminutes = xuefen.getPxminutes();
+			_LOG.debug("xuefen.getPxxf().floatValue() == lessons.getXuefen().floatValue()"
 					+ (xuefen.getPxxf().floatValue() == lessons.getXuefen().floatValue()));
-			debug(xuefen.getPxxf() + "===" + lessons.getXuefen());
+			_LOG.debug(xuefen.getPxxf() + "===" + lessons.getXuefen());
 		}
 		if (xuefen != null && xuefen.getIsfull()) {
 			settime = false;
@@ -158,7 +182,6 @@ debug("isloglast:::"+isloglast);
 		if (xuefen != null) {
 			jifenyear = xuefen.getTheyear();
 			islastyear = xuefen.getIslastyear() == 1 ? true : false;
-//		} else if (!(groupcreate <= lastyearend&&groupcreate>=lastyearbegin)) {
 		} else if (!isloglast) {
 			shouldselect = false;
 			jifenyear = nowyear;
@@ -171,8 +194,10 @@ debug("isloglast:::"+isloglast);
 				jifenyear = nowyear;
 			}
 		}
-		if (lxnetrecs == null)
-			lxnetrecs = new Lxnetrecs();
+
+		Lawyers lawyers = this.getLoginUser();
+		visitid = loglook(lawyers.getLawyerid(), lawyers.getProvinceunion(), lawyers.getDirectunion(), lawyers
+				.getTheoffice());
 
 		return SUCCESS;
 
@@ -191,11 +216,11 @@ debug("isloglast:::"+isloglast);
 		return this.settime;
 	}
 
-	private Lxnetrecs lxnetrecs;
+	// private Lxnetrecs lxnetrecs;
 
-	public Lxnetrecs getLxnetrecs() {
-		return this.lxnetrecs;
-	}
+	// public Lxnetrecs getLxnetrecs() {
+	// return this.lxnetrecs;
+	// }
 
 	private float totalfen;
 	private float yearfen;
@@ -224,5 +249,12 @@ debug("isloglast:::"+isloglast);
 	 */
 	public void setUserid(int userid) {
 		this.userid = userid;
+	}
+
+	/**
+	 * @return the lookedminutes
+	 */
+	public float getLookedminutes() {
+		return lookedminutes;
 	}
 }

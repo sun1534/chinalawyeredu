@@ -16,12 +16,12 @@ import com.changpeng.models.Lxnetrecs;
  *
  */
 public class LxnetrecsDAO extends BasicDAO {
-	public Lxnetrecs getLxnetrecs(int lessonid,long userid) throws ServiceException {
-	
-			List list = find("from com.changpeng.models.Lxnetrecs xf where xf.lessonid=" + lessonid+" and xf.userid="+userid);
-			if (list == null || list.size() == 0)
-				return null;
-			return (Lxnetrecs) list.get(0);
-	
-	}
+//	public Lxnetrecs getLxnetrecs(int lessonid,long userid) throws ServiceException {
+//	
+//			List list = find("from com.changpeng.models.Lxnetrecs xf where xf.lessonid=" + lessonid+" and xf.userid="+userid);
+//			if (list == null || list.size() == 0)
+//				return null;
+//			return (Lxnetrecs) list.get(0);
+//	
+//	}
 }

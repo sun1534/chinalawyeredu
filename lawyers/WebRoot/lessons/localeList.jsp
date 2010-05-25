@@ -55,7 +55,7 @@ function fanye(str){
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-					${navigator}
+					现场课程列表
 				</td>
 			</tr>
 		</table>
