@@ -1,4 +1,4 @@
-<#import "/common/home.ftl" as home>
+﻿<#import "/common/home.ftl" as home>
 <#escape x as (x)!"">
 <@home.home myheader="progress/progresslist_h.ftl" >
 
@@ -17,7 +17,7 @@
 					<p>价格：${product.pricestr} ${product.unit}</p>
 					<p>当前状态：
 					 <#if publish.statusid=1>初订购</#if>
-			   	     <#if publish.statusid=2>待付费（<a href="../progress/tenpay.action?id=${publishid}" target="_blank" class="a_pay">现在付款</a>）</#if>
+			   	     <#if publish.statusid=2>待付费（<a href="../progress/tenpay.action?id=${publishid}" class="a_pay">现在付款</a>）</#if>
 			   	     <#if publish.statusid=3>待审核</#if>
 			   	     <#if publish.statusid=4>审核未通过</#if>
 			   	     <#if publish.statusid=5>审核通过</#if>
@@ -49,7 +49,7 @@
 						</#if>
 					</div>
 					<#if contentsize gt 0>
-						<textarea maxLength="${contentsize}" id="txtcontent" class="editArea">${content}</textarea>
+						<textarea style="border:1px" maxLength="${contentsize}" id="txtcontent" class="editArea">${content}</textarea>
 						<input type="button" id="editbtn" onclick="editit()" value="编辑"  class="delBtn igreen "/>
 						<input type="button" id="savebtn" onclick="saveit()" value="保存"   class="delBtn igreen " style="display:none" />
 						<input type="button" id="cancelbtn" onclick="cancelit()" value="取消"  class="cancerBtn" style="display:none" />

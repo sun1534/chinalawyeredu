@@ -1,4 +1,4 @@
-<div class="popbox2">
+﻿<div class="popbox2">
   <div class="box-orange">
     	<h3>提示</h3>
 		<div class="box-content">
@@ -9,6 +9,9 @@
 				<input type="radio" name="approve_type" value="1" onclick="selectit(1)"/>身份证认证
 				<input type="radio" name="approve_type" value="2" onclick="selectit(2)" />电话认证
 				<input type="radio" name="approve_type" value="3"  onclick="selectit(3)"/>上门认证
+            <#if currentRole=2>    
+                <input type="radio" name="approve_type" value="4" onclick="selectit(1)"/>营业执照认证
+			</#if>
 			</p>
 			
 		</div>

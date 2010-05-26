@@ -1,4 +1,4 @@
-<#macro home myheader>
+﻿<#macro home myheader>
 <#import "footer.ftl" as footer >
 <#if myheader!="">
 	<#import "../${myheader}" as mheader >

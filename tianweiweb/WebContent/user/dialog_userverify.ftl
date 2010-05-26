@@ -15,6 +15,9 @@
 			    <input type="radio"  value="1" name="approvetype_ajax" onclick="selectit(1)"/>身份证认证
 				<input type="radio"  value="2" name="approvetype_ajax" onclick="selectit(2)" />电话认证
 				<input type="radio"  value="3" name="approvetype_ajax"  onclick="selectit(3)"/>上门认证</span>
+				 <#if currentRole=2>    
+                <input type="radio" name="approve_type" value="4" onclick="selectit(1)"/>营业执照认证
+			</#if>
 		</div>
 
 		<div class="even">

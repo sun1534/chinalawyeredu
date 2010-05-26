@@ -14,7 +14,7 @@
 			   <div class="box-grey" style="margin:10px auto;">
 					<h4>信息提示</h4>
 					<div class="box-content">
-						<p>暂无需要支付的项目。</p>
+						<p>暂无支付内容。</p>
 					</div>
 				</div>
                </div>
@@ -27,7 +27,7 @@
 						 <th class="w110">产品名称</th>
 						 <th class="w80">价格</th>
 						 <th>订购时间</th>
-						 <th class="w150">进度</th>
+						 <th class="w100">进度</th>
 						 <th class="w60">详细信息</th>
 						 <th class="w60">取消订购</th>
 					 </tr>
@@ -37,11 +37,11 @@
 			   <#assign title=userutil.getTitle(t.id) />
 			   <tr>
 			   	    <td>${title}</td>
-			   	   <td>${t.feestr}</td>
+			   	   <td>${t.fee}</td>
 			   	   <td>${t.createtime}</td>
 			   	   <td>
 			   	     <#if t.statusid=1>初订购</#if>
-			   	     <#if t.statusid=2>待付费 <a href="../progress/tenpay.action?id=${t.id}" target="_blank" class="a_pay">现在付款</a></#if>
+			   	     <#if t.statusid=2>待付费 <a href="../progress/tenpay.action?id=${t.id}">现在付款</a></#if>
 			   	     <#if t.statusid=3>待审核</#if>
 			   	     <#if t.statusid=4>审核未通过</#if>
 			   	     <#if t.statusid=5>审核通过</#if>

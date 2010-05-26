@@ -1,4 +1,4 @@
-<#import "/common/home.ftl" as home>
+﻿<#import "/common/home.ftl" as home>
 <#escape x as (x)!"">
 <@home.home myheader="progress/progresslist_h.ftl" >
 <style type="text/css">
@@ -39,7 +39,7 @@
 					<th class="w110">产品名称</th>
 					<th class="w80">价格</th>
 					<th >简介</th>
-					<th class="w70">详细介绍</th>
+					<!--<th class="w70">详细介绍</th>-->
 					<th class="w40">案例</th>
 					<th class="w40">订购</th>
 					</tr>
@@ -50,8 +50,8 @@
 			   	   <td>${t.name}</td>
 			   	   <td>${t.pricestr} ${t.unit}</td>
 			   	   <td>${t.description}</td>
-			   	   <td><a href="#">详细介绍</a></td>
-			   	   <td><a href="#">案例</a></td>
+			   	   <!--<td><a href="#">详细介绍</a></td>-->
+			   	   <td><a a href="${t.pic}" target="_blank">案例</a></td>
 			   	   <td><a href="javascript:dinggou(${t.id})" class="a_book">订购</a></td>
 			   </tr>
 			</#list>
@@ -82,8 +82,6 @@ function dinggou(id){
 	//alert("订购");
 }
 </script>
- </@home.home>
- </#escape>
 <script>
 function applyverify(){
 		$.ajax({
@@ -91,10 +89,12 @@ function applyverify(){
 		    data:"",
 		    url:"../user/verifyapplyp1.action",
 		    success:function(data){
-				$.unblockUI();
+				//$.unblockUI();
 				$.blockUI({message:data});
 
 	    }});
 }
 
 </script>
+ </@home.home>
+ </#escape>

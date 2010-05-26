@@ -1,4 +1,4 @@
-<#import "/common/home.ftl" as home>
+﻿<#import "/common/home.ftl" as home>
 <#escape x as (x)!"">
 <@home.home myheader="progress/progresslist_h.ftl" >
 
@@ -14,7 +14,7 @@
 			   <div class="box-grey" style="margin:10px auto;">
 					<h4>信息提示</h4>
 					<div class="box-content">
-						<p>暂无您订购的产品信息。</p>
+						<p>暂无您已付款的产品信息。</p>
 					</div>
 				</div>
                </div>

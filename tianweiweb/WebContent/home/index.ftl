@@ -1,12 +1,11 @@
-<#import "../common/homenoleft.ftl" as home>
+﻿<#import "../common/homenoleft.ftl" as home>
 <#escape x as (x)!"">
 <@home.home>
 	<div id="nr">
 		<div id="nrl">
 			<span class="hy">
-			     即日起注册深圳市天威广告网用户<br />
-			     就可获得惊喜大奖，数量有限，先到先得！<br />
-	          <#if currentUserid=0>
+			     本网站联合华侨城旅行社隆重<br />
+推出南非世界杯足球赛旅游套餐优惠<br />&nbsp; 活动！另近期将推出特惠“台湾游”活动专题，<br />敬请留意！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<#if currentUserid=0>
 	          <a href="../regist/regist!input.action">立即注册>></a>
 	          </#if>&nbsp;</span>
 			<span class="hd">
@@ -43,7 +42,12 @@ document.write('</object>');
 		</div>
 		<div id="nrr">
 			<div class="video">
-				<div class="media"><a  onclick="window.open('../home/shichuang.action','newwindow', 'height=620,width=930, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')" href="javascript:;"><img width="394" height="322" src="../images/szsc.jpg"  /></a></div>
+				<div class="media"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="394" height="322">
+          <param name="movie" value="../images/video.swf" />
+          <param name="quality" value="high" />
+          <param name="wmode" value="transparent" />
+          <embed src="../images/video.swf" quality="high" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="394" height="322"></embed>
+		  </object></div>
 				<div class="dh">
 					<div class="navdl">
 					<h3>节目导航</h3>
@@ -58,7 +62,7 @@ document.write('</object>');
 					</#list>
 					</ul>
 					</div>
-					<div class="nowday">
+					<!-- <div class="nowday">
 						<h3>今日更新</h3>
 						<ul>
 						<#list daohangs as daohang>
@@ -66,7 +70,7 @@ document.write('</object>');
 							<a  href="#" onclick="window.open('${daohang.url}','newwindow', 'height=526,width=640, top=100, left=50, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')">${daohang.title}</a></li>
 						</#list>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="clear"></div>

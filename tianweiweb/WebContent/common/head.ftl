@@ -1,4 +1,4 @@
-<#macro header>
+﻿<#macro header>
 <div id="top">
 	<div id="topl">
 		  <div id="logo"><img src="../images/logo.jpg" /></div>
@@ -21,7 +21,7 @@
 		    <#if currentUserid!=0>
 				<dl class="loginin">
 					<dt><b>${currentUsername}</b>您好！</dt>
-					<dd>欢迎来到深圳市天威广告有限公司网站！<br />
+					<dd>欢迎来到深圳市天威广告<br />有限公司网站！<br />
 					<a href="../user/userbaseview.action"><#if currentRole=1>家庭专区</#if><#if currentRole=2>商家专区</#if></a>
 		    	<a href="../common/loginOut.action">退出登录</a></dd>
 				</dl>
@@ -34,12 +34,13 @@
 
 		<!--<iframe src="http://www.7stk.com/1/6/sina.htm" frameborder="0" width="150" height="17" marginheight="0" marginwidth="0" scrolling="no"></iframe>-->
 		<div id="" class="weather">
-			<iframe src="http://www.tianqi123.com/small_page/chengshi_371.html?c0=red&c1=D96C00&bg=FFD476&w=280&h=13&text=yes" width=280 height=13 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no align=center id=url style="height:13px;line-height:13px;float:left;"></iframe>
-			<!--<a href="#">深圳
-			<input name="Input" type="image" disabled="disabled" src="../images/rainy.gif" align="bottom" />
-			阵雨 气温27-32度 2009年7月28日</a>
-			-->
-			<a href="#" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage(document.location.href);event.returnValue=false;"><img src="../images/home.gif" align="absmiddle" />设为首页</a>
+			<!--<marquee width="360" style="margin-right:15px"><iframe src="http://www.thinkpage.cn/weather/weather.aspx?uid=&c=CHXX0120&l=zh-CHS&p=CMA&a=0&u=C&s=4&m=0&x=0&d=3&fc=FF0000&bgc=&bc=&ti=1&in=1&li=2" frameborder="0" scrolling="no" width="460" height="20" allowTransparency="true"></iframe>
+</marquee>-->
+<marquee width="360" style="margin-right:15px">
+<iframe src="../home/getWeather.action" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" width="450" height="20" allowTransparency="true"></iframe>
+</marquee>
+
+			&nbsp;&nbsp;&nbsp;<a href="#" onClick="this.style.behavior='url(#default#homepage)';this.setHomePage(document.location.href);event.returnValue=false;"><img src="../images/home.gif" align="absmiddle" />设为首页</a>
 			<a href="#" onclick="javascript:window.external.addFavorite(document.location.href,'天威广告')"><img src="../images/add.gif"  align="absmiddle" />加入收藏</a>
 		</div>
 
