@@ -55,6 +55,10 @@
           <result name="success" type="dispatcher">/netquality/bscList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/bscList_excel.jsp</result>	
        </action>
+               <action name="bscRubbishList" class="com.sxit.netquality.action.BscRubbishListAction">
+          <result name="success" type="dispatcher">/netquality/bscRubbishList.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/bscRubbishList_excel.jsp</result>	
+       </action>
         <action name="sgsnList" class="com.sxit.netquality.action.SgsnListAction">
           <result name="success" type="dispatcher">/netquality/sgsnList.jsp</result>	
           <result name="excel" type="dispatcher">/netquality/sgsnList_excel.jsp</result>	

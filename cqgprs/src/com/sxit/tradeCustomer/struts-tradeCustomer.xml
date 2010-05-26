@@ -12,6 +12,7 @@
 		<!-- 总流量分析 -->
 		   <action name="tradeCustomerAll" class="com.sxit.tradeCustomer.action.TradeCustomerAllAction">
           <result name="success" type="dispatcher">/tradeCustomer/tradeCustomerAll.jsp</result>	
+            <result name="excel" type="dispatcher">/tradeCustomer/tradeCustomerAll_excel.jsp</result>	
        </action>
      <action name="exceptionApns" class="com.sxit.tradeCustomer.action.ExceptionApnsAction">
           <result name="success" type="dispatcher">/tradeCustomer/exceptionApns.jsp</result>	
@@ -20,6 +21,7 @@
        </action>
        <action name="exceptionUsers" class="com.sxit.tradeCustomer.action.ExceptionUsersAction">
           <result name="success" type="dispatcher">/tradeCustomer/exceptionUsers.jsp</result>	
+            <result name="excel" type="dispatcher">/tradeCustomer/exceptionUsers_excel.jsp</result>	
        </action>
        
           <action name="hightStreamCustomerUser" class="com.sxit.tradeCustomer.action.HightStreamCustomerUserAction">

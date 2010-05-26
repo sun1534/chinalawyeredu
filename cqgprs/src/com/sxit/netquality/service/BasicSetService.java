@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sxit.common.PaginationSupport;
 import com.sxit.netquality.models.Apn;
 import com.sxit.netquality.models.BscRnc;
+import com.sxit.netquality.models.BscRubbish;
+import com.sxit.netquality.models.BscRubbishContent;
 import com.sxit.netquality.models.Cell;
 import com.sxit.netquality.models.Nsvc;
 import com.sxit.netquality.models.Sgsn;
@@ -97,10 +100,12 @@ public class BasicSetService {
 		String sql = "select count(*) from set_apn where opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
+
 	public int getTotalCqApns() {
 		String sql = "select count(*) from set_apn where apnni like '%.cq' and opttype!=2";
 		return jdbcTemplate.queryForInt(sql);
 	}
+
 	/**
 	 * 得到前1天新增的bsc个数
 	 * 
@@ -127,7 +132,7 @@ public class BasicSetService {
 	 * @return
 	 */
 	public int getTodayAddCell() {
-		Date date =  com.sxit.stat.util.StatUtil.getPrevDate();
+		Date date = com.sxit.stat.util.StatUtil.getPrevDate();
 
 		long start = getDayStartTime(date);
 		long end = start + 24 * 60 * 60 * 1000L;
@@ -182,32 +187,32 @@ public class BasicSetService {
 		return jdbcTemplate.queryForInt(sql);
 	}
 
-//	/*
-//	 * 得到当前日期的前一天
-//	 */
-//	protected Date getPrevDate() {
-//		return getPrevCountDate(1);
-//	}
+	// /*
+	// * 得到当前日期的前一天
+	// */
+	// protected Date getPrevDate() {
+	// return getPrevCountDate(1);
+	// }
 
-//	/*
-//	 * 得到当前日期的前一天
-//	 */
-//	protected Date getPrevCountDate(int days) {
-//		Calendar c = Calendar.getInstance();
-//		c.add(Calendar.DATE, 0 - days);
-//		Date d = new Date();
-//		d.setTime(c.getTimeInMillis());
-//		return d;
-//	}
+	// /*
+	// * 得到当前日期的前一天
+	// */
+	// protected Date getPrevCountDate(int days) {
+	// Calendar c = Calendar.getInstance();
+	// c.add(Calendar.DATE, 0 - days);
+	// Date d = new Date();
+	// d.setTime(c.getTimeInMillis());
+	// return d;
+	// }
 
-	public PaginationSupport getCells(String cellid, String lac,String bscid,String orderby, int pageNo, int pageSize) {
+	public PaginationSupport getCells(String cellid, String lac, String bscid, String orderby, int pageNo, int pageSize) {
 		String countsql = "";
 		String sql = "";
 
 		int startIndex = (pageNo - 1) * pageSize;
 		countsql = "select count(*) from set_cell where opttype!=2 ";
-		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} "+orderby+") a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+		sql = "select * from(select a.*,rownum rn from(select * from set_cell where opttype!=2 ${where} " + orderby
+				+ ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 		String where = "";
 		if (cellid != null && !cellid.equals("")) {
 			where += " and cellid='" + cellid + "'";
@@ -247,29 +252,31 @@ public class BasicSetService {
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
-/**
- * 
- * @param apnni
- * @param usercorp
- * @param userphone
- */
-	public void updateApn(String apnni,String usercorp,String userphone){
-		long now=new Date().getTime()/1000;
-String sql="update set_apn set apnname='"+usercorp+"',apnconector='"+userphone+"',opttype=1,updatetime="+now+" where apnni='"+apnni+"'";
-jdbcTemplate.execute(sql);
-Apn apn=BasicSetService.ALL_APNS.get(apnni);
-apn.setApnname(usercorp);
-apn.setUsercorp(usercorp);
-apn.setUserphone(userphone);
-apn.setLastopt("1");
-apn.setLastupdate(new Date());
-synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
-	com.sxit.netquality.service.BasicSetService.ALL_APNS.remove(apn.getApnid());
-	com.sxit.netquality.service.BasicSetService.ALL_APNS.put(apn.getApnid(), apn);
-}
+
+	/**
+	 * 
+	 * @param apnni
+	 * @param usercorp
+	 * @param userphone
+	 */
+	public void updateApn(String apnni, String usercorp, String userphone) {
+		long now = new Date().getTime() / 1000;
+		String sql = "update set_apn set apnname='" + usercorp + "',apnconector='" + userphone
+				+ "',opttype=1,updatetime=" + now + " where apnni='" + apnni + "'";
+		jdbcTemplate.execute(sql);
+		Apn apn = BasicSetService.ALL_APNS.get(apnni);
+		apn.setApnname(usercorp);
+		apn.setUsercorp(usercorp);
+		apn.setUserphone(userphone);
+		apn.setLastopt("1");
+		apn.setLastupdate(new Date());
+		synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
+			com.sxit.netquality.service.BasicSetService.ALL_APNS.remove(apn.getApnid());
+			com.sxit.netquality.service.BasicSetService.ALL_APNS.put(apn.getApnid(), apn);
+		}
 
 	}
-	
+
 	private void getAllCells() {
 		String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from  set_cell a ,allvolume_cellid b where a.cellid=b.cellid(+) and a.lac=b.lac(+) and a.opttype!=2";
 		jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -286,7 +293,7 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLac(rs.getString("lac"));
 					model.setLastopt(rs.getString("OPTTYPE"));
-				
+
 					model.setAllvolume(rs.getDouble("allvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setUpvolume(rs.getDouble("upvolume"));
@@ -298,22 +305,20 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 					ALL_CELL_LIST.add(model);
 					ALL_CELLS.put(model.getCellkey(), model);
 					CELL_BSC.put(model.getCellkey(), rs.getString("BSCID"));
-				
-				
 
 					// if(model.getCellkey().equals("33148-11243")){
 					//					
 					// System.out.println("model.getAllvolume():::"+model.getAllvolume());
 					//		
 					//		
-					//					}
+					// }
 				}
 				return null;
 			}
 		});
-		
-		
-		System.out.println("ALL_CELLS.get(\"33148-11243\").getAllvolume():::"+ALL_CELLS.get("33148-11243").getAllvolume());
+
+		System.out.println("ALL_CELLS.get(\"33148-11243\").getAllvolume():::"
+				+ ALL_CELLS.get("33148-11243").getAllvolume());
 
 	}
 
@@ -346,21 +351,20 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 		});
 	}
 
-	public PaginationSupport getNsvces(String bscid,String orderby,int pageNo,int pageSize) {
-		
-		
-		 String where="";
-		 if(!(bscid==null||bscid.equals(""))){
-			 where=" and bscid='"+bscid+"'";
-		 }
+	public PaginationSupport getNsvces(String bscid, String orderby, int pageNo, int pageSize) {
+
+		String where = "";
+		if (!(bscid == null || bscid.equals(""))) {
+			where = " and bscid='" + bscid + "'";
+		}
 
 		int startIndex = (pageNo - 1) * pageSize;
-		String	countsql = "select count(*) from set_nsvc where opttype!=2 "+where;
-		String sql = "select * from(select a.*,rownum rn from(select * from set_nsvc where opttype!=2 "+where+orderby+") a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
-	
-		int totalCount=jdbcTemplate.queryForInt(countsql);
-		
+		String countsql = "select count(*) from set_nsvc where opttype!=2 " + where;
+		String sql = "select * from(select a.*,rownum rn from(select * from set_nsvc where opttype!=2 " + where
+				+ orderby + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+
+		int totalCount = jdbcTemplate.queryForInt(countsql);
+
 		Object obj = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -383,18 +387,18 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 				return list;
 			}
 		});
-		List list= (List) obj;
+		List list = (List) obj;
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
 	}
-	
-	public List getNsvces(String bscid,String orderby) {
+
+	public List getNsvces(String bscid, String orderby) {
 		String sql = "select * from  set_nsvc where opttype!=2";
 
 		if (bscid != null && !"".equals(bscid)) {
 			sql += " and bscid='" + bscid + "'";
 		}
-		sql+=orderby;
+		sql += orderby;
 		Object obj = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				// List list = new ArrayList();
@@ -448,9 +452,9 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 		});
 	}
 
-	public List getBsces(String bscid, String sgsnid,String orderby) {
+	public List getBsces(String bscid, String sgsnid, String orderby) {
 
-		String sql = "select * from set_bsc where opttype!=2"+orderby;
+		String sql = "select * from set_bsc where opttype!=2" + orderby;
 		if (bscid != null && !bscid.equals("")) {
 			sql += " and bscid='" + bscid + "'";
 		}
@@ -482,6 +486,7 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 		return list;
 
 	}
+
 	/**
 	 * 
 	 * 
@@ -492,22 +497,85 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 	 * @param pageSize
 	 * @return
 	 */
-	public PaginationSupport getBsces(String bscid,String sgsnid,String orderby, int pageNo, int pageSize) {
+	public List getBscRubbishes(String bscid, String sgsnid, String orderby) {
 
-		int startIndex = (pageNo - 1) * pageSize;
-		String where="";
+	
+		String where = "";
 		if (bscid != null && !bscid.equals("")) {
 			where += " and bscid='" + bscid + "'";
 		}
 		if (sgsnid != null && !sgsnid.equals("")) {
 			where += " and sgsnid='" + sgsnid + "'";
 		}
-		
-		
-		String countsql = "select count(*) from set_bsc where opttype!=2"+where;
-		String sql = "select * from(select a.*,rownum rn from(select * from	 set_bsc where opttype!=2 "+where+orderby+") a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
-	
+
+//		String countsql = "select count(distinct(bvci)) from set_bscrubbish ";
+//		String sql = "select * from(select a.*,rownum rn from(select * from	 set_bscrubbish  " + where + orderby
+//				+ ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+		String sql="select * from set_bscrubbish" + where + orderby;
+
+//		int totalCount = jdbcTemplate.queryForInt(countsql);
+
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				Map<String, BscRubbish> map = new HashMap<String, BscRubbish>();
+				while (rs.next()) {
+					BscRubbish model = null;
+					String bvci = rs.getString("bvci");
+
+					
+					if (map.get(bvci) == null) {
+						model = new BscRubbish();
+						map.put(bvci, model);
+						list.add(model);
+					} else {
+						model = map.get(bvci);
+					}
+					model.setRecordtime(rs.getLong("recordtime"));
+					model.setBvci(bvci);
+					int isrubbish = rs.getInt("ISRUBBISH");
+					BscRubbishContent content = new BscRubbishContent();
+					content.setBscid(rs.getString("bscid"));
+//					content.setSgsnid(rs.getString("sgsnid"));
+					content.setNesi(rs.getString("nsei"));
+					if (isrubbish == 0) {
+						model.addCorrect(content);
+					} else {
+						model.addRubbish(content);
+					}
+				}
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param bscid
+	 * @param sgsnid
+	 * @param orderby
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public PaginationSupport getBsces(String bscid, String sgsnid, String orderby, int pageNo, int pageSize) {
+
+		int startIndex = (pageNo - 1) * pageSize;
+		String where = "";
+		if (bscid != null && !bscid.equals("")) {
+			where += " and bscid='" + bscid + "'";
+		}
+		if (sgsnid != null && !sgsnid.equals("")) {
+			where += " and sgsnid='" + sgsnid + "'";
+		}
+
+		String countsql = "select count(*) from set_bsc where opttype!=2" + where;
+		String sql = "select * from(select a.*,rownum rn from(select * from	 set_bsc where opttype!=2 " + where
+				+ orderby + ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
+
 		int totalCount = jdbcTemplate.queryForInt(countsql);
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
@@ -535,16 +603,15 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 		return ps;
 	}
 
+	public PaginationSupport getApns(String apnid, String orderby, int pageNo, int pageSize) {
 
-	public PaginationSupport getApns(String apnid,String orderby, int pageNo, int pageSize) {
+		if (orderby == null || orderby.equals(""))
+			orderby = " order by orderby";
 
-		if(orderby==null||orderby.equals(""))
-			orderby=" order by orderby";
-		
 		int startIndex = (pageNo - 1) * pageSize;
 		String countsql = "select count(*) from set_apn where opttype!=2";
-		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 "+orderby+") a where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+		String sql = "select * from(select a.*,rownum rn from(select * from	 set_apn where opttype!=2 " + orderby
+				+ ") a where rownum<=" + (startIndex + pageSize) + ") where rn>" + startIndex;
 		if (!(apnid == null || apnid.equals(""))) {
 
 			countsql = "select count(*) from set_apn where opttype!=2 and	 apnni='" + apnid + "'";
@@ -666,7 +733,7 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 				List list = new ArrayList();
 				while (rs.next()) {
-					list.add(rs.getString("lac")+"-"+rs.getString("CELLID"));
+					list.add(rs.getString("lac") + "-" + rs.getString("CELLID"));
 				}
 				return list;
 			}
@@ -686,64 +753,62 @@ synchronized (com.sxit.netquality.service.BasicSetService.ALL_APNS) {
 		String sql = "";
 		while (st.hasMoreTokens()) {
 			String cellkey = st.nextToken();
-			
-			int idx=cellkey.indexOf("-");
-			String cellid=cellkey.substring(idx+1);
-			String lac=cellkey.substring(0,idx);
-			
-			sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='"+lac+"'";
+
+			int idx = cellkey.indexOf("-");
+			String cellid = cellkey.substring(idx + 1);
+			String lac = cellkey.substring(0, idx);
+
+			sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='" + lac + "'";
 			jdbcTemplate.execute(sql);
 		}
 
 		st = new StringTokenizer(selected, ",");
 		long now = System.currentTimeMillis() / 1000;
 		while (st.hasMoreTokens()) {
-	String cellkey = st.nextToken();
-			
-			int idx=cellkey.indexOf("-");
-			String cellid=cellkey.substring(idx+1);
-			String lac=cellkey.substring(0,idx);
+			String cellkey = st.nextToken();
+
+			int idx = cellkey.indexOf("-");
+			String cellid = cellkey.substring(idx + 1);
+			String lac = cellkey.substring(0, idx);
 			sql = "insert into SET_CELL_FOCUS(CELLID,lac,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
-					+ cellid + "','"+lac+"',null," + now + ",1," + userid + ",'" + username + "')";
+					+ cellid + "','" + lac + "',null," + now + ",1," + userid + ",'" + username + "')";
 
 			jdbcTemplate.execute(sql);
 		}
 	}
-	
-	public void saveFocusCell(String cellid,String lac, int userid, String username) {
-	
-		long now = System.currentTimeMillis() / 1000;
-		
-		
-			 String	sql = "insert into SET_CELL_FOCUS(CELLID,lac,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
-					+ cellid + "','"+lac+"',null," + now + ",1," + userid + ",'" + username + "')";
 
-			jdbcTemplate.execute(sql);
-		
-	}
-	public void deleteFocusCell(String cellid,String lac) {
-		String	sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='"+lac+"'";
+	public void saveFocusCell(String cellid, String lac, int userid, String username) {
+
+		long now = System.currentTimeMillis() / 1000;
+
+		String sql = "insert into SET_CELL_FOCUS(CELLID,lac,CELLNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+				+ cellid + "','" + lac + "',null," + now + ",1," + userid + ",'" + username + "')";
+
 		jdbcTemplate.execute(sql);
-		
+
 	}
-	
-	
-	
+
+	public void deleteFocusCell(String cellid, String lac) {
+		String sql = "delete from SET_CELL_FOCUS where CELLID ='" + cellid + "' and lac='" + lac + "'";
+		jdbcTemplate.execute(sql);
+
+	}
+
 	public void saveFocusApn(String apnni, int userid, String username) {
-		
-		long now = System.currentTimeMillis() / 1000;
-		
-		
-			 String	sql = "insert into SET_apn_FOCUS(apnni,APNNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
-					+ apnni + "',null," + now + ",1," + userid + ",'" + username + "')";
 
-			jdbcTemplate.execute(sql);
-		
-	}
-	public void deleteFocusApn(String apnni){
-		String	sql = "delete from SET_apn_FOCUS where apnni ='" + apnni + "'";
+		long now = System.currentTimeMillis() / 1000;
+
+		String sql = "insert into SET_apn_FOCUS(apnni,APNNAME,UPDATETIME,ISACTIVE,createuserid,createusername) values('"
+				+ apnni + "',null," + now + ",1," + userid + ",'" + username + "')";
+
 		jdbcTemplate.execute(sql);
-		
+
+	}
+
+	public void deleteFocusApn(String apnni) {
+		String sql = "delete from SET_apn_FOCUS where apnni ='" + apnni + "'";
+		jdbcTemplate.execute(sql);
+
 	}
 
 	/**
