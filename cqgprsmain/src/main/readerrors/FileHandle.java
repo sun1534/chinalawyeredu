@@ -58,12 +58,14 @@ public class FileHandle {
 		File destfileNoChange = new File(destFileNameNoChange);
 
 		HWSessionLogHandle handle = new HWSessionLogHandle(srcFileName, destFileName);
+	
+		System.out.println("啥意思啊。。。。。。。。。。。。。。。。。。。。。。。。。。。");
+		handle.convert();
 		try {
 			Thread.sleep(10 * 1000L);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		handle.convert();
 //		while (!handle.isover) {
 //			System.out.println("===================waiting...");
 //			try {
@@ -374,6 +376,9 @@ public class FileHandle {
 			List<String> no33sqls = new ArrayList<String>();
 			for (int i = 0; i < len; i++) {
 				ErrorApnsCdr cdr = cdrs.get(i);
+				
+				if(cdr.getErrorcode()!=null&&cdr.getErrorcode().equals("4328")) //郭建说4328号错误到算到38头上，因此这里统一改下入库的方式
+					cdr.setErrorcode("38");
 				// 非33的错误同时入另外一张表
 				// System.out.println("ErrorCode:"+cdr.getErrorcode());
 				if (cdr.getErrorcode() != null && !cdr.getErrorcode().equals("33")

@@ -240,7 +240,10 @@ public class StatSgsn {
 	}
 
 	private void getReminAppni(List stats, List apnnis, String temp) {
+		
 		int idx = temp.indexOf(",");
+		if(idx==-1)
+			return;
 		String _sgsnid = temp.substring(0, idx);
 		String _ggsnid = temp.substring(idx + 1);
 		if (!apnnis.contains("cmnet")) {

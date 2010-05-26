@@ -33,7 +33,7 @@ public class HWSessionLogHandle {
 		BufferedReader br = null;
 		try {
 			String command=cmd + " " + srcFileName + " " + destFileName;
-			
+			System.out.println("我尻啊。。。。。。。。。。。。。");
 			System.out.println(command);
 			long now=System.currentTimeMillis();
 			Process process = java.lang.Runtime.getRuntime().exec(command);
@@ -41,6 +41,7 @@ public class HWSessionLogHandle {
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				LOG.info("解析华为:" + srcFileName + ":" + line);
+				System.out.println("解析华为:" + srcFileName + ":" + line);
 			}
 			LOG.info("解析时间:"+(System.currentTimeMillis()-now));
 			
@@ -48,6 +49,7 @@ public class HWSessionLogHandle {
 		
 				
 		} catch (Exception e) {
+			System.out.println("解析异常:"+e);
 			LOG.error("解析异常:", e);
 		}
 		isover = true;

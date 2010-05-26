@@ -14,7 +14,7 @@ public class RauCompare {
 
 	public List<String> printlnContent() {
 		List<String> list = new ArrayList<String>();
-		list.add("SGSNCQ" + sgsnid + "删除" + delete + "条数据,新增" + add + "条数据:");
+		list.add("SGSNCQ" + sgsnid + "共"+all+"条数据,本次删除" + delete + "条数据,新增" + add + "条数据");
 
 		for (int i = 0; i < deleteraus.size(); i++) {
 			list.add("\t\t删除:" + deleteraus.get(i));
@@ -25,6 +25,7 @@ public class RauCompare {
 		return list;
 	}
 
+	private int all;
 	private int sgsnid;
 	private int add;
 	private int delete;
@@ -104,5 +105,19 @@ public class RauCompare {
 	 */
 	public void addDeleteraus(String e) {
 		this.deleteraus.add(e);
+	}
+
+	/**
+	 * @return the all
+	 */
+	public int getAll() {
+		return all;
+	}
+
+	/**
+	 * @param all the all to set
+	 */
+	public void setAll(int all) {
+		this.all = all;
 	}
 }

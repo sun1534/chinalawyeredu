@@ -89,13 +89,13 @@ public class GenerateRAU {
 				String s = raudata.rau;
 				String raclac = s.substring(0, s.indexOf("|"));
 				int linenum = raudata.linenum;
-			
+
 				// System.out.println("repeat:::" + raclac);
 				RauRepeat e = new RauRepeat();
 				e.sgsnid = sgsnid;
 				e.line = raudata.line;
-			
-				if (linenum != templine) {//排除掉华为2个ip的情况
+
+				if (linenum != templine) {// 排除掉华为2个ip的情况
 					if (repeats.containsKey(raclac)) {
 						// 这个路由有重复
 
@@ -120,40 +120,41 @@ public class GenerateRAU {
 			}
 		}
 		WARNINGS.add("===================================================");
-//		System.out.println(repeats);
+		// System.out.println(repeats);
 		Iterator<String> repeatsiterator = repeats.keySet().iterator();
 		while (repeatsiterator.hasNext()) {
 			String raclac = repeatsiterator.next();
 			List<RauRepeat> sgsnids = repeats.get(raclac);
 			if (sgsnids.size() > 1) {
-//				int temp = 0;
+				// int temp = 0;
 				List<String> lines = new ArrayList<String>();
-//				Map<Integer, Integer> sgsnidre = new HashMap<Integer, Integer>();
+				// Map<Integer, Integer> sgsnidre = new HashMap<Integer,
+				// Integer>();
 				String s = raclac + "数据有重复,同时存在于";
 				for (RauRepeat rr : sgsnids) {
 					int sgsnid = rr.sgsnid;
 					String line = rr.line;
 
-//					if (!sgsnidre.containsKey(sgsnid)) {
-						s += "SGSNCQ" + sgsnid + ",";
-//						sgsnidre.put(sgsnid, 1);
-//					} else {
-//						int rrr = sgsnidre.get(sgsnid);
-//						sgsnidre.remove(sgsnid);
-//						sgsnidre.put(sgsnid, rrr + 1);
-//					}
+					// if (!sgsnidre.containsKey(sgsnid)) {
+					s += "SGSNCQ" + sgsnid + ",";
+					// sgsnidre.put(sgsnid, 1);
+					// } else {
+					// int rrr = sgsnidre.get(sgsnid);
+					// sgsnidre.remove(sgsnid);
+					// sgsnidre.put(sgsnid, rrr + 1);
+					// }
 
 					lines.add("\t\tSGSNCQ" + sgsnid + "中的数据为:" + line);
 				}
 
 				s = s.substring(0, s.lastIndexOf(",")) + "。";// 去掉最后一个逗号
-//				Iterator<Integer> sgsnidreite = sgsnidre.keySet().iterator();
-//				while (sgsnidreite.hasNext()) {
-//					int sgsnid = sgsnidreite.next();
-//					if (sgsnidre.get(sgsnid) > 1)
-//						s += "SGSNCQ0" + sgsnid + "重复" + sgsnidre.get(sgsnid) + "个,";
-//				}
-//				s = s.substring(0, s.lastIndexOf(","));// 去掉最后一个逗号
+				// Iterator<Integer> sgsnidreite = sgsnidre.keySet().iterator();
+				// while (sgsnidreite.hasNext()) {
+				// int sgsnid = sgsnidreite.next();
+				// if (sgsnidre.get(sgsnid) > 1)
+				// s += "SGSNCQ0" + sgsnid + "重复" + sgsnidre.get(sgsnid) + "个,";
+				// }
+				// s = s.substring(0, s.lastIndexOf(","));// 去掉最后一个逗号
 
 				// WARNINGS.add(raclac + "数据有重复,在SGSN" + sgsnids + "中都有");
 				WARNINGS.add(s);
@@ -176,6 +177,7 @@ public class GenerateRAU {
 
 			RauCompare c = new RauCompare();
 			c.setSgsnid(sgsnid);
+			c.setAll(news.get(sgsnid) == null ? 0 : news.get(sgsnid).size());
 			maps.put(sgsnid, c);
 
 			List<RauData> oldraudata = old.get(sgsnid); // 旧的这个sgsnid的路由
@@ -223,9 +225,11 @@ public class GenerateRAU {
 			}
 
 			RauCompare c = maps.get(sgsnid);
-			if (c == null)
+			if (c == null) {
 				c = new RauCompare();
-
+				c.setSgsnid(sgsnid);
+				c.setAll(news.get(sgsnid) == null ? 0 : news.get(sgsnid).size());
+			}
 			if (oldrd == null || oldrd.size() == 0) {
 				// WARNINGS.add("SGSNCQ0" + sgsnid + "新增全部路由");
 				c.setAdd(newrd.size());

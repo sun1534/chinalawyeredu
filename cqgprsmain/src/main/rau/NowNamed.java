@@ -73,16 +73,17 @@ public class NowNamed {
 					for (RauData raudata : raus) {
 						String rau=raudata.rau;
 						i++;
-						String[] s = rau.split("\\|");
-						String _lacrac = s[0];
-						if (_lacrac.equals(temp)) {
-							String blanklacrac = _lacrac.replaceAll(".", " ");
-							String newrau = blanklacrac + "|A|" + s[2];
-							out.println(newrau.replace("|", "\t"));
-						} else {
-							out.println(rau.replace("|", "\t"));
-						}
-						temp = _lacrac;
+//						String[] s = rau.split("\\|");
+//						String _lacrac = s[0];
+//						if (_lacrac.equals(temp)) {
+//							String blanklacrac = _lacrac.replaceAll(".", " ");
+//							String newrau = blanklacrac + "|A|" + s[2];
+//							out.println(newrau.replace("|", "\t"));
+//						} else {
+//							out.println(rau.replace("|", "\t"));
+//						}
+//						temp = _lacrac;
+						out.println(rau.replace("|", "\t"));
 					}
 				}
 
