@@ -8,6 +8,10 @@
 <struts>
 	<package name="home" extends="commondefault" namespace="/home">   
 	      
+	       <action name="getWeather" class="com.changpeng.core.home.GetWeatherAction">
+            <result name="success" type="freemarker">/home/getWeather.ftl</result>
+        </action>
+	      
          <action name="home" class="com.changpeng.core.home.HomeAction">
             <result name="success" type="freemarker">/home/index.ftl</result>
          </action>
@@ -17,7 +21,10 @@
         <action name="notice" class="com.changpeng.core.home.NoticeAction">
             <result name="success" type="freemarker">/home/notice.ftl</result>
         </action>
-        
+        	<action name="zx680" class="com.changpeng.core.home.ZX680Action">
+			<result name="success" type="freemarker">/home/zx680.ftl</result>
+		</action>
+		
         <action name="myshow" class="com.changpeng.core.home.MyshowAction">
             <result name="success" type="freemarker">/home/myshow.ftl</result>
         </action>

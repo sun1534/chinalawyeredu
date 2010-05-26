@@ -90,7 +90,8 @@ public class PayResultAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
-	private String showurl = "http://211.148.192.252/progress/showpayresult.action";
+//	private String showurl = "http://211.148.192.252/progress/showpayresult.action";
+	private String showurl = "http://www.topway-ad.com/progress/showpayresult.action";
 
 	public String getShowurl() {
 		return this.showurl;

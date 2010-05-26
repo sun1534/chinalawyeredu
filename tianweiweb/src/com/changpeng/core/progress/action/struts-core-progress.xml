@@ -22,6 +22,7 @@
 			<result name="payshow" type="redirect">/home/home.action</result>
 		</action>
 		
+	
 		<action name="tenpay" class="com.changpeng.core.progress.action.PayTenpayAction">
 			<result name="success" type="redirect">${requestUrl}</result>
 		</action>
