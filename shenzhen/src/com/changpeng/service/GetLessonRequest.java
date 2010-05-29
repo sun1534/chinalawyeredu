@@ -4,11 +4,14 @@
 
 package com.changpeng.service;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.models.Lessons;
@@ -28,6 +31,12 @@ public class GetLessonRequest extends ElearningRequests {
 		try {
 			BasicService userservice = (BasicService) globals.getBean("basicService");
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Lessons.class);
+			
+			Calendar c=Calendar.getInstance();
+			c.add(Calendar.YEAR, -1);
+			Timestamp lastyear=new Timestamp(c.getTimeInMillis());
+			detachedCriteria.add(Restrictions.ge("createtime",lastyear));
+			
 			List list = userservice.findAllByCriteria(detachedCriteria);
 			int lessonsize = list == null ? 0 : list.size();
 			temp.append("<respcode>").append(lessonsize).append("</respcode>");

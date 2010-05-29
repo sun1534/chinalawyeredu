@@ -4,6 +4,7 @@
 
 package com.changpeng.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -32,17 +33,22 @@ public class GetLawyerRequest extends ElearningRequests {
 			BasicService userservice = (BasicService) globals.getBean("basicService");
 			DetachedCriteria detachedCriteria = DetachedCriteria.forClass(SysUser.class).add(Restrictions.eq("roleid", 1));
 			detachedCriteria.setFetchMode("sysGroup", FetchMode.JOIN);
+			
 			List list = userservice.findAllByCriteria(detachedCriteria);
+//			userservice.findPageByCriteria(detachedCriteria, pageSize, pageNo);
 			int lawersize = list == null ? 0 : list.size();
 			temp.append("<respcode>").append(lawersize).append("</respcode>");
 			temp.append("<respmsg>").append("有" + lawersize + "个律师").append("</respmsg>");
 
 			lawyertemp.append("<lawyers>");
+			List<String> cardnolist=new ArrayList<String>();
 			for (int i = 0; i < lawersize; i++) {
 				SysUser lawyer = (SysUser) list.get(i);
 				//有事务所并且不是离职的律师了
 				String cardno=lawyer.getCardno();
+			
 				if (lawyer.getSysGroup() != null&&lawyer.getSysGroup().getGroupid()!=-1&&cardno!=null&&!cardno.equals("")) {
+					if(!cardnolist.contains(cardno)){
 					lawyertemp.append("<lawyer>");
 					lawyertemp.append("<userid>").append(lawyer.getUserid()).append("</userid>");
 				
@@ -57,6 +63,8 @@ public class GetLawyerRequest extends ElearningRequests {
 					lawyertemp.append("<lawyerno>").append(lawyer.getLawerno()).append("</lawyerno>");
 					lawyertemp.append("<photo>").append(lawyer.getPhoto() == null ? "" : lawyer.getPhoto()).append("</photo>");
 					lawyertemp.append("</lawyer>\r\n");
+					cardnolist.add(cardno);
+					}
 				}
 				else {
 					LOG.info(lawyer.getUsername() + "所在的事务所为空,忽略");
