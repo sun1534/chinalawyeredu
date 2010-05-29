@@ -62,7 +62,6 @@ body {
 -->
 </style>
 <script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/prototype-1.6.0.2.js"></script>
 <script language="javascript">
 
 </script>
@@ -135,10 +134,10 @@ body {
       
 <s:iterator value="page.items" status="stat">
       <TR>
-        <TD class="tab_content" align="center"><a href="lawyerView.pl?lawyerid=${lawyerid }">${lawyername }</a></TD>
+        <TD class="tab_content" align="center"><a href="lawyerView.pl?userid=${lawyerid }">${lawyername }</a></TD>
          <TD class="tab_content" align="center">${applyname }</TD>
-       <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[oldoffice]"/></TD>
-         <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[newoffice]"/></TD>
+       <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[oldcity]"/>&gt;<s:property value="@com.changpeng.system.util.CommonDatas@groups[oldoffice]"/></TD>
+         <TD class="tab_content" align="center"><s:property value="@com.changpeng.system.util.CommonDatas@groups[newcity]"/>&gt;<s:property value="@com.changpeng.system.util.CommonDatas@groups[newoffice]"/></TD>
        <TD class="tab_content" align="center"><s:date name="applyTime" format="yyyy-MM-dd HH:mm:ss"/></TD>
        <TD class="tab_content" align="center">${statusStr}
        <s:if test="status==0">

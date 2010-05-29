@@ -60,7 +60,7 @@ public class LawyerViewAction extends AbstractAction {
 		this.sysUser = (Lawyers)service.get(Lawyers.class, userid);
 		SysGroup sysGroup=(SysGroup)service.get(SysGroup.class,sysUser.getTheoffice());
 		if(sysGroup!=null)
-			this.groupname =sysGroup.getGroupenname(); // sysUser.get.getGroupname();
+			this.groupname =sysGroup.getGroupname(); // sysUser.get.getGroupname();
 
 
 		return SUCCESS;

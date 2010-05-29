@@ -29,10 +29,10 @@ import com.changpeng.system.util.CommonDatas;
  */
 public class OfficeChangeApplyListAction extends AbstractListAction {
 
-	public OfficeChangeApplyListAction (){
+	public OfficeChangeApplyListAction() {
 		this.datavisible = new DataVisible();
 	}
-	
+
 	private String lawyername;
 
 	/**
@@ -51,9 +51,11 @@ public class OfficeChangeApplyListAction extends AbstractListAction {
 	}
 
 	private boolean canhandle;
-	public boolean getCanhandle(){
+
+	public boolean getCanhandle() {
 		return this.canhandle;
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -62,23 +64,23 @@ public class OfficeChangeApplyListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-		
-		if(this.getLoginUser().getSysGroup()!=null&&this.getLoginUser().getSysGroup().getGrouptype()==1)
-			canhandle=false;
+
+		if (this.getLoginUser().getSysGroup() != null && this.getLoginUser().getSysGroup().getGrouptype() == 1)
+			canhandle = false;
 		else
-			canhandle=true;
-		System.out.println("canhandle======"+canhandle);
-		
+			canhandle = true;
+		System.out.println("canhandle======" + canhandle);
+
 		CommonDatas.getGroups();
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(LawyersOfficeChangeApply.class);
 		if (lawyername != null && !"".equals(lawyername))
 			detachedCriteria.add(Restrictions.like("lawyername", lawyername, MatchMode.START));
-if(status!=-1){
-	detachedCriteria.add(Restrictions.eq("status", status));
-}
-		
+		if (status != -1) {
+			detachedCriteria.add(Restrictions.eq("status", status));
+		}
+
 		SysRole role = this.getLoginUser().getSysRole();
 		if (role != null) {
 			Set<SysRoleVisible> rolevisibles = role.getSysRoleVisibles();
@@ -92,11 +94,11 @@ if(status!=-1){
 			// 权限判断了
 			if (rolevisible != null) {
 				String field = "officeid";
-				if (rolevisible.getThefield().equals("oldoffice"))
+				if (rolevisible.getThefield().equals("newoffice"))
 					field = "officeid";
-				else if (rolevisible.getThefield().equals("oldcity"))
+				else if (rolevisible.getThefield().equals("newcity"))
 					field = "cityid";
-				else if (rolevisible.getThefield().equals("oldprovince"))
+				else if (rolevisible.getThefield().equals("newprovince"))
 					field = "provinceid";
 
 				detachedCriteria.add(Restrictions.eq(rolevisible.getThefield(), PropertyUtils.getProperty(this
@@ -105,11 +107,11 @@ if(status!=-1){
 		}
 
 		if (datavisible.getOfficeid() != 0) {
-			detachedCriteria.add(Restrictions.eq("oldoffice", datavisible.getOfficeid()));
+			detachedCriteria.add(Restrictions.eq("newoffice", datavisible.getOfficeid()));
 		} else if (datavisible.getCityid() != 0) {
-			detachedCriteria.add(Restrictions.eq("oldcity", datavisible.getCityid()));
+			detachedCriteria.add(Restrictions.eq("newcity", datavisible.getCityid()));
 		} else if (datavisible.getProvinceid() != 0) {
-			detachedCriteria.add(Restrictions.eq("oldprovince", datavisible.getProvinceid()));
+			detachedCriteria.add(Restrictions.eq("newprovince", datavisible.getProvinceid()));
 		}
 
 		detachedCriteria.addOrder(Order.desc("applyTime"));
@@ -119,7 +121,7 @@ if(status!=-1){
 		return SUCCESS;
 	}
 
-	private short status=-1;
+	private short status = -1;
 
 	/**
 	 * @return the status
@@ -129,10 +131,11 @@ if(status!=-1){
 	}
 
 	/**
-	 * @param status the status to set
+	 * @param status
+	 *            the status to set
 	 */
 	public void setStatus(short status) {
 		this.status = status;
 	}
-	
+
 }

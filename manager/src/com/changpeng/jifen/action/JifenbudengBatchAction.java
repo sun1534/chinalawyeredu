@@ -70,7 +70,7 @@ public class JifenbudengBatchAction extends AbstractAction {
 			return "message";
 		}
 		
-		this.nextPage = "lawyersList.pl";
+		this.nextPage = "jifenbudengList.pl";
 		return SUCCESS;
 	}
 
