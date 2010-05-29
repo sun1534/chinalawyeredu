@@ -16,7 +16,25 @@ body {
 -->
 </style>
 
+<script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
+<script language="javascript">
+function getOffices(vallll){
+  $("#office")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#office")[0].options.add(_o);  
 
+  if(vallll!=0){
+     $.getJSON("../lawyersajax/getSubGroup.pl", { "parentid": vallll,"now":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#office")[0].options.add(_o);  
+     }
+}); 
+  }
+}
+</script>
 </head>
 <body leftmargin="0" marginwidth="0" marginheight="0" topmargin="0">
 <table width="99%" border="0" align="center" cellpadding="0"
@@ -56,8 +74,10 @@ body {
              <td class="tab_content1">
              <s:hidden name="isedit"/>
             <s:property value="@com.changpeng.common.CommonDatas@groups[lawyers.provinceunion]"/>->
-         <s:property value="@com.changpeng.common.CommonDatas@groups[lawyers.directunion]"/>->
-         <s:select name="changeApply.newoffice" list="officelist" listKey="groupid" listValue="groupname"/>
+         <s:property value="@com.changpeng.common.CommonDatas@groups[lawyers.directunion]"/>
+         <s:select name="changeApply.newcity" list="citylist" listKey="groupid" listValue="groupname" onchange="getOffices(this.value)"/>
+         ->
+         <s:select name="changeApply.newoffice" list="officelist" listKey="groupid" listValue="groupname" id="office"/>
               </td>
         </tr>
               

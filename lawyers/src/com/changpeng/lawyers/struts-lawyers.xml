@@ -35,5 +35,8 @@
    	   <action name="photoDelete" class="com.changpeng.lawyers.action.ajax.PhotoDeleteAction">
 			<result name="success" type="json"></result>
        </action>
+        <action name="getSubGroup" class="com.changpeng.lawyers.action.ajax.GetSubGroupAction">
+			<result name="success" type="json"></result>
+       </action>
    </package>
 </struts>

@@ -44,7 +44,7 @@ public class OfficeChangeApplyAction extends AbstractAction {
 		changeApply.setOldcity(this.getLoginUser().getDirectunion());
 		changeApply.setOldoffice(this.getLoginUser().getTheoffice());
 		changeApply.setOldprovince(this.getLoginUser().getProvinceunion());
-		changeApply.setNewcity(this.getLoginUser().getDirectunion());
+//		changeApply.setNewcity(this.getLoginUser().getDirectunion());
 		changeApply.setNewprovince(this.getLoginUser().getProvinceunion());
 		changeApply.setLawyername(this.getLoginUser().getLawyername());
 		changeApply.setApplyname(this.getLoginUser().getLawyername());
@@ -80,6 +80,10 @@ public class OfficeChangeApplyAction extends AbstractAction {
 
 		this.officelist = basicService.find("from SysGroup where grouptype=1 and parentid="
 				+ this.getLoginUser().getDirectunion());
+		
+		this.citylist = basicService.find("from SysGroup where grouptype=2 and parentid="
+				+ this.getLoginUser().getProvinceunion());
+		
 		for (int i = 0; officelist != null && i < officelist.size(); i++) {
 			SysGroup group = (SysGroup) officelist.get(i);
 			if (group.getGroupid() == this.getLoginUser().getTheoffice()) {
@@ -88,6 +92,7 @@ public class OfficeChangeApplyAction extends AbstractAction {
 			}
 		}
 		changeApply.setLawyerid(this.getLoginUser().getLawyerid());
+		changeApply.setNewcity(this.getLoginUser().getDirectunion());
 		set("changeApply", changeApply);
 
 		return INPUT;
@@ -96,6 +101,13 @@ public class OfficeChangeApplyAction extends AbstractAction {
 	private int isedit;
 
 	private List officelist;
+private List citylist;
+	/**
+ * @return the citylist
+ */
+public List getCitylist() {
+	return citylist;
+}
 
 	public List getOfficelist() {
 		return this.officelist;
