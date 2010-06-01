@@ -8,13 +8,19 @@
                   <message>请输入实习律师的姓名，不能为空！</message>
                 </field-validator>
 	</field>
-<field name="lawyersShixi.zigeno">
-  <field-validator type="regex">
-   <param name="trim">true</param>
-   <param name="expression"> <![CDATA[^(\d){10,20}$]]></param>
-   <message>资格证号必须全部为数字且长度为10-20位</message>
-  </field-validator>
- </field>
+	
+		<field name="lawyersShixi.zigeno">
+                <field-validator type="requiredstring">
+                  <message>请输入资格证号，不能为空！</message>
+                </field-validator>
+	</field>
+	
+	<field name="lawyersShixi.shixino">
+                <field-validator type="requiredstring">
+                  <message>请输入实习证号，不能为空！</message>
+                </field-validator>
+	</field>
+	 <!--  
 	<field name="lawyersShixi.shixino">
   <field-validator type="regex">
    <param name="trim">true</param>
@@ -22,7 +28,7 @@
    <message>实习证号必须全部为数字且长度为10-20位</message>
   </field-validator>
  </field>
- <!--  
+
 	<field name="lawyersShixi.certno">
                 <field-validator type="requiredstring">
                   <message>请输入律师身份证号码，不能为空！</message>

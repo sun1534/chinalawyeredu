@@ -46,9 +46,7 @@ public class GongzhengyuanCreateEditAction extends AbstractAction {
 
 		BasicService bs = (BasicService) this.getBean("basicService");
 		gongzhengyuan.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(gongzhengyuan.getLawyername()));
-		gongzhengyuan.setDirectunion(this.datavisible.getCityid());
-		gongzhengyuan.setProvinceunion(this.datavisible.getProvinceid());
-		gongzhengyuan.setTheoffice(this.datavisible.getOfficeid());
+	
 //		Random random = new java.util.Random();
 //		gongzhengyuan.setLoginname(gongzhengyuan.getZigeno() + "_" + random.nextInt(9999));
 		gongzhengyuan.setLoginname(gongzhengyuan.getLawyerno());
@@ -92,6 +90,9 @@ public class GongzhengyuanCreateEditAction extends AbstractAction {
 			// this.message = "您所填入的执业证号已重复,请重新填入";
 			// return "message";
 			// }
+			gongzhengyuan.setDirectunion(this.datavisible.getCityid());
+			gongzhengyuan.setProvinceunion(this.datavisible.getProvinceid());
+			gongzhengyuan.setTheoffice(this.datavisible.getOfficeid());
 
 			gongzhengyuan.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
 			gongzhengyuan.setCreateuser(this.getLoginUser().getUserid());

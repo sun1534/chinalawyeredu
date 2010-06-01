@@ -54,9 +54,7 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 
 		BasicService bs = (BasicService) this.getBean("basicService");
 		lawyersShixi.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyersShixi.getLawyername()));
-		lawyersShixi.setDirectunion(this.datavisible.getCityid());
-		lawyersShixi.setProvinceunion(this.datavisible.getProvinceid());
-		lawyersShixi.setTheoffice(this.datavisible.getOfficeid());
+	
 //		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyersShixi.getDirectunion());
 
 //		lawyersShixi.setDabiaofen(params.getDabiaofen());
@@ -97,7 +95,9 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 		}
 
 		if (isnew) {
-
+			lawyersShixi.setDirectunion(this.datavisible.getCityid());
+			lawyersShixi.setProvinceunion(this.datavisible.getProvinceid());
+			lawyersShixi.setTheoffice(this.datavisible.getOfficeid());
 			// if (bs.isexist(lawyersShixi.getLawyerno(),
 			// lawyersShixi.getDirectunion())) {
 			// this.message = "您所填入的执业证号已重复,请重新填入";

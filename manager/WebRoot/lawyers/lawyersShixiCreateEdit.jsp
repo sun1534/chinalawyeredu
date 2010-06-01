@@ -116,6 +116,7 @@ function checkLoginname(loginname,lawyerid){
              所属事务所:
           </td>
           <td class="tab_content1">
+          <s:if test="isnew">
              <s:if test="datavisible.provinceview">
              <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
              </s:if>
@@ -138,7 +139,15 @@ function checkLoginname(loginname,lawyerid){
                 <s:property value="@com.changpeng.system.util.CommonDatas@groups[datavisible.officeid]"/>
               
             </s:else>
-
+</s:if>
+<s:else>
+  <s:hidden name="datavisible.provinceid"/>
+  <s:hidden name="datavisible.officeid"/>
+    <s:hidden name="datavisible.cityid"/>
+   <s:property value="@com.changpeng.system.util.CommonDatas@groups[lawyersShixi.provinceunion]"/>&gt;
+   <s:property value="@com.changpeng.system.util.CommonDatas@groups[lawyersShixi.directunion]"/>&gt;
+   <s:property value="@com.changpeng.system.util.CommonDatas@groups[lawyersShixi.theoffice]"/>
+</s:else>
 <s:hidden name="isnew"/>
            </td>
         </tr>

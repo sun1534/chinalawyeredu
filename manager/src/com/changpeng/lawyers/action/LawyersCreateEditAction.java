@@ -59,9 +59,7 @@ public class LawyersCreateEditAction extends AbstractAction {
 
 		LawyersService bs = (LawyersService) this.getBean("lawyersService");
 		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
-		lawyers.setDirectunion(this.datavisible.getCityid());
-		lawyers.setProvinceunion(this.datavisible.getProvinceid());
-		lawyers.setTheoffice(this.datavisible.getOfficeid());
+	
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
 
 		lawyers.setDabiaofen(params.getDabiaofen());
@@ -98,7 +96,9 @@ public class LawyersCreateEditAction extends AbstractAction {
 		}
 
 		if (isnew) {
-
+			lawyers.setDirectunion(this.datavisible.getCityid());
+			lawyers.setProvinceunion(this.datavisible.getProvinceid());
+			lawyers.setTheoffice(this.datavisible.getOfficeid());
 			if (bs.isexist(lawyers.getLawyerno(), lawyers.getDirectunion())) {
 				this.message = "您所填入的执业证号已重复,请重新填入";
 				return "message";
