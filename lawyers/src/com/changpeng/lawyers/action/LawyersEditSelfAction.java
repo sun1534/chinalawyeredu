@@ -104,7 +104,7 @@ public class LawyersEditSelfAction extends AbstractAction {
 		//
 
 		bs.update(lawyers);
-		this.message = "律师信息修改成功";
+		this.message = "您的资料信息修改成功";
 
 		// this.nextPage = "lawyersList.pl";
 		this.nextPage = "lawyersEditSelf!input.pl";

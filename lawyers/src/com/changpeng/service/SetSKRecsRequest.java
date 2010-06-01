@@ -55,7 +55,6 @@ public class SetSKRecsRequest extends ElearningRequests {
 			}
 			JifenTime jifentime = CommonDatas.getJifenTime(0, nianshen);
 			int jifenyear = jifentime.getNianshenyear();
-
 			if (iterator != null) {
 				List<Lxskrecs> lxskrecses = new ArrayList<Lxskrecs>();
 				int i = 0;
@@ -71,12 +70,19 @@ public class SetSKRecsRequest extends ElearningRequests {
 
 						Lxskrecs skrecs = new Lxskrecs();
 						skrecs.setKahao(cardno);
-						skrecs.setJifenyear(jifenyear);
+					
 						try {
 							LOG.debug("刷卡时间:" + skdate);
 							skrecs.setSkdate(new java.sql.Timestamp(df.parse(skdate).getTime()));
 						} catch (Exception e) {
+							skrecs.setSkdate(new java.sql.Timestamp(System.currentTimeMillis()));
 						}
+						
+						if(skrecs.getSkdate().getTime()>jifentime.getStart().getTime()){
+							skrecs.setJifenyear(jifenyear);
+						}else
+							skrecs.setJifenyear(jifenyear-1);
+						
 						skrecs.setSkmode(skmode);
 						skrecs.setLessonid(lessonid);
 						skrecs.setGroupid(groupid);
