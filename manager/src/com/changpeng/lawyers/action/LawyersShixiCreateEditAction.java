@@ -54,12 +54,7 @@ public class LawyersShixiCreateEditAction extends AbstractAction {
 
 		BasicService bs = (BasicService) this.getBean("basicService");
 		lawyersShixi.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyersShixi.getLawyername()));
-	
-//		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyersShixi.getDirectunion());
 
-//		lawyersShixi.setDabiaofen(params.getDabiaofen());
-		Random random = new java.util.Random();
-//		lawyersShixi.setLoginname(lawyersShixi.getZigeno() + "_" + random.nextInt(9999));
 		lawyersShixi.setLoginname(lawyersShixi.getZigeno());
 		lawyersShixi.setPasswd(lawyersShixi.getCertno());
 		lawyersShixi.setStatus(0);//不能登录.要求登录并听课
