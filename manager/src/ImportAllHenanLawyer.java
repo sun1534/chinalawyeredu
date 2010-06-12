@@ -59,8 +59,11 @@ public class ImportAllHenanLawyer {
 	}
 
 	private static int getOfficeid(Connection con, String name) throws Exception {
+//		String sql = "select groupid from sys_group where groupname like '%" + name
+//				+ "%' and grouptype=1 and directgroup=18";
+		
 		String sql = "select groupid from sys_group where groupname like '%" + name
-				+ "%' and grouptype=1 and directgroup=18";
+		+ "%' and grouptype=1 and directgroup=18";
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
