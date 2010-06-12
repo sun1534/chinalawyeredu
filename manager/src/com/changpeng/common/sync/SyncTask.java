@@ -71,24 +71,36 @@ public class SyncTask {
 		try {
 			for (int i = 0; i < orgList.size(); i++) {
 				OrgOfficeInfo org = (OrgOfficeInfo) orgList.get(i);
-				com.changpeng.common.sync.pxxt.PxxtTransfer.syncOrgs(org);
+				try {
+					com.changpeng.common.sync.pxxt.PxxtTransfer.syncOrgs(org);
+				} catch (Exception e) {
+				}
 			}
 
 			for (int i = 0; i < lawyerList.size(); i++) {
 				PersonInfo person = (PersonInfo) lawyerList.get(i);
-				com.changpeng.common.sync.pxxt.PxxtTransfer.syncLawyers(person);
+				try {
+					com.changpeng.common.sync.pxxt.PxxtTransfer.syncLawyers(person);
+				} catch (Exception e) {
+				}
 			}
 			for (int i = 0; i < orgUsers.size(); i++) {
 				OrgUserInfo person = (OrgUserInfo) orgUsers.get(i);
-				com.changpeng.common.sync.pxxt.PxxtTransfer.syncOrgManagers(person);
+				try {
+					com.changpeng.common.sync.pxxt.PxxtTransfer.syncOrgManagers(person);
+				} catch (Exception e) {
+				}
 			}
 			for (int i = 0; i < lxUsers.size(); i++) {
 				GuildUserInfo person = (GuildUserInfo) lxUsers.get(i);
-				com.changpeng.common.sync.pxxt.PxxtTransfer.syncLXManagers(person);
+				try {
+					com.changpeng.common.sync.pxxt.PxxtTransfer.syncLXManagers(person);
+				} catch (Exception e) {
+				}
 			}
 			return true;
 		} catch (Exception e) {
-			LOG.error("syncPxxt失败::" , e);
+			LOG.error("syncPxxt失败::", e);
 			return false;
 		}
 
@@ -142,33 +154,45 @@ public class SyncTask {
 			LOG.info("得到的TOPMSTAFF的最大值为:::" + staffid);
 			for (int i = 0; i < orgList.size(); i++) {
 				OrgOfficeInfo org = (OrgOfficeInfo) orgList.get(i);
-				com.changpeng.common.sync.website.WebSiteTransfer.syncOrgs(con, org);
+				try {
+					com.changpeng.common.sync.website.WebSiteTransfer.syncOrgs(con, org);
+				} catch (Exception e) {
+				}
 			}
 			// 同步topmstaff以及trususer二个表的数据
 			for (int i = 0; i < lawyerList.size(); i++) {
 				PersonInfo person = (PersonInfo) lawyerList.get(i);
-				com.changpeng.common.sync.website.WebSiteTransfer.syncLawyers(con, person, staffid++);
+				try {
+					com.changpeng.common.sync.website.WebSiteTransfer.syncLawyers(con, person, staffid++);
+				} catch (Exception e) {
+				}
 			}
 			for (int i = 0; i < orgUsers.size(); i++) {
 				OrgUserInfo person = (OrgUserInfo) orgUsers.get(i);
-				com.changpeng.common.sync.website.WebSiteTransfer.syncOrgManagers(con, person, staffid++);
+				try {
+					com.changpeng.common.sync.website.WebSiteTransfer.syncOrgManagers(con, person, staffid++);
+				} catch (Exception e) {
+				}
 			}
 			for (int i = 0; i < lxUsers.size(); i++) {
 				GuildUserInfo person = (GuildUserInfo) lxUsers.get(i);
-				com.changpeng.common.sync.website.WebSiteTransfer.syncLXManagers(con, person, staffid++);
+				try {
+					com.changpeng.common.sync.website.WebSiteTransfer.syncLXManagers(con, person, staffid++);
+				} catch (Exception e) {
+				}
 				System.out.println("=========" + i);
 			}
 			con.commit();
 			con.setAutoCommit(true);
 			return true;
 		} catch (Exception e) {
-			LOG.error("网站数据同步失败:::" ,e);
+			LOG.error("网站数据同步失败:::", e);
 			return false;
 		} finally {
 			DBUtils.closeConnection(con);
 			LOG.info("网站数据同步完毕:::");
 		}
-		
+
 	}
 
 }
