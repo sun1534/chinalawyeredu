@@ -63,7 +63,7 @@ function submitForm(e){
   }
 }
 function selectRole(roleid){
- if(roleid==1)
+ if(roleid!=2)
  document.form1.action="/common/login.pl";
  else
   document.form1.action="/manager/common/login.pl";
@@ -116,9 +116,10 @@ function selectRole(roleid){
             <td colspan="2" class="tab_content" align="left">
              <select name="loginRole" id="loginRole" onchange="selectRole(this.value)">
                <option value="1">律师</option>
+               <option value="0">公证员</option>
                <option value="2">管理员</option>
              </select>     
-             <a href="/manager">管理员登录也可点此</a>         
+             <!-- <a href="/manager">管理员登录也可点此</a>-->         
             </td>
           </tr>
           <tr>
