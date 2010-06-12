@@ -26,8 +26,10 @@ public class ImportCq {
 	private static PrintWriter logugroupmanager;
 	private static PrintWriter loggrouprole;
 	private static PrintWriter loguserrole;
+	
+	
 	public static void main(String[] args)throws Exception{
-		
+		System.out.println("[[[[[[[[[[[[[");
 //		importGroups();
 		importLawyers();
 	}
