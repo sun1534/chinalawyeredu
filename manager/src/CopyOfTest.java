@@ -3,8 +3,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.changpeng.common.util.MD5;
+
 public class CopyOfTest {
 	public static void main(String args[]) throws Exception {
+		System.out.println(MD5.md5("szlx@admin.com"));
 //		
 		System.out.println(new String(com.changpeng.common.util.Base64.decode("MTgxODR8za/P/sP3".getBytes("gb2312")),"gb2312"));
 		

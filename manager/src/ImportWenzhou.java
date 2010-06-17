@@ -68,6 +68,7 @@ public class ImportWenzhou {
 		logsql = new java.io.PrintWriter(new java.io.FileOutputStream("d:\\sql.sql", true), true);
 		loglog = new java.io.PrintWriter(new java.io.FileOutputStream("d:\\log.sql", true), true);
 
+
 		con = java.sql.DriverManager.getConnection(url, user, pass);
 		getGroups(con);
 		getLawyers(con);
@@ -85,7 +86,7 @@ public class ImportWenzhou {
 	public static void importGroups(String rootdir) throws Exception {
 		// TODO Auto-generated method stub
 
-		File rootfile = new File("E:\\GRGZ\\TYC\\PXXT\\温州律协\\温州全市律师照片");
+		File rootfile = new File("d:\\公证员照片");
 		File[] dirs = rootfile.listFiles();
 		for (File dir : dirs) {
 			String name = dir.getName();
@@ -110,13 +111,12 @@ public class ImportWenzhou {
 							+ "' where lawyerid=" + id + ";";
 					logsql.println(sql);
 					System.out.println(sql);
-					File dest = new File("e:/11002221/" + id + "." + ext);
+					File dest = new 
+					File("d:/11002221/" + id + "." + ext);
 					org.apache.commons.io.FileUtils.copyFile(file, dest);
 				}else{
 					loglog.println(name+"中的图片"+tname+"在系统中找不到对应的律师");
 				}
-				// System.out.println(" " + filename + "===" +
-				// lawyerslist.get(name));
 
 			}
 		}
