@@ -200,6 +200,9 @@ $.getJSON(
 							<s:if test="isfull">
 		 						<font color=red>已满分</font>
 							</s:if>
+							<s:else>
+							未满分
+							</s:else>
 						</TD>
 						<TD class="tab_content" align="center">
 							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","toolbar=no,location=no,width=600,height=550,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>

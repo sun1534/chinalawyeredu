@@ -41,7 +41,7 @@ public class Lessons implements java.io.Serializable {
 	private String createuser;
 	private int createuserid;
 	private Timestamp createtime;
-	private Lawyerlessonxf yihuoxuefen;
+	private BasicLawyerlessonxf yihuoxuefen;
 //	private Set lessonshareds = new HashSet(0);
 	private int onlineType;
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
@@ -325,7 +325,7 @@ public class Lessons implements java.io.Serializable {
 	/**
 	 * @return the yihuoxuefen
 	 */
-	public Lawyerlessonxf getYihuoxuefen() {
+	public BasicLawyerlessonxf getYihuoxuefen() {
 		return yihuoxuefen;
 	}
 
@@ -333,7 +333,7 @@ public class Lessons implements java.io.Serializable {
 	 * @param yihuoxuefen
 	 *            the yihuoxuefen to set
 	 */
-	public void setYihuoxuefen(Lawyerlessonxf yihuoxuefen) {
+	public void setYihuoxuefen(BasicLawyerlessonxf yihuoxuefen) {
 		this.yihuoxuefen = yihuoxuefen;
 	}
 

@@ -13,6 +13,7 @@ import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.service.LxnetrecsService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
+import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
@@ -160,8 +161,13 @@ public class VideoLookPreAction extends AbstractAction {
 		// userid);
 
 		// debug("this.lxnetrecs==" + this.lxnetrecs);
-
-		Lawyerlessonxf xuefen = xfservice.getXuefen(lessonid, this.userid, 0);
+		BasicLawyerlessonxf xuefen = null;
+		if ( this.getLoginUser().getLawyertype() == -1)
+			 xuefen = xfservice.getXuefenShixi(lessonid, this.userid, 0);
+		else if ( this.getLoginUser().getLawyertype() == -2)
+			 xuefen = xfservice.getXuefenGongzheng(lessonid, this.userid, 0);
+		else
+			xuefen = xfservice.getXuefen(lessonid, this.userid, 0);
 		// 满分了，不管是通过什么方式的
 		if (xuefen != null) {
 			this.lookedminutes = xuefen.getPxminutes();

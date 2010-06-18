@@ -17,6 +17,8 @@ import com.changpeng.jifen.util.Jifenstatics;
 import com.changpeng.jifen.util.LearnmodeStatics;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfGongzheng;
+import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 
 /**
@@ -51,6 +53,22 @@ public class LawyerlessonxfService extends BasicService {
 	 * @return
 	 * @throws ServiceException
 	 */
+	public LawyerlessonxfShixi getXuefenShixi(int lessonid, int userid, int learnmode) throws ServiceException {
+		try {
+			return lawyerlessonxfDAO.getXuefenShixi(lessonid, userid, learnmode);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+	
+	public LawyerlessonxfGongzheng getXuefenGongzheng(int lessonid, int userid, int learnmode) throws ServiceException {
+		try {
+			return lawyerlessonxfDAO.getXuefenGongzheng(lessonid, userid, learnmode);
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+	
 	public Lawyerlessonxf getXuefen(int lessonid, int userid, int learnmode) throws ServiceException {
 		try {
 			return lawyerlessonxfDAO.getXuefen(lessonid, userid, learnmode);

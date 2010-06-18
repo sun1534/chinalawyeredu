@@ -12,6 +12,7 @@ import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.lawyers.service.SysGroupService;
 import com.changpeng.lessons.service.LessonsService;
+import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
@@ -97,7 +98,16 @@ public class LessonsListAction extends AbstractListAction {
 		for (int i = 0; list != null && i < list.size(); i++) {
 			Lessons s = (Lessons) list.get(i);
 			int lessonid = s.getLessonid();
-			Lawyerlessonxf xf = xfservice.getXuefen(lessonid, lawyerid, 0);
+			
+			BasicLawyerlessonxf xf = null;
+			if ( this.getLoginUser().getLawyertype() == -1)
+				xf = xfservice.getXuefenShixi(lessonid, lawyerid, 0);
+			else if ( this.getLoginUser().getLawyertype() == -2)
+				xf = xfservice.getXuefenGongzheng(lessonid, lawyerid, 0);
+			else
+				xf = xfservice.getXuefen(lessonid, lawyerid, 0);
+			
+//			Lawyerlessonxf xf = xfservice.getXuefen(lessonid, lawyerid, 0);
 			if (xf == null) {
 				xf = new Lawyerlessonxf();
 				xf.setLawyerid(lawyerid);
