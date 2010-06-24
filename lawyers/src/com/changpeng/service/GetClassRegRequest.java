@@ -72,8 +72,11 @@ public class GetClassRegRequest extends ElearningRequests {
 			lawyertemp.append("<classregs>");
 			for (int i = 0; i < xflen; i++) {
 				Lawyerlessonxf xf = (Lawyerlessonxf) list.get(i);
-				lawyertemp.append("<classreg>");
 				Lawyers lawyer=(Lawyers)basicService.get(Lawyers.class, xf.getLawyerid());
+				if(lawyer==null)
+					continue;
+				lawyertemp.append("<classreg>");
+				
 				lawyertemp.append("<dotime>").append(df.format(xf.getLastupdate())).append("</dotime>");
 				lawyertemp.append("<lawyerno>").append(lawyer==null?"":lawyer.getLawyerno()).append("</lawyerno>");
 				lawyertemp.append("<lessonid>").append(xf.getLessonid()).append("</lessonid>");
