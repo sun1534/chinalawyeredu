@@ -49,7 +49,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                        <th>归属BSC</th>  
       </tr>
       <tbody>
-            <s:iterator value="resultList" status="status1">
+           <s:iterator value="resultList" status="status1">
                     <s:if test="correctCnt>=rubbishCnt"><!-- 正确的多 -->
                     <s:iterator value="correctList" status="status2">
                     <s:if test="#status2.index==0">
@@ -57,27 +57,32 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                       <td rowspan="${trcnt}">${bvci } </td>
                       <td rowspan="${trcnt}">${recordtimestr }</td>
                       <s:if test="#status2.index<rubbishCnt">
-                      <td ><s:property value="rubbishList[#status2.index].nesi"/></td> 
-					  <td ><s:property value="rubbishList[#status2.index].bscid"/></td> 
+                        <td><s:property value="rubbishList[#status2.index].nesi"/></td> 
+					    <td><s:property value="rubbishList[#status2.index].bscid"/></td> 
 					  </s:if>
-					    <s:else>
-					    <td >&nbsp;</td> 
-					  <td >&nbsp;</td> 
+					  <s:elseif test="rubbishCnt==0">
+					  	<td rowspan="${trcnt}" colspan="2">没有垃圾数据</td>
+					  </s:elseif>
+					  <s:else>
+					    <td>&nbsp;</td> 
+					    <td>&nbsp;</td> 
 					  </s:else>
-		    		  <td >${nesi }</td> 
-		    		  <td >${bscid }</td> 
+		    		  <td>${nesi }</td> 
+		    		  <td>${bscid }</td> 
                       </tr>
                     </s:if>
                     <s:else>
                     <tr>
+                    <s:if test="rubbishCnt!=0">
                      <s:if test="#status2.index<rubbishCnt">
                       <td ><s:property value="rubbishList[#status2.index].nesi"/></td> 
 					  <td ><s:property value="rubbishList[#status2.index].bscid"/></td> 
 					  </s:if>
-					    <s:else>
-					    <td >&nbsp;</td> 
-					  <td >&nbsp;</td> 
+					  <s:else>
+					    <td>&nbsp;</td> 
+					    <td>&nbsp;</td> 
 					  </s:else>
+					  </s:if>
 		    		  <td >${nesi }</td> 
 		    		  <td >${bscid }</td> 
                     </tr>
@@ -96,6 +101,9 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                       <td ><s:property value="correctList[#status3.index].nesi"/></td> 
 					  <td ><s:property value="cor rectList[#status3.index].bscid"/></td> 
 					  </s:if>
+					    <s:elseif test="correctCnt==0">
+					  	<td rowspan="${trcnt}" colspan="2">没有正确数据</td>
+					  </s:elseif>
 					    <s:else>
 					    <td >&nbsp;</td> 
 					  <td >&nbsp;</td> 
@@ -104,9 +112,11 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
                       </tr>
                     </s:if>
                     <s:else>
+                    
                     <tr>
 		    		  <td >${nesi }</td> 
 		    		  <td >${bscid }</td> 
+		    		       <s:if test="correctCnt!=0">
 		    		    <s:if test="#status3.index<correctCnt">
                       <td ><s:property value="correctList[#status3.index].nesi"/></td> 
 					  <td ><s:property value="correctList[#status3.index].bscid"/></td> 
@@ -114,7 +124,9 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
 					    <s:else>
 					    <td >&nbsp;</td> 
 					  <td >&nbsp;</td> 
+					  
 					  </s:else>
+					  </s:if>
                     </tr>
                     </s:else>
                     </s:iterator>

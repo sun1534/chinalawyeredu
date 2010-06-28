@@ -1,7 +1,10 @@
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,6 +18,8 @@ import jofc2.model.axis.XAxisLabels;
 import jofc2.model.elements.LineChart;
 import jofc2.model.elements.PieChart;
 
+import com.sxit.netquality.models.Sgsn;
+import com.sxit.netquality.service.BasicSetService;
 import com.sxit.stat.models.SgsnStatModel;
 
 /** 
@@ -26,12 +31,74 @@ import com.sxit.stat.models.SgsnStatModel;
  * 
  */
 public class Test {
-	private static Connection testcon() throws Exception {
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	public static void main(String[] args){
+try{
+	
+	Timestamp from = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime());
+	
+	Timestamp to = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime() + 24 * 60 * 60 * 1000);
+	System.out.println(from+"==="+to);
+	
+	String temp="46000333801";
+//	46000333801这样的形式，转化为460-00-33380这样的形式
+	String first=temp.substring(0,3);
+	String second=temp.substring(3,5);
+	String lac=temp.substring(5,10);
+	String rai=first+"-"+second+"-"+lac;
+	System.out.println(rai);
+	
+	int s=5/0;
+	System.out.println(s);
+}catch(Exception e){
+	java.io.Writer sw=new java.io.StringWriter();
+	try{
+	java.io.PrintWriter pw=new java.io.PrintWriter(sw,true);
+	e.printStackTrace(pw);
+	pw.flush();
+	pw.close();
+	sw.flush();
+	sw.close();
+	System.out.println("-------"+sw.toString());
+	}catch(Exception ee){
+		
+	}
+}
+		
+	}
+	
+	public static void main12(String[] args) throws Exception {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = java.sql.DriverManager.getConnection("jdbc:oracle:thin:@218.201.8.150:1521:ora92", "jf_gprs",
 				"jf_gprs");
-//		System.out.println(con);
-		return con;
+
+		String sql = "select a.*,b.loginname,b.loginpwd from  SET_SGSN a,set_sgsn_server b where a.sgsnid=b.sgsnid(+) and a.opttype!=2 ";
+
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		BasicSetService.ALL_SGSNS.clear();
+		while (rs.next()) {
+			Sgsn model = new Sgsn();
+			model.setSgsnid(rs.getString("SGSNID"));
+			// model.setSgsnarea(rs.getString("sgsnarea"));
+			model.setLastopt(rs.getString("OPTTYPE"));
+			Date date = new Date();
+			date.setTime(rs.getLong("UPDATETIME") * 1000);
+			model.setLastupdate(date);
+			model.setSgsntype(rs.getString("provider"));
+			model.setBsccount(rs.getInt("bsccount"));
+			model.setSgsnip(rs.getString("sgsnip"));
+			model.setSlotcount(rs.getInt("slotcount"));
+			model.setCapacity(rs.getDouble("capacity"));
+			model.setSgsnarea(rs.getString("sgsnarea"));
+			model.setLoginname(rs.getString("loginname"));
+			model.setLoginpwd(rs.getString("loginpwd"));
+			
+			BasicSetService.ALL_SGSNS.put(rs.getString("SGSNID"), model);
+		}
+		rs.close();
+		stmt.close();
+		con.close();
 	}
 
 	private static void piechart() {
@@ -124,13 +191,13 @@ public class Test {
 	/**
 	 * 存储sgsn在svg中的x坐标
 	 */
-	private static Map<String,Integer> SGSNIDLOC=new LinkedHashMap<String,Integer>();
+	private static Map<String, Integer> SGSNIDLOC = new LinkedHashMap<String, Integer>();
 	/**
 	 * 存储ggsn在svg中的x坐标
 	 */
-	private static Map<String,Integer> GGSNIDLOC=new LinkedHashMap<String,Integer>();
-	
-	static{
+	private static Map<String, Integer> GGSNIDLOC = new LinkedHashMap<String, Integer>();
+
+	static {
 		SGSNIDLOC.put("SGSNCQ01", 50);
 		SGSNIDLOC.put("SGSNCQ02", 150);
 		SGSNIDLOC.put("SGSNCQ03", 250);
@@ -140,7 +207,7 @@ public class Test {
 		SGSNIDLOC.put("SGSNCQ07", 650);
 		SGSNIDLOC.put("SGSNCQ08", 750);
 		SGSNIDLOC.put("SGSNCQ09", 850);
-		
+
 		GGSNIDLOC.put("GGSN02", 250);
 		GGSNIDLOC.put("GGSN03", 450);
 		GGSNIDLOC.put("GGSN04", 650);
@@ -150,40 +217,44 @@ public class Test {
 	/**
 	 * 基本的量
 	 */
-	private static int BASICSTREAM=10*1024;
-	private static int OTHERBASICSTREAM=1024;
-	private static int STREAMDIFF=3*BASICSTREAM;
-	private static int OTHERSTREAMDIFF=2*OTHERBASICSTREAM;
+	private static int BASICSTREAM = 10 * 1024;
+	private static int OTHERBASICSTREAM = 1024;
+	private static int STREAMDIFF = 3 * BASICSTREAM;
+	private static int OTHERSTREAMDIFF = 2 * OTHERBASICSTREAM;
+
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) throws Exception {
+	public static void main1(String[] args) throws Exception {
 
-		
-		Iterator<String> sgsniterator=SGSNIDLOC.keySet().iterator();
-		while(sgsniterator.hasNext()){
-			String sgsnid=sgsniterator.next();
-			int sgsnloc=SGSNIDLOC.get(sgsnid);
-			int sgsntextloc=sgsnloc+20;
-			System.out.println("<rect x=\""+sgsnloc+"\" y=\"25\" width=\"80\" height=\"40\" fill=\"#FFFFFF\" stroke=\"#000000\"/>");
-			System.out.println("<text x=\""+sgsntextloc+"\" y=\"50\" xml:space=\"preserve\" font-size=\"14\" fill=\"black\">"+sgsnid+"</text>");
+		Iterator<String> sgsniterator = SGSNIDLOC.keySet().iterator();
+		while (sgsniterator.hasNext()) {
+			String sgsnid = sgsniterator.next();
+			int sgsnloc = SGSNIDLOC.get(sgsnid);
+			int sgsntextloc = sgsnloc + 20;
+			System.out.println("<rect x=\"" + sgsnloc
+					+ "\" y=\"25\" width=\"80\" height=\"40\" fill=\"#FFFFFF\" stroke=\"#000000\"/>");
+			System.out.println("<text x=\"" + sgsntextloc
+					+ "\" y=\"50\" xml:space=\"preserve\" font-size=\"14\" fill=\"black\">" + sgsnid + "</text>");
 		}
-		
-		Iterator<String> iterator=GGSNIDLOC.keySet().iterator();
-		while(iterator.hasNext()){
-			String ggsnid=iterator.next();
-			int ggsnloc=GGSNIDLOC.get(ggsnid);
-			int ggsntextloc=ggsnloc+20;
-			System.out.println("<rect x=\""+ggsnloc+"\" y=\"150\" width=\"80\" height=\"40\" fill=\"#FFFFFF\" stroke=\"#000000\"/>");
-			System.out.println("<text x=\""+ggsntextloc+"\" y=\"175\" xml:space=\"preserve\" font-size=\"14\" fill=\"black\">"+ggsnid+"</text>");
+
+		Iterator<String> iterator = GGSNIDLOC.keySet().iterator();
+		while (iterator.hasNext()) {
+			String ggsnid = iterator.next();
+			int ggsnloc = GGSNIDLOC.get(ggsnid);
+			int ggsntextloc = ggsnloc + 20;
+			System.out.println("<rect x=\"" + ggsnloc
+					+ "\" y=\"150\" width=\"80\" height=\"40\" fill=\"#FFFFFF\" stroke=\"#000000\"/>");
+			System.out.println("<text x=\"" + ggsntextloc
+					+ "\" y=\"175\" xml:space=\"preserve\" font-size=\"14\" fill=\"black\">" + ggsnid + "</text>");
 		}
-		
-//		<rect x="0" y="25" width="80" height="40" fill="#FFFFFF" stroke="#000000"/>
-//		  <text x="20" y="50" xml:space="preserve" font-size="14" fill="black">SGSN01</text>
-		
-		
-		
-		Connection con = testcon();
+
+		// <rect x="0" y="25" width="80" height="40" fill="#FFFFFF"
+		// stroke="#000000"/>
+		// <text x="20" y="50" xml:space="preserve" font-size="14"
+		// fill="black">SGSN01</text>
+Connection con=null;
+//		Connection con = testcon();
 		String sql = "select SGSNID,sum(USERCOUNT) as usercount1,sum(ALLVOLUME) as allvolume1,sum(upvolume) as upvolume1,sum(downvolume) as downvolume1,ggsnid,apnni from  STAT_SGSN where ggsnid like 'GGSN%' and dayflag=1 and STATTIME=20100102 group by sgsnid,ggsnid,apnni";
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
@@ -210,51 +281,51 @@ public class Test {
 		rs.close();
 		stmt.close();
 		con.close();
-		
-		
-		
 
 		for (int i = 0; i < list.size(); i++) {
 			SgsnStatModel model = (SgsnStatModel) list.get(i);
 
 			double allvolume = model.getTotalStream();
-			String sgsnid=model.getSgsnid();
-			String ggsnid=model.getGgsnid();
-			
-			int sgsnidloc=SGSNIDLOC.get(sgsnid);
-			int ggsnidloc=GGSNIDLOC.get(ggsnid);
-			int sgsnaver=60/3;
-			int ggsnaver=60/3;
-			
-			int sgsncmnetloc=sgsnidloc+sgsnaver;
-			int sgsncmwaploc=sgsnidloc+2*sgsnaver;
-			int sgsnotherloc=sgsnidloc+3*sgsnaver;
-			
-			int ggsncmnetloc=ggsnidloc+ggsnaver;
-			int ggsncmwaploc=ggsnidloc+2*ggsnaver;
-			int ggsnotherloc=ggsnidloc+3*ggsnaver;
-			
+			String sgsnid = model.getSgsnid();
+			String ggsnid = model.getGgsnid();
+
+			int sgsnidloc = SGSNIDLOC.get(sgsnid);
+			int ggsnidloc = GGSNIDLOC.get(ggsnid);
+			int sgsnaver = 60 / 3;
+			int ggsnaver = 60 / 3;
+
+			int sgsncmnetloc = sgsnidloc + sgsnaver;
+			int sgsncmwaploc = sgsnidloc + 2 * sgsnaver;
+			int sgsnotherloc = sgsnidloc + 3 * sgsnaver;
+
+			int ggsncmnetloc = ggsnidloc + ggsnaver;
+			int ggsncmwaploc = ggsnidloc + 2 * ggsnaver;
+			int ggsnotherloc = ggsnidloc + 3 * ggsnaver;
+
 			if (model.getApnni().equals("cmnet")) {
 				if (allvolume > BASICSTREAM) {
 
-					String width=com.sxit.system.util.NumberUtil.toMoney(allvolume/STREAMDIFF);
-					
-					System.out.println("<line x1=\""+sgsncmnetloc+"\" y1=\"65\" x2=\""+ggsncmnetloc+"\" y2=\"150\" stroke=\"RED\" stroke-width=\""+width+"\"/>");
-//					System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>cmnet");
+					String width = com.sxit.system.util.NumberUtil.toMoney(allvolume / STREAMDIFF);
+
+					System.out.println("<line x1=\"" + sgsncmnetloc + "\" y1=\"65\" x2=\"" + ggsncmnetloc
+							+ "\" y2=\"150\" stroke=\"RED\" stroke-width=\"" + width + "\"/>");
+					// System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>cmnet");
 				}
 
 			} else if (model.getApnni().equals("cmwap")) {
 				if (allvolume > BASICSTREAM) {
-					String width=com.sxit.system.util.NumberUtil.toMoney(allvolume/STREAMDIFF);
-//					System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>cmwap");
-					System.out.println("<line x1=\""+sgsncmwaploc+"\" y1=\"65\" x2=\""+ggsncmwaploc+"\" y2=\"150\" stroke=\"BLUE\" stroke-width=\""+width+"\"/>");
+					String width = com.sxit.system.util.NumberUtil.toMoney(allvolume / STREAMDIFF);
+					// System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>cmwap");
+					System.out.println("<line x1=\"" + sgsncmwaploc + "\" y1=\"65\" x2=\"" + ggsncmwaploc
+							+ "\" y2=\"150\" stroke=\"BLUE\" stroke-width=\"" + width + "\"/>");
 				}
 			} else if (model.getApnni().equals("other")) {
 				if (allvolume > OTHERBASICSTREAM) {
-					String width=com.sxit.system.util.NumberUtil.toMoney(allvolume/OTHERSTREAMDIFF);
+					String width = com.sxit.system.util.NumberUtil.toMoney(allvolume / OTHERSTREAMDIFF);
 
-//					System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>other");
-					System.out.println("<line x1=\""+sgsnotherloc+"\" y1=\"65\" x2=\""+ggsnotherloc+"\" y2=\"150\" stroke=\"YELLOW\" stroke-width=\""+width+"\"/>");
+					// System.out.println(model.getSgsnid()+"==>"+model.getGgsnid()+"=>"+allvolume+"==>other");
+					System.out.println("<line x1=\"" + sgsnotherloc + "\" y1=\"65\" x2=\"" + ggsnotherloc
+							+ "\" y2=\"150\" stroke=\"YELLOW\" stroke-width=\"" + width + "\"/>");
 
 				}
 			}

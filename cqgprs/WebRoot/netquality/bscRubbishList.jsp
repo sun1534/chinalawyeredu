@@ -52,19 +52,20 @@ function queryit(){
 			<div class="inmain">
 				<div class="wrap">
 					<!-- 查询模块-->
-					<!--<div class="searchTab">
+					<div class="searchTab">
 						<table>
 							<tbody>
 								<tr>
 								
-								  <td>BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
+								<!--  <td>BSC/RNC编号：<s:textfield name="bscid" cssClass="txt" size="10"/>&nbsp;</td>
 								  <td>SGSN编号：<s:select name="sgsnid" list="@com.sxit.netquality.service.BasicSetService@ALL_SGSNS" headerKey="" headerValue="全部" listKey="value.sgsnid" listValue="value.sgsnid"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-							
+							-->
+							 <td><input type="button" class="btnSubmit" value="导  出" onclick="exportit()"/></td>
 								</tr>
 							</tbody>
 						</table>
-				  </div> -->
+				  </div> 
 					<!-- 操作模块
 					<div class="operate">
 						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="getAdd()"/>
@@ -112,15 +113,15 @@ function queryit(){
                     <s:else>
                     <tr>
                     <s:if test="rubbishCnt!=0">
-                      <s:if test="#status2.index<rubbishCnt">
-                        <td ><s:property value="rubbishList[#status2.index].nesi"/></td> 
-					    <td ><s:property value="rubbishList[#status2.index].bscid"/></td> 
+                     <s:if test="#status2.index<rubbishCnt">
+                      <td ><s:property value="rubbishList[#status2.index].nesi"/></td> 
+					  <td ><s:property value="rubbishList[#status2.index].bscid"/></td> 
 					  </s:if>
 					  <s:else>
 					    <td>&nbsp;</td> 
 					    <td>&nbsp;</td> 
 					  </s:else>
-					</s:if>
+					  </s:if>
 		    		  <td >${nesi }</td> 
 		    		  <td >${bscid }</td> 
                     </tr>
@@ -140,7 +141,7 @@ function queryit(){
 					  <td ><s:property value="cor rectList[#status3.index].bscid"/></td> 
 					  </s:if>
 					    <s:elseif test="correctCnt==0">
-					  	<td rowspan="${trcnt}" colspan="2">没有正常数据</td>
+					  	<td rowspan="${trcnt}" colspan="2">没有正确数据</td>
 					  </s:elseif>
 					    <s:else>
 					    <td >&nbsp;</td> 
@@ -150,10 +151,11 @@ function queryit(){
                       </tr>
                     </s:if>
                     <s:else>
+                    
                     <tr>
 		    		  <td >${nesi }</td> 
 		    		  <td >${bscid }</td> 
-		    		   <s:if test="rubbishCnt!=0">
+		    		       <s:if test="correctCnt!=0">
 		    		    <s:if test="#status3.index<correctCnt">
                       <td ><s:property value="correctList[#status3.index].nesi"/></td> 
 					  <td ><s:property value="correctList[#status3.index].bscid"/></td> 
@@ -161,12 +163,14 @@ function queryit(){
 					    <s:else>
 					    <td >&nbsp;</td> 
 					  <td >&nbsp;</td> 
+					  
 					  </s:else>
+					  </s:if>
                     </tr>
                     </s:else>
                     </s:iterator>
                     </s:else>
-                       </s:if>
+                       
                      
                         </s:iterator>
                    

@@ -6,6 +6,7 @@
 
 package com.sxit.common.listener;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContextAttributeEvent;
@@ -24,6 +25,7 @@ import com.sxit.log.service.SysLoginLogService;
 import com.sxit.models.system.SysParameter;
 import com.sxit.models.system.SysRight;
 import com.sxit.netquality.service.BasicSetService;
+import com.sxit.query.service.EricssonTrace;
 import com.sxit.system.util.RightTree;
 
 /**
@@ -86,6 +88,18 @@ public class WebContextListener implements ServletContextListener {
 			LOG.error("容器退出时，记录用户的会话失效信息失败！" + e);
 		}
 
+		// 停止对所有号码的追踪
+		Iterator<String> iterator = EricssonTrace.TRACE_MOBILES.keySet().iterator();
+		long now = 0;
+		EricssonTrace service = new EricssonTrace();
+		while (iterator.hasNext()) {
+			now = System.currentTimeMillis();
+			String key = iterator.next();
+			String mobile = key.split(",")[0];
+			service.mobileTracStop(EricssonTrace.TRACE_MOBILES.get(key), mobile, now + "");
+			LOG.info("停止" + key + "追踪的执行时间:::" + (System.currentTimeMillis() - now));
+		}
+
 	}
 
 	/*
@@ -117,10 +131,16 @@ public class WebContextListener implements ServletContextListener {
 			}
 			// 获得所有的权限列表信息
 			RightTree.setRightList(basicService.findAll(SysRight.class));
-			
-//			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
-//			setservice.getAllSets();
-//			LOG.info("得到所有的配置参数信息");
+
+			com.sxit.system.util.CommonDatas.getUsers();
+			com.sxit.system.util.CommonDatas.getGroups();
+			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+			setservice.getAllSets();
+
+			// BasicSetService setservice = (BasicSetService)
+			// Globals.getBean("basicSetService");
+			// setservice.getAllSets();
+			// LOG.info("得到所有的配置参数信息");
 
 		} catch (ServiceException e) {
 			LOG.error("系统启动初始化权限列表为空" + e);

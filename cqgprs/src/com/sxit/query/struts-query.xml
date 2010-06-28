@@ -21,7 +21,32 @@
            <result name="excel" type="dispatcher">/query/queryByAPN_excel.jsp</result>
        </action>
       
+      <action name="shQueryResultView" class="com.sxit.query.action.SHQueryResultViewAction">
+          <result name="success" type="dispatcher">/query/shQueryResultView.jsp</result>	
+       </action>
+      
+       <action name="queryBySH" class="com.sxit.query.action.QueryBySHAction">
+        <result name="success" type="dispatcher">/query/queryBySHResult.jsp</result>	
+       </action>
+      
+       <action name="queryBySHPre" class="com.sxit.query.action.QueryBySHAction" method="input">
+            <result name="input" type="dispatcher">/query/queryBySH.jsp</result>	
+       </action>
+       <action name="querySHHistories" class="com.sxit.query.action.QuerySHHistoriesAction">
+            <result name="success" type="dispatcher">/query/querySHHistories.jsp</result>	
+            <result name="current" type="dispatcher">/query/querySHHistoriesCurrent.jsp</result>	
+       </action>
+       
+      
+        <action name="ericssonTrace" class="com.sxit.query.action.EricssonTraceAction">
+           <result name="noajax" type="dispatcher">/query/ericssonTrace.jsp</result>	
+            <result name="success" type="dispatcher">/query/ericssonTraceResult.jsp</result>	
+       </action>
     </package>
-	
+	<package name="queryajax" extends="defaultajax" namespace="/queryajax">
+	  <action name="ericssonTrace" class="com.sxit.query.action.EricssonTraceAction">
+           <result name="success" type="json"></result>	
+       </action>
+	</package>
 	
 </struts>

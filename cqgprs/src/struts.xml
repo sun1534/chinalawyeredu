@@ -14,7 +14,8 @@
 	<constant name="struts.action.extension" value="action" />
     <constant name="struts.locale" value="zh_CN"/>
 	<constant name="struts.multipart.maxSize" value="5024000"/>  
-	<constant name="struts.ui.theme" value="xhtml" />
+	<constant name="struts.ui.theme" value="simple" /> 
+  	<constant name="struts.ui.templateDir" value="template" /> 
 	<!-- 可以将其修改为css_xhtml -->
 	
 	

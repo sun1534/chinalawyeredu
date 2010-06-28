@@ -134,7 +134,7 @@ public class QueryService {
 			search += " and apnni='" + apnni + "'";
 		}
 
-		String sql = "select * from  " + table + search;
+		String sql = "select * from  " + table + search+" and rownum<=1000";
 
 		System.out.println("查询SQL:" + sql);
 
@@ -161,7 +161,6 @@ public class QueryService {
 					model.setRecordtime(rs.getLong("recordtime"));
 					model.setSgsnid(rs.getString("sgsnid"));
 					model.setUpvolume(rs.getFloat("upvolume"));
-
 					list.add(model);
 				}
 				return list;

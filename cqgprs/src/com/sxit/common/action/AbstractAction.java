@@ -313,9 +313,12 @@ public abstract class AbstractAction extends ActionSupport  {
 		   return "";
 	   return " order by "+orderfield+" "+ascdesc;
 	}
+	public void setNow(String now){
 	
-	static{
-		BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
-//		setservice.getAllSets();
 	}
+	
+//	static{
+//		BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
+////		setservice.getAllSets();
+//	}
 }

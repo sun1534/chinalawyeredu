@@ -20,6 +20,10 @@ function exitform(){
   if(!issubmit&&!f5pressed){//如果没有提交,直接关闭窗口的话  
    // var url="../commonajax/ajaxlogout.action";
    // $.post(url,{now:new Date().getTime()});
+     
+    $.getJSON("../commonajax/ajaxlogout.pl", {"now":new Date().getTime()}, function(resp){
+      }
+    ); 
   }
   f5pressed=false;
 }

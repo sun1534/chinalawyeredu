@@ -8,6 +8,13 @@
  <title>${sysName}-系统提示</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
   <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <script language="javascript">
+	setTimeout("quit()",2000);
+function quit(){
+	if(interval)
+	clearInterval(interval);
+}
+</script>
 </head>
 
 <body >

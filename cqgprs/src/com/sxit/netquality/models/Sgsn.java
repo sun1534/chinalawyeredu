@@ -17,6 +17,8 @@ public class Sgsn extends Volumes{
 	private String sgsnip;
 	private int bsccount;
 	private int slotcount;
+	private String loginname;
+	private String loginpwd;
 	private double capacity;
 	/**
 	 * 最近1次拿数据的时间
@@ -157,5 +159,33 @@ public class Sgsn extends Volumes{
 	 */
 	public void setCapacity(double capacity) {
 		this.capacity = capacity;
+	}
+
+	/**
+	 * @return the loginname
+	 */
+	public String getLoginname() {
+		return loginname;
+	}
+
+	/**
+	 * @param loginname the loginname to set
+	 */
+	public void setLoginname(String loginname) {
+		this.loginname = loginname;
+	}
+
+	/**
+	 * @return the loginpwd
+	 */
+	public String getLoginpwd() {
+		return loginpwd;
+	}
+
+	/**
+	 * @param loginpwd the loginpwd to set
+	 */
+	public void setLoginpwd(String loginpwd) {
+		this.loginpwd = loginpwd;
 	}
 }

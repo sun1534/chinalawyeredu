@@ -10,6 +10,9 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.sxit.common.Constants;
+import com.sxit.common.Globals;
+import com.sxit.netquality.service.BasicSetService;
+import com.sxit.system.util.CommonDatas;
 
 
 /**
@@ -41,6 +44,13 @@ public class IndexAction extends AbstractAction {
 //				this.password = cookies[i].getValue();
 			}
 		}
+		
+		
+        CommonDatas.getUsers();
+        CommonDatas.getGroups();
+        BasicSetService setservice = (BasicSetService)Globals.getBean("basicSetService");
+        setservice.getAllSets();
+		
 		return SUCCESS;
 	}
 

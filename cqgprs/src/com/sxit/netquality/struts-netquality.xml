@@ -17,10 +17,12 @@
        </action>
        <action name="zeroStreamCell" class="com.sxit.netquality.action.ZeroStreamCellAction">
           <result name="success" type="dispatcher">/netquality/zeroStreamCell.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/zeroStreamCell_excel.jsp</result>	
        </action>
       
         <action name="zeroStreamAPN" class="com.sxit.netquality.action.ZeroStreamAPNAction">
           <result name="success" type="dispatcher">/netquality/zeroStreamAPN.jsp</result>	
+          <result name="excel" type="dispatcher">/netquality/zeroStreamAPN_excel.jsp</result>	
        </action>
        
          <action name="gbLinkStatic" class="com.sxit.netquality.action.GbLinkStaticAction">

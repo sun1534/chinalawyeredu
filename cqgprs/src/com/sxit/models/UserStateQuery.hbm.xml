@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-2-21 9:22:49 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.sxit.models.UserStateQuery" table="user_state_query" dynamic-update="true" dynamic-insert="true">
+        <!--<cache usage="read-write"/>-->
+        <id name="id" type="int">
+           <column name="id" precision="10" scale="0" />
+          	<generator class="sequence">
+            	<param name="sequence">jf_sequence</param>
+            </generator>
+        </id>
+     
+             
+        <property name="msisdn" type="string">
+            <column name="msisdn" length="20" not-null="true">
+            </column>
+        </property>
+        <property name="imsi" type="string">
+            <column name="imsi" length="100">
+            </column>
+        </property>
+        <property name="sgsnid" type="string">
+            <column name="sgsnid" length="15">
+            </column>
+        </property>
+        <property name="random" type="string">
+            <column name="random" length="2">
+            </column>
+        </property>
+        <property name="details"  type="java.sql.Clob">
+            <column name="details" length="4000">
+            </column>
+        </property>
+    
+        <property name="result" type="string">
+            <column name="result" length="500" not-null="true">
+            </column>
+        </property>
+       <property name="querydate" type="timestamp">
+            <column name="querydate" length="7" not-null="true">
+            </column>
+        </property>
+                <property name="execuser" type="string">
+            <column name="execuser" length="50" not-null="true">
+            </column>
+        </property>
+        
+  <property name="hasexception" type="int">
+            <column name="hasexception" precision="1" scale="0" />
+        </property>
+        <property name="exception" type="string">
+            <column name="exception" length="2000">
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

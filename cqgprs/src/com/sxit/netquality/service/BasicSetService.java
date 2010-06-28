@@ -317,8 +317,8 @@ public class BasicSetService {
 			}
 		});
 
-		System.out.println("ALL_CELLS.get(\"33148-11243\").getAllvolume():::"
-				+ ALL_CELLS.get("33148-11243").getAllvolume());
+//		System.out.println("ALL_CELLS.get(\"33148-11243\").getAllvolume():::"
+//				+ ALL_CELLS.get("33148-11243").getAllvolume());
 
 	}
 
@@ -690,7 +690,7 @@ public class BasicSetService {
 		// String sql = "select a.*,b.allvolume,b.upvolume,b.downvolume from
 		// SET_SGSN a,allvolume_sgsn b where a.sgsnid=b.sgsnid(+) and
 		// a.opttype!=2 ";
-		String sql = "select a.* from  SET_SGSN a where a.opttype!=2 ";
+		String sql = "select a.*,b.loginname,b.loginpwd from  SET_SGSN a,set_sgsn_server b where a.sgsnid=b.sgsnid(+) and a.opttype!=2 ";
 
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -710,6 +710,8 @@ public class BasicSetService {
 					model.setSlotcount(rs.getInt("slotcount"));
 					model.setCapacity(rs.getDouble("capacity"));
 					model.setSgsnarea(rs.getString("sgsnarea"));
+					model.setLoginname(rs.getString("loginname"));
+					model.setLoginpwd(rs.getString("loginpwd"));
 					// model.setAllvolume(rs.getDouble("allvolume"));
 					// model.setDownvolume(rs.getDouble("downvolume"));
 					// model.setUpvolume(rs.getDouble("upvolume"));
