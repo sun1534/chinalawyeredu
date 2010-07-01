@@ -88,9 +88,9 @@ public class LessonsListAction extends AbstractListAction {
 			if (datavisible.getCityid() != 0)
 				groupid = datavisible.getCityid();
 		}
-
-		this.page = lessonservice.getPages(mygroup, groupid,onlineType,lessonstyle, lessontype, title, teachers, pageSize,
-				pageNo, start, end);
+//System.out.println("audioQuality="+audioQuality+",,videoQuality="+videoQuality);
+		this.page = lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
+				lessontype, title, teachers, pageSize, pageNo, start, end);
 
 		int lawyerid = this.getLoginUser().getLawyerid();
 		lessonlist = new ArrayList();
@@ -98,16 +98,16 @@ public class LessonsListAction extends AbstractListAction {
 		for (int i = 0; list != null && i < list.size(); i++) {
 			Lessons s = (Lessons) list.get(i);
 			int lessonid = s.getLessonid();
-			
+
 			BasicLawyerlessonxf xf = null;
-			if ( this.getLoginUser().getLawyertype() == -1)
+			if (this.getLoginUser().getLawyertype() == -1)
 				xf = xfservice.getXuefenShixi(lessonid, lawyerid, 0);
-			else if ( this.getLoginUser().getLawyertype() == -2)
+			else if (this.getLoginUser().getLawyertype() == -2)
 				xf = xfservice.getXuefenGongzheng(lessonid, lawyerid, 0);
 			else
 				xf = xfservice.getXuefen(lessonid, lawyerid, 0);
-			
-//			Lawyerlessonxf xf = xfservice.getXuefen(lessonid, lawyerid, 0);
+
+			// Lawyerlessonxf xf = xfservice.getXuefen(lessonid, lawyerid, 0);
 			if (xf == null) {
 				xf = new Lawyerlessonxf();
 				xf.setLawyerid(lawyerid);
@@ -128,7 +128,10 @@ public class LessonsListAction extends AbstractListAction {
 		}
 		return "online";
 	}
-private int onlineType=-1;
+
+	private int audioQuality = -1;
+	private int videoQuality = -1;
+	private int onlineType = -1;
 	private List lessonlist;
 
 	public List getLessonlist() {
@@ -233,9 +236,40 @@ private int onlineType=-1;
 	}
 
 	/**
-	 * @param onlineType the onlineType to set
+	 * @param onlineType
+	 *            the onlineType to set
 	 */
 	public void setOnlineType(int onlineType) {
 		this.onlineType = onlineType;
+	}
+
+	/**
+	 * @return the audioQuality
+	 */
+	public int getAudioQuality() {
+		return audioQuality;
+	}
+
+	/**
+	 * @param audioQuality
+	 *            the audioQuality to set
+	 */
+	public void setAudioQuality(int audioQuality) {
+		this.audioQuality = audioQuality;
+	}
+
+	/**
+	 * @return the videoQuality
+	 */
+	public int getVideoQuality() {
+		return videoQuality;
+	}
+
+	/**
+	 * @param videoQuality
+	 *            the videoQuality to set
+	 */
+	public void setVideoQuality(int videoQuality) {
+		this.videoQuality = videoQuality;
 	}
 }

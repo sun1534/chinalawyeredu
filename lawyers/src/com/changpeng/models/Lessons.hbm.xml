@@ -82,7 +82,12 @@
         <property name="attach" type="java.lang.String">
             <column name="attach" length="200" />
         </property>
-
+		<property name="audioQuality" type="int">
+            <column name="audio_quality" />
+        </property>
+         <property name="videoQuality" type="int">
+            <column name="video_quality" />
+        </property> 
         <property name="provinceid" type="int">
             <column name="provinceid">
                 <comment>直属于哪个省律协</comment>

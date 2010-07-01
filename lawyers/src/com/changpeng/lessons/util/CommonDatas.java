@@ -33,6 +33,7 @@ public class CommonDatas {
 	public static Map<Integer, String> TeacherType = new LinkedHashMap<Integer, String>();
 
 	public static Map<Integer, String> AllLessonMap = new LinkedHashMap<Integer, String>();
+	public static Map<Integer,String> QUALITIES = new LinkedHashMap<Integer, String>();
 
 	static {
 //		LessonType.put(1, "律师实务");
@@ -42,7 +43,11 @@ public class CommonDatas {
 //		LessonType.put(5, "刑事实务");
 //		LessonType.put(6, "行政实务");
 //		LessonType.put(7, "其他");
-		
+		QUALITIES.put(1, "较好");
+		QUALITIES.put(2, "好");
+		QUALITIES.put(3, "一般");
+		QUALITIES.put(4, "差");
+		QUALITIES.put(5, "较差");
 		
 		LessonType.put(1, "民商事法律业务");
 		LessonType.put(2, "刑事法律业务");

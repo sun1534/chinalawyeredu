@@ -99,6 +99,8 @@ $.getJSON(
             
    			 	    名称:<s:textfield name="title" size="15"/>
                   文件类型:<s:select name="onlineType" list="#{'-1':'全部','0':'视频','1':'音频'}"/>
+                  音质:<s:select name="audioQuality" list="@com.changpeng.lessons.util.CommonDatas@QUALITIES" headerKey="-1" headerValue="全部"/>
+                 画质:<s:select name="videoQuality" list="@com.changpeng.lessons.util.CommonDatas@QUALITIES" headerKey="-1" headerValue="全部"/>
   
 				 课程年份:<s:select name="nianshenyear" list="jifentime.years" headerKey="0" headerValue="全部" onchange="document.form1.submit()"/>
 			 <s:if test="nianshenyear!=0">
@@ -146,9 +148,9 @@ $.getJSON(
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						已获学分
 					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
+					<!-- <TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						状态
-					</TD>
+					</TD> -->
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						观看
 					</TD>
@@ -173,13 +175,13 @@ $.getJSON(
 						<TD class="tab_content" align="center">
 							${xuefen}
 						</TD>
-										<TD class="tab_content" align="center">
-								<s:if test="onlineType==1">
-								<font color='red'>音频</font>
+						<TD class="tab_content" align="center">
+								<s:if test="onlineType==1">		
+								<font color='red'>音频(音质:${audioQualityStr})</font>
 								</s:if>
-								<s:else>视频
+								<s:else>视频<br/>(音质:${audioQualityStr},画质:${videoQualityStr })
 								</s:else>
-								</TD>
+						</TD>
                         <TD class="tab_content" align="center">
                   
                          <s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/>
@@ -196,14 +198,14 @@ $.getJSON(
 								${yihuoxuefen.pxxf} <br/>
 							
 						</TD>
-						<TD class="tab_content" align="center">
+						<!-- <TD class="tab_content" align="center">
 							<s:if test="isfull">
 		 						<font color=red>已满分</font>
 							</s:if>
 							<s:else>
 							未满分
 							</s:else>
-						</TD>
+						</TD> -->
 						<TD class="tab_content" align="center">
 							<a href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","toolbar=no,location=no,width=600,height=550,menubar=no,scrollbars=no,resizable=no,status=no")>观看</a>
 						</TD>

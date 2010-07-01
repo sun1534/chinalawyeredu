@@ -1,5 +1,5 @@
 #
-#Sat Feb 27 16:52:08 CST 2010
+#Mon Jun 21 17:58:49 CST 2010
 genBasicCompId=false
 sessionFactoryName=
 profile=
@@ -9,7 +9,7 @@ jndiPath=
 detectM2M=true
 reStrategyClass=
 springDaoFile=
-useJavaTypes=true
+useJavaTypes=false
 keyGenerator=identity
 libInstallFolder=
 addLibs2Project=false

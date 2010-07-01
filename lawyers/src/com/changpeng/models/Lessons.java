@@ -2,8 +2,6 @@ package com.changpeng.models;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Lessons entity.
@@ -45,7 +43,45 @@ public class Lessons implements java.io.Serializable {
 //	private Set lessonshareds = new HashSet(0);
 	private int onlineType;
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	/**
+	 * 较好，好，差，非常差
+	 */
+	private int audioQuality;
+	private int videoQuality;
+	/**
+	 * @return the audioQuality
+	 */
+	public int getAudioQuality() {
+		return audioQuality;
+	}
+	public String getAudioQualityStr() {
+		return com.changpeng.lessons.util.CommonDatas.QUALITIES.get(audioQuality)==null?"未知":com.changpeng.lessons.util.CommonDatas.QUALITIES.get(audioQuality);
+	}public String getVideoQualityStr() {
+		return com.changpeng.lessons.util.CommonDatas.QUALITIES.get(videoQuality)==null?"未知":com.changpeng.lessons.util.CommonDatas.QUALITIES.get(videoQuality);
+	}
+	/**
+	 * @param audioQuality the audioQuality to set
+	 */
+	public void setAudioQuality(int audioQuality) {
+		this.audioQuality = audioQuality;
+	}
+
+	/**
+	 * @return the videoQuality
+	 */
+	public int getVideoQuality() {
+		return videoQuality;
+	}
+
+	/**
+	 * @param videoQuality the videoQuality to set
+	 */
+	public void setVideoQuality(int videoQuality) {
+		this.videoQuality = videoQuality;
+	}
 	
+	
+
 	public String getLessondatestr(){
 		if(lessondate!=null)
 		return df.format(lessondate);

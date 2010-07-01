@@ -5,6 +5,8 @@
 import com.changpeng.common.BasicService;
 import com.changpeng.common.context.Globals;
 import com.changpeng.jifen.service.LxnetrecsService;
+import com.changpeng.jifen.util.CommonDatas;
+import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lxnetrecs;
 
 /**
@@ -17,6 +19,8 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception{
+		JifenTime jifentime = CommonDatas.getJifenTime(2009, "05-31");
+		System.out.println(jifentime.getStartstr());
 		// TODO Auto-generated method stub
 
 ////		System.out.println(com.changpeng.common.util.MD5.md5("123456"));
