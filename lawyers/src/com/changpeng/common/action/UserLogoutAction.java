@@ -42,7 +42,7 @@ public class UserLogoutAction extends AbstractAction {
 			if(sessionName.toString().equals(Constants.LOGIN_USER)){
 				Lawyers sysUser =this.getLoginUser();
 				LawyerLoginLogService service = (LawyerLoginLogService) getBean("lawyerLoginLogService");
-				service.updateLogoutInfo(sysUser.getLoginId(), "系统正常退出");
+				service.updateLogoutInfo(sysUser.getLawyerid(),sysUser.getLoginId(), "系统正常退出");
 				ActionContext.getContext().getSession().remove(Constants.LOGIN_USER);
 				
 			}

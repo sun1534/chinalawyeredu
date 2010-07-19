@@ -12,8 +12,10 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.JifenbudengApply;
+import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.SysUnionparams;
 
@@ -55,6 +57,18 @@ public class JifenbudengApplyAction extends AbstractAction {
 		budengApply.setProvinceid(this.getLoginUser().getProvinceunion());
 		budengApply.setCityid(this.getLoginUser().getDirectunion());
 		budengApply.setOfficeid(this.getLoginUser().getTheoffice());
+	
+		if(budengApply.getIslocal())
+		{
+			
+			LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
+			Lawyerlessonxf xf = xfservice.getXuefen(budengApply.getLessonid(), budengApply.getLawyerid(), 0);
+			if (xf != null) {
+				this.message = "您已经参加了该课程的现场培训,无需申请";
+				return "message" ;
+			}
+		}
+		
 		if (isedit == 0)
 			basicService.save(budengApply);
 		else {

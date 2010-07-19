@@ -49,6 +49,35 @@ public class Lessons implements java.io.Serializable {
 	private int audioQuality;
 	private int videoQuality;
 	/**
+	 * 单位为元
+	 */
+	private Float price=0f;
+	private int teacherid;
+	/**
+	 * @return the price
+	 */
+	public Float getPrice() {
+		return price;
+	}
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+	/**
+	 * @return the teacherid
+	 */
+	public int getTeacherid() {
+		return teacherid;
+	}
+	/**
+	 * @param teacherid the teacherid to set
+	 */
+	public void setTeacherid(int teacherid) {
+		this.teacherid = teacherid;
+	}
+	/**
 	 * @return the audioQuality
 	 */
 	public int getAudioQuality() {
@@ -152,6 +181,12 @@ public class Lessons implements java.io.Serializable {
 
 	public String getTitle() {
 		return this.title;
+	}
+	
+	public String getTitleTrim(){
+		if(this.title.length()>20)
+			return this.title.substring(0,19)+"...";
+			return title;
 	}
 
 	public void setTitle(String title) {

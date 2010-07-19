@@ -133,10 +133,10 @@ public class UserSessionListener implements HttpSessionActivationListener, HttpS
 				Lawyers sysUser = (Lawyers) event.getSession().getAttribute(Constants.LOGIN_USER);
 				LOG.debug("sysUser=="+sysUser);
 				try {
-					Globals globals = new Globals();
-					LawyerLoginLogService service = (LawyerLoginLogService) globals.getBean("lawyerLoginLogService");
+				
+					LawyerLoginLogService service = (LawyerLoginLogService) Globals.getBean("lawyerLoginLogService");
 
-					service.updateLogoutInfo(sysUser.getLoginId(), "会话信息失效导致退出");
+					service.updateLogoutInfo(sysUser.getLawyerid(),sysUser.getLoginId(), "会话信息失效导致退出");
 
 					LOG.info("记录用户的会话失效信息:" + sysUser.getLawyerenname());
 				}

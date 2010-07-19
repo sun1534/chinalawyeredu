@@ -86,6 +86,7 @@ function submitForm(){
         <td colspan="2" class="tab_content"><s:password name="password" size="25" maxlength="25" onkeydown="submitForm()"/> 
         </td>
         </tr>
+        <!-- 
       <tr>
         <td class="tab_content1" align="right">
           验证码：
@@ -93,7 +94,7 @@ function submitForm(){
         <td colspan="2" class="tab_content1"><s:textfield name="randnum" size="4" maxlength="5" onkeydown="submitForm()"/>
             <img src="../validateCode.pl">
         </td>
-        </tr>
+        </tr> -->
       <tr>
         <td class="tab_content"  align="center"></td>
         <td colspan="2" class="tab_content">　

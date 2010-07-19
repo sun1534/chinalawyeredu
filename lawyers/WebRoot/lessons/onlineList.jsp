@@ -124,7 +124,7 @@ $.getJSON(
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#EDEDED">
 				<tr>
-					<TD height="23" width="22%" align="center" background="../imagesa/top-bg1.gif">
+					<TD height="23" width="250" align="center" background="../imagesa/top-bg1.gif">
 					课程名称
 					</TD>
 					<TD height="23" width="12%" align="center" background="../imagesa/top-bg1.gif">
@@ -138,6 +138,10 @@ $.getJSON(
 					</TD>
 					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						类型
+					</TD><TD height="23" align="center" background="../imagesa/top-bg1.gif">
+						画质
+					</TD><TD height="23" align="center" background="../imagesa/top-bg1.gif">
+						音质
 					</TD>
                     <TD height="23" align="center" background="../imagesa/top-bg1.gif">
 						来源
@@ -160,8 +164,8 @@ $.getJSON(
 				</tr>
 				<s:iterator value="lessonlist" status="stat">
 					<TR>
-						<TD class="tab_content" align="left">
-							<a href="lessonsView.pl?lessonid=${lessonid}">${title}</a>
+						<TD class="tab_content" align="left" title="${title}">&nbsp;
+							<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 						</TD>				
 						<TD class="tab_content" align="center" title="${teacher}">
 							<div style="overflow:hidden;text-overflow:ellipsis;">${teachers}</div>
@@ -177,11 +181,18 @@ $.getJSON(
 						</TD>
 						<TD class="tab_content" align="center">
 								<s:if test="onlineType==1">		
-								<font color='red'>音频(音质:${audioQualityStr})</font>
+								<font color='red'>音频</font>
 								</s:if>
-								<s:else>视频<br/>(音质:${audioQualityStr},画质:${videoQualityStr })
+								<s:else>视频
 								</s:else>
 						</TD>
+						<TD class="tab_content" align="center">
+							${videoQualityStr}
+						</TD>
+						<TD class="tab_content" align="center">
+							${audioQualityStr}
+						</TD>
+						
                         <TD class="tab_content" align="center">
                   
                          <s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/>

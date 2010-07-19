@@ -5,16 +5,17 @@
 package com.changpeng.common.action;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
 import com.changpeng.lawyers.service.LawyerLoginLogService;
 import com.changpeng.lawyers.service.LawyersService;
+import com.changpeng.models.LawyerLoginlog;
 import com.changpeng.models.Lawyers;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -93,6 +94,15 @@ public class UserLoginAction extends AbstractAction {
 
 		Lawyers lawyers = lawyersService.getLawyers();
 
+		
+		if(CommonDatas.ONLINE_USERS.containsKey(lawyers.getLawyerid())){
+			LawyerLoginlog log=CommonDatas.ONLINE_USERS.get(lawyers.getLawyerid());
+//			message="您当前已经登录,登录时间："+log.getLoginTime()+",登录IP："+log.getLoginip()+".请先退出或联系管理员";
+//			return Constants.ACTION_MESSAGE;
+			System.out.println("您当前已经登录,登录时间："+log.getLoginTime()+",登录IP："+log.getLoginip()+".请先退出或联系管理员");
+		}
+		
+		
 		LawyerLoginLogService loginService = (LawyerLoginLogService) getBean("lawyerLoginLogService");
 		lawyers.setLoginCount(loginService.getLoginCountByUserId(lawyers.getLawyerid()));
 		lawyers.setLastLoginTime(loginService.getLastLoginTime(lawyers.getLawyerid()));

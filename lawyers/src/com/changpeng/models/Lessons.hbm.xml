@@ -122,6 +122,13 @@
         <property name="createtime" type="timestamp">
             <column name="createtime" length="0" not-null="true" />
         </property>
+        
+                <property name="price" type="java.lang.Float">
+            <column name="price" precision="12" scale="0" />
+        </property>
+             <property name="teacherid" type="int">
+            <column name="teacherid" />
+        </property>
                <!--       <set name="lessonshareds" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />

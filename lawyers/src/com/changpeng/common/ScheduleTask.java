@@ -21,7 +21,7 @@ public class ScheduleTask extends TimerTask{
 		try {
 			LOG.info("执行定时任务连接数据库");
 			LOG.info("总数:"+service.findBySqlQuery("select count(*) from sys_user"));
-			
+			LOG.info("在线用户数:"+com.changpeng.common.CommonDatas.ONLINE_USERS.size());
 			com.changpeng.lessons.util.CommonDatas.getAlllessons();
 			com.changpeng.common.CommonDatas.getGroups();
 //			com.changpeng.system.util.CommonDatas.getUsers();

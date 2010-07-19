@@ -14,6 +14,7 @@ import org.hibernate.criterion.DetachedCriteria;
 
 import com.changpeng.common.context.Globals;
 import com.changpeng.common.exception.ServiceException;
+import com.changpeng.models.LawyerLoginlog;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 
@@ -24,6 +25,11 @@ import com.changpeng.models.SysUnionparams;
 public class CommonDatas {
 	
 	private static Log LOG = LogFactory.getLog(CommonDatas.class);
+	
+	/**
+	 * 当前在线的用户列表
+	 */
+	public static Map<Integer,LawyerLoginlog> ONLINE_USERS=new HashMap<Integer,LawyerLoginlog>();
 	
 	// 存储areaid和上级areaid的数据
 	public static Map<Integer,Integer> AreasIdParent = new LinkedHashMap<Integer,Integer>();

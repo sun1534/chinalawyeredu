@@ -36,6 +36,7 @@ public class BasicLawyerlessonxf implements java.io.Serializable {
 	protected int islastyear;
 	// Constructors
 
+
 	/**
 	 * @return the theyear
 	 */

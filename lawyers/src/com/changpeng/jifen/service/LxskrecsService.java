@@ -22,6 +22,7 @@ import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
+import com.changpeng.models.LogLessonListen;
 import com.changpeng.models.Lxskrecs;
 
 /**
@@ -175,7 +176,18 @@ private LawyersDAO lawyersDAO;
 				xf.setRemarks("现场培训时间为" + skrecs.getTimelong() + ",设置满分");
 				skrecs.setIscheck("Y");
 				skrecs.setRemarks((skrecs.getRemarks() == null ? "" : skrecs.getRemarks()) + "|该课程设置了满分的学分");
+//				xf.setTeacherid(lesson.getTeacherid());
+				
+				//现场课程，不做统计
+//				LogLessonListen log=new LogLessonListen();
+//				log.setFirsttime(new java.sql.Timestamp(System.currentTimeMillis()));
+//				log.setLawyerid(xf.getLawyerid());
+//				log.setTeacherid(lesson.getTeacherid());
+//				log.setLessonid(lesson.getLessonid());
+//				lxskrecsDAO.save(log);
+				
 				lxskrecsDAO.save(xf);
+				
 			} else {
 				LOG.debug("其他的情况，暂时还没有想出来。。。。");
 			}

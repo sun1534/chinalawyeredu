@@ -129,7 +129,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 //		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
 //		PaginationSupport __page = lessonsService.getPages(group, -1, 0, 0, null, null, 6, 1,null,null);
 		//这里的课程显示为本省的或者本市的，不分享的
-		detachedCriteria=DetachedCriteria.forClass(Lessons.class);
+		detachedCriteria=DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));
 		detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceunion(),this.getLoginUser().getDirectunion()}));
 		detachedCriteria.addOrder(Order.desc("lessondate"));
 		PaginationSupport __page =basicService.findPageByCriteria(detachedCriteria, 6, 1);

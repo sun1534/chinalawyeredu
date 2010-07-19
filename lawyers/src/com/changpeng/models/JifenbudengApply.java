@@ -269,7 +269,7 @@ public class JifenbudengApply implements java.io.Serializable {
 	/**
 	 * @return the islocal
 	 */
-	public boolean isIslocal() {
+	public boolean getIslocal() {
 		return islocal;
 	}
 

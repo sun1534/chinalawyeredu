@@ -97,6 +97,7 @@ function makeMenu() {
 		  		d.add("online109","online1","国有资产法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=109","","mainFrame");
 		  		d.add("online110","online1","金融保险法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=110","","mainFrame");
 		  		d.add("online111","online1","涉外法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=111","","mainFrame");
+		  		d.add("online111","online1","劳动关系法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=113","","mainFrame");		  		
 		  		d.add("online112","online1","其他民商法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=112","","mainFrame");
 		  	d.add("online2","online","刑事法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=2","","mainFrame");
 		  		d.add("online201","online2","刑法","../lessons/lessonsList.pl?lessonstyle=2&lessontype=201","","mainFrame");

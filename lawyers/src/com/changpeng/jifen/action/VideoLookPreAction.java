@@ -202,6 +202,7 @@ public class VideoLookPreAction extends AbstractAction {
 		}
 
 		Lawyers lawyers = this.getLoginUser();
+		//记录这个窗口的打开记录,怎么判断这个用户当前正在听课呢???
 		visitid = loglook(lawyers.getLawyerid(), lawyers.getProvinceunion(), lawyers.getDirectunion(), lawyers
 				.getTheoffice());
 

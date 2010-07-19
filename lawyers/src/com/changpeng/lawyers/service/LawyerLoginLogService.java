@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicDAO;
 import com.changpeng.common.BasicService;
+import com.changpeng.common.CommonDatas;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.models.LawyerLoginlog;
 import com.changpeng.models.Lawyers;
@@ -44,7 +45,7 @@ public class LawyerLoginLogService extends BasicService {
 	 * @param remarks
 	 * @throws ServiceException
 	 */
-	public void updateLogoutInfo(int loginid, String remarks) throws ServiceException {
+	public void updateLogoutInfo(int lawyerId,int loginid, String remarks) throws ServiceException {
 		try {
 			LawyerLoginlog log = (LawyerLoginlog) basicDAO.get(LawyerLoginlog.class, loginid);
 			long now = System.currentTimeMillis();
@@ -60,6 +61,8 @@ public class LawyerLoginLogService extends BasicService {
 			log.setRemarks(remarks);
 		
 			basicDAO.update(log);
+			//清除掉在线用户的信息
+			CommonDatas.ONLINE_USERS.remove(lawyerId);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -125,6 +128,9 @@ public class LawyerLoginLogService extends BasicService {
 
 			basicDAO.save(log);
 			LOG.debug("登录的LOGINID=" + log.getLoginid());
+			
+			CommonDatas.ONLINE_USERS.put(log.getLawyerid(), log);
+			
 			return log.getLoginid();
 
 		} catch (Exception e) {

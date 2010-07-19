@@ -7,10 +7,7 @@ package com.changpeng.jifen.service;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.exception.ServiceException;
@@ -23,8 +20,8 @@ import com.changpeng.models.LawyerlessonxfGongzheng;
 import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
+import com.changpeng.models.LogLessonListen;
 import com.changpeng.models.LogVideoJifen;
-import com.changpeng.models.Lxnetrecs;
 
 /**
  * 
@@ -221,7 +218,21 @@ public class LxnetrecsService extends BasicService {
 			xf.setPxdate(stamp);
 			xf.setTheyear(videojifen.getJifenyear());
 			xf.setIslastyear(videojifen.getJifenyear() == videojifen.getNowyear() ? 0 : 1);
+//	xf.setTeacherid(lesson.getTeacherid());
+			
+			LogLessonListen log=new LogLessonListen();
+			log.setFirsttime(new java.sql.Timestamp(System.currentTimeMillis()));
+			log.setLawyerid(xf.getLawyerid());
+			log.setTeacherid(lesson.getTeacherid());
+			log.setLessonid(lesson.getLessonid());
+			log.setTitle(lesson.getTitle());
+			lxnetrecsDAO.save(log);
+			
+			
 			lxnetrecsDAO.save(xf);
+			
+			
+			//这里同时插入那个老师的统计表里面去
 
 		} else if (huodexuefen > xf.getPxxf()) {// 获得的学分大于现有的学分的时候，才更新
 			xf.setPxxf(huodexuefen);

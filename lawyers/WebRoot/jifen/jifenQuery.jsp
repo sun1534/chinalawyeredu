@@ -52,7 +52,7 @@ function fanye(str){
     	<table width="100%" border="0" cellpadding="0" cellspacing="1">
         <tr >
           <td height="24" align="right" background="../imagesa/login_bg1.gif" >
-           ${page.pageView}
+         <!--   ${page.pageView} -->
           </td>
         </tr>
       </table>

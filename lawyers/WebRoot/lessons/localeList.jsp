@@ -3,7 +3,7 @@
 
 <html>
 	<head>
-		<title>现场课程</title>
+		<title>网上支付</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="../css/css.css" rel="stylesheet" type="text/css">
 		<style type="text/css">
@@ -99,7 +99,7 @@ function fanye(str){
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#EDEDED">
 				<tr>
-					<TD height="23" width="22%" align="center" background="../imagesa/top-bg1.gif">
+					<TD height="23" width="250" align="center" background="../imagesa/top-bg1.gif">
 						课程名称
 					</TD>
 					<TD height="23" width="12%" align="center" background="../imagesa/top-bg1.gif">
@@ -125,8 +125,8 @@ function fanye(str){
 				</tr>
 				<s:iterator value="lessonlist" status="stat">
 					<TR>
-						<TD class="tab_content" align="left">
-							<a href="lessonsView.pl?lessonid=${lessonid}">${title}</a>
+						<TD class="tab_content" align="left" title="${title}">&nbsp;
+							<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 						</TD>				
 						<TD class="tab_content" align="center">
 							${teachers}
