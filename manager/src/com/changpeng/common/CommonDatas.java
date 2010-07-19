@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.changpeng.models.SysLoginlog;
 import com.changpeng.models.SysUnionparams;
 
 /**
@@ -18,6 +19,11 @@ import com.changpeng.models.SysUnionparams;
  */
 public class CommonDatas {
 
+	/**
+	 * 当前在线的用户列表
+	 */
+	public static Map<Integer,SysLoginlog> ONLINE_USERS=new HashMap<Integer,SysLoginlog>();
+	
 	/**
 	 * 存储所有的参数信息
 	 */

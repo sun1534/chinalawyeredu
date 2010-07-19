@@ -105,6 +105,7 @@ function submitForm(e){
               <s:password name="password" size="25" maxlength="25" onkeydown="submitForm()"/>              
             </td>
           </tr>
+           <!-- 
           <tr>
             <td class="tab_content1" align="right">验证码：              </td>
             <td colspan="2" class="tab_content1"> 
@@ -112,10 +113,11 @@ function submitForm(e){
             <img src="../validateCode.pl">
             　 </td>
           </tr>
+          -->
           <tr>
-            <td class="tab_content" align="right"><s:checkbox name="savecookie"/>              </td>
+            <td class="tab_content" align="right"><s:checkbox name="savecookie"/></td>
             <td colspan="2" class="tab_content"> 
-            自动登录
+            记住帐号
             </td>
           </tr>
           <tr>

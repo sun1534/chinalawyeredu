@@ -55,7 +55,7 @@ public class UserLogoutAjaxAction extends AbstractAction {
 			if(sessionName.toString().equals(Constants.LOGIN_USER)){
 				SysUser sysUser = (SysUser) get(Constants.LOGIN_USER);
 				SysLoginLogService service = (SysLoginLogService) getBean("sysLoginLogService");
-				service.updateLogoutInfo(sysUser.getLoginId(), "用户关闭窗口退出");
+				service.updateLogoutInfo(sysUser.getUserid(),sysUser.getLoginId(), "用户关闭窗口退出");
 				ActionContext.getContext().getSession().remove(Constants.LOGIN_USER);
 				
 			}

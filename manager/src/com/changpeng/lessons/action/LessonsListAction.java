@@ -52,6 +52,8 @@ public class LessonsListAction extends AbstractListAction {
 		datavisible.setProvinceid(-1);
 	}
 
+	private int audioQuality=-1;
+	private int videoQuality=-1;
 	@Override
 	protected String go() throws Exception {
 
@@ -98,7 +100,7 @@ if(nianshenyear!=0){
 //		System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
 
 	
-		this.page = lessonsService.getPages(_mygroup, groupid, onlineType,lessonstyle, lessontype, title, teachers, pageSize,
+		this.page = lessonsService.getPages(_mygroup, groupid,audioQuality,videoQuality ,onlineType,lessonstyle, lessontype, title, teachers, pageSize,
 				pageNo, start, end);
 		com.changpeng.system.util.CommonDatas.getGroups();
 
@@ -206,6 +208,34 @@ if(nianshenyear!=0){
 	 */
 	public void setNianshenyear(int nianshenyear) {
 		this.nianshenyear = nianshenyear;
+	}
+
+	/**
+	 * @return the audioQuality
+	 */
+	public int getAudioQuality() {
+		return audioQuality;
+	}
+
+	/**
+	 * @param audioQuality the audioQuality to set
+	 */
+	public void setAudioQuality(int audioQuality) {
+		this.audioQuality = audioQuality;
+	}
+
+	/**
+	 * @return the videoQuality
+	 */
+	public int getVideoQuality() {
+		return videoQuality;
+	}
+
+	/**
+	 * @param videoQuality the videoQuality to set
+	 */
+	public void setVideoQuality(int videoQuality) {
+		this.videoQuality = videoQuality;
 	}
 
 }

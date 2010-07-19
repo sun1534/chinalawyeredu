@@ -18,37 +18,107 @@ public class Lessons implements java.io.Serializable {
 	private int lessonidOfserver;
 	private int lessonstyle;
 	private String title;
-	private int lessonstate;
+	private int lessonstate=1;
 	private String teachers;
 	private int teachertype;
 	private String teachertypestr;
 	private int lessontype;
 	private String lessontypestr;
 	private String lessontypedesc;
-	private Float xuefen=0f;
+	private Float xuefen = 0f;
 	private String xuefenstr;
 	private Timestamp lessondate;
-private String lessondatestr;
+	private String lessondatestr;
 	private Timestamp lessonend;
 	private String lessonaddress;
 	private String lessoncontent;
 	private String onlinefile;
-	private String fenshuoff="100";
+	private String fenshuoff = "100";
 	private String attach;
-//	private String shared;
+	// private String shared;
 	private int provinceid;
 	private int cityid;
-	 //课程来源，课件平台的groupid为0。这里事务所的话，不考虑往上扔课程。即使往上扔课程的话，也记到市律协里面
+	// 课程来源，课件平台的groupid为0。这里事务所的话，不考虑往上扔课程。即使往上扔课程的话，也记到市律协里面
 	private int groupid;
 	private boolean deleteflag;
 	private String createuser;
 	private int createuserid;
 	private Timestamp createtime;
 	private int onlineType;
+	/**
+	 * 较好，好，差，非常差
+	 */
+	private int audioQuality=4;
+	private int videoQuality=4;
+	/**
+	 * 单位为元
+	 */
+	private Float price=0f;
+	private int teacherid;
+
+	/**
+	 * @return the teacherid
+	 */
+	public int getTeacherid() {
+		return teacherid;
+	}
+
+	/**
+	 * @param teacherid the teacherid to set
+	 */
+	public void setTeacherid(int teacherid) {
+		this.teacherid = teacherid;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	/**
+	 * @return the audioQuality
+	 */
+	public int getAudioQuality() {
+		return audioQuality;
+	}
+
+	public String getAudioQualityStr() {
+		return com.changpeng.lessons.util.CommonDatas.QUALITIES.get(audioQuality) == null ? "未知"
+				: com.changpeng.lessons.util.CommonDatas.QUALITIES.get(audioQuality);
+	}
+
+	public String getVideoQualityStr() {
+		return com.changpeng.lessons.util.CommonDatas.QUALITIES.get(videoQuality) == null ? "未知"
+				: com.changpeng.lessons.util.CommonDatas.QUALITIES.get(videoQuality);
+	}
+
+	/**
+	 * @param audioQuality
+	 *            the audioQuality to set
+	 */
+	public void setAudioQuality(int audioQuality) {
+		this.audioQuality = audioQuality;
+	}
+
+	/**
+	 * @return the videoQuality
+	 */
+	public int getVideoQuality() {
+		return videoQuality;
+	}
+
+	/**
+	 * @param videoQuality
+	 *            the videoQuality to set
+	 */
+	public void setVideoQuality(int videoQuality) {
+		this.videoQuality = videoQuality;
+	}
 
 	private Set lessonshareds = new HashSet(0);
-	
-	
+
 	// Constructors
 
 	/**
@@ -59,7 +129,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param lessonshareds the lessonshareds to set
+	 * @param lessonshareds
+	 *            the lessonshareds to set
 	 */
 	public void setLessonshareds(Set lessonshareds) {
 		this.lessonshareds = lessonshareds;
@@ -68,9 +139,6 @@ private String lessondatestr;
 	/** default constructor */
 	public Lessons() {
 	}
-
-
-
 
 	// Property accessors
 
@@ -100,6 +168,12 @@ private String lessondatestr;
 
 	public String getTitle() {
 		return this.title;
+	}
+	
+	public String getTitleTrim(){
+		if(this.title.length()>20)
+			return this.title.substring(0,19)+"...";
+			return title;
 	}
 
 	public void setTitle(String title) {
@@ -210,15 +284,13 @@ private String lessondatestr;
 		this.attach = attach;
 	}
 
-//	public String getShared() {
-//		return this.shared;
-//	}
-//
-//	public void setShared(String shared) {
-//		this.shared = shared;
-//	}
-
-
+	// public String getShared() {
+	// return this.shared;
+	// }
+	//
+	// public void setShared(String shared) {
+	// this.shared = shared;
+	// }
 
 	public boolean getDeleteflag() {
 		return this.deleteflag;
@@ -227,12 +299,12 @@ private String lessondatestr;
 	public void setDeleteflag(boolean deleteflag) {
 		this.deleteflag = deleteflag;
 	}
+	
+
 
 	public String getCreateuser() {
 		return this.createuser;
 	}
-
-
 
 	public Timestamp getCreatetime() {
 		return this.createtime;
@@ -250,7 +322,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param provinceid the provinceid to set
+	 * @param provinceid
+	 *            the provinceid to set
 	 */
 	public void setProvinceid(int provinceid) {
 		this.provinceid = provinceid;
@@ -264,7 +337,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param cityid the cityid to set
+	 * @param cityid
+	 *            the cityid to set
 	 */
 	public void setCityid(int cityid) {
 		this.cityid = cityid;
@@ -278,7 +352,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param groupid the groupid to set
+	 * @param groupid
+	 *            the groupid to set
 	 */
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
@@ -292,14 +367,16 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param createuserid the createuserid to set
+	 * @param createuserid
+	 *            the createuserid to set
 	 */
 	public void setCreateuserid(int createuserid) {
 		this.createuserid = createuserid;
 	}
 
 	/**
-	 * @param createuser the createuser to set
+	 * @param createuser
+	 *            the createuser to set
 	 */
 	public void setCreateuser(String createuser) {
 		this.createuser = createuser;
@@ -313,7 +390,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param teachertypestr the teachertypestr to set
+	 * @param teachertypestr
+	 *            the teachertypestr to set
 	 */
 	public void setTeachertypestr(String teachertypestr) {
 		this.teachertypestr = teachertypestr;
@@ -327,7 +405,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param lessontypestr the lessontypestr to set
+	 * @param lessontypestr
+	 *            the lessontypestr to set
 	 */
 	public void setLessontypestr(String lessontypestr) {
 		this.lessontypestr = lessontypestr;
@@ -341,7 +420,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param xuefenstr the xuefenstr to set
+	 * @param xuefenstr
+	 *            the xuefenstr to set
 	 */
 	public void setXuefenstr(String xuefenstr) {
 		this.xuefenstr = xuefenstr;
@@ -355,7 +435,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param lessondatestr the lessondatestr to set
+	 * @param lessondatestr
+	 *            the lessondatestr to set
 	 */
 	public void setLessondatestr(String lessondatestr) {
 		this.lessondatestr = lessondatestr;
@@ -369,7 +450,8 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param excelline the excelline to set
+	 * @param excelline
+	 *            the excelline to set
 	 */
 	public void setExcelline(int excelline) {
 		this.excelline = excelline;
@@ -383,34 +465,25 @@ private String lessondatestr;
 	}
 
 	/**
-	 * @param onlineType the onlineType to set
+	 * @param onlineType
+	 *            the onlineType to set
 	 */
 	public void setOnlineType(int onlineType) {
 		this.onlineType = onlineType;
 	}
 
-//	public Set getLessonreplies() {
-//		return this.lessonreplies;
-//	}
-//
-//	public void setLessonreplies(Set lessonreplies) {
-//		this.lessonreplies = lessonreplies;
-//	}
-//
-//	public Set getLessonscores() {
-//		return this.lessonscores;
-//	}
-//
-//	public void setLessonscores(Set lessonscores) {
-//		this.lessonscores = lessonscores;
-//	}
-//
-//	public Set getLawyerlessonxfs() {
-//		return this.lawyerlessonxfs;
-//	}
-//
-//	public void setLawyerlessonxfs(Set lawyerlessonxfs) {
-//		this.lawyerlessonxfs = lawyerlessonxfs;
-//	}
+	/**
+	 * @return the price
+	 */
+	public float getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(float price) {
+		this.price = price;
+	}
 
 }

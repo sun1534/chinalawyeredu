@@ -107,14 +107,14 @@ function showResponse(originalRequest){
 								<s:textfield name="lesson.title" size="50" />
 							</td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td class="tab_content" align="right">
 									课程状态：
 							</td>
 							<td colspan="2" class="tab_content">
 								<s:select name="lesson.lessonstate" list="@com.changpeng.lessons.util.CommonDatas@LessonState"/>
 							</td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td class="tab_content" align="right">
 									名家讲坛：
@@ -143,7 +143,7 @@ function showResponse(originalRequest){
                                      <font color="red">*请选择</font>
 							</td>
 						</tr>
-
+<!-- 
 						<tr>
 							<td class="tab_content1" align="right">
 									课程类别描述：
@@ -153,7 +153,7 @@ function showResponse(originalRequest){
                                  <font color="red">*不能为空</font>
 							</td>
 						</tr>
-
+-->
 
 						<tr>
 							<td class="tab_content1" align="right">
@@ -251,6 +251,7 @@ function showResponse(originalRequest){
                                     </script>
 							</td>
 							<td colspan="2" class="tab_content">
+							<s:hidden name="deleteflagint"/>
 									<s:textfield  id="fileid" name="lesson.onlinefile" size="60" onblur="checkifempty()"/>
 							</td>
 						</tr>

@@ -3,14 +3,10 @@
  */
 package com.changpeng.jifen.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.jifen.util.Jifenstatics;
-import com.changpeng.jifen.util.NumberUtil;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 

@@ -15,6 +15,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.context.Globals;
 import com.changpeng.common.exception.ServiceException;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
 import com.changpeng.models.SysUser;
@@ -29,9 +30,11 @@ public class CommonDatas {
 	private static Log LOG = LogFactory.getLog(CommonDatas.class);
 	public static Map<Integer, String> users = new LinkedHashMap<Integer, String>();
 	public static Map<Integer, String> groups = new LinkedHashMap<Integer, String>();
+	public static Map<Integer, String> lawyers = new LinkedHashMap<Integer, String>();
 
 	private static long userInteractive = 0;
 	private static long groupInteractive = 0;
+	private static long lawyersInteractive = 0;
 
 	public static Map<String, String> MONTHS = new LinkedHashMap<String, String>();
 	public static Map<String, String> DAYS = new LinkedHashMap<String, String>();
@@ -63,12 +66,12 @@ public class CommonDatas {
 
 	public static void getUsers() {
 		long now = System.currentTimeMillis();
-//		if (now - userInteractive > 5 * 60 * 60 * 1000) { // 每5分钟
-			try {
-				BasicService service = (BasicService) Globals.getBean("basicService");
-				synchronized (users) {
-					int size=users.size();
-				
+		// if (now - userInteractive > 5 * 60 * 60 * 1000) { // 每5分钟
+		try {
+			BasicService service = (BasicService) Globals.getBean("basicService");
+			synchronized (users) {
+				int size = users.size();
+
 				users.clear();
 				DetachedCriteria dc = DetachedCriteria.forClass(SysUser.class);
 				List list = service.findAllByCriteria(dc);
@@ -77,12 +80,39 @@ public class CommonDatas {
 					SysUser sysuser = (SysUser) list.get(i);
 					users.put(sysuser.getUserid(), sysuser.getUsername());
 				}
-				LOG.info("管理员更新成功!::前:"+size+"后:"+groups.size());
-				}
-			} catch (ServiceException e) {
-				LOG.error("获取所有用户失败" + e);
+				LOG.info("管理员更新成功!::前:" + size + "后:" + groups.size());
 			}
-			userInteractive = now;
+		} catch (ServiceException e) {
+			LOG.error("获取所有用户失败" + e);
+		}
+		userInteractive = now;
+		// }
+	}
+/**
+ * 得到所有的律师信息
+ */
+	public static void getLawyers() {
+		long now = System.currentTimeMillis();
+//		if (now - lawyersInteractive > 30 * 60 * 60 * 1000) { // 每30分钟
+//			try {
+//				BasicService service = (BasicService) Globals.getBean("basicService");
+//				synchronized (lawyers) {
+//					int size = lawyers.size();
+//					lawyers.clear();
+//					DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
+//					List list = service.findAllByCriteria(dc);
+//					int len = list == null ? 0 : list.size();
+//					for (int i = 0; i < len; i++) {
+//						Lawyers sysgroup = (Lawyers) list.get(i);
+//						lawyers.put(sysgroup.getLawyerid(), sysgroup.getLawyername());
+//					}
+//
+//					LOG.info("律师信息更新成功!::前:" + size + "后:" + lawyers.size());
+//				}
+//			} catch (ServiceException e) {
+//				LOG.error("获取所有律师失败" + e);
+//			}
+//			lawyersInteractive = now;
 //		}
 	}
 
@@ -92,7 +122,7 @@ public class CommonDatas {
 		try {
 			BasicService service = (BasicService) Globals.getBean("basicService");
 			synchronized (groups) {
-				int size=groups.size();
+				int size = groups.size();
 				groups.clear();
 				DetachedCriteria dc = DetachedCriteria.forClass(SysGroup.class);
 				List list = service.findAllByCriteria(dc);
@@ -102,7 +132,7 @@ public class CommonDatas {
 					groups.put(sysgroup.getGroupid(), sysgroup.getGroupname());
 				}
 				groups.put(0, "系统发布");
-				LOG.info("部门更新成功!::前:"+size+"后:"+groups.size());
+				LOG.info("部门更新成功!::前:" + size + "后:" + groups.size());
 			}
 		} catch (ServiceException e) {
 			LOG.error("获取所有部门失败" + e);

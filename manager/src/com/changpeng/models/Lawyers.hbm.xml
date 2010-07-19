@@ -31,7 +31,7 @@
             </column>
         </property>
         <property name="systemno" type="java.lang.String">
-            <column name="systemno" length="30" not-null="true">
+            <column name="systemno" length="30">
                 <comment>系统编号</comment>
             </column>
         </property>

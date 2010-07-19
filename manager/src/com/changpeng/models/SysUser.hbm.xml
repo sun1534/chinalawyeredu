@@ -79,7 +79,7 @@
             </column>
         </property>
         <property name="comments" type="java.lang.String">
-            <column name="COMMENTS" length="200">
+            <column name="COMMENTS" length="1000">
                 <comment>描述内容</comment>
             </column>
         </property>

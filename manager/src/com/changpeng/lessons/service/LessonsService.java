@@ -4,6 +4,7 @@
 
 package com.changpeng.lessons.service;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.PaginationSupport;
-import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
+import com.changpeng.lessons.action.LessonStatic;
 import com.changpeng.lessons.dao.LessonsDAO;
 import com.changpeng.lessons.util.Lessonstatics;
 import com.changpeng.models.Lessons;
@@ -61,10 +62,58 @@ public class LessonsService extends BasicService {
 			throw new ServiceException(e);
 		}
 	}
+	/**
+	 * 课程听课的统计情况
+	 * @param teacherid
+	 * @param title
+	 * @param from
+	 * @param to
+	 * @return
+	 */
+	public com.changpeng.common.PaginationSupport getLessonStatic(int teacherid,String title,Timestamp from,Timestamp to,int pageNo,int pageSize) {
+		int startIndex=(pageNo-1)*pageSize;
+		String where=" where 1=1 ";		
+		if(teacherid!=0){
+			where+=" and teacherid="+teacherid;
+		}		
+		if(title!=null&&!title.equals("")){
+			where+=" and title like '%"+title+"%'";
+		}
+		String sql="select count(lessonid) as cnt,lessonid from log_lesson_listen "+where+" group by lessonid";
+		String totalsql="select count(a.lessonid) from ("+sql+") a";
+		String pagesql="select a.* from ("+sql+") a order by a.cnt desc limit "+startIndex+","+pageSize;
+		_LOG.debug("pageSql:::"+pagesql);
+		_LOG.debug("totalsql:::"+totalsql);
+		int totalCount=lessonsDAO.getCountBySqlQuery(totalsql);
+		
+		List list=lessonsDAO.findBySqlQuery(pagesql);
+		int len=list==null?0:list.size();
+		List result=new ArrayList();
+		for(int i=0;i<len;i++){
+			Object[] obj=(Object[])list.get(i);
+			LessonStatic lstatic=new LessonStatic();
+			lstatic.setLessonid(((Integer)obj[1]).intValue());
+			lstatic.setCount(((BigInteger)obj[0]).intValue());
+			result.add(lstatic);
+		}
+		
+		if(list!=null){
+			list.clear();
+			list=null;
+		}
+		PaginationSupport ps = new PaginationSupport(result, totalCount, pageSize, startIndex);
+		return ps;
+	}
+	
 
 	@Transactional
 	public void saveLesson(Lessons lesson, List groupids, SysUser user) throws ServiceException {
 		lessonsDAO.save(lesson);
+		
+		if(lesson.getTeacherid()!=0){
+			String sql="update teacher set lessoncount=lessoncount+1 where userid="+lesson.getTeacherid();
+			lessonsDAO.executeSql(sql);
+		}
 
 		// 保存共享的情况
 	
@@ -204,7 +253,7 @@ public class LessonsService extends BasicService {
 		return statics;
 	}
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
-	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid,int onlinetype, int lessonstyle,
+	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid,int audioQuality,int videoQuality,int onlinetype, int lessonstyle,
 			int lessontype, String title, String teachers, int pageSize, int pageNo,Timestamp start,Timestamp end) {
 
 		// 现场课程的话，如果我是admin或者group>3，则显示所有的现场课程，否则的话，
@@ -213,7 +262,8 @@ public class LessonsService extends BasicService {
 		if (lessonstyle == 1||lessonstyle==100) {
 		
 			
-			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));
+//			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));
+			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
 			if (mygroup != null && mygroup.getGrouptype() <= 3) {
 				if (mygroup.getGrouptype() == 1) { // 无权限
 					dc.add(Restrictions.eq("provinceid", -1));
@@ -236,6 +286,10 @@ public class LessonsService extends BasicService {
 			}
 			if (onlinetype != -1) {
 				dc.add(Restrictions.eq("onlineType", onlinetype));
+			}if (audioQuality != -1) {
+				dc.add(Restrictions.eq("audioQuality", audioQuality));
+			}if (videoQuality != -1) {
+				dc.add(Restrictions.eq("videoQuality", videoQuality));
 			}
 			if (groupid != -1) {
 //				dc.add(Restrictions.eq("lessons.groupid", groupid));
@@ -282,8 +336,8 @@ public class LessonsService extends BasicService {
 			
 			}
 			// 不显示删除的
-			dc.add(Restrictions.eq("lessons.deleteflag", false));
-			hql += " and a.lessons.deleteflag=false";
+//			dc.add(Restrictions.eq("lessons.deleteflag", false));
+//			hql += " and a.lessons.deleteflag=false";
 			// 具体的来源
 			if (groupid != -1) {
 //				dc.add(Restrictions.eq("lessons.groupid", groupid));
@@ -296,8 +350,15 @@ public class LessonsService extends BasicService {
 				dc.add(Restrictions.like("lessons.title", title, MatchMode.ANYWHERE));
 				hql += " and a.lessons.title like '%" + title + "%'";
 			}
+			if (audioQuality != -1) {
+				dc.add(Restrictions.eq("lessons.audioQuality",audioQuality ));
+				hql += " and a.lessons.audioQuality = " + audioQuality ;
+			}if (videoQuality != -1) {
+				dc.add(Restrictions.eq("lessons.videoQuality",videoQuality ));
+				hql += " and a.lessons.videoQuality = " + videoQuality ;
+			}
+			
 			if (onlinetype != -1) {
-//				dc.add(Restrictions.eq("onlinetype", onlinetype));
 				dc.add(Restrictions.eq("lessons.onlineType",onlinetype ));
 				hql += " and a.lessons.onlineType = " + onlinetype ;
 			}

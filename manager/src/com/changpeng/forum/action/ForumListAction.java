@@ -47,7 +47,7 @@ public class ForumListAction extends AbstractListAction {
 		BasicService basic = (BasicService) getBean("basicService");
 		DetachedCriteria detachedCriteria = DetachedCriteria
 				.forClass(Forum.class);
-		detachedCriteria.add(Restrictions.eq("ismain", true));
+		detachedCriteria.add(Restrictions.eq("ismain", true)).add(Restrictions.eq("cityid", this.getLoginUser().getCityid()));
 //		.add(
 //				Restrictions.eq("thegroup", this.getLoginUser()
 //						.getDirectunion()));

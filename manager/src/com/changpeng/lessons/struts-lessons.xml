@@ -49,9 +49,34 @@
        <action name="lessonsDelete" class="com.changpeng.lessons.action.LessonsDeleteAction">
        </action>
  
+ 
        
-      <action name="lessonStaticByView" class="com.changpeng.lessons.action.LessonsStaticByViewAction">
-         <result name="success" type="dispatcher">/lessons/lessonStaticByView.jsp</result>
+          <action name="teacherDelete" class="com.changpeng.lessons.action.TeacherDeleteAction">
+       </action>
+        <action name="teacherList" class="com.changpeng.lessons.action.TeacherListAction">
+         <result name="success" type="dispatcher">/lessons/teacherList.jsp</result>
+       </action>
+       
+       <action name="teacherView" class="com.changpeng.lessons.action.TeacherViewAction">
+         <result name="success" type="dispatcher">/lessons/teacherView.jsp</result>
+       </action>
+       
+        <action name="teacherCreateEdit" class="com.changpeng.lessons.action.TeacherCreateEditAction">
+     		<result name="input" type="dispatcher">/lessons/teacherCreateEdit.jsp</result>
+       </action>
+       <action name="teacherCreateEditPre" class="com.changpeng.lessons.action.TeacherCreateEditAction" method="input">
+         	<result name="input" type="dispatcher">/lessons/teacherCreateEdit.jsp</result>
+       </action>
+       
+         <action name="teacherLessonsList" class="com.changpeng.lessons.action.TeacherLessonsListAction">
+         <result name="success" type="dispatcher">/lessons/teacherLessonsList.jsp</result>
+       </action>
+        <action name="teacherLessonsStatic" class="com.changpeng.lessons.action.TeacherLessonsStaticAction">
+         <result name="success" type="dispatcher">/lessons/teacherLessonsStatic.jsp</result>
+       </action>
+       
+           <action name="lessonListenList" class="com.changpeng.lessons.action.LessonListenListAction">
+         <result name="success" type="dispatcher">/lessons/lessonListenList.jsp</result>
        </action>
        
        
@@ -68,6 +93,9 @@
 	<package name="lessonajax" extends="defaultajax" namespace="/lessonajax">
        <default-interceptor-ref name="visitStack"/>
    	
+   	   <action name="passwordReset" class="com.changpeng.lessons.action.ajax.PasswordResetAction">
+			<result name="success" type="json"></result>
+   	   </action>
    	
    	   <action name="refreshScore" class="com.changpeng.lessons.action.ajax.RefreshScoreAction">
 			<result name="success" type="json"></result>

@@ -20,6 +20,9 @@ import com.changpeng.lessons.util.LessonsUtil;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.Lessonshared;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
+import com.changpeng.models.SysUser;
+import com.changpeng.models.Teacher;
 import com.changpeng.system.service.SysGroupService;
 
 /**
@@ -100,11 +103,16 @@ public class LessonsEditAction extends AbstractAction {
 	protected String go() throws Exception {
 		LessonsService service = (LessonsService) this.getBean("lessonsService");
 		lesson.setLessondate(LessonsUtil.str2timestamp(datestart + " " + hmstart));
-		if (onlyonline == 1) {
+		if (onlyonline != 0) {
 			lesson.setLessonend(lesson.getLessondate());
 			if (lesson.getOnlinefile() == null || lesson.getOnlinefile().equals("")) {
 				this.message = "在线文件不能为空,请返回";
 				return "message";
+			}
+			if (onlyonline == 2) {
+				Teacher teacher = (Teacher) basicService.get(Teacher.class, lesson.getTeacherid());
+				lesson.setTeachers(teacher.getUsername());
+				lesson.setTeachertype(teacher.getTeacherType());
 			}
 
 		} else
@@ -118,10 +126,11 @@ public class LessonsEditAction extends AbstractAction {
 			if (datavisible.getProvinceid() != 0) {
 				lesson.setProvinceid(datavisible.getProvinceid());
 				lesson.setGroupid(lesson.getProvinceid());
-			}
-			if (datavisible.getCityid() != 0) {
+			} else if (datavisible.getCityid() != 0) {
 				lesson.setCityid(datavisible.getCityid());
 				lesson.setCityid(lesson.getCityid());
+			} else {
+				lesson.setGroupid(mygroup == null ? 0 : mygroup.getGroupid());
 			}
 		} else {
 			lesson.setGroupid(mygroup.getGroupid());
@@ -178,18 +187,25 @@ public class LessonsEditAction extends AbstractAction {
 			sharedgroupids.add(mygroup.getGroupid());
 
 		lesson.setAttach(attach);
+
+		System.out.println("lesson.getDeleteflagint()::::" + deleteflagint);
+
+		lesson.setDeleteflag(deleteflagint == 1 ? true : false);
 		// service.update(lesson);
 		service.updateLesson(lesson, sharedgroupids, this.getLoginUser());
 		// this.nextPage = "lessonsList.pl";
 		if (onlyonline == 1)
 			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2&pageNo=" + pageNo;
-		else
+		else if (onlyonline == 1) {
 			this.nextPage = "lessonsLocalList.pl?lessonstyle=1&pageNo=" + pageNo;
+		} else {
+			this.nextPage = "teacherLessonsList.pl?pageNo=" + pageNo;
+		}
+
 		this.message = "课程信息修改成功";
-		
-		
-		this.opResult+="修改课程,名称:"+lesson.getTitle();
-		
+
+		this.opResult += "修改课程,名称:" + lesson.getTitle();
+
 		return SUCCESS;
 	}
 
@@ -202,8 +218,12 @@ public class LessonsEditAction extends AbstractAction {
 	public String input() throws ServiceException {
 		Lessons lesson = (Lessons) service.get(Lessons.class, lessonid);
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
-		if (lesson.getOnlinefile() != null && !lesson.getOnlinefile().equals(""))
+		if (lesson.getOnlinefile() != null && !lesson.getOnlinefile().equals("")) {
 			display = "";
+			if (lesson.getTeacherid() != 0)
+				onlyonline = 2;
+		}
+		System.out.println("============================onlyonline==="+onlyonline);
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 
 		shouldsharedgroupids = groupservice.getAllsharedunion();
@@ -239,7 +259,7 @@ public class LessonsEditAction extends AbstractAction {
 		// LessonsUtil.timestamp2str(lesson.getLessondate(), datestart,
 		// hmstart);
 
-		System.out.println(datestart + ",,," + hmstart);
+		// System.out.println(datestart + ",,," + hmstart);
 
 		if (lesson.getLessondate() != null && !lesson.getLessondate().equals("")) {
 			s = df.format(lesson.getLessondate());
@@ -262,12 +282,38 @@ public class LessonsEditAction extends AbstractAction {
 			hasattach = true;
 
 		set("lesson", lesson);
-
-		if (onlyonline == 1) {
+		this.deleteflagint = lesson.getDeleteflag() ? 1 : 0;
+		
+		if (onlyonline == 2) {// 新增授课律师的课程
+			SysUser loginuser = this.getLoginUser();
+			SysRole loginrole = loginuser.getSysRole();
+		
+			if (loginrole != null && loginrole.getRoleid() == 100) {// 授课律师登录
+				listall = false;
+				lesson.setTeacherid(loginuser.getUserid());
+			} else {
+				BasicService basicservice = (BasicService) this.getBean("basicService");
+				teacherList = basicservice.findAll(Teacher.class);
+			}
+		}
+		if (onlyonline != 0) {
 			return "online";
 		}
 		return "local";
 
+	}
+
+	private boolean listall = true;
+
+	public boolean getListall(){
+
+		return this.listall;
+	}
+
+	private List teacherList;
+
+	public List getTeacherList() {
+		return this.teacherList;
 	}
 
 	private List sharedgroupids = new ArrayList();
@@ -306,6 +352,23 @@ public class LessonsEditAction extends AbstractAction {
 
 	public void setDateend(String dateend) {
 		this.dateend = dateend;
+	}
+
+	private int deleteflagint;
+
+	/**
+	 * @return the deleteflagint
+	 */
+	public int getDeleteflagint() {
+		return deleteflagint;
+	}
+
+	/**
+	 * @param deleteflagint
+	 *            the deleteflagint to set
+	 */
+	public void setDeleteflagint(int deleteflagint) {
+		this.deleteflagint = deleteflagint;
 	}
 
 	public void setHmend(String hmend) {

@@ -43,12 +43,5 @@
         </param>
         <message>开始时间必须形如HH:mm的格式！</message>
     </validator>   
-     
-     <validator type="regex">
-        <param name="fieldName">lesson.fenshuoff</param>
-        <param name="expression">
-            <![CDATA[^(\d){1,3}$]]>
-        </param>
-        <message>折扣必须为数字形式！</message>
-    </validator> 
+   
 </validators>

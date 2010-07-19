@@ -9,12 +9,16 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 
+import com.changpeng.common.BasicService;
 import com.changpeng.common.DataVisible;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.lessons.util.LessonsUtil;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
+import com.changpeng.models.SysUser;
+import com.changpeng.models.Teacher;
 import com.changpeng.system.service.SysGroupService;
 
 /**
@@ -83,12 +87,19 @@ public class LessonsCreateAction extends AbstractAction {
 		LessonsService service = (LessonsService) this.getBean("lessonsService");
 
 		lesson.setLessondate(LessonsUtil.str2timestamp(datestart + " " + hmstart));
-		if (onlyonline == 1) {
+		if (onlyonline!=0) {
 			lesson.setLessonend(lesson.getLessondate());
-			if(lesson.getOnlinefile()==null||lesson.getOnlinefile().equals("")){
-				this.message="在线文件不能为空,请返回";
+			if (lesson.getOnlinefile() == null || lesson.getOnlinefile().equals("")) {
+				this.message = "在线文件不能为空,请返回";
 				return "message";
 			}
+			if(onlyonline==2){
+				Teacher teacher=(Teacher)basicService.get(Teacher.class, lesson.getTeacherid());
+				lesson.setTeachers(teacher.getUsername());
+				lesson.setTeachertype(teacher.getTeacherType());
+			}
+			
+			
 		} else {
 			lesson.setLessonend(LessonsUtil.str2timestamp(dateend + " " + hmend));
 		}
@@ -106,9 +117,11 @@ public class LessonsCreateAction extends AbstractAction {
 				lesson.setProvinceid(datavisible.getProvinceid());
 				lesson.setGroupid(lesson.getProvinceid());
 			}
-			if (datavisible.getCityid() != 0) {
+			else if (datavisible.getCityid() != 0) {
 				lesson.setCityid(datavisible.getCityid());
 				lesson.setGroupid(lesson.getCityid());
+			}else{
+				lesson.setGroupid(mygroup==null?0:mygroup.getGroupid());
 			}
 		} else {
 			lesson.setGroupid(mygroup.getGroupid());
@@ -124,7 +137,7 @@ public class LessonsCreateAction extends AbstractAction {
 		} else {
 			lesson.setLessonstyle(3); // 既是现场培训的,又是在线的
 		}
-		if (onlyonline == 1) { // 通过添加在线课程的时候实现
+		if (onlyonline != 0) { // 通过添加在线课程的时候实现
 			lesson.setLessonstyle(2);
 		}
 
@@ -162,25 +175,24 @@ public class LessonsCreateAction extends AbstractAction {
 		if (mygroup != null)
 			sharedgroupids.add(mygroup.getGroupid());
 
-	
-		
 		service.saveLesson(lesson, sharedgroupids, this.getLoginUser());
-		
-//		System.out.println("onlyonline=============="+onlyonline);
-		
-		
-		if ( onlyonline== 0) {
+
+		// System.out.println("onlyonline=============="+onlyonline);
+
+		if (onlyonline == 0) {
 			this.nextPage = "lessonsLocalList.pl?lessonstyle=1";
-		}else
-			 this.nextPage = "lessonsOnlineList.pl?lessonstyle=2";
-		
-		this.opResult+="新增课程,名称:"+lesson.getTitle();
+		} else if (onlyonline == 1) {
+			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2";
+		} else {
+			this.nextPage = "teacherLessonsList.pl";
+		}
+		this.opResult += "新增课程,名称:" + lesson.getTitle();
 		this.message = "课程新增成功";
 		return SUCCESS;
 	}
 
 	@Override
-	public String input() {
+	public String input()throws Exception {
 
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
@@ -213,10 +225,32 @@ public class LessonsCreateAction extends AbstractAction {
 		dateend = datestart;
 		hmend = "15:00";
 
-	
-		if (onlyonline == 0)
+		if (onlyonline == 0){
 			return "local";
+		}
+		if (onlyonline == 2){//新增授课律师的课程			
+			SysUser loginuser = this.getLoginUser();
+			SysRole loginrole = loginuser.getSysRole();
+			System.out.println("==============================="+loginrole);
+			if (loginrole!=null&&loginrole.getRoleid() == 100) {// 授课律师登录			
+				listall = false;
+				lesson.setTeacherid(loginuser.getUserid());
+			}else{
+				BasicService basicservice = (BasicService) this.getBean("basicService");
+				teacherList = basicservice.findAll(Teacher.class);
+			}			
+		}		
 		return "online";
+	}
+	
+	private boolean listall=true;
+	public boolean getListall(){
+		return this.listall;
+	}
+	private List teacherList;
+
+	public List getTeacherList() {
+		return this.teacherList;
 	}
 
 	private static String getExtention(String fileName) {

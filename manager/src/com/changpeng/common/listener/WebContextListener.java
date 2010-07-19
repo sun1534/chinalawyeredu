@@ -192,6 +192,12 @@ public class WebContextListener implements ServletContextListener {
 		
 			getSysteNos();
 			LOG.info("杭州卡号和系统编号获取成功!");
+			
+			com.changpeng.system.util.CommonDatas.getGroups();
+			com.changpeng.system.util.CommonDatas.getUsers();
+			com.changpeng.system.util.CommonDatas.getLawyers();
+			com.changpeng.lessons.util.CommonDatas.getAlllessons();
+
 		
 		} catch (ServiceException e) {
 			LOG.error("系统启动初始化权限列表为空" + e);

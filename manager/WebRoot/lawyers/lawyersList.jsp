@@ -10,12 +10,14 @@
 body {
 	background-color: #DAE7F6;
 }
+
 -->
 </style>
 <script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="javascript">
 function fanye(str){
+
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
@@ -128,7 +130,8 @@ function exportit(str){
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" class="list_box">
         <tr  class="list_tdfunc">
           <td height="24" align="right" >
-           ${page.pageView}
+       ${page.pageView }
+           
           </td>
         </tr>
       </table>
@@ -184,8 +187,7 @@ function exportit(str){
           <s:if test="canins">
          <INPUT type="button" onClick="return getAdd()"  value=" 新增律师 " name="addbutton" class="button">
           <INPUT type="button" onClick="return getAddBatch()"  value=" 批量新增律师 " name="addbutton" class="button">
-         </s:if>
-         
+         </s:if>         
              &nbsp;    	
           </td>
         </tr>

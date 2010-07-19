@@ -108,6 +108,7 @@ function showResponse(originalRequest){
 								<s:textfield name="lesson.title" size="50" />
 							</td>
 						</tr>
+								<s:if test="onlyonline==1">
 						<tr>
 							<td class="tab_content" align="right">
 									名家讲坛：
@@ -125,6 +126,33 @@ function showResponse(originalRequest){
 								<s:textfield  name="lesson.teachers" size="20"/>
 							</td>
 						</tr>
+						</s:if>
+						<s:if test="onlyonline==2"><!-- 授课老师 -->
+						<s:if test="listall">
+<tr>
+							<td class="tab_content1" align="right">
+									授课老师：
+							</td>
+							<td colspan="2" class="tab_content1">
+													<s:select name="lesson.teacherid" list="teacherList" listKey="userid" listValue="username"/>
+
+							</td>
+						</tr>						</s:if>
+						<s:else>
+						<s:hidden name="lesson.teacherid"/>
+						</s:else>
+						
+						
+						<tr>
+							<td class="tab_content1" align="right">
+									价格：
+							</td>
+							<td colspan="2" class="tab_content1">
+								<s:textfield  name="lesson.price" size="5"/>(单位：元)
+                                 <font color="red">*不能为空且必须为数字</font>
+							</td>
+						</tr>
+						</s:if>
 						<tr>
 							<td class="tab_content" align="right">
 									课程类别：
@@ -135,7 +163,7 @@ function showResponse(originalRequest){
                                      <font color="red">*请选择</font>
 							</td>
 						</tr>
-
+<!-- 
 						<tr>
 							<td class="tab_content1" align="right">
 									课程类别描述：
@@ -145,7 +173,7 @@ function showResponse(originalRequest){
                                  <font color="red">*不能为空</font>
 							</td>
 						</tr>
-
+ -->
 						<tr>
 							<td class="tab_content1" align="right">
 									学分：
@@ -189,6 +217,27 @@ function showResponse(originalRequest){
 							</td>
 							<td colspan="2" class="tab_content1">
 							 <s:radio name="lesson.onlineType" list="#{'1':'音频文件','0':'视频文件'}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content1" align="right">音频质量：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="lesson.audioQuality" list="@com.changpeng.lessons.util.CommonDatas@QUALITIES"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content1" align="right">视频质量：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="lesson.videoQuality" list="@com.changpeng.lessons.util.CommonDatas@QUALITIES"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content1" align="right">视频状态：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="deleteflagint" list="#{'1':'禁用','0':'启用'}"/>
 							</td>
 						</tr>
 						<!-- 

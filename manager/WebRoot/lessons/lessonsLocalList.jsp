@@ -82,12 +82,12 @@ function deleteid(lessonid){
 						 <!--<TD align="center" background="../imagesa/top-bg1.gif">
 					        <s:checkbox name="checkAll" onclick="getCheckAll(this)"/>
 					      </TD>-->
-							<TD height="23" align="center" width="30%" background="../imagesa/top-bg1.gif">
+							<TD height="23" align="center" width="250" background="../imagesa/top-bg1.gif">
 								课程名称
 							</TD>
-							<TD align="center" background="../imagesa/top-bg1.gif">
+							<!-- <TD align="center" background="../imagesa/top-bg1.gif">
 								课程状态
-							</TD>
+							</TD> -->
 							<TD align="center" width="15%" background="../imagesa/top-bg1.gif">
 								主讲人
 							</TD>
@@ -107,16 +107,14 @@ function deleteid(lessonid){
 
 						<s:iterator value="page.items" status="stat">
 						<TR>
-				
-       
-							<TD class="tab_content" align="left">&nbsp;
-								<a href="lessonsView.pl?lessonid=${lessonid}">${title}</a>
+							<TD class="tab_content" align="left" title="{title}">
+								<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 							</TD>
+							<!-- 
 							<TD class="tab_content" align="center">
-
                             <s:property value="@com.changpeng.lessons.util.CommonDatas@LessonState[lessonstate]"/>
-							
 							</TD>
+							 -->
 							<TD class="tab_content" align="center">
 						<div style="overflow:hidden;text-overflow:ellipsis;">${teachers}</div>
 							</TD>
@@ -135,7 +133,7 @@ function deleteid(lessonid){
                               
 							</TD>
 							<TD class="tab_content" align="center">
-									<s:if test="mygroup==groupid">
+									<s:if test="mygroup==0||mygroup==groupid">
                                     <a href="lessonsEdit!input.pl?onlyonline=0&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
 								</s:if>
 								<s:else>
@@ -143,7 +141,7 @@ function deleteid(lessonid){
 								</s:else>
 							</TD>
 							<TD class="tab_content" align="center">
-								<s:if test="mygroup==groupid">
+								<s:if test="mygroup==0||mygroup==groupid">
 									<a href="#" onClick="deleteid('${lessonid}')">【删除】</a>
 								</s:if>
 								<s:else>

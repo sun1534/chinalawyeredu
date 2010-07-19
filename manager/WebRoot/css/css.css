@@ -389,6 +389,7 @@ a.left_menu:hover {
     background-repeat: no-repeat;
     background-position: right bottom;
 	height: 30px;
+	padding:3px;
 }
 .tab_content1 {
 	font-size: 9pt;
@@ -397,6 +398,7 @@ a.left_menu:hover {
 	background-repeat: no-repeat;
 	background-position: right bottom;
 	height: 30px;
+	padding:3px;
 }
 
 
@@ -825,10 +827,10 @@ a.left_menu:hover {
 	background-color: #ffffff;
 	/*border-top: 1px solid #8daed9;*/
 	border-right: 1px solid #8daed9;
-	line-height: 20px;
 	padding: 0px;
 	clear: both;
 }
+
 .list_table {
     margin: auto;
 	width: 100%;
@@ -906,3 +908,14 @@ a.left_menu:hover {
 	white-space:nowrap;
 	overflow:hidden;
 }
+
+.page {text-align:center;padding:10px 0;font-size:14px;font-weight:bold}
+.page a,.page a:hover {text-decoration:none;color:#666; }
+.page span.page-total,.page span.page-current,.page span.page-move,.page a  {margin:0 2px;display:inline-block;height:14px;line-height:14px;padding:2px 5px;border:1px solid #CCCCCC;background:#F1F1F1;}
+.page span.page-total,.page span.page-move,.page a.page-move,.page a.page-move:hover {}
+.page a.page-move,.page a.page-move:hover {color:#666; }
+.page a:hover {border:1px solid #F1F1F1;color:#000;background:#fff;}
+.page span.page-current {background:#fff;color:#000;border:1px solid #ddd;}
+.page input.pageNo {font-size:12px;margin-left:5px;border:1px solid #666;width:30px;text-align:center;}
+.page .goPage {margin-left:5px;border:1px solid #fff;cursor:pointer;width:22px;height:20px;display:inline-block;background:#fff;color:#000;}
+.page label {display:inline-block;vertical-align:0px;}

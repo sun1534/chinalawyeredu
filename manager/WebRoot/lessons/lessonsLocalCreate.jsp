@@ -125,7 +125,7 @@ function deleteAttach(lessonid,filename){
 								<s:textfield name="lesson.title" size="50" />
 							</td>
 						</tr>
-						<tr>
+					<!-- 	<tr>
 							<td class="tab_content" align="right">
 									课程状态：
 							</td>
@@ -135,7 +135,7 @@ function deleteAttach(lessonid,filename){
 									
 							</td>
 						</tr>
-						
+						-->
 						 <s:if test="shouldview">
 						<tr>
 							<td class="tab_content" align="right">
@@ -178,7 +178,7 @@ function deleteAttach(lessonid,filename){
                                      <font color="red">*请选择</font>
 							</td>
 						</tr>
-
+<!-- 
 						<tr>
 							<td class="tab_content1" align="right">
 									课程类别描述：
@@ -188,7 +188,7 @@ function deleteAttach(lessonid,filename){
                                  <font color="red">*不能为空</font>
 							</td>
 						</tr>
-
+-->
 
 						<tr>
 							<td class="tab_content1" align="right">

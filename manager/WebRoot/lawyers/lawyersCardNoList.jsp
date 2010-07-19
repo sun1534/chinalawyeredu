@@ -121,8 +121,8 @@ function querynocardit(){
         <tr>
           <td height="24" background="../imagesa/top-bg2.gif" >
             <s:hidden name="pageNo"/>
-               <s:textfield name="lawyername" size="10" label="姓名"/> 
-                <s:textfield name="lawyerno" size="15" label="执业证号"/>
+               <s:textfield name="lawyername" size="6" label="姓名"/> 
+                <s:textfield name="lawyerno" size="20" label="执业证号"/>
                <s:textfield name="cardno" size="12" label="卡号"/> 
                <s:textfield name="systemno" size="15" label="会员编号"/> 
                

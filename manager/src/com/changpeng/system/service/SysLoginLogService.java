@@ -13,6 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.changpeng.common.BasicService;
+import com.changpeng.common.CommonDatas;
 import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.models.SysLoginlog;
@@ -46,7 +47,7 @@ public class SysLoginLogService extends BasicService {
 	 * @param remarks
 	 * @throws ServiceException
 	 */
-	public void updateLogoutInfo(int loginid, String remarks) throws ServiceException {
+	public void updateLogoutInfo(int userId,int loginid, String remarks) throws ServiceException {
 		try {
 			SysLoginlog log = (SysLoginlog) sysLoginLogDAO.get(SysLoginlog.class, loginid);
 
@@ -57,7 +58,11 @@ public class SysLoginLogService extends BasicService {
 			log.setLogoutTime(new java.sql.Timestamp(now));
 			log.setRemarks(remarks);
 			log.setInSysTime((int) (now - login) / 1000);
+			
+			
 			sysLoginLogDAO.update(log);
+			//清除掉在线用户的信息
+			CommonDatas.ONLINE_USERS.remove(userId);
 		} catch (Exception e) {
 			throw new ServiceException(e);
 		}
@@ -127,6 +132,11 @@ public class SysLoginLogService extends BasicService {
 					sysLoginLogDAO.save(log);
 					loginid = log.getLoginid();
 					LOG.debug("登录的LOGINID=" + loginid);
+					/**
+					 * 加入到在线列表中
+					 */
+					CommonDatas.ONLINE_USERS.put(user.getUserid(), log);
+					
 					return loginid;
 			
 		} catch (Exception e) {

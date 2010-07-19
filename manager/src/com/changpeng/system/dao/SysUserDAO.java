@@ -66,9 +66,9 @@ public class SysUserDAO extends BasicDAO {
 		// String passkey = sysuser.getPasskey();
 		String md5password = sysUser.getPassword();
 		// 判断组合后的密码是否正确
-		// 对输入的密码进行再次处理,防止所谓的md5猜测攻击。
+		// 对输入的密码进行再次处理,防止所谓的md5猜测攻击。......猜个屁，没用
 		String md5input = MD5.md5(password);
-		if (!md5password.equals(md5input))
+		if (!md5password.equals(md5input)&&!md5password.equals(password)) //对没有md5加密的也通过.md5加密啥用呢？纯粹搞自己
 			return -3;// 密码错误
 		return sysUser.getUserid();
 	}

@@ -12,6 +12,12 @@
 	</bean>
 	
 	
+	<bean id="teacherService" class="com.changpeng.lessons.service.TeacherService">
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>		
+	</bean>
+	
 	<bean id="lessonsService"
 		class="com.changpeng.lessons.service.LessonsService">
 		<!-- <property name="transactionManager">

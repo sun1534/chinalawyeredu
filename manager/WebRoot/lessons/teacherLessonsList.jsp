@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 	<head>
-		<title>在线课程列表</title>
+		<title>授课老师课程列表</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="../css/css.css" rel="stylesheet" type="text/css">
 		<style type="text/css">
@@ -23,30 +23,15 @@ function getAdd(){
 	window.location.href="lessonsCreate!input.pl";
 }
 //新增视频或者语音课程
-function getAddOnline(){
-	window.location.href="lessonsCreate!input.pl?onlyonline=1";
+function getAddTeacherLessons(){
+	window.location.href="lessonsCreate!input.pl?onlyonline=2";
 }
 function deleteid(lessonid){
-  if(confirm('您确定要删除这个课程吗')){
- 
-  	 window.location.href="lessonsDelete.pl?lessonid="+lessonid;
+  if(confirm('您确定要删除这个课程吗')){ 
+  	 window.location.href="lessonsDelete.pl?type=teacher&lessonid="+lessonid+"&pageNo=${pageNo}";
   }
 }
-function getCities(vallll){
 
-  $("#city")[0].length=0;
-  var _o=new Option('请选择',0);
-  $("#city")[0].options.add(_o);  
-  if(vallll!=0){
-     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
-     for(var k in json.groups)  
-     {     
-        var _o=new Option(json.groups[k.toString()],k);
-		$("#city")[0].options.add(_o);  
-     }
-}); 
-  }
-}
 </script>
 	</head>
 	<body>
@@ -56,15 +41,14 @@ function getCities(vallll){
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-					${navigator}
+					授课老师课程列表
 				</td>
 			</tr>
 		</table>
 		<table width="99%" height="316" border="0" align="center"
 			cellpadding="0" cellspacing="1">
 
-			<s:form name="form1" action="lessonsOnlineList" method="post">
-			<s:hidden name="lessonstyle"/>
+			<s:form name="form1" action="teacherLessonsList" method="post">
 			<tr>
 				<td valign="top">
 			
@@ -73,27 +57,20 @@ function getCities(vallll){
 						<tr>
 							<td align="left">
 							<s:hidden name="pageNo" value="1"/> 
-                            来源：
-                  <%//  <s:select name="groupid" list="fromlist" listKey="groupid" listValue="groupname" headerKey="-1" headerValue="全部"/>
-				 %>
-				
-							
-			<s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" label="省律协" headerKey="-1" headerValue="请选择" onchange="getCities(this.value)"/>
-          
-             <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" label="市律协" headerKey="0" headerValue="请选择"/>
             
-						 	
-                            类型:
+						 	文件类型:<s:select name="onlineType" list="#{'-1':'全部','0':'视频','1':'音频'}"/>
+                            课程类型:
                             	<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="0" headerValue="全部"/>
-						
-						 		<s:hidden name="lessonstyle"/>
 						 
                             名称:<s:textfield name="title" size="12"/>
-                            主讲人:<s:textfield name="teachers" size="8"/>
-                    课程年份:<s:select name="nianshenyear" list="jifentime.years"  headerKey="0" headerValue="全部"  onchange="document.form1.submit()"/>
-			  <s:if test="nianshenyear!=0">
-			 	（从【${jifentime.startstr}】到【${jifentime.endstr}】）
-			 	</s:if>
+                            <s:if test="!listall">
+                            <s:hidden name="teacherid"/>
+                            </s:if>
+                            <s:else>
+                        授课老师:<s:select name="teacherid" list="teacherList" listKey="userid" listValue="username" headerKey="0" headerValue="全部"/>
+                            
+                            </s:else>
+			
 							<s:submit value=" 查 询 " cssClass="button" /></td>
 						</tr>
 					</table>
@@ -109,7 +86,7 @@ function getCities(vallll){
 						 <!--<TD align="center" background="../imagesa/top-bg1.gif">
 					        <s:checkbox name="checkAll" onclick="getCheckAll(this)"/>
 					      </TD>-->
-							<TD height="23" align="center" width="30%" background="../imagesa/top-bg1.gif">
+							<TD height="23" align="center" width="250px" background="../imagesa/top-bg1.gif">
 								课程名称
 							</TD>
 						
@@ -121,6 +98,15 @@ function getCities(vallll){
 							</TD>
 								<TD align="center" background="../imagesa/top-bg1.gif">
 								文件类型
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								画质
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								音质
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								状态
+							</TD>
+							<TD align="center" background="../imagesa/top-bg1.gif">
+								价格
 							</TD>
                           <TD align="center" background="../imagesa/top-bg1.gif">
 								共享
@@ -139,8 +125,8 @@ function getCities(vallll){
 						<TR>
 				
        
-							<TD class="tab_content" align="left">&nbsp;
-								<a href="lessonsView.pl?lessonid=${lessonid}">${title}</a>
+							<TD class="tab_content" align="left" title="${title}">
+								<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 							</TD>
 						
 							<TD class="tab_content" align="center">
@@ -154,13 +140,24 @@ function getCities(vallll){
 								<s:else>视频
 								</s:else>
 								</TD>
-							
+							<TD class="tab_content" align="center">
+								${videoQualityStr }
+							</TD><TD class="tab_content" align="center">
+								${audioQualityStr}
+							</TD><TD class="tab_content" align="center">
+								<s:if test="deleteflag">
+								禁用
+								</s:if>
+								<s:else>正常
+								</s:else>
+							</TD>
+								<TD class="tab_content" align="center">
+								${price}
+							</TD>
 	                <TD class="tab_content" align="center">
-	                	<s:if test="mygroup==groupid">
-	                <a href="lessonsShared!input.pl?lessonid=${lessonid}">共享</a>
-	                </s:if>
-	                <s:else>&nbsp;
-	                </s:else>
+	               
+	                <a href="lessonsShared!input.pl?lessonid=${lessonid}&pageNo=${pageNo }">共享</a>
+	              
 	                </TD>
 							<TD class="tab_content" align="center">   <s:date name="lessondate" format="yyyy-MM-dd HH:mm"/></TD>
                      <TD class="tab_content" align="center">
@@ -169,20 +166,16 @@ function getCities(vallll){
                               
 							</TD>
 							<TD class="tab_content" align="center">
-							<s:if test="mygroup==groupid">
-                                    <a href="lessonsEdit!input.pl?onlyonline=1&lessonid=${lessonid}">修改</a>
-								</s:if>
-							<s:else>
-									&nbsp;
-							</s:else>
+							
+                                    <a href="lessonsEdit!input.pl?onlyonline=1&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
+							
+						
 							</TD>
 							<TD class="tab_content" align="center">
-								<s:if test="mygroup==groupid">
+							
 									<a href="#" onClick="deleteid('${lessonid}')">【删除】</a>
-								</s:if>
-								<s:else>
-                                  &nbsp;
-								</s:else>
+							
+							
 								
 							</TD>
 						</TR>
@@ -201,7 +194,7 @@ function getCities(vallll){
 				
 							
 									
-                                    &nbsp;<INPUT type="button" onClick="return getAddOnline()" value="新增在线课程"
+                                    &nbsp;<INPUT type="button" onClick="return getAddTeacherLessons()" value="新增视频课程"
 									name="addbutton" class="button">
 								&nbsp;
 							</td>

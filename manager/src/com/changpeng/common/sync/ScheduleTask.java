@@ -33,54 +33,54 @@ public class ScheduleTask extends TimerTask {
 		lgptDao = new LgptDAO();
 	}
 
-	private void syncOa(Connection con) {
-		String type = "oa";
-		boolean result = false;
-		try {
-
-			List orgList = lgptDao.getTempOrgs(con, type);
-			List lawyerList = lgptDao.getTempPersons(con, type);
-			List orgUsers = lgptDao.getTempOrgUsers(con, type);
-			List lxUsers = lgptDao.getTempLxUsers(con, type);
-
-			// List lawyerList = new ArrayList();
-			// List orgUsers = new ArrayList();
-			// List lxUsers = new ArrayList();
-
-			LOG.info("同步到OA,lawyerList:" + lawyerList.size() + ",orgList=" + orgList.size() + ",orgUsers="
-					+ orgUsers.size() + ",lxUsers=" + lxUsers.size());
-
-			if (!(lawyerList.size() == 0 && orgList.size() == 0 && orgUsers.size() == 0 && lxUsers.size() == 0)) {
-
-				result = task.syncOA(lawyerList, orgList, orgUsers, lxUsers);
-				LOG.info("本次OA同步最终结果:" + result);
-				if (result) {
-
-					con.setAutoCommit(false);
-
-					lgptDao.updateTempOrgs(con, type, orgList);
-					lgptDao.updateTempPersons(con, type, lawyerList);
-					lgptDao.updateTempLxUsers(con, type, lxUsers);
-					lgptDao.updateTempOrgUsers(con, type, orgUsers);
-
-				}
-			}
-
-		} catch (Exception e) {
-			LOG.error("syncOa::" , e);
-			e.printStackTrace();
-
-		} finally {
-			try {
-				if (result) {
-					con.commit();
-					con.setAutoCommit(true);
-				}
-			} catch (SQLException ee) {
-				LOG.error("syncOa finally::" + ee);
-			}
-		}
-	}
+//	private void syncOa(Connection con) {
+//		String type = "oa";
+//		boolean result = false;
+//		try {
+//
+//			List orgList = lgptDao.getTempOrgs(con, type);
+//			List lawyerList = lgptDao.getTempPersons(con, type);
+//			List orgUsers = lgptDao.getTempOrgUsers(con, type);
+//			List lxUsers = lgptDao.getTempLxUsers(con, type);
+//
+//			// List lawyerList = new ArrayList();
+//			// List orgUsers = new ArrayList();
+//			// List lxUsers = new ArrayList();
+//
+//			LOG.info("同步到OA,lawyerList:" + lawyerList.size() + ",orgList=" + orgList.size() + ",orgUsers="
+//					+ orgUsers.size() + ",lxUsers=" + lxUsers.size());
+//
+//			if (!(lawyerList.size() == 0 && orgList.size() == 0 && orgUsers.size() == 0 && lxUsers.size() == 0)) {
+//
+//				result = task.syncOA(lawyerList, orgList, orgUsers, lxUsers);
+//				LOG.info("本次OA同步最终结果:" + result);
+//				if (result) {
+//
+//					con.setAutoCommit(false);
+//
+//					lgptDao.updateTempOrgs(con, type, orgList);
+//					lgptDao.updateTempPersons(con, type, lawyerList);
+//					lgptDao.updateTempLxUsers(con, type, lxUsers);
+//					lgptDao.updateTempOrgUsers(con, type, orgUsers);
+//
+//				}
+//			}
+//
+//		} catch (Exception e) {
+//			LOG.error("syncOa::" , e);
+//			e.printStackTrace();
+//
+//		} finally {
+//			try {
+//				if (result) {
+//					con.commit();
+//					con.setAutoCommit(true);
+//				}
+//			} catch (SQLException ee) {
+//				LOG.error("syncOa finally::" + ee);
+//			}
+//		}
+//	}
 
 	private void syncPxxt(Connection con) {
 		String type = "pxxt";
@@ -192,9 +192,12 @@ public class ScheduleTask extends TimerTask {
 			BasicService service = (BasicService) Globals.getMainBean("basicService");
 			service.executeSql(sql);
 			LOG.info("更新律师的达标分成功...");
+			
+			LOG.info("在线列表:"+com.changpeng.common.CommonDatas.ONLINE_USERS);
 
 			com.changpeng.system.util.CommonDatas.getGroups();
 			com.changpeng.system.util.CommonDatas.getUsers();
+			com.changpeng.system.util.CommonDatas.getLawyers();
 			com.changpeng.lessons.util.CommonDatas.getAlllessons();
 
 			LOG.info("定时获取用户信息成功");

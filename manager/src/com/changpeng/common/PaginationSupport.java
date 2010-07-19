@@ -25,6 +25,8 @@ public class PaginationSupport {
 	 */
 	private int totalCount;
 	
+	private int pageNo;
+	
 	private int[] indexes = new int[0];
 	
 	/**
@@ -40,6 +42,7 @@ public class PaginationSupport {
 		setTotalCount(totalCount);
 		setItems(items);
 		setStartIndex(0);
+		pageNo = (this.startIndex / this.pageSize) + 1;
 	}
 	/**
 	 * 游标的起始位置怎么获取呢?
@@ -52,6 +55,7 @@ public class PaginationSupport {
 		setTotalCount(totalCount);
 		setItems(items);
 		setStartIndex(startIndex);
+		pageNo = (this.startIndex / this.pageSize) + 1;
 	}
 	/**
 	 * 
@@ -65,6 +69,7 @@ public class PaginationSupport {
 		setTotalCount(totalCount);
 		setItems(items);
 		setStartIndex(startIndex);
+		pageNo = (this.startIndex / this.pageSize) + 1;
 	}
 	public List getItems() {
 		return items;
@@ -143,11 +148,58 @@ public class PaginationSupport {
 			return previousIndex;
 	}
 	//每页30条,0,30,60,90,120
-    private String pageView;
-    public void setPageView(String view){
-    	this.pageView=view;
-    }
-	public String getPageView() {
+//    private String pageView;
+//    public void setPageView(String view){
+//    	this.pageView=view;
+//    }
+    
+    public String getPageView() {
+		// log.debug("count:"+count);
+		StringBuffer sb = new StringBuffer();
+		pageNo = (this.startIndex / this.pageSize) + 1;
+
+		// int pageNum = (this.totalCount + pageSize - 1) / pageSize;
+		int pageNum = this.count;
+		sb.append("<div class=\"page\">");
+		if (pageNum > 0) {
+		
+			sb.append("<span class='page-total'>共"+pageNum+"页,"+totalCount+"条记录</span>");
+			if(pageNo>1){
+				sb.append("<a title='跳转到首页' class=\"page-move\" href=\"javascript:fanye('1');\" >&lt;&lt;</a>");
+				//sb.append("<span class=\"page-move\" href=\"javascript:fanye('"+(pageNo-1)+"')\">&lt;&lt;</span>");
+			}
+			int currentPage=pageNo-2;
+			if(currentPage<=0)
+				currentPage=1;
+			
+			for(int i=currentPage, j=0;i<=pageNum&&j<5;j++,i++){
+				if(i==pageNo)
+					sb.append("<span title='第"+i+"页' class='page-current'>"+i+"</span>");
+				else
+					sb.append("<a title='跳到第"+i+"页' href='javascript:fanye("+i+");' >"+i+"</a>");
+			}
+			if(pageNo<pageNum){
+				sb.append("<a title='跳转到末页' class=\"page-move\" href=\"javascript:fanye('"+(pageNum)+"');\" >&gt;&gt;</a>");
+			}
+			sb.append("<label>&nbsp;每页<input type='text' name='pageSize' value='"+pageSize+"' class='pageNo'/>&nbsp;条记录</label>");
+			sb.append("<label>&nbsp;跳转至<input type='text' id='inputPageNo' value='"+pageNo+"' class='pageNo'/>&nbsp;页</label><input type='button' value='GO' class='goPage' onclick='fanye(document.getElementById(\"inputPageNo\").value)'/>");
+			
+//			<span class="page-total">共3页</span>
+//			<span class="page-move">&lt;&lt;</span>
+//			<span title="第1页" class="page-current">1</span>
+//			<a title="跳到第2页" href="javascript:;" >2</a>
+//			<a title="跳到第3页" href="javascript:;" >3</a>
+//			<a title="跳到第4页" href="javascript:;" >4</a>
+//			<a title="跳到第5页" href="javascript:;" >5</a>
+//			<a title="跳到第4页" class="page-move" href="javascript:;" >&gt;&gt;</a>
+//			<label>&nbsp;跳转至<input type="text" name="" value=""  class="pageNo"/>&nbsp;页</label><input type="button" name="" value="GO" class="goPage" />
+		}
+		sb.append("</div>");
+		return sb.toString();
+	}
+    
+    
+	public String getOldPageView() {
 		StringBuffer sb = new StringBuffer();
 		int pageNo=(this.startIndex/this.pageSize)+1;
 		
@@ -183,5 +235,17 @@ public class PaginationSupport {
 			}
 		}
 		return sb.toString();
+	}
+	/**
+	 * @return the pageNo
+	 */
+	public int getPageNo() {
+		return pageNo;
+	}
+	/**
+	 * @param pageNo the pageNo to set
+	 */
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
 	}
 }

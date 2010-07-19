@@ -41,6 +41,8 @@
         <property name="lessontype" type="int">
             <column name="lessontype" />
         </property>
+       
+        
         <property name="lessontypedesc" type="java.lang.String">
             <column name="lessontypedesc" length="200">
                 <comment>课程(类别)描述</comment>
@@ -48,6 +50,12 @@
         </property>
         <property name="xuefen" type="java.lang.Float">
             <column name="xuefen" precision="12" scale="0" />
+        </property>
+                <property name="price" type="java.lang.Float">
+            <column name="price" precision="12" scale="0" />
+        </property>
+             <property name="teacherid" type="int">
+            <column name="teacherid" />
         </property>
         <property name="lessondate" type="timestamp">
             <column name="lessondate" length="0">
@@ -82,6 +90,13 @@
         <property name="attach" type="java.lang.String">
             <column name="attach" length="200" />
         </property>
+       
+    	<property name="audioQuality" type="int">
+            <column name="audio_quality" />
+        </property>
+         <property name="videoQuality" type="int">
+            <column name="video_quality" />
+        </property> 
 
         <property name="provinceid" type="int">
             <column name="provinceid">

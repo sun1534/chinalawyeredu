@@ -28,15 +28,21 @@ public class CommonDatas {
 	private static Log LOG = LogFactory.getLog(CommonDatas.class);
 
 	public static Map<Integer, String> LessonType = new LinkedHashMap<Integer, String>();
-	public static Map<Integer, Map<Integer,String>> ChildLessonType = new LinkedHashMap<Integer, Map<Integer,String>>();
+//	public static Map<Integer, Map<Integer,String>> ChildLessonType = new LinkedHashMap<Integer, Map<Integer,String>>();
 	public static HashMap<Integer, String> LessonState = new LinkedHashMap<Integer, String>();
 	public static HashMap<Integer, String> SharedName = new LinkedHashMap<Integer, String>();
 	public static HashMap<Integer, String> TeacherType = new LinkedHashMap<Integer, String>();
 
 	public static Map<Integer, String> AllLessonMap = new LinkedHashMap<Integer, String>();
 	public static Map<String,Integer> ALL_LOCAL_LESSONS = new LinkedHashMap<String, Integer>();
-
+	public static Map<Integer,String> QUALITIES = new LinkedHashMap<Integer, String>();
 	static {
+		
+		QUALITIES.put(1, "好");
+		QUALITIES.put(2, "中");
+		QUALITIES.put(3, "差");
+		QUALITIES.put(4, "未评");
+		
 //		LessonType.put(1, "律师实务");
 //		LessonType.put(2, "新法讲坛");
 //		LessonType.put(3, "涉外法务");
@@ -53,45 +59,67 @@ public class CommonDatas {
 //		LessonType.put(6, "行政实务");
 //		LessonType.put(7, "其他");
 		LessonType.put(1, "民商事法律业务");
+		LessonType.put(101, "　|-民事诉讼");
+		LessonType.put(102, "　|-合同担保法律业务");
+		LessonType.put(103, "　|-侵权法");
+		LessonType.put(104, "　|-物权法"); 
+		LessonType.put(105, "　|-公司证券法律业务");
+		LessonType.put(106, "　|-知识产权法律业务");
+		LessonType.put(107, "　|-建筑房地产法律业务");
+		LessonType.put(108, "　|-破产法律业务");
+		LessonType.put(109, "　|-国有资产法律业务");
+		LessonType.put(110, "　|-金融保险法律业务");
+		LessonType.put(111, "　|-涉外法律业务");
+		LessonType.put(113, "　|-劳动关系法律业务");
+		LessonType.put(112, "　|-其他民商法律业务");
+		
 		LessonType.put(2, "刑事法律业务");
+		LessonType.put(201, "　|-刑法");
+		LessonType.put(202, "　|-刑事诉讼");
 		LessonType.put(3, "行政法律业务");
+		LessonType.put(301, "　|-行政法");
+		LessonType.put(302, "　|-行政诉讼");
 		LessonType.put(5, "执行法律业务");
-		LessonType.put(6, "律师事务所管理");		
+		LessonType.put(6, "律师事务所管理");
+		LessonType.put(7, "　|-商务礼仪及业务拓展");
 		LessonType.put(8, "其他");
+		LessonType.put(4, "　|-思想政治教育");
 		
-		Map<Integer,String> map=new HashMap<Integer,String>();
-		map.put(101, "民事诉讼");
-		map.put(102, "合同担保法律业务");
-		map.put(103, "侵权法");
-		map.put(104, "物权法");
-		map.put(105, "公司证券法律业务");
-		map.put(106, "知识产权法律业务");
-		map.put(107, "建筑房地产法律业务");
-		map.put(108, "破产法律业务");
-		map.put(109, "国有资产法律业务");
-		map.put(110, "金融保险法律业务");
-		map.put(111, "涉外法律业务");
-		map.put(112, "其他民商法律业务");
 		
-		ChildLessonType.put(1, map);
 		
-		map=new HashMap<Integer,String>();
-		map.put(201, "刑法");
-		map.put(202, "刑事诉讼");
-		ChildLessonType.put(2, map);
+//		Map<Integer,String> map=new HashMap<Integer,String>();
+//		map.put(101, "民事诉讼");
+//		map.put(102, "合同担保法律业务");
+//		map.put(103, "侵权法");
+//		map.put(104, "物权法");
+//		map.put(105, "公司证券法律业务");
+//		map.put(106, "知识产权法律业务");
+//		map.put(107, "建筑房地产法律业务");
+//		map.put(108, "破产法律业务");
+//		map.put(109, "国有资产法律业务");
+//		map.put(110, "金融保险法律业务");
+//		map.put(111, "涉外法律业务");
+//		map.put(112, "其他民商法律业务");
 		
-		map=new HashMap<Integer,String>();
-		map.put(301, "行政法");
-		map.put(302, "行政诉讼");
-		ChildLessonType.put(3, map);
-		
-		map=new HashMap<Integer,String>();
-		map.put(7, "商务礼仪及业务拓展");
-		ChildLessonType.put(6, map);
-		
-		map=new HashMap<Integer,String>();
-		map.put(4, "思想政治教育");
-		ChildLessonType.put(8, map);
+//		ChildLessonType.put(1, map);
+//		
+//		map=new HashMap<Integer,String>();
+//		map.put(201, "刑法");
+//		map.put(202, "刑事诉讼");
+//		ChildLessonType.put(2, map);
+//		
+//		map=new HashMap<Integer,String>();
+//		map.put(301, "行政法");
+//		map.put(302, "行政诉讼");
+//		ChildLessonType.put(3, map);
+//		
+//		map=new HashMap<Integer,String>();
+//		map.put(7, "商务礼仪及业务拓展");
+//		ChildLessonType.put(6, map);
+//		
+//		map=new HashMap<Integer,String>();
+//		map.put(4, "思想政治教育");
+//		ChildLessonType.put(8, map);
 
 		LessonState.put(1, "内容编辑");
 		LessonState.put(2, "培训课程");

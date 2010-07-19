@@ -177,6 +177,7 @@
        <action name="workspace" class="com.changpeng.index.MyWorkspacePageAction">
        		<interceptor-ref name="hibernateSessionStack"/>
           <result name="success" type="dispatcher">/index/workspace.jsp</result>	
+          <result name="teachers" type="dispatcher">/index/welcome.html</result>	
        </action> 
         <action name="goodLessonList" class="com.changpeng.index.GoodLessonListAction">
           <result name="success" type="dispatcher">/index/goodLessonList.jsp</result>	

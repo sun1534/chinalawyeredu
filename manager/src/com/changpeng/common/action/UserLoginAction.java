@@ -14,7 +14,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
+import com.changpeng.models.SysLoginlog;
 import com.changpeng.models.SysUser;
 import com.changpeng.system.service.SysLoginLogService;
 import com.changpeng.system.service.SysUserService;
@@ -96,6 +98,7 @@ public class UserLoginAction extends AbstractAction {
 			message = "您输入的密码错误,请返回重新输入";
 			return Constants.ACTION_MESSAGE;
 		}
+		
 
 		// int userid = loginResult;
 		// SysUser sysUser = userService.getUser(userid);
@@ -114,6 +117,13 @@ public class UserLoginAction extends AbstractAction {
 		// 将其登录信息存入t_sys_loginlog表中,同时将其他此userid的Islast=1的数据全部改为0
 
 		SysUser sysUser = userService.getSysUser();
+		if(CommonDatas.ONLINE_USERS.containsKey(sysUser.getUserid())){
+			SysLoginlog log=CommonDatas.ONLINE_USERS.get(sysUser.getUserid());
+//			message="您当前已经登录,登录时间："+log.getLoginTime()+",登录IP："+log.getLoginip()+".请先退出或联系管理员";
+//			return Constants.ACTION_MESSAGE;
+			System.out.println("您当前已经登录,登录时间："+log.getLoginTime()+",登录IP："+log.getLoginip()+".请先退出或联系管理员");
+		}
+		
 
 		SysLoginLogService loginService = (SysLoginLogService) getBean("sysLoginLogService");
 		sysUser.setLoginCount(loginService.getLoginCountByUserId(sysUser.getUserid()));

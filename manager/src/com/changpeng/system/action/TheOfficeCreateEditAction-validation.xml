@@ -16,8 +16,8 @@
 		<field name="sysGroup.groupenname">
   <field-validator type="regex">
    <param name="trim">true</param>
-   <param name="expression"><![CDATA[^(\d){10,20}$]]></param>
-   <message>事务所执业证号必须全部为数字,长度为10-20位！</message>
+   <param name="expression"><![CDATA[^(\d){8,20}$]]></param>
+   <message>事务所执业证号必须全部为数字,长度为8-20位！</message>
   </field-validator>
  </field>
 </validators>

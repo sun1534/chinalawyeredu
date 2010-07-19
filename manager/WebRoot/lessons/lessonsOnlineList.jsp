@@ -109,7 +109,7 @@ function getCities(vallll){
 						 <!--<TD align="center" background="../imagesa/top-bg1.gif">
 					        <s:checkbox name="checkAll" onclick="getCheckAll(this)"/>
 					      </TD>-->
-							<TD height="23" align="center" width="30%" background="../imagesa/top-bg1.gif">
+							<TD height="23" align="center" width="250px" background="../imagesa/top-bg1.gif">
 								课程名称
 							</TD>
 						
@@ -121,6 +121,12 @@ function getCities(vallll){
 							</TD>
 								<TD align="center" background="../imagesa/top-bg1.gif">
 								文件类型
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								画质
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								音质
+							</TD><TD align="center" background="../imagesa/top-bg1.gif">
+								状态
 							</TD>
                           <TD align="center" background="../imagesa/top-bg1.gif">
 								共享
@@ -139,8 +145,8 @@ function getCities(vallll){
 						<TR>
 				
        
-							<TD class="tab_content" align="left">&nbsp;
-								<a href="lessonsView.pl?lessonid=${lessonid}">${title}</a>
+							<TD class="tab_content" align="left" title="${title}">
+								<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 							</TD>
 						
 							<TD class="tab_content" align="center">
@@ -154,7 +160,17 @@ function getCities(vallll){
 								<s:else>视频
 								</s:else>
 								</TD>
-							
+							<TD class="tab_content" align="center">
+								${videoQualityStr }
+							</TD><TD class="tab_content" align="center">
+								${audioQualityStr}
+							</TD><TD class="tab_content" align="center">
+								<s:if test="deleteflag">
+								禁用
+								</s:if>
+								<s:else>正常
+								</s:else>
+							</TD>
 	                <TD class="tab_content" align="center">
 	                	<s:if test="mygroup==groupid">
 	                <a href="lessonsShared!input.pl?lessonid=${lessonid}&pageNo=${pageNo }">共享</a>
@@ -169,7 +185,7 @@ function getCities(vallll){
                               
 							</TD>
 							<TD class="tab_content" align="center">
-							<s:if test="mygroup==groupid">
+							<s:if test="mygroup==0||mygroup==groupid">
                                     <a href="lessonsEdit!input.pl?onlyonline=1&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
 								</s:if>
 							<s:else>
@@ -177,7 +193,7 @@ function getCities(vallll){
 							</s:else>
 							</TD>
 							<TD class="tab_content" align="center">
-								<s:if test="mygroup==groupid">
+								<s:if test="mygroup==0||mygroup==groupid">
 									<a href="#" onClick="deleteid('${lessonid}')">【删除】</a>
 								</s:if>
 								<s:else>

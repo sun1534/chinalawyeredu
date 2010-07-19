@@ -143,11 +143,10 @@ public class UserSessionListener implements HttpSessionActivationListener, HttpS
 				SysUser sysUser = (SysUser) event.getSession().getAttribute(Constants.LOGIN_USER);
 				LOG.debug("sysUser=="+sysUser);
 				try {
-					Globals globals = new Globals();
-					SysLoginLogService service = (SysLoginLogService) globals.getBean("sysLoginLogService");
+					SysLoginLogService service = (SysLoginLogService) Globals.getBean("sysLoginLogService");
 //					LOG.debug("service=="+service);
 					LOG.debug("sysUser.getLoginId()=="+sysUser.getLoginId());
-					service.updateLogoutInfo(sysUser.getLoginId(), "会话信息失效导致退出");
+					service.updateLogoutInfo(sysUser.getUserid(),sysUser.getLoginId(), "会话信息失效导致退出");
 					LOG.debug("service=="+service);
 					LOG.info("记录用户的会话失效信息:" + sysUser.getUsername());
 				}

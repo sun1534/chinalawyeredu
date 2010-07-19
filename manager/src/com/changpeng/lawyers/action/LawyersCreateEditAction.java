@@ -108,8 +108,8 @@ public class LawyersCreateEditAction extends AbstractAction {
 			lawyers.setCreateusername(this.getLoginUser().getUsername());
 
 			lawyers.setPasswd(lawyers.getCertno());
-			if (lawyers.getSystemno() == null || lawyers.getSystemno().equals(""))
-				lawyers.setSystemno(System.currentTimeMillis() / 1000 + "");
+//			if (lawyers.getSystemno() == null || lawyers.getSystemno().equals(""))
+//				lawyers.setSystemno(System.currentTimeMillis() / 1000 + "");
 
 			BasicService bservice = (BasicService) this.getBean("basicService");
 			SysUnionparams union = (SysUnionparams) bservice.get(SysUnionparams.class, lawyers.getDirectunion());

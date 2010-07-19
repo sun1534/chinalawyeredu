@@ -243,6 +243,8 @@ function checkvalues(){
             <jscalendar:jscalendar name="lawyers.zhiyedatestr" format="%Y-%m-%d" showstime="false" cssClass="text1"/>
             </td>
         </tr>
+          <s:if test="!isnew">
+       
            <tr> 
             <td align="right" class="tab_content1">现场考勤刷卡卡号: </td>
             <td class="tab_content1">
@@ -256,7 +258,7 @@ function checkvalues(){
             
             </td>
         </tr>
-        
+       
         <tr> 
             <td align="right" class="tab_content1">会员编号: </td>
             <td class="tab_content1">
@@ -268,9 +270,9 @@ function checkvalues(){
              </s:else>
              <span class="hint" id="checksystemno"></span>
             </td>
-        </tr>
-        
-        
+        </tr>        
+      
+        </s:if>
 		<tr>
             <td align="right" class="tab_content"> 手机号码: </td>
           <td class="tab_content">

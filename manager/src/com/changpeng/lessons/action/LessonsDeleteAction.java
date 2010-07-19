@@ -21,6 +21,14 @@ public class LessonsDeleteAction extends AbstractAction {
 		BasicService service = (BasicService) this.getBean("basicService");
 
 		Lessons lesson = (Lessons) service.get(Lessons.class, lessonid);
+		
+		if(lesson.getTeacherid()!=0){
+			if(lesson.getTeacherid()!=0){
+				String sql="update teacher set lessoncount=lessoncount-1 where userid="+lesson.getTeacherid();
+				basicService.executeSql(sql);
+			}
+		}
+		
 		// lesson.setDeleteflag(true);
 		// service.update(lesson);
 		service.delete(lesson);
@@ -29,6 +37,8 @@ public class LessonsDeleteAction extends AbstractAction {
 		// this.nextPage = "lessonsList.pl";
 		if (type != null && type.equals("online"))
 			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2&pageNo=" + pageNo;
+		else if (type != null && type.equals("teacher"))
+			this.nextPage = "teacherLessonsList.pl?pageNo=" + pageNo;
 		else
 			this.nextPage = "lessonsLocalList.pl?lessonstyle=1&pageNo=" + pageNo;
 		return SUCCESS;

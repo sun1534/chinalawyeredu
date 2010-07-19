@@ -17,6 +17,8 @@ import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.models.Articles;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
+import com.changpeng.models.SysUser;
 
 /**
  * 
@@ -35,6 +37,16 @@ public class MyWorkspacePageAction extends AbstractAction {
 	protected String go() throws Exception {
 
 		com.changpeng.system.util.CommonDatas.getGroups();
+		
+		
+		
+		SysUser loginuser = this.getLoginUser();
+		SysRole loginrole = loginuser.getSysRole();
+		if (loginrole!=null&&loginrole.getRoleid() == 100) {// 授课律师登录
+			return "teachers";
+		}
+		
+		
 		// 获取重要通知
 		// 事务所的人也好，市级律协的人也好，看到的都是这个省的最重要的一个通知。
 		// 当然不能看到别人的。也就是深圳律协的不能看东莞律协的。这样子处理的话，可以看到呢
@@ -68,7 +80,7 @@ public class MyWorkspacePageAction extends AbstractAction {
 //		LessonsService lessonsService = (LessonsService) this.getBean("lessonsService");
 //		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 6,
 //				1, null, null);
-		detachedCriteria=DetachedCriteria.forClass(Lessons.class);
+		detachedCriteria=DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));;
 		detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceid(),this.getLoginUser().getCityid()}));
 		detachedCriteria.addOrder(Order.desc("lessondate"));
 		PaginationSupport page =basicService.findPageByCriteria(detachedCriteria, 6, 1);
