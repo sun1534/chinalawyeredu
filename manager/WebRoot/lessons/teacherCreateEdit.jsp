@@ -105,6 +105,7 @@ body {
            <s:if test="!isnew">
             <s:hidden name="teacher.loginname"/>
              <s:hidden name="teacher.password"/>
+             <s:hidden name="teacher.lessoncount"/>
             </s:if>
          </td>
         </tr>

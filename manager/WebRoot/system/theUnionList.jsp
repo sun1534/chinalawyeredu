@@ -13,6 +13,7 @@ body {
 -->
 </style>
 		<script type="text/javascript" src="../js/common.js"></script>
+<script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 		<script language="javascript">
 function fanye(str){
   document.form1.pageNo.value=str;
@@ -27,6 +28,22 @@ function delGroup(groupid,parentid,type){
 				location.href="theUnionDelete.pl?type="+type+"&groupid="+groupid+"&parentid="+parentid;
 	else
 		return false;
+}
+</script>
+<script language="javascript">
+function getCities(vallll){
+  $("#city")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#city")[0].options.add(_o);  
+  if(vallll!=0){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"now":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#city")[0].options.add(_o);  
+     }
+}); 
+  }
 }
 </script>
 	</head>
@@ -53,8 +70,16 @@ function delGroup(groupid,parentid,type){
 									<span style="font-weight: bold"> 
 									律协名称:<s:textfield name="groupname" size="15" /> 
 									<s:if test="grouptypeview">
+									 省律协：<s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
+            						 市律协：<s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择"/>
+            						</s:if>
+								是否开通:<s:select name="iskaitong" list="#{'-1':'全部','0':'未开通','1':'已开通'}"/>
+								
+								<!-- 
+									<s:if test="grouptypeview">
 									<s:select name="grouptype" list="#{'2':'市律协','3':'省律协'}" headerKey="0" headerValue="全部" label="类型"/>
 									</s:if>
+									 -->
 									<s:submit value=" 查询 " cssClass="button" /> 
 									</span>
 								</td>
@@ -80,6 +105,9 @@ function delGroup(groupid,parentid,type){
 								</TD>
 								<TD align="center" background="../imagesa/top-bg1.gif">
 									联系人
+								</TD>
+								<TD align="center" background="../imagesa/top-bg1.gif">
+									是否开通
 								</TD>
 								<TD align="center" background="../imagesa/top-bg1.gif">
 									管理员
@@ -108,7 +136,14 @@ function delGroup(groupid,parentid,type){
 									<TD class="tab_content" align="center">
 										${contacter}
 									</TD>
-
+	<TD class="tab_content" align="center">
+										<s:if test="isbuy">
+										已开通
+										</s:if>
+										<s:else>
+										<font color='red'>未开通</font>
+										</s:else>
+									</TD>
 									<TD class="tab_content" align="center">
 										<a href="../system/sysGroupManager.pl?groupid=${groupid}">查看</a>
 									</TD>
@@ -131,6 +166,7 @@ function delGroup(groupid,parentid,type){
 								</td>
 							</tr>
 						</table>
+						<!-- 
 						<table width="100%" border="0" cellpadding="0" cellspacing="1">
 							<tr>
 								<td height="24" align="center"
@@ -141,6 +177,7 @@ function delGroup(groupid,parentid,type){
 								</TD>
 							</TR>
 						</table>
+						 -->
 					</TD>
 				</TR>
 			</s:form>

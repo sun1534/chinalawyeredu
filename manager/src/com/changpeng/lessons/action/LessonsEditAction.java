@@ -109,7 +109,8 @@ public class LessonsEditAction extends AbstractAction {
 				this.message = "在线文件不能为空,请返回";
 				return "message";
 			}
-			if (onlyonline == 2) {
+//			if (onlyonline == 2) {
+			if(lesson.getTeacherid()!=0){
 				Teacher teacher = (Teacher) basicService.get(Teacher.class, lesson.getTeacherid());
 				lesson.setTeachers(teacher.getUsername());
 				lesson.setTeachertype(teacher.getTeacherType());
@@ -121,26 +122,28 @@ public class LessonsEditAction extends AbstractAction {
 		// 如果登录的对应的grouptype=4或5或者为空的话，则用下面的，否则，谁登陆算谁的
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
 
-		if (mygroup == null || mygroup.getGrouptype() > 3) {
-
-			if (datavisible.getProvinceid() != 0) {
-				lesson.setProvinceid(datavisible.getProvinceid());
-				lesson.setGroupid(lesson.getProvinceid());
-			} else if (datavisible.getCityid() != 0) {
-				lesson.setCityid(datavisible.getCityid());
-				lesson.setCityid(lesson.getCityid());
-			} else {
-				lesson.setGroupid(mygroup == null ? 0 : mygroup.getGroupid());
-			}
-		} else {
-			lesson.setGroupid(mygroup.getGroupid());
-			lesson.setProvinceid(this.getLoginUser().getProvinceid());
-			lesson.setCityid(this.getLoginUser().getCityid());
-			// 要把自己给加进去啊
-			// if(sharedgroupids==null)
-			// sharedgroupids=new ArrayList();
-			//			
-		}
+//		if (mygroup == null || mygroup.getGrouptype() > 3) {
+//
+//			if (datavisible.getProvinceid() != 0) {
+//				lesson.setProvinceid(datavisible.getProvinceid());
+//				lesson.setGroupid(lesson.getProvinceid());
+//			} 
+//			if (datavisible.getCityid() != 0) {
+//				lesson.setCityid(datavisible.getCityid());
+//				lesson.setCityid(lesson.getCityid());
+//			} 
+//			 if(datavisible.getProvinceid()== 0&&datavisible.getCityid() == 0){
+//				lesson.setGroupid(mygroup == null ? 0 : mygroup.getGroupid());
+//			}
+//		} else {
+//			lesson.setGroupid(mygroup.getGroupid());
+//			lesson.setProvinceid(this.getLoginUser().getProvinceid());
+//			lesson.setCityid(this.getLoginUser().getCityid());
+//			// 要把自己给加进去啊
+//			// if(sharedgroupids==null)
+//			// sharedgroupids=new ArrayList();
+//			//			
+//		}
 
 		String attach = lesson.getAttach();
 		String extendPath = "/uploads/";
@@ -284,7 +287,7 @@ public class LessonsEditAction extends AbstractAction {
 		set("lesson", lesson);
 		this.deleteflagint = lesson.getDeleteflag() ? 1 : 0;
 		
-		if (onlyonline == 2) {// 新增授课律师的课程
+		if (onlyonline == 2||onlyonline == 1) {// 新增授课律师的课程
 			SysUser loginuser = this.getLoginUser();
 			SysRole loginrole = loginuser.getSysRole();
 		

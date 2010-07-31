@@ -42,7 +42,8 @@ public class TheUnionListAction extends AbstractListAction {
 		this.groupname = groupname;
 	}
 
-//	private SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
+	// private SysGroupService groupservice = (SysGroupService)
+	// this.getBean("sysGroupService");
 
 	public TheUnionListAction() {
 		this.datavisible = new DataVisible();
@@ -110,6 +111,8 @@ public class TheUnionListAction extends AbstractListAction {
 
 		}
 
+		
+		
 		if (groupname != null && !"".equals(groupname)) {
 			detachedCriteria.add(Restrictions.like("groupname", groupname.trim(), MatchMode.ANYWHERE));
 		}
@@ -117,21 +120,45 @@ public class TheUnionListAction extends AbstractListAction {
 		if (datavisible.getProvinceid() != 0) {
 			detachedCriteria.add(Restrictions.eq("parentid", datavisible.getProvinceid()));
 		}
+		if (datavisible.getCityid() != 0) {
+			detachedCriteria.add(Restrictions.eq("groupid", datavisible.getCityid()));
+		}
 
+		if(iskaitong!=-1)
+			detachedCriteria.add(Restrictions.eq("isbuy", iskaitong==1?true:false));
 		detachedCriteria.addOrder(Order.desc("groupid"));
 		BasicService service = (BasicService) this.getBean("basicService");
 
-		SysUser user=this.getLoginUser();
-		if(user.getLoginname().equals("admin")||user.getRightList().contains("sysGroupExcludeRight")){
-			hasright=true;
+		SysUser user = this.getLoginUser();
+		if (user.getLoginname().equals("admin") || user.getRightList().contains("sysGroupExcludeRight")) {
+			hasright = true;
 		}
-		
+
 		this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
 
 		return SUCCESS;
 	}
+	
+	private int iskaitong=-1;
+	
+
 	private boolean hasright;
-	public boolean getHasright(){
+
+	public boolean getHasright() {
 		return this.hasright;
+	}
+
+	/**
+	 * @return the iskaitong
+	 */
+	public int getIskaitong() {
+		return iskaitong;
+	}
+
+	/**
+	 * @param iskaitong the iskaitong to set
+	 */
+	public void setIskaitong(int iskaitong) {
+		this.iskaitong = iskaitong;
 	}
 }

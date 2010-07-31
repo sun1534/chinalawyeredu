@@ -133,7 +133,7 @@ function deleteid(lessonid){
                               
 							</TD>
 							<TD class="tab_content" align="center">
-									<s:if test="mygroup==0||mygroup==groupid">
+										<s:if test="mygroupid==groupid||mygroupid==0||myuserid==createuserid">
                                     <a href="lessonsEdit!input.pl?onlyonline=0&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
 								</s:if>
 								<s:else>
@@ -141,7 +141,7 @@ function deleteid(lessonid){
 								</s:else>
 							</TD>
 							<TD class="tab_content" align="center">
-								<s:if test="mygroup==0||mygroup==groupid">
+									<s:if test="mygroupid==groupid||mygroupid==0||myuserid==createuserid">
 									<a href="#" onClick="deleteid('${lessonid}')">【删除】</a>
 								</s:if>
 								<s:else>

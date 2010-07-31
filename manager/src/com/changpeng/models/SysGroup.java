@@ -32,6 +32,7 @@ public class SysGroup implements java.io.Serializable {
 	private Timestamp createtime;
 	private String comments;
 	private int createtype;
+	private boolean isbuy;
 	private Set<SysUser> sysUsers = new HashSet<SysUser>(0);
 //	private Set<SysRight> sysRights = new HashSet<SysRight>(0);
 
@@ -360,6 +361,26 @@ public void setDistrict(String district) {
 	 */
 	public void setCreateuserid(int createuserid) {
 		this.createuserid = createuserid;
+	}
+
+
+
+
+	/**
+	 * @return the isbuy
+	 */
+	public boolean getIsbuy() {
+		return isbuy;
+	}
+
+
+
+
+	/**
+	 * @param isbuy the isbuy to set
+	 */
+	public void setIsbuy(boolean isbuy) {
+		this.isbuy = isbuy;
 	}
 
 

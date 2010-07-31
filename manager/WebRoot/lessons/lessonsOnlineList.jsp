@@ -172,7 +172,7 @@ function getCities(vallll){
 								</s:else>
 							</TD>
 	                <TD class="tab_content" align="center">
-	                	<s:if test="mygroup==groupid">
+	                	<s:if test="mygroupid==groupid||mygroupid==0||myuserid==createuserid">
 	                <a href="lessonsShared!input.pl?lessonid=${lessonid}&pageNo=${pageNo }">共享</a>
 	                </s:if>
 	                <s:else>&nbsp;
@@ -185,7 +185,7 @@ function getCities(vallll){
                               
 							</TD>
 							<TD class="tab_content" align="center">
-							<s:if test="mygroup==0||mygroup==groupid">
+								<s:if test="mygroupid==groupid||mygroupid==0||myuserid==createuserid">
                                     <a href="lessonsEdit!input.pl?onlyonline=1&lessonid=${lessonid}&pageNo=${pageNo }">修改</a>
 								</s:if>
 							<s:else>
@@ -193,7 +193,7 @@ function getCities(vallll){
 							</s:else>
 							</TD>
 							<TD class="tab_content" align="center">
-								<s:if test="mygroup==0||mygroup==groupid">
+								<s:if test="mygroupid==groupid||mygroupid==0||myuserid==createuserid">
 									<a href="#" onClick="deleteid('${lessonid}')">【删除】</a>
 								</s:if>
 								<s:else>

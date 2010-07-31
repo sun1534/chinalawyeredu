@@ -64,9 +64,9 @@ public class LessonsListAction extends AbstractListAction {
 		String nianshen = "01-01";
 		
 		int groupid=-1;
-		
+		myuserid=this.getLoginUser().getUserid();
 		if (_mygroup != null) {
-			mygroup = _mygroup.getGroupid();
+			mygroupid = _mygroup.getGroupid();
 		
 			if (_mygroup.getGrouptype() == 1)
 				groupid = _mygroup.getParentid();
@@ -117,10 +117,18 @@ if(nianshenyear!=0){
 		return "online";
 	}
 
-	private int mygroup;
+	private int mygroupid;
+	private int myuserid;
 
-	public int getMygroup() {
-		return this.mygroup;
+	/**
+	 * @return the myuserid
+	 */
+	public int getMyuserid() {
+		return myuserid;
+	}
+
+	public int getMygroupid() {
+		return this.mygroupid;
 	}
 
 	public int getLessontype() {

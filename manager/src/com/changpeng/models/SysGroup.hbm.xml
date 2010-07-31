@@ -73,6 +73,9 @@
         </property> -->
         <property name="district" type="java.lang.String">
             <column name="district" length="100" />
+        </property>  
+        <property name="isbuy" type="boolean">
+            <column name="isbuy" not-null="true"/>
         </property>
         <property name="createuser" type="java.lang.String">
             <column name="CREATEUSER" length="100" />

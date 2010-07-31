@@ -6,7 +6,6 @@ package com.changpeng.common.context;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -16,8 +15,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public class Globals {
 	private static String configName = "classpath:spring/applicationContext*.xml";
-//	private static ApplicationContext context;
-//	private static volatile boolean isok;
+	private static ApplicationContext context;
+	private static volatile boolean isok;
 	static {
 //		FileSystemXmlApplicationContext;
 		
@@ -44,13 +43,13 @@ public class Globals {
 	 * @return
 	 */
 	public static Object getMainBean(String name) {
-//		if(!isok){
-//			 context = new ClassPathXmlApplicationContext(configName);
-//			 isok=true;
-//		}
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		return wac.getBean(name);
-//		return context.getBean(name);
+		if(!isok){
+			 context = new ClassPathXmlApplicationContext(configName);
+			 isok=true;
+		}
+//		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+//		return wac.getBean(name);
+		return context.getBean(name);
 	}
 
 

@@ -93,12 +93,12 @@ public class LessonsCreateAction extends AbstractAction {
 				this.message = "在线文件不能为空,请返回";
 				return "message";
 			}
-			if(onlyonline==2){
+//			if(onlyonline==2){
+			if(lesson.getTeacherid()!=0){
 				Teacher teacher=(Teacher)basicService.get(Teacher.class, lesson.getTeacherid());
 				lesson.setTeachers(teacher.getUsername());
 				lesson.setTeachertype(teacher.getTeacherType());
 			}
-			
 			
 		} else {
 			lesson.setLessonend(LessonsUtil.str2timestamp(dateend + " " + hmend));
@@ -117,10 +117,11 @@ public class LessonsCreateAction extends AbstractAction {
 				lesson.setProvinceid(datavisible.getProvinceid());
 				lesson.setGroupid(lesson.getProvinceid());
 			}
-			else if (datavisible.getCityid() != 0) {
+			 if (datavisible.getCityid() != 0) {
 				lesson.setCityid(datavisible.getCityid());
 				lesson.setGroupid(lesson.getCityid());
-			}else{
+			}
+			 if(datavisible.getProvinceid()== 0&&datavisible.getCityid() == 0){
 				lesson.setGroupid(mygroup==null?0:mygroup.getGroupid());
 			}
 		} else {
@@ -228,10 +229,10 @@ public class LessonsCreateAction extends AbstractAction {
 		if (onlyonline == 0){
 			return "local";
 		}
-		if (onlyonline == 2){//新增授课律师的课程			
+		if (onlyonline == 2||onlyonline == 1){//新增授课律师的课程			
 			SysUser loginuser = this.getLoginUser();
 			SysRole loginrole = loginuser.getSysRole();
-			System.out.println("==============================="+loginrole);
+//			System.out.println("==============================="+loginrole);
 			if (loginrole!=null&&loginrole.getRoleid() == 100) {// 授课律师登录			
 				listall = false;
 				lesson.setTeacherid(loginuser.getUserid());

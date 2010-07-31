@@ -31,7 +31,7 @@ public class TeacherCreateEditAction extends AbstractAction {
 	}
 
 	public TeacherCreateEditAction() {
-		this.teacher = new Teacher();
+//		this.teacher = new Teacher();
 	}
 
 	/*
@@ -69,7 +69,7 @@ public class TeacherCreateEditAction extends AbstractAction {
 
 			System.out.println("teacher.getLoginname():"+teacher.getLoginname());
 			System.out.println("teacher.getPassword():"+teacher.getPassword());
-			
+			System.out.println("teacher.getCreateuser():"+teacher.getCreateuser());
 			
 			tservice.updateTeacher(teacher);
 			this.opResult = "管理员" + super.getLoginUser().getUsername() + "修改了授课律师" + teacher.getUsername() + "信息";
