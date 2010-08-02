@@ -168,7 +168,14 @@ $.getJSON(
 							<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
 						</TD>				
 						<TD class="tab_content" align="center" title="${teacher}">
-							<div style="overflow:hidden;text-overflow:ellipsis;">${teachers}</div>
+							<div style="overflow:hidden;text-overflow:ellipsis;">
+							<s:if test="teacherid!=0">
+							<a href="teacherView.pl?userId=${teacherid }">${teachers}</a>
+							</s:if>
+							<s:else>
+							${teachers}
+							</s:else>
+							</div>
                             
 						</TD>
 						<TD class="tab_content" align="center">

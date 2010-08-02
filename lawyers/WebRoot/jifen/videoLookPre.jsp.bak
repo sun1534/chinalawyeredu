@@ -132,7 +132,6 @@
 											&nbsp;
 											<input type="submit" name="StopBtn" value="停止"	onClick="Stop();return false;" id="StopBtn" style="color: DarkSlateGray; background-color: PaleTurquoise; border-color: Teal; border-width: 1px; border-style: Solid; font-size: 9pt; font-weight: bold;" />
 											&nbsp;
-											<span id="hinthint"></span>
 										</P>
 									</TD>
 								</TR>
@@ -153,11 +152,16 @@ var PauseBtn=document.getElementById("PauseBtn");
 var PutInBtn=document.getElementById("PutInBtn");
 var IsPause=false;
 var HaveSeted=false;
+//var ShowNextMinutes=10+Math.floor(Math.random()*10);
 var ShowNextMinutes=${videotimeout};
+//var ShowNextMinutes=0.8;
 var visitid=${visitid};
 var nowyear=${nowyear};
+//var ShowNextMinutes=5+twoPlaces(Math.random())*10;
+//     alert(ShowNextMinutes);
 setTimeout('GetInfo()', 1000);
 var setTimeSuccess=false;
+
 function exitform(){
    $.ajax({
 		type: "POST",
@@ -176,66 +180,55 @@ function twoPlaces(amount)
 function GetInfo()
 { 
   CurrentMinutes.value = twoPlaces(oPlay.controls.currentPosition/60);
-  var timeelapsed=twoPlaces(Number(CurrentMinutes.value)-Number(LearnMinutes.value));
-  //document.getElementById("hinthint").innerText=timeelapsed+","+HaveSeted+","+IsPause;
-  window.status=timeelapsed+","+HaveSeted+","+IsPause;
    //如果需要设置时间的话，这里是看这个是人是不是已经获取了全部积分了
-   //这里也就是如果听课的时长>那个设置的时长就计分，而不是10分钟后来自动执行
-   //如果听课的时长>已听课的时长并这次听课的时长大于10分钟，就记录
   <s:if test="settime">     
-  //if (Number(CurrentMinutes.value)>Number(LearnMinutes.value) & !HaveSeted & !IsPause)
-  //播放时间大于已听课时间
-  // if (Number(CurrentMinutes.value)>Number(LearnMinutes.value) & !HaveSeted & !IsPause&timeelapsed>=Number(ShowNextMinutes))
-   if (timeelapsed>=Number(ShowNextMinutes) &&!HaveSeted && !IsPause)
+  if (Number(CurrentMinutes.value)>Number(LearnMinutes.value) & !HaveSeted & !IsPause)
    {
      var MinutesLength=Number(twoPlaces(Number(Duration.value)-Number(CurrentMinutes.value)));
      if (Number(MinutesLength)>Number(ShowNextMinutes)) 
       {
-       	 HaveSeted=true; //你丫的你要放前面，nnd
-     	 ShowLearnMinutes(timeelapsed);
-      //  settimeoutflag=setTimeout('ShowLearnMinutes('+ShowNextMinutes.toString()+')',ShowNextMinutes*60*1000);
-       //  alert("尻，这个是后续的，有个冒用啊");
-        
+        setTimeout('ShowLearnMinutes('+ShowNextMinutes.toString()+')',ShowNextMinutes*60*1000);
+        HaveSeted=true;
       }
    } 
  </s:if>
-  setTimeout('GetInfo()', 1000)
+  setTimeout('GetInfo()', 1000);
 }
 
 var NewLearnMinutes=0;
 function ShowLearnMinutes(Minutes)
 {
-   Pause();//暂停课程
-   if (oPlay.fullScreen==true) 
-   		oPlay.fullScreen=false;
+   Pause();
+   
+   if (oPlay.fullScreen==true) oPlay.fullScreen=false;
+   
    if (Minutes==null) 
      {
+       //PutInBtn.value="完成培训";
        alert("恭喜,您已完成了该课程的培训...")
        NewLearnMinutes=-1;
      }
       else 
-       {
+        {
           alert("新获【"+Minutes+"】分钟的网上培训时间")
+          //PutInBtn.value="获取【"+Minutes+"】分钟";
           NewLearnMinutes=Minutes;
         }
+
     GetLearnMinutes();
+        
 }
 
 function GetLearnMinutes()
 {
    var SetMode=(NewLearnMinutes==-1)?"All":"";   
-   //新听课时间
    var SetMinutes=(NewLearnMinutes==-1)?Duration.value:NewLearnMinutes;
-   //总计听课时间，总听课时间+新听课时间
    var LookedAllMinutes=(NewLearnMinutes==-1)?Duration.value:twoPlaces(Number(LearnMinutes.value)+Number(SetMinutes));
-  //设置上去
    SetLearnMinutes (twoPlaces(Number(Duration.value)),twoPlaces(Number(LookedAllMinutes)));
-   //	alert(setTimeSuccess);
    if(setTimeSuccess){
 	  	LearnMinutes.value=(NewLearnMinutes==-1)?SetMinutes:twoPlaces(Number(LearnMinutes.value)+Number(SetMinutes));
    	    HaveSeted=false;
 	    NewLearnMinutes=0; 
-	//    alert(HaveSeted+",,,,"+NewLearnMinutes);
    }
    ReLearn();
 }
@@ -268,6 +261,7 @@ function SetLearnMinutes(allminutes,lookedminutes) {
           }
 	   }
 	 });
+
 }
 var confirmed=false;
 function Start()
@@ -339,29 +333,20 @@ function ReLearn()
  </s:else>
   
 }
-//var hascleartimeout=false;
+
 function Pause()
 {  
   IsPause=!IsPause;
- 
 
   if (IsPause) 
     {
        oPlay.controls.pause();
        PauseBtn.value="继续";
-     //  if(settimeoutflag&&settimeoutflag!=0){
-      //  clearTimeout(settimeoutflag);//清除掉10分钟后的定时。这里要记忆住已经听了多少时间了
-      //  hascleartimeout=true;
-      //  }
     }
     else
     {
        oPlay.controls.play();
        PauseBtn.value="暂停";
-       //多少时间后继续执行
-      // if(hascleartimeout){
-      //  	settimeoutflag=setTimeout('ShowLearnMinutes('+ShowNextMinutes.toString()+')',(ShowNextMinutes*60*1000-thetimeinterval*1000));
-      // }
     }
 }
 
@@ -374,7 +359,6 @@ function Stop()
 
 		<SCRIPT language="JScript" event="playStateChange(NewState)"
 			for="Player">
-			//alert(NewState);
 <!--
 if (NewState == 1) //停止
  {
@@ -400,9 +384,7 @@ if (NewState==8) //完成播放
 {
      var LostLength=Number(twoPlaces(Number(Duration.value)-Number(LearnMinutes.value)));
         
-    // if (LostLength>0 & LostLength<=Number(ShowNextMinutes) & !HaveSeted) 
-    if(LostLength>0 & LostLength<=Number(ShowNextMinutes)) 
-     	setTimeout('ShowLearnMinutes(null)',1000);
+     if (LostLength>0 & LostLength<=Number(ShowNextMinutes) & !HaveSeted) setTimeout('ShowLearnMinutes(null)',1000);
 }
 if (NewState==6) //缓冲处理
 {

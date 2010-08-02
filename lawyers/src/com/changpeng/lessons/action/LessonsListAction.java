@@ -59,7 +59,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	@Override
 	protected String go() throws Exception {
-		this.pageSize = 20;
+//		this.pageSize = 20;
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");

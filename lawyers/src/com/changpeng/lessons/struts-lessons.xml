@@ -27,6 +27,10 @@
 
       <action name="replyCreate" class="com.changpeng.lessons.action.ReplyCreateAction">
       </action>
+      
+      <action name="teacherView" class="com.changpeng.lessons.action.TeacherViewAction">
+      <result name="success" type="dispatcher">/lessons/teacherView.jsp</result>
+      </action>
        
        <action name="download" class="com.changpeng.lessons.action.DownloadAction">
 			<result name="success" type="stream">

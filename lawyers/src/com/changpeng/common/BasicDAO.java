@@ -111,6 +111,17 @@ public class BasicDAO extends HibernateDaoSupport {
 	public int execute(final String hql, final Object value) {
 		return execute(hql, new Object[] { value });
 	}
+	
+	public int executeSql(final String sql) {
+		Object object = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+				Query queryObject = session.createSQLQuery(sql);
+				int i = queryObject.executeUpdate();
+				return new Integer(i);
+			}
+		});
+		return ((Integer) object).intValue();
+	}
 
 	public List findBySqlQuery(final String sql) {
 		Object object = getHibernateTemplate().execute(new HibernateCallback() {
