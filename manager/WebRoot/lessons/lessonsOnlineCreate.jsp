@@ -25,6 +25,29 @@ function getCities(vallll){
 }); 
   }
 }
+function shaixuanteacher(){
+	document.form1.action="lessonsCreate!input.pl";
+	document.form1.submit();
+}
+
+function selectteacher(teacherid){
+  if(teacherid==0){
+    alert("请在下面的老师输入框中输入老师和选择老师类型\n或者请您先在授课老师管理里面新增授课老师信息");
+  }else{
+   $("#lessonteachersid").attr("disabled",true);
+    $("#lessonteachertypeid").attr("disabled",true);
+       $.getJSON("../lessonajax/getTeacherById.pl", { "teacherid": teacherid,"now":new Date().getTime()}, function(json){
+          var exist=json.exist;
+          if(exist==1){
+             $("#lessonteachersid").attr("value",json.teachername);
+              $("#lessonteachertypeid").attr("value",json.teachertype);
+               $("#teachernameid").attr("value",json.teachername);
+          }
+       }); 
+  
+  }
+}
+
 </script>
 <script language="JavaScript"> 
 var len=1;
@@ -75,7 +98,7 @@ function addFile(){
 				<td height="23" background="../imagesa/top-bg3.gif"
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
-					${navigator}
+					课程管理-新增在线课程
 				</td>
 			</tr>
 		</table>
@@ -98,7 +121,7 @@ function addFile(){
 						</tr>
 						<tr>
 							<td width="20%" class="tab_content1" align="right">
-									 内容标题：
+									 	课程标题：
 							</td>
 							<td width="80%" colspan="2" class="tab_content1">
 								<s:textfield name="lesson.title" size="50" />
@@ -106,30 +129,45 @@ function addFile(){
 							</td>
 						</tr>
 				
-				<s:if test="onlyonline==1">
+		
 						     <s:if test="shouldview">
 						<tr>
 							<td class="tab_content" align="right">
 									课程来源：
 							</td>
 							<td colspan="2" class="tab_content">
-                       
 						  <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
              <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择"/>
-            		
-					
 							</td>
 						</tr>
 							</s:if>
 							
-							
-							
+					
+					
+					
+						<s:if test="listall">
 						<tr>
+							<td class="tab_content1" align="right">
+									授课老师：
+							</td>
+							<td colspan="2" class="tab_content1">
+							<s:select name="lesson.teacherid" list="teacherList" listKey="userid" listValue="username" onchange="selectteacher(this.value)" headerKey="0" headerValue="找不到对应的律师?"/>
+							<s:textfield name="teachername" id="teachernameid" size="15"/>
+							&nbsp;
+							<input type="button" value="筛选老师" onclick="shaixuanteacher()"/>
+							</td>
+						</tr>
+						</s:if>
+						<s:else>
+						<s:hidden name="lesson.teacherid"/>
+						</s:else>
+					
+							<tr>
 							<td class="tab_content" align="right">
 									名家讲坛：
 							</td>
 							<td colspan="2" class="tab_content">
-							<s:select name="lesson.teachertype" list="@com.changpeng.lessons.util.CommonDatas@TeacherType"/>
+							<s:select id="lessonteachertypeid" name="lesson.teachertype" list="@com.changpeng.lessons.util.CommonDatas@TeacherType"/>
 					          <font color="red">*请选择</font>
 							</td>
 						</tr>
@@ -138,26 +176,12 @@ function addFile(){
 								 主讲人：
 							</td>
 							<td colspan="2" class="tab_content1">
-								<s:textfield  name="lesson.teachers" size="20"/>
+								<s:textfield  id="lessonteachersid"  name="lesson.teachers" size="20" />
                                  <font color="red">*不能为空</font>
 							</td>
 						</tr>
-						</s:if>
-						<s:if test="onlyonline==2"><!-- 授课老师 -->
-						<s:if test="listall">
-						<tr>
-							<td class="tab_content1" align="right">
-									授课老师：
-							</td>
-							<td colspan="2" class="tab_content1">
-													<s:select name="lesson.teacherid" list="teacherList" listKey="userid" listValue="username"/>
-
-							</td>
-						</tr>
-						</s:if>
-						<s:else>
-						<s:hidden name="lesson.teacherid"/>
-						</s:else>
+						
+						<s:if test="onlyonline==2">
 						<tr>
 							<td class="tab_content1" align="right">
 									价格：
@@ -167,7 +191,7 @@ function addFile(){
                                  <font color="red">*不能为空且必须为数字</font>
 							</td>
 						</tr>
-						</s:if>
+					</s:if>
 						<tr>
 							<td class="tab_content" align="right">
 									课程类别：
@@ -229,7 +253,7 @@ function addFile(){
                                  
 							</td>
 							<td colspan="2" class="tab_content">
-									<s:textfield id="fileid" name="lesson.onlinefile" size="60"/><font color=red">(*不能为空)</font>
+									<s:textfield id="fileid" name="lesson.onlinefile" size="60"/><font color="red">(*不能为空)</font>
 							</td>
 						</tr>
                        

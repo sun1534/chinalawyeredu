@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
@@ -183,11 +184,11 @@ public class LessonsEditAction extends AbstractAction {
 			return "message";
 		}
 
-		if (sharedgroupids == null || sharedgroupids.size() == 0) {
-			sharedgroupids = new ArrayList();
-		}
-		if (mygroup != null)
-			sharedgroupids.add(mygroup.getGroupid());
+//		if (sharedgroupids == null || sharedgroupids.size() == 0) {
+//			sharedgroupids = new ArrayList();
+//		}
+//		if (mygroup != null)
+//			sharedgroupids.add(mygroup.getGroupid());
 
 		lesson.setAttach(attach);
 
@@ -195,7 +196,8 @@ public class LessonsEditAction extends AbstractAction {
 
 		lesson.setDeleteflag(deleteflagint == 1 ? true : false);
 		// service.update(lesson);
-		service.updateLesson(lesson, sharedgroupids, this.getLoginUser());
+//		service.updateLesson(lesson, sharedgroupids, this.getLoginUser());
+		service.updateLesson(lesson, null, this.getLoginUser());
 		// this.nextPage = "lessonsList.pl";
 		if (onlyonline == 1)
 			this.nextPage = "lessonsOnlineList.pl?lessonstyle=2&pageNo=" + pageNo;
@@ -229,31 +231,31 @@ public class LessonsEditAction extends AbstractAction {
 		System.out.println("============================onlyonline==="+onlyonline);
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 
-		shouldsharedgroupids = groupservice.getAllsharedunion();
-		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
-			// 课程共享的时候，去掉自己
-			if (mygroup != null) {
-				for (Object obj : shouldsharedgroupids) {
-					SysGroup group = (SysGroup) obj;
-					if (group.getGroupid() == mygroup.getGroupid()) {
-						shouldsharedgroupids.remove(group);
-						break;
-					}
-				}
-			}
-		}
+//		shouldsharedgroupids = groupservice.getAllsharedunion();
+//		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
+//			// 课程共享的时候，去掉自己
+//			if (mygroup != null) {
+//				for (Object obj : shouldsharedgroupids) {
+//					SysGroup group = (SysGroup) obj;
+//					if (group.getGroupid() == mygroup.getGroupid()) {
+//						shouldsharedgroupids.remove(group);
+//						break;
+//					}
+//				}
+//			}
+//		}
 
-		sharedgroupids = new ArrayList();
-		DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
-		dc.createAlias("lessons", "lessons");
-		dc.add(Restrictions.eq("lessons.lessonid", lessonid));
-		List list = basicService.findAllByCriteria(dc);
-		for (int i = 0; list != null && i < list.size(); i++) {
-			Lessonshared shared = (Lessonshared) list.get(i);
-			// System.out.println("==============="+shared.getGroupid());
-			if (mygroup == null || (mygroup != null && shared.getGroupid() != mygroup.getGroupid()))
-				sharedgroupids.add(shared.getGroupid());
-		}
+//		sharedgroupids = new ArrayList();
+//		DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
+//		dc.createAlias("lessons", "lessons");
+//		dc.add(Restrictions.eq("lessons.lessonid", lessonid));
+//		List list = basicService.findAllByCriteria(dc);
+//		for (int i = 0; list != null && i < list.size(); i++) {
+//			Lessonshared shared = (Lessonshared) list.get(i);
+//			// System.out.println("==============="+shared.getGroupid());
+//			if (mygroup == null || (mygroup != null && shared.getGroupid() != mygroup.getGroupid()))
+//				sharedgroupids.add(shared.getGroupid());
+//		}
 
 		String s = df.format(lesson.getLessondate());
 		int index = s.indexOf(" ");
@@ -296,7 +298,11 @@ public class LessonsEditAction extends AbstractAction {
 				lesson.setTeacherid(loginuser.getUserid());
 			} else {
 				BasicService basicservice = (BasicService) this.getBean("basicService");
-				teacherList = basicservice.findAll(Teacher.class);
+				DetachedCriteria dcc=DetachedCriteria.forClass(Teacher.class);
+				if(teachername!=null&&!teachername.equals("")){
+					dcc.add(Restrictions.like("username",teachername,MatchMode.ANYWHERE));
+				}
+				teacherList = basicservice.findAllByCriteria(dcc);
 			}
 		}
 		if (onlyonline != 0) {
@@ -305,7 +311,7 @@ public class LessonsEditAction extends AbstractAction {
 		return "local";
 
 	}
-
+	private String teachername;
 	private boolean listall = true;
 
 	public boolean getListall(){
@@ -319,31 +325,31 @@ public class LessonsEditAction extends AbstractAction {
 		return this.teacherList;
 	}
 
-	private List sharedgroupids = new ArrayList();
+//	private List sharedgroupids = new ArrayList();
 
 	/**
 	 * @param sharedgroupids
 	 *            the sharedgroupids to set
 	 */
-	public void setSharedgroupids(List sharedgroupids) {
-		this.sharedgroupids = sharedgroupids;
-	}
-
-	public List getSharedgroupids() {
-		return this.sharedgroupids;
-	}
+//	public void setSharedgroupids(List sharedgroupids) {
+//		this.sharedgroupids = sharedgroupids;
+//	}
+//
+//	public List getSharedgroupids() {
+//		return this.sharedgroupids;
+//	}
 
 	/**
 	 * 课程的来源,其实也应该是省律协或者市律协，共享的时候，设置共享给所有的省律协以及购买了系统的
 	 */
-	private List shouldsharedgroupids;
+//	private List shouldsharedgroupids;
 
 	/**
 	 * @return the sharedgroupids
 	 */
-	public List getShouldsharedgroupids() {
-		return shouldsharedgroupids;
-	}
+//	public List getShouldsharedgroupids() {
+//		return shouldsharedgroupids;
+//	}
 
 	public void setDatestart(String datestart) {
 		this.datestart = datestart;
@@ -396,5 +402,19 @@ public class LessonsEditAction extends AbstractAction {
 	}
 
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+	/**
+	 * @return the teachername
+	 */
+	public String getTeachername() {
+		return teachername;
+	}
+
+	/**
+	 * @param teachername the teachername to set
+	 */
+	public void setTeachername(String teachername) {
+		this.teachername = teachername;
+	}
 
 }

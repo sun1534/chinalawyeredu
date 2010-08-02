@@ -103,6 +103,10 @@
    	    <action name="getLessonsById" class="com.changpeng.lessons.action.ajax.GetLessonsByIdAction">
 			<result name="success" type="json"></result>
    	   </action> 
+   	   
+   	    	    <action name="getTeacherById" class="com.changpeng.lessons.action.ajax.GetTeacherByIdAction">
+			<result name="success" type="json"></result>
+   	   </action> 
    	      <action name="getLocalLessonsByCityId" class="com.changpeng.lessons.action.ajax.GetLocalLessonsByCityIdAction">
 			<result name="success" type="json"></result>
    	   </action> 
