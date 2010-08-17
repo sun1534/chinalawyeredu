@@ -188,9 +188,11 @@ public class LxnetrecsService extends BasicService {
 			int zhekou = Integer.parseInt(lesson.getFenshuoff());
 			huodexuefen = Float.parseFloat(NumberUtil.toMoney((weidazhefen * zhekou) / 100));
 		}
-
-		_LOG.debug("获得的学分::::::" + huodexuefen + ",打了几折:::" + lesson.getFenshuoff());
-		if (xf == null) {
+if(xf!=null)
+		_LOG.debug("获得的学分::::::" + huodexuefen + ",打了几折:::" + lesson.getFenshuoff()+"==>"+xf.getPxxf().floatValue()+"===>"+(huodexuefen >= xf.getPxxf()));
+else
+	_LOG.debug("获得的学分::::::" + huodexuefen + ",打了几折:::" + lesson.getFenshuoff()+"==>");
+if (xf == null) {
 			if (lawyer.getLawyertype() == -1)
 				xf = new LawyerlessonxfShixi();
 			else if (lawyer.getLawyertype() == -2)
@@ -234,7 +236,7 @@ public class LxnetrecsService extends BasicService {
 			
 			//这里同时插入那个老师的统计表里面去
 
-		} else if (huodexuefen > xf.getPxxf()) {// 获得的学分大于现有的学分的时候，才更新
+		} else if (huodexuefen >= xf.getPxxf()) {// 获得的学分大于现有的学分的时候，才更新
 			xf.setPxxf(huodexuefen);
 //			xf.setPxdate(stamp);
 			xf.setZongjifen(lesson.getXuefen());
@@ -242,6 +244,7 @@ public class LxnetrecsService extends BasicService {
 			xf.setPxminutes(videojifen.getLookedminutes());
 			xf.setPxreqminutes(videojifen.getAllminutes());
 			xf.setLastupdate(stamp);
+			System.out.println("lesson.getXuefen().floatValue() == weidazhefen=>>"+(lesson.getXuefen().floatValue() == weidazhefen));
 			if (lesson.getXuefen().floatValue() == weidazhefen)
 				xf.setIsfull(true);
 			lxnetrecsDAO.update(xf);

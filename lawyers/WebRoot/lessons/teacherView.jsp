@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<title>授课律师介绍</title>
+<title>授课老师介绍</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
@@ -29,7 +29,7 @@ body {
 					class="baseFontBold">
 					<img src="../imagesa/b_02.gif" width="4" height="7">
 			
-				授课律师介绍
+				授课老师介绍
 			
 				</td>
 				
@@ -39,7 +39,6 @@ body {
 			align="center" class="border-table">
 	<tr>
     <td>
-    <s:form name="form1" action="teacherCreateEdit" method="post" validate="true">
          <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
@@ -76,7 +75,6 @@ body {
           </td>
         </tr>
       </table>
-    </s:form>
     </td>
   </tr>
 </table>

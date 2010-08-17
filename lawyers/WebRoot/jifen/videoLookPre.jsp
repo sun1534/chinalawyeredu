@@ -189,7 +189,9 @@ function GetInfo()
    if (timeelapsed>=Number(ShowNextMinutes) &&!HaveSeted && !IsPause)
    {
      var MinutesLength=Number(twoPlaces(Number(Duration.value)-Number(CurrentMinutes.value)));
-     if (Number(MinutesLength)>Number(ShowNextMinutes)) 
+     //为啥非得还剩10分钟才执行呢，应该是只有5秒钟就不跑了，留待后面的完成来跑
+   //  if (Number(MinutesLength)>Number(ShowNextMinutes)) 
+    if (Number(MinutesLength)>0.1) 
       {
        	 HaveSeted=true; //你丫的你要放前面，nnd
      	 ShowLearnMinutes(timeelapsed);
@@ -398,10 +400,12 @@ if (NewState == 3) //从头开始
 }
 if (NewState==8) //完成播放
 {
+//还剩多少时间。。。。即总时间和已记录的听课时间的差
      var LostLength=Number(twoPlaces(Number(Duration.value)-Number(LearnMinutes.value)));
         
     // if (LostLength>0 & LostLength<=Number(ShowNextMinutes) & !HaveSeted) 
-    if(LostLength>0 & LostLength<=Number(ShowNextMinutes)) 
+   // if(LostLength>0 & LostLength<=Number(ShowNextMinutes)) //为啥非得这样才跑呢？？？
+   	if(LostLength>0)//如果不加这个条件，一直都是完成播放的状态。
      	setTimeout('ShowLearnMinutes(null)',1000);
 }
 if (NewState==6) //缓冲处理

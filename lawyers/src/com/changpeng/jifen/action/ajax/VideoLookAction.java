@@ -71,12 +71,15 @@ public class VideoLookAction extends AbstractAction {
 			videojifen.setNowyear(nowyear);
 			videojifen.setVisitid(visitid);
 			BasicLawyerlessonxf xf = lxnetrecsService.saveLxnetrecs(videojifen);
-			if (xf != null)
+
+			if (xf != null){
 				this.huodexuefen = xf.getPxxf();
+				System.out.println(lookedminutes+"==>"+allminutes+"==>"+xf.getIsfull());
+			}
 
 		} catch (Exception e) {
-
-			LOG.error("视频课程有误:::" + e);
+//e.printStackTrace();
+			LOG.error("视频课程有误:::" , e);
 
 			this.huodexuefen = -1;
 		}

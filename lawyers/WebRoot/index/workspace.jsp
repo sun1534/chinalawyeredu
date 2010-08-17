@@ -131,7 +131,7 @@
       	</s:if>
       	<s:else>
       		<img src="${logopath}/${lawyers.photo}" width="106"/>    
-      	</s:else>        <br/> <b>您好，${lawyers.lawyername} 律师</b> </td>
+      	</s:else>        <br/> <b>您好，${lawyers.lawyername} </b> </td>
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="23"><b>证： </b></td>                   

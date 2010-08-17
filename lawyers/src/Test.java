@@ -2,6 +2,10 @@
  * 
  */
 
+import java.util.ArrayList;
+
+import antlr.collections.List;
+
 import com.changpeng.common.BasicService;
 import com.changpeng.common.context.Globals;
 import com.changpeng.jifen.service.LxnetrecsService;
@@ -22,6 +26,15 @@ public class Test {
 		JifenTime jifentime = CommonDatas.getJifenTime(2009, "05-31");
 		System.out.println(jifentime.getStartstr());
 		// TODO Auto-generated method stub
+java.util.List _list=new ArrayList();
+_list.add("1");
+_list.add("2");
+_list.add("3");
+_list.add("4");
+String[] newright=new String[_list.size()];
+_list.toArray(newright);
+for(int i=0;i<newright.length;i++)
+	System.out.println(newright[i]);
 
 ////		System.out.println(com.changpeng.common.util.MD5.md5("123456"));
 //		
