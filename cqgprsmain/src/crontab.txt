@@ -1,0 +1,16 @@
+#3,13,23,33,43,53 * * * * /export/home1/GPRS/JAVABIN/test091126.sh
+8,18,28,38,48,58 * * * * /export/home1/GPRS/JAVABIN/cdralarm.sh >>/export/home1/GPRS/JAVABIN/logs/cdalarm.log
+30 * * * * /export/home1/GPRS/BBJAVABIN/statHourMain.sh >>/export/home1/GPRS/BBJAVABIN/logs/stathour.log
+5 8 * * * /export/home1/GPRS/BBJAVABIN/statUserCnt.sh >>/export/home1/GPRS/BBJAVABIN/logs/statusercnt.log
+20 6 * * * /export/home1/GPRS/BBJAVABIN/statDayMain.sh >>/export/home1/GPRS/BBJAVABIN/logs/stat.log
+3 7 * * * /export/home1/GPRS/JAVABIN/generateRau.sh >>/export/home1/GPRS/JAVABIN/logs/rau.log
+20 6 * * * /export/home/jf/GPRS/script/get_namedra.sh >>/export/home/jf/GPRS/script/namedra.log
+10 6 * * * /export/home/jf/GPRS/script/for_get_ipservice.sh >>/export/home/jf/GPRS/script/ipservice_get.log
+0 6 * * * /export/home/jf/GPRS/script/for_generate_ipservice.sh >>/export/home/jf/GPRS/script/ipservice_generate.log
+20 * * * * /export/home1/GPRS/JAVABIN/statHourMain.sh >>/export/home1/GPRS/JAVABIN/logs/stathour.log
+0 8 * * * /export/home1/GPRS/JAVABIN/statUserCnt.sh >>/export/home1/GPRS/JAVABIN/logs/statusercnt.log
+10 2 * * * /export/home1/GPRS/JAVABIN/statDayMain.sh >>/export/home1/GPRS/JAVABIN/logs/stat.log
+4,14,24,34,44,54 * * * * /export/home1/GPRS/JAVABIN/readErrorApns.sh >>/export/home1/GPRS/JAVABIN/logs/readerror.log
+#3,13,23,33,43,53 * * * * /export/home1/GPRS/JAVABIN/readHWErrorApns.sh >>/export/home1/GPRS/JAVABIN/logs/readhwerror.log
+5 * * * * /export/home1/GPRS/JAVABIN/huaweichr.sh
+6,16,26,36,46,56 * * * * /export/home1/GPRS/JAVABIN/nsvcAlarm.sh >>/export/home1/GPRS/JAVABIN/logs/nsvc.log

@@ -1,0 +1,7 @@
+#!/bin/bash
+ip="10.190.94.7"
+username="hdsjj"
+password="hdsjj@123"
+datetime=`date +"%Y%m%d%H%M"`
+command1="ls -l /var/opt/BGw/ServerGroup1/Server1/BGwTTStorage/STS/working|grep $datetime"
+(sleep 1;echo "$username";sleep 1 ;echo "$password" ;sleep 1 ; echo "$command1" ;sleep 1 ; echo "exit") | telnet $ip

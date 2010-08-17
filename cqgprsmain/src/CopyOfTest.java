@@ -1,12 +1,15 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import main.util.DBUtils;
+import main.readerrors.HWChrFileHandle;
 
 /** 
  * 
@@ -34,8 +37,176 @@ public class CopyOfTest {
 		return mybytes;
 	}
 	private static Connection con = null;
+	public static void convert(String nowdate) {
+		String cmd = "/export/home1/GPRS/sgsnbill/sgsnbill";
+		String srcFileName="/export/home1/GPRS/sgsnbill/SGSN20100128131746_20100128132253.chr";
+		String destFileName="/export/home1/GPRS/sgsnbill/"+nowdate+".txt";
+		BufferedReader br = null;
+		try {
+			String command=cmd + " " + srcFileName + " " + destFileName;
+		
+			System.out.println(command);
+			long now=System.currentTimeMillis();
+//			Process process = java.lang.Runtime.getRuntime().exec(command);
+			Runtime runtime = Runtime.getRuntime();
+			Process process = runtime.exec(command);
+			br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String line = null;
+			while ((line = br.readLine()) != null) {
+			
+				System.out.println("解析华为:" + srcFileName + ":" + line);
+			}
+			System.out.println("解析时间:"+(System.currentTimeMillis()-now));
+			
+			br.close();
+		
+				
+		} catch (Exception e) {
+			System.out.println("解析异常:"+e);
+		}
+		
+	}
+	
+	
+	private static int getNowHour(){
+		Calendar c=Calendar.getInstance();
+		return c.get(Calendar.HOUR_OF_DAY);
+	}
+	/**
+	 * 返回当前是星期几,星期日的话为0
+	 * @return
+	 */
+		private static int getWeekOfDay(){
+			Calendar c=Calendar.getInstance();
+			return c.get(Calendar.DAY_OF_WEEK)-1;
+		}
+		/**
+		 * 
+		 * @return
+		 */
+		private static int getYestardayWeekOfDay(){
+			Calendar c=Calendar.getInstance();
+			System.out.println(new java.sql.Timestamp(c.getTimeInMillis()));
+		
+			System.out.println(new java.sql.Timestamp(c.getTimeInMillis()));
+			System.out.println(c.get(Calendar.DATE));
+			return c.get(Calendar.DAY_OF_WEEK)-1;
+		}
+		
+		private static int getNowDate(){
+			Calendar c=Calendar.getInstance();
+			return c.get(Calendar.DATE);
+		}
+	public static void main(String[] args)throws Exception{
 
-	public static void main(String[] args) throws Exception {
+//		HWChrFileHandle c=new HWChrFileHandle();
+//		c.truncateTable("hwchr_log_4");
+		
+		String ss="111|33|||||45";
+		String sss[]=ss.split("\\|");
+		for(int i=0;i<sss.length;i++){
+			System.out.println(sss[i]);
+		}
+		System.out.println("ddd");
+//		System.out.println(getNowDate());
+//	System.out.println(getWeekOfDay());
+//	System.out.println(getYestardayWeekOfDay());
+		
+		
+//		File destdir=new File("C:\\Documents and Settings\\华锋\\My Documents\\Downloads");
+//		File[] files=destdir.listFiles(new FileFilter(){
+//			 public boolean accept(File pathname){
+//				 if(pathname.getName().endsWith(".jpg"))
+//					 return true;
+//				 return false;
+//			 }
+//		});
+//		for(File file:files){
+//			System.out.println(file.getName());
+//		}
+//		
+//		String name="201007282210_SGSN7_SGSN20100727182857_20100727183805.chr.txt"; //生成的文件的格式
+//
+//		String[] splits=name.split("_");
+//		String theflag=splits[0];
+//		String sgsnid=splits[1];
+//		String srcfilename=splits[2]+"_"+splits[3].replace(".txt", "");
+//		
+//		for(String ss:splits){
+//			System.out.println(ss);
+//		}
+//		System.out.println(srcfilename);
+	}
+	
+	private static DateFormat df=new java.text.SimpleDateFormat("yyyyMMddHHmm");
+	public static void main333(String[] args){
+		System.out.println("=======================================================");
+		String nowdate=df.format(new Date());
+		try{
+			String cmd = "/export/home1/GPRS/sgsnbill/sgsnbill";
+			String srcFileName="/export/home1/GPRS/sgsnbill/SGSN20100128131746_20100128132253.chr";
+			String destFileName="/export/home1/GPRS/sgsnbill/"+nowdate+".txt";
+			BufferedReader br = null;
+			try {
+				String command=cmd + " " + srcFileName + " " + destFileName;
+			
+				System.out.println(command);
+				long now=System.currentTimeMillis();
+//				Process process = java.lang.Runtime.getRuntime().exec(command);
+				Runtime runtime = Runtime.getRuntime();
+				
+				Process process = runtime.exec(command);
+				Thread.sleep(7000L);
+				br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				String line = null;
+				Thread.sleep(10000L);
+				while ((line = br.readLine()) != null) {
+				
+					System.out.println("解析华为:" + srcFileName + ":" + line);
+				}
+				System.out.println("解析时间:"+(System.currentTimeMillis()-now));
+				
+				br.close();
+			
+					
+			} catch (Exception e) {
+				System.out.println("解析异常:"+e);
+			}
+		}catch(Exception e){
+			System.out.println("失败！！！"+e);
+			e.printStackTrace();
+		}
+	}
+	
+	public static void main3333(String[] args) throws Exception {
+		
+		boolean a=false;
+		boolean b=true;
+		System.out.println(a+","+b+",,,"+Boolean.parseBoolean("false"));
+		
+		String today="20100715";
+		String yestarday="20100714";
+		String CG03_LAST_FILE="GGSNCQ02.J20R4:GGSNCQ02_20100715232545_37350:20100715:232529:031:NO-LABEL";
+		int idx=CG03_LAST_FILE.lastIndexOf(today);
+		if(idx==-1)
+			idx=CG03_LAST_FILE.lastIndexOf(yestarday);
+		if(idx!=-1){
+			
+//			
+			
+			String date=CG03_LAST_FILE.substring(idx,idx+8);
+			String time=CG03_LAST_FILE.substring(idx+9,idx+9+6);
+		
+		System.out.println(date);
+		System.out.println(time);
+		}
+		
+//		String s="#############3##3234234###################12312kkkkjkadf#3234234#";
+//		String[] ss=s.split("(#)+");
+//		for(String sss:ss){
+//			System.out.println(sss);
+//		}
+//		System.exit(1);
 //		Date daysagodate = main.util.MainStatUtil.getPrevCountDate(3);
 //		System.out.println(daysagodate);
 //		long s=3510073023L;
@@ -79,29 +250,29 @@ public class CopyOfTest {
 		// Date yydate = main.util.MainStatUtil.getPrevCountHour(date, 1);
 		// System.out.println(dfsec.format(yydate));
 //Connection con=null;
-		try {
-			con=DBUtils.getOracleCon();
-			int opentime = 0;
-//			String sql = "select min(opentime) as opentime from cdr_mistake";
-			String sql = "select min(stattime) as opentime from stat_cellid";
-			Statement stmt = con.createStatement();
-			int deletetime = 1266948122;
-//			 int deletetime = Integer.parseInt(hourstattime);
-			while (opentime <= deletetime) {
-				ResultSet rs = stmt.executeQuery(sql);
-				rs.next();
-				opentime = rs.getInt("opentime");
-				rs.close();
-				long now=System.currentTimeMillis();
-//			int ii=	main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
-			int ii=	main.util.MainStatUtil.executeSql(con, "delete from stat_cellid where stattime<=" + (opentime));
-System.out.println("删除了"+ii+"条..."+(System.currentTimeMillis()-now));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		con.close();
-		System.out.println("妈的，我终于删完了。我尻。。。。。。。。");
+//		try {
+//			con=DBUtils.getOracleCon();
+//			int opentime = 0;
+////			String sql = "select min(opentime) as opentime from cdr_mistake";
+//			String sql = "select min(stattime) as opentime from stat_cellid";
+//			Statement stmt = con.createStatement();
+//			int deletetime = 1266948122;
+////			 int deletetime = Integer.parseInt(hourstattime);
+//			while (opentime <= deletetime) {
+//				ResultSet rs = stmt.executeQuery(sql);
+//				rs.next();
+//				opentime = rs.getInt("opentime");
+//				rs.close();
+//				long now=System.currentTimeMillis();
+////			int ii=	main.util.MainStatUtil.executeSql(con, "delete from cdr_mistake where opentime<=" + (opentime + 3600));
+//			int ii=	main.util.MainStatUtil.executeSql(con, "delete from stat_cellid where stattime<=" + (opentime));
+//System.out.println("删除了"+ii+"条..."+(System.currentTimeMillis()-now));
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		con.close();
+//		System.out.println("妈的，我终于删完了。我尻。。。。。。。。");
 
 	}
 

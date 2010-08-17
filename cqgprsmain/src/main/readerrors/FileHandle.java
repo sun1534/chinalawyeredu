@@ -5,6 +5,7 @@ package main.readerrors;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,44 +48,7 @@ public class FileHandle {
 		return errorfile;
 	}
 
-	private ErrorFile moveHWFile(File srcfile, String todayDestDirName, String sgsnid, String timestamp) {
-		String destFileName = todayDestDirName + SEPARATOR + srcfile.getName() + "_" + sgsnid + "_" + timestamp
-				+ ".txt";
-		String destFileNameNoChange = todayDestDirName + SEPARATOR + srcfile.getName() + "_" + sgsnid + "_" + timestamp
-				+ ".bak";
-
-		String srcFileName = srcfile.getAbsolutePath();
-		File destfile = new File(destFileName);
-		File destfileNoChange = new File(destFileNameNoChange);
-
-		HWSessionLogHandle handle = new HWSessionLogHandle(srcFileName, destFileName);
 	
-		System.out.println("啥意思啊。。。。。。。。。。。。。。。。。。。。。。。。。。。");
-		handle.convert();
-		try {
-			Thread.sleep(10 * 1000L);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-//		while (!handle.isover) {
-//			System.out.println("===================waiting...");
-//			try {
-//				Thread.sleep(10L);
-//			} catch (Exception e) {
-//
-//			}
-//		}
-
-		ErrorFile errorfile = new ErrorFile();
-		errorfile.setSgsnid(sgsnid);
-		errorfile.setDestdir(todayDestDirName);
-		errorfile.setDestfile(destfile);
-		errorfile.setSrcfilename(srcfile.getName());
-		// 移动cdr文件
-		srcfile.renameTo(destfileNoChange);
-		LOG.info(".chr文件移动到:" + destFileNameNoChange);
-		return errorfile;
-	}
 
 	/**
 	 * 这里的规则是srcdir下有n多个SGSN*的目录,主要是copy这个目录下的数据 这里备份的话，每天1个目录
@@ -168,87 +132,8 @@ public class FileHandle {
 		return errorfiles;
 	}
 
-	/**
-	 * 这里的规则是srcdir下有n多个SGSN*的目录,主要是copy这个目录下的数据 这里备份的话，每天1个目录
-	 * 
-	 * 这里要调用命令,执行转化,转化完毕后才能执行后续的处理
-	 * 
-	 * 感觉这个是应该要一直循环的,比如每30秒钟轮询一次,而不是每10分钟
-	 * 
-	 * @param srcdir
-	 * @param destdir
-	 */
-	public Map<String, ErrorFile> copyHWFile(String srcdir, String destdir) {
-		java.util.Date today = new java.util.Date();
-		String timestamp = dftime.format(today);
-		File srcrootdir = new File(srcdir);
-		String[] srcchilddirs = srcrootdir.list();
-		String todayDestDirName = destdir + SEPARATOR + dfdate.format(today);
-		File todayDestDir = new File(todayDestDirName);
-
-		java.util.Date yestarday = main.util.MainStatUtil.getPrevCountDate(1);
-		String yestardayDestDirName = destdir + SEPARATOR + dfdate.format(yestarday);
-		File yesdir = new File(yestardayDestDirName);
-		if (yesdir.exists()) {
-			File[] deletefiles = yesdir.listFiles();
-			if (deletefiles != null && deletefiles.length > 0) {
-				for (File deletefile : deletefiles)
-					deletefile.delete();
-			}
-			boolean b = yesdir.delete();
-			LOG.info(yestardayDestDirName + "华为目录删除成功!!!" + b);
-		}
-
-		Map<String, ErrorFile> errorfiles = new HashMap<String, ErrorFile>();
-		List<File> shoulds = new ArrayList<File>();
-		if (!todayDestDir.exists()) {
-			boolean b = todayDestDir.mkdirs();
-			int k = 0;
-			while (!b && (k++) < 10) {
-				b = todayDestDir.mkdirs();
-				LOG.info("创建华为存储目录失败,重新来过!" + k);
-			}
-			if (!b) {
-				// LOG.warn("创建存储目录失败,退出系统");
-				// System.exit(0);
-				throw new RuntimeException("创建华为存储目录失败,退出系统");
-			}
-			LOG.info("创建华为存储目录成功:" + todayDestDirName);
-		}
-
-		for (String srchilddir : srcchilddirs) {
-
-			if (srchilddir.indexOf("SGSN") != -1) {
-				File file = new File(srcdir + SEPARATOR + srchilddir);
-				File[] srcfiles = file.listFiles();
-				for (File srcfile : srcfiles) {
-					// String srcfilename = srcfile.getName();
-					long lastmodified = srcfile.lastModified();
-					try {
-						Thread.sleep(100L);
-					} catch (Exception e) {
-						LOG.error("休眠异常:", e);
-					}
-					long nowmodified = srcfile.lastModified();
-					if (nowmodified == lastmodified) {
-						// 将这个文件copy移动到另外一个地方
-						String sgsnid = srchilddir;
-						ErrorFile errorfile = this.moveHWFile(srcfile, todayDestDirName, sgsnid, timestamp);
-						errorfile.setModified(new java.sql.Timestamp(today.getTime()));
-
-						errorfiles.put(sgsnid + srcfile.getName(), errorfile);
-					} else {
-						shoulds.add(srcfile);
-						// 存起来,然后再处理,轮询2次吧
-					}
-				}
-			}
-		}
-		for (File srcfile : shoulds) {
-			LOG.warn("这里需要再处理:" + srcfile);
-		}
-		return errorfiles;
-	}
+	
+	
 
 	public List<ErrorApnsCdr> parseFile(ErrorFile file) {
 		long now = System.currentTimeMillis();
@@ -356,6 +241,8 @@ public class FileHandle {
 		return cdrs;
 	}
 
+	
+	
 	/**
 	 * 新增cdr到数据库中
 	 * 
@@ -376,8 +263,8 @@ public class FileHandle {
 			List<String> no33sqls = new ArrayList<String>();
 			for (int i = 0; i < len; i++) {
 				ErrorApnsCdr cdr = cdrs.get(i);
-				
-				if(cdr.getErrorcode()!=null&&cdr.getErrorcode().equals("4328")) //郭建说4328号错误到算到38头上，因此这里统一改下入库的方式
+
+				if (cdr.getErrorcode() != null && cdr.getErrorcode().equals("4328")) // 郭建说4328号错误到算到38头上，因此这里统一改下入库的方式
 					cdr.setErrorcode("38");
 				// 非33的错误同时入另外一张表
 				// System.out.println("ErrorCode:"+cdr.getErrorcode());
@@ -429,9 +316,9 @@ public class FileHandle {
 			int[] s = stmt.executeBatch();
 			stmt.clearBatch();
 			// 33的错误同时入到另外一张表
-			for (Object obj : no33sqls) {
-				LOG.debug(obj.toString());
-			}
+			// for (Object obj : no33sqls) {
+			// LOG.debug(obj.toString());
+			// }
 			main.util.MainStatUtil.executeSql(con, no33sqls);
 			LOG.info("最后入库记录数：" + (s != null ? s.length : 0) + ",时间:" + (System.currentTimeMillis() - begin));
 		} catch (Exception e) {

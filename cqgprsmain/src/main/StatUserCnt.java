@@ -208,7 +208,7 @@ public class StatUserCnt {
 						+ "' and nettype=" + nettype + " and ggsnid='" + ggsnid + "' and apnni='" + apnni
 						+ "' and stattime=" + stattime;
 
-				System.out.println(sql);
+//				System.out.println(sql);
 
 				sqls.add(sql);
 

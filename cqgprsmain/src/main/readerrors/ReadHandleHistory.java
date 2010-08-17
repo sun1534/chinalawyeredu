@@ -27,11 +27,53 @@ public class ReadHandleHistory {
 	private static final long INTERVAL = 60 * 60 * 1000;
 	private Connection con;
 	private static final String selectSql = "select sgsnid,srcfile,destfile,modifytime,lastlines from apn_error_handle";
+	private static final String selecthwSql = "select sgsnid,srcfile,destfile,modifytime,lastlines from apn_error_handle where sgsnid in('SGSN7','SGSN8','SGSN9')";
 
 	public ReadHandleHistory(Connection con) {
 		this.con = con;
 	}
+/**
+ * chr的处理方式,应该是看那个SGSN2010000000_201000000.chr这个的前面这块是否有一致的，也就是存的srcfile要是这样子的，就不考虑时间了
+ * @param files
+ */
+	public void getFromCHRDB(Map<String, ErrorFile> files) {
 
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(selecthwSql);
+			List<String> sqls = new ArrayList<String>();
+			while (rs.next()) {
+				String sgsnid = rs.getString("sgsnid");
+				String srcfile = rs.getString("srcfile");
+
+				String[] splits=srcfile.split("_");
+				String srcfileprefix=splits[0];
+				
+				String key = sgsnid + srcfileprefix;
+				if (files.containsKey(key)) {
+					ErrorFile file = files.get(key);
+					System.out.println(sgsnid+"_"+srcfile+"上次处理行数:"+rs.getInt("lastlines")+",上次文件:"+srcfile+",本次文件:"+file.getSrcfilename());
+					file.setHandleLines(rs.getInt("lastlines"));
+					sqls
+							.add("delete from apn_error_handle where sgsnid='" + sgsnid + "' and srcfile='" + srcfile
+									+ "'");
+				}else{
+					System.out.println("这些文件此次不用处理:"+sgsnid+"_"+srcfile+"_"+df.format(rs.getTimestamp("modifytime")));
+				}
+			}
+			main.util.MainStatUtil.executeSql(con, sqls);
+
+		} catch (Exception e) {
+			LOG.error("getFromDB:", e);
+		} finally {
+			main.util.DBUtils.closeResource(rs, stmt, null);
+		}
+	}
+	
+	
+	
 	/**
 	 * 这里实际就是更新那个最后的处理行数
 	 * 

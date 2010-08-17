@@ -3,9 +3,7 @@ package main.readerrors;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -25,10 +23,10 @@ import org.apache.commons.logging.Log;
  * @author 华锋 Nov 4, 2009-9:21:28 PM
  * 
  */
-public class ReadHWErrorApns {
+public class ReadHWErrorApns_OLD {
 	
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static final DateFormat dfdate = new java.text.SimpleDateFormat("yyyyMMdd");
+
 	/**
 	 * 处理前放文件的目录
 	 */
@@ -49,7 +47,7 @@ public class ReadHWErrorApns {
 	private static void init() {
 		InputStream in = null;
 		try {
-			in = ReadHWErrorApns.class.getResourceAsStream("/main/readerrors/readhw.properties");
+			in = ReadHWErrorApns_OLD.class.getResourceAsStream("/main/readerrors/readhw.properties");
 			Properties prop = new Properties();
 			prop.load(in);
 			SRCDIR = prop.getProperty("SRCDIR");
@@ -92,68 +90,37 @@ public class ReadHWErrorApns {
 		String today=args[0]; //对应的目录
 		String flag=args[1]; //此次的标志
 		
-		System.out.println(today+"======"+flag);
-	
 		try {
-//			init();
+			init();
 			HWChrFileHandle filehandle = new HWChrFileHandle();
-			
-			String destdir="/export/home1/GPRS/JAVABIN/files/chrdest/hw"+today;
-			
-			Map<String, ErrorFile> mapfiles = filehandle.getHWFile(destdir,flag);
-			System.out.println("本次获取的文件个数为：：："+mapfiles.size());
+			Map<String, ErrorFile> mapfiles = filehandle.copyHWFile(SRCDIR, DESTDIR);
+
 			con = DBUtils.getOracleCon();
 			System.out.println("成功获取到数据库连接OK");
 			System.out.println("mapfiles.size():" + mapfiles.size());
-			
-			int weekday = getWeekOfDay();//今天星期几
-			int thehour = getNowHour();//现在几点
-			String thedate = getNowDate();//今天哪天
-			if (thehour == 0) {//如果现在是0点的话，则数据都入库到昨天的表里面，同时要清掉上周今天的数据,并同时统计好今天的按天数据，即group by sgsnid,kuang,cao,flowid的总数
-				weekday = getYestardayWeekOfDay();// 0点跑的程序，插入到昨天的数据里面去
-				// 这里要清掉表的数据
-				int _today = getWeekOfDay();
-				String deleteTable = "hwchr_log_" + _today; // truncate 掉这个table
-				filehandle.truncateTable(deleteTable);// 执行truncate..同时这里要统计当天的所有程序数据
-				thehour = 23;
-				thedate = getYestardayDate();
-				filehandle.statFlowidDay(con, thedate); //统计一天的数据情况
-					
-
-			}else{
-				thehour=thehour-1; //统计的都是前1个小时的数据啊
-			}
-			
-			System.out.println("时间:"+thehour+",日期:"+thedate+",星期:"+weekday);
-			
-			
 			if (mapfiles.size() > 0) {
 
 				ReadHandleHistory readHistory = new ReadHandleHistory(con);
-//				readHistory.getFromDB(mapfiles);
-				readHistory.getFromCHRDB(mapfiles);
+				readHistory.getFromDB(mapfiles);
 				long now = System.currentTimeMillis();
 				java.util.Iterator<ErrorFile> files = mapfiles.values().iterator();
-				List<HWChrLog> cdrs = null;
+				List<ErrorApnsCdr> cdrs = null;
 				while (files.hasNext()) {
 
 					ErrorFile file = files.next();
-					cdrs = filehandle.parseHWChrFile(file);
+					cdrs = filehandle.parseHWErrorFile(file);
 					
 					System.out.println(df.format(new Date())+"=>cdrs.size():::"+cdrs.size());
 					
-					filehandle.saveHWChr(con,cdrs, weekday, thehour, thedate);
+					filehandle.saveHWError(cdrs);
 
 					System.out.println("解析并存储" + file.getSgsnid() + "_" + file.getSrcfilename() + "所花时间:"
 							+ (System.currentTimeMillis() - now));
 					now = System.currentTimeMillis();
 				}
 
-				// 然后这里入库，也就是数据
+				// 然后这里入库
 				readHistory.saveLatestErrors(mapfiles);
-				
-				filehandle.saveFlowidHourDatas(con, thedate, thehour);
-				filehandle.saveFlowidErrorHourDatas(con, thedate, thehour);
 				System.out.println("所有文件处理完毕!!!" + (System.currentTimeMillis() - begin));
 
 			} else {
@@ -161,46 +128,11 @@ public class ReadHWErrorApns {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.out.println("处理异常:::"+e);
 		} finally {
 			DBUtils.closeConnection(con);
 		}
 	}
-	
-	/**
-	 * 返回当前是星期几,星期日的话为0
-	 * 
-	 * @return
-	 */
-	private static int getWeekOfDay() {
-		Calendar c = Calendar.getInstance();
-		return c.get(Calendar.DAY_OF_WEEK) - 1;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private static int getYestardayWeekOfDay() {
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.HOUR, -24);
-		return c.get(Calendar.DAY_OF_WEEK) - 1;
-	}
-
-	private static int getNowHour() {
-		Calendar c = Calendar.getInstance();
-		return c.get(Calendar.HOUR_OF_DAY);
-	}
-
-	private static String getNowDate() {
-		return dfdate.format(new Date());
-	}
-
-	private static String getYestardayDate() {
-		return dfdate.format(new java.sql.Timestamp(System.currentTimeMillis() - 24 * 60 * 60 * 1000));
-	}
-	
 
 	public static void test(String[] args) {
 		FileHandle filehandle = new FileHandle();

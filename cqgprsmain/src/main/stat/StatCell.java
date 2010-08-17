@@ -22,7 +22,8 @@ import main.util.SelfLog;
  */
 public class StatCell {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMdd");
-
+	
+	
 	public class TempCellStat {
 		String cellid;
 		String nettype = "2";
@@ -34,6 +35,7 @@ public class StatCell {
 		String usercount = "0";;
 		String allall = "0";
 		String lac = "0";
+		String subsidiaryid="";
 	}
 
 	private Connection con;
@@ -50,6 +52,8 @@ public class StatCell {
 		this.statdatestr = df.format(statdate);
 	}
 
+
+	
 	/**
 	 * 这里应该还要入流量为0的cell,单位为按天统计
 	 * 
@@ -59,9 +63,6 @@ public class StatCell {
 	private void insert(Map<String, TempCellStat> allcells) throws Exception {
 		java.util.Iterator<TempCellStat> stats = allcells.values().iterator();
 
-		// String day1 = df.format(main.util.MainStatUtil.getPrevCountDate(1));
-		// String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(2));
-		// String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(3));
 		String day1 = statdatestr;
 		String day2 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 1)); // 上次流量
 		String day3 = df.format(main.util.MainStatUtil.getPrevCountDate(statdate, 2)); // 上上次流量
@@ -74,25 +75,13 @@ public class StatCell {
 		List<String> sqls = new ArrayList<String>();
 		ResultSet rs = null;
 
-		// String sql = "insert into
-		// stat_cellid(cellid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values(?,?,1,to_char(sysdate-1,'yyyyMMdd'),?,?,?,?)";
-		// PreparedStatement stmt = null;
 
 		try {
-			// stmt = con.prepareStatement(sql);
-
 			while (stats.hasNext()) {
 				TempCellStat stat = stats.next();
-				if (Float.parseFloat(stat.all) > 0) {
-					// stmt.setString(1, stat.cellid);
-					// stmt.setString(2, stat.nettype);
-					// stmt.setString(3, stat.up);
-					// stmt.setString(4, stat.down);
-					// stmt.setString(5, stat.all);
-					// stmt.setString(6, stat.usercount);
-					// stmt.addBatch();
-
-					String sql = "insert into stat_cellid_day(cellid,lac,bscid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount)values('"
+				if (Float.parseFloat(stat.all) > 0) {					
+					String subsidiaryid=stat.subsidiaryid;
+					String sql = "insert into stat_cellid_day(cellid,lac,bscid,nettype,dayflag,stattime,upvolume,downvolume,allvolume,usercount,subsidiaryid)values('"
 							+ stat.cellid
 							+ "','"
 							+ stat.lac
@@ -110,7 +99,7 @@ public class StatCell {
 							+ stat.all
 							+ ","
 							+ stat.usercount
-							+ ")";
+							+ ",'"+subsidiaryid+"')";
 					sqls.add(sql);
 
 					/**
@@ -222,16 +211,6 @@ public class StatCell {
 	}
 
 	private void getStatDatas(Map<String, TempCellStat> allcells) throws Exception {
-		//
-		// long start = MainStatUtil.getYestardayTime();
-		// long end = MainStatUtil.getOneDayAfter(start);
-
-		// String table = MainStatUtil.getCdrTable();
-		// String sql = "select cellid,count(distinct(msisdn))as
-		// usercount,sum(upvolume) as up,sum(downvolume) as
-		// down,sum(upvolume+downvolume) as allvolume from "
-		// + table + " group by cellid";
-
 		String sql = "select cellid,lac,sum(upvolume) as up,sum(downvolume) as down,sum(allvolume) as allvolume,sum(usercount) as usercount from stat_cellid where dayflag=0 and stattime>="
 				+ start / 1000 + " and stattime<=" + end / 1000 + " group by cellid,lac";
 
@@ -244,14 +223,8 @@ public class StatCell {
 		while (rs.next()) {
 
 			String key = rs.getString("cellid") + "|" + rs.getString("lac");
-			// String nettype = rs.getString("nettype");
-			// String key = cellid + nettype;
-
 			if (allcells.containsKey(key)) {
 
-				// System.out.println("key在数据中............");
-
-				// LOG.info("得到的CELLID统计数据:" + cellid );
 				TempCellStat stat = allcells.get(key);
 				stat.cellid = rs.getString("cellid");
 				// stat.nettype = rs.getString("nettype");
@@ -260,7 +233,7 @@ public class StatCell {
 				if (usercount < 10)
 					stat.usercount = usercount + "";
 				else
-					stat.usercount = "" + rs.getInt("usercount") / 8;
+					stat.usercount = "" + (rs.getInt("usercount") / 8)*3;
 
 				stat.lac = rs.getString("lac");
 				stat.up = rs.getString("up");
@@ -311,7 +284,7 @@ public class StatCell {
 
 	private Map<String, TempCellStat> getAllCells() throws Exception {
 		// String sql = "select cellid,bscid from set_cell where opttype!=2";
-		String sql = "select a.cellid,a.bscid,a.lac,b.allvolume from set_cell a,allvolume_cellid b where a.cellid=b.cellid(+) and a.lac=b.lac(+) and a.opttype!=2";
+		String sql = "select a.cellid,a.bscid,a.lac,b.allvolume,a.subsidiaryid from set_cell a,allvolume_cellid b where a.cellid=b.cellid(+) and a.lac=b.lac(+) and a.opttype!=2";
 
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -326,11 +299,8 @@ public class StatCell {
 				stat.bscid = rs.getString("bscid");
 				stat.allall = rs.getString("allvolume");
 				stat.lac = rs.getString("lac");
+				stat.subsidiaryid=rs.getString("subsidiaryid");
 				list.put(stat.cellid + "|" + stat.lac, stat);
-				// stat = new TempCellStat();
-				// stat.cellid = rs.getString("cellid");
-				// stat.nettype = "3";
-				// list.put(stat.cellid + stat.nettype, stat);
 			}
 			LOG.info("得到所有的CELLID个数:" + list.size());
 			return list;

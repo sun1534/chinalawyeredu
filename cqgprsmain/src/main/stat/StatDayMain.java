@@ -93,7 +93,7 @@ public class StatDayMain {
 		LOG.info("==============开始统计" + df.format(statdate) + "的数据");
 
 		con = DBUtils.getOracleCon();
-		LOG.info("获取到数据库连接OK1111");
+		LOG.info("获取到数据库连接OK1111111111111111111111");
 
 		insertAllvolumeSets(con);
     	stat_apn();
@@ -107,9 +107,9 @@ public class StatDayMain {
 //		DeleteDatas dd=new DeleteDatas(con,statdate,6+1);
 //		dd.deleteDatas();
 	
-		DeleteDatasDay dd = new DeleteDatasDay(con, statdate, 3 + 1);
-		
-		dd.deleteDatas();
+//		DeleteDatasDay dd = new DeleteDatasDay(con, statdate, 2+ 1);
+//		
+//		dd.deleteDatas();
 		
 		con.close();
 

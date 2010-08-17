@@ -115,6 +115,7 @@ public class HuaweiRAU {
 							break;
 						}
 					}
+				
 				}
 			}
 			br.close();

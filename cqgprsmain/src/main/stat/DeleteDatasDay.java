@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 import main.util.DBUtils;
-import main.util.SelfLog;
 
 /**
  * 删除10天前的数据
@@ -104,8 +103,8 @@ public class DeleteDatasDay {
 		del = new DelTable("STAT_CELLID_APN", "dayflag=1", "stattime", 3);
 		TABLES.add(del);
 
-		del = new DelTable("STAT_ERRCODE_ERROR", "dayflag=1", "stattime", 3);
-		TABLES.add(del);
+//		del = new DelTable("STAT_ERRCODE_ERROR", "dayflag=1", "stattime", 3);
+//		TABLES.add(del);
 
 		del = new DelTable("STAT_IMSI_APN_ERROR", "dayflag=1", "stattime", 3);
 		TABLES.add(del);
@@ -157,8 +156,8 @@ public class DeleteDatasDay {
 		TABLES.add(del);
 		del = new DelTable("STAT_CELLID_ZERO", "dayflag=0", "stattime", 1);
 		TABLES.add(del);
-		del = new DelTable("STAT_ERRCODE_ERROR", "dayflag=0", "stattime", 2);
-		TABLES.add(del);
+//		del = new DelTable("STAT_ERRCODE_ERROR", "dayflag=0", "stattime", 2);
+//		TABLES.add(del);
 		del = new DelTable("STAT_IMSI_APN_ERROR", "dayflag=0", "stattime", 2);
 		TABLES.add(del);
 		del = new DelTable("STAT_IMSI_ERRCODE_ERROR", "dayflag=0", "stattime", 2);
@@ -170,6 +169,12 @@ public class DeleteDatasDay {
 		TABLES.add(del);
 
 		del = new DelTable("MSISDN_CELLID_APN", "", "stattime", 1);
+		TABLES.add(del);
+		
+		del = new DelTable("hwchr_flowid_stat", "", "statdate", 3);
+		TABLES.add(del);
+		
+		del = new DelTable("hwchr_flowid_error_stat", "", "statdate", 3);
 		TABLES.add(del);
 	}
 
@@ -222,6 +227,7 @@ public class DeleteDatasDay {
 	}
 
 	public void deleteDatas() {
+		System.out.println("开始删除===>"+dftime.format(new Date()));
 		try {
 
 			int len = TABLES.size();
@@ -281,13 +287,14 @@ public class DeleteDatasDay {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("数据删除完毕");
+		System.out.println("数据删除完毕===>"+dftime.format(new Date()));
 	}
+	private static DateFormat dftime=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static void main(String[] args) {
 		Connection con = DBUtils.getOracleCon();
 		Date statdate = main.util.MainStatUtil.getPrevDate();
-		DeleteDatasDay dd = new DeleteDatasDay(con, statdate, 1 + 1);
+		DeleteDatasDay dd = new DeleteDatasDay(con, statdate, 3 + 1);
 		dd.deleteDatas();
 	}
 }
