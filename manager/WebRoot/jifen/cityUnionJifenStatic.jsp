@@ -39,7 +39,7 @@ function exportit(str){
   <tr>
     <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
     	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：律协积分统计-${group.groupname }
+    	当前位置：积分统计-${group.groupname }
     	  <s:if test="group.groupid!=8078">
     	-从【${jifentime.startstr }】到【${jifentime.endstr }】达标条件,总积分>=${dabiaofen }<s:if test="localfen>0">，现场培训积分>=${localfen}</s:if>
     	</s:if>
@@ -86,7 +86,7 @@ function exportit(str){
     	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
       <tr>
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif" >姓名</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif" >事务所</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif" > <s:if test="!gongzheng">事务所</s:if><s:else>公证处</s:else></TD>
         <TD align="center" background="../imagesa/top-bg1.gif">现场积分</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">网上积分</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">文本课件</TD>

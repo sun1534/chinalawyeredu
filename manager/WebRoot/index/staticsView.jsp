@@ -70,7 +70,12 @@
     
     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#EDEDED">
       <tr>
+      <s:if test="!gongzheng">
         <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/cityUnionJifenStatic.pl">市律协统计信息(达标分:${sysgroup.sysUnionparams.dabiaofen})</a></td>
+        </s:if>
+        <s:else>        
+        <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/cityUnionJifenStatic.pl">公证处统计信息(达标分:${sysgroup.sysUnionparams.dabiaofen})</a></td>
+        </s:else>
         </tr>
       <tr>
         <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】

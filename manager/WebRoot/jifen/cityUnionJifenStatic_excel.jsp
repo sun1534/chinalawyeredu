@@ -39,7 +39,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
      <tr>
     <td  colspan="12" align="center" bgcolor="#FFFF00"><b>
  
-  律协积分统计-${group.groupname }
+  积分统计-${group.groupname }
   <s:if test="group.groupid!=8078">
   -从【${jifentime.startstr }】到【${jifentime.endstr }】
   </s:if>
@@ -47,7 +47,7 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
   </tr>
       <tr>
        <th>姓名</th>
-        <th >事务所</th>
+        <th ><s:if test="!gongzheng">事务所</s:if><s:else>公证处</s:else></th>
         <th>现场积分</th>
         <th>网上积分</th>
         <th>文本课件</th>

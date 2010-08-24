@@ -29,7 +29,10 @@ public class JifenbudengListAction extends AbstractListAction {
 		this.datavisible = new DataVisible();
 
 	}
-
+	private boolean gongzheng;
+	public boolean getgongzheng(){
+		return gongzheng;
+	}
 	/**
 	 * 判断这个人的角色,是不是管理员，如果使系统管理员，显示所有补登的情况 <br/> 事务所管理员没这个功能
 	 * 
@@ -38,13 +41,18 @@ public class JifenbudengListAction extends AbstractListAction {
 	 */
 	public String go() throws Exception {
 
+		
+		
 		// SysUser user = (SysUser) this.getLoginUser();
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Jifenbudeng.class);
 
 		SysRole role = this.getLoginUser().getSysRole();
-
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
+		
 		if (role != null) {
 
 			Set<SysRoleVisible> rolevisibles = role.getSysRoleVisibles();

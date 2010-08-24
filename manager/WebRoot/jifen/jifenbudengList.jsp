@@ -98,7 +98,12 @@ function getOffices(vallll){
               <s:hidden name="datavisible.cityid"/>
             </s:else>
                  <s:if test="datavisible.officeview">
+                 <s:if test="!gongzheng">
              <s:select name="datavisible.officeid" id="office" list="datavisible.officelist" listKey="groupid" listValue="groupname" label="事务所" headerKey="0" headerValue="请选择"/>
+           </s:if>
+           <s:else>             
+           <s:select name="datavisible.officeid" id="office" list="datavisible.officelist" listKey="groupid" listValue="groupname" label="公证处" headerKey="0" headerValue="请选择"/>
+           </s:else>
             </s:if>
             <s:else>
               <s:hidden name="datavisible.officeid"/>
@@ -120,9 +125,9 @@ function getOffices(vallll){
       <tr>
        	<TD height="23"  align="center" background="../imagesa/top-bg1.gif" >补登内容标题</TD>
        	<TD align="center" background="../imagesa/top-bg1.gif">是否现场课程</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">事务所</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">律师姓名</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">执业资格证号</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif"><s:if test="!gongzheng">事务所</s:if><s:else>公证处</s:else></TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">姓名</TD>
+        <TD align="center" background="../imagesa/top-bg1.gif">资格证号</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">积分年度</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">学分</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">积分日期</TD>

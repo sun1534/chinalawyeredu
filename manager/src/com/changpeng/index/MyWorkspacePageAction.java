@@ -32,10 +32,18 @@ public class MyWorkspacePageAction extends AbstractAction {
 	public MyWorkspacePageAction() {
 
 	}
-
+	private boolean gongzheng;
+	public boolean getgongzheng(){
+		return gongzheng;
+	}
 	@Override
 	protected String go() throws Exception {
 
+		SysRole role=this.getLoginUser().getSysRole();
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
+		
 		com.changpeng.system.util.CommonDatas.getGroups();
 		
 		

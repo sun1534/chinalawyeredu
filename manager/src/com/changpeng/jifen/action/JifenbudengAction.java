@@ -14,6 +14,7 @@ import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.Jifenbudeng;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.SysRole;
 import com.changpeng.models.SysUser;
 
 /**
@@ -89,10 +90,16 @@ public class JifenbudengAction extends AbstractAction {
 		this.nextPage = "jifenbudengList.pl";
 		return SUCCESS;
 	}
-
+	private boolean gongzheng;
+	public boolean getgongzheng(){
+		return gongzheng;
+	}
 	@Override
 	public String input() throws Exception {
-
+		SysRole role = this.getLoginUser().getSysRole();
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
 		jifentime = com.changpeng.jifen.util.CommonDatas.getJifenTime(0, "12-31");
 
 		BasicService basic = (BasicService) getBean("basicService");

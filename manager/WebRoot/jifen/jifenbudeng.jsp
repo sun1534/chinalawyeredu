@@ -109,7 +109,13 @@ function selectlocal(lessonid){
         </td>
         </tr>
           <tr>
-        <td width="37%" class="tab_content" align="right">对应市(省直属)律协选择：
+        <td width="37%" class="tab_content" align="right">
+       <s:if test="!gongzheng"> 
+        对应市(省直属)律协选择：
+        </s:if>
+        <s:else>
+        </s:else>
+        对应公证处
         </td>
         <td width="63%" colspan="2" class="tab_content1" align="left">
         <s:if test="datavisible.provinceview">
@@ -131,7 +137,7 @@ function selectlocal(lessonid){
         </tr>
     
       <tr id="input">
-        <td width="37%" class="tab_content" align="right">律师执业证号：
+        <td width="37%" class="tab_content" align="right">执业证号：
         </td>
         <td width="63%" colspan="2" class="tab_content1" align="left"><s:textfield name="budeng.lawyerno" size="20"/></td>
         </tr>

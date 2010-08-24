@@ -12,6 +12,7 @@ import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.jifen.util.Jifenstatics;
 import com.changpeng.jifen.util.NumberUtil;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
 import com.changpeng.models.SysUnionparams;
 
 /**
@@ -32,7 +33,10 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	public String getResultType() {
 		return resultType;
 	}
-
+	private boolean gongzheng;
+	public boolean getgongzheng(){
+		return gongzheng;
+	}
 	/**
 	 * @param resultType
 	 *            the resultType to set
@@ -44,6 +48,11 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
+		SysRole role = this.getLoginUser().getSysRole();
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
+		
 		if (this.selectcityid == 0) {
 			this.selectcityid = super.getLoginUser().getSysGroup().getGroupid();
 		}

@@ -109,7 +109,7 @@ function checkLoginname(loginname){
      
       <tr>
           <td align="right" width="20%" class="tab_content1">
-             所属律协:
+             所属机构:
           </td>
           <td class="tab_content1">
           <s:if test="!isedit">

@@ -15,6 +15,7 @@ import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.Forum;
 import com.changpeng.models.LawyersOfficeChangeApply;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
 
 /**
  * @author 华锋
@@ -22,7 +23,10 @@ import com.changpeng.models.SysGroup;
  * 首页的论坛区块的显示 2009-5-2
  */
 public class IndexForumAction extends AbstractAction {
-
+	private boolean gongzheng;
+	public boolean getgongzheng(){
+		return gongzheng;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -30,6 +34,10 @@ public class IndexForumAction extends AbstractAction {
 	 */
 	@Override
 	protected String go() throws Exception {
+		SysRole role=this.getLoginUser().getSysRole();
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
 		// TODO Auto-generated method stub
 		BasicService bs = (BasicService) this.getBean("basicService");
 		// 只显示本律协的

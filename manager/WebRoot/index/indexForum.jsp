@@ -31,6 +31,7 @@
         <td colspan="5" align="left" class="tab_content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value=" 我要发帖 " name="addForum" class="button" onClick="javascript:window.location.href='../forum/forumCreate!input.pl'"/></td>
         </tr>
     </table>
+    <s:if test="!gongzheng">
     <br/>
     <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">
       <tr>
@@ -62,3 +63,4 @@
         </s:iterator>
         </tr>
     </table>
+    </s:if>

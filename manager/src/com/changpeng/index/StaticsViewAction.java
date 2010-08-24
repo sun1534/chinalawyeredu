@@ -13,6 +13,7 @@ import com.changpeng.lessons.service.LessonsService;
 import com.changpeng.lessons.util.Lessonstatics;
 import com.changpeng.models.OfficeProperties;
 import com.changpeng.models.SysGroup;
+import com.changpeng.models.SysRole;
 import com.changpeng.models.SysUnionparams;
 import com.changpeng.models.SysUser;
 
@@ -33,7 +34,11 @@ public class StaticsViewAction extends AbstractAction {
 	public StaticsViewAction() {
 
 	}
-
+private boolean gongzheng;
+public boolean getgongzheng(){
+	return gongzheng;
+}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -42,6 +47,12 @@ public class StaticsViewAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 
+		SysRole role=this.getLoginUser().getSysRole();
+		if(role!=null&&(role.getRoleid()==11||role.getRoleid()==12)){
+			gongzheng=true;
+		}
+		
+		
 		sysgroup = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getSysGroup() == null ? -1 : this
 				.getLoginUser().getSysGroup().getGroupid());
 		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
