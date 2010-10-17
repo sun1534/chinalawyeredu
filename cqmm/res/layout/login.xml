@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:id="@+id/layoutLogin">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	 >
+
+<TextView android:id="@+id/loginText" android:text="@string/loginTextView" android:textSize="16px" android:gravity="center" android:layout_width="80px" android:layout_height="wrap_content"></TextView>
+<EditText android:id="@+id/loginName" android:hint="@string/loginNameHint" android:maxLength="11" android:singleLine="true" android:layout_width="155px" android:layout_height="wrap_content"></EditText>
+
+
+</LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	 >
+
+<TextView android:id="@+id/pwdText" android:text="@string/loginPwdView" android:textSize="16px" android:gravity="center" android:layout_width="80px" android:layout_height="wrap_content"></TextView>
+<EditText android:id="@+id/pwdName" android:hint="@string/loginPwdHint" android:layout_width="155px" android:password="true" android:layout_height="wrap_content" android:singleLine="true"></EditText>
+
+</LinearLayout>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	 >
+<CheckBox
+android:id="@+id/login_pwd_remember"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="@string/rememberPwdText"
+>
+</CheckBox>
+</LinearLayout>
+
+<View android:layout_height="10px" android:layout_width="fill_parent">
+</View>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	 >
+
+<Button
+android:id="@+id/submitBtn"
+android:layout_width="80px"
+android:layout_height="wrap_content"
+android:text="@string/submitBtnValue"
+>
+</Button>
+
+<Button
+android:id="@+id/resetBtn"
+android:layout_width="80px"
+android:layout_height="wrap_content"
+android:text="@string/loginResetValue"
+>
+</Button>
+
+</LinearLayout>
+</LinearLayout>

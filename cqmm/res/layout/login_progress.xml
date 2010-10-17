@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="100sp" />
+    <TextView
+        android:id="@+id/loginProgess"
+        android:text="@string/msgLoginProgress"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorPrimary"
+        android:paddingBottom="6px" />
+    <ProgressBar
+        android:id="@+id/progress_login"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        style="?android:attr/progressBarStyleHorizontal" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+  
+</LinearLayout>

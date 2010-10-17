@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:gravity="top"
+	android:id="@+id/layoutLogin">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:gravity="left"
+	 >
+
+<EditText android:id="@+id/userMobile" android:hint="请输入手机号码" android:maxLength="11" android:singleLine="true" android:layout_width="155px" android:layout_height="wrap_content"></EditText>
+
+<Button android:id="@+id/userStateQueryBtn" android:layout_width="100sp" android:layout_height="wrap_content" android:text="	查询	"></Button>
+</LinearLayout>
+
+<include android:layout_width="fill_parent" layout="@layout/sgsn_list" />
+
+
+</LinearLayout>

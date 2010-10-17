@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.cqmm.activity"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".Login"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+ 		<activity android:name="LoginProgress" android:label="登录ing"/>
+ 		<activity android:name="Index" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+		<activity android:name="Maintenance" />
+		<activity android:name="LocalHistory" />
+		<activity android:name="UserStateQuery" />   
+		<activity android:name="SgsnList" /> 
+		 <activity android:name="EquipmentState" />  
+		 <activity android:name="UserStateQueryResult" />  
+    </application>
+
+
+</manifest> 

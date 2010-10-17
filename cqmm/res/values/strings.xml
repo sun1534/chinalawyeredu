@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Login!</string>
+    <string name="app_name">MEM</string>
+    <string name="loginTextView">帐号：</string>
+    <string name="loginPwdView" >密码：</string>
+     <string name="submitBtnValue" >登录</string>
+      <string name="loginResetValue" >取消</string>
+       <string name="loginNameHint" >请输入登录名</string>
+       <string name="loginPwdHint" >请输入登录密码</string>
+        <string name="confirm_exit_str" >您确定要退出系统吗?</string>
+         <string name="tip_str" >退出确认</string>
+      <string name="dialogConfirm" >确认</string>
+      <string name="dialogExit" >取消</string>
+      <string name="msgLoginProgress" >正在登录...</string>
+       <string name="rememberPwdText" >记住密码...</string>
+       <string name="loginFailueText" >您的登录失败...</string>
+      
+    
+</resources>
