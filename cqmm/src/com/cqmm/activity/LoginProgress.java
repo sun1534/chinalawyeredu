@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
+import com.cqmm.common.CurSession;
 import com.cqmm.common.LoginAccount;
 import com.cqmm.common.SysParams;
 
@@ -49,6 +50,7 @@ public class LoginProgress extends Activity {
 				// setResult(RESULT_OK);
 				// request.getResponse();
 				// }
+				CurSession.userid=1;
 				int i = 0;
 				while (i++ < 1) {
 					try {

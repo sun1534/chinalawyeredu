@@ -20,16 +20,12 @@ public class Index extends TabActivity {
 		super.onCreate(savedInstanceState);
 
 		final TabHost tabHost = getTabHost();
-
-		
-//		setTitle("titletitletii");
-		
 		
 		setTitle(SysParams.SYS_NAME + "(" + SysParams.LOGIN_USER_NAME + ")维护随声用");
 	
 		
-		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("设备维护")
-				.setContent(new Intent(this, Maintenance.class)));
+		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("连接设备")
+				.setContent(new Intent(this, DeviceList.class)));
 
 		tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("本地记录")
 				.setContent(

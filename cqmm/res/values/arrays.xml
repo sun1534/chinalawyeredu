@@ -43,8 +43,5 @@
     
       <string-array name="locals">
         <item>本地记录1</item>
-        <item>本地记录2</item>
-        <item>本地记录3</item>
-        <item>本地记录4</item>
     </string-array>
 </resources>

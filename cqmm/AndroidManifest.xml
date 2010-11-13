@@ -12,13 +12,14 @@
             </intent-filter>
         </activity>
  		<activity android:name="LoginProgress" android:label="登录ing"/>
- 		<activity android:name="Index" android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
-		<activity android:name="Maintenance" />
+ 		<activity android:name="Index" /><!-- android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+		<activity android:name="DeviceList" />
 		<activity android:name="LocalHistory" />
 		<activity android:name="UserStateQuery" />   
 		<activity android:name="SgsnList" /> 
 		 <activity android:name="EquipmentState" />  
-		 <activity android:name="UserStateQueryResult" />  
+		 <activity android:name="UserStateQueryResult" />
+		 <activity android:name="CommandList" />   
     </application>
 
 
