@@ -132,9 +132,6 @@ public class CommandList extends Activity {
 			}
 		}.start();
 		
-		
-        
-        
     }
     
     public void initialData(){
