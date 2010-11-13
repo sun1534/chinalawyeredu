@@ -159,6 +159,16 @@
     <url-pattern>/editor/filemanager/upload/simpleuploader</url-pattern>
   </servlet-mapping>  
 	-->
+	<servlet>     
+	   <servlet-name>ServerProcessServlet</servlet-name>     
+	   <servlet-class>com.sxit.memdevice.ServerProcessServlet</servlet-class>     
+	  </servlet>
+	
+	  <servlet-mapping>     
+	   <servlet-name>ServerProcessServlet</servlet-name>     
+	   <url-pattern>/serverprocess</url-pattern>     
+	  </servlet-mapping> 
+	
 	<session-config>
 		<session-timeout>240</session-timeout>
 	</session-config>
