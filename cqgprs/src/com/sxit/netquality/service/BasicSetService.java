@@ -892,7 +892,7 @@ public class BasicSetService {
 			_LOG.debug("bsc:" + (System.currentTimeMillis() - now1));
 
 			now1 = System.currentTimeMillis();
-			getAllCells();
+//			getAllCells();
 			_LOG.debug("cell:" + (System.currentTimeMillis() - now1));
 
 			now1 = System.currentTimeMillis();
