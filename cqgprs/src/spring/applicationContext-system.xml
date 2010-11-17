@@ -100,4 +100,14 @@
 			<ref bean="sysRightDAO" />
 		</property>
 	</bean>
+	
+	<bean id="memService"
+		class="com.sxit.communicateguard.service.MemService">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="basicDAO">
+			<ref bean="basicDAO" />
+		</property>
+	</bean>
 </beans>

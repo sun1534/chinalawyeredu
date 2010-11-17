@@ -2,6 +2,7 @@ package com.sxit.memdevice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,14 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
+import com.sxit.common.CurSession;
 import com.sxit.common.Globals;
+import com.sxit.communicateguard.service.MemService;
+import com.sxit.models.mem.MemDevice;
 import com.sxit.system.service.SysUserService;
 
-/**
- * * @author 肖云亮 2010-08-31 下午03:12:13
- * 
- */
 public class ServerProcessServlet extends HttpServlet {
 	private static final Log LOG = LogFactory
 			.getLog(ServerProcessServlet.class);
@@ -47,9 +49,24 @@ public class ServerProcessServlet extends HttpServlet {
 				result="OK";
 			}
 		}else if(optype.equals("getdevice")){
-			String userid=request.getParameter("userid");
+			MemService memservice=(MemService) Globals.getBean("memService");
+			int userid=Integer.parseInt(request.getParameter("userid"));
+			List devicelist=memservice.getUserDeviceList(userid, 0, Integer.MAX_VALUE).getItems();
+			Element xmlInfo = DocumentHelper.createElement("devicelist");
+			for(int i=0;i>devicelist.size();i++){
+				MemDevice device=(MemDevice)devicelist.get(i);
+				Element element=xmlInfo.addElement("device");
+				
+				element.addElement("deviceid").addText(Integer.toString(device.getDeviceid()));
+				element.addElement("devicename").addText(device.getDevicename());
+			}
+			
+			
 		}else if(optype.equals("getcommond")){
-			String userid=request.getParameter("userid");
+			MemService memservice=(MemService) Globals.getBean("memService");
+			int userid=Integer.parseInt(request.getParameter("userid"));
+			int deviceid=Integer.parseInt(request.getParameter("deviceid"));
+			List devicelist=memservice.getCommandList(deviceid, "", 0, Integer.MAX_VALUE).getItems();
 		}else if(optype.equals("execommand")){
 			String userid=request.getParameter("userid");
 			String commandid=request.getParameter("commandid");
