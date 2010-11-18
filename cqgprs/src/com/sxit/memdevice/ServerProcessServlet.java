@@ -14,10 +14,11 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-import com.sxit.common.CurSession;
 import com.sxit.common.Globals;
 import com.sxit.communicateguard.service.MemService;
+import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.system.service.SysUserService;
 
 public class ServerProcessServlet extends HttpServlet {
@@ -60,16 +61,32 @@ public class ServerProcessServlet extends HttpServlet {
 				element.addElement("deviceid").addText(Integer.toString(device.getDeviceid()));
 				element.addElement("devicename").addText(device.getDevicename());
 			}
-			
+			result=xmlInfo.asXML();
 			
 		}else if(optype.equals("getcommond")){
 			MemService memservice=(MemService) Globals.getBean("memService");
 			int userid=Integer.parseInt(request.getParameter("userid"));
 			int deviceid=Integer.parseInt(request.getParameter("deviceid"));
-			List devicelist=memservice.getCommandList(deviceid, "", 0, Integer.MAX_VALUE).getItems();
+			List commandlist=memservice.getCommandList(deviceid, "", 0, Integer.MAX_VALUE).getItems();
+			Element xmlInfo = DocumentHelper.createElement("devicelist");
+			for(int i=0;i>commandlist.size();i++){
+				MemDevicecommand device=(MemDevicecommand)commandlist.get(i);
+				Element element=xmlInfo.addElement("command");
+				
+				element.addElement("commandid").addText(Integer.toString(device.getCommandid()));
+				element.addElement("commandname").addText(device.getCommananame());
+				element.addElement("commandtype").addText(Integer.toString(device.getCommandtype()));
+			}
+			result=xmlInfo.asXML();
+			
 		}else if(optype.equals("execommand")){
 			String userid=request.getParameter("userid");
 			String commandid=request.getParameter("commandid");
+			MemService memservice=(MemService) Globals.getBean("memService");
+			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, commandid);
+			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
+			
+			result=Client.getres(device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		}
 		out.write(result);
 	}
