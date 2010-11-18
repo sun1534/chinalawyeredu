@@ -103,9 +103,9 @@
 	
 	<bean id="memService"
 		class="com.sxit.communicateguard.service.MemService">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
+		 <property name="jdbcTemplate">           
+              <ref bean="jdbcTemplate"/>           
+          </property>  
 		<property name="basicDAO">
 			<ref bean="basicDAO" />
 		</property>
