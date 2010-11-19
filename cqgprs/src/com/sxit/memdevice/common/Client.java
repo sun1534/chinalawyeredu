@@ -27,7 +27,7 @@ public class Client {
 		
 		String loginresult=login();
 		System.out.println("loginresult:"+loginresult);
-		if(loginresult.equals("login")){
+		if(loginresult!=null&&loginresult.equals("login")){
 			islogin=true;
 		}else{
 			islogin=false;

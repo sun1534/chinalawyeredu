@@ -2,6 +2,7 @@ package com.sxit.memdevice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
+import com.sxit.models.mem.MemLog;
 import com.sxit.models.system.SysUser;
 import com.sxit.system.service.SysUserService;
 
@@ -76,15 +78,16 @@ public class ServerProcessServlet extends HttpServlet {
 			MemService memservice=(MemService) Globals.getBean("memService");
 			int userid=Integer.parseInt(request.getParameter("userid"));
 			int deviceid=Integer.parseInt(request.getParameter("deviceid"));
-			List commandlist=memservice.getCommandList(deviceid, "", 0, Integer.MAX_VALUE).getItems();
-			Element xmlInfo = DocumentHelper.createElement("devicelist");
+			List commandlist=memservice.getCommandList(deviceid, "", 1, Integer.MAX_VALUE).getItems();
+			Element xmlInfo = DocumentHelper.createElement("commandlist");
+			System.out.println("commandlist.size():"+commandlist.size());
 			for(int i=0;i<commandlist.size();i++){
-				MemDevicecommand device=(MemDevicecommand)commandlist.get(i);
+				MemDevicecommand command=(MemDevicecommand)commandlist.get(i);
 				Element element=xmlInfo.addElement("command");
 				
-				element.addElement("commandid").addText(Integer.toString(device.getCommandid()));
-				element.addElement("commandname").addText(device.getCommananame());
-				element.addElement("commandtype").addText(Integer.toString(device.getCommandtype()));
+				element.addElement("commandid").addText(Integer.toString(command.getCommandid()));
+				element.addElement("commandname").addText(command.getCommananame());
+				element.addElement("commandtype").addText(Integer.toString(command.getCommandtype()));
 			}
 			result=xmlInfo.asXML();
 			
@@ -92,10 +95,19 @@ public class ServerProcessServlet extends HttpServlet {
 			String userid=request.getParameter("userid");
 			String commandid=request.getParameter("commandid");
 			MemService memservice=(MemService) Globals.getBean("memService");
-			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, commandid);
+			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, Integer.parseInt(commandid));
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
 			
 			result=Client.getres(device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+			MemLog log=new MemLog();
+			log.setCommandid(command.getCommandid());
+			log.setCommandname(command.getCommananame());
+			log.setCreatetime(new Timestamp(System.currentTimeMillis()));
+			log.setDeviceid(device.getDeviceid());
+			log.setDevicename(device.getDevicename());
+			log.setResult(result);
+			log.setUserid(Integer.parseInt(userid));
+			memservice.save(log);
 		}
 //		result=new String(result.getBytes("GBK"),"ISO-8859-1");
 		out.write(result);
