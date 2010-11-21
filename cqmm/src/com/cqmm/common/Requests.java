@@ -13,7 +13,7 @@ import com.cqmm.bean.Command;
 import com.cqmm.bean.Device;
 
 public class Requests {
-	public static String url="http://10.10.3.58:8000/cqgprs/serverprocess";
+	public static String url="http://218.201.8.150:8000/serverprocess";
 	
 	public static String login(String username,String password){
 		HttpRequest request=new HttpRequest();
