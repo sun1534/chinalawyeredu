@@ -98,7 +98,7 @@ public class ServerProcessServlet extends HttpServlet {
 			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, Integer.parseInt(commandid));
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
 			
-			result=Client.getres(device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+			result=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 			MemLog log=new MemLog();
 			log.setCommandid(command.getCommandid());
 			log.setCommandname(command.getCommananame());

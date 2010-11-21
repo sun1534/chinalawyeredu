@@ -17,11 +17,11 @@ public class Client {
 	String username;
 	String password;
 
-	public Client(String username,String password) throws Exception {
+	public Client(String ip,String username,String password) throws Exception {
 		this.username=username;
 		this.password=password;
 		tc = new TelnetClient();
-		tc.connect("10.10.0.72", 23);
+		tc.connect(ip, 23);
 		in = tc.getInputStream();
 		out = new PrintStream(tc.getOutputStream());
 		
@@ -132,11 +132,11 @@ public class Client {
 		}
 	}
 
-	public static String getres(String username,String password,String cmd) {
+	public static String getres(String ip,String username,String password,String cmd) {
 		String string="";
 		try {
 			
-			Client telnet = new Client(username,password);
+			Client telnet = new Client(ip,username,password);
 			if(telnet.islogin){
 				string=telnet.execute(cmd);
 				System.out.println("response:\r\n"+string);
