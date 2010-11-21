@@ -1,8 +1,8 @@
 package com.sxit.memdevice.common;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.sql.ResultSet;
 
 import org.apache.commons.net.telnet.TelnetClient;
 
@@ -40,15 +40,16 @@ public class Client {
 		try {
 			byte[] buff = new byte[1024];
             int ret_read = 0;
-
+            String tmpStr="";
             do
             {
                 ret_read = in.read(buff);
+                
                 if(ret_read > 0)
                 {
                 	String bufstring=new String(buff, 0, ret_read);
-                	
-                    System.out.print("--"+bufstring+"E");
+                	tmpStr=tmpStr+bufstring;
+                    System.out.println("tmpStr:"+tmpStr);
                     if(bufstring.endsWith("login: ")){
                     	write(username);
                     	step++;

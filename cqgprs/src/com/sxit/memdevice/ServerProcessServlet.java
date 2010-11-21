@@ -100,6 +100,7 @@ public class ServerProcessServlet extends HttpServlet {
 			
 			result=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 			MemLog log=new MemLog();
+			
 			log.setCommandid(command.getCommandid());
 			log.setCommandname(command.getCommananame());
 			log.setCreatetime(new Timestamp(System.currentTimeMillis()));
@@ -107,7 +108,12 @@ public class ServerProcessServlet extends HttpServlet {
 			log.setDevicename(device.getDevicename());
 			log.setResult(result);
 			log.setUserid(Integer.parseInt(userid));
+			System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
+			try{
 			memservice.save(log);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 //		result=new String(result.getBytes("GBK"),"ISO-8859-1");
 		out.write(result);
