@@ -135,11 +135,13 @@ public class Client {
 	public static String getres(String username,String password,String cmd) {
 		String string="";
 		try {
+			
 			Client telnet = new Client(username,password);
 			if(telnet.islogin){
 				string=telnet.execute(cmd);
 				System.out.println("response:\r\n"+string);
 			}else{
+				string="not login";
 				System.out.println("not login");
 			}
 			telnet.disconnect();
