@@ -25,15 +25,30 @@
           <result name="success" type="dispatcher">/communicateguard/guardNos.jsp</result>	
           <result name="excel" type="dispatcher">/communicateguard/guardNos_excel.jsp</result>	
        </action>
-     <!--   
-        <action name="guardNoCreateEdit" class="com.sxit.communicateguard.action.GuadrNoCreateEditAction">
-          <result name="input" type="dispatcher">/communicateguard/guardNos.jsp</result>	
+    
+        <action name="memDeviceList" class="com.sxit.communicateguard.action.MemDeviceListAction">
+          <result name="success" type="dispatcher">/communicateguard/memDeviceList.jsp</result>	
        </action>
        
-        <action name="guardNoDelete" class="com.sxit.communicateguard.action.GuardNoDeleteAction">
-          <result name="success" type="dispatcher">/common/message.jsp</result>	
+       <action name="memLogList" class="com.sxit.communicateguard.action.MemLogListAction">
+          <result name="success" type="dispatcher">/communicateguard/memLogList.jsp</result>	
        </action>
-       -->
+       
+        <action name="memCommandList" class="com.sxit.communicateguard.action.MemDeviceCommandListAction">
+          <result name="success" type="dispatcher">/communicateguard/memCommandList.jsp</result>	
+       </action>
+       
+          	     <action name="memDeviceCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCreateEditAction">
+			<result name="input" type="dispatcher">/communicateguard/memDeviceCreateEdit.jsp</result>	
+   	   </action>
+   	   <action name="memDeviceCommandCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCommandCreateEditAction">
+			<result name="input" type="dispatcher">/communicateguard/memDeviceCommandCreateEdit.jsp</result>	
+   	   </action>
+     
+     
+        	   <action name="memDeviceUserSet" class="com.sxit.communicateguard.action.ajax.MemDeviceUserSetAction">
+			<result name="input" type="dispatcher">/communicateguard/memDeviceUserSet.jsp</result>
+   	   </action>
     </package>
 	
 	 <package name="communicateguardajax" extends="defaultajax" namespace="/communicateguardajax">
@@ -42,7 +57,29 @@
    	   <action name="guadrNoSet" class="com.sxit.communicateguard.action.ajax.GuadrNoSetAction">
 			<result name="success" type="json"></result>
    	   </action>
+   	   
    	   <action name="guardCellSet" class="com.sxit.communicateguard.action.ajax.GuardCellSetAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	     <action name="memDeviceCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCreateEditAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   <action name="memDeviceCommandCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCommandCreateEditAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	   <action name="memDeviceCommandDelete" class="com.sxit.communicateguard.action.ajax.MemDeviceCommandDeleteAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	 
+   	   
+   	   <action name="memDeviceDelete" class="com.sxit.communicateguard.action.ajax.MemDeviceDeleteAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	   <action name="memDeviceUserSet" class="com.sxit.communicateguard.action.ajax.MemDeviceUserSetAction">
 			<result name="success" type="json"></result>
    	   </action>
    	 

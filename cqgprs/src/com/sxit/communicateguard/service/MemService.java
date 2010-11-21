@@ -5,6 +5,7 @@ package com.sxit.communicateguard.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.sxit.common.BasicService;
 import com.sxit.common.PaginationSupport;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
+import com.sxit.models.mem.MemLog;
 import com.sxit.models.mem.MemUserdevice;
 import com.sxit.models.mem.MemUserdeviceId;
 import com.sxit.models.system.SysUser;
@@ -114,7 +116,16 @@ public class MemService extends BasicService {
 	 */
 	public List getDeviceUserList(int deviceId){
 		String sql="select userid from mem_userdevice where deviceid="+deviceId;
-		return basicDAO.findBySqlQuery(sql);
+		List list=basicDAO.findBySqlQuery(sql);
+		if(list!=null&&list.size()>0){
+			List newlist=new ArrayList();
+			for(int i=0;i<list.size();i++){
+				newlist.add(Integer.parseInt(list.get(i).toString()));
+			}
+			return newlist;
+		}
+		return null;
+//		return basicDAO.findBySqlQuery(sql);
 	}
 
 	/**
@@ -231,7 +242,10 @@ public class MemService extends BasicService {
 	 */
 	@Transactional
 	public void setUserDevice(int deviceId, int[] userIds) {
-
+//		if(userIds==null||userIds.length==0){
+			String sql="delete from mem_userdevice where deviceid="+deviceId;
+			jdbcTemplate.execute(sql);
+//		}
 		for (int userId : userIds) {
 			MemUserdeviceId deviceids = new MemUserdeviceId();
 			deviceids.setDeviceid(deviceId);
@@ -243,6 +257,38 @@ public class MemService extends BasicService {
 			super.save(userdevice);
 		}
 
+	}
+	/**
+	 * <pre>
+	 * commandId=0登录
+	 *           -1代表设置自定义命令
+	 *           -2自己加设备
+	 *         </pre>
+	 * @param userId
+	 * @param deviceId
+	 * @param commandId
+	 * @param start
+	 * @param end
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public com.sxit.common.PaginationSupport getLogList(int userId,int deviceId,int commandId,Timestamp start,Timestamp end,int pageNo,int pageSize){
+		
+		DetachedCriteria dc = DetachedCriteria.forClass(MemLog.class);
+		if (deviceId != 0)
+			dc.add(Restrictions.eq("deviceid", deviceId));
+		if (userId != 0)
+			dc.add(Restrictions.eq("userid", userId));
+		if (commandId != -5)
+			dc.add(Restrictions.eq("commandid", commandId));
+		if (start != null )
+			dc.add(Restrictions.ge("createtime", start));
+		if (end != null )
+			dc.add(Restrictions.le("createtime", end));
+		dc.addOrder(Order.desc("logid"));
+		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+		
 	}
 
 }
