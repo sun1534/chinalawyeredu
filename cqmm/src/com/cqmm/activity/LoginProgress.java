@@ -10,12 +10,13 @@ import android.widget.ProgressBar;
 
 import com.cqmm.common.CurSession;
 import com.cqmm.common.LoginAccount;
+import com.cqmm.common.Requests;
 import com.cqmm.common.SysParams;
 
 public class LoginProgress extends Activity {
 
 	private static final String EXTRA_ACCOUNT = "account";
-
+	LoginAccount mAccount;
 	public LoginProgress() {
 		super();
 	}
@@ -37,36 +38,19 @@ public class LoginProgress extends Activity {
 
 		ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progress_login);
 		mProgressBar.setIndeterminate(true);
-		LoginAccount mAccount = (LoginAccount) getIntent()
-				.getSerializableExtra(EXTRA_ACCOUNT);
+		mAccount = (LoginAccount) getIntent().getExtras().getSerializable(SysParams.LOGIN_EXTRA);
 
 		new Thread() {
 			public void run() {
-				// android.os.Process
-				// .setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-				// AbstractRequest request = new LoginRequest(mAccount);
-				// int resultcode = request.request();
-				// if (resultcode == 1) {
-				// setResult(RESULT_OK);
-				// request.getResponse();
-				// }
-				CurSession.userid=1;
-				int i = 0;
-				while (i++ < 1) {
-					try {
-						Thread.sleep(500L);
-//						if(i==3){
-//							Log.v(SysParams.LOG_TAG,"ÍË³öµÇÂ¼");
-//							setResult(Activity.RESULT_CANCELED);
-//							break;
-//						}
-					} catch (Exception e) {
-						setResult(Activity.RESULT_CANCELED);
-						Log.v(SysParams.LOG_TAG,"µÇÂ¼ÓÐÎó");
-					}
-				}
-				setResult(RESULT_OK);
-//				setResult(Activity.RESULT_CANCELED);
+				 String loginresult=Requests.login(mAccount.getLoginName(), mAccount.getPwd());
+				 
+				 if (loginresult.indexOf("OK")!=-1) {
+					 String[] rs=loginresult.split(",");
+					 CurSession.userid=Integer.parseInt(rs[1]);
+					 CurSession.username=rs[2];
+					 setResult(RESULT_OK);
+				 }
+				 
 				finish();
 			}
 		}.start();

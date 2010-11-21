@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
-	private static String DB_NAME="";
+	private static String DB_NAME="cqmm";
 	private static int DB_VERSION=1;
 	public SQLiteHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
@@ -20,7 +20,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL("CREATE TABLE opt_log (id integer primary key,userid int,optid int,optname text,optime text);");
+		db.execSQL("CREATE TABLE opt_log (id integer primary key,userid int,optid int,optname text,result text,optime text);");
 		
 		
 	}

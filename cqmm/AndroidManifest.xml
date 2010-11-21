@@ -19,8 +19,11 @@
 		<activity android:name="SgsnList" /> 
 		 <activity android:name="EquipmentState" />  
 		 <activity android:name="UserStateQueryResult" />
-		 <activity android:name="CommandList" />   
+		 <activity android:name="CommandList" />
+		 <activity android:name="CommandStandard" />   
+		 <activity android:name="CommandCustomer" />   
+		 <activity android:name="CommandUrgent" />      
     </application>
-
+<uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest> 

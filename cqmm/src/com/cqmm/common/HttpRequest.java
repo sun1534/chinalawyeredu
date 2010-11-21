@@ -50,6 +50,7 @@ public class HttpRequest extends NetRequest {
 		String rtstr="";
 		HttpURLConnection conn=null;
 		try{
+			
 			URL uri = new URL(actionUrl);
 			conn = (HttpURLConnection) uri.openConnection();
 			conn.setReadTimeout(5 * 1000); // 缓存的最长时间
@@ -166,7 +167,7 @@ public class HttpRequest extends NetRequest {
 				while ((len = in.read(tmpb)) != -1) {
 					baos.write(tmpb,0,len);
 				}
-				Log.d(LOG_TAG, baos.toString());
+//				Log.d(LOG_TAG, baos.toString());
 				rstr=baos.toString();
 			}else{
 				rstr="-"+statuscode;
@@ -184,7 +185,7 @@ public class HttpRequest extends NetRequest {
 		return rstr;
 	}
 
-	public String post(String url, String requeststr) {
+	public String post(String url, String requeststr)  {
 		 
 	    PrintWriter printWriter = null;   
 	    BufferedReader bufferedReader = null;   
@@ -247,9 +248,51 @@ public class HttpRequest extends NetRequest {
 	            ex.printStackTrace();   
 	        }
 	    }
+//	    try{
+//	    	rtstr=new String(rtstr.getBytes("UTF-8"),"GBK");
+//	    }catch(Exception e){}
 	    return rtstr;
 	}
-	
+	public byte[] gbk2utf8(String chenese){
+		  char c[] = chenese.toCharArray();
+		        byte [] fullByte =new byte[3*c.length];
+		        for(int i=0; i<c.length; i++){
+		         int m = (int)c[i];
+		         String word = Integer.toBinaryString(m);
+//		         System.out.println(word);
+		        
+		         StringBuffer sb = new StringBuffer();
+		         int len = 16 - word.length();
+		         //补零
+		         for(int j=0; j<len; j++){
+		          sb.append("0");
+		         }
+		         sb.append(word);
+		         sb.insert(0, "1110");
+		         sb.insert(8, "10");
+		         sb.insert(16, "10");
+		         
+//		         System.out.println(sb.toString());
+		         
+		         String s1 = sb.substring(0, 8);          
+		         String s2 = sb.substring(8, 16);          
+		         String s3 = sb.substring(16);
+		         
+		         byte b0 = Integer.valueOf(s1, 2).byteValue();
+		         byte b1 = Integer.valueOf(s2, 2).byteValue();
+		         byte b2 = Integer.valueOf(s3, 2).byteValue();
+		         byte[] bf = new byte[3];
+		         bf[0] = b0;
+		         fullByte[i*3] = bf[0];
+		         bf[1] = b1;
+		         fullByte[i*3+1] = bf[1];
+		         bf[2] = b2;
+		         fullByte[i*3+2] = bf[2];
+		         
+		        }
+		        return fullByte;
+		 }
+		
 	
 	public String get(String actionUrl) {
 		Log.v(LOG_TAG, actionUrl);

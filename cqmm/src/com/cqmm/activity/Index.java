@@ -1,5 +1,6 @@
 package com.cqmm.activity;
 
+import com.cqmm.common.CurSession;
 import com.cqmm.common.SysParams;
 
 import android.app.TabActivity;
@@ -21,7 +22,7 @@ public class Index extends TabActivity {
 
 		final TabHost tabHost = getTabHost();
 		
-		setTitle(SysParams.SYS_NAME + "(" + SysParams.LOGIN_USER_NAME + ")维护随声用");
+		setTitle(SysParams.SYS_NAME + "(" + CurSession.username + ")维护随声用");
 	
 		
 		tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("连接设备")

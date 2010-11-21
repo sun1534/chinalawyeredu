@@ -43,11 +43,11 @@ public class Login extends Activity {
 
 		
 		preferences = new CQPreferences(this);
-		// 去掉title
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// 去掉状态栏
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		// 去掉title
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		// 去掉状态栏
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.login);
 
@@ -93,7 +93,9 @@ public class Login extends Activity {
 				account.setRemberPwd(remberPwd ? "1" : "0");
 
 				Intent i = new Intent(Login.this, LoginProgress.class);
-				i.putExtra(SysParams.LOGIN_EXTRA, account);
+				Bundle bundle=new Bundle();
+				bundle.putSerializable(SysParams.LOGIN_EXTRA, account);
+				i.putExtras(bundle);
 				// 跳转到登陆进度条的显示页面
 				startActivityForResult(i, 1);
 
