@@ -2,11 +2,7 @@ package com.cqmm.activity;
 
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +17,6 @@ import android.widget.ListView;
 
 import com.cqmm.bean.CmdLog;
 import com.cqmm.bean.Command;
-import com.cqmm.bean.Device;
 import com.cqmm.common.CurSession;
 import com.cqmm.common.DataService;
 import com.cqmm.common.Requests;
@@ -33,7 +28,7 @@ import com.cqmm.common.SysParams;
  * @author »ª·æ
  * 
  */
-public class CommandUrgent extends ListActivity {
+public class CommandUrgent extends Activity {
 
 	public CommandUrgent() {
 		super();

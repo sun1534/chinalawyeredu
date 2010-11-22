@@ -90,6 +90,7 @@ public class CommandStandard extends Activity {
 				
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						lv.setClickable(false);
 						curcmdid=commands.get(position).getId();
 						curcmdname=commands.get(position).getCommandname();
 						new Thread(){
@@ -111,6 +112,7 @@ public class CommandStandard extends Activity {
 				
 				});
 			}else if(b.getString("result").equals("cmdresult")){
+				lv.setClickable(true);
 				tv.setText(cmdresult);
 				CmdLog log=new CmdLog();
 				log.setDevicename(CommandList.devicename);

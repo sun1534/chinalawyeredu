@@ -20,7 +20,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL("CREATE TABLE opt_log (id integer primary key,userid int,optid int,optname text,result text,optime text);");
+		db.execSQL("CREATE TABLE opt_log (id integer primary key,userid int,devicename text,optname text,result text,optime text);");
 		
 		
 	}

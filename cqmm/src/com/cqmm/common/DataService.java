@@ -8,6 +8,7 @@ import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 
@@ -33,6 +34,29 @@ public class DataService {
 		return devices;
 	}
 
+	
+	public static List<CmdLog> getLoglist(Context context){
+		List<CmdLog> al=new ArrayList<CmdLog>();
+		
+		SQLiteHelper sqlh=new SQLiteHelper(context);
+		SQLiteDatabase db=sqlh.getReadableDatabase();
+		Cursor cursor=db.query("opt_log", null, null, null, null, null, null, "100");
+		
+		for(int i=0;i<cursor.getCount();i++){
+			cursor.moveToPosition(i);
+			CmdLog cmdlog=new CmdLog();
+			cmdlog.setId(cursor.getInt(0));
+			cmdlog.setDevicename(cursor.getString(2));
+			cmdlog.setOptname(cursor.getString(3));
+			cmdlog.setOptime(cursor.getString(5));
+			cmdlog.setResult(cursor.getString(4));
+			cmdlog.setUserid(cursor.getInt(1));
+			al.add(cmdlog);
+		}
+		db.close();
+		
+		return al;
+	}
 	public static List<Command> getCommand(int deviceid,int type){
 		List<Command> devicecommand=commands.get(deviceid+","+type);
 		if(devicecommand==null||devicecommand.size()==0){
