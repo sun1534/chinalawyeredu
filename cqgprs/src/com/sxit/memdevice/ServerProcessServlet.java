@@ -110,11 +110,49 @@ public class ServerProcessServlet extends HttpServlet {
 			log.setUserid(Integer.parseInt(userid));
 			System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
 			try{
-			memservice.save(log);
+				memservice.save(log);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}else if(optype.equals("login_device")){
+			MemService memservice=(MemService) Globals.getBean("memService");
+			
+			String deviceid=request.getParameter("deviceid");
+			String username=request.getParameter("username");
+			String password=request.getParameter("password");
+
+			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
+			if(device.getLoginName().equals(username)&&device.getLoginPwd().equals(password)){
+				result="OK";
+			}else{
+				result="user/password wrong!";
+			}
+		}else if(optype.equals("execommand_cus")){
+			
+			String userid=request.getParameter("userid");
+			String deviceid=request.getParameter("deviceid");
+			String commandstr=request.getParameter("commandstr");
+			MemService memservice=(MemService) Globals.getBean("memService");
+			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
+			
+			result=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),commandstr);
+			MemLog log=new MemLog();
+			
+			log.setCommandid(-1);
+			log.setCommandname("自定义命令");
+			log.setCreatetime(new Timestamp(System.currentTimeMillis()));
+			log.setDeviceid(device.getDeviceid());
+			log.setDevicename(device.getDevicename());
+			log.setResult(result);
+			log.setUserid(Integer.parseInt(userid));
+			System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
+			try{
+				memservice.save(log);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 		}
+		
 //		result=new String(result.getBytes("GBK"),"ISO-8859-1");
 		out.write(result);
 	}
