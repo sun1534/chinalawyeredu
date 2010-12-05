@@ -23,6 +23,16 @@ public class Requests {
 		params.put("password", password);
 		return request.post(url, params);
 	}
+	
+	public static String login_device(int deviceid,String username,String password){
+		HttpRequest request=new HttpRequest();
+		Map<String,String> params=new HashMap<String,String>();
+		params.put("optype", "login_device");
+		params.put("deviceid", Integer.toString(deviceid));
+		params.put("username", username);
+		params.put("password", password);
+		return request.post(url, params);
+	}
 
 	public static List<Device> getDevice(){
 		HttpRequest request=new HttpRequest();
@@ -78,6 +88,15 @@ public class Requests {
 		params.put("userid", Integer.toString(CurSession.userid));
 		params.put("deviceid", Integer.toString(deviceid));
 		params.put("commandid", Integer.toString(commandid));
+		return request.post(url, params);
+	}
+	public static String execmd(int deviceid,String commandstr){
+		HttpRequest request=new HttpRequest();
+		Map<String,String> params=new HashMap<String,String>();
+		params.put("optype", "execommand_cus");
+		params.put("userid", Integer.toString(CurSession.userid));
+		params.put("deviceid", Integer.toString(deviceid));
+		params.put("commandstr", commandstr);
 		return request.post(url, params);
 	}
 	

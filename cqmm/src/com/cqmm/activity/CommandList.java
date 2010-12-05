@@ -36,6 +36,7 @@ public class CommandList extends TabActivity {
 
 	static int deviceid;
 	static String devicename;
+	int curTab;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,6 +46,7 @@ public class CommandList extends TabActivity {
 		Bundle bundle=getIntent().getExtras();
 		deviceid=bundle.getInt("deviceid");
 		devicename=bundle.getString("devicename");
+		curTab=bundle.getInt("curTab");
 		setTitle(SysParams.SYS_NAME + "(" + CurSession.username + ")…Ë±∏Œ¨ª§-"+devicename);
 	
 		
@@ -59,6 +61,8 @@ public class CommandList extends TabActivity {
 				.setContent(
 						new Intent(this, CommandUrgent.class)
 								.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
+		tabHost.setCurrentTab(curTab);
+		
 	}
 }
 

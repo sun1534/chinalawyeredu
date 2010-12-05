@@ -43,7 +43,7 @@ public class LoginProgress extends Activity {
 		new Thread() {
 			public void run() {
 				 String loginresult=Requests.login(mAccount.getLoginName(), mAccount.getPwd());
-				 
+//				 String loginresult="OK,1,π‹¿Ì‘±";
 				 if (loginresult.indexOf("OK")!=-1) {
 					 String[] rs=loginresult.split(",");
 					 CurSession.userid=Integer.parseInt(rs[1]);

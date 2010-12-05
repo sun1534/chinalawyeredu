@@ -3,6 +3,8 @@ package com.cqmm.activity;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,37 +14,38 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.cqmm.bean.CmdLog;
 import com.cqmm.bean.Command;
+import com.cqmm.bean.Device;
 import com.cqmm.common.CurSession;
 import com.cqmm.common.DataService;
 import com.cqmm.common.Requests;
 import com.cqmm.common.SysParams;
 
-/**
- * 这是一个listview
- * 
- * @author 华锋
- * 
- */
 public class CommandUrgent extends Activity {
 
 	public CommandUrgent() {
 		super();
 	}
 
-
 	List<Command> commands;
 	private ArrayAdapter<CharSequence> adapter;
 	ListView lv;
-	EditText tv;
+	TextView tv;
 	int[] commandid;
 	int curcmdid;
 	String curcmdname;
 	String cmdresult;
+	
+	ProgressDialog pdialog;
+	
+	Spinner sp_device_ex;
+	
+	String[] devicelist_name;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,18 @@ public class CommandUrgent extends Activity {
 		setTitle(SysParams.SYS_NAME + "(" + CurSession.username + ")设备维护");
 		setContentView(R.layout.commandlist);
 		lv=(ListView)findViewById(R.id.command_list);
-		tv=(EditText)findViewById(R.id.command_result);
+		tv=(TextView)findViewById(R.id.command_result);
+		sp_device_ex=(Spinner)findViewById(R.id.sp_device_ex);
+		
+		sp_device_ex.setVisibility(View.VISIBLE);
+		findViewById(R.id.sp_device_title).setVisibility(View.VISIBLE);
+		//初始化 执行结果的内容
+		String curResult=DataService.cmd_reslut_map.get(CommandList.deviceid);
+		if(curResult==null){
+			curResult="";
+		}
+		tv.setText(curResult);
+		
 		new Thread(){
 			@Override
 			public void run() {
@@ -73,6 +87,47 @@ public class CommandUrgent extends Activity {
 				
 			}
 		}.start();
+		
+		
+		
+		//初始化在线设备列表
+		devicelist_name=new String[DataService.open_devices.size()];
+		int i=0;
+		for(Device device:DataService.open_devices){
+			devicelist_name[i++]=device.getDevicename();
+		}
+		ArrayAdapter adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,devicelist_name);
+		sp_device_ex.setAdapter(adapter);
+		sp_device_ex.setVisibility(View.VISIBLE);
+        
+		//设置联机设备的选择事件
+		sp_device_ex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+//				updatecmdlist();
+				Device curDevice=DataService.open_devices.get(position);
+				if(curDevice.getId()!=CommandList.deviceid){
+					Bundle bundle=new Bundle();
+	        		bundle.putInt("deviceid", curDevice.getId());
+	        		bundle.putString("devicename", curDevice.getDevicename());
+	        		bundle.putInt("curTab", 2);
+	        		
+	        		Intent intent = new Intent();
+	        		intent.putExtras(bundle);
+	        		intent.setClass(CommandUrgent.this, CommandList.class);
+	        		startActivity(intent);
+	        		finish();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 
 	
@@ -94,22 +149,30 @@ public class CommandUrgent extends Activity {
 				lv.setVisibility(View.VISIBLE);
 				lv.setOnItemClickListener(new ListView.OnItemClickListener() {
 				
+					//点击要执行的命令
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						pdialog = new ProgressDialog(CommandUrgent.this);   
+//						pdialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+						pdialog.setMessage("正在执行");
+						pdialog.show();
+						
+						lv.setClickable(false);
 						curcmdid=commands.get(position).getId();
 						curcmdname=commands.get(position).getCommandname();
 						new Thread(){
 							@Override
 							public void run() {
 								 cmdresult=Requests.execmd(CommandList.deviceid, curcmdid);
-								 if(commands.size()>0){
+//								 if(commands.size()>0){
 									Message msg = new Message();
 						            Bundle b = new Bundle();// 存放数据
 						            b.putString("result", "cmdresult");
 						            msg.setData(b);
 						            
 						            CommandUrgent.this.handler.sendMessage(msg); // 向Handler发送消息,更新UI
-								}
+//								}
+						            pdialog.cancel();
 								
 							}
 						}.start();
@@ -117,7 +180,19 @@ public class CommandUrgent extends Activity {
 				
 				});
 			}else if(b.getString("result").equals("cmdresult")){
-				tv.setText(cmdresult);
+				
+				//服务器返回命令执行结果
+				lv.setClickable(true);
+				
+				String curResult=DataService.cmd_reslut_map.get(CommandList.deviceid);
+				if(curResult==null){
+					curResult=cmdresult;
+				}else{
+					curResult=curResult+cmdresult;
+				}
+				DataService.cmd_reslut_map.put(CommandList.deviceid, curResult);
+				tv.setText(curResult);
+				
 				CmdLog log=new CmdLog();
 				log.setDevicename(CommandList.devicename);
 				log.setOptname(curcmdname);
