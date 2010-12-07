@@ -44,7 +44,8 @@ public class MobileApnState {
 			webstringList.add("签约APN:" + this.getSubapnstr());
 			webstringList.addAll(hangyestr);
 		} else if (status.trim().toLowerCase().indexOf("ready") != -1
-				|| status.trim().toLowerCase().indexOf("standby") != -1|| status.trim().toLowerCase().indexOf("connected") != -1) {
+				|| status.trim().toLowerCase().indexOf("standby") != -1
+				|| status.trim().toLowerCase().indexOf("connected") != -1) {
 			// 2010-05-06 10:38:26
 			// 13808304084在SGSN9READY
 			// IMSI：460022236503637
@@ -93,25 +94,35 @@ public class MobileApnState {
 					subcell = subdata.getCellcgi();
 
 			} else {
-				int cellid = 0;
-				if (this.subdata.getCellcgi() != null && !this.subdata.getCellcgi().equals("")) {
-					// 16进制转换为10进制
-					cellid = Integer.valueOf(this.subdata.getCellcgi().toLowerCase().replace("0x", ""), 16);
-				}
 
-				String rai = "";
-				if (this.subdata.getRai() != null) {
-					String temp = subdata.getRai();
-					// 46000333801这样的形式，转化为460-00-33380这样的形式
-					String first = temp.substring(0, 3);
-					String second = temp.substring(3, 5);
-					String lac = temp.substring(5, 9);					
-					int lacint=Integer.valueOf(lac.toLowerCase().replace("0x", ""), 16);					
-					rai = first + "-" + second + "-" + lacint;
+				if (subdata.getIs3g() && subdata.getServicearea() != null && subdata.getServicearea().length() == 13) {
+					// 用户所属服务区 = 46000a3094e53
+					String lac = subdata.getServicearea().substring(5, 9);
+					String cell = subdata.getServicearea().substring(9, 13);
+					subcell = "460-00-" + Integer.valueOf(lac, 16) + "-" + Integer.valueOf(cell, 16);
+
 				} else {
-					return "460-00-0";
+
+					int cellid = 0;
+					if (this.subdata.getCellcgi() != null && !this.subdata.getCellcgi().equals("")) {
+						// 16进制转换为10进制
+						cellid = Integer.valueOf(this.subdata.getCellcgi().toLowerCase().replace("0x", ""), 16);
+					}
+
+					String rai = "";
+					if (this.subdata.getRai() != null) {
+						String temp = subdata.getRai();
+						// 46000333801这样的形式，转化为460-00-33380这样的形式
+						String first = temp.substring(0, 3);
+						String second = temp.substring(3, 5);
+						String lac = temp.substring(5, 9);
+						int lacint = Integer.valueOf(lac.toLowerCase().replace("0x", ""), 16);
+						rai = first + "-" + second + "-" + lacint;
+					} else {
+						rai = "460-00-0";
+					}
+					subcell = rai + "-" + cellid;
 				}
-				subcell = rai + "-" + cellid;
 			}
 
 			String[] s = subcell.split("-");

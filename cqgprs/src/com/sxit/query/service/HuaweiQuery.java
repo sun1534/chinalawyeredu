@@ -101,11 +101,15 @@ public class HuaweiQuery extends UserQuery {
 						if (substrvalue.equals("用户分离"))// 还有一个是用户附着
 							data.setMobilityState("idle");
 					} else if (substrkey.equals("2G MM动态上下文状态")||substrkey.equals("3G MM动态上下文状态")) {
+						if(substrkey.equals("3G MM动态上下文状态"))
+							data.setIs3g(true);
 						data.setMobilityState(substrvalue);
 					} 	
 					
 					else if (substrkey.equals("MSISDN")) {
 						data.setMsisdn(substrvalue);
+					}else if (substrkey.equals("用户所属服务区")) {
+						data.setServicearea(substrvalue);
 					}
 					
 //					RNC标识 = 460000259 

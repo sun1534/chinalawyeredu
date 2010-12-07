@@ -28,6 +28,7 @@ public class EricssonQuery extends UserQuery {
 	private static Log _LOG = LogFactory.getLog(EricssonQuery.class);
 
 	private static final String ERICSSON_CMD = "/export/home/jf/GPRS/script/ericsson_query.sh";
+	private static final String ERICSSON_CMD_2 = "/export/home/jf/GPRS/script/ericsson_query2.sh";
 
 	private void parseLines(MobileApnState apnstate, String mobile, String sgsnid, List<String> lines, int subdataline,
 			List<Integer> subapnlines, int activeapnline) throws Exception {
@@ -228,6 +229,8 @@ if(apnstate.getActiveapn()!=null){
 		Sgsn sgsn = com.sxit.netquality.service.BasicSetService.ALL_SGSNS.get(sgsnid);
 		String params = sgsn.getSgsnip() + " " + sgsn.getLoginname() + " " + sgsn.getLoginpwd() + " " + msisdn;
 		String cmd = ERICSSON_CMD + " " + params;
+		if(sgsnid.indexOf("2")!=-1)
+			cmd = ERICSSON_CMD_2 + " " + params;
 		try {
 			_LOG.debug("准备启动........");
 			Runtime runtime = Runtime.getRuntime();

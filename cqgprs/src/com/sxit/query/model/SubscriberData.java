@@ -30,6 +30,7 @@ public class SubscriberData {
 	// Charging Characteristics :
 	// Charging Characteristics Profile :
 
+	private boolean is3g;//判断是否3g
 	private String imsi;
 	private String msisdn;
 	private String imei;
@@ -40,6 +41,21 @@ public class SubscriberData {
 	private String mobilityState; // idle,ready,standby等
 	private String rai;
 	private String cellcgi;
+	private String servicearea;//3g的话，是所属服务区，包括了cellid和lac的
+
+	/**
+	 * @return the servicearea
+	 */
+	public String getServicearea() {
+		return servicearea;
+	}
+
+	/**
+	 * @param servicearea the servicearea to set
+	 */
+	public void setServicearea(String servicearea) {
+		this.servicearea = servicearea;
+	}
 
 	/**
 	 * @return the imsi
@@ -198,6 +214,20 @@ public class SubscriberData {
 	 */
 	public void setMsisdn(String msisdn) {
 		this.msisdn = msisdn;
+	}
+
+	/**
+	 * @return the is3g
+	 */
+	public boolean getIs3g() {
+		return is3g;
+	}
+
+	/**
+	 * @param is3g the is3g to set
+	 */
+	public void setIs3g(boolean is3g) {
+		this.is3g = is3g;
 	}
 
 }
