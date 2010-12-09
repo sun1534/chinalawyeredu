@@ -33,7 +33,7 @@ public class DataService {
 	
 	public static List<Device> getDevice(){
 		if(devices==null||devices.size()==0){
-			devices=Requests.getDevice();
+			devices=HttpComm.getDevice();
 			
 		}
 		
@@ -110,7 +110,7 @@ public class DataService {
 	public static List<Command> getCommand(int deviceid,int type){
 		List<Command> devicecommand=commands.get(deviceid+","+type);
 		if(devicecommand==null||devicecommand.size()==0){
-			List<Command> lc=Requests.getCommand(deviceid);
+			List<Command> lc=HttpComm.getCommand(deviceid);
 			devicecommand=new ArrayList<Command>();
 			
 			for(Command c:lc){
@@ -149,6 +149,18 @@ public class DataService {
 			open_devices.add(device);
 		}
 	}
+	
+	public static boolean isopen(Device device){
+		boolean isopen=false;
+		for(Device d:open_devices){
+			if(d.getId()==device.getId()){
+				isopen=true;
+				break;
+			}
+		}
+		return isopen;
+	}
+	
 	public static Drawable getPic(String url){
 		if(userpics.get(url)==null){
 			try{

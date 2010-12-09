@@ -1,5 +1,7 @@
 package com.cqmm.activity;
 
+import oms.dataconnection.helper.v15.ConnectByAp;
+import oms.dataconnection.helper.v15.QueryApList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,11 +17,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cqmm.common.CurSession;
 import com.cqmm.common.LoginAccount;
 import com.cqmm.common.SysParams;
 import com.cqmm.util.CQPreferences;
@@ -32,7 +38,8 @@ public class Login extends Activity {
 	private boolean remberPwd;
 
 	private CQPreferences preferences;
-
+	
+	Spinner sp_netpos;
 	public Login() {
 
 	}
@@ -77,12 +84,18 @@ public class Login extends Activity {
 		SysParams.DISPLAY_HEIGHT = dm.heightPixels;
 		Log.v(SysParams.LOG_TAG, "" + dm.widthPixels + "X" + dm.heightPixels);
 
+		
+		//初始化 用户名，密码
+		loginNameText.setText("admin");
+		pwdNameText.setText("admin*()a");
+		
 		// 登录的动作
 		submiBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				loginName = loginNameText.getText().toString();
 				pwd = pwdNameText.getText().toString();
 				remberPwd = remberPwdBox.isChecked();
@@ -143,6 +156,51 @@ public class Login extends Activity {
 			}
 		}
 
+		////////////////////////////////////////////////////////////网络接入点
+		sp_netpos=(Spinner)findViewById(R.id.netpos);
+		CurSession.mQueryApList = new QueryApList(this);  
+		  
+        // 获取各个接入点的标题  
+        String[] apListTitle = CurSession.mQueryApList.getApTitle();  
+        
+        for(int ii=0;ii<apListTitle.length;ii++){
+        	Log.v("cqmm-internet-", apListTitle[ii]);
+        }
+        ArrayAdapter adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,apListTitle);
+        sp_netpos.setAdapter(adapter);
+        sp_netpos.setVisibility(View.VISIBLE);
+        sp_netpos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				CurSession.netposition=position;
+				new Thread(){
+					public void run(){
+						
+						// 生成网络连接帮助的对象  
+				        ConnectByAp mConnectHelper = new ConnectByAp(Login.this);  
+				        // 获取指定序号位置接入点的ID  
+				        CurSession.apId = CurSession.mQueryApList.getApId(CurSession.netposition);
+				        CurSession.proxyHost = CurSession.mQueryApList.getApProxy(CurSession.netposition);  
+				        CurSession.proxyPort = CurSession.mQueryApList.getApProxyPort(CurSession.netposition);  
+				        // 连接并设置当前使用的网络介入点  
+				        // 函数一直阻滞，直到网络连接结束，返回值表示连接的结果是成功还是失败  
+				        boolean result = mConnectHelper.connect(CurSession.apId, 10000);
+				        mConnectHelper.disconnect();
+				        if(!result){
+				        	Toast.makeText(Login.this, "网络连接失败", Toast.LENGTH_SHORT).show();
+				        }else{
+				        	Toast.makeText(Login.this, "网络连接成功", Toast.LENGTH_SHORT).show();
+				        }
+					}
+				}.start();
+				
+			}
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+			}
+        	
+        });
+        
 	}
 
 	@Override

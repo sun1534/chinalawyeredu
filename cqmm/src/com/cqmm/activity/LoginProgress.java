@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.cqmm.common.CurSession;
+import com.cqmm.common.HttpComm;
 import com.cqmm.common.LoginAccount;
 import com.cqmm.common.Requests;
 import com.cqmm.common.SysParams;
@@ -42,7 +44,8 @@ public class LoginProgress extends Activity {
 
 		new Thread() {
 			public void run() {
-				 String loginresult=Requests.login(mAccount.getLoginName(), mAccount.getPwd());
+//				 String loginresult=Requests.login(mAccount.getLoginName(), mAccount.getPwd());
+				String loginresult=HttpComm.Login(mAccount.getLoginName(), mAccount.getPwd());
 //				 String loginresult="OK,1,π‹¿Ì‘±";
 				 if (loginresult.indexOf("OK")!=-1) {
 					 String[] rs=loginresult.split(",");

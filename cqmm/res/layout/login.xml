@@ -38,6 +38,7 @@ android:id="@+id/login_pwd_remember"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:text="@string/rememberPwdText"
+android:textColor="#FFFFFF"
 >
 </CheckBox>
 </LinearLayout>
@@ -65,6 +66,10 @@ android:layout_height="wrap_content"
 android:text="@string/loginResetValue"
 >
 </Button>
-
 </LinearLayout>
+<Spinner
+android:id="@+id/netpos"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+/>
 </LinearLayout>

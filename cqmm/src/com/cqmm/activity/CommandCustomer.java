@@ -14,8 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,9 +46,6 @@ public class CommandCustomer extends Activity {
 	Spinner sp_device_ex;
 	
 	String[] devicelist_name;
-	
-	EditText et_input_cmd;
-	Button btn_exe_cmd;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,14 +58,7 @@ public class CommandCustomer extends Activity {
 
 		setTitle(SysParams.SYS_NAME + "(" + CurSession.username + ")设备维护");
 		setContentView(R.layout.commandlist);
-		et_input_cmd=(EditText)findViewById(R.id.et_input_cmd);
-		btn_exe_cmd=(Button)findViewById(R.id.btn_exe_cmd);
-		et_input_cmd.setVisibility(View.VISIBLE);
-		btn_exe_cmd.setVisibility(View.VISIBLE);
-		
 		lv=(ListView)findViewById(R.id.command_list);
-		lv.setVisibility(View.GONE);
-		
 		tv=(TextView)findViewById(R.id.command_result);
 		sp_device_ex=(Spinner)findViewById(R.id.sp_device_ex);
 		
@@ -83,21 +71,22 @@ public class CommandCustomer extends Activity {
 		}
 		tv.setText(curResult);
 		
-//		new Thread(){
-//			@Override
-//			public void run() {
-//				 commands=DataService.getCommand(CommandList.deviceid,Command.TYPE_COMMON);
-//				 if(commands.size()>0){
-//					Message msg = new Message();
-//		            Bundle b = new Bundle();// 存放数据
-//		            b.putString("result", "cmdlist");
-//		            msg.setData(b);
-//		            
-//		            CommandCustomer.this.handler.sendMessage(msg); // 向Handler发送消息,更新UI
-//				}
-//				
-//			}
-//		}.start();
+		new Thread(){
+			@Override
+			public void run() {
+				
+				 commands=DataService.getCommand(CommandList.deviceid,Command.TYPE_CUSTOMER);
+				 if(commands.size()>0){
+					Message msg = new Message();
+		            Bundle b = new Bundle();// 存放数据
+		            b.putString("result", "cmdlist");
+		            msg.setData(b);
+		            
+		            CommandCustomer.this.handler.sendMessage(msg); // 向Handler发送消息,更新UI
+				}
+				
+			}
+		}.start();
 		
 		
 		
@@ -136,38 +125,6 @@ public class CommandCustomer extends Activity {
 			public void onNothingSelected(AdapterView<?> arg0) {
 				// TODO Auto-generated method stub
 				
-			}
-			
-		});
-		
-		//自定义命令执行
-		this.btn_exe_cmd.setOnClickListener(new Button.OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				pdialog = new ProgressDialog(CommandCustomer.this);   
-//				pdialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-				pdialog.setMessage("正在执行");
-				pdialog.show();
-				
-				lv.setClickable(false);
-				
-				curcmdname=et_input_cmd.getText().toString();
-				new Thread(){
-					@Override
-					public void run() {
-						 cmdresult=Requests.execmd(CommandList.deviceid, curcmdname);
-//						 if(commands.size()>0){
-							Message msg = new Message();
-				            Bundle b = new Bundle();// 存放数据
-				            b.putString("result", "cmdresult");
-				            msg.setData(b);
-				            
-				            CommandCustomer.this.handler.sendMessage(msg); // 向Handler发送消息,更新UI
-//						}
-				            pdialog.cancel();
-						
-					}
-				}.start();
 			}
 			
 		});
@@ -231,7 +188,7 @@ public class CommandCustomer extends Activity {
 				if(curResult==null){
 					curResult=cmdresult;
 				}else{
-					curResult=curResult+"\r\n"+cmdresult;
+					curResult=curResult+cmdresult;
 				}
 				DataService.cmd_reslut_map.put(CommandList.deviceid, curResult);
 				tv.setText(curResult);

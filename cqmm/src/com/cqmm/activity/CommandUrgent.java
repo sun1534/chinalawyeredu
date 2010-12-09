@@ -111,7 +111,7 @@ public class CommandUrgent extends Activity {
 					Bundle bundle=new Bundle();
 	        		bundle.putInt("deviceid", curDevice.getId());
 	        		bundle.putString("devicename", curDevice.getDevicename());
-	        		bundle.putInt("curTab", 2);
+	        		bundle.putInt("curTab", 0);
 	        		
 	        		Intent intent = new Intent();
 	        		intent.putExtras(bundle);

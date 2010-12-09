@@ -37,6 +37,8 @@ public class CommandList extends TabActivity {
 	static int deviceid;
 	static String devicename;
 	int curTab;
+	
+	public static boolean isnew=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,6 +49,9 @@ public class CommandList extends TabActivity {
 		deviceid=bundle.getInt("deviceid");
 		devicename=bundle.getString("devicename");
 		curTab=bundle.getInt("curTab");
+		
+		isnew=bundle.getBoolean("isnew");
+		
 		setTitle(SysParams.SYS_NAME + "(" + CurSession.username + ")…Ë±∏Œ¨ª§-"+devicename);
 	
 		

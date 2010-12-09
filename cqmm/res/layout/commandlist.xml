@@ -5,33 +5,78 @@
 	android:orientation="vertical"
 	android:gravity="top"
 >
-
+<Spinner
+android:id="@+id/sp_device" 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:drawSelectorOnTop="true" 
+   android:visibility="gone"
+/>
+<EditText
+android:id="@+id/et_input_cmd"
+android:textSize="11dip"
+android:layout_width="fill_parent"
+android:layout_height="100dip"
+android:text=""
+android:gravity="top|left"
+android:visibility="gone"
+/>
+<Button
+android:id="@+id/btn_exe_cmd"
+android:textSize="11dip"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="执  行"
+android:gravity="top|left"
+android:visibility="gone"
+/>
 <ListView
 android:id="@+id/command_list"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:layout_weight="1"
 />
-<EditText android:id="@+id/et_cmd"
+<ScrollView
 android:layout_width="fill_parent"
 android:layout_height="160px"
+>
+<TextView
+android:id="@+id/command_result"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:gravity="top|left"
 />
-<Button android:id="@+id/btn_exe"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="执行"
-/>
-
+<!--
 <EditText
 android:id="@+id/command_result"
 android:textSize="11dip"
 android:layout_width="fill_parent"
-android:layout_height="160px"
-android:text="请选择列表中的选项"
+android:layout_height="fill_parent"
+android:text="请选择"
 android:gravity="top|left"
-android:ellipsize="none"
-android:editable="false"
-android:inputType="none"
 />
-
+-->
+</ScrollView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:gravity="top"
+>
+<TextView
+android:id="@+id/sp_device_title" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content"
+    android:text="联机设备"
+    android:textSize="24px"
+    android:visibility="gone"
+/>
+<Spinner
+android:id="@+id/sp_device_ex" 
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:drawSelectorOnTop="true" 
+   android:visibility="gone"
+/>
+</LinearLayout>
 </LinearLayout>

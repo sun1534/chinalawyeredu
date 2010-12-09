@@ -3,6 +3,7 @@ package com.cqmm.bean;
 public class Command {
 	public final static int TYPE_COMMON=1;
 	public final static int TYPE_URGENT=2;
+	public final static int TYPE_CUSTOMER=3;
 	
 	
 	

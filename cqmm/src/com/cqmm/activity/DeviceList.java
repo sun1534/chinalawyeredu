@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.cqmm.bean.Device;
 import com.cqmm.common.CurSession;
 import com.cqmm.common.DataService;
+import com.cqmm.common.HttpComm;
 import com.cqmm.common.Requests;
 import com.cqmm.common.SysParams;
 
@@ -89,14 +90,8 @@ public class DeviceList extends ListActivity {
 	        .setView(textEntryView)
 	        .setPositiveButton("µÇÂ½", new DialogInterface.OnClickListener() {
 	            public void onClick(DialogInterface dialog, int whichButton) {
-	            	
-	        		Log.v("cqmm", "device_loginname:"+et_loginname.getText().toString());
-	        		Log.v("cqmm", "et_password:"+et_password.getText().toString());
-	            	String loginresult=Requests.login_device(curDevice.getId(),et_loginname.getText().toString(), et_password.getText().toString());
-//	            	loginresult="OK";
-	            	if(loginresult.equals("OK")){
-	            		DataService.add_open_device(curDevice);
-		        		Bundle bundle=new Bundle();
+	            	if(DataService.isopen(curDevice)){
+	            		Bundle bundle=new Bundle();
 		        		bundle.putInt("deviceid", curDevice.getId());
 		        		bundle.putInt("curTab", 0);
 		        		bundle.putString("devicename", curDevice.getDevicename());
@@ -106,7 +101,24 @@ public class DeviceList extends ListActivity {
 		        		intent.setClass(DeviceList.this, CommandList.class);
 		        		startActivity(intent);
 	            	}else{
-	            		Toast.makeText(DeviceList.this, "µÇÂ½Ê§°Ü", Toast.LENGTH_SHORT).show();
+		        		Log.v("cqmm", "device_loginname:"+et_loginname.getText().toString());
+		        		Log.v("cqmm", "et_password:"+et_password.getText().toString());
+		            	String loginresult=HttpComm.login_device(curDevice.getId(),et_loginname.getText().toString(), et_password.getText().toString());
+	
+		            	if(loginresult.equals("OK")){
+		            		DataService.add_open_device(curDevice);
+			        		Bundle bundle=new Bundle();
+			        		bundle.putInt("deviceid", curDevice.getId());
+			        		bundle.putInt("curTab", 0);
+			        		bundle.putString("devicename", curDevice.getDevicename());
+			        		
+			        		Intent intent = new Intent();
+			        		intent.putExtras(bundle);
+			        		intent.setClass(DeviceList.this, CommandList.class);
+			        		startActivity(intent);
+		            	}else{
+		            		Toast.makeText(DeviceList.this, "µÇÂ½Ê§°Ü", Toast.LENGTH_SHORT).show();
+		            	}
 	            	}
 	            }
 	        }).setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
