@@ -1,6 +1,8 @@
 package com.sxit.memdevice;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Enumeration;
@@ -19,6 +21,7 @@ import org.dom4j.Element;
 
 import com.sxit.common.Globals;
 import com.sxit.communicateguard.service.MemService;
+import com.sxit.memdevice.command.Command;
 import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
@@ -36,7 +39,52 @@ public class ServerProcessServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
-		String optype=request.getParameter("optype");
+		
+		String optype="";
+		String username="";
+		String password="";
+		String deviceid="";
+		String userid="";
+		String commandid="";
+		//获取请求的xml串
+		InputStream is=request.getInputStream();
+		byte[] b=new byte[1024];
+		int len;
+		ByteArrayOutputStream baos=new ByteArrayOutputStream();
+		while((len=is.read(b))>0){
+			baos.write(b,0,len);
+		}
+		String sb =new String(baos.toByteArray());
+		System.out.println("request-"+sb);
+		Document doc=null;
+		try{
+			doc=DocumentHelper.parseText(sb);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		List<Element> list=doc.getRootElement().elements();
+		for(Element element:list){
+			if(element.getName().equals("optype")){
+				optype=element.getStringValue();
+			}
+			if(element.getName().equals("username")){
+				username=element.getStringValue();
+			}
+			if(element.getName().equals("password")){
+				password=element.getStringValue();
+			}
+			if(element.getName().equals("deviceid")){
+				deviceid=element.getStringValue();
+			}
+			if(element.getName().equals("userid")){
+				userid=element.getStringValue();
+			}
+			if(element.getName().equals("commandid")){
+				commandid=element.getStringValue();
+			}
+		}
+		System.out.println("[optype,username,password,deviceid,userid]--"+"["+optype+","+username+","+password+","+deviceid+","+userid+"]");
+		
 		String result="error request";
 		Enumeration eee=request.getParameterNames();
 		while(eee.hasMoreElements()){
@@ -47,8 +95,7 @@ public class ServerProcessServlet extends HttpServlet {
 			
 		}else if(optype.equals("login")){
 			SysUserService userService = (SysUserService) Globals.getBean("sysUserService");
-			String username=request.getParameter("username");
-			String password=request.getParameter("password");
+			
 			int loginResult = userService.userLogin(username, password);
 			if (loginResult == -1) {
 				result="Account is not exist";
@@ -62,8 +109,8 @@ public class ServerProcessServlet extends HttpServlet {
 			}
 		}else if(optype.equals("getdevice")){
 			MemService memservice=(MemService) Globals.getBean("memService");
-			int userid=Integer.parseInt(request.getParameter("userid"));
-			List devicelist=memservice.getUserDeviceList(userid, 0, Integer.MAX_VALUE).getItems();
+			
+			List devicelist=memservice.getUserDeviceList(Integer.parseInt(userid), 0, Integer.MAX_VALUE).getItems();
 			Element xmlInfo = DocumentHelper.createElement("devicelist");
 			for(int i=0;i<devicelist.size();i++){
 				MemDevice device=(MemDevice)devicelist.get(i);
@@ -76,9 +123,8 @@ public class ServerProcessServlet extends HttpServlet {
 			
 		}else if(optype.equals("getcommand")){
 			MemService memservice=(MemService) Globals.getBean("memService");
-			int userid=Integer.parseInt(request.getParameter("userid"));
-			int deviceid=Integer.parseInt(request.getParameter("deviceid"));
-			List commandlist=memservice.getCommandList(deviceid, "", 1, Integer.MAX_VALUE).getItems();
+			
+			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), "", 1, Integer.MAX_VALUE).getItems();
 			Element xmlInfo = DocumentHelper.createElement("commandlist");
 			System.out.println("commandlist.size():"+commandlist.size());
 			for(int i=0;i<commandlist.size();i++){
@@ -92,15 +138,27 @@ public class ServerProcessServlet extends HttpServlet {
 			result=xmlInfo.asXML();
 			
 		}else if(optype.equals("execommand")){
-			String userid=request.getParameter("userid");
-			String commandid=request.getParameter("commandid");
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, Integer.parseInt(commandid));
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
+			String orgresult="";
 			
-			result=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+			//标准命令 进行命令解析
+			if(command.getCommandtype()==1){
+				try{
+					orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+					Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
+					result=cmdprocess.getresult(orgresult);
+				}catch(Exception e){
+					result=e.getMessage();
+					e.printStackTrace();
+				}
+			}else{
+				orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+				result=orgresult;
+			}
+			
 			MemLog log=new MemLog();
-			
 			log.setCommandid(command.getCommandid());
 			log.setCommandname(command.getCommananame());
 			log.setCreatetime(new Timestamp(System.currentTimeMillis()));
@@ -116,12 +174,8 @@ public class ServerProcessServlet extends HttpServlet {
 			}
 		}else if(optype.equals("login_device")){
 			MemService memservice=(MemService) Globals.getBean("memService");
-			
-			String deviceid=request.getParameter("deviceid");
-			String username=request.getParameter("username");
-			String password=request.getParameter("password");
-
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
+			
 			if(device.getLoginName().equals(username)&&device.getLoginPwd().equals(password)){
 				result="OK";
 			}else{
@@ -129,8 +183,6 @@ public class ServerProcessServlet extends HttpServlet {
 			}
 		}else if(optype.equals("execommand_cus")){
 			
-			String userid=request.getParameter("userid");
-			String deviceid=request.getParameter("deviceid");
 			String commandstr=request.getParameter("commandstr");
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
@@ -158,9 +210,27 @@ public class ServerProcessServlet extends HttpServlet {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		String str="<devicelist><device><deviceid>1</deviceid><devicename>web服务器</devicename></device></devicelist>";
-		Document doc=DocumentHelper.parseText(str);
+//		String str="<devicelist><device><deviceid>1</deviceid><devicename>web服务器</devicename></device></devicelist>";
+//		Document doc=DocumentHelper.parseText(str);
+//		List<Element> list=doc.getRootElement().elements();
+//		System.out.println(list.size());
+		
+		Document doc=null;
+		try{
+			doc=DocumentHelper.parseText("<request><optype>login</optype><username>admin</username><password>admin*()a</password></request>");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		List<Element> list=doc.getRootElement().elements();
-		System.out.println(list.size());
+		for(Element element:list){
+			System.out.println(element.getName());
+			System.out.println(element.getStringValue());
+			String optype=element.elementText("optype");
+			String username=element.elementText("username");
+			String password=element.elementText("password");
+			String deviceid=element.elementText("deviceid");//request.getParameter("deviceid");
+			String userid=element.elementText("userid");//request.getParameter("userid");
+			System.out.println("[optype,username,password,deviceid,userid]--"+"["+optype+","+username+","+password+","+deviceid+","+userid+"]");
+		}
 	}
 }

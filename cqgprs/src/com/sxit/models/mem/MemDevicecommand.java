@@ -21,7 +21,7 @@ public class MemDevicecommand implements java.io.Serializable {
 	private Timestamp createtime;
 	private int createuser;
 	private String createusername;
-
+	private String plugin;
 	// Constructors
 
 	/**
@@ -135,6 +135,14 @@ public class MemDevicecommand implements java.io.Serializable {
 
 	public void setTypename(String typename) {
 		this.typename = typename;
+	}
+
+	public String getPlugin() {
+		return plugin;
+	}
+
+	public void setPlugin(String plugin) {
+		this.plugin = plugin;
 	}
 
 }

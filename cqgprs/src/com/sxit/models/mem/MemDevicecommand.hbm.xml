@@ -37,5 +37,9 @@
              <property name="createusername" type="string">
             <column name="createusername" length="20" />
         </property>
+        </property>
+             <property name="plugin" type="string">
+            <column name="plugin" length="200" />
+        </property>
     </class>
 </hibernate-mapping>

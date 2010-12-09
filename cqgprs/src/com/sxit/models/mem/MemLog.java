@@ -1,5 +1,6 @@
 package com.sxit.models.mem;
 
+import java.sql.Clob;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -22,7 +23,7 @@ public class MemLog implements java.io.Serializable {
 	private String commandname;
 	private String result;
 	private Timestamp createtime;
-
+	private Clob orgresult;
 	// Constructors
 
 	/** default constructor */
@@ -113,7 +114,19 @@ public class MemLog implements java.io.Serializable {
 	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
 	}
-
+	public Clob getOrgresult() {
+		return orgresult;
+	}
+	public String getOrgresultClob2Str() {
+		return com.sxit.query.util.Clob2String.clob2String(orgresult).replaceAll("\r\n", "<br/>");
+	}
+	/**
+	 * @param details
+	 *            the details to set
+	 */
+	public void setOrgresult(Clob orgresult) {
+		this.orgresult = orgresult;
+	}
 
 
 }
