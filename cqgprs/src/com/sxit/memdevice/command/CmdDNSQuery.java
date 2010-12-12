@@ -1,6 +1,15 @@
 package com.sxit.memdevice.command;
 
+import java.sql.Timestamp;
 import java.util.Date;
+
+import org.hibernate.Hibernate;
+
+import com.sxit.communicateguard.service.MemService;
+import com.sxit.memdevice.common.Client;
+import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDevicecommand;
+import com.sxit.models.mem.MemLog;
 
 /**
  * 
@@ -29,24 +38,38 @@ import java.util.Date;
  * DNSj进程异常
  */
 public class CmdDNSQuery implements Command {
-	String p1="total 0";
-	String p2="No such file or directory";
+	
 	@Override
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
-		if(orgstr.indexOf(p1)>-1||orgstr.indexOf(p2)>-1){
-			result=nowstr+" 无GGSN02的话单产生，最后一个话单为“话单名”";
-		}else{
-			result=nowstr+"查询 \r\n*         CG话单生成正常";
-		}
+		
 		return result;
 	}
 	
 	@Override
-	public String getresult(String ip, String username, String pwd, String devicename) {
-		// TODO Auto-generated method stub
-		return null;
+	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
+
+		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		String result=getresult(orgresult);
+		
+
+		MemLog log=new MemLog();
+		log.setCommandid(command.getCommandid());
+		log.setCommandname(command.getCommananame());
+		log.setCreatetime(new Timestamp(System.currentTimeMillis()));
+		log.setDeviceid(device.getDeviceid());
+		log.setDevicename(device.getDevicename());
+		log.setResult(result);
+		log.setOrgresult(Hibernate.createClob(orgresult));
+		log.setUserid(Integer.parseInt(userid));
+		System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
+		try{
+			memservice.save(log);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public static void main(String[] args){

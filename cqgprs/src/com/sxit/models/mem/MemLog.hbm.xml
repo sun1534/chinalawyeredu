@@ -36,7 +36,7 @@
         <property name="createtime" type="timestamp">
             <column name="CREATETIME" length="11" />
         </property>
-        <property name="ORGRESULT"  type="java.sql.Clob">
+        <property name="orgresult"  type="java.sql.Clob">
             <column name="ORGRESULT" length="8000">
             </column>
         </property>

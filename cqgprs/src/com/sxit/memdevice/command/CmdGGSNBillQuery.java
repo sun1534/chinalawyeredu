@@ -12,38 +12,33 @@ import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 
+
+
 /**
  * 
  * @author 孟凡强
  * Dec 9, 2010 5:05:14 PM
- * 命令名称：CG话单生成查询
- * 命令位置：在菜单CG—标准维护命令下
+ * 命令名称：GGSN话单查询
+ * 命令位置：在菜单GGSN—标准维护命令下
+ * 原始命令解析
+ * ls -l /var/log/ggsn
  * 
- * 原始命令
- * cd /var/opt/BGw/ServerGroup1/Server1/BGwTTStorage/STS/working
- * ls –l
- * 
- * cd /var/opt/BGw/ServerGroup1/Server1/BGwTTStorage/STS/20100715-GGSNCQn*
- * ls –l
- * 
- * 原始结果举例？
- * 
+ * 原始输出结果举例如下：
+ * ？补充
  * 解析要求：
- * cd /var/opt/BGw/ServerGroup1/Server1/BGwTTStorage/STS/working
- * 查看有没最新的话单（正常情况下1分钟内肯定有最新的话单），有的话，就结束
- * 如果没有到另一个目录
- * cd /var/opt/BGw/ServerGroup1/Server1/BGwTTStorage/STS/20100715-GGSNCQn*
- * 查看是否有25分钟内的最新话单，有的话，那也不告警了
- * 否则就告警“*点*分CG03上无GGSN02的话单产生，最后一个话单为“话单名”
- *         “*点*分CG03上无GGSN03的话单产生，最后一个话单为“话单名”
- *         (目录下面的目录20100715-GGSNCQ02.J20前面是日期，每天一个目录,里面是当天的话单文件)
- *         结果展示：
- *         （时间戳）2010-11-18 10:00:02查询
- *         CG话单生成正常
- *         Or
- *         “*点*分CGn上无GGSNn的话单产生，最后一个话单为“话单名”
+ *     1）查看时候有GGSNCQ开头的最近的话单（1分钟之内肯定有），正常情况下话单是产生在这里，CG1分钟来取1次
+ *        如果无话单，告警“*点*分GGSN02无话单产生”
+ *        如果有话单，则反馈话单生成正常
+ *        如果话单时间不是最近的，超过5分钟，则提示话单堆积
+ * 展示结果：
+ *     （时间戳）2010-11-18 10:00:02查询
+ *     话单生成正常
+ *     或
+ *     *点*分GGSN02无话单产生
+ *     或
+ *     话单堆积
  */
-public class CmdCGQuery implements Command {
+public class CmdGGSNBillQuery implements Command {
 	String p1="total 0";
 	String p2="No such file or directory";
 	@Override
@@ -51,9 +46,9 @@ public class CmdCGQuery implements Command {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
 		if(orgstr.indexOf(p1)>-1||orgstr.indexOf(p2)>-1){
-			result=nowstr+"查询 \r\n  无GGSN02的话单产生";//，最后一个话单为“话单名”
+			result=nowstr+"查询 \r\n  无GGSN02的话单产生";//最后一个话单为“话单名”
 		}else{
-			result=nowstr+"查询 \r\n* CG话单生成正常";
+			result=nowstr+"查询 \r\n* GGSN话单生成正常";
 		}
 		return result;
 	}

@@ -5,12 +5,13 @@ import java.util.Date;
 
 import org.hibernate.Hibernate;
 
-import com.mysql.jdbc.Clob;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
+
+
 
 /**
  * 
@@ -43,17 +44,16 @@ import com.sxit.models.mem.MemLog;
  *         Or
  *         “*点*分CGn上无GGSNn的话单产生，最后一个话单为“话单名”
  */
-public class CmdCGQuery implements Command {
-	String p1="total 0";
-	String p2="No such file or directory";
+public class CmdGGSNStatusQuery implements Command {
+	
 	@Override
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
-		if(orgstr.indexOf(p1)>-1||orgstr.indexOf(p2)>-1){
-			result=nowstr+"查询 \r\n  无GGSN02的话单产生";//，最后一个话单为“话单名”
+		if(orgstr.indexOf("\r\n")>0){
+			result=nowstr+"查询 \r\n  GGSN工作中";
 		}else{
-			result=nowstr+"查询 \r\n* CG话单生成正常";
+			result=nowstr+"查询 \r\n  GGSN指令无响应";
 		}
 		return result;
 	}
@@ -62,7 +62,8 @@ public class CmdCGQuery implements Command {
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
-		String result=getresult(orgresult);		
+		String result=getresult(orgresult);
+		
 
 		MemLog log=new MemLog();
 		log.setCommandid(command.getCommandid());

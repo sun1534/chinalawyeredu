@@ -141,37 +141,24 @@ public class ServerProcessServlet extends HttpServlet {
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, Integer.parseInt(commandid));
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
-			String orgresult="";
+			
 			
 			//标准命令 进行命令解析
 			if(command.getCommandtype()==1){
 				try{
-					orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+					
 					Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
-					result=cmdprocess.getresult(orgresult);
+					result=cmdprocess.getresult(memservice, device, command, userid);
 				}catch(Exception e){
 					result=e.getMessage();
 					e.printStackTrace();
 				}
 			}else{
-				orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+				String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 				result=orgresult;
 			}
 			
-			MemLog log=new MemLog();
-			log.setCommandid(command.getCommandid());
-			log.setCommandname(command.getCommananame());
-			log.setCreatetime(new Timestamp(System.currentTimeMillis()));
-			log.setDeviceid(device.getDeviceid());
-			log.setDevicename(device.getDevicename());
-			log.setResult(result);
-			log.setUserid(Integer.parseInt(userid));
-			System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
-			try{
-				memservice.save(log);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+			
 		}else if(optype.equals("login_device")){
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));

@@ -1,6 +1,5 @@
 package com.sxit.memdevice.common;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.PrintStream;
 
@@ -16,6 +15,9 @@ public class Client {
 	
 	String username;
 	String password;
+
+	public static String end1 ="~ #";
+	public static String end2 ="$";
 
 	public Client(String ip,String username,String password) throws Exception {
 		this.username=username;
@@ -57,12 +59,11 @@ public class Client {
                     	write(password);
                     	islogin=true;
                     	step++;
-                    }else if(bufstring.trim().endsWith("~ #")){
+                    }else if(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)){
                     	return "login";
+                    }else if(step>8){
+                    	return "errcode -999:wrong password";
                     }
-//                    else if(bufstring.indexOf("Login incorrect")!=-1){
-//                    	return "wrong password";
-//                    }
                 }
             } while (ret_read >= 0);
             
@@ -73,6 +74,7 @@ public class Client {
 	}
 	
 	public String execute(String cmd){
+		
 		StringBuilder response=new StringBuilder();
 		boolean isstart=false;
 		boolean isend=false;
@@ -90,9 +92,9 @@ public class Client {
 	            	String bufstring=new String(buff, 0, ret_read);
 	                System.out.println("--"+bufstring+"E");
 	                
-					if(islogin&&!isstart&&bufstring.endsWith("~ # ")){
+					if(islogin&&!isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2))){
 			        	
-			        }else if(islogin&&isstart&&bufstring.endsWith("~ # ")){
+			        }else if(islogin&&isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2))){
 			        	isend=true;
 			        	response.append(bufstring);
 			        	return response.toString();
@@ -140,9 +142,12 @@ public class Client {
 			Client telnet = new Client(ip,username,password);
 			if(telnet.islogin){
 				string=telnet.execute(cmd);
+				if(string.indexOf(": not found\r\n")>-1||string.indexOf(": Command not found.\r\n")>-1){//
+					string="errcode -998:command error";
+				}
 				System.out.println("response:\r\n"+string);
 			}else{
-				string="not login";
+				string="errcode -999:not login";
 				System.out.println("not login");
 			}
 			telnet.disconnect();
