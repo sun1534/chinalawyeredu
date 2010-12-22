@@ -61,6 +61,12 @@
            <result name="excel" type="dispatcher">/stat/streamCell_excel.jsp</result>	
        </action>
        
+        <action name="subsidiaryCell" class="com.sxit.stat.action.SubsidiaryCellAction">
+           <result name="success" type="dispatcher">/stat/subsidiaryCell.jsp</result>		
+           <result name="excel" type="dispatcher">/stat/subsidiaryCell_excel.jsp</result>	
+       </action>
+       
+       
         <action name="streamCellTime" class="com.sxit.stat.action.StreamCellTimeAction">
           <result name="success" type="dispatcher">/stat/streamCellTime.jsp</result>	
            <result name="excel" type="dispatcher">/stat/streamCellTime_excel.jsp</result>	

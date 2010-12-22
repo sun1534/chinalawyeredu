@@ -150,7 +150,6 @@ public class CmdSGSNStatlinks implements Command {
 	List<StatLinkObj> objs=new ArrayList<StatLinkObj>(); 
 	
 	List<StatObj> statobj=new ArrayList<StatObj>();
-	@Override
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -221,7 +220,6 @@ public class CmdSGSNStatlinks implements Command {
 		return result;
 	}
 
-	@Override
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());

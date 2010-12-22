@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -18,6 +19,7 @@ import jofc2.model.axis.XAxisLabels;
 import jofc2.model.elements.LineChart;
 import jofc2.model.elements.PieChart;
 
+import com.sxit.netquality.models.Cell;
 import com.sxit.netquality.models.Sgsn;
 import com.sxit.netquality.service.BasicSetService;
 import com.sxit.stat.models.SgsnStatModel;
@@ -32,41 +34,187 @@ import com.sxit.stat.models.SgsnStatModel;
  */
 public class Test {
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-	public static void main(String[] args){
-try{
+
+	// 转换成十六进制字符串
+
+	private static String byte2hex(byte[] b) {
+
 	
-	Timestamp from = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime());
-	
-	Timestamp to = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime() + 24 * 60 * 60 * 1000);
-	System.out.println(from+"==="+to);
-	
-	String temp="46000333801";
-//	46000333801这样的形式，转化为460-00-33380这样的形式
-	String first=temp.substring(0,3);
-	String second=temp.substring(3,5);
-	String lac=temp.substring(5,10);
-	String rai=first+"-"+second+"-"+lac;
-	System.out.println(rai);
-	
-	int s=5/0;
-	System.out.println(s);
-}catch(Exception e){
-	java.io.Writer sw=new java.io.StringWriter();
-	try{
-	java.io.PrintWriter pw=new java.io.PrintWriter(sw,true);
-	e.printStackTrace(pw);
-	pw.flush();
-	pw.close();
-	sw.flush();
-	sw.close();
-	System.out.println("-------"+sw.toString());
-	}catch(Exception ee){
 		
+	System.exit(0);
+		String hs = "";
+
+		String stmp = "";
+
+		for (int n = 0; n < b.length; n++) {
+
+			stmp = (java.lang.Integer.toHexString(b[n] & 0XFF));
+
+			if (stmp.length() == 1)
+				hs = hs + "0" + stmp;
+
+			else
+				hs = hs + stmp;
+
+			// if (n < b.length - 1)
+			// hs = hs + ":";
+
+		}
+
+		return hs.toUpperCase();
+
 	}
-}
-		
+
+	// 16进制表示的字符串转换成字节数组
+	private static byte[] hex2byte(String s) throws Exception {
+		char c, c1;
+		int x;
+		if (s.length() % 2 != 0)
+			throw new Exception("密钥格式不正确");
+		byte[] ret = new byte[s.length() / 2];
+
+		for (int i = 0; i < s.length(); i++) {
+			c = s.charAt(i);
+			c1 = s.charAt(++i);
+			if (!(c >= '0' && c <= '9' || c >= 'A' && c <= 'F' || c >= 'a' && c <= 'f'))
+				throw new Exception("密钥格式不正确");
+			if (!(c1 >= '0' && c1 <= '9' || c1 >= 'A' && c1 <= 'F' || c1 >= 'a' && c1 <= 'f'))
+				throw new Exception("密钥格式不正确");
+			x = Integer.decode("0x" + c + c1).intValue();
+			if (x > 127) {
+				ret[i / 2] = (byte) (x | 0xffffff00);
+			} else {
+				ret[i / 2] = (byte) (x);
+			}
+		}
+		return ret;
 	}
-	
+
+	public static void main(String[] args)throws Exception {
+//		String s = "738B66535CF080015E0880015E080031003167080032003365E5003A901A77E5FF1A7136540E621160F38BA94F6053D14E0077ED4FE17136540E621160F38BA94F6053D14E0077ED4FE17136540E621160F38BA94F6053D14E0077ED4FE17136540E621160F38BA94F6053D14E0077ED4FE17136540E621160F";
+//		byte[] b=hex2byte(s);
+//		System.out.println(new String(b));
+		System.out.println(	Test.class.getResource("Test.class").getPath());
+		System.out.println(com.sxit.common.util.MD5.md5("123456"));
+	}
+
+	public static void main1(String[] args) throws Exception {
+		long now = System.currentTimeMillis();
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection con = java.sql.DriverManager.getConnection("jdbc:oracle:thin:@218.201.8.150:1521:ora92", "jf_gprs",
+				"jf_gprs");
+
+		System.out.println("链接花费时间：：" + (System.currentTimeMillis() - now));
+		now = System.currentTimeMillis();
+		String sql = "select *  from set_cell ";
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		List list = new ArrayList();
+		while (rs.next()) {
+			int cellid = rs.getInt("cellid");
+			int lac = rs.getInt("lac");
+			int sub = rs.getInt("subsidiaryid");
+
+			Cell cell = new Cell();
+			cell.setCellid(cellid + "");
+			cell.setLac(lac + "");
+			cell.setSubareaid(sub + "");
+
+			list.add(cell);
+		}
+
+		System.out.println("总计获取了" + list.size() + "条数据" + (System.currentTimeMillis() - now));
+		now = System.currentTimeMillis();
+		rs.close();
+		stmt.close();
+		sql = "update stat_cellid_day set subsidiaryid=? where cellid=? and lac=?";
+		java.sql.PreparedStatement psttm = con.prepareStatement(sql);
+		for (int i = 0; i < list.size(); i++) {
+			Cell cell = (Cell) list.get(i);
+			psttm.setString(1, cell.getSubareaid());
+			psttm.setString(2, cell.getCellid());
+			psttm.setString(3, cell.getLac());
+			psttm.addBatch();
+			if ((i + 1) % 300 == 0) {
+				now = System.currentTimeMillis();
+				psttm.executeBatch();
+				psttm.clearBatch();
+
+				System.out.println("花费时间：：" + (System.currentTimeMillis() - now));
+			}
+
+		}
+
+		now = System.currentTimeMillis();
+		psttm.executeBatch();
+		psttm.clearBatch();
+
+		System.out.println("最后花费时间：：" + (System.currentTimeMillis() - now));
+		psttm.close();
+		con.close();
+	}
+
+	public static void main1114(String[] args) {
+		Calendar c = Calendar.getInstance();
+
+		System.out.println(new java.sql.Time(c.getTimeInMillis()));
+		c.setTimeInMillis(c.getTimeInMillis() - 60 * 60 * 1000);
+		System.out.println(new java.sql.Time(c.getTimeInMillis()));
+		int minute = c.get(Calendar.MINUTE);
+		System.out.println(minute);
+		int hour = c.get(Calendar.HOUR_OF_DAY);
+		System.out.println(hour);
+		if (minute < 35) {
+			if (hour == 0) {
+				hour = 23;
+				// if (!stattdateset) {
+				// this.statdate = df.format(new
+				// java.sql.Timestamp(System.currentTimeMillis()-24*60*60*1000));
+				// // 默认当天
+				// }
+			} else {
+				hour = hour - 1;
+			}
+
+		}
+		// stattime=(hour<10?"0"+hour:""+hour);
+	}
+
+	public static void main222(String[] args) {
+		try {
+
+			Timestamp from = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime());
+
+			Timestamp to = new java.sql.Timestamp(df.parse(df.format(new Date())).getTime() + 24 * 60 * 60 * 1000);
+			System.out.println(from + "===" + to);
+
+			String temp = "46000333801";
+			// 46000333801这样的形式，转化为460-00-33380这样的形式
+			String first = temp.substring(0, 3);
+			String second = temp.substring(3, 5);
+			String lac = temp.substring(5, 10);
+			String rai = first + "-" + second + "-" + lac;
+			System.out.println(rai);
+
+			int s = 5 / 0;
+			System.out.println(s);
+		} catch (Exception e) {
+			java.io.Writer sw = new java.io.StringWriter();
+			try {
+				java.io.PrintWriter pw = new java.io.PrintWriter(sw, true);
+				e.printStackTrace(pw);
+				pw.flush();
+				pw.close();
+				sw.flush();
+				sw.close();
+				System.out.println("-------" + sw.toString());
+			} catch (Exception ee) {
+
+			}
+		}
+
+	}
+
 	public static void main12(String[] args) throws Exception {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		Connection con = java.sql.DriverManager.getConnection("jdbc:oracle:thin:@218.201.8.150:1521:ora92", "jf_gprs",
@@ -93,7 +241,7 @@ try{
 			model.setSgsnarea(rs.getString("sgsnarea"));
 			model.setLoginname(rs.getString("loginname"));
 			model.setLoginpwd(rs.getString("loginpwd"));
-			
+
 			BasicSetService.ALL_SGSNS.put(rs.getString("SGSNID"), model);
 		}
 		rs.close();
@@ -225,7 +373,7 @@ try{
 	/**
 	 * @param args
 	 */
-	public static void main1(String[] args) throws Exception {
+	public static void main14(String[] args) throws Exception {
 
 		Iterator<String> sgsniterator = SGSNIDLOC.keySet().iterator();
 		while (sgsniterator.hasNext()) {
@@ -253,8 +401,8 @@ try{
 		// stroke="#000000"/>
 		// <text x="20" y="50" xml:space="preserve" font-size="14"
 		// fill="black">SGSN01</text>
-Connection con=null;
-//		Connection con = testcon();
+		Connection con = null;
+		// Connection con = testcon();
 		String sql = "select SGSNID,sum(USERCOUNT) as usercount1,sum(ALLVOLUME) as allvolume1,sum(upvolume) as upvolume1,sum(downvolume) as downvolume1,ggsnid,apnni from  STAT_SGSN where ggsnid like 'GGSN%' and dayflag=1 and STATTIME=20100102 group by sgsnid,ggsnid,apnni";
 		Statement stmt = con.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);

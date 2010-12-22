@@ -10,9 +10,11 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +27,7 @@ import com.sxit.stat.models.BsnRncStatModel;
 import com.sxit.stat.models.CellStatModel;
 import com.sxit.stat.models.NsvcStatModel;
 import com.sxit.stat.models.SgsnStatModel;
+import com.sxit.stat.models.SubCellStatModel;
 import com.sxit.stat.models.TotalStatModel;
 import com.sxit.stat.util.StatUtil;
 
@@ -662,6 +665,60 @@ public class StatService {
 		// PaginationSupport ps=new PaginationSupport();
 		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
 		return ps;
+	}
+
+	/**
+	 * 得到各个分公司的流量
+	 * 
+	 * @param date
+	 * @param orderby
+	 * @return
+	 */
+	public List getSubCellDayStat(Date date) {
+		final int _date = Integer.parseInt(dfyyyyMMdd.format(date));
+		String sql = "select subsidiaryid,sum(usercount) as usercount,sum(upvolume) as upvolume,sum(downvolume) as downvolume,sum(allvolume) as allvolume from stat_cellid_day where dayflag=1 and stattime=? group by subsidiaryid order by subsidiaryid";
+		Object[] args = new Object[] { _date };
+		int[] argTypes = new int[] { Types.INTEGER };
+
+		final List exists = new ArrayList();
+		Object object = jdbcTemplate.query(sql, args, argTypes, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+				while (rs.next()) {
+					String subsidiaryid = rs.getString("subsidiaryid");
+					if (subsidiaryid != null && !subsidiaryid.equals("")) {
+						SubCellStatModel model = new SubCellStatModel();
+						int usercount = rs.getInt("USERCOUNT");
+						double all = rs.getDouble("ALLVOLUME");
+
+						model.setTotalStream(all);
+						model.setTotalUser(usercount);
+						model.setDate(_date + "");
+						model.setSubsidiaryid(rs.getString("subsidiaryid"));
+						model.setUpvolume(rs.getDouble("upvolume"));
+						model.setDownvolume(rs.getDouble("downvolume"));
+
+						list.add(model);
+						exists.add(subsidiaryid);
+					}
+				}
+				return list;
+			}
+		});
+
+		List result = (List) object;
+		// 判断是否所有的都存在
+		Iterator<String> subs = com.sxit.netquality.service.BasicSetService.ALL_SUBS.keySet().iterator();
+		while (subs.hasNext()) {
+			String subid = subs.next();
+			if (!exists.contains(subid)) {// 这个subid不在已有的队列里面，那么就所有的都认为是0
+				SubCellStatModel model = new SubCellStatModel();
+				model.setSubsidiaryid(subid);
+				result.add(model);
+			}
+		}
+
+		return result;
 	}
 
 	/**

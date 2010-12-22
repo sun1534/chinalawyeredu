@@ -120,7 +120,7 @@ public class StatUtil {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		System.out.println(calendar.get(Calendar.DATE));
+//		System.out.println(calendar.get(Calendar.DATE));
 		int weekday = calendar.get(Calendar.DAY_OF_WEEK) - 1;
 		String table = "cdr_succ_0" + weekday;
 		return table;

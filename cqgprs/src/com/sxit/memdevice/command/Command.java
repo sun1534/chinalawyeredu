@@ -5,6 +5,6 @@ import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
 
 public interface Command {
-	String getresult(String orgstr);
+	 String getresult(String orgstr);
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid);
 }

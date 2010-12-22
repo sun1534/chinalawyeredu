@@ -58,7 +58,6 @@ public class CmdSGSNSignalLog implements Command {
 	
 	Map<String,Integer> numbercnt=new HashMap<String,Integer>();
 	Map<String,String> numbererror=new HashMap<String,String>();
-	@Override
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -139,7 +138,6 @@ public class CmdSGSNSignalLog implements Command {
 		}
 		return "session_event_log."+lastid;
 	}
-	@Override
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String getpath=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"ls /logs/session_event_log/tmp");

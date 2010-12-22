@@ -42,6 +42,8 @@ public class BasicSetService {
 	private static final DateFormat dfyyyyMmddHHmmss = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public static Map<String, Cell> ALL_CELLS = new LinkedHashMap<String, Cell>();
+	
+	public static Map<String, String> ALL_SUBS = new LinkedHashMap<String, String>();
 
 	public static List<Cell> ALL_CELL_LIST = new ArrayList<Cell>();
 	public static List<Apn> ALL_APN_LIST = new ArrayList<Apn>();
@@ -238,7 +240,7 @@ public class BasicSetService {
 					model.setCellid(rs.getString("CELLID"));
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLastopt(rs.getString("OPTTYPE"));
-					model.setSubarea(rs.getString("subsidiary"));
+					model.setSubareaid(rs.getString("subsidiaryid"));
 					model.setLac(rs.getString("lac"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
@@ -293,11 +295,11 @@ public class BasicSetService {
 					model.setCellname(rs.getString("CELLNAME"));
 					model.setLac(rs.getString("lac"));
 					model.setLastopt(rs.getString("OPTTYPE"));
-
+					model.setSubareaid(rs.getString("SUBSIDIARYID"));
 					model.setAllvolume(rs.getDouble("allvolume"));
 					model.setDownvolume(rs.getDouble("downvolume"));
 					model.setUpvolume(rs.getDouble("upvolume"));
-					model.setSubarea(rs.getString("subsidiary"));
+//					model.setSubarea(rs.getString("subsidiary"));
 					Date date = new Date();
 					date.setTime(rs.getLong("UPDATETIME") * 1000);
 					model.setLastupdate(date);
@@ -877,6 +879,23 @@ public class BasicSetService {
 		List list = (List) object;
 		return list;
 	}
+	
+	/**
+	 * 得到所有的流程id的数据字典
+	 */
+		public void getSubcities() {
+			String sql = "select * from SET_SUBSIDIARY";
+			ALL_SUBS.clear();
+			jdbcTemplate.query(sql, new ResultSetExtractor() {
+				public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+					while (rs.next()) {
+						ALL_SUBS.put(rs.getString("SUBSIDIARYID"), rs.getString("SUBSIDIARY"));
+					}
+					return null;
+				}
+			});
+			_LOG.info("所有流程ID数据初始化完毕");
+		}
 
 	public void getAllSets() {
 		long now = System.currentTimeMillis();
@@ -896,13 +915,17 @@ public class BasicSetService {
 			_LOG.debug("cell:" + (System.currentTimeMillis() - now1));
 
 			now1 = System.currentTimeMillis();
-			getAllApns();
+//			getAllApns();
 			_LOG.debug("apn:" + (System.currentTimeMillis() - now1));
 
 			now1 = System.currentTimeMillis();
 			this.getAllNsvces();
 			_LOG.debug("nsvc:" + (System.currentTimeMillis() - now1));
 
+			now1=System.currentTimeMillis();
+			this.getSubcities();
+			_LOG.debug("cities:" + (System.currentTimeMillis() - now1));
+			
 			updatetime = now;
 		} else {
 			_LOG.info("从缓存里面取的数据");

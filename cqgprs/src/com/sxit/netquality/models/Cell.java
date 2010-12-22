@@ -19,7 +19,9 @@ public class Cell extends Volumes {
 	private String lac;
 	private String cellname;
 	private String bscrncid;
-	private String subarea;
+//	private String subarea;
+	private String subareaid;
+
 	/**
 	 * 最近1次拿数据的时间
 	 */
@@ -112,16 +114,16 @@ public class Cell extends Volumes {
 	 * @return the subarea
 	 */
 	public String getSubarea() {
-		return subarea;
+		return com.sxit.netquality.service.BasicSetService.ALL_SUBS.get(subareaid);
 	}
 
 	/**
 	 * @param subarea
 	 *            the subarea to set
 	 */
-	public void setSubarea(String subarea) {
-		this.subarea = subarea;
-	}
+//	public void setSubarea(String subarea) {
+//		this.subarea = subarea;
+//	}
 
 	/**
 	 * @return the lac
@@ -152,5 +154,19 @@ public class Cell extends Volumes {
 	public void setCellkey(String cellkey) {
 		hasset = true;
 		this.cellkey = cellkey;
+	}
+
+	/**
+	 * @return the subareaid
+	 */
+	public String getSubareaid() {
+		return subareaid;
+	}
+
+	/**
+	 * @param subareaid the subareaid to set
+	 */
+	public void setSubareaid(String subareaid) {
+		this.subareaid = subareaid;
 	}
 }

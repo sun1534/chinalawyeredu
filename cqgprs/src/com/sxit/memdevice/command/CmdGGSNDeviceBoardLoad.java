@@ -182,7 +182,6 @@ Interface: gu-3/1/0
  */
 public class CmdGGSNDeviceBoardLoad implements Command {
 	
-	@Override
 	public String getresult(String orgstr) {
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
 		String result=nowstr+"查询 \r\n";
@@ -218,7 +217,6 @@ public class CmdGGSNDeviceBoardLoad implements Command {
 		return result;
 	}
 	
-	@Override
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());

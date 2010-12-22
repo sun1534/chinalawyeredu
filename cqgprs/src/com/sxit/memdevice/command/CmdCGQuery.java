@@ -46,7 +46,6 @@ import com.sxit.models.mem.MemLog;
 public class CmdCGQuery implements Command {
 	String p1="total 0";
 	String p2="No such file or directory";
-	@Override
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -58,7 +57,6 @@ public class CmdCGQuery implements Command {
 		return result;
 	}
 	
-	@Override
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());

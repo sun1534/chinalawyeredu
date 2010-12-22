@@ -86,6 +86,7 @@ public class SgsnStream23gAction extends StatAction {
 		double min = 0d;
 		double max = 0d;
 		LineChart c2 = new LineChart(); // 
+		
 		jofc2.model.axis.XAxisLabels xlables = new XAxisLabels();
 		int len = sgsnlist.size();
 		for (int i = 0; i < len; i++) {
@@ -106,6 +107,7 @@ public class SgsnStream23gAction extends StatAction {
 				if (value > max)
 					max = value;
 				c2.addValues(value);
+			
 				jofc2.model.axis.Label label = new Label();
 				label.setText(stat.getSgsnid());label.setRotation(ration);
 				xlables.addLabels(label);
@@ -114,11 +116,12 @@ public class SgsnStream23gAction extends StatAction {
 
 		flashChart = new Chart(); // 整个图的标题
 		flashChart.addElements(c2); // 把饼图加入到图表
+		
 
 		jofc2.model.axis.XAxis xaxis = new XAxis();
 		xaxis.setXAxisLabels(xlables); // 显示横坐标
 		flashChart.setXAxis(xaxis);
-
+		
 		jofc2.model.axis.YAxis yaxis = new YAxis();
 
 		double steps = StatUtil.steps(max, min, 10);

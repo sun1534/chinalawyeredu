@@ -5,6 +5,8 @@
 
 package com.sxit.common.util;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +19,12 @@ public class NumberUtil {
 	private static final char chars[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E',
 			'F' };
 
+
+	
+    
+//    public static void main(String args[]){
+//    	System.out.println(toMoney(((double)2/(double)23)));
+//    }
 	/**
 	 * 
 	 * @param b

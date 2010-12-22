@@ -132,7 +132,7 @@ OR  NCB: 1.19板卡负荷超过60%
 public class CmdSGSNEqCpuLoad implements Command {
 
 	List<CpuLoad> list=new ArrayList<CpuLoad>();
-	@Override
+
 	public String getresult(String orgstr) {
 		String result="";
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -175,7 +175,6 @@ public class CmdSGSNEqCpuLoad implements Command {
 		return result;
 	}
 
-	@Override
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
 		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());

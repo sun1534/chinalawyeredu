@@ -25,6 +25,7 @@ import com.sxit.log.service.SysLoginLogService;
 import com.sxit.models.system.SysParameter;
 import com.sxit.models.system.SysRight;
 import com.sxit.netquality.service.BasicSetService;
+import com.sxit.netquality.service.ChrQueryService;
 import com.sxit.query.service.EricssonTrace;
 import com.sxit.system.util.RightTree;
 
@@ -136,7 +137,9 @@ public class WebContextListener implements ServletContextListener {
 			com.sxit.system.util.CommonDatas.getGroups();
 			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
 			setservice.getAllSets();
-
+			ChrQueryService queryservice = (ChrQueryService) Globals.getBean("chrQueryService");
+			queryservice.getFlowids();
+	
 			// BasicSetService setservice = (BasicSetService)
 			// Globals.getBean("basicSetService");
 			// setservice.getAllSets();

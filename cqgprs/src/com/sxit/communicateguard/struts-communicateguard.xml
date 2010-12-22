@@ -49,6 +49,21 @@
         	   <action name="memDeviceUserSet" class="com.sxit.communicateguard.action.ajax.MemDeviceUserSetAction">
 			<result name="input" type="dispatcher">/communicateguard/memDeviceUserSet.jsp</result>
    	   </action>
+   	   
+   	   <action name="tongnanPower" class="com.sxit.tongnan.action.TongnanPowerAction">
+			<result name="success" type="dispatcher">/communicateguard/tongnanPower.jsp</result>
+			<result name="excel" type="dispatcher">/communicateguard/tongnanPower_excel.jsp</result>
+   	   </action>
+   	   
+   	     <action name="tongnanPowerSet" class="com.sxit.tongnan.action.TongnanPowerSetAction">
+			<result name="success" type="dispatcher">/common/message.jsp</result>
+			<result name="message" type="dispatcher">/common/message.jsp</result>
+			<result name="input" type="dispatcher">/common/message.jsp</result>
+			
+   	   </action>
+   	   
+   	   
+   	   
     </package>
 	
 	 <package name="communicateguardajax" extends="defaultajax" namespace="/communicateguardajax">

@@ -18,7 +18,7 @@ import com.sxit.common.action.AbstractListAction;
  * 
  */
 public abstract class StatAction extends AbstractListAction {
-protected	jofc2.model.axis.Label.Rotation ration=	jofc2.model.axis.Label.Rotation.DIAGONAL;
+protected	jofc2.model.axis.Label.Rotation ration=	jofc2.model.axis.Label.Rotation.VERTICAL;
 java.text.NumberFormat nf=new   DecimalFormat("####.0");
 	private static Log _LOG = LogFactory.getLog(StatAction.class);
 

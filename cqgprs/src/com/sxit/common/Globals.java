@@ -4,6 +4,8 @@
 
 package com.sxit.common;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -13,7 +15,9 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public class Globals {
 
-
+	private static String configName = "classpath:spring/applicationContext*.xml";
+	private static ApplicationContext context;
+	private static volatile boolean isok;
 	/**
 	 * Convenience method to bind objects in Actions
 	 * 
@@ -23,5 +27,21 @@ public class Globals {
 	public static Object getBean(String name) {
 		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
 		return wac.getBean(name);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static Object getMainBean(String name) {
+		if(!isok){
+			 context = new ClassPathXmlApplicationContext(configName);
+			 isok=true;
+		}
+//		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+//		return wac.getBean(name);
+		return context.getBean(name);
 	}
 }

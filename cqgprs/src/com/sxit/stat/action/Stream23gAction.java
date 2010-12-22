@@ -99,7 +99,8 @@ public class Stream23gAction extends StatAction {
 					max = value;
 				c2.addValues(value);
 				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getDate());	label.setRotation(ration);
+				label.setText(stat.getDate());	
+				label.setRotation(ration);
 				xlables.addLabels(label);
 			}
 		}
@@ -167,7 +168,8 @@ public class Stream23gAction extends StatAction {
 					max = value;
 				c2.addValues(value);
 				jofc2.model.axis.Label label = new Label();
-				label.setText(stat.getDate());	label.setRotation(ration);
+				label.setText(stat.getDate());	
+				label.setRotation(ration);
 				xlables.addLabels(label);
 			}
 		}

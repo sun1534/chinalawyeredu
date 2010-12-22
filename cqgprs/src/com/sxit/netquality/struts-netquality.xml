@@ -70,6 +70,17 @@
           <result name="excel" type="dispatcher">/netquality/nsvcList_excel.jsp</result>	
        </action>
        
+         <action name="hwchrQuery" class="com.sxit.netquality.action.HwchrQueryAction">
+          <result name="success" type="dispatcher">/netquality/hwchrQuery.jsp</result>	
+       </action>
+       
+         <action name="flowidStatic" class="com.sxit.netquality.action.FlowidStaticAction">
+          <result name="success" type="dispatcher">/netquality/flowidStatic.jsp</result>	
+       </action>
+         <action name="flowidErrorStatic" class="com.sxit.netquality.action.FlowidErrorStaticAction">
+          <result name="success" type="dispatcher">/netquality/flowidErrorStatic.jsp</result>	
+       </action>
+       
        
    </package>
 	    <package name="netqualityajax" extends="defaultajax" namespace="/netqualityajax">
