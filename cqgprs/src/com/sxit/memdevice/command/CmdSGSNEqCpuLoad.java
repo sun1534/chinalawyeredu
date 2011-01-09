@@ -25,8 +25,8 @@ import com.sxit.models.mem.MemLog;
 命令位置：在菜单SGSN—标准维护命令下
 
 原始命令
-在SGSN上运行命令 eci stats        :
-eci stats
+在SGSN上运行命令 gsh get_eq_cpu_load    :
+gsh get_eq_cpu_load
 原始输出结果举例如下
 === ericsson@eqm01s13p2 ANCB ~ # gsh get_eq_cpu_load 
  

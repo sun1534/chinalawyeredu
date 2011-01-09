@@ -26,7 +26,7 @@ import com.sxit.models.mem.MemLog;
  * 原始命令
  * 在SGSN上 cd /logs/session_event_log/tmp,使用tail –100 session_event_log.n
  * cd  /logs/session_event_log/tmp
- * tail –100 session_event_log.n                
+ * tail -100 session_event_log.n                
  * （ n为数字，需要判断找最新的文件）
  * 原始输出结果举例如下：
  * ======== SESSION EVENT (G): MS INITIATED ACTIVATE REQUEST =========
