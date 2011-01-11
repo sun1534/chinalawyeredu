@@ -189,7 +189,7 @@ public class CmdGGSNDeviceBoardLoad implements Command {
 		String[] rs=orgstr.split("\r\n\r\n");
 		for(String s:rs){
 			String curcpuname="";
-			System.out.println("-----------------------------");
+//			System.out.println("-----------------------------");
 			String[] obs=s.split("\r\n");
 			for(String aline:obs){
 //				System.out.println("["+aline+"]");
@@ -209,9 +209,10 @@ public class CmdGGSNDeviceBoardLoad implements Command {
 					}
 				}
 			}
-			if(allok){
-				result=result+" 所有设备CPU负载正常\r\n";
-			}
+			
+		}
+		if(allok){
+			result=result+" 所有设备CPU负载正常\r\n";
 		}
 		
 		return result;

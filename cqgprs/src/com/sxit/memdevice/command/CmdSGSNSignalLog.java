@@ -130,7 +130,8 @@ public class CmdSGSNSignalLog implements Command {
 		for(String s:aa){
 			if(s.startsWith("session_event_log.")){
 				try{
-					lastid=Integer.parseInt(s.substring(s.indexOf(".")+1));
+					if(lastid<Integer.parseInt(s.substring(s.indexOf(".")+1)))
+						lastid=Integer.parseInt(s.substring(s.indexOf(".")+1));
 				}catch(Exception e){
 					
 				}
@@ -203,12 +204,13 @@ public class CmdSGSNSignalLog implements Command {
 		
 		int lastid=0;
 		String ss="ls\r\n" +
-				"session_event_log.1 session_event_log.2 \r\n====";
+				"session_event_log.3 session_event_log.2 \r\n====";
 		String[] aa=ss.split("\\s");
 		for(String s:aa){
 			if(s.startsWith("session_event_log.")){
 				try{
 					lastid=Integer.parseInt(s.substring(s.indexOf(".")+1));
+					System.out.println();
 				}catch(Exception e){
 					
 				}
