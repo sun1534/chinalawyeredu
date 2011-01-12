@@ -1,0 +1,20 @@
+<#macro header >
+	<!-- 头部 -->
+			<div class="header">
+  <div class="logo left"><a href="index.html"><img src="../images/logo.gif" width="234" height="51" /></a></div>
+  <div class="denglu right">${loginUser.lawyername}，您好，欢迎您登录培训平台！&nbsp;&nbsp;<a href="../common/index.pl">首页</a>&nbsp;&nbsp;<a href="../common/logout.pl">注销</a>&nbsp;&nbsp;<a href="../common/logout.pl">退出</a></div>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="../lessons/lessonCenter.html"<#if moduleId==1000> class="current"</#if>>选课中心</a></li>
+  <li><a href="../lessons/myLessonList.pl"<#if moduleId==1001> class="current"</#if>>我选购的课程</a></li>
+  <li><a href="../lessons/localLessonList.pl"<#if moduleId==1002> class="current"</#if>>培训通知</a></li>
+  <li><a href="../jifen/jifenQuery.pl"<#if moduleId==1003> class="current"</#if>>我的学分</a></li>
+  <li><a href="../lessons/shoucanList.pl"<#if moduleId==1004> class="current"</#if>>收藏夹</a></li>
+  <li><a href="../lessons/orderBustList.pl"<#if moduleId==1005> class="current"</#if>>购物车</a></li>
+  <li><a href="../lessons/myOrderList.pl"<#if moduleId==1006> class="current"</#if>>我的订单</a></li>
+  <li><a href="../lawyers/myMsgList.pl"<#if moduleId==1007> class="current"</#if>>我的消息</a></li>
+  <li><a href="../lawyers/officeChangeApplyList.pl" <#if moduleId==1008> class="current"</#if>>转所申请</a></li>
+  <li><a href="../lawyers/lawyersEditSelf.pl" <#if moduleId==1009> class="current"</#if>>个人信息</a></li>
+</ul></div>
+</#macro>

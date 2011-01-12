@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>无标题文档</title>
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+
+<script language=javascript id=clientEventHandlersJS>
+<!--
+var number=8;
+
+function LMYC() {
+var lbmc;
+//var treePic;
+    for (i=1;i<=number;i++) {
+        lbmc = eval('LM' + i);
+        //treePic = eval('treePic'+i);
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+ 
+function ShowFLT(i) {
+    lbmc = eval('LM' + i);
+    //treePic = eval('treePic' + i)
+    if (lbmc.style.display == 'none') {
+        LMYC();
+        //treePic.src = 'images/nofile.gif';
+        lbmc.style.display = '';
+    }
+    else {
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+//-->
+      </script>
+</head>
+
+<body >
+<div class="header">
+  <div class="logo left"><a href="index.html"><img src="images/logo.gif" width="234" height="51" /></a></div>
+  <div class="denglu right">张三丰，您好，欢迎您登录培训平台！&nbsp;&nbsp;<a href="#">首页</a>&nbsp;&nbsp;<a href="#">注销</a>&nbsp;&nbsp;<a href="#">退出</a></div>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="lessoncenter.html">选课中心</a></li>
+  <li><a href="course.html">我选购的课程</a></li>
+  <li><a href="notice.html">培训通知</a></li>
+  <li><a href="jifen.html">我的学分</a></li>
+  <li><a href="favorites.html">收藏夹</a></li>
+  <li><a href="shopping.html">购物车</a></li>
+  <li><a href="order.html">我的订单</a></li>
+  <li><a href="news.html">我的消息</a></li>
+  <li><a href="application.html" class="current">转所申请</a></li>
+  <li><a href="information.html">个人信息</a></li>
+</ul></div>
+<div class="gml">当前位置：<a href="index.html">首页</a>----<a href="news.html"><strong>转所申请</strong></a></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">转所申请</div>   
+     <ul class="con_wz">
+        <li><a href="firms.html" target="_blank">发起申请</a></li>
+        <li><a href="#">状态跟踪</a></li>
+      </ul>
+  </div>
+  <div class="con_right2 left">
+    <div class="con_right5_title"><h2>转所申请</h2></div>
+    <div class="star">
+<form namespace="/lawyers" id="lawyersChangeOffice" name="form1" onsubmit="return validateForm_lawyersChangeOffice();" action="/manager/lawyers/lawyersChangeOffice.pl" method="post" enctype="multipart/form-data">
+      <table width="100%" border="0" cellpadding="0" cellspacing="1"
+						bgcolor="#EDEDED">
+		<tr>
+          <td colspan="2">&nbsp;
+          	 	<font color="#FF0000"><b>
+     &nbsp;
+         </b></font>
+         
+         </td>
+        </tr>
+           <tr>
+          <td align="right" class="tab_content">
+             律师姓名:
+          </td>
+          <td class="tab_content">
+           &nbsp;赵新印
+           <input type="hidden" name="lawyers.lawyername" value="赵新印" id="lawyersChangeOffice_lawyers_lawyername"/>
+           <input type="hidden" name="lawyerid" value="73756" id="lawyersChangeOffice_lawyerid"/>
+            
+        </tr>
+		 <tr>
+          <td align="right" width="20%" class="tab_content1">
+             原所在事务所:
+          </td>
+          <td class="tab_content1">
+          &nbsp;河南省律协-开封市律师协会-河南龙文律师事务所
+
+            
+           </td>
+        </tr>
+      <tr>
+          <td align="right" width="20%" class="tab_content1">
+             新转事务所:
+          </td>
+          <td class="tab_content1">
+          
+              &nbsp;河南省律协-
+              <input type="hidden" name="datavisible.provinceid" value="18" id="lawyersChangeOffice_datavisible_provinceid"/>
+             
+<select name="datavisible.cityid" id="city" onchange="getOffices(this.value)">
+    <option value="0"
+    >请选择</option>
+    <option value="8495">河南省直律协</option>
+    <option value="8496">郑州市律师协会</option>
+    <option value="8497" selected="selected">开封市律师协会</option>
+    <option value="8498">洛阳市律师协会</option>
+    <option value="8499">平顶山市律师协会</option>
+    <option value="8500">安阳市律师协会</option>
+    <option value="8501">新乡市律师协会</option>
+    <option value="8502">焦作市律师协会</option>
+    <option value="8503">濮阳市律师协会</option>
+    <option value="8504">许昌市律师协会</option>
+    <option value="8505">商丘市律师协会</option>
+    <option value="8506">鹤壁市律师协会</option>
+    <option value="8507">三门峡市律师协会</option>
+    <option value="8508">南阳市律师协会</option>
+    <option value="8509">漯河市律师协会</option>
+    <option value="8510">信阳市律师协会</option>
+    <option value="8511">周口市律师协会</option>
+    <option value="8512">驻马店市律师协会</option>
+    <option value="8513">济源市律师协会</option>
+    <option value="11002206">省外律协</option>
+
+
+</select>
+            
+           
+      
+                 
+             
+<select name="datavisible.officeid" id="office">
+    <option value="0"
+    >请选择</option>
+    <option value="11001723">河南大梁律师事务所</option>
+    <option value="11001724">河南地依律师事务所</option>
+    <option value="11001725">河南典策律师事务所</option>
+    <option value="11001726">河南金明园律师事务所</option>
+    <option value="11001727">河南金杞律师事务所</option>
+    <option value="11001728">河南辽源律师事务所</option>
+    <option value="11001729" selected="selected">河南龙文律师事务所</option>
+    <option value="11001730">河南论衡律师事务所</option>
+    <option value="11001731">河南时代律师事务所</option>
+    <option value="11001732">河南世纪行律师事务所</option>
+    <option value="11001733">河南顺河律师事务所</option>
+    <option value="11001734">河南王松华律师事务所</option>
+    <option value="11001735">河南祥符律师事务所</option>
+    <option value="11001736">河南循规律师事务所</option>
+    <option value="11001737">河南裕禄律师事务所</option>
+    <option value="11001738">河南正言律师事务所</option>
+    <option value="11001739">河南众志诚城律师事务所</option>
+    <option value="11001740">河南子建律师事务所</option>
+
+
+</select>
+ 
+            
+           </td>
+        </tr>
+    
+		
+        <tr>
+          <td height="2" colspan="2">
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" align="center">
+          	<input type="submit" id="save" value=" 确认转所 " class="button"/>
+&nbsp;
+           	&nbsp;
+          	<input type="button" value=" 返 回 " onClick="javascript:history.back(-1)" class="button">
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div class="page_6"><form action="" method="get">
+		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+		</form></div>
+    </div>
+  </div>
+</div>
+<div class="blank15px"></div>
+<div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="#">长鹏软件</a></br>
+备案序号：粤ICP备05082150号
+</div>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>无标题文档</title>
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+
+<script language=javascript id=clientEventHandlersJS>
+<!--
+var number=8;
+
+function LMYC() {
+var lbmc;
+//var treePic;
+    for (i=1;i<=number;i++) {
+        lbmc = eval('LM' + i);
+        //treePic = eval('treePic'+i);
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+ 
+function ShowFLT(i) {
+    lbmc = eval('LM' + i);
+    //treePic = eval('treePic' + i)
+    if (lbmc.style.display == 'none') {
+        LMYC();
+        //treePic.src = 'images/nofile.gif';
+        lbmc.style.display = '';
+    }
+    else {
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+//-->
+      </script>
+</head>
+
+<body >
+<div class="header">
+  <div class="logo left"><a href="index.html"><img src="images/logo.gif" width="234" height="51" /></a></div>
+  <div class="denglu right">张三丰，您好，欢迎您登录培训平台！&nbsp;&nbsp;<a href="#">首页</a>&nbsp;&nbsp;<a href="#">注销</a>&nbsp;&nbsp;<a href="#">退出</a></div>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="lessoncenter.html">选课中心</a></li>
+  <li><a href="course.html">我选购的课程</a></li>
+  <li><a href="notice.html">培训通知</a></li>
+  <li><a href="jifen.html">我的学分</a></li>
+  <li><a href="favorites.html">收藏夹</a></li>
+  <li><a href="shopping.html">购物车</a></li>
+  <li><a href="order.html">我的订单</a></li>
+  <li><a href="news.html">我的消息</a></li>
+  <li><a href="application.html">转所申请</a></li>
+  <li><a href="information.html" class="current">个人信息</a></li>
+</ul></div>
+<div class="gml">当前位置：<a href="index.html">首页</a>----<a href="news.html"><strong>个人信息</strong></a></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">个人信息</div>   
+     <ul class="con_wz">
+     <li><a href="newstext.html" target="_blank">个人资料维护</a></li>
+        <li><a href="#">密码修改</a></li>
+      </ul>
+  </div>
+  <div class="con_right6 left">
+    <div class="con_right6_title"><h2>个人信息</h2></div>
+    <div class="star2">
+      <form namespace="/lawyers" id="lawyersEditSelf" name="form1" onsubmit="return validateForm_lawyersEditSelf();" action="/lawyers/lawyersEditSelf.pl" method="post" enctype="multipart/form-data">
+<table width="100%" border="0" cellpadding="0" cellspacing="1"
+						bgcolor="#EDEDED">
+		<tr>
+          <td colspan="2">&nbsp;
+          	 	<font color="#FF0000"><b>
+       
+         </b></font>
+         
+         </td>
+        </tr>
+		 <tr>
+          <td align="right" width="20%" class="tab_content1">
+             您的所属事务所:
+          </td>
+          <td class="tab_content1">
+&nbsp;河南省律协->
+         郑州市律师协会->
+         河南豫商律师事务所
+           </td>
+        </tr>
+            <tr>
+          <td align="right" class="tab_content1"> 您的执业证号: </td>
+             <td class="tab_content1">
+              &nbsp;14101201010974860
+              </td>
+        </tr>
+                <tr id="loginnameid" style="display:none">
+          <td align="right" class="tab_content1"> 您的登录账号: </td>
+             <td class="tab_content1">
+               &nbsp;14101201010974860
+               </td>
+        </tr>
+        <tr>
+          <td align="right" class="tab_content">
+             您的姓名:
+          </td>
+          <td class="tab_content">&nbsp;         
+<input type="text" name="lawyers.lawyername" size="15" maxlength="15" value="秦俊才" id="lawyersEditSelf_lawyers_lawyername" class="text1"/>
+              <span class="hint">不为空且长度不超过7个汉字</span> </td>
+        </tr>
+
+        
+		<tr>
+            <td align="right" class="tab_content"> 您的身份证号: </td>
+          <td class="tab_content">&nbsp;
+<input type="text" name="lawyers.certno" size="20" maxlength="20" value="41052119830628351X" id="lawyersEditSelf_lawyers_certno" class="text1"/>
+            <span class="hint">不为空且长度不超过20个字符</span>
+          </td>
+        </tr>
+		
+	
+       <tr> 
+            <td align="right" class="tab_content1">您在律协执业日期: </td>
+          <td class="tab_content1">&nbsp;
+<input type="text" name="lawyers.zhiyedatestr" size="10" value="2010-08-10" readonly="readonly" id="lawyersEditSelf_lawyers_zhiyedatestr" class="text1"/>
+    <a href="#" id="lawyersEditSelf_lawyers_zhiyedatestr_button">
+        
+    </a>
+    <script type="text/javascript">
+        Calendar.setup({
+            inputField     :    "lawyersEditSelf_lawyers_zhiyedatestr",
+            
+            
+            showsTime      :    false,
+            ifFormat       :    "%Y-%m-%d",
+            step           :    1
+        });
+    </script>
+
+            </td>
+        </tr>
+		<tr>
+            <td align="right" class="tab_content"> 您的手机号码: </td>
+          <td class="tab_content">&nbsp;
+<input type="text" name="lawyers.mobile1" size="13" maxlength="13" value="13653714084" id="lawyersEditSelf_lawyers_mobile1" class="text1"/>
+            </td>
+        </tr>
+         <tr> 
+          <td align="right" class="tab_content1">您的照片: </td>
+          <td class="tab_content">&nbsp;         
+<input type="file" name="upload" value="" id="lawyersEditSelf_upload" class="text1"/>
+           <br><font color="#FF0000">
+          &nbsp;请提供标准2寸身份证相片,照片格式为:宽为120像素,高为160像素
+           </font>
+            </td>
+        </tr>
+		 <tr> 
+            <td align="right" class="tab_content">您的性别: </td>
+          <td class="tab_content">
+           &nbsp;
+<select name="lawyers.gender" id="lawyersEditSelf_lawyers_gender">
+    <option value="G" selected="selected">男</option>
+    <option value="M">女</option>
+
+
+</select>
+            </td>
+        </tr>
+       
+        <tr> 
+            <td align="right" class="tab_content1">备注信息: </td>
+          <td class="tab_content1">
+            &nbsp;
+<textarea name="lawyers.remarks" cols="50" rows="4" id="lawyersEditSelf_lawyers_remarks" class="textarea1"></textarea>
+            </td>
+        </tr>
+		
+        <tr>
+          <td height="2" colspan="2">
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" align="center">
+          	<input type="submit" id="save" value=" 保 存 " class="button"/>
+&nbsp;
+           	&nbsp;
+
+          </td>
+        </tr>
+      </table>
+    </form>
+<div class="blank10px"></div>
+    <div class="page_11"><form action="" method="get">
+		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+		</form></div>
+    </div>
+    
+  </div>
+</div>
+<div class="blank15px"></div>
+<div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="#">长鹏软件</a></br>
+备案序号：粤ICP备05082150号
+</div>
+</body>
+</html>

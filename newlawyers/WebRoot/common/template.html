@@ -1,0 +1,58 @@
+<#macro template myheader title>
+<#import "header.html" as header >
+<#import "footer.html" as footer >
+<#assign s=JspTaglibs["/WEB-INF/struts-tags.tld"]>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+  <title>
+ 
+   <#if title!="">中国律师协会培训系统-${title}
+  <#else>中国律师协会培训系统</#if>
+  
+  </title>
+<link href="../css/css.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="../js/tab.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<#if myheader!="">
+	<#import "${myheader}" as eachhead >
+	<@eachhead.index_h />
+</#if>
+<script language="javascript" type="js/javascript" >
+var number1=8;
+function LMYC() {
+var lbmc;
+//var treePic;
+    for (i=1;i<=number1;i++) {
+        lbmc = eval('LM' + i);
+        //treePic = eval('treePic'+i);
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+function ShowFLT(i) {
+    lbmc = eval('LM' + i);
+    //treePic = eval('treePic' + i)
+    if (lbmc.style.display == 'none') {
+        LMYC();
+        //treePic.src = 'images/nofile.gif';
+        lbmc.style.display = '';
+    }
+    else {
+        //treePic.src = 'images/file.gif';
+        lbmc.style.display = 'none';
+    }
+}
+</script>
+</head>
+
+<body >
+<@header.header/>
+	<#nested/>
+	<@footer.footer/>
+</body>
+</html>
+</#macro>

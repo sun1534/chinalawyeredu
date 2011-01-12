@@ -1,0 +1,22 @@
+#
+#Wed Jan 12 09:04:45 CST 2011
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=true
+reStrategyClass=
+springDaoFile=
+useJavaTypes=false
+keyGenerator=identity
+libInstallFolder=
+addLibs2Project=false
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=/saaspxxt_lawyer/hibernate.reveng.xml
+configFile=/saaspxxt_lawyer/src/hibernate.cfg.xml
+createConfigFile=true
+addLibs2Classpath=false
