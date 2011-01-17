@@ -1,0 +1,75 @@
+<#import "../common/template.html" as template >
+<#escape x as (x)!"">
+<@template.template myheader="" title="个人转所历史记录">
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<a href="../lawyers/officeChangeApplyList.pl"><strong>转所申请</strong></a></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">转所申请</div>   
+     <ul class="con_wz">
+        <li><a href="../lawyers/officeChangeApply!input.pl">发起申请</a></li>
+        <li><a href="../lawyers/officeChangeApplyList.pl">状态跟踪</a></li>
+      </ul>
+  </div>
+  <div class="con_right2 left">
+    <div class="con_right5_title"><h2>转所申请历史记录</h2></div>
+    <div class="star">
+      <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
+      <tr>
+       <TD width="6%" height="23" align="center" background="../imagesa/top-bg1.gif">申请人</TD> 
+            <TD width="27%" height="23" align="center" background="../imagesa/top-bg1.gif">原所在事务所</TD> 
+     
+        <TD width="30%" align="center" background="../imagesa/top-bg1.gif">申请转所事务所</TD>
+         <TD width="9%" align="center" background="../imagesa/top-bg1.gif">申请时间</TD>
+         <TD width="8%" align="center" background="../imagesa/top-bg1.gif">当前状态</TD>
+          <TD width="15%" align="center" background="../imagesa/top-bg1.gif">处理时间</TD>
+             <TD width="5%" align="center" background="../imagesa/top-bg1.gif">处理人</TD>
+      </tr>
+      
+      <@s.iterator value="page.items" status="stat">
+      <TR>
+      <TD class="tab_content" align="center">${applyname }</TD>
+       <TD class="tab_content" align="center"><@s.property value="@com.changpeng.common.CommonDatas@groups[oldcity]"/>&gt;<@s.property value="@com.changpeng.common.CommonDatas@groups[oldoffice]"/></TD>
+         <TD class="tab_content" align="center"><@s.property value="@com.changpeng.common.CommonDatas@groups[newcity]"/>&gt;<@s.property value="@com.changpeng.common.CommonDatas@groups[newoffice]"/></TD>
+       <TD class="tab_content" align="center"><@s.date name="applyTime" format="yyyy-MM-dd HH:mm:ss"/></TD>
+       <TD class="tab_content" align="center">${statusStr}</TD>
+       <TD class="tab_content" align="center">
+        <@s.if test="status==0">
+       还未处理,<a href="officeChangeApplyCancel.pl?id=${id }">【取消】</a>
+       </@s.if>
+       <@s.else>
+       <@s.date name="confirmTime" format="yyyy-MM-dd HH:mm:ss"/>
+       </@s.else>
+       </a>
+       
+       
+       </TD>
+        <TD class="tab_content" align="center">${confirmusername}</TD>
+      </TR>
+     
+      
+     </@s.iterator>
+      
+      <tr style="background-color=#F1F1ED">
+        <td  colspan="7" align="center">&nbsp;
+          	
+       </td>
+      </tr>
+     
+    </table>
+        	<table width="100%" border="0" cellpadding="0" cellspacing="1">
+        <tr >
+          <td height="24" align="center" background="../imagesa/login_bg1.gif" >
+       <input type="button" name="addforum" value="申请转所" onclick="getAdd()"/>
+          </td>
+        </tr>
+      </table>   
+    <div class="page_6"><form action="" method="get">
+		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+		</form></div>
+    </div>
+    
+  </div>
+</div>
+</@template.template>
+</#escape>	
+

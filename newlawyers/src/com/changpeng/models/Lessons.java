@@ -12,7 +12,16 @@ import java.text.DateFormat;
 public class Lessons implements java.io.Serializable {
 
 	// Fields
-
+	
+private static final java.text.DateFormat dfyear=new java.text.SimpleDateFormat("yyyy");
+	public String getLessonyear(){
+		return dfyear.format(createtime);
+	}
+	
+	private int replycnt;
+	private float fenshu;
+	private int listencnt;
+	
 	private String pic;
 	private int lessonid;
 	private int lessonidOfserver;
@@ -414,12 +423,54 @@ public class Lessons implements java.io.Serializable {
 	public String getPic() {
 		return pic;
 	}
+	public String getHttpPic() {
+		if(pic!=null&&!pic.equals(""))
+			return com.changpeng.common.Constants.DEFAULT_LOGO_PATH+"lesson/"+pic;
+		return com.changpeng.common.Constants.DEFAULT_LOGO_PATH+"lesson/dftpic.gif";
+	}
 	/**
 	 * @param pic the pic to set
 	 */
 	public void setPic(String pic) {
 		this.pic = pic;
 	}
+	/**
+	 * @return the replycnt
+	 */
+	public int getReplycnt() {
+		return replycnt;
+	}
+	/**
+	 * @param replycnt the replycnt to set
+	 */
+	public void setReplycnt(int replycnt) {
+		this.replycnt = replycnt;
+	}
+	/**
+	 * @return the fenshu
+	 */
+	public float getFenshu() {
+		return fenshu;
+	}
+	/**
+	 * @param fenshu the fenshu to set
+	 */
+	public void setFenshu(float fenshu) {
+		this.fenshu = fenshu;
+	}
+	/**
+	 * @return the listencnt
+	 */
+	public int getListencnt() {
+		return listencnt;
+	}
+	/**
+	 * @param listencnt the listencnt to set
+	 */
+	public void setListencnt(int listencnt) {
+		this.listencnt = listencnt;
+	}
+
 
 	// public Set getLessonreplies() {
 	// return this.lessonreplies;

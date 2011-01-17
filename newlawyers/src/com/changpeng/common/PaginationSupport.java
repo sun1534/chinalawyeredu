@@ -4,6 +4,7 @@
 
 package com.changpeng.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,6 +38,15 @@ public class PaginationSupport {
 	 * 游标的起始位置
 	 */
 	private int startIndex = 0;
+	
+	public PaginationSupport() {
+		setPageSize(PAGESIZE);
+		setTotalCount(0);
+		setItems(new ArrayList());
+		setStartIndex(0);
+		pageNo = 1;
+	}
+	
 	public PaginationSupport(List items, int totalCount) {
 		setPageSize(PAGESIZE);
 		setTotalCount(totalCount);
@@ -153,7 +163,48 @@ public class PaginationSupport {
 //    	this.pageView=view;
 //    }
     
-    public String getPageView() {
+	
+	public String getPageView(){
+		StringBuffer sb = new StringBuffer("<span>");
+		pageNo = (this.startIndex / this.pageSize) + 1;
+
+		// int pageNum = (this.totalCount + pageSize - 1) / pageSize;
+		int pageNum = this.count;
+		
+		if (pageNum > 0) {
+			
+			
+			sb.append("<font color='red'>总计").append(totalCount).append("条记录,第").append(pageNo).append("页,共").append(pageNum).append("页</font>");
+			
+			if(pageNum>1)
+			{
+//				<span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+
+				sb.append("&nbsp;&nbsp;");
+				if (pageNo == 1) {
+					sb.append("首页&nbsp;上一页&nbsp;");
+				}
+				else {
+					sb.append("<span><a href=\"#\" onclick=fanye(").append(1).append(")>首页</a></span>&nbsp;<span><a href=\"#\" onclick=fanye(")
+							.append(pageNo - 1).append(")>上一页</a></span>&nbsp;");
+				}
+				if (pageNo == pageNum) {
+					sb.append("&nbsp;下一页&nbsp;末页");
+				}
+				else {
+					sb.append("&nbsp;<span><a href=\"#\" onclick=fanye(").append(pageNo + 1).append(
+							")>下一页</a></span>&nbsp;<span><a href=\"#\" onclick=fanye(").append(pageNum).append(")>末页</a></span>");
+				}
+				
+			}
+			
+			
+		}
+		sb.append("</span>");
+		return sb.toString();
+	}
+	
+    public String getPageView1() {
 		// log.debug("count:"+count);
 		StringBuffer sb = new StringBuffer();
 		pageNo = (this.startIndex / this.pageSize) + 1;

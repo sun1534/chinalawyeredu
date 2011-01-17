@@ -31,7 +31,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	private BasicService basicService = null;
 	private JifenTime jifentime;
-	private int lessontype;
+	private int lessontype=-1;
 	private Lessontype notfenlei;
 	/**
 	 * @return the notfenlei
@@ -68,10 +68,20 @@ public class LessonsListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 //		this.pageSize = 20;
+		
+		if(lessonstyle==2)
+			moduleId=1000;
+		else
+			moduleId=1002;
+		
 		LessonsService lessonservice = (LessonsService) this.getBean("lessonsService");
 
+//		System.out.println("lessonservice===="+lessonservice);
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
-		notfenlei=(Lessontype)lessonservice.get(Lessontype.class, 0);
+		notfenlei=(Lessontype)basicService.get(Lessontype.class, 0);
+		
+		
+//		System.out.println("notfenlei===="+notfenlei);
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 
 		Lawyers lawyers = this.getLoginUser();
@@ -98,8 +108,16 @@ public class LessonsListAction extends AbstractListAction {
 				groupid = datavisible.getCityid();
 		}
 //System.out.println("audioQuality="+audioQuality+",,videoQuality="+videoQuality);
-		this.page = lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
-				lessontype, title, teachers, pageSize, pageNo, start, end);
+		
+		
+		
+//		this.page = lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
+//				lessontype, title, teachers, 8, pageNo, start, end);
+		
+		if(resultType.equals("view"))
+			pageSize=8;
+		this.page=lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle, lessontype, title, teachers, isfree, orderBy, pageSize, pageNo);
+			
 
 		int lawyerid = this.getLoginUser().getLawyerid();
 		lessonlist = new ArrayList();
@@ -138,6 +156,11 @@ public class LessonsListAction extends AbstractListAction {
 		return "online";
 	}
 
+	
+	private String isfree="-1";
+	private String orderBy;
+	private String resultType="view";
+	
 	private int audioQuality = -1;
 	private int videoQuality = -1;
 	private int onlineType = -1;
@@ -280,5 +303,47 @@ public class LessonsListAction extends AbstractListAction {
 	 */
 	public void setVideoQuality(int videoQuality) {
 		this.videoQuality = videoQuality;
+	}
+
+	/**
+	 * @return the isfree
+	 */
+	public String getIsfree() {
+		return isfree;
+	}
+
+	/**
+	 * @param isfree the isfree to set
+	 */
+	public void setIsfree(String isfree) {
+		this.isfree = isfree;
+	}
+
+	/**
+	 * @return the orderBy
+	 */
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+	/**
+	 * @param orderBy the orderBy to set
+	 */
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
+
+	/**
+	 * @return the resultType
+	 */
+	public String getResultType() {
+		return resultType;
+	}
+
+	/**
+	 * @param resultType the resultType to set
+	 */
+	public void setResultType(String resultType) {
+		this.resultType = resultType;
 	}
 }

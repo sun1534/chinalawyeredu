@@ -1,0 +1,187 @@
+<#import "../common/template.html" as template >
+<#escape x as (x)!"">
+<@template.template myheader="" title="选课中心">
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<a href="../lessons/lessonsList.pl?lessonstyle=2"><strong>选课中心</strong></a></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">选课中心</div>   
+          <div id="form" style="display:none">
+     <form name="form1" action="lessonsList.pl" method="post">
+      <input type="hidden" name="lessonstyle" id="id_lessonstyle" value="2">
+        <input type="hidden" name="lessontype" id="id_lessontype" value="${lessontype}">
+     <input type="hidden" name="orderBy" id="id_orderBy" value="${orderBy}">
+     <input type="hidden" name="isfree" id="id_isfree"  value="${isfree}">
+     <input type="hidden" name="resultType" id="id_resultType"  value="${resultType}">
+       <input type="hidden" name="pageNo" id="id_pageNo"  value="${pageNo}">
+     </form>
+     <script language="javascript">
+     function fanye(pageNo){
+     		 document.getElementById("id_pageNo").value=pageNo;
+     	document.form1.submit();
+     }
+     function submitform(key,value){
+    	 document.getElementById("id_"+key).value=value;
+     	document.form1.submit();
+     }
+     function shoucangit(lessonid){
+     	var url="../lessonajax/lessonShoucang.pl?lessonid="+lessonid;
+  $.getJSON(url, {"now":new Date().getTime()}, function(json){
+     
+	   alert(json.msg);
+   
+   });
+     }
+     function xuangouit(lessonid){
+          	var url="../lessonajax/lessonXuangou.pl?lessonid="+lessonid;
+  $.getJSON(url, {"now":new Date().getTime()}, function(json){
+	   alert(json.msg);
+   });
+     }
+     
+     </script>
+     </div> 
+     <TABLE cellSpacing=0 cellPadding=0 width="88%" border=0>
+        <TBODY>
+        <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="../images/jiantou.gif" width="4" height="10" /> 
+            <A onclick=javascript:void(0) 
+                  href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=-1">全部课程</A> </TD>
+          </TR>
+         <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="../images/jiantou.gif" width="4" height="10" /> 
+            <A onclick=javascript:void(0) 
+                  href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=0">未分类（${notfenlei.lessoncnt}个）</A> </TD>
+          </TR>
+      
+          <@s.iterator value="@com.changpeng.lessons.util.CommonDatas@TOP_LEVEL_TYPE">
+          	 <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="../images/jiantou.gif" width="4" height="10" /> 
+            <A onclick=javascript:void(0) 
+                  href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${typeid}">${typename}（${lessoncnt}个）</A> </TD>
+          </TR>
+          <@s.if test="haschild">
+         
+            <TR id=LM1>
+          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TBODY>
+                  <@s.iterator value="children">
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="../images/dian_.gif" width="3" height="3" /> 
+                    <A title=文件夹 
+                        href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${typeid}" 
+                        >${typename}</A> </TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                    </@s.iterator>
+                </TBODY>
+            </TABLE></TD>
+          </TR>
+       
+          </@s.if>
+          </@s.iterator>
+          
+        
+        
+
+        </TBODY>
+    </TABLE>
+     
+   
+  </div>
+  <div class="con_right2 left">
+    <div class="con_right2_title"><h2><@s.if test="lessontype==-1">分类：全部</@s.if><@s.else>分类：<@s.property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]"/></@s.else></h2><span><a href="#" onclick="submitform('resultType','view')">详细显示</a>&nbsp;&nbsp;<a href="#" onclick="submitform('resultType','list')">列表显示</a></span></div>
+    <div class="star">
+	    <div class="startitle">
+排序：<a href="#" onclick="submitform('orderBy','listencnt')">按热门</a>&nbsp;&nbsp;<a href="#" onclick="submitform('orderBy','lessondate')">按年份</a>&nbsp;&nbsp;<a href="#" onclick="submitform('orderBy','fenshu')">按评分</a>&nbsp;&nbsp;&nbsp;&nbsp;显示：<a href="#" onclick="submitform('isfree','-1')">全部</a>&nbsp; <a href="#" onclick="submitform('isfree','1')">免费</a>&nbsp; <a href="#" onclick="submitform('isfree','0')">收费</a></div>
+<@s.if test="resultType.equals(\"list\")">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+      <td>
+      <span id="right_lblist">
+      <table class='tab_list' width='100%' cellSpacing='1' cellPadding='1' align='center' bgColor='#b5b5b5' border='0'>
+        <tr bgcolor=#f3f3f3>
+        <td align=center>
+        <table class='tab_list' width=100% cellspacing=1 cellpadding=1 align=center bgcolor=#b5b5b5 border=0>
+          <tr bgcolor=#f3f3f3>
+            <td align=center height=30 nowrap="nowrap">课程名称</td>
+            <td align=center>主讲人</td>
+            <td align=center>类别</td>
+            <td align=center>学分</td>
+            <td align=center>类型</td>
+            <td align=center>画质</td>
+            <td align=center>音质</td>
+            <td align=center>来源</td>
+            <td align=center>授课时间</td>
+            <td align=center>试听</td>
+          </tr>
+          <@s.iterator value="page.items">
+          <tr bgcolor=#f3f3f3>
+            
+            <td align=center height=30 nowrap="nowrap">
+            <a href="#">
+            ${title}
+            </a>
+            </td>
+            <td align=center><span class="tab_content">${teachers}</span></td>
+            <td align=center><span class="tab_content">${stack.findValue("@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]")}</span></td>
+            <td align=center>${xuefen}</td>
+            <td align=center><span class="tab_content">
+            <@s.if test="onlineType==1">		
+								<font color='red'>音频</font>
+								</@s.if>
+								<@s.else>视频
+								</@s.else></span></td>
+            <td align=center><span class="tab_content">${videoQualityStr}</span></td>
+            <td align=center><span class="tab_content">${audioQualityStr}</span></td>
+            <td align=center><span class="tab_content"><@s.property value="@com.changpeng.common.CommonDatas@groups[groupid]"/></span></td>
+            <td align=center><span class="tab_content">  <@s.date name="lessondate" format="yyyy-MM-dd HH:mm"/></span></td>
+            <td align=center>
+            <span class="tab_content">
+            <a href="../jifen/videoLookPre.pl?lessonid=${lessonid}" target="_blank">
+            <img src="../images/tu_shi.gif" width="16" height="16" border="0"/>
+            </a>
+            </span>
+            </td>
+          </tr>
+         </@s.iterator> 
+          
+        </table> 
+        
+         </td>  
+               </tr>
+      </table>
+      </td>
+  </tr>
+</table>
+    </@s.if>
+    <@s.else>
+<@s.iterator value="page.items">
+	<div class="t_n">
+	<a href="#"><img src="${httpPic}" width="150" /></a>
+ <div class="list3_ul_ul">
+ 	       <ul>
+           <h3><a href="#"><strong>${title}</strong></a></h3>
+           <p class="num_con"><span><strong>${fenshu }</strong></span>( ${replycnt }人评)</p>
+				<li>主讲人：<span>${teachers}</span></li>
+              <!--   <li>职务：<span>人民大学法学院  教授</span></li>-->
+                <li>提供者：<span>${stack.findValue("@com.changpeng.common.CommonDatas@groups[groupid]")}  时间：${lessonyear}年</span></li>	
+                <li>类型：<span>${stack.findValue("@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]")}</span></li>								
+		  </ul>
+        </div>
+        <div class="st">
+    <a href="../jifen/videoLookPre.pl?lessonid=${lessonid}" target="_blank"><div class="gk"></div></a>
+        <div class="oper"><a href="#">课评</a>&nbsp;<a title="" href="#" onclick="shoucangit(${lessonid} )" >收藏</a>&nbsp;<a href="#" onclick="xuangouit(${lessonid })">选购（￥${ price}）</a></div></div>
+    </div>
+</@s.iterator>
+</@s.else>
+    <div class="page_01">
+${page.pageView}
+		</div>
+    </div>
+    
+  </div>
+</div>
+</@template.template>
+</#escape>	

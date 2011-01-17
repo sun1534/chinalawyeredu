@@ -6,14 +6,14 @@
 -->
 <hibernate-mapping>
     <class name="com.changpeng.models.Lessonshoucang" table="lessonshoucang" catalog="saaspxxt">
-        <id name="id" type="integer">
+        <id name="id" type="int">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="lawyerid" type="integer">
+        <property name="lawyerid" type="int">
             <column name="lawyerid" not-null="true" />
         </property>
-        <property name="lessonid" type="integer">
+        <property name="lessonid" type="int">
             <column name="lessonid" not-null="true" />
         </property>
         <property name="shoucangdate" type="timestamp">

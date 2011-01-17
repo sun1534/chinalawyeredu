@@ -1,0 +1,137 @@
+<#import "../common/template.html" as template >
+<#escape x as (x)!"">
+<@template.template myheader="" title="积分查询">
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<a href="../jifen/jifenQuery.pl"><strong>我的学分</strong></a></div>
+<div class="con">
+  <div class="con_left3 left">
+     <div class="con_left3_title">我的积分</div>   
+  <TABLE cellSpacing=0 cellPadding=0 width="88%" border=0>
+        <TBODY>
+          <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" />按年份查看</TD>
+          </TR>
+          <TR id=LM1>
+          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TBODY>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=本年度 
+                        href="../jifen/jifenQuery.pl?nianshenyear=${nowyear}" 
+                        >本年度</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=上一年度 
+                        href="../jifen/jifenQuery.pl?nianshenyear=${lastyear}" 
+                        >上一年度</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=更早的 
+                        href="../jifen/jifenQuery.pl?nianshenyear=-1" 
+                        >全部</A> </TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                </TBODY>
+            </TABLE></TD>
+          </TR>
+          <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" />按积分类型查看 </TD>
+          </TR>
+          <TR id=LM2>
+          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TBODY>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=文件夹 
+                        href="../jifen/jifenQuery.pl?nianshenyear=-1&learnmode=2" 
+                        >在线课程积分</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
+                        href="../jifen/jifenQuery.pl?nianshenyear=-1&learnmode=1" 
+                        >现场课程积分</A></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
+                        href="../jifen/jifenQuery.pl?nianshenyear=-1&learnmode=4" 
+                        >补登积分</A></TD>
+                  </TR>
+                </TBODY>
+            </TABLE></TD>
+          </TR>
+
+      </TBODY>
+    </TABLE>
+  
+  </div>
+  <div class="con_right5 left">
+	<div class="con_right5_title"><h2>我的积分
+	 <@s.if test="nianshenyear!=-1">
+	(积分计算：从【${jifentime.startstr}】到【${jifentime.endstr}】。达标需满【${dabiaofen }】分)
+	</@s.if>
+	</h2></div>
+    <div class="star4">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <td>
+    <span id="right_lblist">
+    <TABLE class='tab_list' width=100% cellSpacing=1 cellPadding=1 align=center bgColor=#b5b5b5 border=0>
+    <tr bgcolor=#f3f3f3>
+    <td align=center height=30 nowrap="nowrap">课程名称</td>
+    <td align=center>培训方式</td>
+    <td align=center>培训日期</td>
+    <td align=center>课程时长(分)</td>
+    <td align=center>培训时长(分)</td>
+    <td align=center>课程积分</td>
+    <td align=center>获得积分</td>
+    <td align=center>积分年度</td>
+     <@s.set name="alljifen" value="0"/>
+   <@s.iterator value="page.items" status="stat">
+    <tr bgcolor=#f3f3f3>
+    <td align=left height=30 nowrap="nowrap">
+            <@s.if test="lessonid>0">
+        <a href="../lessons/lessonsView.pl?lessonid=${lessonid }">${title}</a>
+        </@s.if>
+        <@s.else>
+        ${title}
+        </@s.else>
+    
+    </td>
+    <td align=center><span class="tab_content"><@s.property value="@com.changpeng.jifen.util.CommonDatas@LEARNMODE[learnmode]"/></span></td>
+    <td align=center><span class="tab_content">${pxdate}</span></td>
+    <td align=center title="广东君言律师事务所"><span class="tab_content">${pxreqminutes}</span></td>
+    <td align=center title="广东君言律师事务所"><span class="tab_content">${pxminutes}</span></td>
+    <td align=center><a href="#" target="_blank"><span class="tab_content">${pxxf}</span></a></td>
+    <td align=center><a href="#" target="_blank"><span class="tab_content">${zongjifen}</span></a></td>
+    <td align=center><a href="#" target="_blank"><span class="tab_content">${theyear}</span></a></td>
+    <@s.set name="alljifen" value="#alljifen+pxxf"/>
+</tr>
+   </@s.iterator> 
+    </TABLE>    
+   </td>
+  </tr>
+</table>
+<@s.if test="nianshenyear!=-1">
+<div class="jier2">
+积分统计：
+     现场培训:${stack.findValue("@com.changpeng.jifen.util.NumberUtil@toMoney(localecnt)")} &nbsp;
+      在线视频:<@s.property value="@com.changpeng.jifen.util.NumberUtil@toMoney(video)"/>&nbsp;
+       文本课件:<@s.property value="@com.changpeng.jifen.util.NumberUtil@toMoney(wenbenkejian)"/>&nbsp;
+       补登积分:<@s.property value="@com.changpeng.jifen.util.NumberUtil@toMoney(budeng)"/>&nbsp;
+  总积分:<@s.property value="@com.changpeng.jifen.util.NumberUtil@toMoney(#alljifen)"/>&nbsp;
+
+</div>
+</@s.if>
+    </div>
+    
+  </div>
+</div>
+</@template.template>
+</#escape>	

@@ -37,6 +37,11 @@ public class JifenbudengApplyAction extends AbstractAction {
 		return budengApply;
 	}
 
+	
+	public JifenbudengApplyAction(){
+		this.moduleId = 1003;
+	}
+	
 	/*
 	 * 
 	 * 

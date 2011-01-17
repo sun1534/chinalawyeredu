@@ -42,8 +42,29 @@ public class SysGroup implements java.io.Serializable {
 	
 	private String systemno;
 	private int usercnts;
+	private int isbuy;
 
 	// Constructors
+
+	/**
+	 * @return the isbuy
+	 */
+	public int getIsbuy() {
+		return isbuy;
+	}
+
+
+
+
+	/**
+	 * @param isbuy the isbuy to set
+	 */
+	public void setIsbuy(int isbuy) {
+		this.isbuy = isbuy;
+	}
+
+
+
 
 	/**
 	 * @return the usercnts

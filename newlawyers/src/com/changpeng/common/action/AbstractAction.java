@@ -96,7 +96,7 @@ public abstract class AbstractAction extends ActionSupport {
 	 * @param value
 	 */
 	protected void set(Object key, Object value) {
-		ActionContext.getContext().getSession().put(key, value);
+		ActionContext.getContext().getSession().put(key.toString(), value);
 	}
 
 	/**

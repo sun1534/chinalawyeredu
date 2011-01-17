@@ -25,8 +25,10 @@ public class ScheduleTask extends TimerTask{
 			LOG.info("总数:"+service.findBySqlQuery("select count(*) from sys_user"));
 			LOG.info("在线用户数:"+com.changpeng.common.CommonDatas.ONLINE_USERS.size());
 			com.changpeng.lessons.util.CommonDatas.getAlllessons();
+			com.changpeng.lessons.util.CommonDatas.staticLessons();
+			com.changpeng.lessons.util.CommonDatas.updateLessonTypes();
 			com.changpeng.common.CommonDatas.getGroups();
-//			com.changpeng.system.util.CommonDatas.getUsers();
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LOG.error("执行定时任务错误："+e.getMessage());

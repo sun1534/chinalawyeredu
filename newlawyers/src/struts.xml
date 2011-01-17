@@ -13,6 +13,7 @@
 	<constant name="struts.serve.static.browserCache" value="false" />
 	<constant name="struts.action.extension" value="pl" />
     <constant name="struts.locale" value="zh_CN" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant> 
 	
 	<!-- 可以将其修改为css_xhtml -->
 	<constant name="struts.ui.theme" value="xhtml" />
@@ -131,7 +132,7 @@
 		<action name="login" class="com.changpeng.common.action.UserLoginAction">
 		    <interceptor-ref name="visitStack"/>  
     		<result name="success" type="redirect">/index/index.pl</result><!-- 进入系统首页 -->
-			<result name="pasiveloginsuccess" type="redirect">/index/workspace.pl</result><!-- 进入系统首页 -->
+			<result name="pasiveloginsuccess" type="redirect">/lessons/lessonsList.pl?lessonstyle=2</result><!-- 进入系统首页 -->
 		</action> 
 		
 		<action name="loginFromWeb" class="com.changpeng.common.action.UserLoginFromWebSiteAction">
@@ -162,7 +163,7 @@
        <default-interceptor-ref name="adminStack"/>
        <action name="index" class="com.changpeng.index.IndexPageAction">
           <!--     <result name="success" type="freemarker">/index/lessoncenter.html</result>	 --> 
-          <result name="success" type="redirect">/lessons/lessonsList.action?lessonstyle=2</result>	
+          <result name="success" type="redirect">/lessons/lessonsList.pl?lessonstyle=2</result>	
        </action>
       <!--   <action name="top" class="com.changpeng.index.IndexPageAction" method="top">
           <result name="top" type="dispatcher">/index/top.jsp</result>	

@@ -24,7 +24,7 @@ public class MyOrderListAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 
-		return null;
+		return SUCCESS;
 	}
 
 }

@@ -188,13 +188,12 @@ function selectRole(roleid){
       </div>
       <div class="line1"></div>
       <ul class="con_right_bottom_con">
-        <li><span>180个</span><a href="#">民商事法律业务</a> </li>
-        <li><span>120个</span><a href="#">刑事法律业务</a> </li>
-        <li><span>69个</span><a href="#">行政法律业务</a></li>
-        <li><span>36个</span><a href="#">执行法律业务</a> </li>
-        <li><span>28个</span><a href="#">律师事务所管理</a> </li>
-        <li><span>35个</span><a href="#">推广及品牌宣传</a> </li>
-        <li><span>36个</span><a href="#">其他</a> </li>
+          <s:iterator value="@com.changpeng.lessons.util.CommonDatas@TOP_LEVEL_TYPE">
+    <s:if test="typeid!=0">
+     <li><span>${lessoncnt }个</span><a href="#">${typename }</a> </li>
+    </s:if>
+      </s:iterator>
+
       </ul>
     </div>
     <div class="con_guo">
@@ -213,38 +212,27 @@ function selectRole(roleid){
   <div class="con_tu_right left">
     <div class="con_t_w">
       <div class="con_t_title">
-        <h2>本周推荐</h2>
+        <h2>推荐课程</h2>
       </div>
       <div class="con_zhengwen">
+       <!-- 
         <div class="con_l left"><img src="../images/tu_3.gif" width="207" height="162" /></div>
+        -->
+       <s:iterator value="@com.changpeng.lessons.util.CommonDatas@RECOMMAND_LESSONS" status="stat">
+       <s:if test="#stat.index!=0">
         <div class="con3_left_center_list left">
-          <h3><a href="#"><img src="../images/tu_22.gif" width="52" height="35" /></a></h3>
+          <h3><a href="#" title="${title }"><img src="${httpPic }" width="52" height="35" border="0"/></a></h3>
           <ul class="con_ww">
-            <li><a href="#"><strong>民商事审判实务热点</strong></a></li>
-            <li><a href="#">民商事热点，不可错过</a></li>
+            <li><a href="#"><strong>${titleTrim}</strong></a></li>
+           <!--  <li><a href="#">民商事热点，不可错过</a></li> -->
           </ul>
         </div>
-        <div class="con3_left_center_list left">
-          <h3><a href="#"><img src="../images/tu_22.gif" width="52" height="35" /></a></h3>
-          <ul class="con_ww">
-            <li><a href="#"><strong>民商事审判实务热点</strong></a></li>
-            <li><a href="#">民商事热点，不可错过</a></li>
-          </ul>
-        </div>
-        <div class="con3_left_center_list left">
-          <h3><a href="#"><img src="../images/tu_22.gif" width="52" height="35" /></a></h3>
-          <ul class="con_ww">
-            <li><a href="#"><strong>民商事审判实务热点</strong></a></li>
-            <li><a href="#">民商事热点，不可错过</a></li>
-          </ul>
-        </div>
-        <div class="con3_left_center_list left">
-          <h3><a href="#"><img src="../images/tu_22.gif" width="52" height="35" /></a></h3>
-          <ul class="con_ww">
-            <li><a href="#"><strong>民商事审判实务热点</strong></a></li>
-            <li><a href="#">民商事热点，不可错过</a></li>
-          </ul>
-        </div>
+        </s:if>
+        <s:else>
+        <div class="con_l left"><img src="${httpPic }" width="207" height="162" title="${title }"/></div>
+        </s:else>
+       </s:iterator>
+       
       </div>
     </div>
     <div class="con_text_t">
@@ -269,6 +257,7 @@ function selectRole(roleid){
         <h2>最受欢迎课程</h2>
       </div>
       <div class="con_renwu">
+       <!-- 
         <div class="con_sz">
          <ul>
             <li id="two1" onmouseover="setTab('two',1,7)" class="hover">民商事&nbsp;&nbsp;|</li>
@@ -280,149 +269,18 @@ function selectRole(roleid){
             <li id="two7"onmouseover="setTab ('two',7,7)">其他&nbsp;&nbsp;|</li>
           </ul>
         </div>
+         -->
         <div class="Contentbox2">
         <div id="con_two_1">
           <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_2" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_3" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">刑事辩护散谈</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">刑事辩护散谈</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_4" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_5" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_6" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">不可错过</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-		<div id="con_two_7" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
+          <s:iterator value="@com.changpeng.lessons.util.CommonDatas@POPULAR_LESSON">
+            <li><img src="${httpPic }" width="127" height="99" border="0"/>
+            <span><a href="#">${titleTrim }</a></span>
+            </li>
+              </s:iterator>
           </ul>
         </div>
 		</div>
-        
-        <div id="con_two_2" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_3" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_4" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_5" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_6" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_7" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
-        <div id="con_two_8" style="display:none">
-          <ul class="con22_pic">
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-            <li><img src="../images/tu_ren.gif" width="127" height="99" /><span><a href="#">合同效力的认定</a></span></li>
-          </ul>
-        </div>
       </div>
     </div>
     <div class="con_zui">
@@ -430,22 +288,12 @@ function selectRole(roleid){
         <h2>最新课程</h2>
       </div>
       <div class="line1"></div>
+     <s:iterator value="@com.changpeng.lessons.util.CommonDatas@LATEST_LESSONS">
       <div class="wzi">
-        <h4><a href="#">民商事审判实务</a></h4>
-        <p>民商事热点，不可错过，2010年最热课程……</p>
+        <h4><a href="#">${titleTrim }</a></h4>
+        <p>(<s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/>)<s:date name="lessondate" format="yyyy-MM-dd"/></p>
       </div>
-      <div class="wzi">
-        <h4><a href="#">民商事审判实务</a></h4>
-        <p>民商事热点，不可错过，2010年最热课程……</p>
-      </div>
-      <div class="wzi">
-        <h4><a href="#">民商事审判实务</a></h4>
-        <p>民商事热点，不可错过，2010年最热课程……</p>
-      </div>
-      <div class="wzi">
-        <h4><a href="#">民商事审判实务</a></h4>
-        <p>民商事热点，不可错过，2010年最热课程……</p>
-      </div>
+     </s:iterator>
     </div>
     <div class="con_px">
       <div class="con_px_title">
@@ -507,30 +355,30 @@ function selectRole(roleid){
     <div class="in_left left">
       <div class="in_title">会员统计</div>
       <ul class="in_wen">
-        <li>执业律师：</li>
-        <li>实习律师：</li>
-        <li>律师事务所：</li>
-        <li>律师协会：</li>
+        <li>执业律师：<s:property value="@com.changpeng.common.CommonDatas@USER_STATICS[1]"/></li>
+        <li>实习律师：<s:property value="@com.changpeng.common.CommonDatas@USER_STATICS[2]"/></li>
+        <li>律师事务所：<s:property value="@com.changpeng.common.CommonDatas@USER_STATICS[3]"/></li>
+        <li>律师协会：<s:property value="@com.changpeng.common.CommonDatas@USER_STATICS[4]"/></li>
       </ul>
     </div>
     <div class="in_left2 left">
       <div class="in_title">最新加盟律协</div>
       <ul class="in_wen2">
-        <li><a href="#">温州市律师协会</a></li>
-        <li><a href="#">杭州市律师协会</a></li>
-        <li><a href="#">南京市律师协会</a></li>
-        <li><a href="#">河南省律师协会</a></li>
-        <li><a href="#">广西自治区律师协会</a></li>
+            <s:iterator value="@com.changpeng.common.CommonDatas@LATEST_LVXIE">
+   
+     <li><a href="#">${groupname }</a></li>
+      </s:iterator>
       </ul>
     </div>
     <div class="in_left3 left">
       <div class="in_title">最新加盟律师事务所</div>
       <ul class="in_wen3">
-        <li><a href="#">广东长鹏律师事务所</a></li>
-        <li><a href="#">北京中伦律师事务所</a></li>
-        <li><a href="#">段和段律师事务所</a></li>
-        <li><a href="#">河南中建律师事务所</a></li>
-        <li><a href="#">广东星辰律师事务所</a></li>
+           <s:iterator value="@com.changpeng.common.CommonDatas@LATEST_OFFICE">
+   
+     <li><a href="#">${groupname }</a></li>
+      </s:iterator>
+      
+
       </ul>
     </div>
   </div>

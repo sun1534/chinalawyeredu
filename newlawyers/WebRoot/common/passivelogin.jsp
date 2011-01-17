@@ -55,9 +55,9 @@ function submitOnClick()
   return true;
 }
 function submitForm(){
-	if(event.keyCode==13){
-  	   submitOnClick();
-  }
+	//if(event.keyCode==13){
+  	//   submitOnClick();
+  //}
 }
 </script>
 </head>

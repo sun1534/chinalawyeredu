@@ -138,7 +138,7 @@
     	</property>
     	<!-- 系统加载后延时多久执行定时任务 毫秒 -->
     	<property name="delay">
-    		<value>360000</value>
+    		<value>30000</value>
     	</property>
     </bean>
      <bean id="timerFactoryBean" class="org.springframework.scheduling.timer.TimerFactoryBean">

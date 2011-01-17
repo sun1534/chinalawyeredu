@@ -1,7 +1,6 @@
 package com.changpeng.models;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * Lessonorder entity.
@@ -16,10 +15,11 @@ public class Lessonorder implements java.io.Serializable {
 	private int id;
 	private int lessonid;
 	private int lawyerid;
-	private Date orderdate;
+	private Timestamp orderdate;
+	private String orderno;
 	private float orderprice;
 	private Timestamp paydate;
-	private short payresult;
+	private int payresult;
 	private String paytype;
 	private String remarks;
 
@@ -30,7 +30,7 @@ public class Lessonorder implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Lessonorder(int lessonid, int lawyerid, Date orderdate, float orderprice) {
+	public Lessonorder(int lessonid, int lawyerid, Timestamp orderdate, float orderprice) {
 		this.lessonid = lessonid;
 		this.lawyerid = lawyerid;
 		this.orderdate = orderdate;
@@ -64,11 +64,11 @@ public class Lessonorder implements java.io.Serializable {
 		this.lawyerid = lawyerid;
 	}
 
-	public Date getOrderdate() {
+	public Timestamp getOrderdate() {
 		return this.orderdate;
 	}
 
-	public void setOrderdate(Date orderdate) {
+	public void setOrderdate(Timestamp orderdate) {
 		this.orderdate = orderdate;
 	}
 
@@ -88,11 +88,11 @@ public class Lessonorder implements java.io.Serializable {
 		this.paydate = paydate;
 	}
 
-	public short getPayresult() {
+	public int getPayresult() {
 		return this.payresult;
 	}
 
-	public void setPayresult(short payresult) {
+	public void setPayresult(int payresult) {
 		this.payresult = payresult;
 	}
 
@@ -110,6 +110,20 @@ public class Lessonorder implements java.io.Serializable {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	/**
+	 * @return the orderno
+	 */
+	public String getOrderno() {
+		return orderno;
+	}
+
+	/**
+	 * @param orderno the orderno to set
+	 */
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
 	}
 
 }

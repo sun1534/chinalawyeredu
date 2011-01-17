@@ -1,0 +1,134 @@
+<#import "../common/template.html" as template >
+<#escape x as (x)!"">
+<@template.template myheader="" title="收藏夹">
+<div class="gml">当前位置：<a href="index.html">首页</a>----<a href="../lessons/shouchangList.pl"><strong>收藏夹</strong></a></div>
+<div class="con">
+  <div class="con_left3 left">
+     <div class="con_left3_title">收藏夹</div>   
+  <TABLE cellSpacing=0 cellPadding=0 width="88%" border=0>
+        <TBODY>
+          <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" /> <A onclick=javascript:ShowFLT(1) 
+                  href="javascript:void(null)">按是否已结算</A></TD>
+          </TR>
+          <TR id=LM1 style="DISPLAY: none">
+          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TBODY>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=文件夹 
+                        href="#" 
+                        target=_parent>未放入购物车</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
+                        href="#" 
+                        target=_parent>已放入购物车</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=档案盒 
+                        href="#" 
+                        target=_parent>已结算</A> </TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                </TBODY>
+            </TABLE></TD>
+          </TR>
+          <TR>
+            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" /> <A onclick=javascript:ShowFLT(2) 
+                  href="javascript:void(null)">按是否已听</A> </TD>
+          </TR>
+          <TR id=LM2 style="DISPLAY: none">
+          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TBODY>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=文件夹 
+                        href="#" 
+                        target=_parent>未听</A></TD>
+                  </TR>
+                  <TR>
+                    <TD background="" height=3></TD>
+                  </TR>
+                  <TR>
+                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
+                        href="#" 
+                        target=_parent>已听</A> </TD>
+                  </TR>
+                </TBODY>
+            </TABLE></TD>
+          </TR>
+
+      </TBODY>
+    </TABLE>
+    <div class="gou">购物车</div>
+    <div class="gwc"><a href="#">我的购物车</a></div>
+     <div class="ding">我的订单</div>
+     <div class="dan">
+     <ul>
+       <li><a href="#">三个月内</a></li>
+       <li><a href="#">半年内</a></li>
+       <li><a href="#">一年内</a></li>
+       <li><a href="#">一年前</a></li>
+       <li><a href="#">全部</a></li>
+     </ul>
+     </div>
+  </div>
+  <div class="con_right4 left">
+	<div class="dingdan4"><h2>收藏夹</h2></div>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr><td><span id="right_lblist"><TABLE class='tab_list' width=100% cellSpacing=1 cellPadding=1 align=center bgColor=#b5b5b5 border=0><TR bgColor=#649fbc nowrap></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href="../szsg/sgtext.html">课程名称</a></td><td align=center>主讲人</td><td align=center>类别</a></td><td align=center title="广东广和律师事务所">学分</a></td><td align=center><a href="#" target="_blank">类型</a></td><td align=center><a href="#" target="_blank">画质</a></td><td align=center><a href="#" target="_blank">单质</a></td><td align=center><a href="#" target="_blank">来源</a></td><td align=center><a href="#" target="_blank">授课时间</a></td><td align=center><a href="#" target="_blank">价格</a></td><td align=center><a href="#" target="_blank">操作</a></td></tr>
+    <tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91632'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东君言律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">视频</a></td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td>
+    <td align=center><a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91631'>侵权责任法</a></td><td align=center>杨立新</td><td align=center></a>侵权法</td><td align=center title="广东硕法律师事务所">4.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">好</a></td><td align=center><a href="#" target="_blank">深圳律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91630'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东品然律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>好</td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91629'>侵权责任法</a></td><td align=center>杨立新</td><td align=center>侵权法</a></td><td align=center title="广东品然律师事务所">4.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>中</td><td align=center><a href="#" target="_blank">好</a></td><td align=center><a href="#" target="_blank">深圳律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91628'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东鹏港律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>好</td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">移除</a></td></tr></TABLE>
+    <div class="page2"><form action="" method="get">
+		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+		</form></div>
+    <BR><script>function plink(pg){document.aspnetForm.pageNum.value=pg;aspnetForm.submit();}function PYM(az){document.aspnetForm.az.value=az;aspnetForm.submit();}</script></span>
+   </td>
+  </tr>
+</table>
+    <div class="star4">
+
+<div class="dingdan5"><h2>我的购物车</h2></div>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><span id="right_lblist"><TABLE class='tab_list' width=100% cellSpacing=1 cellPadding=1 align=center bgColor=#b5b5b5 border=0><TR bgColor=#649fbc nowrap></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href="../szsg/sgtext.html">课程名称</a></td><td align=center>主讲人</td><td align=center>类别</a></td><td align=center title="广东广和律师事务所">学分</a></td><td align=center><a href="#" target="_blank">类型</a></td><td align=center><a href="#" target="_blank">画质</a></td><td align=center><a href="#" target="_blank">单质</a></td><td align=center><a href="#" target="_blank">来源</a></td><td align=center><a href="#" target="_blank">授课时间</a></td><td align=center><a href="#" target="_blank">价格</a></td><td align=center><a href="#" target="_blank">操作</a></td></tr>
+    <tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91632'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东君言律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">视频</a></td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">放入购物车</a> <a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91631'>侵权责任法</a></td><td align=center>杨立新</td><td align=center></a>侵权法</td><td align=center title="广东硕法律师事务所">4.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">好</a></td><td align=center><a href="#" target="_blank">深圳律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">放入购物车</a> <a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91630'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东品然律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>中</td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">放入购物车</a> <a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91629'>侵权责任法</a></td><td align=center>杨立新</td><td align=center>侵权法</a></td><td align=center title="广东品然律师事务所">4.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>中</td><td align=center><a href="#" target="_blank">好</a></td><td align=center><a href="#" target="_blank">深圳律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">放入购物车</a> <a href="#" target="_blank">移除</a></td></tr><tr bgcolor=#f3f3f3><td align=center height=30 nowrap="nowrap"><a clss='link' href='showls.aspx?lawid=91628'>票据与票据制度</a></td><td align=center>宾爱琪</td><td align=center></a>金融业务</td><td align=center title="广东鹏港律师事务所">2.0</a></td><td align=center><a href="#" target="_blank">福田区</a></td>
+    <td align=center>中</td><td align=center><a href="#" target="_blank">中</a></td><td align=center><a href="#" target="_blank">广西律协</a></td><td align=center><a href="#" target="_blank">2010-07-09</a></td><td align=center><a href="#" target="_blank">￥50</a></td><td align=center><a href="#" target="_blank">放入购物车</a> <a href="#" target="_blank">移除</a></td></tr></TABLE>
+    
+    <div class="page2"><form action="" method="get">
+		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
+		</form></div>
+    
+    <BR><script>function plink(pg){document.aspnetForm.pageNum.value=pg;aspnetForm.submit();}function PYM(az){document.aspnetForm.az.value=az;aspnetForm.submit();}</script></span>
+   </td>
+  </tr>
+</table>
+    
+    <div class="jier">商品金额总计：￥20.20</div>
+<div class="js"><form action="" method="get">
+<input name="" type="button"  class="inp1"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input name="input" type="button"  class="inp2"/>
+</form></div>
+    
+    </div>
+    
+  </div>
+</div>
+
+</@template.template>
+</#escape>	

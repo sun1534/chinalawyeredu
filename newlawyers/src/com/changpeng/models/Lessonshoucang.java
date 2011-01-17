@@ -1,5 +1,6 @@
 package com.changpeng.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -12,10 +13,10 @@ public class Lessonshoucang implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
-	private Integer lawyerid;
-	private Integer lessonid;
-	private Date shoucangdate;
+	private int id;
+	private int lawyerid;
+	private int lessonid;
+	private Timestamp shoucangdate;
 	private String remarks;
 
 	// Constructors
@@ -24,52 +25,38 @@ public class Lessonshoucang implements java.io.Serializable {
 	public Lessonshoucang() {
 	}
 
-	/** minimal constructor */
-	public Lessonshoucang(Integer lawyerid, Integer lessonid, Date shoucangdate) {
-		this.lawyerid = lawyerid;
-		this.lessonid = lessonid;
-		this.shoucangdate = shoucangdate;
-	}
-
-	/** full constructor */
-	public Lessonshoucang(Integer lawyerid, Integer lessonid, Date shoucangdate, String remarks) {
-		this.lawyerid = lawyerid;
-		this.lessonid = lessonid;
-		this.shoucangdate = shoucangdate;
-		this.remarks = remarks;
-	}
 
 	// Property accessors
 
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public Integer getLawyerid() {
+	public int getLawyerid() {
 		return this.lawyerid;
 	}
 
-	public void setLawyerid(Integer lawyerid) {
+	public void setLawyerid(int lawyerid) {
 		this.lawyerid = lawyerid;
 	}
 
-	public Integer getLessonid() {
+	public int getLessonid() {
 		return this.lessonid;
 	}
 
-	public void setLessonid(Integer lessonid) {
+	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
 	}
 
-	public Date getShoucangdate() {
+	public Timestamp getShoucangdate() {
 		return this.shoucangdate;
 	}
 
-	public void setShoucangdate(Date shoucangdate) {
+	public void setShoucangdate(Timestamp shoucangdate) {
 		this.shoucangdate = shoucangdate;
 	}
 

@@ -6,16 +6,16 @@
 -->
 <hibernate-mapping>
     <class name="com.changpeng.models.Lessonorder" table="lessonorder" catalog="saaspxxt">
-        <id name="id" type="integer">
+        <id name="id" type="int">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <property name="lessonid" type="integer">
+        <property name="lessonid" type="int">
             <column name="lessonid" not-null="true">
                 <comment>订购的课程id</comment>
             </column>
         </property>
-        <property name="lawyerid" type="integer">
+        <property name="lawyerid" type="int">
             <column name="lawyerid" not-null="true">
                 <comment>哪个律师定的</comment>
             </column>
@@ -26,7 +26,7 @@
             </column>
         </property>
         <property name="orderprice" type="float">
-            <column name="orderprice" precision="12" scale="0" not-null="true">
+            <column name="orderprice" precision="12" scale="3" not-null="true">
                 <comment>订购价格</comment>
             </column>
         </property>
@@ -35,9 +35,14 @@
                 <comment>付款时间</comment>
             </column>
         </property>
-        <property name="payresult" type="short">
+        <property name="payresult" type="int">
             <column name="payresult">
                 <comment>付款结果,0未付款1付款成功2付款失败</comment>
+            </column>
+        </property>
+            <property name="orderno" type="string">
+            <column name="orderno" length="20">
+                <comment>付款时候的订单号</comment>
             </column>
         </property>
         <property name="paytype" type="string">

@@ -17,7 +17,9 @@ import com.changpeng.models.JifenbudengApply;
 public class JifenbudengApplyCancelAction extends AbstractAction {
 
 	private int budengid;
-	
+	public JifenbudengApplyCancelAction(){
+		this.moduleId = 1003;
+	}
 	
 
 	/**

@@ -28,7 +28,24 @@ import com.changpeng.models.SysUnionparams;
 public class JifenQueryAction extends AbstractListAction {
 
 	public JifenQueryAction() {
-		this.moduleId=1002;
+		this.moduleId = 1003;
+	}
+
+	private int nowyear;
+	private int lastyear;
+
+	/**
+	 * @return the nowyear
+	 */
+	public int getNowyear() {
+		return nowyear;
+	}
+
+	/**
+	 * @return the lastyear
+	 */
+	public int getLastyear() {
+		return lastyear;
 	}
 
 	/*
@@ -43,28 +60,39 @@ public class JifenQueryAction extends AbstractListAction {
 		int lawyerid = this.getLoginUser().getLawyerid();
 		this.lawyers = this.getLoginUser();
 		// 根据查询的年来查,默认为当前时间所在的积分年
-
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
+
+		if (nianshenyear != -1) {
+			jifentime = CommonDatas.getJifenTime(nianshenyear, params.getNianshen());
+			this.nianshenyear = jifentime.getNianshenyear();
+		}
+
 		dabiaofen = params.getDabiaofen();
-		jifentime = CommonDatas.getJifenTime(nianshenyear, params.getNianshen());
-		this.nianshenyear = jifentime.getNianshenyear();
+		JifenTime getyear = CommonDatas.getJifenTime(0, params.getNianshen());
+		nowyear = getyear.getNianshenyear();
+		lastyear = nowyear - 1;
+
 		DetachedCriteria detachedCriteria = null;
 		String table = "lawyerlessonxf";
 		if (this.lawyers.getLawyertype() == -1) {
 			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
 			table = "lawyerlessonxf_shixi";
-		}else if (this.lawyers.getLawyertype() == -2) {
+		} else if (this.lawyers.getLawyertype() == -2) {
 			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfGongzheng.class);
 			table = "Lawyerlessonxf_gongzheng";
-		}  
-		else
+		} else
 			detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
 		detachedCriteria.add(Restrictions.eq("lawyerid", lawyerid));
 		// detachedCriteria.add(Restrictions.between("lastupdate",
 		// jifentime.getStart(), jifentime.getEnd()));
-		detachedCriteria.add(Restrictions.eq("theyear", jifentime.getNianshenyear()));
+		if (nianshenyear != -1)
+			detachedCriteria.add(Restrictions.eq("theyear", jifentime.getNianshenyear()));
 
-		detachedCriteria.addOrder(Order.desc("lastupdate"));
+		if (learnmode != 0) {
+			detachedCriteria.add(Restrictions.eq("learnmode", learnmode));
+		}
+
+		detachedCriteria.addOrder(Order.desc("xfid"));
 
 		this.page = basicService.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, pageNo);
 
@@ -72,21 +100,23 @@ public class JifenQueryAction extends AbstractListAction {
 		// where a.lawyerid="+lawyerid+" and (UNIX_TIMESTAMP(a.lastupdate)
 		// between "+jifentime.getStart().getTime()/1000 + " and " +
 		// jifentime.getEnd().getTime()/1000 + ") group by a.learnmode";
-		String adminsql = "select sum(a.pxxf),a.learnmode from " + table + " a where a.theyear="
-				+ jifentime.getNianshenyear() + " and a.lawyerid=" + lawyerid + " group by a.learnmode";
+		if (nianshenyear != -1) {
+			String adminsql = "select sum(a.pxxf),a.learnmode from " + table + " a where a.theyear="
+					+ jifentime.getNianshenyear() + " and a.lawyerid=" + lawyerid + " group by a.learnmode";
 
-		List tongjilist = basicService.findBySqlQuery(adminsql);
-		int tongjilength = tongjilist == null ? 0 : tongjilist.size();
-		for (int i = 0; i < tongjilength; i++) {
-			Object[] obj = (Object[]) tongjilist.get(i);
-			if (obj[1].toString().equals("1")) {
-				this.localecnt = Double.parseDouble(obj[0].toString());
-			} else if (obj[1].toString().equals("2")) {
-				this.video = Double.parseDouble(obj[0].toString());
-			} else if (obj[1].toString().equals("3")) {
-				this.wenbenkejian = Double.parseDouble(obj[0].toString());
-			} else if (obj[1].toString().equals("4")) {
-				this.budeng = Double.parseDouble(obj[0].toString());
+			List tongjilist = basicService.findBySqlQuery(adminsql);
+			int tongjilength = tongjilist == null ? 0 : tongjilist.size();
+			for (int i = 0; i < tongjilength; i++) {
+				Object[] obj = (Object[]) tongjilist.get(i);
+				if (obj[1].toString().equals("1")) {
+					this.localecnt = Double.parseDouble(obj[0].toString());
+				} else if (obj[1].toString().equals("2")) {
+					this.video = Double.parseDouble(obj[0].toString());
+				} else if (obj[1].toString().equals("3")) {
+					this.wenbenkejian = Double.parseDouble(obj[0].toString());
+				} else if (obj[1].toString().equals("4")) {
+					this.budeng = Double.parseDouble(obj[0].toString());
+				}
 			}
 		}
 		// TODO Auto-generated method stub
@@ -152,5 +182,22 @@ public class JifenQueryAction extends AbstractListAction {
 	 */
 	public void setNianshenyear(int nianshenyear) {
 		this.nianshenyear = nianshenyear;
+	}
+
+	private int learnmode;
+
+	/**
+	 * @return the learnmode
+	 */
+	public int getLearnmode() {
+		return learnmode;
+	}
+
+	/**
+	 * @param learnmode
+	 *            the learnmode to set
+	 */
+	public void setLearnmode(int learnmode) {
+		this.learnmode = learnmode;
 	}
 }

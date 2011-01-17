@@ -19,6 +19,10 @@ import com.changpeng.models.JifenbudengApply;
  */
 public class JifenbudengApplyListAction extends AbstractListAction {
 
+	public JifenbudengApplyListAction(){
+		this.moduleId = 1003;
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.changpeng.common.action.AbstractAction#go()
 	 */

@@ -24,6 +24,11 @@
 		<property name="lessonsDAO">
 			<ref bean="lessonsDAO" />
 		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+		
+		
 		
 	</bean>
 </beans>

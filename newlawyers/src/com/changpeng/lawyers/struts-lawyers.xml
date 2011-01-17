@@ -8,21 +8,26 @@
     <package name="lawyers" extends="default" namespace="/lawyers">
     <default-interceptor-ref name="adminStack"/>
     
+      
+       <action name="innerBoxList" class="com.changpeng.lawyers.action.InnerBoxListAction">
+        	<result name="success" type="freemarker">/lawyers/innerBoxList.html</result>
+       		
+       </action>
        
        <!--修改详细信息-->
         <action name="lawyersEditSelf" class="com.changpeng.lawyers.action.LawyersEditSelfAction">
-        	<result name="input" type="dispatcher">/lawyers/lawyersEditSelf.jsp</result>
-        	<result name="gongzheng" type="dispatcher">/lawyers/gongzhengEditSelf.jsp</result>		
-			<result name="shixi" type="dispatcher">/lawyers/lawyersShixiEditSelf.jsp</result>
+        	<result name="input" type="freemarker">/lawyers/lawyersEditSelf.html</result>
+        	<result name="gongzheng" type="freemarker">/lawyers/gongzhengEditSelf.html</result>		
+			<result name="shixi" type="freemarker">/lawyers/lawyersShixiEditSelf.html</result>
        		
        </action>
     
         <action name="officeChangeApplyList" class="com.changpeng.lawyers.action.OfficeChangeApplyListAction">
-        	<result name="success" type="dispatcher">/lawyers/officeChangeApplyList.jsp</result>
+        	<result name="success" type="freemarker">/lawyers/officeChangeApplyList.html</result>
        </action>
         
          <action name="officeChangeApply" class="com.changpeng.lawyers.action.OfficeChangeApplyAction">
-        	<result name="input" type="dispatcher">/lawyers/officeChangeApply.jsp</result>
+        	<result name="input" type="freemarker">/lawyers/officeChangeApply.html</result>
        </action>
            <action name="officeChangeApplyCancel" class="com.changpeng.lawyers.action.OfficeChangeApplyCancelAction">
         	

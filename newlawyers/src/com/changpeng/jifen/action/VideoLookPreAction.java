@@ -4,22 +4,24 @@
 
 package com.changpeng.jifen.action;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
-import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.jifen.service.LawyerlessonxfService;
-import com.changpeng.jifen.service.LxnetrecsService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.BasicLawyerlessonxf;
-import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.LogVideoLook;
-import com.changpeng.models.Lxnetrecs;
 import com.changpeng.models.SysUnionparams;
+import com.changpeng.models.Teacher;
 
 /**
  * <pre>
@@ -32,6 +34,11 @@ import com.changpeng.models.SysUnionparams;
  * 
  */
 public class VideoLookPreAction extends AbstractAction {
+	
+	public VideoLookPreAction(){
+		this.moduleId = 1003;
+	}
+	
 	private static Log _LOG = LogFactory.getLog(VideoLookPreAction.class);
 	private int lessonid;
 	private float videotimeout = 0;
@@ -206,6 +213,17 @@ public class VideoLookPreAction extends AbstractAction {
 		visitid = loglook(lawyers.getLawyerid(), lawyers.getProvinceunion(), lawyers.getDirectunion(), lawyers
 				.getTheoffice());
 
+		
+		
+		DetachedCriteria dc=DetachedCriteria.forClass(com.changpeng.models.Lessonreply.class);
+		dc.add(Restrictions.eq("lessonid",lessonid));
+		dc.addOrder(Order.desc("replytime"));
+		replylist=basicService.findAllByCriteria(dc);
+		
+		if(lessons.getTeacherid()!=0){
+			teacher=(Teacher)basicService.get(Teacher.class, lessons.getTeacherid());
+		}
+		
 		return SUCCESS;
 
 	}
@@ -263,5 +281,13 @@ public class VideoLookPreAction extends AbstractAction {
 	 */
 	public float getLookedminutes() {
 		return lookedminutes;
+	}
+	private Teacher teacher;
+	public Teacher getTeacher(){
+		return teacher;
+	}
+	List replylist=null;
+	public List getReplylist(){
+		return this.replylist;
 	}
 }

@@ -129,6 +129,19 @@
              <property name="teacherid" type="int">
             <column name="teacherid" />
         </property>
+         <property name="replycnt" type="int">
+            <column name="replycnt" />
+        </property>
+         <property name="listencnt" type="int">
+            <column name="listencnt" />
+        </property>
+             <property name="fenshu" type="float">
+            <column name="fenshu" />
+        </property>
+        
+
+        
+        
                <!--       <set name="lessonshareds" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />

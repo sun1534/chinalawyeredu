@@ -1,0 +1,36 @@
+<#import "../common/template.html" as template >
+<#escape x as (x)!"">
+<@template.template myheader="" title="选课中心">
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<a href="../lessons/lessonList.pl?lessonstyle=1"><strong>培训通知</strong></a></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">热点资讯</div>   
+     <ul class="con_wz">
+        <li><a href="#">帮助本市青年律师和新执业</a></li>
+        <li><a href="#">2010年第五期申请执业律师人</a></li>
+        <li><a href="#">直接在东方律师网首页左边</a></li>
+        <li><a href="#">上半年已经举办两期，现将9月</a></li>
+        <li><a href="#">今年律师学院根据协会发布</a></li>
+        <li><a href="#">线培训的学习时间查询方法</a></li>
+        <li><a href="#">2010年第五期申请执业</a></li>
+      </ul>
+  </div>
+  <div class="con_right2 left">
+    <div class="con_right5_title"><h2>培训通知</h2></div>
+    <div class="star">
+      <div class="news_con1">
+	    <ul>
+		 <@s.iterator value="page.items">
+		  <li><span>[<@s.date name="lessondate" format="yyyy-MM-dd"/>]</span><a href="#">${title}</a></li>
+		 </@s.iterator>
+	    </ul>
+	  </div>
+    <div class="page_2"><form action="" method="get">
+${page.pageView}
+		</form></div>
+    </div>
+    
+  </div>
+</div>
+</@template.template>
+</#escape>	

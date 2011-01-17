@@ -18,8 +18,8 @@
        </action>
       
        <action name="lessonsList" class="com.changpeng.lessons.action.LessonsListAction">
-		  <result name="local" type="freemarker">/lessons/localeList.jsp</result>
-		  <result name="online" type="freemarker">/lessons/onlineList.jsp</result>
+		  <result name="local" type="freemarker">/lessons/localeList.html</result>
+		  <result name="online" type="freemarker">/lessons/onlineList.html</result>
        </action>
 	   <action name="thirdLessons" class="com.changpeng.lessons.action.ThirdLessonsAction">
 		  <result name="success" type="redirect">${url}</result>
@@ -28,9 +28,27 @@
       <action name="replyCreate" class="com.changpeng.lessons.action.ReplyCreateAction">
       </action>
       
+      <action name="xuangouLessonList" class="com.changpeng.lessons.action.XuangouLessonListAction">
+      <result name="success" type="freemarker">/lessons/xuangouLessonList.html</result>
+      
+      </action>
+      
+           <action name="myOrderList" class="com.changpeng.lessons.action.MyOrderListAction">
+      <result name="success" type="freemarker">/lessons/myOrderList.html</result>
+      </action>
+      
+       <action name="shoucanList" class="com.changpeng.lessons.action.ShoucanListAction">
+      <result name="success" type="freemarker">/lessons/shoucanList.html</result>
+      </action>
+      
+       <action name="orderBusList" class="com.changpeng.lessons.action.OrderBusListAction">
+      <result name="success" type="freemarker">/lessons/orderBusList.html</result>
+      </action>
+      
       <action name="teacherView" class="com.changpeng.lessons.action.TeacherViewAction">
       <result name="success" type="dispatcher">/lessons/teacherView.jsp</result>
       </action>
+      
        
        <action name="download" class="com.changpeng.lessons.action.DownloadAction">
 			<result name="success" type="stream">
@@ -49,6 +67,14 @@
 			<result name="success" type="json"></result>
    	   </action> 
    	    <action name="getLessonsById" class="com.changpeng.lessons.action.ajax.GetLessonsByIdAction">
+			<result name="success" type="json"></result>
+   	   </action> 
+   	   
+   	   <action name="lessonXuangou" class="com.changpeng.lessons.action.ajax.LessonXuangouAction">
+			<result name="success" type="json"></result>
+   	   </action> 
+   	   
+   	   <action name="lessonShoucang" class="com.changpeng.lessons.action.ajax.LessonShoucangAction">
 			<result name="success" type="json"></result>
    	   </action> 
    	   

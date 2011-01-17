@@ -20,8 +20,8 @@ import com.changpeng.models.Lawyers;
  */
 public class JifenbudengQueryAction extends AbstractListAction {
 
-	public JifenbudengQueryAction() {
-
+	public JifenbudengQueryAction(){
+		this.moduleId = 1003;
 	}
 
 	/*
