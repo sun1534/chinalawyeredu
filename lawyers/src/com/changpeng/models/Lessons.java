@@ -12,7 +12,7 @@ import java.text.DateFormat;
 public class Lessons implements java.io.Serializable {
 
 	// Fields
-
+private int isshare;
 	private int lessonid;
 	private int lessonidOfserver;
 	private int lessonstyle;
@@ -406,6 +406,18 @@ public class Lessons implements java.io.Serializable {
 	 */
 	public void setYihuoxuefen(BasicLawyerlessonxf yihuoxuefen) {
 		this.yihuoxuefen = yihuoxuefen;
+	}
+	/**
+	 * @return the isshare
+	 */
+	public int getIsshare() {
+		return isshare;
+	}
+	/**
+	 * @param isshare the isshare to set
+	 */
+	public void setIsshare(int isshare) {
+		this.isshare = isshare;
 	}
 
 	// public Set getLessonreplies() {

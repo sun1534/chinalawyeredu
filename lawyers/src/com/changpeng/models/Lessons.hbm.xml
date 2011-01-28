@@ -113,6 +113,12 @@
                 <comment>是否删除</comment>
             </column>
         </property>
+                <property name="isshare" type="int">
+            <column name="isshare">
+                <comment>1是共享0是不共享</comment>
+            </column>
+        </property>
+        
         <property name="createuser" type="string">
             <column name="createuser" not-null="true" />
         </property>

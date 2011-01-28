@@ -83,8 +83,8 @@ function makeMenu() {
 			 d.add("thirdlessons","0","点睛课程","../lessons/thirdLessons.pl","","_blank");
 			 </s:if>
 		   d.add("online","0","在线课程");
-		   d.add("online00","online","全部类型","../lessons/lessonsList.pl?lessonstyle=2&lessontype=0","","mainFrame");
-		  
+		   d.add("online00","online","全部类型","../lessons/lessonsList.pl?lessonstyle=2&lessontype=-1","","mainFrame");
+		   d.add("online99","online","未分类","../lessons/lessonsList.pl?lessonstyle=2&lessontype=0","","mainFrame");
 		  	d.add("online1","online","民商事法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=1","","mainFrame");
 		  		d.add("online101","online1","民事诉讼","../lessons/lessonsList.pl?lessonstyle=2&lessontype=101","","mainFrame");
 		  		d.add("online102","online1","合同担保法律业务","../lessons/lessonsList.pl?lessonstyle=2&lessontype=102","","mainFrame");

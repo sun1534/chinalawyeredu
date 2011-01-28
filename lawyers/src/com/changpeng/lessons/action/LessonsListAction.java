@@ -30,7 +30,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	private BasicService basicService = null;
 	private JifenTime jifentime;
-	private int lessontype;
+	private int lessontype=-1;
 
 	public int getLessontype() {
 		return lessontype;

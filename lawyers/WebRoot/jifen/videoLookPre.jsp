@@ -78,10 +78,37 @@
 								</TD>
 							</TR>
 							<TR>
+							<%
+						String sessionId=java.util.UUID.randomUUID().toString();
+					String url="";
+						if(application.getAttribute("WMSP") == null)
+{
+  //初始化一个哈希表用来存放会话信息
+  application.setAttribute("WMSP", new java.util.Hashtable());
+}
+else
+{
+  java.util.Hashtable wmsp = (java.util.Hashtable)application.getAttribute("WMSP");
+  //用一个字符串数组存放会话信息，依次为：会话标识、点播地址、客户端IP、点播时间、是否播放过。
+  String[] playSession = new String[]{sessionId,
+                                  url,
+                                  request.getRemoteAddr(),
+                                  new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()),
+                                  "NO"
+                                 };
+
+
+  //用sid作为key将会话信息存入哈希表
+  wmsp.put(sessionId, playSession);
+  
+  //System.out.println("我这里的wmsp:::"+application.getAttribute("WMSP"));
+}
+						
+							 %>
 								<TD vAlign="middle" align="center" style="width: 480px"	height="100%">
 									<OBJECT id="Player" height="100%" width="100%"
 										classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
-										<PARAM NAME="URL" VALUE="${lessons.onlinefile}">
+										<PARAM NAME="URL" VALUE="${lessons.onlinefile}?sessionId=<%=sessionId %>">
 										<PARAM NAME="rate" VALUE="1">
 										<PARAM NAME="balance" VALUE="0">
 										<PARAM NAME="currentPosition" VALUE="0">
