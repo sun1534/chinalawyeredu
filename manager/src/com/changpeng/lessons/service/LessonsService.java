@@ -281,7 +281,7 @@ public class LessonsService extends BasicService {
 			if (teachers != null && !"".equals(teachers)) {
 				dc.add(Restrictions.like("teachers", teachers, MatchMode.ANYWHERE));
 			}
-			if (lessontype != 0) {
+			if (lessontype != -1) {
 				dc.add(Restrictions.eq("lessontype", lessontype));
 			}
 			if (onlinetype != -1) {
@@ -304,101 +304,106 @@ public class LessonsService extends BasicService {
 			PaginationSupport page = lessonsDAO.findPageByCriteria(dc, pageSize, pageNo);
 			return page;
 		} else {
+			DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
+//			DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
+//			dc.createAlias("lessons", "lessons");
+//			String hql = "select distinct a.lessons from Lessonshared a where 1=1 ";
 
-			DetachedCriteria dc = DetachedCriteria.forClass(Lessonshared.class);
-			dc.createAlias("lessons", "lessons");
-			String hql = "select distinct a.lessons from Lessonshared a where 1=1 ";
-
-			if (mygroup != null && mygroup.getGrouptype() <= 3) {// mygroup为null的话,能看到所有律协的
-				List<Integer> groupids = new ArrayList<Integer>();
-				String str = "";
-				if (mygroup.getGrouptype() == 1) {
-					groupids.add(mygroup.getGroupid());
-					groupids.add(mygroup.getParentid());
-					groupids.add(mygroup.getDirectgroup());
-					str = mygroup.getGroupid() + "," + mygroup.getParentid() + "," + mygroup.getDirectgroup();
-					dc.add(Restrictions.in("groupid", groupids));
-					hql += " and a.groupid in(" + str + ")";
-				} else if (mygroup.getGrouptype() == 2) {
-					groupids.add(mygroup.getGroupid());
-					groupids.add(mygroup.getParentid());
-					str = mygroup.getGroupid() + "," + mygroup.getParentid();
-					dc.add(Restrictions.in("groupid", groupids));
-					hql += " and a.groupid in(" + str + ")";
-				} else if (mygroup.getGrouptype() == 3) {//省律协的,我省id是这个就行了吧
-					groupids.add(mygroup.getGroupid());
-					str = mygroup.getGroupid() + "";
-					
-					dc.add(Restrictions.or(Restrictions.in("groupid", groupids), Restrictions.eq("lessons.provinceid", mygroup.getGroupid())));
-					hql += " and (a.groupid in(" + str + ") or a.lessons.provinceid =" +  mygroup.getGroupid() + ")";
-					
-				}
-			
-			}
+//			if (mygroup != null && mygroup.getGrouptype() <= 3) {// mygroup为null的话,能看到所有律协的
+//				List<Integer> groupids = new ArrayList<Integer>();
+////				String str = "";
+//				if (mygroup.getGrouptype() == 1) {
+//					groupids.add(mygroup.getGroupid());
+//					groupids.add(mygroup.getParentid());
+//					groupids.add(mygroup.getDirectgroup());
+////					str = mygroup.getGroupid() + "," + mygroup.getParentid() + "," + mygroup.getDirectgroup();
+//					dc.add(Restrictions.in("groupid", groupids));
+////					hql += " and a.groupid in(" + str + ")";
+//				} else if (mygroup.getGrouptype() == 2) {
+//					groupids.add(mygroup.getGroupid());
+//					groupids.add(mygroup.getParentid());
+////					str = mygroup.getGroupid() + "," + mygroup.getParentid();
+//					dc.add(Restrictions.in("groupid", groupids));
+////					hql += " and a.groupid in(" + str + ")";
+//				} else if (mygroup.getGrouptype() == 3) {//省律协的,我省id是这个就行了吧
+//					groupids.add(mygroup.getGroupid());
+////					str = mygroup.getGroupid() + "";
+//					
+//					dc.add(Restrictions.or(Restrictions.in("groupid", groupids), Restrictions.eq("provinceid", mygroup.getGroupid())));
+////					hql += " and (a.groupid in(" + str + ") or a.lessons.provinceid =" +  mygroup.getGroupid() + ")";
+//					
+//				}
+//			
+//			}
 			// 不显示删除的
 //			dc.add(Restrictions.eq("lessons.deleteflag", false));
+			dc.add(Restrictions.eq("isshare", 1));
 //			hql += " and a.lessons.deleteflag=false";
 			// 具体的来源
 			if (groupid != -1) {
 //				dc.add(Restrictions.eq("lessons.groupid", groupid));
-				dc.add(Restrictions.or(Restrictions.eq("lessons.groupid", groupid), Restrictions.eq("lessons.provinceid", groupid)));
+				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("provinceid", groupid)));
 				
-				hql += " and (a.lessons.groupid=" + groupid+" or a.lessons.provinceid="+groupid+")";
+//				hql += " and (a.lessons.groupid=" + groupid+" or a.lessons.provinceid="+groupid+")";
 			}
 
 			if (title != null && !"".equals(title)) {
-				dc.add(Restrictions.like("lessons.title", title, MatchMode.ANYWHERE));
-				hql += " and a.lessons.title like '%" + title + "%'";
+				dc.add(Restrictions.like("title", title, MatchMode.ANYWHERE));
+//				hql += " and a.lessons.title like '%" + title + "%'";
 			}
 			if (audioQuality != -1) {
-				dc.add(Restrictions.eq("lessons.audioQuality",audioQuality ));
-				hql += " and a.lessons.audioQuality = " + audioQuality ;
+				dc.add(Restrictions.eq("audioQuality",audioQuality ));
+//				hql += " and a.lessons.audioQuality = " + audioQuality ;
 			}if (videoQuality != -1) {
-				dc.add(Restrictions.eq("lessons.videoQuality",videoQuality ));
-				hql += " and a.lessons.videoQuality = " + videoQuality ;
+				dc.add(Restrictions.eq("videoQuality",videoQuality ));
+//				hql += " and a.lessons.videoQuality = " + videoQuality ;
 			}
 			
 			if (onlinetype != -1) {
-				dc.add(Restrictions.eq("lessons.onlineType",onlinetype ));
-				hql += " and a.lessons.onlineType = " + onlinetype ;
+				dc.add(Restrictions.eq("onlineType",onlinetype ));
+//				hql += " and a.lessons.onlineType = " + onlinetype ;
 			}
 			if (teachers != null && !"".equals(teachers)) {
-				dc.add(Restrictions.like("lessons.teachers", teachers, MatchMode.ANYWHERE));
-				hql += " and a.lessons.teachers like '%" + teachers + "%'";
+				dc.add(Restrictions.like("teachers", teachers, MatchMode.ANYWHERE));
+//				hql += " and a.lessons.teachers like '%" + teachers + "%'";
 			}
-			if (lessontype != 0) {
-				dc.add(Restrictions.eq("lessons.lessontype", lessontype));
-				hql += " and a.lessons.lessontype =" + lessontype;
+			if (lessontype != -1) {
+				dc.add(Restrictions.eq("lessontype", lessontype));
+//				hql += " and a.lessons.lessontype =" + lessontype;
 			}
 			if (lessonstyle != 0) {
 //				if (lessonstyle == 1 || lessonstyle == 2)
-					dc.add(Restrictions.in("lessons.lessonstyle", new Object[] { lessonstyle, 3 }));
+					dc.add(Restrictions.in("lessonstyle", new Object[] { lessonstyle, 3 }));
 //				else
 //					dc.add(Restrictions.eq("lessons.lessonstyle", lessonstyle));
-				hql += " and a.lessons.lessonstyle in(" + lessonstyle + ",3)";
+//				hql += " and a.lessons.lessonstyle in(" + lessonstyle + ",3)";
 			}
 			
 			if(start!=null&&end!=null){
-				String startStr=df.format(start)+" 00:00:00";
-				String endStr=df.format(end)+" 23:59:59";
-				dc.add(Restrictions.between("lessons.lessondate", start, end));
+//				String startStr=df.format(start)+" 00:00:00";
+//				String endStr=df.format(end)+" 23:59:59";
+				dc.add(Restrictions.between("lessondate", start, end));
 //				dc.add(Restrictions.between("lessons.lessondate", start, end));
-				hql += " and a.lessons.lessondate between '"+startStr+"'and '"+endStr+"'";
+//				hql += " and a.lessons.lessondate between '"+startStr+"'and '"+endStr+"'";
 			}
 			
 //			hql += " order by a.lessons.lessondate,a.lessons.lessonid desc";
-			hql += " order by a.lessons.lessondate desc,a.lessons.lessonid desc";
+//			hql += " order by a.lessons.lessondate desc,a.lessons.lessonid desc";
 		
-			dc.setProjection(Projections.countDistinct("lessons"));
+//			dc.setProjection(Projections.countDistinct("lessons"));
 //			dc.addOrder(Order.desc("lessons.lessondate"));
 //			dc.addOrder(Order.desc("lessons.lessonid"));
-			List list = lessonsDAO.findAllByCriteria(dc);
-			int len = list == null ? 0 : list.size();
-			int totalCount = len == 0 ? 0 : Integer.parseInt(list.get(0).toString());
-			// 根据授课时间进行排序
-			// detachedCriteria.addOrder(Order.desc("lessons.lessondate"));
-			PaginationSupport page = lessonsDAO.findByQuery(hql, pageSize, pageNo, totalCount);
-			return page;
+//			List list = lessonsDAO.findAllByCriteria(dc);
+//			int len = list == null ? 0 : list.size();
+//			int totalCount = len == 0 ? 0 : Integer.parseInt(list.get(0).toString());
+//			// 根据授课时间进行排序
+//			// detachedCriteria.addOrder(Order.desc("lessons.lessondate"));
+//			PaginationSupport page = lessonsDAO.findByQuery(hql, pageSize, pageNo, totalCount);
+//			return page;
+			dc.addOrder(Order.desc("lessondate"));
+			dc.addOrder(Order.desc("lessonid"));
+			
+			return lessonsDAO.findPageByCriteria(dc, pageSize, pageNo);
 		}
 	}
 

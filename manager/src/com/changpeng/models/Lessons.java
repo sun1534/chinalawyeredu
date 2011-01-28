@@ -45,6 +45,8 @@ public class Lessons implements java.io.Serializable {
 	private int createuserid;
 	private Timestamp createtime;
 	private int onlineType;
+	private String pic;
+	private int isshare;
 	/**
 	 * 较好，好，差，非常差
 	 */
@@ -484,6 +486,40 @@ public class Lessons implements java.io.Serializable {
 	 */
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	/**
+	 * @return the pic
+	 */
+	public String getPic() {
+		return pic;
+	}
+	
+	public String getHttpPic() {
+		if(pic!=null&&!pic.equals(""))
+			return com.changpeng.common.Constants.LOGO_PATH+"lesson/"+pic;
+		return com.changpeng.common.Constants.LOGO_PATH+"lesson/dftpic.gif";
+	}
+
+	/**
+	 * @param pic the pic to set
+	 */
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	/**
+	 * @return the isshare
+	 */
+	public int getIsshare() {
+		return isshare;
+	}
+
+	/**
+	 * @param isshare the isshare to set
+	 */
+	public void setIsshare(int isshare) {
+		this.isshare = isshare;
 	}
 
 }

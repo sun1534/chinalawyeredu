@@ -43,6 +43,21 @@ public class LessonsEditAction extends AbstractAction {
 
 	private List<String> filelist;
 	private boolean hasattach;
+	private File picpreview;
+	private String picpreviewFileName;
+	/**
+	 * @param picpreview the picpreview to set
+	 */
+	public void setPicpreview(File picpreview) {
+		this.picpreview = picpreview;
+	}
+
+	/**
+	 * @param picpreviewFileName the picpreviewFileName to set
+	 */
+	public void setPicpreviewFileName(String picpreviewFileName) {
+		this.picpreviewFileName = picpreviewFileName;
+	}
 
 	public boolean getHasattach() {
 		return hasattach;
@@ -147,8 +162,8 @@ public class LessonsEditAction extends AbstractAction {
 //		}
 
 		String attach = lesson.getAttach();
-		String extendPath = "/uploads/";
-		String toPath = ServletActionContext.getServletContext().getRealPath("") + extendPath;
+		String extendPath = "/lesson/";
+		String toPath = com.changpeng.common.Constants.PHOTO_SAVE_PATH+extendPath;
 		FileUtils.forceMkdir(new File(toPath)); // 创建目录
 		if (attach == null)
 			attach = "";
@@ -172,6 +187,27 @@ public class LessonsEditAction extends AbstractAction {
 				index++;
 			}
 		}
+		
+		
+
+		if (picpreview != null) {
+		
+				
+					String name = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + "pic";
+					String ext = getExtention(picpreviewFileName);
+					String filename = name + ext;
+					try {
+						File dest = new File(toPath + filename);
+						FileUtils.copyFile(picpreview, dest); // 移动文件
+						lesson.setPic(name+ext);
+					} catch (IOException e) {
+						message = "上传培训资料错误：" + e.getMessage();
+						return "message";
+					}
+		}
+		
+		
+		System.out.println("====="+picpreviewFileName+",,"+lesson.getPic());
 
 		int i = 0;
 		String file[] = attach.split(",");
@@ -228,8 +264,8 @@ public class LessonsEditAction extends AbstractAction {
 			if (lesson.getTeacherid() != 0)
 				onlyonline = 2;
 		}
-		System.out.println("============================onlyonline==="+onlyonline);
-		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
+		
+//		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 
 //		shouldsharedgroupids = groupservice.getAllsharedunion();
 //		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
@@ -415,6 +451,13 @@ public class LessonsEditAction extends AbstractAction {
 	 */
 	public void setTeachername(String teachername) {
 		this.teachername = teachername;
+	}
+
+	/**
+	 * @return the picpreview
+	 */
+	public File getPicpreview() {
+		return picpreview;
 	}
 
 }

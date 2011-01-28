@@ -136,6 +136,10 @@ public class LawyersListAction extends AbstractListAction {
 	@Override
 	protected String go() throws Exception {
 
+		
+//		System.out.println("resultType=========="+this.resultType);
+		
+		
 		candel = super.getLoginUser().hasRight("lawyersDelete");
 		canins = super.getLoginUser().hasRight("lawyersCreateEditPre");
 		canupd = super.getLoginUser().hasRight("lawyersCreateEditPre");
@@ -220,9 +224,13 @@ public class LawyersListAction extends AbstractListAction {
 			this.page = service.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, 1);
 			return "excel";
 		} else {
+			if(resultType.equals("cardnolist"))
 			this.page = service.findPageByCriteria(detachedCriteria, pageSize, pageNo);
+			else
+				this.page = service.findPageByCriteria(detachedCriteria, Integer.MAX_VALUE, 1);
 			// System.out.println(resultType);
-			return "cardnolist";
+//			return "cardnolist";
+			return resultType;
 		}
 	}
 

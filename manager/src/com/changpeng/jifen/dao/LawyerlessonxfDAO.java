@@ -4,7 +4,6 @@
 
 package com.changpeng.jifen.dao;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +14,14 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.changpeng.common.BasicDAO;
+import com.changpeng.common.Constants;
 import com.changpeng.common.PaginationSupport;
-import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.jifen.action.JifenTongji;
 import com.changpeng.jifen.util.NumberUtil;
-import com.changpeng.models.Jifentongji;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.SysUser;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @author 华锋 2008-5-4 下午11:57:36
@@ -71,15 +71,28 @@ public class LawyerlessonxfDAO extends BasicDAO {
 	}
 
 	private String getStaticSql(int theyear, String field, int fieldvalue, String title) {
+		
+//		return ActionContext.getContext().getSession().get(key);
+		
+		
+		SysUser user=(SysUser)ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
+		
+		String table="lawyerlessonxf";
+		if(user.getSysRole()!=null){
+			int roleid=user.getSysRole().getRoleid();
+			if(roleid==11||roleid==12){
+				table="lawyerlessonxf_gongzheng";
+			}
+		}
 		String sql = "";
 		String condition = "";
 		if (title != null && !title.equals(""))
 			condition = " and title like '%" + title + "%'";
 		if (field != null && !field.equals(""))
-			sql = "select lawyerid,sum((case when (learnmode = 1) then pxxf else 0 end)) AS xianchang,sum((case when (learnmode = 2) then pxxf else 0 end)) AS video,sum((case when (learnmode = 3) then pxxf else 0 end)) AS doc,sum((case when (learnmode = 4) then pxxf else 0 end)) AS budeng,sum((case when (learnmode = 5) then pxxf else 0 end)) AS koufen,(case when sum(pxxf) is null then 0 else sum(pxxf) end) AS zongjifen from lawyerlessonxf where "
+			sql = "select lawyerid,sum((case when (learnmode = 1) then pxxf else 0 end)) AS xianchang,sum((case when (learnmode = 2) then pxxf else 0 end)) AS video,sum((case when (learnmode = 3) then pxxf else 0 end)) AS doc,sum((case when (learnmode = 4) then pxxf else 0 end)) AS budeng,sum((case when (learnmode = 5) then pxxf else 0 end)) AS koufen,(case when sum(pxxf) is null then 0 else sum(pxxf) end) AS zongjifen from "+table+" where "
 					+ field + "=" + fieldvalue + " " + condition + " and theyear=" + theyear + " group by lawyerid";
 		else
-			sql = "select lawyerid,sum((case when (learnmode = 1) then pxxf else 0 end)) AS xianchang,sum((case when (learnmode = 2) then pxxf else 0 end)) AS video,sum((case when (learnmode = 3) then pxxf else 0 end)) AS doc,sum((case when (learnmode = 4) then pxxf else 0 end)) AS budeng,sum((case when (learnmode = 5) then pxxf else 0 end)) AS koufen,(case when sum(pxxf) is null then 0 else sum(pxxf) end) AS zongjifen from lawyerlessonxf where theyear="
+			sql = "select lawyerid,sum((case when (learnmode = 1) then pxxf else 0 end)) AS xianchang,sum((case when (learnmode = 2) then pxxf else 0 end)) AS video,sum((case when (learnmode = 3) then pxxf else 0 end)) AS doc,sum((case when (learnmode = 4) then pxxf else 0 end)) AS budeng,sum((case when (learnmode = 5) then pxxf else 0 end)) AS koufen,(case when sum(pxxf) is null then 0 else sum(pxxf) end) AS zongjifen from "+table+" where theyear="
 					+ theyear + condition + " group by lawyerid";
 
 		return sql;

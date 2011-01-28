@@ -36,8 +36,10 @@ public class LessonsCreateAction extends AbstractAction {
 	private Lessons lesson;
 
 	private File[] file;
-	private String[] fileName;
-
+	private String[] fileFileName;
+	
+	private File picpreview;
+	private String picpreviewFileName;
 	private String datestart;
 	private String hmstart;
 	private String dateend;
@@ -146,12 +148,12 @@ public class LessonsCreateAction extends AbstractAction {
 		}
 
 		String attach = "";
-		String extendPath = "/uploads/";
-		String toPath = ServletActionContext.getServletContext().getRealPath("") + extendPath;
+		String extendPath = "/lesson/";
+		String toPath = com.changpeng.common.Constants.PHOTO_SAVE_PATH+extendPath;
 		FileUtils.forceMkdir(new File(toPath)); // 创建目录
 		int i = 0;
-		if (fileName != null) {
-			for (String str : fileName) {
+		if (fileFileName != null) {
+			for (String str : fileFileName) {
 				if (str != null && !"".equals(str)) {
 					String name = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + i;
 					String ext = getExtention(str);
@@ -172,20 +174,44 @@ public class LessonsCreateAction extends AbstractAction {
 				}
 			}
 		}
-		lesson.setAttach(attach);
-		if (sharedgroupids == null || sharedgroupids.size() == 0) {
-			sharedgroupids = new ArrayList();
-		}
-		if (mygroup != null)
-			sharedgroupids.add(mygroup.getGroupid());
-		if(!sharedgroupids.contains(lesson.getGroupid())&&lesson.getGroupid()!=0){
-			sharedgroupids.add(lesson.getGroupid());
-		}
-		if(!sharedgroupids.contains(lesson.getProvinceid())){
-			sharedgroupids.add(lesson.getProvinceid());
-		}
 		
-		service.saveLesson(lesson, sharedgroupids, this.getLoginUser());
+		
+		System.out.println(picpreview);
+		System.out.println(picpreviewFileName);
+		
+		if (picpreview != null) {
+		
+				
+					String name = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date()) + "pic";
+					String ext = getExtention(picpreviewFileName);
+					String filename = name + ext;
+					try {
+						File dest = new File(toPath + filename);
+						FileUtils.copyFile(picpreview, dest); // 移动文件
+						lesson.setPic(name+ext);
+					} catch (IOException e) {
+						message = "上传培训资料错误：" + e.getMessage();
+						return "message";
+					}
+		}
+	
+		
+		
+		
+		lesson.setAttach(attach);
+//		if (sharedgroupids == null || sharedgroupids.size() == 0) {
+//			sharedgroupids = new ArrayList();
+//		}
+//		if (mygroup != null)
+//			sharedgroupids.add(mygroup.getGroupid());
+//		if(!sharedgroupids.contains(lesson.getGroupid())&&lesson.getGroupid()!=0){
+//			sharedgroupids.add(lesson.getGroupid());
+//		} 
+//		if(!sharedgroupids.contains(lesson.getProvinceid())&&lesson.getProvinceid()!=0){
+//			sharedgroupids.add(lesson.getProvinceid());
+//		}
+		
+		service.saveLesson(lesson, null, this.getLoginUser());
 
 		// System.out.println("onlyonline=============="+onlyonline);
 
@@ -207,19 +233,19 @@ public class LessonsCreateAction extends AbstractAction {
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
 		// 要共享给哪些个课程
-		shouldsharedgroupids = groupservice.getAllsharedunion();
-		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
-			// 课程共享的时候，去掉自己
-			if (mygroup != null) {
-				for (Object obj : shouldsharedgroupids) {
-					SysGroup group = (SysGroup) obj;
-					if (group.getGroupid() == mygroup.getGroupid()) {
-						shouldsharedgroupids.remove(group);
-						break;
-					}
-				}
-			}
-		}
+//		shouldsharedgroupids = groupservice.getAllsharedunion();
+//		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
+//			// 课程共享的时候，去掉自己
+//			if (mygroup != null) {
+//				for (Object obj : shouldsharedgroupids) {
+//					SysGroup group = (SysGroup) obj;
+//					if (group.getGroupid() == mygroup.getGroupid()) {
+//						shouldsharedgroupids.remove(group);
+//						break;
+//					}
+//				}
+//			}
+//		}
 		if (mygroup == null || mygroup.getGrouptype() > 3) {
 			this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 			shouldview = true;
@@ -280,31 +306,31 @@ public class LessonsCreateAction extends AbstractAction {
 		this.file = file;
 	}
 
-	public void setFileFileName(String[] fileName) {
-		this.fileName = fileName;
+	public void setFileFileName(String[] fileFileName) {
+		this.fileFileName = fileFileName;
 	}
 
 	/**
 	 * 课程的来源,其实也应该是省律协或者市律协，共享的时候，设置共享给所有的省律协以及购买了系统的
 	 */
-	private List shouldsharedgroupids;
+//	private List shouldsharedgroupids;
 
 	/**
 	 * @return the sharedgroupids
 	 */
-	public List getShouldsharedgroupids() {
-		return shouldsharedgroupids;
-	}
+//	public List getShouldsharedgroupids() {
+//		return shouldsharedgroupids;
+//	}
 
-	private List sharedgroupids;
+//	private List sharedgroupids;
 
 	/**
 	 * @param sharedgroupids
 	 *            the sharedgroupids to set
 	 */
-	public void setSharedgroupids(List sharedgroupids) {
-		this.sharedgroupids = sharedgroupids;
-	}
+//	public void setSharedgroupids(List sharedgroupids) {
+//		this.sharedgroupids = sharedgroupids;
+//	}
 
 	private boolean shouldview;
 
@@ -343,5 +369,28 @@ public class LessonsCreateAction extends AbstractAction {
 	public void setTeachername(String teachername) {
 		this.teachername = teachername;
 	}
+
+	/**
+	 * @return the picpreview
+	 */
+	public File getPicpreview() {
+		return picpreview;
+	}
+
+	/**
+	 * @param picpreview the picpreview to set
+	 */
+	public void setPicpreview(File picpreview) {
+		this.picpreview = picpreview;
+	}
+
+	/**
+	 * @param picpreviewFileName the picpreviewFileName to set
+	 */
+	public void setPicpreviewFileName(String picpreviewFileName) {
+		this.picpreviewFileName = picpreviewFileName;
+	}
+
+
 
 }

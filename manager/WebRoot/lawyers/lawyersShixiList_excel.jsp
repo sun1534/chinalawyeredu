@@ -60,10 +60,10 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
       <td class="listline2">
         ${lawyername}
         </td>
-       <td class="listline2"> ${certno } </td>
-      <td class="listline2">${zigeno} </td>
+       <td class="listline2"> ${certno }&nbsp; </td>
+      <td class="listline2">${zigeno}&nbsp;</td>
      	<td class="listline2">${zigedate}  </td>
-       <td class="listline2">${shixino}  </td>
+       <td class="listline2">${shixino}&nbsp;  </td>
         <td class="listline2">${shixidate}  </td>
    <td class="listline2"><s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/> </td>
                         </tr>

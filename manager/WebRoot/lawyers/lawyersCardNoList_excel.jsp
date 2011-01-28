@@ -39,18 +39,18 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
      <tr>
     <td  colspan="12" align="center" bgcolor="#FFFF00"><b>
  
- 律师列表
+律师列表
   
     </b></td>
   </tr>
       <tr>
+       <th>所属事务所</th>
        <th>姓名</th>
-        <th>身份证号</th>
         <th>执业证号</th>
-        <th>会员编号</th>
         <th>卡号</th>
-        <th>执业日期</th>
-        <th>所属事务所</th>
+        <th>会员编号</th>
+        <th>发卡日期</th>
+       
                         
       </tr>
       <tbody>
@@ -58,14 +58,13 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
         <s:iterator value="page.items" status="status">
       <tr>
       <td class="listline2">
-        ${lawyername}
+      <s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/>
         </td>
-       <td class="listline2"> ${certno }&nbsp;</td>
-      <td class="listline2">${lawyerno}&nbsp;</td>
-     	<td class="listline2">${systemno}</td>
-       <td class="listline2">${cardno}  </td>
-        <td class="listline2">${zhiyedate}  </td>
-   <td class="listline2"><s:property value="@com.changpeng.system.util.CommonDatas@groups[theoffice]"/> </td>
+       <td class="listline2"> ${lawyername} </td>
+      <td class="listline2">${lawyerno}&nbsp; </td>
+     	<td class="listline2">${cardno}  </td>
+       <td class="listline2">${systemno} </td>
+        <td class="listline2">${carddate} </td>
                         </tr>
                         </s:iterator>
        

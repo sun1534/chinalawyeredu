@@ -11,6 +11,8 @@
 			<result name="excel" type="dispatcher">/lawyers/lawyersList_excel.jsp</result>
 			<result name="success" type="dispatcher">/lawyers/lawyersList.jsp</result>
 			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
+			<result name="cardnoexport" type="dispatcher">/lawyers/lawyersCardNoList_excel.jsp</result>
+			
        </action>
        
       
@@ -18,6 +20,7 @@
        <action name="lawyersCardNoList" class="com.changpeng.lawyers.action.LawyersListAction">
 			<param name="resultType">cardnolist</param>
 			<result name="cardnolist" type="dispatcher">/lawyers/lawyersCardNoList.jsp</result>
+			<result name="cardnoexport" type="dispatcher">/lawyers/lawyersCardNoList_excel.jsp</result>
        </action>
         
           <action name="lawyersShixiList" class="com.changpeng.lawyers.action.LawyersShixiListAction">

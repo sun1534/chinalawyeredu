@@ -33,7 +33,7 @@ public class LessonsListAction extends AbstractListAction {
 		this.title = title;
 	}
 
-	private int lessontype = 0;
+	private int lessontype = -1;
 	private String teachers = "";
 //	private int groupid = -1; // 0是代表来自平台的添加
 	private List fromlist = null;

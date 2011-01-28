@@ -299,12 +299,31 @@ function addFile(){
                          
 							</td>
 						</tr>
+						
+						<tr>
+							<td class="tab_content" align="right">
+									视频截图：
+							</td>
+							<td colspan="2" class="tab_content" id="upfiles">
+							
+						
+          
+           <s:file name="picpreview" cssClass="text1"/>
+           <br><font color="#FF0000">
+        请提供标准照片,格式为:宽200,高160
+           </font>
+							
+							
+							</td>
+						</tr>
+						
 							<tr>
 							<td class="tab_content" align="right">
 									附件：
 							</td>
 							<td colspan="2" class="tab_content" id="upfiles">
-								<s:file name="file" size="50"/>&nbsp;<input id="more" type="button" value="更多..." onClick="addFile()">                      
+								<s:file name="file" size="50"/>&nbsp;
+								<input id="more" type="button" value="更多..." onClick="addFile()">                      
 							</td>
 						</tr>
 				

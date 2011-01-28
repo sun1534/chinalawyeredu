@@ -60,7 +60,17 @@ var _lawyerid=0;
 	}
 
 	
-	function queryit(str){
+	function querynocarditexport(){
+  document.form1.resultType.value="cardnoexport";
+  document.form1.hascardno.value="1";
+  document.form1.submit();
+}
+function exportit(){
+  document.form1.resultType.value="cardnoexport";
+  document.form1.hascardno.value="0";
+  document.form1.submit();
+}
+function queryit(){
   document.form1.resultType.value="cardnolist";
   document.form1.hascardno.value="0";
   document.form1.submit();
@@ -147,7 +157,9 @@ function querynocardit(){
              <s:hidden name="resultType"/>
              <s:hidden name="hascardno"/>
                 <input type="button" name="query" value=" 查 询 " onclick="queryit()"/>
+                 <input type="button" name="query" value=" 导 出  " onclick="exportit()"/>
                 <input type="button" name="querynocard" value="无卡律师查询" onclick="querynocardit()"/>
+                <input type="button" name="querynocard" value="无卡律师导出" onclick="querynocarditexport()"/>
           </td>
         </tr>
       </table>

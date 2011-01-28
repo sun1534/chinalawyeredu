@@ -11,7 +11,21 @@
 <jscalendar:head/>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="JavaScript"> 
-
+function deletephoto(lessonid){
+if(confirm("您确实要删除这个照片吗?")){
+//var url="../systemajax/photoDelete.pl";
+ // $.getJSON(url, { "lawyerid":lawyerid,"now":new Date().getTime()}, function(json){
+  //   if(json.success == "true"){
+   		$("#imgdiv").empty();
+    //  }else{
+	//   alert("照片删除失败");
+    //  }
+   //});
+}
+else{
+return;
+}
+}
 var len=0;
 var i=1;
 function addFile(){
@@ -279,6 +293,31 @@ function selectteacher(teacherid){
 							</td>
 						</tr>
 				 -->
+				 
+				 
+				 <tr>
+							<td class="tab_content" align="right">
+									视频截图：
+							</td>
+							<td colspan="2" class="tab_content" id="upfiles">
+							
+						 <s:if test="lesson.pic!=null&&!lesson.pic.equals(\"\")">
+          <div id="imgdiv">
+          <img src="${lesson.httpPic}" width="200"/>
+          <a href="#" onclick="deletephoto('${lessonid}')"/>删除照片</a>
+          </div>
+          </s:if>
+          
+           <s:file name="picpreview" cssClass="text1"/>
+           <br/>
+           <font color="#FF0000">
+        请提供标准照片,格式为:宽200,高160
+           </font>
+							
+							
+							</td>
+						</tr>
+				 
 						<tr>
 							<td class="tab_content">
 							</td>

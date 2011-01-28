@@ -89,7 +89,11 @@ public class MyWorkspacePageAction extends AbstractAction {
 //		PaginationSupport page = lessonsService.getPages(this.getLoginUser().getSysGroup(), -1, 0, 0, null, null, 6,
 //				1, null, null);
 		detachedCriteria=DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("deleteflag", false));;
-		detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceid(),this.getLoginUser().getCityid()}));
+		if(getLoginUser().getSysGroup()!=null&&getLoginUser().getSysGroup().getGrouptype()<=3)
+			detachedCriteria.add(Restrictions.in("groupid", new Object[]{this.getLoginUser().getProvinceid(),this.getLoginUser().getCityid()}));
+		else{
+			detachedCriteria.add(Restrictions.in("lessonid",new Integer[]{126103611,126103561,126103699,123728182,123728185,123728259,126103698,126103701}));
+		}
 		detachedCriteria.addOrder(Order.desc("lessondate"));
 		PaginationSupport page =basicService.findPageByCriteria(detachedCriteria, 6, 1);
 		this.lessonList = page.getItems();

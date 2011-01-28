@@ -204,6 +204,9 @@ public class ScheduleTask extends TimerTask {
 
 			con = DBUtils.getOracleCon();
 
+			
+			System.out.println("================================="+con);
+			
 			syncPxxt(con);
 
 //			syncOa(con);
