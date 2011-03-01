@@ -14,6 +14,7 @@ import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.LawyerlessonxfGongzheng;
 import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysUnionparams;
@@ -81,8 +82,8 @@ public class JifenQueryAction extends AbstractListAction {
 			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
 			table = "lawyerlessonxf_shixi";
 		}
-		if (lawyers.getLawyertype() == -1) {
-			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
+		if (lawyers.getLawyertype() == -2) {
+			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfGongzheng.class);
 			table = "lawyerlessonxf_gongzheng";
 		} else
 			detachedCriteria = DetachedCriteria.forClass(Lawyerlessonxf.class);
