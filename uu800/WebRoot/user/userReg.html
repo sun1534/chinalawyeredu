@@ -1,0 +1,129 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#jRegBtn").click(function(){
+		email=$("#email").val();
+		password=$("#password").val();
+		repassword=$("#repassword").val();
+		subinfo=$("#subinfo").val();
+		userName=$("#username").val();
+		$.jDialog.removeBox();
+		
+		
+		$.ajax({
+					type : "POST",
+					url : "../user/userReg.action",
+					data : "userName="+userName+"&email="+email+"&password="+password+"&repassword="+repassword+"&subinfo="+subinfo,
+					success : function(data) {
+						$.jDialog.removeBox();
+						if(data.regResult=="ok"){
+							
+							alert("您注册成功,请登录");
+						}else{
+							alert("您注册失败:"+data.regResult);
+							
+						}						
+						
+					}
+				});
+		
+		
+		//$.jDialog({
+		//	___title:"用户注册",
+		//	___content:"url:get?../user/userReg.action?userName="+userName+"&email="+email+"&password="+password+"&repassword="+repassword+"&email="+email+"&subinfo="+subinfo,
+		//	___width:"660",
+		//	___height:"480",
+		//	___drag:"___boxTitle",
+		//	___showbg:true
+		//});
+	});
+ 
+	$("#jLoginBtn_a").click(function(){
+		$.jDialog.removeBox();
+		$.jDialog({
+			___title:"用户登陆",
+			___content:"url:get?../user/login.action",
+			___width:"660",
+			___height:"250",
+			___drag:"___boxTitle",
+			___showbg:true
+		});
+	});
+	
+	$("#jLoginBtn").click(function(){
+		$.jDialog.removeBox();
+		$.jDialog({
+			___title:"用户登陆",
+			___content:"url:get?../user/login.action",
+			___width:"660",
+			___height:"250",
+			___drag:"___boxTitle",
+			___showbg:true
+		});
+	});
+	
+	
+});
+ </script>
+<div class="jDialogWrap">
+	<div class="jDialogLoginReg">
+		<h5>注册加入商家联盟，优惠更多实惠!</h5>
+		<div class="regLogin">
+			<div id="jLogin">
+				<form action="" name="" id="" method="post">
+				<p id="regNotice"><em class="emb">带*号为必填项，请认真填写！</em></p>
+				<div class="l">
+					<label><em class="emb">*</em>Email：</label>
+					<span class="v">
+						<input type="text" name="email" id="email" class="txt tel"/>
+						<p>邮箱是您唯一登录ID，请认真填写。</p>
+					</span>
+				</div>
+				<div class="l">
+					<label><em class="emb">*</em>密码：</label>
+					<span class="v">
+						<input type="password" id="password" name="" value="" class="txt pwd"/>
+						<p>为了您的账号安全，建议密码设置为6位以上。</p>
+					</span>
+				</div>
+				<div class="l">
+					<label><em class="emb">*</em>确认密码：</label>
+					<span class="v">
+						<input type="repassword" id="repassword" name="" value="" class="txt pwd"/>
+						<p>请您再次输入一次密码。</p>
+					</span>
+				</div>
+				<div class="l">
+					<label>用户名：</label>
+					<span class="v">
+						<input type="txt" name="username" id="username" value="<#if username??>${username}</#if>" class="txt pwd"/>
+						<p>您可以设置您喜欢的一个名称。</p>
+					</span>
+				</div>
+	
+				<div class="l">
+					<label>&nbsp;</label>
+					<span class="v">
+						<input type="checkbox" checked="checked" name="subinfo" id="subinfo"/>订阅最新折扣信息，如果您不想订阅了，请在您的个人中心修改设置
+					</span>
+				</div>
+				<div class="l">
+					<label>&nbsp;</label>
+					<span class="v">
+						<button id="jRegBtn"><span>用户注册</span></button>
+					</span>
+				</div>
+				</form>
+			</div>
+			<div id="jReg">
+				<h5>已有商家联盟账号</h5>
+				<p>
+				请直接 <a href="#" id="jLoginBtn_a">登录</a><br />
+				获取上万家精选商户优惠折扣<br />
+				查低价团购秒杀，巨便宜，超实惠！<br />
+				积分返现时时有！兑奖抽奖精细连连！
+				</p>
+				<button id="jLoginBtn"><span>用户登陆</span></button>
+			</div>
+		</div>
+	</div>
+</div>

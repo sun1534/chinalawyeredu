@@ -1,0 +1,46 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
+margin: 0;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+}
+fieldset,img {
+border: none;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+font-style: normal;
+font-weight: normal;
+}
+li {
+list-style: none;
+}
+caption,th {
+text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+font-size: 100%;
+font-weight: normal;
+}
+
+abbr,acronym {
+border: none;
+font-variant: normal;
+}
+
+legend {
+color: #000;
+}
+del,ins {
+text-decoration: none;
+}
+small {
+font-size: 100%;
+}
+body {padding:0; margin:0; font: 12px/1.5 tahoma,arial,"宋体";color:#666;}

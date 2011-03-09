@@ -1,0 +1,199 @@
+<#macro c module="index">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+  <meta name="copyright" content="" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <title>首页</title>
+
+  
+  <link rel="stylesheet" type="text/css" href="../style/css/hdft.css" />
+  <link rel="stylesheet" type="text/css" href="../style/css/regLogin.css" />
+  <link rel="stylesheet" type="text/css" href="../style/css/dialog.css" />
+    <link rel="stylesheet" type="text/css" href="../style/css/default.css" />
+  <!--[if IE 6]><script type="text/javascript">try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {}</script><![endif]-->
+</head>
+
+<body>
+	<!-- 导航 -->
+	<div id="siteNav">
+		<div class="siteNavWrap">
+			<div id="navTools">
+				<a href="javascript:;" title="">加入收藏</a> |
+				<a href="javascript:;" title="">帮助中心</a> |
+				<a href="javascript:;" title="">网站导航</a>
+			</div>
+			<div id="navLogin">
+				
+					<#if userinfo??>
+				<div id="navLoginIn">
+					<ul>
+						<li>您好！<em>${userinfo.userName}</em></li>
+						<li class="line">&nbsp;</li>
+						<li><a href="javascript:;" title="" id="navLogout">退出</a></li>
+						<li class="line">&nbsp;</li>
+						<li><a href="../user/userCenter.action" title="">个人中心</a></li>
+						<li class="line">&nbsp;</li>
+					</ul>
+				</div>
+				<#else>
+				<div id="navUnLogin">
+					<ul>
+						<li><a href="javascript:;" title="" id="siteLogin">请您登录</a></li>
+						<li>·</li>
+						<li><a href="javascript:;" title="" id="siteReg">免费注册</a></li>
+					</ul>
+				</div>
+				</#if>
+				
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- 头部 logo 搜索-->
+	<div id="siteHeader">
+		<div class="siteHeaderWrap">
+			<div id="logo">
+				<h1><a href="../index/index.action" title=""><span>无线城市·我的移动互联网</span></a></h1>
+				<div id="siteSjlm"><span id="sjlm"><b class="s">商</b><b class="j">家</b><b class="l">联</b><b class="m">盟</b></span>
+					<div id="siteName"><em></em>
+						<div id="allSite">
+						
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="siteSearch">
+				<div id="sSearchTab">
+					<ul>
+					
+					</ul>
+				</div>
+				<div id="sSearchMain">
+					<input type="text" name="" value="请输入搜索关键字" id="sSearchTxt" class="sSearchTxt" onclick="if(this.value!='请输入搜索关键字'||this.value=='请输入搜索关键字')this.value=''"/>
+					<button type="button" class="sSearchBtn" onclick="location.href='../movie/index.action'"><span>搜索</span></button> <a href="javascript:;" title="" class="advSearch">高级搜索</a>
+				</div>
+				<div id="searchHotKey">
+					<p>
+					</p>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="doc">
+		<div id="hd">
+			<!--主体栏目 -->
+			<div id="channel" class="clearfix">
+				<ul id="siteChannel">
+					<!-- 
+					<li <#if module="index">class="cur"</#if>><a href="../index/index.action" title="" class="c"><span>首　页</span></a></li>
+					<li <#if module="coupon">class="cur"</#if>><a href="../coupon/index.action" title="" class="c"><span class="">优 惠</span></a></li>
+					<li <#if module="activity">class="cur"</#if>><a href="javascript:;" title=""  class="c"><span>活 动</span><em></em></a>
+						<div  class="subChannel" id="actZone">
+							<a href="../activity/tuan.action" title="">团购专区</a>
+							<a href="../activity/miao.action" title="">秒杀专区</a>
+						</div>
+					</li>
+					<li <#if module="merchant">class="cur"</#if>><a href="../merchant/index.action" title="" class="c"><span>商 家</span></a></li>
+					<li class="nBg"><a href="javascript:;" title=""  class="c"><span>移动特惠专区</span><em></em></a>
+						<div class="subChannel" id="mobileZone">
+							<a href="javascript:;" title="">数据业务专区</a>
+							<a href="javascript:;" title="">手机服务专区</a>
+							<a href="javascript:;" title="">业务办理专区</a>
+						</div>
+					</li>
+					-->
+				</ul><!-- 
+				<a href="../index/wap.action" title="" id="wapSite">Wap手机版</a>	-->
+			</div>
+		</div>
+		<div id="bd">
+			
+			
+			<#nested/>
+			
+			<!-- 用户帮助 关于我们 等
+			<div id="footHelp">
+				<div>
+					<dl id="userHelp">
+						<dt><span>用户帮助</span></dt>
+						<dd>
+							<ul>
+								<li><a href="javascript:;" title="">忘记密码</a></li>
+								<li><a href="javascript:;" title="">服务条款</a></li>
+								<li><a href="javascript:;" title="">意见反馈</a></li>
+								<li><a href="javascript:;" title="">客服中心</a></li>
+								<li><a href="javascript:;" title="">常见问题</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl id="userUpdate">
+						<dt><span>获取更新</span></dt>
+						<dd>
+							<ul>
+								<li><a href="javascript:;" title="">邮件获取</a></li>
+								<li><a href="javascript:;" title="">短信订阅</a></li>
+								<li><a href="javascript:;" title="">彩信订阅</a></li>
+								<li><a href="javascript:;" title="">微博订阅</a></li>
+								<li><a href="javascript:;" title="">RSS 订阅</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl id="userPartners">
+						<dt><span>商务合作</span></dt>
+						<dd>
+							<ul>
+								<li><a href="javascript:;" title="">合作申请</a></li>
+								<li><a href="javascript:;" title="">友情链接</a></li>
+								<li><a href="javascript:;" title="">商家查询</a></li>
+								<li><a href="javascript:;" title="">客服中心</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl id="userOtherService">
+						<dt><span>其他服务</span></dt>
+						<dd>
+							<ul>
+								<li><a href="javascript:;" title="">一卡通申请</a></li>
+							</ul>
+						</dd>
+					</dl>
+					<dl id="userAbout">
+						<dt><span>关于我们</span></dt>
+						<dd>
+							<ul>
+								<li><a href="javascript:;" title="">关于我们</a></li>
+								<li><a href="javascript:;" title="">联系方式</a></li>
+								<li><a href="javascript:;" title="">媒体报道</a></li>
+								<li><a href="javascript:;" title="">隐私声明</a></li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</div>
+			 -->
+		</div>
+		<div id="ft">
+			<div class="copyright">
+			<!-- 	copyright &copy; 2011 中国移动通信集团广东有限公司珠海分公司 ALL RightsReserved 粤ICP备09079835号-2 <br />
+				中国移动通信集团广东有限公司珠海分公司 版权所有-->
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+
+	</style>
+	
+	<script type="text/javascript" src="../style/js/jquery.js"></script>
+	<script type="text/javascript" src="../style/js/dialog.js"></script>
+	<script type="text/javascript" src="../style/js/nav.js"></script>
+	<script type="text/javascript" src="../style/js/jsider.js"></script>
+	<script type="text/javascript" src="../style/js/flashshow.js"></script>
+	<script type="text/javascript" src="../style/js/comScroll.js"></script>	
+</body>
+</html>
+</#macro>

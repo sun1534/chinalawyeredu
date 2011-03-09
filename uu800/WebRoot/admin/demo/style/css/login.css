@@ -1,0 +1,76 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
+margin: 0;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+}
+fieldset,img {
+border: none;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+font-style: normal;
+font-weight: normal;
+}
+li {
+list-style: none;
+}
+caption,th {
+text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+font-size: 100%;
+font-weight: normal;
+}
+
+abbr,acronym {
+border: none;
+font-variant: normal;
+}
+
+legend {
+color: #000;
+}
+del,ins {
+text-decoration: none;
+}
+small {
+font-size: 100%;
+}
+html,
+body {height:100%;overflow:hidden;}
+body {padding:0; margin:0; font: 12px/1.5 tahoma,arial,"宋体";color:#666;background:#3288C1 url(../images/bg.png) repeat-x left 106px;}
+a {color:#ff6600;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.mod950 {width:950px;margin:0 auto;}
+.mod960 {width:960px;margin:0 auto;}
+.mod620 {width:620px;margin:0 auto;}
+.cl {clear:both;}
+.doc {background:url(../images/doc.png) repeat-x left top;}
+#hd {height:108px;background:url(../images/hd.png) no-repeat center top;}
+#hd .mod620 {clear:both;overflow:hidden;height:78px;}
+#help {height:24px;padding-top:6px;text-align:right;margin-right:10px;}
+#help a {color:#333;}
+#hd h1,
+#hd h2 {display:none;}
+#bd {background:url(../images/dc-bg.jpg) no-repeat center top;height:500px;}
+#login {width:620px;margin:0 auto;}
+#login .form {padding:130px 100px 0 100px;height:230px;}
+.form .l {overflow:hidden;height:40px;}
+.form .l .n {float:left;width:120px;text-align:right;font-size:14px;font-weight:bold;color:#666;line-height:32px;}
+.form .l .v {float:left;padding-left:15px;}
+.form .l .txt ,
+.form .l .chkCode {font-size:14px;height:24px;line-height:24px;border:none;padding:4px 10px;}
+
+.form .l .txt {width:166px;background:url(../images/btn.png) no-repeat left top;}
+.form .l .chkCode {width:46px;background:url(../images/btn.png) no-repeat left -35px;}
+.form .l .btn {width:65px;height:27px;background:url(../images/btn.png) no-repeat -74px -35px;border:none;cursor:pointer;font-size:14px;color:#fff;font-weight:bold;}
+
+.imgCode {margin:0 10px;}
+#copyright p {text-align:center;}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.org" extends="admin.def" namespace="/admin/system">
+      
+         <action name="orgManage" class="com.uu800.admin.base.action.OrgManageAction">
+           <result name="success" type="dispatcher">/admin/system/orgManage.jsp</result>
+ 	     </action>
+         <action name="orgList" class="com.uu800.admin.base.action.OrgListAction">
+           <result name="success" type="dispatcher">/admin/system/orgList.jsp</result>
+         </action>
+         <action name="orgCreate" class="com.uu800.admin.base.action.OrgCreateAction">
+           <result name="input" type="dispatcher">/admin/system/orgCreate.jsp</result>
+           <result name="success" type="dispatcher">/admin/system/viewMessage.jsp</result>
+         </action>
+         <action name="orgEdit" class="com.uu800.admin.base.action.OrgEditAction">
+           <result name="input" type="dispatcher">/admin/system/orgEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="orgDelete" class="com.uu800.admin.base.action.OrgDeleteAction">
+           <result name="success" type="dispatcher">/admin/system/viewMessage.jsp</result>
+         </action>
+         <action name="orgDeletes" class="com.uu800.admin.base.action.OrgDeletesAction">
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="orgView" class="com.uu800.admin.base.action.OrgViewAction">
+           <result name="success" type="dispatcher">/admin/system/orgView.jsp</result>
+         </action>
+         <action name="orgSearch" class="com.uu800.admin.base.action.OrgSearchAction">
+           <result name="input" type="dispatcher">/admin/system/orgSearch.jsp</result>
+           <result name="success" type="dispatcher">/admin/system/orgList.jsp</result>
+         </action>
+         <action name="jobCreate" class="com.uu800.admin.base.action.JobCreateAction">
+           <result name="input" type="dispatcher">/admin/system/jobCreate.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="jobEdit" class="com.uu800.admin.base.action.JobEditAction">
+	       <result name="input" type="dispatcher">/admin/system/jobEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="jobDelete" class="com.uu800.admin.base.action.JobDeleteAction">
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+  </package>
+</struts>

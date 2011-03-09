@@ -1,0 +1,49 @@
+<#import "../common/panel.html" as home>
+<#escape x as (x)!"">
+<@home.c "index">
+			<div class="bdWrapAll clearfix">
+				<!-- 分类导航 -->
+				
+				<!-- 广告 -->
+				<div id="GG">
+					<div id="defaultFoucus" class="defaultFoucus">
+					
+					</div>
+				</div>
+				<!-- 登录 注册 公告 找优惠 -->
+				<div id="ext">
+                    <#if userinfo??>
+					<div id="regLoginIn">
+						<div id="personalCenter">
+							<div class="modBox">
+								<div class="modHd">
+									<span><em class="perWelcome">${userinfo.formatMobile}</em> | <a href="javascript:logout();" title="" class="logout">退出</a></span>
+									<a id="quickPCenter" title="" href="member/center.action"><span>个人中心</span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+                    <#else>
+                    <div id="regLogin">
+							<p><a href="javascript:;" title="" id="extLogin"><span>用户登录</span></a></p>
+							<p><a href="javascript:;" title="" id="extReg"><span>免费注册</span></a></p>
+					</div>					
+                    </#if>
+					<!-- 电影订票 -->
+					
+					
+				</div>
+			</div>
+			
+		
+			<div class="bdWrap clearfix">
+				<div id="siteGGlist">
+				</div>
+			</div>
+			
+			<div class="bdWrap clearfix">
+
+				
+			</div>
+</@home.c>
+</#escape>

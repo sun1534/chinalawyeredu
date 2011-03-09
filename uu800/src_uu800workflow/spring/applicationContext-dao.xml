@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<description>tinyLight Dao配置</description>
+
+	<!-- 定义JdbcTemplate Bean(线程安全,执行底层sql语句) -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<!-- 设置数据源 -->
+		<property name="dataSource" ref="dataSource" />
+
+		<!-- 设置jdbcTemplate创建的statement查询数据时最大的超时时间,默认0 -->
+		<property name="queryTimeout" value="0" />
+
+		<!-- 设置底层ResultSet每次从数据库返回的行数,默认0,Oracle默认100 -->
+		<property name="fetchSize" value="${hibernate.jdbc.fetch_size}" />
+
+		<!-- 设置底层ResultSet从数据库返回的最大行数,默认0 -->
+		<property name="maxRows" value="0" />
+
+		<!-- 是否忽略sql警告信息,默认true,false JdbcTemplate将会抛出SQLWarningException -->
+		<property name="ignoreWarnings" value="true" />
+
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor" />
+	</bean>
+
+	<!-- 定义DBCP数据源的JDBC本地对象抽取器 -->
+	<bean id="nativeJdbcExtractor" lazy-init="true"
+		class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" />
+
+	<!-- 定义封装了jdbc操作数据的dao -->
+	<bean id="simpleJdbcDao" class="com.tinylight.common.dao.jdbc.SimpleJdbcDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+
+	<!-- 定义了与实体相关的dao -->
+	<bean id="genericEntityDao" class="com.tinylight.common.dao.hibernate.GenericEntityDao"
+		scope="prototype" lazy-init="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!-- 定义了与实体无关的dao -->
+	<bean id="genericDao" class="com.tinylight.common.dao.hibernate.GenericDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<!--使用泛型DAO作为抽象基类-->
+	<bean id="baseDao" class="com.tinylight.common.dao.base.BaseDao"
+		 depends-on="genericEntityDao,genericDao" lazy-init="true" scope="prototype">
+		<property name="gedao">
+			<ref bean="genericEntityDao" />
+		</property>
+		<property name="gdao">
+			<ref bean="genericDao" />
+		</property>
+		<property name="sjdao">
+		    <ref bean="simpleJdbcDao"/>
+		</property>
+	</bean>
+	
+</beans>

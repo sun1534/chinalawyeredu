@@ -1,0 +1,122 @@
+<!--弹出层方式的登录界面,这个方式登录后,还是现实原页面-->
+<script type="text/javascript">
+ $(document).ready(function() {
+			$("#jLoginBtn").click(function(){
+				
+				var loginname=$("#loginnameId").val();
+				var password=$("#loginpwdId").val();
+				var verifycode=$("#verifyId").val();
+				if(loginname.length==0){
+					alert("请输入您的手机号,不能为空");
+					return;
+				}
+				if(password.length==0){
+					alert("请输入您的登录密码,不能为空");
+					return;
+				}if(verifycode.length==0){
+					alert("请输入登录验证码,不能为空");
+					return;
+				}
+				$.ajax({
+					type : "POST",
+					url : "../user/userLogin.action",
+					data : "flag=login&loginResult=0&loginName="+loginname+"&pwd="+password+"&verifyCode="+verifycode,
+					success : function(data) {
+						
+						if(data.loginResult=="ok"){
+							location.reload();
+							$.jDialog.removeBox();
+						}else{
+							changeverify_1();
+							alert("您登录失败:"+data.loginResult);
+							
+						}						
+						
+					}
+				});
+			});
+			 $("#jRegBtn").click(function(){
+				$.jDialog.removeBox();
+				$.jDialog({
+					___title:"用户注册",
+					___content:"url:get?../user/userReg!input.action",
+					___width:"660",
+					___height:"480",
+					___drag:"___boxTitle",
+					___showbg:true
+				});
+				});
+				
+				
+				$("#jRegBtn_a").click(function(){
+				$.jDialog.removeBox();
+				$.jDialog({
+					___title:"用户注册",
+					___content:"url:get?../user/userReg!input.action",
+					___width:"660",
+					___height:"480",
+					___drag:"___boxTitle",
+					___showbg:true
+				});
+				});
+ })
+
+function changeverify_1(){
+		document.getElementById("verifyimage").value="";
+		document.getElementById("verifyimage").focus="";
+		document.getElementById("verifyimage").src="../verifyCode.jsp?_id="+Math.floor(Math.random()*100000);
+	}
+ </script>
+<div class="jDialogWrap">
+	<div class="jDialogLoginReg">
+		<div class="loginReg">
+			<div id="jLogin">
+				<div class="l">
+					<label>登录邮箱：</label>
+					<span class="v">
+						<input type="text" name="" value="" id="loginnameId" class="txt tel"/>
+					</span>
+				</div>
+				<div class="l">
+					<label>密码类型：</label>
+					<span class="v">
+						<select name="" class="">
+							<option value=""></option>
+							<option value="" selected="selected">随机短信密码</option>
+						</select>
+						<a href="#" title="" class="getMsgPwd">点击获取短信密码</a>
+					</span>
+				</div>
+				<div class="l">
+					<label>密码：</label>
+					<span class="v">
+						<input type="password" name="" value="" id="loginpwdId" class="txt pwd"/>
+					</span>
+				</div>
+				<div class="l">
+					<label>验证码：</label>
+					<span class="v">
+						<input type="text" name="" value="" id="verifyId" class="txt txtCode"/>
+						<img src="../verifyCode.jsp" id="verifyimage" width="60" height="20" alt="" class="imgCode"/>
+						<a href="#" title="" onclick="changeverify_1()" class="changeImgCode">看不清，换一张</a>
+					</span>
+				</div>
+				<div class="l">
+					<label>&nbsp;</label>
+					<span class="v">
+						<button id="jLoginBtn"><span>用户登录</span></button><a href="#" title="" class="getPwd">忘记密码</a>
+					</span>
+				</div>
+			</div>
+			<div id="jReg">
+				<h5>如果您还没有账户</h5>
+				<p>仅需几秒钟，立即 <a href="#" id="jRegBtn_a">免费注册</a><br />
+				获取上万家精选商户优惠折扣<br />
+				查低价团购秒杀，巨便宜，超实惠！<br />
+				积分返现时时有！	兑奖抽奖精细连连
+				</p>
+				<button id="jRegBtn"><span>免费注册</span></button>
+			</div>
+		</div>
+	</div>
+</div>

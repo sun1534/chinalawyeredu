@@ -1,0 +1,10 @@
+html#switchbarSkin,html#switchbarSkin body  { width:9px;height:100%; }
+html#switchbarSkin .switch {width:9px; height:100%;background:url(../images/admin-bg.png) repeat-x left 0;cursor:pointer; }
+html#switchbarSkin a {outline:none;width:9px; height:100%; display:block;}
+
+html#topbarSkin,html#topbarSkin body  { height:9px; width:100%;background:#54B8F6;text-align:center;}
+html#topbarSkin .topbar {height:9px; width:100%;text-align:center;}
+html#topbarSkin a {outline:none;height:9px; width:100%;display:block;}
+
+#switchbar.current {background:url(../images/bgswich.gif) no-repeat -9px 100px;}
+#switchbar {background:url(../images/bgswich.gif) no-repeat 0px 100px;}

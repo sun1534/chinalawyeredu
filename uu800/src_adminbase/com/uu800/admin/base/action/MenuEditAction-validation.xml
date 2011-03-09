@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="menu.menuid">
+        <field-validator type="required">
+            <message>请输入菜单编码!</message>
+        </field-validator>
+    </field>
+    <field name="menu.menuname">
+        <field-validator type="required">
+            <message>请输入菜单名称!</message>
+        </field-validator>
+    </field>
+    <field name="menu.orderid">
+        <field-validator type="required">
+            <message>请输入排序序号!</message>
+        </field-validator>
+    </field>
+
+</validators> 

@@ -1,0 +1,11 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+
+html,body {height:100%;overflow:hidden;}
+body {padding:10px 4px 0px 0px; margin:0; font: 12px/1.5 tahoma,arial,"宋体";color:#666;background:url(../images/admin-bg.png) repeat-x left 0;}
+#home {margin-right:5px;height:100%;background:#BCDCEB url(../images/home.jpg) repeat-x left center;}
+#welcome {height:100%;background:url(../images/homebg.jpg) no-repeat center center;}

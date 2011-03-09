@@ -1,0 +1,63 @@
+/*
+ * Created: -
+ * Update: -
+ * Author:Kevin Xiao
+ */
+.bdWrap {width:960px;margin:0 auto;overflow:hidden;padding-bottom:10px;padding-top:10px;background-color:#fff;}
+#sjMain {width:715px;float:left;}
+#sjSider {width:235px;float:right;}
+.modBox {border:1px solid #DFE1DE;}
+.modBox .modHd  {position:relative;height:29px;line-height: 28px; padding-left:10px;background:url(../images/titModHd.png) repeat-x left top;}
+.modBox .modBd {padding:5px;_zoom:1;background-color:#fff;}
+.modBox .modHd h5 {font-weight:bold;font-size:14px;}
+.modBox .modHd .more {color:#2B3CC8;position:absolute;right:10px;top:7px;display:block;line-height:14px;}
+
+
+
+#comment {}
+.commentWrap .comTit {border-bottom:1px solid #D8D8D8;overflow:hidden;_zoom:1;height:28px;}
+.commentWrap .comTit h5 {float:left;margin-left:10px;padding:0 10px;font-weight:bold;height:26px;line-height:26px;text-align:center;border-top:2px solid #478B00;border-left:1px solid #E3E3E3;border-right:1px solid #E3E3E3;background-color:#fff;border-bottom:1px solid #fff;position:absolute;margin-bottom:-1px;}
+.commentWrap .comTitM {padding:10px;overflow:hidden;_zoom:1;background-color:#fff;}
+#comment .comTitM dl {background:url(../images/noticeLine.gif) repeat-x left bottom;overflow:hidden;_zoom:1;padding-bottom:10px;margin-bottom:10px;}
+#comment .comTitM dl dt {float:left;width:90px;}
+#comment .comTitM dl dt a {border:1px solid #DBDBDB;height:78px;height:78px;display:block;overflow:hidden;}
+#comment .comTitM dl dd {margin-left:100px;}
+#comment .comTitM dl dd a,
+#comment .comTitM dl dd em {color:#CB1311;}
+#comment .comTitM  .ComTxt {padding:5px;line-height:22px;}
+
+#comForm {}
+#comForm .l {padding-bottom:10px;}
+#comForm .l em {color:#ff1100;}
+#comForm .l .comTitle {width:440px;height:20px;line-height:20px;}
+#comForm .comArea {padding-bottom:10px;}
+#comForm .comArea p{padding-bottom:5px;}
+#comForm .comArea .comAreaTxt {width:480px;height:100px;}
+#comForm .comBtn .comBtn_submit,
+#comForm .comBtn .comBtn_reset {width:65px;height:24px;line-height:24px;text-align:center;}
+#comForm .comBtn .comBtn_submit {background: url(../images/comBtn.png) no-repeat left top;color:#fff;margin-right:10px;}
+#comForm .comBtn .comBtn_reset {background: url(../images/comBtn.png) no-repeat left -24px;color:#666;}
+
+#siteGuild {margin-bottom:10px;padding:0 10px;border-bottom:1px solid #E2E2E2;height:25px;line-height:25px;background:url(../images/siteGuild.png) repeat-x left top;}
+#siteGuild a {color:#53B105;}
+
+#personalCenter {width:235px;margin-bottom:10px;}
+#personalCenter .perWelcome {color:#CD0102;font-size:12px;font-weight:normal}
+#personalCenter .modBox .modBd {padding:5px 10px;overflow:hidden;}
+#personalCenter .modBox .modBd h5 {background:url(../images/noticeLine.gif) no-repeat center bottom;color:#F8B871;font-weight:bold;line-height:24px;height:24px;}
+#personalCenter #perCenterCount {overflow:hidden;padding:5px 0;_zoom:1;}
+#personalCenter #perCenterCount dt {float:left;text-align:right;width:73px;color:#333;height:24px;}
+#personalCenter #perCenterCount dd {float:left;width:140px;height:24px;}
+#personalCenter #perCenterCount dd a {color:#CE0201;}
+#personalCenter .getMoreCenter {padding:10px 0;background:url(../images/noticeLine.gif) no-repeat center top;}
+#personalCenter .getMoreCenter a {color:#0502B3;text-decoration:underline;}
+
+#tjsjList {}
+#tjsjListmain {overflow:hidden;_zoom:1}
+#tjsjListmain .l {overflow:hidden;_zoom:1;}
+#tjsjListmain li {float:left;width:117px;height:60px;}
+#tjsjListmain li a {border:1px solid #D3D3D3;display:block;width:104px;height:50px;overflow:hidden;margin:0 auto;}
+tjsjListmain li a img {display:block;margin:0 auto;}
+#tjsjListmain li a:hover {border:1px solid #1975B5;}
+#sjSearch {padding:0 10px 10px 10px;}
+#sjMap {margin-bottom:10px;}

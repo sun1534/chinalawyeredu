@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.role" extends="admin.def" namespace="/admin/system">
+       <!-- 
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/common/error.jsp</result>
+           <result name="message" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </global-results>
+         -->
+         <action name="roleList" class="com.uu800.admin.base.action.RoleListAction">
+           <result name="success" type="dispatcher">/admin/system/roleList.jsp</result>
+ 	 </action>
+         <action name="roleCreate" class="com.uu800.admin.base.action.RoleCreateAction">
+	   <result name="input" type="dispatcher">/admin/system/roleCreate.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="roleEdit" class="com.uu800.admin.base.action.RoleEditAction">
+	   <result name="input" type="dispatcher">/admin/system/roleEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="roleRightEdit" class="com.uu800.admin.base.action.RoleRightEditAction">
+	       <result name="input" type="dispatcher">/admin/system/roleRightEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="roleDelete" class="com.uu800.admin.base.action.RoleDeleteAction">
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="roleDeletes" class="com.uu800.admin.base.action.RoleDeletesAction">
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="roleView" class="com.uu800.admin.base.action.RoleViewAction">
+           <result name="success" type="dispatcher">/admin/system/roleView.jsp</result>
+         </action>
+         <action name="roleSearch" class="com.uu800.admin.base.action.RoleSearchAction">
+	   <result name="input" type="dispatcher">/admin/system/roleSearch.jsp</result>
+           <result name="success" type="dispatcher">/admin/system/roleList.jsp</result>
+         </action>
+  </package>
+</struts>

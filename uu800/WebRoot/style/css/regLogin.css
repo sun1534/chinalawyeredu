@@ -1,0 +1,45 @@
+.jDialogWrap {padding:10px;}
+.loginReg {width:620px;overflow:hidden;_zoom:1;}
+.loginReg #jLogin {width:410px;float:left;border-right:1px solid #EFEFEF;}
+.loginReg #jReg {width:200px;float:right;overflow:hidden;padding-top:9px;padding-left:9px;}
+.loginReg #jReg h5 {font-weight:bold;font-size:14px;}
+.loginReg #jReg p {line-height:22px;padding:10px 0;}
+#jReg p a {color:#ff6600;font-size:14px;font-weight:bold;}
+.loginReg .l {clear:both;_zoom:1;padding:8px 0;height:26px;}
+.loginReg .l label {float:left;width:90px;font-size:14px;line-height:26px;text-align:right;color:#666;font-weight:bold;}
+.loginReg .l .v {float:left;display:block;width:320px;}
+.loginReg .l .v p {color:#666;padding-top:5px;}
+.loginReg .l .v #jLoginBtn,
+.loginReg .l .v .getPwd {float:left;}
+.loginReg .l .v .getPwd {margin-left:20px;display:block;margin-top:10px;}
+
+
+.regLogin {width:620px;overflow:hidden;padding:9px;}
+.regLogin .l {padding:4px 0 0 0;overflow:hidden;}
+.regLogin .l label {float:left;width:90px;font-size:14px;line-height:26px;text-align:right;color:#666;font-weight:bold;}
+.regLogin .l .v {float:left;display:block;width:320px;}
+.regLogin .l .v p {color:#666;padding-top:5px;}
+.regLogin #jLogin {width:410px;float:left;border-right:1px solid #EFEFEF;}
+.regLogin #jReg {width:200px;float:right;overflow:hidden;padding-top:9px;padding-left:9px;}
+
+.jDialogLoginReg h5 {padding-left:20px;height:30px;line-height:30px;font-weight:bold;color:#2C7FB8;background:url(../images/regTit.png) repeat-x left top;}
+.txt{height:24px;line-height:24px;border:1px solid #2F82BA;background:url(../images/logintxt.png) repeat-x left top;}
+#jLoginBtn,
+#jRegBtn {width:117px;height:35px;display:block;margin:0 auto;overflow:hidden;}
+#jLoginBtn span,
+#jRegBtn span {display:block;text-indent:-999em;}
+#jLoginBtn {background:url(../images/extLoginreg.png) no-repeat left -35px;}
+#jRegBtn {background:url(../images/extLoginreg.png) no-repeat left top;}
+#regNotice {padding-left:90px;padding-top:10px;}
+.emb {color:#ff6600;}
+.tel {width:230px;}
+.pwd {width:230px;}
+.txtCode {width:70px;}
+.imgCode {vertical-align:middle;}
+.getPwd,
+.getMsgPwd,
+.changeImgCode {color:#ff6600;}
+.yaoqing {background-color:#fff;padding:10px 0;}
+.yaoqing .regLogin {margin:0 auto;}
+.yqMessage {text-align:center;}
+.yqMessage a {color:#ff6600;}

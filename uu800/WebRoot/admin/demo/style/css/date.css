@@ -1,0 +1,6 @@
+#PrevMonth,
+#NextMonth {width:25px;width:25px;border:1px solid #A9D0EA;background:#EAF4FA;cursor:pointer;font-weight:bold;}
+#calendar_div {background:#fff;}
+#calendar_div table td {border:1px solid #D8EAF6;}
+#calendar_div table th {border:1px solid #D8EAF6;}
+.daysMain {margin:1px;}

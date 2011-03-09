@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.region" extends="admin.def" namespace="/admin/system">
+      
+         
+         <action name="regionManager" class="com.uu800.admin.base.action.RegionManagerAction">
+         <result>/admin/system/regionManager.jsp</result>
+         </action>
+                  
+          <action name="regionView" class="com.uu800.admin.base.action.RegionViewAction">
+         <result>/admin/system/regionView.jsp</result>
+         </action>
+                  
+
+         
+  </package>
+  
+   
+</struts>

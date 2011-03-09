@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.user" extends="admin.def" namespace="/admin/system">
+      
+         <action name="userList" class="com.uu800.admin.base.action.UserListAction">
+           <result name="success" type="dispatcher">/admin/system/userList.jsp</result>
+ 	     </action>
+         <action name="userManage" class="com.uu800.admin.base.action.UserManageAction">
+           <result name="success" type="dispatcher">/admin/system/userManage.jsp</result>
+ 	     </action>
+         <action name="userCreate" class="com.uu800.admin.base.action.UserCreateAction">
+	   <result name="input" type="dispatcher">/admin/system/userCreate.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="userEdit" class="com.uu800.admin.base.action.UserEditAction">
+	       <result name="input" type="dispatcher">/admin/system/userEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="userDelete" class="com.uu800.admin.base.action.UserDeleteAction">
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="userView" class="com.uu800.admin.base.action.UserViewAction">
+           <result name="success" type="dispatcher">/admin/system/userView.jsp</result>
+         </action>
+         <action name="userRoleEdit" class="com.uu800.admin.base.action.UserRoleEditAction">
+	       <result name="input" type="dispatcher">/admin/system/userRoleEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action><action name="userOfWflList" class="com.uu800.admin.base.action.UserOfWflListAction">
+	   <result name="input" type="dispatcher">/admin/system/userOfWflList.jsp</result>
+           <result name="success" type="dispatcher">/admin/system/userOfWflList.jsp</result>
+         </action>         
+         
+  </package>
+</struts>

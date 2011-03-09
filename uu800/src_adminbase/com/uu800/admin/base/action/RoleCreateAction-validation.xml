@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="role.rolename">
+        <field-validator type="required">
+            <message>请输入角色名称 !</message>
+        </field-validator>
+    </field>
+    <field name="role.roletype">
+        <field-validator type="required">
+            <message>请输入角色类型  !</message>
+        </field-validator>
+    </field>  
+</validators> 

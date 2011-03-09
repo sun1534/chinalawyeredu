@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- spring -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/*.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 
+	<listener>
+		<listener-class>com.prj.website.common.listener.WebContextListener</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.prj.website.common.listener.UserSessionListener</listener-class>
+	</listener>
+	 -->
+	<!-- 
+	<filter> 
+	<filter-name>hibernateFilter</filter-name> 
+	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class> 
+	<init-param>     
+	<param-name>singleSession</param-name>     
+	<param-value>true</param-value>     
+	</init-param>    
+	</filter> 
+	<filter-mapping> 
+	<filter-name>hibernateFilter</filter-name> 
+	<url-pattern>*.action</url-pattern> 
+	</filter-mapping> 
+		-->
+	  <filter>   
+        <filter-name>encodingFilter</filter-name>   
+        <filter-class>   
+            org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>   
+        <init-param>   
+            <param-name>encoding</param-name>   
+            <param-value>UTF-8</param-value>   
+        </init-param>   
+        <init-param>   
+            <param-name>forceEncoding</param-name>   
+            <param-value>true</param-value>   
+        </init-param>   
+    </filter>   
+    
+    <filter> 
+	<filter-name>hibernateFilter</filter-name> 
+	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class> 
+	<init-param>     
+	<param-name>singleSession</param-name>     
+	<param-value>true</param-value>     
+	</init-param>    
+	</filter> 
+    
+    <filter-mapping>   
+        <filter-name>encodingFilter</filter-name>   
+        <url-pattern>/*</url-pattern>   
+    </filter-mapping>   
+	
+
+	<filter-mapping> 
+	<filter-name>hibernateFilter</filter-name> 
+	<url-pattern>/admin/*</url-pattern> 
+	</filter-mapping> 
+	
+	<!-- struts2的配置 -->
+	<filter>
+		<filter-name>struts</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	
+	<filter-mapping> 
+	<filter-name>struts</filter-name> 
+	<url-pattern>*.action</url-pattern> 
+	</filter-mapping>
+	<!-- struts2的配置 END-->	
+	
+	<!-- 上传 -->
+    <filter> 
+        <filter-name>struts-cleanup</filter-name> 
+        <filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class> 
+    </filter>
+    <filter-mapping>
+        <filter-name>struts-cleanup</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	
+	
+	<!-- 验证码 -->
+	<servlet>
+        <servlet-name>VerifyCodeServlet</servlet-name>
+        <servlet-class>com.uu800.webbase.VerifyCodeServlet</servlet-class>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>RefreshMemoryServlet</servlet-name>
+        <servlet-class>com.uu800.webbase.RefreshMemoryServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>	
+	    <servlet-name>VerifyCodeServlet</servlet-name>
+	    <url-pattern>/verifyCode.jsp</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>	
+	    <servlet-name>RefreshMemoryServlet</servlet-name>
+	    <url-pattern>/refreshMemoryServlet</url-pattern>
+    </servlet-mapping>
+	<!-- 验证码    END-->  
+	
+
+	
+	<servlet>
+  	<servlet-name>JSPSupportServlet</servlet-name>
+  	<servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+
+ 
+     <session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	 <mime-mapping>
+        <extension>doc</extension>
+        <mime-type>application/msword</mime-type>
+    </mime-mapping>
+    
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	<error-page>
+    <error-code>404</error-code>
+    <location>/error/404.html</location>
+  </error-page>
+</web-app>

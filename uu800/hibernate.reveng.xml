@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<type-mapping>
+	<sql-type jdbc-type="CLOB" hibernate-type="string"></sql-type>
+	<sql-type jdbc-type="DATE" hibernate-type="timestamp"></sql-type>
+	<sql-type jdbc-type="CHAR" hibernate-type="string" />
+	<sql-type jdbc-type="VARCHAR" hibernate-type="string" />
+	<sql-type jdbc-type="TIMESTAMP" hibernate-type="timestamp" />
+	<sql-type jdbc-type="TIME" hibernate-type="timestamp" />
+	<sql-type jdbc-type="DATE" hibernate-type="timestamp" />
+	<sql-type jdbc-type="DECIMAL" hibernate-type="short" precision="2"/>
+	<sql-type jdbc-type="DECIMAL" hibernate-type="byte" precision="1"/>
+	<sql-type jdbc-type="DECIMAL" hibernate-type="int" precision="8"/>
+	<sql-type jdbc-type="DECIMAL" hibernate-type="long" precision="10"/>
+</type-mapping>
+<table name="TCRP_CORP" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TCRP_CORP_ID</param>
+			</generator>
+		</primary-key>
+		<column name="BUSINESS_TYPE" type="int"></column>
+	</table>
+	<table name="TCOM_SLIDE" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TCOM_SLIDE_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+	<table name="TCRP_COUPON" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TCRP_COUPON_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+	<table name="TCRP_GROUPBUY" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TCRP_GROUPBUY_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+	<table name="TCOM_ENVALUTE" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TCOM_ENVALUTE_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+	<table name="TFLM_CINEMA" schema="ZHSJLM">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="TFLM_FILM" schema="ZHSJLM">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="TFLM_HALL" schema="ZHSJLM">
+		<primary-key>
+			<generator class="assigned"></generator>
+		</primary-key>
+	</table>
+	<table name="TINF_INFO" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TINF_INFO_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+	<table name="TINF_MESSAGE" schema="ZHSJLM">
+		<primary-key>
+			<generator class="sequence">
+				<param name="sequence">TINF_MESSAGE_ID</param>
+			</generator>
+		</primary-key>
+	</table>
+</hibernate-reverse-engineering>

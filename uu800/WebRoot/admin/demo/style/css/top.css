@@ -1,0 +1,91 @@
+/*
+Author: Kevin Xiao
+Email: kevin_218@163.com
+Web:www.bluekevin.com
+Msn:xiao-kevin@hotmail.com
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
+margin: 0;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+}
+fieldset,img {
+border: none;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+font-style: normal;
+font-weight: normal;
+}
+li {
+list-style: none;
+}
+caption,th {
+text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+font-size: 100%;
+font-weight: normal;
+}
+
+abbr,acronym {
+border: none;
+font-variant: normal;
+}
+
+legend {
+color: #000;
+}
+del,ins {
+text-decoration: none;
+}
+small {
+font-size: 100%;
+}
+html,
+body {height:100%;overflow:hidden;}
+body {padding:0; margin:0; font: 12px/1.5 tahoma,arial,"宋体";color:#666;background:#3288C1 url(../images/admin-bg.png) repeat-x left 106px;}
+a {color:#ff6600;text-decoration:none;}
+a:hover {text-decoration:underline;}
+.mod950 {width:950px;margin:0 auto;}
+.mod960 {width:960px;margin:0 auto;}
+.mod620 {width:620px;margin:0 auto;}
+.cl {clear:both;}
+.doc {background:url(../images/admin-doc.png) repeat-x left -30px;}
+#hd {height:135px;background:url(../images/admin-hd.png) no-repeat -140px -30px;padding:0px 5px 11px 5px;}
+#help {position:absolute;right:7px;top:20px;height:23px;line-height:23px;border:1px solid #95BCD7;background:url(../images/help.png) repeat-x left top;padding:0 10px;color:#fff;}
+#help a {color:#fff;}
+#help #loginOut {color:#ff6600;}
+#hd h1 {height:78px;}
+#hd h1 a span,
+#hd h2 span {display:none;}
+#bd {background:url(../images/dc-bg.jpg) no-repeat center top;height:500px;}
+#topNav {height:37px;background:url(../images/topNav.png) no-repeat left top;padding-left:7px;}
+#topNav .topNavMain {position:relative;height:37px;background:url(../images/topNav.png) no-repeat right top;padding-right:7px;}
+	#topNavChange {width:177px;height:32px;line-height:32px;display:block;background:url(../images/topMenuChange.png) repeat-x left top;padding-left:15px;font-size:14px;font-weight:bold;position:absolute;left:0px;top:5px;}
+	#topNavChange h3 {cursor:pointer;font-weight:bold;color:#fff;font-weight:bold;background:url(../images/topSwitchbar.png) no-repeat 150px top;}
+	#topNavChange .current {background:url(../images/topSwitchbar.png) no-repeat 150px -32px;}
+	.loginOut {position:absolute;right:10px;top:10px;display:block;width:48px;height:18px;padding-left:15px;color:#fff;background:url(../images/logOut.png) no-repeat left center;}
+	.loginInfo {position:absolute;left:213px;top:10px;}
+	.loginInfo span {color:#f1f1f1;}
+	.loginInfo span em {font-weight:bold;}
+	#topMenu {position:absolute;right:70px;top:0px;}
+	#topMenu ul {padding:6px;height:25px;overflow:hidden;float:right;}
+	#topMenu ul li {float:left;padding:0 8px;height:25px;position:relative;}
+	#topMenu ul li .line {width:1px;height:17px;overflow:hidden;background:#fff;display:block;position:absolute;top:50%;left:0px;margin-top:-8px;}
+	#topMenu ul li a {height:25px;display:inline-block;padding-right:10px;}
+	#topMenu ul li a span {display:inline-block;height:25px;line-height:25px;cursor:pointer;color:#fff;font-size:14px;font-weight:bold;text-align:center;padding-left:10px;}
+	#topMenu ul li a:hover {background:#58A6DC url(../images/topMenu-li.png) no-repeat right top;text-decoration:none;}
+	#topMenu ul li a:hover span {background:#58A6DC url(../images/topMenu-li.png) no-repeat left top;}
+
+	#topMenu ul .current a,
+	#topMenu ul .current a:hover {background:#58A6DC url(../images/topMenu-li.png) no-repeat right top;}
+	#topMenu ul .current a span,
+	#topMenu ul .current a:hover span {background:#58A6DC url(../images/topMenu-li.png) no-repeat left top;}
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
+<workflow>
+  <meta name="lastModified">Wed Jan 12 16:34:30 CST 2011</meta>
+  <meta name="created">Wed Jan 12 16:30:29 CST 2011</meta>
+  <meta name="generator">OSWOrkflow Designer</meta>
+  <initial-actions>
+    <action id="0" name="start workflow">
+    	<pre-functions>
+    	    <function type="class">
+              <arg name="class.name">myfirst.CreateFunction</arg>
+            </function>
+        </pre-functions>
+      <results>
+        <unconditional-result id="2" old-status="Finished" status="Queued" step="1">
+          <post-functions>
+            <function type="class">
+              <arg name="class.name">myfirst.InitWorkFlowOwnerRule</arg>
+            </function>
+            <function type="class">
+              <arg name="class.name">myfirst.SetKeepWorkFlowOwner</arg>
+            </function>
+          </post-functions>
+        </unconditional-result>
+      </results>
+    </action>
+  </initial-actions>
+  <steps>
+    <step id="1" name="receive order,connect buyer">
+      <actions>
+        <action id="4" name="receive order,connect buyer ok" view="receive order,connect buyer ok">
+          <results>
+            <unconditional-result id="5" old-status="Finished" status="Queued" step="3"/>
+          </results>
+        </action>
+        <action id="7" name="receive order,connect buyer failed" view="receive order,connect buyer failed">
+          <results>
+            <unconditional-result id="8" old-status="Finished" status="Queued" step="6"/>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="3" name="connect buyer successfully,transcation">
+      <actions>
+        <action id="12" name="connect buyer successfully,transcation" view="connect buyer successfully,transcation">
+          <results>
+            <unconditional-result id="13" old-status="Finished" status="Queued" step="11"/>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="6" name="connect buyer failed,redo">
+      <actions>
+        <action id="9" name="connect buyer failed,redo" view="connect buyer failed,redo">
+          <results>
+            <unconditional-result id="10" old-status="Finished" status="Queued" step="1"/>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="11" name="done">
+       <actions>
+        <action id="15" name="done" view="done">
+          <results>
+            <unconditional-result id="16" old-status="Finished" status="Queued" step="14">
+              <post-functions>
+                <function type="class">
+                   <arg name="class.name">myfirst.FinishWork</arg>
+                </function>     
+             </post-functions>
+            </unconditional-result>
+          </results>
+        </action>
+      </actions>
+    </step>
+    <step id="14" name="finishwork">
+    </step>
+   </steps>
+</workflow>

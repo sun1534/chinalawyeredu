@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- Some or all of these can be flipped to true for debugging -->
+	<constant name="struts.i18n.reload" value="false" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<constant name="struts.serve.static" value="true" />
+	<constant name="struts.serve.static.browserCache" value="false" />
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.locale" value="zh_CN" />
+	<constant name="struts.multipart.maxSize" value="209715200" /> 
+	<constant name="struts.ui.theme" value="simple" /> 
+	<constant name="struts.ui.templateDir" value="template" /> 
+
+	<!-- 在ftl里访问静态方法 --> 	
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<!-- 在ftl里访问map 
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" /> 
+	<constant name="struts.ui.templateSuffix" value="ftl" /> 
+	--> 	
+	
+	<package name="webbase" extends="json-default">
+		
+	</package>
+	
+    <package name="portal.def" extends="webbase">
+    	
+		<global-results>
+			<!-- 弹出层登录，一般是ajax请求的时候返回，默认在拦截器中做了此判断并返回 -->
+			<result name="poplogin" type="freemarker">/common/poplogin.html</result>
+			<!-- 普通的登录页，点击页面的时候，如果发现登录会话信息不再存在，则跳转到此页面 -->
+			<result name="login" type="redirect">/main/index.action</result>
+			<!-- 普通的信息提示页面，显示此次操作的结果信息提示 -->
+			<result name="sysmsg" type="freemarker">/common/sysmsg.html</result>
+			<!-- 弹出层方式的提示页面，一般是ajax请求的时候的返回 -->
+			<result name="popmsg" type="freemarker">/common/popmsg.html</result>
+			<!-- 仅显示一个结果的页面，比如操作的成功失败等 -->
+			<result name="result" type="freemarker">/common/result.html</result>
+			<!-- 没有权限时候的跳转页面 -->
+			<result name="noright" type="freemarker">/common/noright.html</result>
+			<!-- 返回错误的时候的转向页面 -->
+		 	<result name="error" type="freemarker">/common/error.html</result>
+		 	<!-- 有异常的时候的错误处理 -->
+		 	<result name="exception" type="freemarker">/common/error.html</result>
+		 	<!-- 支付密码输入页 -->
+		 	<result name="confirmAgain" type="freemarker">/user/payPwdConfirm.html</result>
+		 	<!-- json形式的返回信息，返回的内容为当前action对应各get方法的 -->
+		 	<result name="success_ajax" type="json"></result>
+		 	<result name="requireConfirm" > /portal/requireConfirmAction?backUrl=</result>
+		</global-results>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+        </global-exception-mappings>
+	</package>
+
+	<package name="admin.def" extends="webbase">
+		<interceptors>
+	    	<interceptor name="visitInteceptor" class="com.uu800.admin.base.VisitorInteceptor"/>
+    		<interceptor name="hibernateInteceptor" class="com.uu800.webbase.SpringHibernateSessionInterceptor"/>
+			<interceptor-stack name="visitStack">
+				<!-- 加在最前面是要用那个prepare的接口 -->
+				<interceptor-ref name="params"/>
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="visitInteceptor" />
+			</interceptor-stack>
+			<!-- hibernate的.操作的时候用 -->
+			<interceptor-stack name="visitHibernateStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="visitInteceptor" />
+				<interceptor-ref name="hibernateInteceptor" />
+			</interceptor-stack>
+			</interceptors>
+		<default-interceptor-ref name="visitStack"/> 
+		<global-results>
+
+			<!-- 普通的登录页，点击页面的时候，如果发现登录会话信息不再存在，则跳转到此页面 -->
+			<result name="login" type="dispatcher">/admin/common/login.jsp</result>
+			<!-- 普通的信息提示页面，显示此次操作的结果信息提示 -->
+			<result name="sysmsg" type="dispatcher">/admin/common/sysmsg.jsp</result>
+			<!-- 仅显示一个结果的页面，比如操作的成功失败等 -->
+			<result name="result" type="dispatcher">/admin/common/result.jsp</result>
+			<!-- 没有权限时候的跳转页面 -->
+			<result name="noright" type="dispatcher">/admin/common/noright.jsp</result>
+			<!-- 返回错误的时候的转向页面 -->
+		 	<result name="error" type="dispatcher">/admin/common/error.jsp</result>
+		 	<!-- 有异常的时候的错误处理 -->
+		 	<result name="exception" type="dispatcher">/admin/common/error.jsp</result>
+		 	<!-- json形式的返回信息，返回的内容为当前action对应各get方法的 -->
+		 	<result name="success_ajax" type="json"></result>
+		</global-results>
+        <global-exception-mappings>
+            <exception-mapping result="sqlexception" exception="java.sql.SQLException"></exception-mapping>
+            <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+        </global-exception-mappings>
+	</package>
+	
+	<include file="struts/*.xml" />
+	
+</struts>

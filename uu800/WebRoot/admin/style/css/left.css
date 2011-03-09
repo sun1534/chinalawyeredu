@@ -1,0 +1,47 @@
+/*
+Author: Kevin Xiao
+*/
+body {padding-left:5px;background:url(../images/admin-bg.png) repeat-x left 0;overflow:hidden;}
+#sider {overflow:hidden;background:url(../images/leftBg.png) repeat-y left top;width:200px;margin:0 auto;}
+#siderBT {background:url(../images/siderBT.png) no-repeat left top;height:16px;}
+.siderHd.current {
+border:none;
+height:0px;
+line-height:0px;
+}
+.siderHd h1 {float:left;padding-left:10px;font-weight:bold;}
+#switch {position:absolute;right:10px;top:5px;width:18px;height:20px;display:block;}
+#switchbar {width:18px;height:20px;display:block;cursor:pointer;text-indent:-999em;outline:none;}
+
+.toggleHd {cursor:pointer;margin:5px 12px 0 12px;}
+.toggleHd h2 {padding-left:10px;height:26px;line-height:26px;background:url(../images/siderMenuLi.png) no-repeat left -26px;display:block;color:#388CC5;}
+.toggleHd.current h2 {background:url(../images/siderMenuLi.png) no-repeat left top;color:#fff;height:24px;line-height:24px;font-weight:bold;}
+.toggleBd {padding:0 12px;}
+.siderNav {border:1px solid #56A4DA;border-top:none;}
+.siderNav ul {padding:1px 0;}
+.siderNav ul li {display:inline;}
+.siderNav ul li a {
+text-decoration:none;
+display:block;padding-left:25px;line-height:22px;height:22px;display:block;overflow:hidden;
+color:#388CC5;
+background:url(../images/siderli.png) no-repeat center -25px;
+}
+
+.siderNav ul li .ac {
+background:url(../images/siderli.png) no-repeat center -49px;
+}
+.siderNav ul li a:hover {
+text-decoration:none;
+background:url(../images/siderli.png) no-repeat center -1px;
+color:#000;
+}
+
+.siderNav ul .current a,
+.siderNav ul .current a:hover {
+text-decoration:none;
+background:url(../images/siderli.png) no-repeat center -1px;
+color:#000;
+}
+
+
+

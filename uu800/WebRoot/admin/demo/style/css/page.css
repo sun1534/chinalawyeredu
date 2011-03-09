@@ -1,0 +1,31 @@
+/*
+	分页
+*/
+
+.page {text-align:center;padding:5px 0;overflow:hidden;_zoom:1;left:50%;position:relative;margin-left:-25%;float:left;}
+.page a,.page a:hover ,.page .page-current {text-decoration:none;color:#183152;padding:0 8px;}
+.page .page-total {text-align:center;padding:0 8px;background:#F1F1F1;border:1px solid #ccc;}
+.page .page-cur em,
+.page .page-total em {color:#ff6600;font-weight:bold;padding:0 3px;}
+.page .page-current {color:#FF0000;}
+.page a:hover {background:#fff;}
+
+span.page-first,
+span.page-pre ,
+span.page-next,
+span.page-last {color:#666;}
+
+a.page-first,
+a.page-pre ,
+a.page-next,
+a.page-last {text-align:center;padding:0 8px;background:#F1F1F1;border:1px solid #ccc;}
+
+.page a,
+.page span {display:block;float:left;line-height:23px;margin:0 0 0 5px;}
+
+.page span.pageOp {float:left;line-height:19px;}
+.page .goPage {border:none;cursor:pointer;width:16px;height:19px;display:inline-block;background:url(../images/main/tableBg.png) no-repeat left -200px;}
+.page .pageNo {border:0;padding:0 2px 0 5px;overflow:hidden;height:16.5px;width:20px;line-height:16px;border:1px solid #ACAEAF;}
+
+.page span.pageOp label ,
+.page span.pageOp .goPage  {float:left;}

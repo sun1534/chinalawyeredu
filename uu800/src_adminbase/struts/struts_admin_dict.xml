@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.dict" extends="admin.def" namespace="/admin/system">
+
+
+         <!-- 数据字典查询 -->
+         <action name="dictList" class="com.uu800.admin.base.action.DictManagerAction">
+           <result name="success" type="dispatcher">/admin/system/dictList.jsp</result>
+ 	      </action>
+ 	      
+ 	      <!-- 查看数据字典 -->
+ 	      <action name="dictView" class="com.uu800.admin.base.action.DictViewAction">
+ 	      <result name="success" type="dispatcher">/admin/system/dictView.jsp</result>
+ 	      </action>
+ 	       
+ 	       <!-- 数据字典更新页面 -->
+ 	      <action name="editDict" class="com.uu800.admin.base.action.DictEditAction">
+            <result name="input">/admin/system/dictEdit.jsp</result>
+ 	      </action>
+
+ 	      <!-- 数据字典新增页面 -->
+ 	      <action name="dictAdd" class="com.uu800.admin.base.action.DictAddAction">
+           <result name="input">/admin/system/dictAdd.jsp</result>
+ 	      </action>
+
+ 	         <!-- 增加数据字典值 -->
+ 	      <action name="dictValueAdd" class="com.uu800.admin.base.action.DictValueAddAction">
+           <result name="input">/admin/system/dictValueAdd.jsp</result>
+ 	      </action>
+ 	      
+ 	       <!-- 页面加载数据字典值 -->
+ 	      <action name="dictValueUpdate" class="com.uu800.admin.base.action.DictValueUpdateAction">
+           <result name="input">/admin/system/dictValueEdit.jsp</result>
+ 	      </action>
+ 	      <!-- 增加数据字典值到Session中  -->
+ 	 <action name="addDictValue" class="com.uu800.admin.base.action.DictValueAddAction">
+ 	      <result type="json" name="success">
+			<param name="includeProperties">tip</param>
+			</result>
+ 	      </action>
+ 	         <!-- 增加数据字典值到Session中  -->
+ 	      <action name="updateDictValue" class="com.uu800.admin.base.action.DictValueUpdateAction">
+ 	      <result type="json" name="success">
+			<param name="includeProperties">tip</param>
+			</result>
+ 	      </action>
+  </package>
+</struts>

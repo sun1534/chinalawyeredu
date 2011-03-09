@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.menu" extends="admin.def" namespace="/admin/system">
+      
+         <action name="menuList" class="com.uu800.admin.base.action.MenuListAction">
+           <result name="success" type="dispatcher">/admin/system/menuList.jsp</result>
+ 	     </action>
+         <action name="menuEdit" class="com.uu800.admin.base.action.MenuEditAction">
+	       <result name="input" type="dispatcher">/admin/system/menuEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="menuRightEdit" class="com.uu800.admin.base.action.MenuRightEditAction">
+	       <result name="input" type="dispatcher">/admin/system/menuRightEdit.jsp</result>
+           <result name="success" type="dispatcher">/admin/common/sysmsg.jsp</result>
+         </action>
+         <action name="menuView" class="com.uu800.admin.base.action.MenuViewAction">
+           <result name="success" type="dispatcher">/admin/system/menuView.jsp</result>
+         </action>
+  </package>
+</struts>

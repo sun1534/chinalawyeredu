@@ -1,0 +1,18 @@
+<script type="text/javascript">
+ $(document).ready(function() {
+			$("#messageClose").click(function(){
+				$.jDialog.removeBox();
+				<#if redirectURL??>
+				location.href="${redirectURL}";
+				</#if>
+				
+			});
+ })
+ </script>
+<div class="jDialogWrap">
+	<div class="MsgDown">
+		<p class="messageSuccess">${message}<br />
+			<button id="messageClose" class="msgDownBtn">关闭</button>
+		</p>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="admin.logger" extends="admin.def" namespace="/admin/system">
+    
+         <!-- 日志查询 -->
+         <action name="loggerQuery" class="com.uu800.admin.base.action.LogQueryAction">
+           <result name="success" type="dispatcher">/admin/system/loggerquery.jsp</result>
+ 	      </action>
+ 	      
+ 	      <!-- 日志查看-->
+ 	      <action name="viewSysLog" class="com.uu800.admin.base.action.LoggerViewAction">
+           <result name="success" type="dispatcher">/admin/system/loggerview.jsp</result>
+ 	      </action>
+ 	      
+ 	     
+  </package>
+ </struts>

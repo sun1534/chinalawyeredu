@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+ <package name="admin.base" extends="admin.def" namespace="/admin">
+      <!--    <default-interceptor-ref name="adminStack"/>-->
+         <action name="userLogin" class="com.uu800.admin.base.action.LoginAction">
+           <result name="success" type="redirect">/admin/panel/index.action</result>
+       	   <result name="currenturl" type="redirect">${nextPage}</result>
+ 	     </action>
+ 	     
+ 	     <action name="userLogout" class="com.uu800.admin.base.action.LogOutAction">
+            <result name="success" type="dispatcher">login.jsp</result>
+ 	     </action>
+ 	     
+ 	      <action name="index" class="com.uu800.admin.base.action.IndexAction">
+            <result name="success" type="redirect">/admin/common/login.jsp</result>
+ 	     </action>
+  </package>
+ <package name="admin.panel" extends="admin.def" namespace="/admin/panel">
+ 		<action name="index" class="com.uu800.admin.base.action.IndexAction">
+    		<result name="success">/admin/panel/index.jsp</result>
+    	</action>
+    	<action name="left" class="com.uu800.admin.base.action.IndexAction" method="left">
+    		<result name="success">/admin/panel/left.jsp</result>
+    	</action>
+    	<action name="top" class="com.uu800.admin.base.action.IndexAction" method="top">
+    		<result name="success">/admin/panel/top.jsp</result>
+    	</action>
+    	
+    	<action name="workspace" class="com.uu800.admin.base.action.IndexAction" method="workspace">
+    		<result name="success" type="redirect">/admin/panel/home.html</result>
+    	</action>
+    	 <action name="modifyPassword" class="com.uu800.admin.base.action.SysModifyPasswordAction">
+	       <result name="input" type="dispatcher">/admin/panel/modifyPassword.jsp</result>
+        </action>  
+  	 </package>
+
+</struts>

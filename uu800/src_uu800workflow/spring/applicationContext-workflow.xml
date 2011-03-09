@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 使用aop/tx命名空间 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <description>spring JDBCTemplate 方式</description>
+
+    <!-- 专门为mysql数据库定制的一个bean,让工作流程实例(如果需要的话)分享当前事务 -->
+	<bean id="mysqlTemplateWorkflowStore"
+		class="com.opensymphony.workflow.spi.jdbc.MySQLTemplateWorkflowStore"
+		scope="prototype">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="propertySetDelegate">
+			<ref bean="propertySetDelegate" />
+		</property>
+		<property name="jdbcTemplateProperties">
+			<props>
+				<prop key="history.table">OS_HISTORYSTEP</prop>
+				<prop key="historyPrev.table">OS_HISTORYSTEP_PREV</prop>
+				<prop key="current.table">OS_CURRENTSTEP</prop>
+				<prop key="currentPrev.table">OS_CURRENTSTEP_PREV</prop>
+				<prop key="step.id">ID</prop>
+				<prop key="step.entryId">ENTRY_ID</prop>
+				<prop key="step.stepId">STEP_ID</prop>
+				<prop key="step.actionId">ACTION_ID</prop>
+				<prop key="step.owner">OWNER</prop>
+				<prop key="step.caller">CALLER</prop>
+				<prop key="step.startDate">START_DATE</prop>
+				<prop key="step.finishDate">FINISH_DATE</prop>
+				<prop key="step.dueDate">DUE_DATE</prop>
+				<prop key="step.status">STATUS</prop>
+				<prop key="step.previousId">PREVIOUS_ID</prop>
+				<prop key="step.sequence">SELECT max(ID)+1 FROM OS_STEPIDS</prop>
+				<prop key="entry.sequence">SELECT max(ID)+1 FROM OS_WFENTRY</prop>
+				<prop key="entry.table">OS_WFENTRY</prop>
+				<prop key="entry.id">ID</prop>
+				<prop key="entry.name">NAME</prop>
+				<prop key="entry.state">STATE</prop>
+				
+				<!-- mysql 特有的 -->
+				<prop key="step.sequence.increment">INSERT INTO OS_STEPIDS (ID) values (null)</prop>
+				<prop key="step.sequence.retrieve">SELECT max(ID) FROM OS_STEPIDS</prop>
+				<prop key="entry.sequence.increment">INSERT INTO OS_ENTRYIDS (ID) values (null)</prop>
+				<prop key="entry.sequence.retrieve">SELECT max(ID) FROM OS_ENTRYIDS</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- OSWorkflow的核心功能之一就是动态保存变量,这允许函数从workflow声明周期的一开始就运行还能保存一些数据到OSWorkflow中
+	             因此，后继的action执行的时候,可以取出这些数据,在其他函数中使用。
+	             这是非常强力的功能，使用得当的话可以做出高度定制的,具有长生命周期的工作流行为,就算服务器重启也可以持续
+                       这都归功于PropertySet模块 -->
+	<bean id="propertySetDelegate"
+		class="com.opensymphony.workflow.spi.jdbc.DefaultJDBCTemplatePropertySetDelegate"
+		scope="prototype">
+		<property name="configurationProvider">
+		    <ref bean="defaultJDBCTemplateConfigurationProvider"/>
+		</property>
+	</bean>
+	
+	
+	<bean id="defaultJDBCTemplateConfigurationProvider"
+		class="com.opensymphony.module.propertyset.database.DefaultJDBCTemplateConfigurationProvider"
+		scope="prototype">
+        <property name="propertySetDAO">
+            <ref bean="jdbcTemplatePropertySetDAOImpl"/>
+        </property>
+	</bean>
+
+	<bean id="jdbcTemplatePropertySetDAOImpl"
+		class="com.opensymphony.module.propertyset.database.JDBCTemplatePropertySetDAOImpl"
+		scope="prototype">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+
+	<!--
+		这是一个XMLWorkflowFactory封装包,它可以允许从容器中注入configuration,从而不再从其它的XML配置文件中读取它们
+	-->
+	<bean id="workflowFactory"
+		class="com.opensymphony.workflow.spi.hibernate.SpringWorkflowFactory"
+		init-method="init">
+		<property name="resource">
+			<value>../osworkflow/workflows.xml</value>
+		</property>
+		<property name="reload">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	
+	<!-- WorkflowStore 事务处理配置 -->
+	<aop:config>
+		<aop:pointcut id="oswfMethod1"
+			expression="execution(* com.opensymphony.workflow.spi.WorkflowStore.*(..))" />
+		<aop:pointcut id="oswfMethod2"
+			expression="execution(* com.opensymphony.module.propertyset.database.JDBCTemplatePropertySetDAO.*(..))" />			
+		
+		<aop:advisor pointcut-ref="oswfMethod1" advice-ref="txAdvice_oswf" />
+		<aop:advisor pointcut-ref="oswfMethod2" advice-ref="txAdvice_oswf" />
+	</aop:config>
+	<tx:advice id="txAdvice_oswf" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+
+    <!-- 这是一个Workflow Configuration接口的实现类,它包含指向store和factory的引用,这样可以在spring中注入 -->
+	<bean id="osworkflowConfiguration" class="com.opensymphony.workflow.config.SpringConfiguration"
+	      scope="prototype">
+		<property name="store">
+			<ref local="mysqlTemplateWorkflowStore" />
+		</property>
+		<property name="factory">
+			<ref local="workflowFactory" />
+		</property>
+	</bean>
+    
+    <!--允许OSWorkflow从Spring ApplicationContext中获得业务逻辑组件(conditions,functions等等) -->
+    <bean id="workflowTypeResolver" class="com.opensymphony.workflow.util.SpringTypeResolver"></bean>
+    
+
+    
+</beans>

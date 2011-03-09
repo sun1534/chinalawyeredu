@@ -1,0 +1,4 @@
+.error {border:1px solid #E2E2C4;background:#FFFFE1;padding:4px;}
+.error .errorTit {padding-left:10px;line-height:24px;height:24px;font-weight:bold;border-bottom:1px solid #ddd;}
+.error .errorM {padding:10px;color:#FF6600;line-height:24px;}
+.error .errorM .errorInfo {text-align:center;}

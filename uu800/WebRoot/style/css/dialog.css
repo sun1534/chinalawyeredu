@@ -1,0 +1,154 @@
+html,body{ height: 100%; }
+.jDialog .boxLoading {
+	position: absolute;
+	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: -45px;
+	margin-top: -15px;
+	left: 50%;
+	top: 50%;
+	color: #f00;
+}
+.jDialog .boxLoading{
+	width:28px;
+	margin-left: -14px;
+	background:url("../images/dialog/loading.gif") no-repeat;
+	text-indent: -999em;
+	text-align: center;
+}
+.jDialog .boxTitle,
+.jDialog .boxTitle span,
+.jDialog .boxTitle span.hover,
+.jDialog .loadinglayer,
+.jDialog .tipslayer,
+.jDialog .arrowLeft,
+.jDialog .colseBtn,
+.jDialog .boxError em,
+.jDialog .dialogBtn,
+.jDialog .dialogBtn.hover{
+	background-image: url("../images/dialog/ico.png");
+	background-repeat: no-repeat;
+}
+.jDialog .boxTitle {
+	position: relative;
+	border: 1px solid #A6C9E1;
+	border-bottom: none;
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	height: 30px;
+	line-height: 30px;
+}
+.jDialog .boxTitle h3 {
+	float: left;
+	font-weight:bold;
+	color: #2D81B9;
+	font-size: 14px;
+	margin: 0;
+	text-indent: 10px;
+}
+.jDialog .boxTitle span {
+	position: absolute;
+	width: 10px;
+	background-position: -80px -40px;
+	text-indent: -10em;
+	right: 10px;
+	top: 10px;
+	height: 16px;
+	overflow: hidden;
+	cursor: pointer;
+}
+.jDialog .boxTitle span.hover { background-position: -90px -40px; }
+.jDialog .loadinglayer{ line-height: 40px; background-position: 0 -100px!important; }
+.jDialog .tipslayer{
+	line-height: 20px;
+	text-align: left;
+}
+.jDialog .arrowLeft{
+	position: absolute;
+	width: 8px;
+	height: 16px;
+	background-position: -20px -170px;
+	text-indent: -9999em;
+	z-index: 20591;
+	overflow: hidden;
+}
+.jDialog .colseBtn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	width: 8px;
+	height: 8px;
+	background-position: -55px -170px;
+	text-indent: -9999em;
+	cursor: pointer;
+	z-index: 20591;
+	overflow: hidden;
+}
+.jDialog .boxError{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -60px;
+	margin-top: -15px;
+	width: 120px;
+	height: 30px;
+	line-height: 30px;
+	color: #f00;
+}
+.jDialog .boxError em{
+	float: left;
+	width:30px;
+	height: 30px;
+	background-position: -35px -140px;
+}
+.jDialog .dialogBtn{
+	margin: 5px 5px 0 0;
+	width:80px;
+	height:35px;
+	background-position: 0 -30px;
+	border:none;
+	color:#333;
+}
+.jDialog .dialogBtn.hover{ background-position: 0 -65px; }
+.jDialog.shadow {
+	box-shadow:2px 2px 5px #C0BBB5;
+	-moz-box-shadow: 2px 2px 5px #C0BBB5;
+	-webkit-box-shadow:2px 2px 5px #C0BBB5;
+}
+
+
+#noticedetailes {padding:10px;overflow:hidden;_zoom:1;}
+#noticedetailes h5 {text-align:center;line-height:30px;font-weight:bold;font-size:16px;}
+#noticedetailes p {text-indent:2em;}
+#noticedetailes p a {color:#ff6600;font-weight:bold;}
+
+
+.MsgDown {}
+.msgDownBtn,
+.msgDownBtnCancel {width:65px;height:24px;font-weight:bold;}
+.msgDownBtn {background:url(../images/comBtn.png) no-repeat left top;color:#fff;}
+.msgDownBtnCancel {background:url(../images/comBtn.png) no-repeat left -24px;color:#666;}
+.MsgDown .MsgDownTi {color:#ff6600;font-weight:bold;}
+.MsgDown .msgDownMain {padding:10px;}
+.MsgDown  .msgDownDetailes {background:#F6F9FD;padding:10px;}
+.MsgDown  .msgDownDetailes dl {}
+.MsgDown  .msgDownDetailes dl dt {width:180px;float:left;}
+.MsgDown  .msgDownDetailes dl dd {margin-left:180px;}
+.MsgDown  .msgDownDetailes dl dd a {color:#ff6600;}
+
+.MsgDown .msgDownMain a {color:#ff6600;margin-left:10px;}
+.MsgDown .msgDownInfo {color:#ff6600;border:1px solid #FFE1A3;background-color:#FCFEE9;padding:10px;}
+.MsgDown .msgDownInfo em {color:#666;}
+.MsgDown .msgDownInfo .getMsgCode {color:#666;}
+.MsgDown .msgDownOp {text-align:center;padding:10px;}
+
+
+.msgDownOp .closeSc {color:#ff6600;}
+.msgDownOp .goSc {color:#666;}
+.messageSuccess {text-align:center;padding:10px;}
+
+
+
+
