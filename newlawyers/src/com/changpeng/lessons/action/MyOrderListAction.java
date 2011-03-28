@@ -16,6 +16,7 @@ public class MyOrderListAction extends AbstractAction {
 	}
 
 	/*
+	 * 我的订单,点了支付动作了,就成为订单了
 	 * (non-Javadoc)
 	 * 
 	 * @see com.changpeng.common.action.AbstractAction#go()
@@ -24,6 +25,9 @@ public class MyOrderListAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 
+		
+		
+		
 		return SUCCESS;
 	}
 

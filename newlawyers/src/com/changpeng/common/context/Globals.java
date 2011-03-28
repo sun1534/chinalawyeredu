@@ -20,7 +20,7 @@ public class Globals {
 	static {
 //		FileSystemXmlApplicationContext;
 		
-		context = new ClassPathXmlApplicationContext(configName);
+//		context = new ClassPathXmlApplicationContext(configName);
 		 
 	}
 	/**
@@ -35,9 +35,9 @@ public class Globals {
 		return wac.getBean(name);
 	}
 	public static Object getMainBean(String name) {
-
+		return getBean(name);
 //			 context = new ClassPathXmlApplicationContext(configName);
 
-		return context.getBean(name);
+//		return context.getBean(name);
 	}
 }

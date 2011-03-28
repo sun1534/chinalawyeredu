@@ -1,84 +1,11 @@
 <#import "../common/template.html" as template >
+<#import "leftmenu.html" as leftmenu >
 <#escape x as (x)!"">
 <@template.template myheader="" title="我的订单">
 <div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<a href="../lessons/myOrderList.pl"><strong>我的订单</strong></a></div>
 <div class="con">
-  <div class="con_left4 left">
-     <div class="con_left4_title">收藏夹</div>   
-  <TABLE cellSpacing=0 cellPadding=0 width="88%" border=0>
-        <TBODY>
-          <TR>
-            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" /> <A onclick=javascript:ShowFLT(1) 
-                  href="javascript:void(null)">按是否已结算</A></TD>
-          </TR>
-          <TR id=LM1 style="DISPLAY: none">
-          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
-                <TBODY>
-                  <TR>
-                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=文件夹 
-                        href="#" 
-                        target=_parent>未放入购物车</A></TD>
-                  </TR>
-                  <TR>
-                    <TD background="" height=3></TD>
-                  </TR>
-                  <TR>
-                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
-                        href="#" 
-                        target=_parent>已放入购物车</A></TD>
-                  </TR>
-                  <TR>
-                    <TD background="" height=3></TD>
-                  </TR>
-                  <TR>
-                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=档案盒 
-                        href="#" 
-                        target=_parent>已结算</A> </TD>
-                  </TR>
-                  <TR>
-                    <TD background="" height=3></TD>
-                  </TR>
-                </TBODY>
-            </TABLE></TD>
-          </TR>
-          <TR>
-            <TD style="PADDING-LEFT: 20px" background="" height=23><img src="images/jiantou.gif" width="4" height="10" /> <A onclick=javascript:ShowFLT(2) 
-                  href="javascript:void(null)">按是否已听</A> </TD>
-          </TR>
-          <TR id=LM2 style="DISPLAY: none">
-          <TD><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
-                <TBODY>
-                  <TR>
-                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=文件夹 
-                        href="#" 
-                        target=_parent>未听</A></TD>
-                  </TR>
-                  <TR>
-                    <TD background="" height=3></TD>
-                  </TR>
-                  <TR>
-                    <TD style="PADDING-LEFT: 40px" height=23><img src="images/dian_.gif" width="3" height="3" /> <A title=资料册 
-                        href="#" 
-                        target=_parent>已听</A> </TD>
-                  </TR>
-                </TBODY>
-            </TABLE></TD>
-          </TR>
-
-      </TBODY>
-    </TABLE>
-    <div class="gou">购物车</div>
-    <div class="gwc"><a href="#">我的购物车</a></div>
-     <div class="ding">我的订单</div>
-     <div class="dan">
-     <ul>
-       <li><a href="#">三个月内</a></li>
-       <li><a href="#">半年内</a></li>
-       <li><a href="#">一年内</a></li>
-       <li><a href="#">一年前</a></li>
-       <li><a href="#">全部</a></li>
-     </ul>
-     </div>
+  <div class="con_left3 left">
+     <@leftmenu.leftmenu/>
   </div>
   <div class="con_right3 left">
     <div class="con_right3_title"><h2>我的订单</h2></div>
@@ -118,9 +45,9 @@
    </td>
   </tr>
 </table>
-    <div class="page2"><form action="" method="get">
-		  <span><a href="#">首页</a></span>  <span><a href="#">上一页</a></span>  <span><a href="#">下一页</a></span>  <span><a href="#">尾页</a></span>  <span><a href="#">共6页</a></span>
-		</form></div>
+    <div class="page2">
+${page.pageView}
+		</div>
     </div>
     
   </div>

@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-	<display-name>广西律师协会继续教育培训系统</display-name>
+	<display-name>中华全国律师教育培训系统</display-name>
 	<!-- Spring ApplicationContext配置文件的路径可使用通配符，多个路径用逗号分隔,此参数用于后面的Spring-Context loader -->
 	<context-param>   
 		<param-name>contextConfigLocation</param-name>   

@@ -438,10 +438,10 @@ public class LessonsService extends BasicService {
 	 * @param pageNo
 	 * @return
 	 */
-	public PaginationSupport getMyShoucangList(int lawyerId, int lessonType, String orderBy, int pageSize, int pageNo) {
+	public PaginationSupport getShoucangList(int lawyerId, int lessonType, String orderBy, int pageSize, int pageNo) {
 
-		List list = lessonsDAO.find("select lessonid from lessonshoucang where lawyerid=" + lawyerId);
-		if (list == null && list.size() == 0)
+		List list = lessonsDAO.find("select lessonid from Lessonshoucang  where lawyerid=" + lawyerId);
+		if (list == null || list.size() == 0)
 			return new PaginationSupport();
 		DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class);
 		dc.add(Restrictions.in("lessonid", list));
