@@ -148,11 +148,17 @@ public class UserLoginAction extends AbstractAction {
 			// passwd.setMaxAge(Integer.MAX_VALUE);
 			// response.addCookie(cookie);
 			// response.addCookie(passwd);
-			Cookie cookie = new Cookie("autologin", this.loginname + "," + this.password);
+//			Cookie cookie = new Cookie("autologin", this.loginname + "," + this.password);
+//			cookie.setMaxAge(Integer.MAX_VALUE);
+//			cookie.setPath("/");
+//			cookie.setDomain("all.lawyeredu.com");
+//			response.addCookie(cookie);
+			Cookie cookie = new Cookie(Constants.COOKIE_LOGINNAME, this.loginname);
 			cookie.setMaxAge(Integer.MAX_VALUE);
-			cookie.setPath("/");
-			cookie.setDomain("all.lawyeredu.com");
+			Cookie passwd = new Cookie(Constants.COOKIE_PASSWORD, this.password);
+			passwd.setMaxAge(Integer.MAX_VALUE);
 			response.addCookie(cookie);
+			response.addCookie(passwd);
 
 		} 
 		else {// 如果cookie存在就要删掉

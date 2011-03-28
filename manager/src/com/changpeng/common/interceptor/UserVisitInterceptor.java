@@ -52,8 +52,8 @@ public class UserVisitInterceptor implements Interceptor {
     		getDomain(request);
     		result=invocation.invoke();
     	}catch(Exception e){
-    	
-    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+ Constants.SYS_NAME);
+    		
+    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+ Constants.SYS_NAME,e);
     		throw e;
     	}
 		LOG.info(ip + ">" + request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+Constants.SYS_NAME);

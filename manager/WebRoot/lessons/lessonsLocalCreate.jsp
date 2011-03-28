@@ -11,7 +11,7 @@
 <jscalendar:head/>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="JavaScript"> 
-var len=<s:property value="filelist.size()"/>+1;
+var len=1;
 var i=1;
 function addFile(){
 	len++;
@@ -125,17 +125,7 @@ function deleteAttach(lessonid,filename){
 								<s:textfield name="lesson.title" size="50" />
 							</td>
 						</tr>
-					<!-- 	<tr>
-							<td class="tab_content" align="right">
-									课程状态：
-							</td>
-							<td colspan="2" class="tab_content">
-<s:select name="lesson.lessonstate" list="@com.changpeng.lessons.util.CommonDatas@LessonState"/>
-					
-									
-							</td>
-						</tr>
-						-->
+				
 						 <s:if test="shouldview">
 						<tr>
 							<td class="tab_content" align="right">
@@ -174,21 +164,11 @@ function deleteAttach(lessonid,filename){
 							</td>
 							<td colspan="2" class="tab_content">
 									<!-- 0:'大型专题讲座',1:'学术研讨会',2:'实务培训学习',3:'其他' -->
-																				<s:select name="lesson.lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType"/>
+								<s:select name="lesson.lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType"/>
                                      <font color="red">*请选择</font>
 							</td>
 						</tr>
-<!-- 
-						<tr>
-							<td class="tab_content1" align="right">
-									课程类别描述：
-							</td>
-							<td colspan="2" class="tab_content1">
-								<s:textfield  name="lesson.lessondesc" size="50"/>
-                                 <font color="red">*不能为空</font>
-							</td>
-						</tr>
--->
+
 
 						<tr>
 							<td class="tab_content1" align="right">
@@ -240,40 +220,7 @@ function deleteAttach(lessonid,filename){
 								</FCK:editor>
 							</td>
 						</tr>
-					<!-- 	<tr>
-							<td class="tab_content" align="right">
-									考勤时长：
-							</td>
-							<td colspan="2" class="tab_content">
-									<s:textfield  name="lesson.kaoqinshichang"  size="4"/><span style="color:red">单位为分钟</span>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="tab_content1" align="right">
-									是否提醒：
-							</td>
-							<td colspan="2" class="tab_content1">
-								<s:checkbox name="lesson.isalert"/>
-							</td>
-						</tr> 
-						<tr>
-							<td class="tab_content" align="right">
-									限制人数：
-							</td>
-							<td colspan="2" class="tab_content">
-									<s:textfield  name="lesson.maxpersons"  size="4"/>
-							</td>
-						</tr>-->
-
-					<!--	<tr>
-							<td class="tab_content1" align="right">
-									未到扣分：
-							</td>
-							<td colspan="2" class="tab_content1">
-								<s:textfield  name="lesson.notexistfen" size="4"/>
-							</td>
-						</tr>-->
+					
 						<tr>
 							<td class="tab_content" align="right">
 									在线文件：
@@ -291,41 +238,18 @@ function deleteAttach(lessonid,filename){
 									<s:textfield  id="fileid" name="lesson.onlinefile" size="60" onblur="checkifempty()"/>
 							</td>
 						</tr>
-						<!-- 
-						<tr>
-							<td class="tab_content1" align="right">
-									分数折扣：
-							</td>
-							<td colspan="2" class="tab_content1">
-								<s:textfield  name="lesson.fenshuoff" size="4" />%
-							</td>
-						</tr>
-                       -->
+					
 					  <tr id="sharedto" style="display:none">
 							<td class="tab_content1" align="right">
 									共享给：
 							</td>
 							<td colspan="2" class="tab_content1">
 							      <s:select name="sharedgroupids" list="shouldsharedgroupids" listKey="groupid" listValue="groupname" cssStyle="width:150px;height:100px" multiple="true" headerKey="all" headerValue="共享给全部" onchange="shareit()"/><span>(按住Ctrl键选择多个)</span>
-                                <%//<s:checkboxlist name="sharedlist" list="allLawyers"/>%>				
 							</td>
 						</tr>
 						
                         
-						<s:if test="hasattach">
-						<tr>
-							<td class="tab_content" align="right">
-									已有附件：
-							</td>
-							<td colspan="2" class="tab_content">
-								<s:iterator value="filelist" status="stat">
-								<div>
-								<a href="download.pl?filename=${filelist[stat.index]}">${filelist[stat.index]}</a>&nbsp;&nbsp;（<a href="#" onClick="javascript:deleteAttach('${lesson.lessonid}','${filelist[stat.index]}')">删除</a>）
-								</div>
-								</s:iterator>				
-							</td>
-						</tr>
-						</s:if>
+						
 						<tr>
 							<td class="tab_content1" align="right">
 									上传新附件：
@@ -334,15 +258,7 @@ function deleteAttach(lessonid,filename){
 								<s:file name="file" size="60"/><input id="more" type="button" value="更多..." onClick="addFile()">                      
 							</td>
 						</tr>
-					<!--	<tr>
-							<td class="tab_content" align="right">
-									是否必修：
-							</td>
-							<td colspan="2" class="tab_content">
-						
-									<s:checkbox name="lesson.isbixiu" />
-							</td>
-						</tr>-->
+					
 						<tr>
 							<td class="tab_content">
 							</td>

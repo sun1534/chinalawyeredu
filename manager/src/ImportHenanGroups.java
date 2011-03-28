@@ -49,13 +49,13 @@ public class ImportHenanGroups {
 
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("c:\\groups.xls"));
 
-		int parentid = 8495;
-		int directgroup = 18;
+		int parentid = 11002750;
+		int directgroup = 23;
 		int kk = 0;
 		Map list = new HashMap();
 		logugroupexist = new PrintWriter(new FileOutputStream("c:\\groupexist.log", true), true);
 
-		for (int i = 0; i < 18; i++) {
+		for (int i = 0; i < 1; i++) {
 			parentid = parentid + i;
 			logugroup = new PrintWriter(new FileOutputStream("c:\\group" + parentid + ".sql", true), true);
 
@@ -75,17 +75,18 @@ public class ImportHenanGroups {
 			// while ((line=br.readLine())!=null) {
 			while (_ite.hasNext()) {
 				HSSFRow row = (HSSFRow) _ite.next();
-				String groupname = HSSFCellToString.toString(row.getCell(0));// ID
+				String groupname = HSSFCellToString.toString(row.getCell(1));// ID
+//				序号	事务所名称（必须）	地址	行政联络人	电话	隶属机构	事务所执业证号（必须）	所属律协（必须）
 
 				if (groupname == null || groupname.equals(""))
 					break;
 				if (groupname.trim().equals("事务所名称"))
 					continue;
-				String groupaddress = HSSFCellToString.toString(row.getCell(1));
-				String contacter = HSSFCellToString.toString(row.getCell(2));
-				String groupphone = HSSFCellToString.toString(row.getCell(3));
-				String groupenname = HSSFCellToString.toString(row.getCell(4));
-				String district = HSSFCellToString.toString(row.getCell(5));
+				String groupaddress = HSSFCellToString.toString(row.getCell(2));
+				String contacter = HSSFCellToString.toString(row.getCell(3));
+				String groupphone = HSSFCellToString.toString(row.getCell(4));
+				String groupenname = HSSFCellToString.toString(row.getCell(6));
+				String district = HSSFCellToString.toString(row.getCell(7));
 
 				String systemno = groupenname;
 

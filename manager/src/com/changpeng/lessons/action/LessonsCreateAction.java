@@ -199,17 +199,17 @@ public class LessonsCreateAction extends AbstractAction {
 		
 		
 		lesson.setAttach(attach);
-//		if (sharedgroupids == null || sharedgroupids.size() == 0) {
-//			sharedgroupids = new ArrayList();
-//		}
-//		if (mygroup != null)
-//			sharedgroupids.add(mygroup.getGroupid());
-//		if(!sharedgroupids.contains(lesson.getGroupid())&&lesson.getGroupid()!=0){
-//			sharedgroupids.add(lesson.getGroupid());
-//		} 
-//		if(!sharedgroupids.contains(lesson.getProvinceid())&&lesson.getProvinceid()!=0){
-//			sharedgroupids.add(lesson.getProvinceid());
-//		}
+		if (sharedgroupids == null || sharedgroupids.size() == 0) {
+			sharedgroupids = new ArrayList();
+		}
+		if (mygroup != null)
+			sharedgroupids.add(mygroup.getGroupid());
+		if(!sharedgroupids.contains(lesson.getGroupid())&&lesson.getGroupid()!=0){
+			sharedgroupids.add(lesson.getGroupid());
+		} 
+		if(!sharedgroupids.contains(lesson.getProvinceid())&&lesson.getProvinceid()!=0){
+			sharedgroupids.add(lesson.getProvinceid());
+		}
 		
 		service.saveLesson(lesson, null, this.getLoginUser());
 
@@ -233,19 +233,19 @@ public class LessonsCreateAction extends AbstractAction {
 		SysGroupService groupservice = (SysGroupService) this.getBean("sysGroupService");
 		SysGroup mygroup = this.getLoginUser().getSysGroup();
 		// 要共享给哪些个课程
-//		shouldsharedgroupids = groupservice.getAllsharedunion();
-//		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
-//			// 课程共享的时候，去掉自己
-//			if (mygroup != null) {
-//				for (Object obj : shouldsharedgroupids) {
-//					SysGroup group = (SysGroup) obj;
-//					if (group.getGroupid() == mygroup.getGroupid()) {
-//						shouldsharedgroupids.remove(group);
-//						break;
-//					}
-//				}
-//			}
-//		}
+		shouldsharedgroupids = groupservice.getAllsharedunion();
+		if (shouldsharedgroupids != null && shouldsharedgroupids.size() != 0) {
+			// 课程共享的时候，去掉自己
+			if (mygroup != null) {
+				for (Object obj : shouldsharedgroupids) {
+					SysGroup group = (SysGroup) obj;
+					if (group.getGroupid() == mygroup.getGroupid()) {
+						shouldsharedgroupids.remove(group);
+						break;
+					}
+				}
+			}
+		}
 		if (mygroup == null || mygroup.getGrouptype() > 3) {
 			this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 			shouldview = true;
@@ -313,24 +313,24 @@ public class LessonsCreateAction extends AbstractAction {
 	/**
 	 * 课程的来源,其实也应该是省律协或者市律协，共享的时候，设置共享给所有的省律协以及购买了系统的
 	 */
-//	private List shouldsharedgroupids;
+	private List shouldsharedgroupids;
 
 	/**
 	 * @return the sharedgroupids
 	 */
-//	public List getShouldsharedgroupids() {
-//		return shouldsharedgroupids;
-//	}
+	public List getShouldsharedgroupids() {
+		return shouldsharedgroupids;
+	}
 
-//	private List sharedgroupids;
+	private List sharedgroupids;
 
 	/**
 	 * @param sharedgroupids
 	 *            the sharedgroupids to set
 	 */
-//	public void setSharedgroupids(List sharedgroupids) {
-//		this.sharedgroupids = sharedgroupids;
-//	}
+	public void setSharedgroupids(List sharedgroupids) {
+		this.sharedgroupids = sharedgroupids;
+	}
 
 	private boolean shouldview;
 

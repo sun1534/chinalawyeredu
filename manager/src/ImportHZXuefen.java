@@ -75,6 +75,7 @@ public class ImportHZXuefen {
 
 	public static void getLawyers() throws Exception {
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream("c:\\0809lawyers.xls"));
+//		补登内容标题(必填)	计分日期(非必填,不填默认为当天)	律所	姓名	补登积分年度(必填)	补登学分(必填)	是否计为现场培训(是/否)
 
 		HSSFWorkbook wb = new HSSFWorkbook(fs);
 		HSSFSheet sheet = wb.getSheetAt(0);
