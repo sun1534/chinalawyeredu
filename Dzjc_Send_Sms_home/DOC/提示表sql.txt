@@ -1,0 +1,1 @@
+create table city_prompt  select id,cityname,city,sql_content,status from city_template_content  

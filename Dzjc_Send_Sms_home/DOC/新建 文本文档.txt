@@ -1,0 +1,13 @@
+CREATE TABLE `member_mt_status` (         
+                    `id` int(10) NOT NULL auto_increment,   
+                    `tel_number` varchar(20) default NULL,  
+                    `chepai` varchar(100) default NULL,     
+                    `send_count` int(4) default NULL,       
+                    `send_date` datetime default NULL,      
+                    `send_flag` int(1) default NULL,        
+                    `mt_flag` int(1) default '0',           
+                    `last_mt_date` datetime default NULL,   
+                    `dzjc_date` datetime default NULL,      
+                    PRIMARY KEY  (`id`),                    
+                    KEY `mobile` (`tel_number`)             
+                  ) TYPE=MyISAM                             
