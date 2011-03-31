@@ -1,0 +1,51 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SmsNotificationService WSDL service -->
+
+  <service name="SmsNotification" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://www.chinatelecom.com.cn/wsdl/ctcc/sms/notification/v2_1/service"/>
+      <parameter name="wsdlServiceElement" value="SmsNotificationService"/>
+      <parameter name="schemaQualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/notification/v2_1/local"/>
+      <parameter name="schemaUnqualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1,http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+      <parameter name="wsdlServicePort" value="SmsNotification"/>
+      <parameter name="className" value="cn.com.chinatelecom.www.wsdl.ctcc.sms.notification.v2_1.service.SmsNotificationBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="SmsNotification"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"
+        qname="ns:SmsMessage"
+        type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.SmsMessage"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"
+        qname="ns:DeliveryStatus"
+        type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryStatus"
+        serializer="org.apache.axis.encoding.ser.EnumSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"
+        qname="ns:DeliveryInformation"
+        type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryInformation"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

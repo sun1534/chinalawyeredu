@@ -1,0 +1,22 @@
+#
+#Thu Mar 31 16:02:13 CST 2011
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=false
+reStrategyClass=
+springDaoFile=
+useJavaTypes=true
+keyGenerator=
+libInstallFolder=
+addLibs2Project=false
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=
+configFile=/xjwebservice/src/hibernate.cfg.xml
+createConfigFile=true
+addLibs2Classpath=false

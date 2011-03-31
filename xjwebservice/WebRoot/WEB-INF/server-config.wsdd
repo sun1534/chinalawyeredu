@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="E:\personal\.metadata\.plugins\com.genuitec.eclipse.easie.tomcat.myeclipse\tomcat\webapps\axis\WEB-INF\attachments"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="SmsNotificationService" provider="java:RPC" style="wrapped" use="literal">
+  <parameter name="wsdlServicePort" value="SmsNotification"/>
+  <parameter name="schemaQualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/notification/v2_1/local"/>
+  <parameter name="className" value="cn.com.chinatelecom.www.wsdl.ctcc.sms.notification.v2_1.service.SmsNotificationBindingSkeleton"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="wsdlServiceElement" value="SmsNotificationService"/>
+  <parameter name="wsdlTargetNamespace" value="http://www.chinatelecom.com.cn/wsdl/ctcc/sms/notification/v2_1/service"/>
+  <parameter name="wsdlPortType" value="SmsNotification"/>
+  <parameter name="schemaUnqualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1,http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns1:SmsMessage" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.SmsMessage" xmlns:ns1="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns2:DeliveryStatus" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryStatus" xmlns:ns2="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns3:DeliveryInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryInformation" xmlns:ns3="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+ </service>
+ <service name="IsmpSpEngineService" provider="java:RPC" style="document" use="literal">
+  <parameter name="sendMultiRefs" value="false"/>
+  <parameter name="wsdlServicePort" value="IsmpSpEngine"/>
+  <parameter name="schemaQualified" value="http://rsp.sp.ismp.chinatelecom.com,http://sp.ismp.chinatelecom.com,http://req.sp.ismp.chinatelecom.com"/>
+  <parameter name="className" value="com.chinatelecom.ismp.sp.IsmpSpEngineSoapBindingSkeleton"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="wsdlPortType" value="IsmpSpEngine"/>
+  <parameter name="wsdlServiceElement" value="IsmpSpEngineService"/>
+  <parameter name="wsdlTargetNamespace" value="http://sp.ismp.chinatelecom.com"/>
+  <parameter name="sendXsiTypes" value="false"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns4:OrderRelationUpdateNotifyReq" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.chinatelecom.ismp.sp.req.OrderRelationUpdateNotifyReq" xmlns:ns4="http://req.sp.ismp.chinatelecom.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns5:NotifyManagementInfoRsp" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.chinatelecom.ismp.sp.rsp.NotifyManagementInfoRsp" xmlns:ns5="http://rsp.sp.ismp.chinatelecom.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns6:NotifyManagementInfoReq" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.chinatelecom.ismp.sp.req.NotifyManagementInfoReq" xmlns:ns6="http://req.sp.ismp.chinatelecom.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns7:ServiceConsumeNotifyReq" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.chinatelecom.ismp.sp.req.ServiceConsumeNotifyReq" xmlns:ns7="http://req.sp.ismp.chinatelecom.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns8:Response" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.chinatelecom.ismp.sp.rsp.Response" xmlns:ns8="http://rsp.sp.ismp.chinatelecom.com"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="SendSmsService" provider="java:RPC" style="wrapped" use="literal">
+  <parameter name="wsdlServicePort" value="SendSms"/>
+  <parameter name="schemaQualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/send/v2_1/local"/>
+  <parameter name="className" value="cn.com.chinatelecom.www.wsdl.ctcc.sms.send.v2_1.service.SendSmsBindingSkeleton"/>
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="wsdlServiceElement" value="SendSmsService"/>
+  <parameter name="wsdlTargetNamespace" value="http://www.chinatelecom.com.cn/wsdl/ctcc/sms/send/v2_1/service"/>
+  <parameter name="wsdlPortType" value="SendSms"/>
+  <parameter name="schemaUnqualified" value="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1,http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns9:ServiceException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.common.v2_1.ServiceException" xmlns:ns9="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns10:SimpleReference" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference" xmlns:ns10="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns11:ChargingInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.common.v2_1.ChargingInformation" xmlns:ns11="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns12:PolicyException" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.common.v2_1.PolicyException" xmlns:ns12="http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns13:DeliveryStatus" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryStatus" xmlns:ns13="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.EnumDeserializerFactory" encodingStyle="" qname="ns14:SmsFormat" serializer="org.apache.axis.encoding.ser.EnumSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.SmsFormat" xmlns:ns14="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns15:DeliveryInformation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryInformation" xmlns:ns15="http://www.chinatelecom.com.cn/schema/ctcc/sms/v2_1"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>
