@@ -1,0 +1,19 @@
+html#switchbarSkin,html#switchbarSkin body  { width:9px;height:100%; }
+html#switchbarSkin .switch {width:9px; height:100%;background:url(../images/switch.jpg) repeat-x left top;; }
+html#switchbarSkin a {outline:none;width:9px; height:100%; display:block;}
+
+html#topbarSkin,html#topbarSkin body  { height:9px; width:100%;background:#54B8F6;text-align:center;}
+html#topbarSkin .topbar {height:9px; width:100%;text-align:center;}
+/*html#topbarSkin a {outline:none;height:9px; width:100%;display:block;}*/
+
+
+.topbarimg {background:url(../images/bgtopbar.gif) no-repeat center 0px;}
+.topbarimg:hover {background:url(../images/bgtopbar.gif) no-repeat center 0px;}
+.topbarimg_ {background:url(../images/bgtopbar.gif) no-repeat center -9px;}
+.topbarimg_:hover {background:#54B8F6 url(../images/bgtopbar.gif) no-repeat center -9px;}
+
+
+.switchbarimg {background:url(../images/bgswich.gif) no-repeat 0px center;}
+.switchbarimg:hover {background:url(../images/bgswich.gif) no-repeat 0px center;}
+.switchbarimg_ {background:url(../images/bgswich.gif) no-repeat -9px center;}
+.switchbarimg_:hover {background:url(../images/bgswich.gif) no-repeat -9px center;}
