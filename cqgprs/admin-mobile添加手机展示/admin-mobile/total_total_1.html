@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/swfobject.js"></script>
+ <script language="javascript">
+swfobject.embedSWF("open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",
+  {"data-file":"data/total_total_1.txt","loading":"正在载入数据..."} );
+
+ </script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>统计分析</a>＞<em>业务全貌</em>＞<em>总流量分析</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块 -->
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+
+                                    <td>起始时间：
+								    <input type="text" name="input" value="2009-9-1" class="txt"  size="10"/>									  &nbsp;</td>
+                                    <td>终止时间：
+								    <input type="text" name="input" value="2009-9-8" class="txt"  size="10"/>									  &nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div>
+					<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+                    <div  class="tablist" style="text-align:center">
+              <div id="barchart"></div>
+
+                    </div>
+					<div class="tablist">
+					<!--	<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w100">日期</th>
+                          <th>总流量</th>
+                          <th>总用户数</th>
+                          <th>平均用户流量(B)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+                          <td class="w100">2009-09-08</td>
+                          <td>449395.8M</td>
+                          <td><a href="#" class="blank">996030</a></td>
+                          <td class="tboperation w220">507.1K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-07</td>
+                          <td>458231.5M</td>
+                          <td>991003</td>
+                          <td class="tboperation w220">471.6K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-06</td>
+                          <td>457395.8M</td>
+                          <td>981207</td>
+                          <td class="tboperation w220">466.4K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-05</td>
+                          <td>452395.8M</td>
+                          <td><a href="#" class="blank">983004</a></td>
+                          <td class="tboperation w220">497.1K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-04</td>
+                          <td>444231.5M</td>
+                          <td>992003</td>
+                          <td class="tboperation w220">491.6K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-03</td>
+                          <td>458395.8M</td>
+                          <td>986207</td>
+                          <td class="tboperation w220">526.4K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-02</td>
+                          <td>464231.5M</td>
+                          <td>996203</td>
+                          <td class="tboperation w220">421.6K </td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-01</td>
+                          <td>451395.8M</td>
+                          <td>980107</td>
+                          <td class="tboperation w220">486.4K </td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+								<tr>
+									<td colspan="4" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+              <!--
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>
+                    -->
+				</div>
+			</div>
+		</div>
+
+</body>
+
+</html>
+

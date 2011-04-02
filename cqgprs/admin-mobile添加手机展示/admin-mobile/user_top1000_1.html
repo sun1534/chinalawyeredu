@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>用户行为</a>＞<em>高流量用户排名</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+								 <td>APN编号：
+								    <input type="text" name="input" value="lncwt.ln" class="txt"  size="10"/>&nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div> -->
+					<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+				  <div class="tablist">
+					<!--	<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w100">用户号码</th>
+                          <th>APN</th>
+                          <th>总流量(K)</th>
+                          <th>PDP激活成功次数</th>
+                          <th>当前所在小区</th>
+                          <th>前15分钟所在小区</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+
+                          <td><span class="w100">15803691510</span></td>
+                          <td>lncwt.ln</td>
+                          <td>23512</td>
+                          <td>122</td>
+                          <td>南方花园</td>
+                          <td>高新区</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">13452201257</span></td>
+                          <td>jshxzcgl.js</td>
+                          <td>23125</td>
+                          <td>25</td>
+                          <td>融侨半岛</td>
+                          <td>铜元局</td>
+                        </tr>
+                          <tr>
+                            <td><span class="w100">15023534595</span></td>
+                            <td>szsgcs.gd</td>
+                            <td>22163</td>
+                            <td>61</td>
+                            <td>铜元局</td>
+                            <td>铜元局</td>
+                        </tr>
+                         <tr>
+                           <td><span class="w100">15223840629</span></td>
+                           <td>lzbags.gs</td>
+                           <td>20531</td>
+                           <td>32</td>
+                           <td>南方花园</td>
+                           <td>南方花园</td>
+                        </tr>
+                          <tr>
+                            <td><span class="w100">13594558838</span></td>
+                            <td>szjrln.gd</td>
+                            <td>18762</td>
+                            <td>63</td>
+                            <td>三峡广场</td>
+                            <td>南方花园</td>
+                        </tr>
+                          <tr>
+                            <td><span class="w100">14744287083</span></td>
+                            <td>zls.cq</td>
+                            <td>18723</td>
+                            <td>41</td>
+                            <td>高新区</td>
+                            <td>三峡广场</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w100">13896889374</span></td>
+                          <td>zls.cq</td>
+                            <td>18212</td>
+                            <td>23</td>
+                            <td>融侨半岛</td>
+                            <td>南方花园</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w100">13648370529</span></td>
+                          <td>yqqm.hl</td>
+                            <td>17124</td>
+                            <td>26</td>
+                            <td>铜元局</td>
+                            <td>铜元局</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w100">15223909809</span></td>
+                          <td>sjtt.jx</td>
+                            <td>16231</td>
+                            <td>72</td>
+                            <td>南方花园</td>
+                            <td>铜元局</td>
+                        </tr>
+                        <tr>
+                            <td><span class="w100">15025382596</span></td>
+                          <td>cqyz.cq</td>
+                            <td>15213</td>
+                            <td>12</td>
+                            <td>三峡广场</td>
+                            <td>南方花园</td>
+                        </tr>
+                      </tbody>
+                     <tfoot>
+								<tr>
+									<td colspan="6" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共6页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--  -->
+
+</body>
+
+</html>
+

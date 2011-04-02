@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+     <script type="text/javascript" src="js/swfobject.js"></script>
+ <script language="javascript">
+swfobject.embedSWF("open-flash-chart.swf", "barchart", "500", "300", "9.0.0","",
+  {"data-file":"data/total_importapn_10.txt","loading":"正在载入数据..."} );
+ </script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>统计分析</a>＞<em>行业业务统计</em>＞<em> 行业APN分重点小区分析</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块 -->
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+								 <td>APN编号：
+								    <input type="text" name="input" value="lncwt.ln" class="txt"  size="10"/>&nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div>
+						<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+                     <div  class="tablist" align="center">
+                     <div id="barchart"></div>
+					<div class="tablist">
+						<!--<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w100">APN编码</th>
+                          <th>小区编码</th>
+                          <th>小区名称</th>
+                          <th>总流量</th>
+                          <th>总用户数</th>
+                          <th>平均每用户流量(B)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+                          <td rowspan="6" class="w100">lncwt.ln</td>
+                          <td><span class="w100">CELL001</span></td>
+                          <td>高新区</td>
+                          <td>1535433</td>
+                          <td>12521</td>
+                      <td>1241</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL007</span></td>
+                          <td>融侨半岛</td>
+                          <td>2153212</td>
+                          <td>5215</td>
+                      <td>1241</td>
+                        </tr>
+                          <tr>
+                          <td><span class="w100">CELL002</span></td>
+                          <td>铜元局</td>
+                          <td>15363</td>
+                          <td>8312</td>
+                         <td>1241</td>
+                        </tr>
+                         <tr>
+                           <td><span class="w100">CELL003</span></td>
+                           <td>南方花园</td>
+                           <td>523523</td>
+                           <td>10411</td>
+                         <td>1241</td>
+                        </tr>
+                          <tr>
+                          <td><span class="w100">CELL004</span></td>
+                            <td>三峡广场</td>
+                            <td>25135</td>
+                            <td>6312</td>
+                        <td>1241</td>
+                        </tr>
+                          <tr>
+                            <td><span class="w100">CELL006</span></td>
+                            <td>解放碑</td>
+                            <td>5345234</td>
+                            <td>18321</td>
+                        <td>1241</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+								<tr>
+									<td colspan="6" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+              <!--
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	<!--  -->
+
+</body>
+
+</html>
+

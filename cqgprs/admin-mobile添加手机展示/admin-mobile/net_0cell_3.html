@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>网络质量</a>＞<em>0流量小区</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+								 <td>APN编号：
+								    <input type="text" name="input" value="lncwt.ln" class="txt"  size="10"/>&nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div> -->
+					<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+				  <div class="tablist">
+					<!--	<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+					<table class="tableBox" id="a">
+                    <tbody id="checkForm">
+                      <thead>
+                        <tr>
+                          <th class="w100">小区编码</th>
+                          <th>小区名称</th>
+                          <th>归属BSC/RNC</th>
+                          <th>归属SGSN</th>
+                          <th>总流量</th>
+                          <th>当前流量</th>
+                          <th>上次流量</th>
+                          <th>上上次流量</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+                          <td><span class="w100">CELL001</span></td>
+                          <td>高新区</td>
+                          <td>BSC001</td>
+                          <td>SGSN7</td>
+                          <td>15354323</td>
+                          <td>1535433</td>
+                          <td>1535412</td>
+                          <td>1555433</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL007</span></td>
+                          <td>融侨半岛</td>
+                          <td>BSC0124</td>
+                          <td>SGSN6</td>
+                          <td>52153212</td>
+                          <td>2153212</td>
+                          <td>2153461</td>
+                          <td>2553212</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL002</span></td>
+                          <td>铜元局</td>
+                          <td>BSC125</td>
+                          <td>SGSN5</td>
+                          <td>125363</td>
+                          <td>15363</td>
+                          <td>13363</td>
+                          <td>18363</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL003</span></td>
+                          <td>南方花园</td>
+                          <td>BSC212</td>
+                          <td>SGSN1</td>
+                          <td>3523523</td>
+                          <td>523523</td>
+                          <td>513523</td>
+                          <td>503523</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL004</span></td>
+                          <td>三峡广场</td>
+                          <td>BSC12</td>
+                          <td>SGSN3</td>
+                          <td>125135</td>
+                          <td>25135</td>
+                          <td>21135</td>
+                          <td>22135</td>
+                        </tr>
+                        <tr>
+                          <td><span class="w100">CELL006</span></td>
+                          <td>解放碑</td>
+                          <td>BSC522</td>
+                          <td>SGSN2</td>
+                          <td>45345234</td>
+                          <td>5345234</td>
+                          <td>5045234</td>
+                          <td>5945234</td>
+                        </tr>
+                      </tbody>
+                     <tfoot>
+								<tr>
+									<td colspan="8" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+              <!--
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	<!--  -->
+
+</body>
+
+</html>
+

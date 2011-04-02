@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>用户行为</a>＞<em>PDP失败用户排名</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+								 <td>APN编号：
+								    <input type="text" name="input" value="lncwt.ln" class="txt"  size="10"/>&nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div> -->
+					<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+				  <div class="tablist">
+					<!--	<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w200">用户IMSI</th>
+                          <th>APN</th>
+                          <th>PDP失败次数	</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+
+                          <td>13510073023</td>
+                          <td>lncwt.ln</td>
+                          <td>612</td>
+                        </tr>
+                        <tr>
+                          <td>13510073024</td>
+                          <td>jshxzcgl.js</td>
+                          <td>609</td>
+                        </tr>
+                          <tr>
+                            <td>13510073025</td>
+                            <td>szsgcs.gd</td>
+                            <td>532</td>
+                        </tr>
+                         <tr>
+                           <td>13510073026</td>
+                           <td>lzbags.gs</td>
+                           <td>512</td>
+                        </tr>
+                          <tr>
+                            <td>13510073027</td>
+                            <td>szjrln.gd</td>
+                            <td>501</td>
+                        </tr>
+                          <tr>
+                            <td>13510073028</td>
+                            <td>zls.cq</td>
+                            <td>492</td>
+                        </tr>
+                        <tr>
+                            <td>13510073029</td>
+                            <td>zls.cq</td>
+                            <td>481</td>
+                        </tr>
+                        <tr>
+                            <td>13510073030</td>
+                            <td>yqqm.hl</td>
+                            <td>480</td>
+                        </tr>
+                        <tr>
+                            <td>13510073031</td>
+                            <td>sjtt.jx</td>
+                            <td>471</td>
+                        </tr>
+                        <tr>
+                            <td>13510073032</td>
+                            <td>cqyz.cq</td>
+                            <td>466</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+								<tr>
+									<td colspan="3" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共6页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!--  -->
+
+</body>
+
+</html>
+

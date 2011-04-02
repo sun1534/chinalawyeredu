@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>Kevin's demo</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body >
+	<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>系统概况</a></em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!--  -->
+						<div class="nowInfo">
+							<h2>今日系统异常情况：</h2>
+							<ul>
+								<li><a href="#">共<b>100</b>个BSC，有<b>10</b>个BSC有异常</a></li>
+								<li><a href="#">共<b>100</b>个小区，有<b>10</b>个小区有异常</a></li>
+								<li><a href="#">共<b>100</b>个行业用户，有<b>10</b>个行业用户异常</a></li>
+								<li><a href="#">共<b>100</b>个链路，有<b>10</b>个链路流量告警，有<b>2</b>个链路需要关注</a></li>
+							</ul>
+						</div>
+					<!--  -->
+					<div class="tablist">
+                    <table class="tableBox">
+                        	<thead>
+								<tr>
+									<th>近3天总流量表</th>
+                                 </tr>
+                            </thead>
+                        </table>
+						<table class="tableBox" id="a">
+							<thead>
+								<tr>
+									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">日期</a></th>
+									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">总流量</a></th>
+									<th><a  href="#" class="toggleDate__" title="点击进行排序">总用户数</a></th>
+									<th class="w100">平均每用户流量</th>
+								</tr>
+							</thead>
+							<tbody id="checkForm">
+								<tr>
+									<td class="w100">2009-9-6</td>
+									<td>10291M</td>
+									<td><a href="#" class="blank">101245</a></td>
+									<td class="tboperation w220">
+									89.1K
+                                    </td>
+								</tr>
+								<tr>
+									<td class="w100">2009-9-7</td>
+									<td>10391M</td>
+									<td>103421</td>
+									<td class="tboperation w220">
+										101.2K
+                                        </td>
+								</tr>
+								<tr>
+									<td class="w100">2009-9-8</td>
+									<td>10211M</td>
+									<td>105521</td>
+									<td class="tboperation w220">
+										121.1K
+                                        </td>
+								</tr>
+
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="4" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+
+                    <div class="tablist">
+                    	<table class="tableBox">
+                        	<thead>
+								<tr>
+									<th>近3天分2G/3G总流量表</th>
+                                 </tr>
+                            </thead>
+                        </table>
+						<table class="tableBox">
+							<thead>
+								<tr>
+									<th class="w100"><a href="#" class="toggleDate" title="点击进行排序">日期</a></th>
+                                    <th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">用户类型</a></th>
+									<th class="w100"><a href="#" class="toggleDate_" title="点击进行排序">总流量</a></th>
+									<th><a  href="#" class="toggleDate__" title="点击进行排序">总用户数</a></th>
+									<th class="w100">平均每用户流量</th>
+								</tr>
+							</thead>
+							<tbody id="checkForm">
+								<tr>
+									<td rowspan="2" class="w100">2009-9-6</td>
+									<td>GSM用户</td>
+                                    <td>10291M</td>
+									<td><a href="#" class="blank">101245</a></td>
+									<td class="tboperation w220">
+									89.1K                                    </td>
+								</tr>
+                                <tr>
+									<td>TD用户</td>
+                                    <td>10291M</td>
+									<td><a href="#" class="blank">101245</a></td>
+									<td class="tboperation w220">
+									89.1K                                    </td>
+								</tr>
+								<tr>
+									<td rowspan="2" class="w100">2009-9-7</td>
+									<td>GSM用户</td>
+									<td>103421M</td>
+                                    <td>102912</td>
+									<td class="tboperation w220">
+										101.2K                                        </td>
+								</tr>
+                                <tr>
+									<td>TD用户</td>
+									<td>103421M</td>
+                                    <td>102918</td>
+									<td class="tboperation w220">
+										101.2K                                        </td>
+								</tr>
+								<tr>
+									<td rowspan="2" class="w100">2009-9-8</td>
+									<td>GSM用户</td>
+									<td>105521M</td>
+                                    <td>102992</td>
+									<td class="tboperation w220">
+										121.1K                                        </td>
+								</tr>
+								<tr>
+									<td>TD用户</td>
+									<td>105521M</td>
+                                    <td>102214</td>
+									<td class="tboperation w220">
+										121.1K                                        </td>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="5" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+
+</html>
+

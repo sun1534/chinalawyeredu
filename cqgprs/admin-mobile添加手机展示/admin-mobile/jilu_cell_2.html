@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>记录查询</a>＞<em>按小区编号查询</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块 -->
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+
+									<td>小区编号：
+								    <input type="text" name="input" value="" class="txt" size="10"/>									  &nbsp;</td>
+                                    <td>起始时间：
+								    <input type="text" name="input" value="" class="txt"  size="10"/>									  &nbsp;</td>
+                                    <td>终止时间：
+								    <input type="text" name="input" value="" class="txt"  size="10"/>									  &nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+<td><input type="button" class="btnSubmit " title="导　出" value="导　出"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div>
+					<!-- 操作模
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>块 -->
+					<div class="tablist">
+
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w100">日期</th>
+                          <th>时间</th>
+                          <th>小区编号</th>
+                          <th>用户类型</th>
+                          <th>PDP激活次数</th>
+                          <th>上行流量(b)</th>
+                          <th>下行流量(b)</th>
+                          <th>业务时长(b)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>11:00</td>
+                          <td>13510073023</td>
+                          <td>其他</td>
+                           <td>1125</td>
+                           <td>304</td>
+                           <td>201</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>12:00</td>
+                          <td>13510073022</td>
+                          <td>全球通</td>
+                           <td>2351</td>
+                           <td>321</td>
+                           <td>201</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>13:00</td>
+                          <td>13410013023</td>
+                          <td>神州行</td>
+                           <td>1246</td>
+                           <td>304</td>
+                           <td>125</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>14:00</td>
+                          <td>13611247023</td>
+                          <td>其他</td>
+                          <td>1124</td>
+                          <td>123</td>
+                           <td>1451</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>15:00</td>
+                          <td>15810073023</td>
+                          <td>全球通</td>
+                          <td>2512</td>
+                          <td>304</td>
+                           <td>2011</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>16:00</td>
+                          <td>13810073023</td>
+                          <td>神州行</td>
+                          <td>2351</td>
+                          <td>304</td>
+                           <td>2014</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>17:00</td>
+                          <td>13515073023</td>
+                          <td>其他</td>
+                           <td>2361</td>
+                           <td>123</td>
+                           <td>201</td>
+                           <td>3600</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">2009-09-21</td>
+                          <td>18:00</td>
+                          <td>13542073023</td>
+                          <td>其他</td>
+                           <td>2661</td>
+                           <td>4521</td>
+                           <td>12412</td>
+                           <td>3600</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+								<tr>
+									<td colspan="8" class="fright"><input type="button" value="导　出" title="导　出" class="btnSubmit "/></td>
+								</tr>
+							</tfoot>
+                    </table>
+			  </div>
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</body>
+
+</html>
+

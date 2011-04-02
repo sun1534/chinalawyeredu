@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
+ <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
+ <title>重庆移动GPRS业务支撑平台-记录查询</title>
+ <link rel="stylesheet" type="text/css" href="css/reset.css" />
+ <link rel="stylesheet" type="text/css" href="css/main.css" />
+ <link rel="stylesheet" type="text/css" href="css/pager.css" />
+ <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body >
+		<div class="navigation" id="quickTools">
+			<div class="innavigation">
+				<div  class="navlist">
+					<span>您所在是位置:</span><a>统计分析</a>＞<em>业务细节</em>＞<em>BSC/RNC流量分析</em>
+				</div>
+			</div>
+		</div>
+		<div class="main">
+			<div class="inmain">
+				<div class="wrap">
+					<!-- 查询模块 -->
+					<div class="searchTab">
+						<table>
+							<tbody>
+								<tr>
+								
+								
+                                    <td>起始时间：
+								    <input type="text" name="input" value="" class="txt"  size="10"/>									  &nbsp;</td>
+                                    <td>终止时间：
+								    <input type="text" name="input" value="" class="txt"  size="10"/>									  &nbsp;</td>
+								  <td><input type="button" class="btnSubmit " title="查　询" value="查　询"/></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+				  </div>
+					<!-- 操作模块
+					<div class="operate">
+						<input type="button" class="btnSubmit" title="保 存" value="新　增" onclick="location.href='add.html'"/>
+						<input type="button" class="btnCancel" title="返 回" value="删　除"/>
+					</div>-->
+                     <div  class="tablist" align="center"><img src="images/date.jpg" width="500" height="216" alt="" />
+					<div class="tablist">
+						<!--<div class="listpage">
+							<div class="pager">
+								<span class="page-total">共10页</span>
+								<span class="page-move">&lt;&lt;</span>
+								<span title="第1页" class="page-current">1</span>
+								<a title="跳到第2页" href="#">2</a>
+								<a title="跳到第3页" href="#">3</a>
+								<a title="跳到第4页" href="#">4</a>
+								<a title="跳到第5页" href="#">5</a>
+								<a title="跳到第6页" href="#">6</a>
+								<a title="跳到第7页" href="#">7</a>
+								<a title="跳到第8页" href="#">8</a>
+								<a title="跳到第9页" href="#">9</a>
+								<a title="跳到第2页" class="page-move" href="#">&gt;&gt;</a>
+							</div>
+						</div> -->
+			        <table class="tableBox" id="a">
+                      <thead>
+                        <tr>
+                          <th class="w100">类型</th>
+                          <th>BSC/RNC编码</th>
+                          <th>归属SGSN</th>
+                          <th>总流量</th>
+                          <th>总用户数</th>
+                          <th>平均每用户流量(B)</th>
+                        </tr>
+                      </thead>
+                      <tbody id="checkForm">
+                        <tr>
+                          <td class="w100">BSC</td>
+                          <td><span class="w100">BSC001</span></td>
+                          <td>GSM用户</td>
+                          <td>125231</td>
+                          <td>1241</td>
+                      <td>1241</td>
+                        </tr>
+                        <tr>
+                          <td class="w100">BSC</td>
+                          <td><span class="w100">BSC002</span></td>
+                          <td>TD用户</td>
+                          <td>125231</td>
+                          <td>1241</td>
+                      <td>1241</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">BSC</td>
+                          <td><span class="w100">BSC003</span></td>
+                          <td>GSM用户</td>
+                          <td>125231</td>
+                          <td>1241</td>
+                         <td>1241</td>
+                        </tr>
+                         <tr>
+                           <td class="w100">BSC</td>
+                           <td><span class="w100">BSC004</span></td>
+                           <td>TD用户</td>
+                          <td>125231</td>
+                          <td>1241</td>
+                         <td>1241</td>
+                        </tr>
+                          <tr>
+                          <td class="w100">RNC</td>
+                          <td>RNC001</td>
+                            <td>GSM用户</td>
+                          <td>125231</td>
+                          <td>1241</td>
+                        <td>1241</td>
+                        </tr>
+                          <tr>
+                            <td class="w100">RNC</td>
+                            <td>RNC002</td>
+                            <td>TD用户</td>
+                            <td>125231</td>
+                          <td>1241</td>
+                        <td>1241</td>
+                        </tr>
+                       
+                      </tbody>
+                      <!--<tfoot>
+								<tr>
+									<td colspan="4"><span class="selectInfo">已经选择<b id="checknum">0</b>项</span> | 取值为：<span id="getValue"></span></td>
+								</tr>
+							</tfoot>-->
+                    </table>
+			  </div>
+              <!--
+				<div  class="tabpagelist">
+						<div class="pager">
+							<span class="page-total">共3页</span>
+							<span class="page-move">&lt;&lt;</span>
+							<span title="第1页" class="page-current" id="page-current">1</span>
+							<a title="跳到第2页" href="#">2</a>
+							<a title="跳到第3页" href="#">3</a>
+							<a title="跳到第4页" href="#">4</a>
+							<a title="跳到第5页" href="#">5</a>
+							<a title="跳到第6页" href="#">6</a>
+							<a title="跳到第7页" href="#">7</a>
+							<a title="跳到第8页" href="#">8</a>
+							<a title="跳到第9页" href="#">9</a>
+							<a title="跳到第4页" class="page-move" href="#">&gt;&gt;</a>
+							&nbsp;&nbsp;跳转至<input type="text" name="" value=""  class="pageNo" id="pageNo"/><input type="button" name="" value="Go" class="goPage" />
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+	<!--  -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#checkAll").click(selectAll);
+			$("[name=checkboxItem]").click(selectOne);
+			$("#pageNo").val($("#page-current").text())
+		});
+
+		/*全选*/
+		function selectAll() {
+			 var checkbox = $("#checkForm :checkbox");
+			 if(!$(this).attr('checked')){
+				checkbox.attr('checked','');
+				checkbox.parent().parent().children().addClass("current");
+				checkbox.parent().parent().children().removeClass("nomal");
+			 }else{
+				checkbox.attr('checked','checked');
+				checkbox.parent().parent().children().addClass("nomal");
+				checkbox.parent().parent().children().removeClass("current");
+			}
+			selectOne();
+		}
+
+		/*单选取值*/
+		function selectOne(){
+			var str="";
+			var l=0;
+			$("[name=checkboxItem]").each(function(){
+				if($(this).attr('checked')){
+					$(this).parent().parent().children().addClass("current");
+					$(this).parent().parent().children().removeClass("nomal");
+					str+=$(this).val()+"|";
+					l=$("[name=checkboxItem]:checked").size();
+				}else{
+					$(this).parent().parent().children().addClass("nomal");
+					$(this).parent().parent().children().removeClass("current");
+					$("#checkAll").attr('checked','');
+				}
+			})
+			$("#getValue").text(str)//
+			$("#checknum").text(l)
+		}
+	</script>
+</body>
+
+</html>
+
