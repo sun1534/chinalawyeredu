@@ -1,0 +1,16 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "line", 
+"values": [ 15354331,21531242,15363122,52352334,25135631,53452341,15354335,21532122 ],
+"dot-style": { "type": "dot", "dot-size": 3, "halo-size": 1, "colour": "#D07070", "tip": "日期: #x_label#
+总流量: #val#" }
+} 
+], 
+"title": { "text": "总流量分析" }, 
+"x_axis": { "colour": "#A2ACBA", "grid-colour": "#D7E4A3", "tick-height": 10, "stroke": 3,
+"labels": {"rotate": 90, "colour": "#CF4D5F", "size": 16,"labels": ["0901","0902","0903","0904","0905","0906","0907","0908",{ "text": "0909", "colour": "#2683CF", "size": 16, "rotate": 315 }] } },
+"y_axis": { "min": 10000000, "max": 60000000, "steps": 10000000,"labels": { "text": "#val#B" } },
+"num_decimals": 2, "is_fixed_num_decimals_forced": true, "is_decimal_separator_comma": true, "is_thousand_separator_disabled": true  
+}

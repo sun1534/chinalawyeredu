@@ -1,0 +1,12 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "bar_glass", 
+"values": [ 86.73,90.28,104.12,105.72,86.63,93.25,95.25,88.25 ]
+} 
+], 
+"title": { "text": "2009/9/1-2009/9/1之各CELL流量分析" }, 
+"x_axis": { "labels": {"rotate": 315, "labels": ["CELL1","CELL2","CELL3","CELL4","CELL5","CELL6","CELL7","CELL8"] } },
+"y_axis": { "min": 78, "max": 110, "steps": 4 } 
+}

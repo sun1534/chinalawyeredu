@@ -1,0 +1,20 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "bar", 
+"values": [ 455395.8,454231.5,457395.8],
+"colour":    "#9933CC",
+"text":      "GSM用户"
+},
+{ 
+"type": "bar", 
+"values": [ 0,0,0],
+"colour":    "#ff00CC",
+"text":      "TD用户"
+}
+], 
+"title": { "text": "最近3日分2/3G总流量分析" }, 
+"x_axis": { "labels": {"rotate": 315, "labels": ["2009-09-06","2009-09-07","2009-09-08"] } },
+"y_axis": { "min": 0, "max": 460000, "steps": 100000,"labels": { "text": "#val#M" } }
+}

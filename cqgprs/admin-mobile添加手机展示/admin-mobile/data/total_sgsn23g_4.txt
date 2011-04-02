@@ -1,0 +1,21 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "bar_glass", 
+"values": [ 449395.8,458231.5,457395.8,452395.8,444231.5,458395.8,464231.5,451395.8 ,462395.8 ],
+"colour":"#9933CC",
+"text":"GSM用户"
+
+},
+{ 
+"type": "bar_glass", 
+"values": [ 0,0,0,0,0,0,0,0 ],
+"colour":"#D07070",
+"text":"TD用户"
+}
+], 
+"title": { "text": "2009/9/1-2009/9/8SGSN分2/3G流量分析" }, 
+"x_axis": { "labels": {"rotate": 315, "labels": ["SGSN1","SGSN2","SGSN3","SGSN4","SGSN5","SGSN6","SGSN7","SGSN8"] } },
+"y_axis": { "min": 440000, "max": 465000, "steps": 3000,"labels": { "text": "#val#M" } } 
+}

@@ -1,0 +1,12 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "bar_glass", 
+"values": [ 76247,306630,15228,56277,420,591 ]
+} 
+], 
+"title": { "text": "2009/9/1-2009/9/8之APN流量分析" }, 
+"x_axis": { "labels": {"rotate": 315, "labels": ["CMWAPUp","CMWAPDown","CMNETUp","CMNETDown","OthApnUp","OthApnDown"] } },
+"y_axis": { "min": 0, "max": 316630, "steps": 15000 } 
+}

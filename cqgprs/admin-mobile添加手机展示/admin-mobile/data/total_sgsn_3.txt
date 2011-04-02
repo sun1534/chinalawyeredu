@@ -1,0 +1,12 @@
+﻿{ 
+"elements": 
+[ 
+{ 
+"type": "bar_glass", 
+"values": [ 148659.7,139231.6,187503.9,168659.7,189231.6,177503.9,139231.6,177503.9 ]
+} 
+], 
+"title": { "text": "2009/9/1-2009/9/8SGSN流量分析" }, 
+"x_axis": { "labels": {"rotate": 315, "labels": ["SGSN1","SGSN2","SGSN3","SGSN4","SGSN5","SGSN6","SGSN7","SGSN8"] } },
+"y_axis": { "min": 100000, "max": 200000, "steps": 10000 } 
+}
