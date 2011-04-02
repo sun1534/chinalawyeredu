@@ -125,7 +125,7 @@ function createEditDevice(action,deviceId){
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="noGuard" method="POST">	
+			<s:form name="form1" action="memDeviceList" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">

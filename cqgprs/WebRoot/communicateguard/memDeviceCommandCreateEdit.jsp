@@ -26,7 +26,7 @@
 									<td class="fvalue">
 									<input type="hidden" name="isnew" value="${isnew }"/>
 									<input type="hidden" name="commandId" value="${commandId}"/>
-									<s:textarea name="command.commandscript" cssClass="txt" rows="2" cols="35"></s:textarea>
+									<s:textarea name="command.commandscript" cssClass="txt" rows="3" cols="40"></s:textarea>
 									</td> 
 								</tr> 
 								
