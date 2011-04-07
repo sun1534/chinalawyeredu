@@ -180,7 +180,7 @@ Interface: gu-3/1/0
   PDP services start time: Tue Jul 20 01:23:54 2010 (221063 microsecond)
 
  */
-public class CmdGGSNDeviceBoardLoad implements Command {
+public class CmdGGSNDeviceBoardLoad extends Command {
 	
 	public String getresult(String orgstr) {
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -220,7 +220,7 @@ public class CmdGGSNDeviceBoardLoad implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result="";
 		if(orgresult.startsWith("errorcode -")){
 			result=orgresult;

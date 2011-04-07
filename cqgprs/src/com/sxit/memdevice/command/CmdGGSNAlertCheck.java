@@ -43,7 +43,7 @@ No alarms currently active
             或详细告警
 
  */
-public class CmdGGSNAlertCheck implements Command {
+public class CmdGGSNAlertCheck extends Command {
 	
 	public String getresult(String orgstr) {
 		String result="";
@@ -65,7 +65,7 @@ public class CmdGGSNAlertCheck implements Command {
 		
 //		String result=getresult(orgresult);
 		
-
+		orgresult=orgresult1+orgresult2;
 		MemLog log=new MemLog();
 		log.setCommandid(command.getCommandid());
 		log.setCommandname(command.getCommananame());

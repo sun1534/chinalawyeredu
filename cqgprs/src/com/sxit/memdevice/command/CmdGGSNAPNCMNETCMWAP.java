@@ -68,7 +68,7 @@ show services ggsn  statistics apn  (smjt.cq) 需要扩内输入
           Failed Radius Accounting procedure :0
 
  */
-public class CmdGGSNAPNCMNETCMWAP implements Command {
+public class CmdGGSNAPNCMNETCMWAP extends Command {
 	
 	public String getresult(String orgstr) {
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -91,7 +91,7 @@ public class CmdGGSNAPNCMNETCMWAP implements Command {
 		String orgresult_cmwap=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  cmwap");
 		String orgresult_apn=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  (smjt.cq)");
 		String result=orgresult_cmnet+"\r\n"+orgresult_cmwap+"\r\n"+orgresult_apn;
-		
+		orgresult=result;
 		
 
 		MemLog log=new MemLog();

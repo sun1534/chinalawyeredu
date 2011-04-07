@@ -145,7 +145,7 @@ not in service的链路为NodeID    1 OPC 11603 SLC
 0 LinksetNo  3  State  Aligning M3 links
 
  */
-public class CmdSGSNStatlinks implements Command {
+public class CmdSGSNStatlinks extends Command {
 
 	List<StatLinkObj> objs=new ArrayList<StatLinkObj>(); 
 	
@@ -222,7 +222,7 @@ public class CmdSGSNStatlinks implements Command {
 
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

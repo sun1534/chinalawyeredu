@@ -43,7 +43,7 @@ import com.sxit.models.mem.MemLog;
  *         Or
  *         “*点*分CGn上无GGSNn的话单产生，最后一个话单为“话单名”
  */
-public class CmdCGQuery implements Command {
+public class CmdCGQuery extends Command {
 	String p1="total 0";
 	String p2="No such file or directory";
 	public String getresult(String orgstr) {
@@ -59,7 +59,7 @@ public class CmdCGQuery implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

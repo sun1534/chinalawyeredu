@@ -52,7 +52,7 @@ last pid: 97087;  load averages:  0.06,  0.06,  0.01  up 143+14:48:24    16:16:5
 90 processes:  1 running, 89 sleeping
 或进程数超150个，CPU占用高的前5条记录
  */
-public class CmdGGSNProcesser implements Command {
+public class CmdGGSNProcesser extends Command {
 	float[] f=new float[]{0.0f,0.0f,0.0f,0.0f,0.0f};
 	String[] tts=new String[]{"","","","",""};
 	
@@ -106,7 +106,7 @@ public class CmdGGSNProcesser implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);
 		
 

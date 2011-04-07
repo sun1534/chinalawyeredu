@@ -93,7 +93,7 @@ Radius statistics:
 
 
  */
-public class CmdGGSNServicesStatistics implements Command {
+public class CmdGGSNServicesStatistics extends Command {
 	
 	public String getresult(String orgstr) {
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -112,7 +112,7 @@ public class CmdGGSNServicesStatistics implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result="";
 		if(orgresult.startsWith("errorcode -")){
 			result=orgresult;

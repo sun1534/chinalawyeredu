@@ -58,7 +58,7 @@ GGSNn工作中，正常
             或GGSNn工作中，占用超50%，/dev/ad1s1f              34G       5.4G        26G       17%  /var 
 
  */
-public class CmdGGSNCmdInterfaceStatus implements Command {
+public class CmdGGSNCmdInterfaceStatus extends Command {
 	
 	public String getresult(String orgstr) {
 		String result="";
@@ -89,7 +89,7 @@ public class CmdGGSNCmdInterfaceStatus implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);
 		
 

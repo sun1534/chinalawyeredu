@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="communicateguard" location="380,165" size="910,1575">
+    <action name="noGuard" location="695,47" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="noGuard.jsp" />
+      </result>
+      <result name="excel">
+        <resourceEdge source="excel" routing="0" target="noGuard_excel.jsp" />
+      </result>
+    </action>
+    <action name="cellGuard" location="695,397" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="cellGuard.jsp" />
+      </result>
+      <result name="excel">
+        <resourceEdge source="excel" routing="0" target="cellGuard_excel.jsp" />
+      </result>
+    </action>
+    <action name="guardCells" location="695,1482" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="guardCells.jsp" />
+      </result>
+      <result name="excel">
+        <resourceEdge source="excel" routing="0" target="guardCells_excel.jsp" />
+      </result>
+    </action>
+    <action name="guardNos" location="65,1482" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="guardNos.jsp" />
+      </result>
+      <result name="excel">
+        <resourceEdge source="excel" routing="0" target="guardNos_excel.jsp" />
+      </result>
+    </action>
+    <action name="memDeviceList" location="65,1317" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="memDeviceList.jsp" />
+      </result>
+    </action>
+    <action name="memLogList" location="65,1142" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="memLogList.jsp" />
+      </result>
+    </action>
+    <action name="memCommandList" location="65,967" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="memCommandList.jsp" />
+      </result>
+    </action>
+    <action name="memDeviceCreateEdit" location="65,617" size="150,41">
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="memDeviceCreateEdit.jsp" />
+      </result>
+    </action>
+    <action name="memDeviceCommandCreateEdit" location="65,442" size="150,41">
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="memDeviceCommandCreateEdit.jsp" />
+      </result>
+    </action>
+    <action name="memDeviceUserSet" location="65,267" size="150,41">
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="memDeviceUserSet.jsp" />
+      </result>
+    </action>
+    <action name="tongnanPower" location="65,82" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="tongnanPower.jsp" />
+      </result>
+      <result name="excel">
+        <resourceEdge source="excel" routing="0" target="tongnanPower_excel.jsp" />
+      </result>
+    </action>
+    <action name="tongnanPowerSet" location="380,71" size="150,83">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="message.jsp" />
+      </result>
+      <result name="message">
+        <resourceEdge source="message" routing="0" target="message.jsp" />
+      </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="message.jsp" />
+      </result>
+    </action>
+    <action name="imitatePhone" location="65,792" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="imitatePhone.jsp" />
+      </result>
+    </action>
+    <action name="imitateCommand" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="imitateCommand.jsp" />
+      </result>
+    </action>
+  </package>
+  <package name="communicateguardajax" location="1695,24" size="460,491">
+    <action name="guadrNoSet" location="15,23" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="guardCellSet" location="260,23" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="memDeviceCreateEdit" location="15,163" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="memDeviceCommandCreateEdit" location="260,163" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="memDeviceCommandDelete" location="15,303" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="memDeviceDelete" location="260,303" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="memDeviceUserSet" location="15,443" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="deviceLogin" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="noGuard.jsp" path="/communicateguard/noGuard.jsp" location="1327,185" size="150,55" />
+  <webResource name="noGuard_excel.jsp" path="/communicateguard/noGuard_excel.jsp" location="1029,10" size="150,55" />
+  <webResource name="cellGuard.jsp" path="/communicateguard/cellGuard.jsp" location="1356,535" size="150,55" />
+  <webResource name="cellGuard_excel.jsp" path="/communicateguard/cellGuard_excel.jsp" location="1338,360" size="150,55" />
+  <webResource name="guardCells.jsp" path="/communicateguard/guardCells.jsp" location="1038,1795" size="150,55" />
+  <webResource name="guardCells_excel.jsp" path="/communicateguard/guardCells_excel.jsp" location="1335,1620" size="150,55" />
+  <webResource name="guardNos.jsp" path="/communicateguard/guardNos.jsp" location="99,1620" size="150,55" />
+  <webResource name="guardNos_excel.jsp" path="/communicateguard/guardNos_excel.jsp" location="396,1795" size="150,55" />
+  <webResource name="memDeviceList.jsp" path="/communicateguard/memDeviceList.jsp" location="84,1445" size="150,55" />
+  <webResource name="memLogList.jsp" path="/communicateguard/memLogList.jsp" location="93,1270" size="150,55" />
+  <webResource name="memCommandList.jsp" path="/communicateguard/memCommandList.jsp" location="81,1095" size="150,55" />
+  <webResource name="imitatePhone.jsp" path="/communicateguard/imitatePhone.jsp" location="87,920" size="150,55" />
+  <webResource name="memDeviceCreateEdit.jsp" path="/communicateguard/memDeviceCreateEdit.jsp" location="66,745" size="150,55" />
+  <webResource name="memDeviceCommandCreateEdit.jsp" path="/communicateguard/memDeviceCommandCreateEdit.jsp" location="10,570" size="150,55" />
+  <webResource name="memDeviceUserSet.jsp" path="/communicateguard/memDeviceUserSet.jsp" location="75,395" size="150,55" />
+  <webResource name="tongnanPower.jsp" path="/communicateguard/tongnanPower.jsp" location="402,10" size="150,55" />
+  <webResource name="tongnanPower_excel.jsp" path="/communicateguard/tongnanPower_excel.jsp" location="69,220" size="150,55" />
+  <webResource name="message.jsp" path="/common/message.jsp" location="762,10" size="150,55" />
+  <webResource name="imitateCommand.jsp" path="/communicateguard/imitateCommand.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

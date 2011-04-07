@@ -129,7 +129,7 @@ NCB:
 OR  NCB: 1.19板卡负荷超过60%
 
  */
-public class CmdSGSNEqCpuLoad implements Command {
+public class CmdSGSNEqCpuLoad extends Command {
 
 	List<CpuLoad> list=new ArrayList<CpuLoad>();
 
@@ -177,7 +177,7 @@ public class CmdSGSNEqCpuLoad implements Command {
 
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

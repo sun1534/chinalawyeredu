@@ -38,7 +38,9 @@
           <result name="success" type="dispatcher">/communicateguard/memCommandList.jsp</result>	
        </action>
        
-          	     <action name="memDeviceCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCreateEditAction">
+		
+
+        <action name="memDeviceCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCreateEditAction">
 			<result name="input" type="dispatcher">/communicateguard/memDeviceCreateEdit.jsp</result>	
    	   </action>
    	   <action name="memDeviceCommandCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCommandCreateEditAction">
@@ -63,7 +65,13 @@
    	   </action>
    	   
    	   
-   	   
+   	   <action name="imitatePhone" class="com.sxit.communicateguard.action.ImitatePhoneAction">
+          <result name="success" type="dispatcher">/communicateguard/imitatePhone.jsp</result>	
+       </action>
+       
+       <action name="imitateCommand" class="com.sxit.communicateguard.action.ImitateCommandAction">
+          <result name="success" type="dispatcher">/communicateguard/imitateCommand.jsp</result>	
+       </action>
     </package>
 	
 	 <package name="communicateguardajax" extends="defaultajax" namespace="/communicateguardajax">
@@ -97,6 +105,14 @@
    	   <action name="memDeviceUserSet" class="com.sxit.communicateguard.action.ajax.MemDeviceUserSetAction">
 			<result name="success" type="json"></result>
    	   </action>
+   	    <action name="deviceLogin" class="com.sxit.communicateguard.action.ajax.DeviceLoginAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	    <action name="imitateExcecommand" class="com.sxit.communicateguard.action.ajax.ImitateExceCommandAction">
+			<result name="success" type="json"></result>
+   	   </action>
+   	   
+   	   
    	 
    </package>
 </struts>

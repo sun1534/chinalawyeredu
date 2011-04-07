@@ -58,7 +58,7 @@ APN首次查询和APN对比查询  只有查询成功的提示
            （时间戳）2010-11-18 10:00:02 PDP激活为0的APN有smjt.cq、mem2.cq**，流量为0的APN有dl.cq,鉴权异常的有cqfc.cq
 
  */
-public class CmdGGSNAPNCheck implements Command {
+public class CmdGGSNAPNCheck extends Command {
 	
 	public String getresult(String orgstr) {
 		String nowstr=DateUtil.getSimpleDateTime(new Date());
@@ -77,7 +77,7 @@ public class CmdGGSNAPNCheck implements Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result="";
 		if(orgresult.startsWith("errorcode -")){
 			result=orgresult;

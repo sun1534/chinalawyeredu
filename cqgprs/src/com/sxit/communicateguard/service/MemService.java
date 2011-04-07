@@ -203,6 +203,32 @@ public class MemService extends BasicService {
 		dc.addOrder(Order.desc("commandid"));
 		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
 	}
+	
+	
+	
+	
+	
+	/**
+	 * 得到设备的命令列表
+	 * 
+	 * @param deviceId
+	 * @param command
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public com.sxit.common.PaginationSupport getCommandList(int deviceId, String name,int commandtype, int pageNo, int pageSize) {
+		DetachedCriteria dc = DetachedCriteria.forClass(MemDevicecommand.class);
+		if (deviceId != 0)
+			dc.add(Restrictions.eq("deviceid", deviceId));
+		if (name != null && !name.equals(""))
+			dc.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
+		if (commandtype!=0)
+			dc.add(Restrictions.eq("commandtype",commandtype));
+		dc.addOrder(Order.desc("commandid"));
+		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+	}
+
 
 	/**
 	 * 新增设备

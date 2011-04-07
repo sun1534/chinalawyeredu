@@ -161,7 +161,7 @@ SGSNn共120条GB链路，其中deblocked  alive 80条，manblocked  dead 2条，
 
 
  */
-public class CmdSGSNGBCheck implements Command {
+public class CmdSGSNGBCheck extends Command {
 
 	List<Map<String,String>> records=new ArrayList<Map<String,String>>();
 	
@@ -224,7 +224,7 @@ public class CmdSGSNGBCheck implements Command {
 
 		
 		
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

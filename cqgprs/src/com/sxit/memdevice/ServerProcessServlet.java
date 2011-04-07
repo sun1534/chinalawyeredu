@@ -175,6 +175,7 @@ public class ServerProcessServlet extends HttpServlet {
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
 			
 			result=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),commandstr);
+			
 			MemLog log=new MemLog();
 			
 			log.setCommandid(-1);

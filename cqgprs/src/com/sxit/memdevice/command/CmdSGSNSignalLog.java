@@ -50,7 +50,7 @@ import com.sxit.models.mem.MemLog;
  *                  Uninet 错误10次，错误码33
  *                  
  */
-public class CmdSGSNSignalLog implements Command {
+public class CmdSGSNSignalLog extends Command {
 
 	List<Map<String,String>> records=new ArrayList<Map<String,String>>();
 	Map<String,Integer> smscause=new HashMap<String,Integer>();
@@ -145,7 +145,7 @@ public class CmdSGSNSignalLog implements Command {
 		String lastid=getlastlogid(getpath);
 		
 		
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript()+lastid);
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript()+lastid);
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

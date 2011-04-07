@@ -69,7 +69,7 @@ MBMS connection statistics:
           （时间戳）2010-11-18 10:00:02查询
 SGSN-G connection statistics: 
  */
-public class CmdSGSNEciStats implements Command {
+public class CmdSGSNEciStats extends Command {
 
 	List<StatLinkObj> objs=new ArrayList<StatLinkObj>(); 
 	
@@ -88,7 +88,7 @@ public class CmdSGSNEciStats implements Command {
 
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();
