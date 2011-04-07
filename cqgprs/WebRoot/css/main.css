@@ -8,17 +8,17 @@ body {overflow-y:auto; overflow-x:hidden}
 body {padding:0; margin:0; font: 12px/1.5 sinsum, Tahoma, Helvetica, Arial, sans-serif;color:#1E4B7E;background:url(../images/bg.gif) repeat-x left top;}
 
 .navigation {}
-	.innavigation {padding:5px 15px 0 15px;background:url(../images/bg.gif) repeat-x left top;}
+	.innavigation {padding:10px 15px 0 15px;background:url(../images/bg.gif) repeat-x left top;}
 	.navlist {padding-left:10px;line-height:24px;height:24px;border:1px solid #EAEAEA;background:url(../images/menubg.gif) repeat-x 0 0;}
 	.navlist span {background:url(../images/dot.gif) no-repeat left center;padding-left:15px;}
 	.navlist a {font-weight:bold;}
 
 .main {padding:5px 0 0 0;}
-.inmain {padding:0px 15px 10px 15px;overflow:auto;}
+.inmain {padding:5px 15px 10px 15px;overflow:auto;}
 .wrap {margin:0;text-align:left;}
 
 .searchTab{background:#ECF5FD url(../images/menubg.gif) repeat-x  left top;
-border:1px solid #9FB4C8;margin-bottom:5px;padding:2px 5px 2px 10px;}
+border:1px solid #9FB4C8;margin-bottom:10px;padding:2px 5px 2px 10px;}
 
 .operate{background:transparent url(../images/menubg.gif) repeat-x  left top;
 border-bottom:1px solid #CCCCCC;margin-bottom:10px;padding:2px 5px 2px 10px;}
@@ -34,13 +34,9 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 
 
 
-   	.titletime {font-size:11px;font-weight:normal;display:block;}
-.tablist {border:1px solid #9FB4C8;padding:1px;margin-bottom:4px;}
+
+.tablist {border:1px solid #9FB4C8;padding:1px;margin-bottom:10px;}
 	.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelistbg.gif) repeat-x left top;}
-	#newTables.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelist_bg_.gif) repeat-x left top;}
-	#newTablesD.tableBox {width:100%;border-collapse:collapse;background:url(../images/tablelist_bg_.gif) repeat-x left top;}
-	#newTablesD.tableBox thead tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:52px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
-	#newTablesD.tableBox thead tr th a{display:block;}
 	.tableBox .checkbox {background:none;}
 	.tableBox .tbcheckbox {width:12px;}
 	.tableBox .tboperation {text-align:center;}
@@ -49,8 +45,6 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 	.tableBox thead {}
 	.tableBox thead tr {}
 	.tableBox thead tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:25px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
-	.tableBox thead2 tr th{border-bottom:1px solid #EAEAEA;font-weight:bold;height:50px;background:url(../images/line.jpg) repeat-y -2px top;text-indent:5px;}
-	
 	.tableBox tbody {}
 	.tableBox tbody tr {}
 	.tableBox tbody tr td {border-bottom:1px solid #EAEAEA;background:#FDFDFD;color:#000;background:url(../images/line.jpg) repeat-y -2px top;padding-left:5px;}
@@ -59,40 +53,29 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 	.tableBox tbody tr td.fOdd {background-color:#F2F9FD;}
 	.tableBox tbody tr td.current {background-color:#E1F2FB;border-bottom:1px solid #9FB4C8;}
 	.tableBox tbody tr td.normal {background-color:#FDFDFD;border-bottom:1px solid #CCCCCC;}
-
+	/*
+	.tableBox tfoot {display:none;}
+	.tableBox tfoot tr {}
+	.tableBox tfoot tr td {height:1px;overflow:hidden;line-height:0px;font-size:0px;padding:0;}
+	*/
 	.tableBox tfoot tr td {height:26px;padding-left:10px;}
 	.tableBox tfoot tr td  .selectInfo {color:#000;}
 	.tableBox tfoot tr td  .selectInfo b{color:#ff6600;margin:0 3px;}
 
-.tableBox thead tr .headerSortUp,
-.tableBox thead tr .headerSortDown,
-.tableBox thead tr .header{overflow:hidden;padding-left:10px;cursor:pointer;}
-
-.tableBox thead tr .header {padding-left:20px;background:url(../images/toggleDate.gif) no-repeat 5px -39px ;color:#1E4B7E;}
-
-
-.tableBox thead tr .headerSortUp {
-	background:url(../images/toggleDate.gif) no-repeat 15px -70px ;color:#1E4B7E;
-}
-.tableBox thead tr .headerSortDown {
-	background:url(../images/toggleDate.gif) no-repeat 15px 6px ;color:#1E4B7E;
-}
-
-        .toggleDate,
+		.toggleDate,
 		.toggleDate_,
-		.toggleDate__ {overflow:hidden;padding-left:10px;cursor:pointer;}
+		.toggleDate__ {overflow:hidden;padding-left:10px;}
 
-		.toggleDate {background:url(../images/toggleDate.gif) no-repeat left 2px ;color:#1E4B7E;}
-		.toggleDate:hover {background:url(../images/toggleDate.gif) no-repeat left 2px ;color:#666;}
+		.toggleDate {background:url(../images/toggleDate.gif) no-repeat left 0px ;color:#1E4B7E;}
+		.toggleDate:hover {background:url(../images/toggleDate.gif) no-repeat left -14px ;color:#666;}
 
-		.toggleDate_ {background:url(../images/toggleDate.gif) no-repeat left -74px ;color:#1E4B7E;}
-		.toggleDate_:hover {background:url(../images/toggleDate.gif) no-repeat left -74px ;color:#666;}
+		.toggleDate_ {background:url(../images/toggleDate.gif) no-repeat left -28px ;color:#1E4B7E;}
+		.toggleDate_:hover {background:url(../images/toggleDate.gif) no-repeat left -28px ;color:#666;}
 
-		.toggleDate__ {padding-left:20px;background:url(../images/toggleDate.gif) no-repeat left -43px ;color:#1E4B7E;}
+		.toggleDate__ {background:url(../images/toggleDate.gif) no-repeat left -43px ;color:#1E4B7E;}
 		.toggleDate__:hover {background:url(../images/toggleDate.gif) no-repeat left -43px ;color:#666;}
 
-
-    .operateTab {padding:10px;border-top:1px solid #9FB4C8;margin-bottom:10px;background:url(../images/bg.gif) repeat-x left top;}
+.operateTab {padding:10px;border-top:1px solid #9FB4C8;margin-bottom:10px;background:url(../images/bg.gif) repeat-x left top;}
 	.operateTabInfo {padding:5px;text-indent:15px;border-bottom:1px solid #ff6600;color:#ff6600;margin-bottom:10px;}
 	.operateTabBox {width:100%;border-collapse:collapse;background:#F2F8FE;margin-bottom:10px;border:1px solid #ddd;}
 	.operateTabBox td {padding:5px 0 5px 5px;border-right:1px solid #ddd;border-bottom:1px solid #ddd;}
@@ -102,7 +85,7 @@ border:1px solid #EAEAEA;margin-bottom:10px;padding:2px 5px 2px 10px;line-height
 	.operateTabBox .fEven {background-color:#fefefe;}
 	*/
 
-	 .nowInfo {border:1px solid #ccc;background:url(../images/bg.gif) repeat-x left top;margin-bottom:4px;}
+	 .nowInfo {border:1px solid #ccc;background:url(../images/bg.gif) repeat-x left top;margin-bottom:10px;}
 	 .nowInfo h2{background:url(../images/menubg.gif) repeat-x  left top;border-bottom:1px solid #ccc;line-height:24px;font-weight:bold;text-indent:10px;}
 	 .nowInfo  ul {padding:10px 10px 10px 20px;}
 	 .nowInfo  ul li {}
@@ -196,7 +179,7 @@ input,button {background:url(../images/bgGray.gif) repeat-x center top;}
 .tdPrint {color:#B40006;}
 .tdView {color:#505050;}
 .tdDelete {color:#002780;}
-.cR{color:red;}
+
 
 .help img {color:#000;background:url(../images/help.gif) no-repeat 0 0;}
 .blank img {color:#000;background:url(../images/external.png) no-repeat 0 0;}
@@ -209,3 +192,34 @@ input,button {background:url(../images/bgGray.gif) repeat-x center top;}
 .tdRefresh img {color:#002780;background:url(../images/refresh.gif) no-repeat 0 0;}
 .tdView img {color:#002780;background:url(../images/view.gif) no-repeat 0 0;}
 .tdDelete img {color:#002780;background:url(../images/delete.gif) no-repeat 0 -2px;}
+
+/*mobile*/
+#mobileMain {}
+#mobileCon {}
+#mobile {
+	float:left;
+	width:300px;
+	height:587px;
+	background:url(../images/mobile.png) no-repeat left top;
+}
+.mobileWrap {padding-left:26px;padding-top:120px;padding-right:22px;}
+.mobileWrap .mobileBd {background:url(../images/bg.gif) repeat-x left top;height:340px;width:252px;overflow:auto;}
+.mobileWrap .mobileFt {background:url(../images/bg.gif) repeat-x left top;height:21px;width:252px;overflow:hidden;text-align:center;padding:2px 0;}
+.mobileTab {background:url(../images/mobileMenu.png) no-repeat left top;height:28px;width:252px;}
+.mobileTab ul {padding:1px 1px 0px 1px;width:250px;height:27px;}
+.mobileTab ul li {float:left;display:block;height:25px;line-height:25px;width:81px;text-align:center;border-left:1px solid #ddd;margin-left:-1px;padding:1px;}
+.mobileTab ul .current {background-color:#E5F4FC;}
+.mobileTab ul .current a {color:#1E4B7E;}
+.mobileTab ul li a {color:#000;font-weight:bold;text-decoration:none;display:block;}
+.mobileTab ul li a:hover {text-decoration:none;display:block;background-color:#E5F4FC;color:#1E4B7E;}
+.mobileTabCon {padding:5px;}
+#mobileCon {margin-left:300px;padding-top:50px;}
+.mobileStatu {background:url(../images/mobileArr.png) no-repeat left 120px;padding-left:13px;}
+.mobileStatu .mobileStatuCon {border:4px solid #4A4A4A;
+height:auto!important;
+height:500px;
+min-height:500px;
+overflow:hidden;
+}
+.mobileStatu h3 {padding-left:10px;background:url(../images/menubg.gif) repeat-x left bottom;border-bottom: 1px solid #EAEAEA; height: 24px;line-height: 24px;}
+.mobileStatu .StatuBd {padding:10px;}
