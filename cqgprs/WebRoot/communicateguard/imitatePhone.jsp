@@ -82,7 +82,7 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 							<div class="mobileBd">
 								<div class="mobileTab">
 									<ul>
-										<li   class="current" ><a href="#" title="">设备</a></li>
+										<li   class="current" ><a href="#" title="">设备列表</a></li>
 										<!-- 当前选中 li class="current" -->
 									</ul>
 								</div>
@@ -101,18 +101,18 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 					<div id="mobileCon">
 						<div class="mobileStatu">
 							<div class="mobileStatuCon">
-								<h3>标题</h3>
+								<h3></h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
 										<div id="querylist" style="overflow:auto">
-										     暂无内容
+										     
 										</div>
 									</div>
 
 								    <div class="tablist queryresult eqHeight" id="div2">
 							   <!-- 存储返回的内容使用的 -->
 									 <div id="resultlist" style="overflow:auto">
-									     暂无内容
+									     
 									 </div>
 								
 								</div>

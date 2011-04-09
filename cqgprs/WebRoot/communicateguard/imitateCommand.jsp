@@ -19,13 +19,17 @@
   });
 
 function execommand(commandid){
+ $("#userpdperrorall").show();
+ $("#start").hide();
+ 
 var now=new Date().getTime();
 $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+commandid+"&now="+now,function(json){
    $("#resultlist").empty();
    $("#querylist").empty();
-   
    $("#resultlist").html(json.orgresult);
    $("#querylist").html(json.result);
+   $("#userpdperrorall").hide();
+   $("#start").show();
 });
 }
 
@@ -89,18 +93,18 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 					<div id="mobileCon">
 						<div class="mobileStatu">
 							<div class="mobileStatuCon">
-								<h3 id="aabbcc"><font color="red">正在执行命令，请稍等... ...</font></</h3>
+								<h3 ><div id="start"> 请选择左边命令执行</div><div class="tablist" id="userpdperrorall" style="display: none"><img src="../images/loading.gif"/></div></</h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
 										<div id="querylist" style="overflow:auto">
-									     暂无内容
+									     暂无原始结果
 										</div>
 									</div>
 
 								    <div class="tablist queryresult eqHeight" id="div2">
 							   <!-- 存储返回的内容使用的 -->
 									 <div id="resultlist" style="overflow:auto">
-									     暂无内容
+									     暂无解析结果
 									 </div>
 								
 								</div>
