@@ -28,17 +28,29 @@ public class ImitateExceCommandAction extends AbstractListAction {
 		SysUser sysUser=this.getLoginUser();
 		if(sysUser==null)
 		{
-			return this.ERROR;
+			result="";
+			orgresult="解析结果出错!";
+			return SUCCESS;
 		}
+		
 		MemService memService = (MemService) getBean("memService");
 		MemDevicecommand command=(MemDevicecommand)memService.get(MemDevicecommand.class, commandId);
 		MemDevice device=(MemDevice)memService.get(MemDevicecommand.class, command.getDeviceid());
-		Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
-		result=cmdprocess.getresult(memService, device, command, sysUser.getUserid()+"");
-		orgresult=cmdprocess.orgresult;
+		System.out.println("commandId=="+commandId+",");
+		try {
+			Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
+			result=cmdprocess.getresult(memService, device, command, sysUser.getUserid()+"");
+			orgresult=cmdprocess.orgresult;
+			System.out.println("result=="+result+",orgresult=="+orgresult);
 		
-//		result="123";
-//		orgresult="456";
+		} catch (Exception e) {
+		    e.printStackTrace();
+			result="";
+			orgresult="解析结果出错!";
+			return SUCCESS;
+		}
+//		result="解析后的结果";
+//		orgresult="解析前的结果";
 		return SUCCESS;
 	}
 	

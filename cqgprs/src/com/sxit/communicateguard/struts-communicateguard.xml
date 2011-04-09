@@ -110,9 +110,8 @@
    	   </action>
    	    <action name="imitateExcecommand" class="com.sxit.communicateguard.action.ajax.ImitateExceCommandAction">
 			<result name="success" type="json"></result>
+			<result name="error" type="json"></result>
    	   </action>
-   	   
-   	   
-   	 
+
    </package>
 </struts>

@@ -118,6 +118,9 @@
     <action name="deviceLogin" location="0,0" size="0,0">
       <result name="success" />
     </action>
+    <action name="imitateExcecommand" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
   </package>
   <webResource name="noGuard.jsp" path="/communicateguard/noGuard.jsp" location="1327,185" size="150,55" />
   <webResource name="noGuard_excel.jsp" path="/communicateguard/noGuard_excel.jsp" location="1029,10" size="150,55" />

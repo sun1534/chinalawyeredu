@@ -26,8 +26,7 @@ public class ImitateCommandAction extends AbstractListAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		MemService service = (MemService) getBean("memService");
-		commandlist = service.getCommandList(deviceId, name, status, 1,
-				Integer.MAX_VALUE).getItems();
+		commandlist = service.getCommandList(deviceId, name, status, 1,Integer.MAX_VALUE).getItems();
 		return SUCCESS;
 	}
 

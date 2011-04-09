@@ -3,19 +3,15 @@
  */
 package com.sxit.communicateguard.action.ajax;
 
-import java.util.StringTokenizer;
+import java.net.URLDecoder;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import sun.util.logging.resources.logging;
-
 import com.sxit.common.Globals;
 import com.sxit.common.action.AbstractAction;
-import com.sxit.communicateguard.service.GuardService;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.models.mem.MemDevice;
-import com.sxit.netquality.service.BasicSetService;
 
 /**
  * 
@@ -34,9 +30,6 @@ public class DeviceLoginAction extends AbstractAction {
 
 	private String isok;
 
-
-	
-	
 	/**
 	 * @return the isok
 	 */
@@ -51,15 +44,22 @@ public class DeviceLoginAction extends AbstractAction {
 	 */
 	@Override
 	protected String go() throws Exception {
-		MemService memservice=(MemService) Globals.getBean("memService");
-		MemDevice device=(MemDevice)memservice.get(MemDevice.class,deviceId);
-		if(device==null){
+		MemService memservice = (MemService) Globals.getBean("memService");
+		MemDevice device = (MemDevice) memservice
+				.get(MemDevice.class, deviceId);
+
+		String usernametemp = new URLDecoder().decode(username, "utf-8");
+		String passwordtemp = new URLDecoder().decode(password, "utf-8");
+		System.out.println("username==" + username + "password=" + password);
+		// System.out.println("username1=="+username1+"password1="+password1);
+		if (device == null) {
 			isok = "2";
 			return SUCCESS;
 		}
-		if(device.getLoginName().equals(username)&&device.getLoginPwd().equals(password)){
-			isok="1";
-		}else{
+		if (device.getLoginName().equals(usernametemp)
+				&& device.getLoginPwd().equals(passwordtemp)) {
+			isok = "1";
+		} else {
 			isok = "2";
 		}
 		try {
@@ -110,7 +110,4 @@ public class DeviceLoginAction extends AbstractAction {
 		this.isok = isok;
 	}
 
-	
-
-	
 }
