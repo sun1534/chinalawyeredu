@@ -83,28 +83,24 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 									</div>
 								</div>
 							</div>
-							<div class="mobileFt">
-								请选择状态：<select name="">
-									<option value="" selected="selected">选择状态</option>
-								</select>
-							</div>
+							
 						</div>
 					</div>
 					<div id="mobileCon">
 						<div class="mobileStatu">
 							<div class="mobileStatuCon">
-								<h3 id="aabbcc">正在执行<span id="aa"></span></>秒，<span id="bb"></span></>秒，<span id="cc"></span></>秒</h3>
+								<h3 id="aabbcc"><font color="red">正在执行命令，请稍等... ...</font></</h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
 										<div id="querylist" style="overflow:auto">
-										dsfsddsfsd
+									     暂无内容
 										</div>
 									</div>
 
 								    <div class="tablist queryresult eqHeight" id="div2">
 							   <!-- 存储返回的内容使用的 -->
 									 <div id="resultlist" style="overflow:auto">
-									 sdfsdfsd
+									     暂无内容
 									 </div>
 								
 								</div>

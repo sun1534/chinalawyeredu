@@ -25,9 +25,11 @@ function setDeviceId(id)
   $("#deviceid").attr("value",id); 
 }
 function login(){
-var username=$("#username").val();
+var username1=$("#username").val();
 var deviceid=$("#deviceid").val();
-var password=$("#password").val();
+var password1=$("#password").val();
+var username=escape(encodeURIComponent(username1));
+var password=escape(encodeURIComponent(password1));
 var now=new Date().getTime();
 $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&deviceId="+deviceid+"&now="+now+"&password="+password,function(json){
   if(json.isok=="1"){
@@ -93,28 +95,24 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 									</div>
 								</div>
 							</div>
-							<div class="mobileFt">
-								请选择状态：<select name="">
-									<option value="" selected="selected">选择状态</option>
-								</select>
-							</div>
+							
 						</div>
 					</div>
 					<div id="mobileCon">
 						<div class="mobileStatu">
 							<div class="mobileStatuCon">
-								<h3>数据标题</h3>
+								<h3>标题</h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
 										<div id="querylist" style="overflow:auto">
-										dsfsddsfsd
+										     暂无内容
 										</div>
 									</div>
 
 								    <div class="tablist queryresult eqHeight" id="div2">
 							   <!-- 存储返回的内容使用的 -->
 									 <div id="resultlist" style="overflow:auto">
-									 sdfsdfsd
+									     暂无内容
 									 </div>
 								
 								</div>
