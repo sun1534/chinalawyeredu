@@ -87,7 +87,7 @@ public class CmdSGSNEciStats extends Command {
 	}
 
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
-
+		System.out.println("CmdSGSNEciStats");
 		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 		String result=getresult(orgresult);		
 
@@ -100,7 +100,7 @@ public class CmdSGSNEciStats extends Command {
 		log.setResult(result);
 		log.setOrgresult(Hibernate.createClob(orgresult));
 		log.setUserid(Integer.parseInt(userid));
-		System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
+		System.out.println("log--"+log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
 		try{
 			memservice.save(log);
 		}catch(Exception e){

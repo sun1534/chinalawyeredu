@@ -189,7 +189,7 @@ public class CmdSGSNEqCpuLoad extends Command {
 		log.setResult(result);
 		log.setOrgresult(Hibernate.createClob(orgresult));
 		log.setUserid(Integer.parseInt(userid));
-		System.out.println(log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
+		System.out.println("log---"+log.getCommandid()+","+log.getCommandname()+","+log.getCreatetime()+","+log.getDeviceid()+","+log.getDevicename()+","+log.getResult()+","+log.getUserid());
 		try{
 			memservice.save(log);
 		}catch(Exception e){
