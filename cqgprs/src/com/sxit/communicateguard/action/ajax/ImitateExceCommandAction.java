@@ -28,8 +28,8 @@ public class ImitateExceCommandAction extends AbstractListAction {
 		SysUser sysUser=this.getLoginUser();
 		if(sysUser==null)
 		{
-			result="";
-			orgresult="解析结果出错!";
+			result="解析结果出错!";
+			orgresult="";
 			return SUCCESS;
 		}
 		
@@ -43,17 +43,17 @@ public class ImitateExceCommandAction extends AbstractListAction {
 			System.out.println("加裁类=="+command.getPlugin());
 			System.out.println("----"+cmdprocess);
 			result=cmdprocess.getresult(memService, device, command, sysUser.getUserid()+"");
-			result=result.replace("\r\n", "<br />");
+			result=result.replace("\r\n", "<br/>");
 			
 			System.out.println("返回结果："+result);
 			orgresult=cmdprocess.orgresult;
-			orgresult=orgresult.replace("\r\n", "<br />");
+			orgresult=orgresult.replace("\r", "<br/>");
 			System.out.println("result=="+result+",orgresult=="+orgresult);
 		} catch (Exception e) {
 		    e.printStackTrace();
 		    System.out.println(e.getMessage());
-			result="获取原始结果出错!";
-			orgresult="解析结果出错!";
+			result="解析结果出错!";
+			orgresult="获取原始结果出错!";
 			return SUCCESS;
 		}
 //		result="解析后的结果";
