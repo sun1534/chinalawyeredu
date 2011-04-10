@@ -20,6 +20,7 @@ public class Client {
 	public static String end2 ="$";
 
 	public Client(String ip,String username,String password) throws Exception {
+		System.out.println("TelnetClient:"+ip+","+username+","+password);
 		this.username=username;
 		this.password=password;
 		tc = new TelnetClient();
@@ -54,9 +55,11 @@ public class Client {
                     System.out.println("tmpStr:"+tmpStr);
                     if(bufstring.endsWith("login: ")){
                     	write(username);
+                    	System.out.println("Client-login-username:"+username);
                     	step++;
                     }else if(bufstring.endsWith("Password: ")){
                     	write(password);
+                    	System.out.println("Client-login-password:"+password);
                     	islogin=true;
                     	step++;
                     }else if(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)){
@@ -65,6 +68,7 @@ public class Client {
                     	return "errcode -999:wrong password";
                     }
                 }
+                Thread.sleep(200);
             } while (ret_read >= 0);
             
 		} catch (Exception e) {
