@@ -64,7 +64,10 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 				int groupid = this.getLoginUser().getSysGroup() == null ? 0 : this.getLoginUser().getSysGroup()
 						.getGroupid();
 				
-				if(groupid!=8078){
+				int cityid=lawyer.getDirectunion();
+				int provinceid=lawyer.getProvinceunion();
+				
+				if(!(cityid==8078||(cityid==11002750||provinceid==23))){
 					
 					//判断卡号是否已使用,判断编号是否已使用
 					Lawyers cardnolawyer=null;
