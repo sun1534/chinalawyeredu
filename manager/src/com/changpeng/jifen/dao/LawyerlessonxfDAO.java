@@ -122,7 +122,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid left join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and a.lawyertype>=0 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '%" + officename + "%'";
@@ -178,7 +178,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and a.lawyertype>=0 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -230,7 +230,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and a.lawyertype>=0 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -290,10 +290,10 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				if (field != null && !"".equals(field)) {
 					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
-							+ condition + " and c.theyear=" + year + " and c." + field + "=" + fieldvalue + ") ";
+							+ condition + " and a.lawyertype>=0 and c.theyear=" + year + " and c." + field + "=" + fieldvalue + ") ";
 				} else {
 					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
-							+ condition + " and c.theyear=" + year + ") ";
+							+ condition + " and a.lawyertype>=0 and c.theyear=" + year + ") ";
 				}
 				// if (title != null && !"".equals(title)) {
 				// sql += " and c.title like '" + title + "%'";
