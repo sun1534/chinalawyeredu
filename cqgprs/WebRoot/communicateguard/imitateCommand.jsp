@@ -54,7 +54,11 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 }
 .mobileTabCon {height:300px;overflow:hidden;}
 .mobileCon {width:242px;height:120px;overflow-y:auto;overflow-x:hidden;}
-#resultlist {width:242px;height:180px;overflow-y:auto;overflow-x:hidden;}
+#resultlist {width:242px;height:180px;overflow:auto;}
+#querylist {
+	overflow:auto;
+	height:450px;
+}
 </style>
 
 </head>
@@ -88,8 +92,8 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 										<p><a href="#" onclick="execommand(${commandid});">${commananame}</a></p>
 									 </s:iterator>
 									</div>
-									<div id="resultlist" >
-									</div>
+									<pre id="resultlist" >
+									</pre>
 								</div>
 							</div>
 
@@ -98,12 +102,12 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 					<div id="mobileCon">
 						<div class="mobileStatu">
 							<div class="mobileStatuCon">
-								<h3 ><div id="start"> 请选择左边命令执行</div><div class="tablist" id="userpdperrorall" style="display: none"><img src="../images/loading.gif"/></div></</h3>
+								<h3 ><div id="start"> 请选择左边命令执行</div><div class="tablist" id="userpdperrorall" style="display: none"><img src="../images/loading.gif"/></div></h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
-										<div id="querylist" style="overflow:auto">
+										<pre id="querylist" style="overflow:auto">
 									     暂无原始结果
-										</div>
+										</pre>
 									</div>
 								<!--
 								    <div class="tablist queryresult eqHeight" id="div2">
