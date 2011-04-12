@@ -15,45 +15,48 @@
  <script type="text/javascript">
 
   $(document).ready(function() {
-		
+
   });
 
 function execommand(commandid){
  $("#userpdperrorall").show();
  $("#start").hide();
- 
+
 var now=new Date().getTime();
 $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+commandid+"&now="+now,function(json){
    $("#resultlist").empty();
    $("#querylist").empty();
-   $("#resultlist").html(json.orgresult);
-   $("#querylist").html(json.result);
+   $("#resultlist").html(json.result);
+   $("#querylist").html(json.orgresult);
    $("#userpdperrorall").hide();
    $("#start").show();
 });
 }
 
 </script>
- 
+
  <style>
 .consoleresult{
 	float:left;
 	background-color:black;
 	color:white;
-	width:49%;
-	height:auto!important;  
-	height:420px;  
-	min-height:420px;  
+	width:99%;
+	height:auto!important;
+	height:420px;
+	min-height:420px;
 }
 
 .queryresult{
 	margin-left:50%;
-	height:auto!important;  
-	height:420px;  
-	min-height:420px;  
+	height:auto!important;
+	height:420px;
+	min-height:420px;
 }
+.mobileTabCon {height:300px;overflow:hidden;}
+.mobileCon {width:242px;height:120px;overflow-y:auto;overflow-x:hidden;}
+#resultlist {width:242px;height:180px;overflow-y:auto;overflow-x:hidden;}
 </style>
- 
+
 </head>
 
 <body >
@@ -85,9 +88,11 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 										<p><a href="#" onclick="execommand(${commandid});">${commananame}</a></p>
 									 </s:iterator>
 									</div>
+									<div id="resultlist" >
+									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 					<div id="mobileCon">
@@ -100,13 +105,13 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 									     暂无原始结果
 										</div>
 									</div>
-
+								<!--
 								    <div class="tablist queryresult eqHeight" id="div2">
-							   <!-- 存储返回的内容使用的 -->
+							   <!-- 存储返回的内容使用的
 									 <div id="resultlist" style="overflow:auto">
 									     暂无解析结果
 									 </div>
-								
+								-->
 								</div>
 							</div>
 						</div>
