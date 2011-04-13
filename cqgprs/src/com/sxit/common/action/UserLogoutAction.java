@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.opensymphony.xwork2.ActionContext;
+import com.sxit.common.CommonDatas;
 import com.sxit.common.Constants;
 import com.sxit.log.service.SysLoginLogService;
 import com.sxit.models.system.SysUser;
@@ -52,6 +53,7 @@ public class UserLogoutAction extends AbstractAction {
 			if(sessionName.toString().equals(Constants.LOGIN_USER)){
 				SysUser sysUser = (SysUser) get(Constants.LOGIN_USER);
 				SysLoginLogService service = (SysLoginLogService) getBean("sysLoginLogService");
+				CommonDatas.LOGINDEVICE.remove(sysUser.getUserid()+"");
 				service.updateLogoutInfo(sysUser.getLoginId(), "系统正常退出");
 				ActionContext.getContext().getSession().remove(Constants.LOGIN_USER);
 			}
