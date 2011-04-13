@@ -31,13 +31,26 @@ var password1=$("#password").val();
 var username=escape(encodeURIComponent(username1));
 var password=escape(encodeURIComponent(password1));
 var now=new Date().getTime();
-$.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&deviceId="+deviceid+"&now="+now+"&password="+password,function(json){
+$.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&deviceId="+deviceid+"&now="+now+"&password="+password+"&flag=1",function(json){
   if(json.isok=="1"){
     alert("登录成功");
     closeDialogBox('#dialogBoxAdd');
     window.location.href="imitateCommand.action?deviceId="+deviceid;
   }else{
     alert("用户名或密码错误，请重新登录");
+  }
+});
+}
+
+function selectdevice(obj){
+var now=new Date().getTime();
+var deviceid=obj.value;
+if(deviceid!=0)
+$.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now="+now+"&flag=2",function(json){
+  if(json.isok=="1"){
+    window.location.href="imitateCommand.action?deviceId="+deviceid;
+  }else{
+    alert("获取设备命令出错！");
   }
 });
 }
@@ -96,8 +109,12 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 								</div>
 							</div>
 							<div class="mobileFt">
-							我已经连接的设备：<select name="">
-									<option value="" selected="selected">选择状态</option>
+							我已经连接的设备：
+							 <select name="deviceid" onchange="selectdevice(this)">
+							      <option value="0" >请选择设备</option>
+							     <s:iterator value="memdevice" id="entry">   
+						          <option value=" <s:property value="value.deviceid"/> "     <s:if test="deviceId==value.deviceid">selected="selected"</s:if>   ><s:property value="value.devicename"/></option>  
+						        </s:iterator>
 								</select>
 						 </div>
 						</div>
@@ -147,7 +164,7 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 								<tr class="fEven"> 
 									<td class="w120 fname">密码：</td> 
 									<td class="fvalue">
-									<input type="password" id="password" size="20"   class="txt"/>
+									<input type="password" id="password" size="20"class="txt"/>
 									</td> 
 								</tr> 
 							</tbody> 

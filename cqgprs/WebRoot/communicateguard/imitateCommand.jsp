@@ -33,6 +33,20 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 });
 }
 
+
+function selectdevice(obj){
+var deviceid=obj.value;
+var now=new Date().getTime();
+if(deviceid!=0)
+$.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now="+now+"&flag=2",function(json){
+  if(json.isok=="1"){
+    window.location.href="imitateCommand.action?deviceId="+deviceid;
+  }else{
+    alert("获取设备命令出错！");
+  }
+});
+}
+
 </script>
 
  <style>
@@ -54,10 +68,11 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 }
 .mobileTabCon {height:300px;overflow:hidden;}
 .mobileCon {width:242px;height:120px;overflow-y:auto;overflow-x:hidden;}
-#resultlist {width:242px;height:180px;overflow:auto;}
+#resultlist {width:242px;height:180px;overflow:auto;word-break:break-all;word-wrap:break-word;}
 #querylist {
 	overflow:auto;
 	height:450px;
+	word-break:break-all;word-wrap:break-word;
 }
 </style>
 
@@ -96,12 +111,17 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 									</pre>
 								</div>
 							</div>
-<div class="mobileFt">
-							我已经连接的设备：<select name="">
-									<option value="" selected="selected">选择状态</option>
+							<div class="mobileFt">
+							我已经连接的设备：
+							 <select name="deviceid" onchange="selectdevice(this)">
+							      <option value="0">请选择设备</option>
+							     <s:iterator value="memdevice" id="entry">   
+						          <option value=" <s:property value="value.deviceid"/> " <s:if test="deviceId==value.deviceid">selected="selected"</s:if> ><s:property value="value.devicename"/></option>  
+						        </s:iterator>
 								</select>
 						 </div>
 						</div>
+						
 					</div>
 					<div id="mobileCon">
 						<div class="mobileStatu">
