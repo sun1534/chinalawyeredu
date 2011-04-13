@@ -3,13 +3,16 @@
  */
 package com.sxit.communicateguard.action;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sxit.common.CommonDatas;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.system.SysUser;
 
 /**
  * @author 华锋 Nov 16, 20109:42:04 PM
@@ -26,11 +29,15 @@ public class ImitateCommandAction extends AbstractListAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 		MemService service = (MemService) getBean("memService");
+		SysUser sysUser=this.getLoginUser();
 		commandlist = service.getCommandList(deviceId, name, status, 1,Integer.MAX_VALUE).getItems();
+		memdevice=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
+		
 		return SUCCESS;
 	}
 
 	public List commandlist;
+	public HashMap<String, MemDevice> memdevice;
 
 	private int status = 1;
 
@@ -84,4 +91,14 @@ public class ImitateCommandAction extends AbstractListAction {
 		this.commandlist = commandlist;
 	}
 
+	public HashMap<String, MemDevice> getMemdevice() {
+		return memdevice;
+	}
+
+	public void setMemdevice(HashMap<String, MemDevice> memdevice) {
+		this.memdevice = memdevice;
+	}
+
+	
+	
 }
