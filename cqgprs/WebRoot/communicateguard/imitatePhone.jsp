@@ -48,7 +48,7 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 	float:left;
 	background-color:black;
 	color:white;
-	width:49%;
+	width:99%;
 	height:auto!important;  
 	height:420px;  
 	min-height:420px;  
@@ -108,13 +108,13 @@ $.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&devi
 										     
 										</div>
 									</div>
-
+								<!-- 存储返回的内容使用的 
 								    <div class="tablist queryresult eqHeight" id="div2">
-							   <!-- 存储返回的内容使用的 -->
+							   
 									 <div id="resultlist" style="overflow:auto">
 									     
 									 </div>
-								
+								-->
 								</div>
 							</div>
 						</div>
