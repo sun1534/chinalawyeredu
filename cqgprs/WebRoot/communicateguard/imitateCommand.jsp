@@ -96,7 +96,11 @@ $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+command
 									</pre>
 								</div>
 							</div>
-
+<div class="mobileFt">
+							我已经连接的设备：<select name="">
+									<option value="" selected="selected">选择状态</option>
+								</select>
+						 </div>
 						</div>
 					</div>
 					<div id="mobileCon">
