@@ -12,17 +12,19 @@
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
   <link rel="stylesheet" type="text/css" href="../css/dialog.css" />
- <script type="text/javascript" src="../js/dialog.js"></script> 
+ <script type="text/javascript" src="../js/dialog.js"></script>
  <script type="text/javascript" src="../js/jquery.js"></script>
  <script type="text/javascript">
 
   $(document).ready(function() {
-		
+
   });
 
 function setDeviceId(id)
 {
-  $("#deviceid").attr("value",id); 
+   $("#username").attr("value","");
+   $("#password").attr("value","");
+   $("#deviceid").attr("value",id);
 }
 function login(){
 var username1=$("#username").val();
@@ -62,20 +64,27 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 	background-color:black;
 	color:white;
 	width:99%;
-	height:auto!important;  
-	height:420px;  
-	min-height:420px;  
+	height:auto!important;
+	height:420px;
+	min-height:420px;
 }
 
 .queryresult{
 	margin-left:50%;
-	height:auto!important;  
-	height:420px;  
-	min-height:420px;  
+	height:auto!important;
+	height:420px;
+	min-height:420px;
 }
-
+#mobile {position:relative;}
+.mobileBack {
+    bottom: 20px;
+    display: block;
+    height: 60px;
+    left: 118px;
+    position: absolute;
+    width: 60px;}
 </style>
- 
+
 </head>
 
 <body >
@@ -112,12 +121,13 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 							我已经连接的设备：
 							 <select name="deviceid" onchange="selectdevice(this)">
 							      <option value="0" >请选择设备</option>
-							     <s:iterator value="memdevice" id="entry">   
-						          <option value=" <s:property value="value.deviceid"/> "     <s:if test="deviceId==value.deviceid">selected="selected"</s:if>   ><s:property value="value.devicename"/></option>  
+							     <s:iterator value="memdevice" id="entry">
+						          <option value=" <s:property value="value.deviceid"/> "     <s:if test="deviceId==value.deviceid">selected="selected"</s:if>   ><s:property value="value.devicename"/></option>
 						        </s:iterator>
 								</select>
 						 </div>
 						</div>
+						<a href="javascript:history.back(-1);" title="返回" class="mobileBack"   ></a>
 					</div>
 					<div id="mobileCon">
 						<div class="mobileStatu">
@@ -126,53 +136,53 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
 										<div id="querylist" style="overflow:auto">
-										     
+
 										</div>
 									</div>
-								<!-- 存储返回的内容使用的 
+								<!-- 存储返回的内容使用的
 								    <div class="tablist queryresult eqHeight" id="div2">
-							   
+
 									 <div id="resultlist" style="overflow:auto">
-									     
+
 									 </div>
 								-->
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!--  -->
-	<div class="Overdialog" id="Overdialog"><iframe></iframe></div> 
-			<!-- 新增  --> 
-			<div class="dialogBox" id="dialogBoxAdd"> 
-				<div class="DialogWrap"> 
-					<a href="#" class="closeDialogBox" onclick="closeDialogBox('#dialogBoxAdd')" title="关闭">关闭</a> 
-					<div class="dialogMain"> 
-						<div class="operateTabInfo">登录</div> 
-						<table class="operateTabBox"> 
-							<tbody> 
-								<tr class="fEven"> 
-									<td class="w120 fname">用户名：</td> 
+	<div class="Overdialog" id="Overdialog"><iframe></iframe></div>
+			<!-- 新增  -->
+			<div class="dialogBox" id="dialogBoxAdd">
+				<div class="DialogWrap">
+					<a href="#" class="closeDialogBox" onclick="closeDialogBox('#dialogBoxAdd')" title="关闭">关闭</a>
+					<div class="dialogMain">
+						<div class="operateTabInfo">登录</div>
+						<table class="operateTabBox">
+							<tbody>
+								<tr class="fEven">
+									<td class="w120 fname">用户名：</td>
 									<td class="fvalue">
 									<input type="text" id="username" size="20" class="txt"/>
-									</td> 
-								</tr> 
-								<tr class="fEven"> 
-									<td class="w120 fname">密码：</td> 
+									</td>
+								</tr>
+								<tr class="fEven">
+									<td class="w120 fname">密码：</td>
 									<td class="fvalue">
 									<input type="password" id="password" size="20"class="txt"/>
-									</td> 
-								</tr> 
-							</tbody> 
-						</table> 
-					</div> 
-					<div class="dialogBtn"><input type="button"  value="登录" title="登录" class="btnSubmit" onclick="login()"/>　<input type="button"  value="取 消" title="取 消" class="btnBack" onclick="closeDialogBox('#dialogBoxAdd')"/></div> 
-				</div> 
-			</div> 
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="dialogBtn"><input type="button"  value="登录" title="登录" class="btnSubmit" onclick="login()"/>　<input type="button"  value="取 消" title="取 消" class="btnBack" onclick="closeDialogBox('#dialogBoxAdd')"/></div>
+				</div>
+			</div>
 </body>
 
 </html>

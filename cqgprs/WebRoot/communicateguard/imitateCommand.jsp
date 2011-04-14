@@ -74,6 +74,14 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 	height:450px;
 	word-break:break-all;word-wrap:break-word;
 }
+#mobile {position:relative;}
+.mobileBack {
+    bottom: 20px;
+    display: block;
+    height: 60px;
+    left: 118px;
+    position: absolute;
+    width: 60px;}
 </style>
 
 </head>
@@ -115,13 +123,13 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 							我已经连接的设备：
 							 <select name="deviceid" onchange="selectdevice(this)">
 							      <option value="0">请选择设备</option>
-							     <s:iterator value="memdevice" id="entry">   
-						          <option value=" <s:property value="value.deviceid"/> " <s:if test="deviceId==value.deviceid">selected="selected"</s:if> ><s:property value="value.devicename"/></option>  
+							     <s:iterator value="memdevice" id="entry">
+						          <option value=" <s:property value="value.deviceid"/> " <s:if test="deviceId==value.deviceid">selected="selected"</s:if> ><s:property value="value.devicename"/></option>
 						        </s:iterator>
 								</select>
 						 </div>
 						</div>
-						
+						<a href="javascript:history.back(-1);" title="返回" class="mobileBack"></a>
 					</div>
 					<div id="mobileCon">
 						<div class="mobileStatu">
