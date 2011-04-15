@@ -160,6 +160,23 @@ public class Client {
 		}
 		return string;
 	}
+	public static String testlogin(String ip,String username,String password) {
+		String string="";
+		try {
+			
+			Client telnet = new Client(ip,username,password);
+			if(telnet.islogin){
+				return string="OK";
+			}else{
+				string="can not login!";
+				System.out.println("not login");
+			}
+			telnet.disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return string;
+	}
 	
 //	public static String getresponse(String cmd){
 //		String res="";

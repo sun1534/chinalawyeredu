@@ -83,8 +83,8 @@ public class ServerProcessServlet extends HttpServlet {
 				commandid=element.getStringValue();
 			}
 		}
-		System.out.println("[optype,username,password,deviceid,userid]--"+"["+optype+","+username+","+password+","+deviceid+","+userid+"]");
-		
+		System.out.println("[optype,username,password,deviceid,userid]--"+"["+optype+","+username+","+password+","+deviceid+","+userid+","+optype+"]");
+	
 		String result="error request";
 		Enumeration eee=request.getParameterNames();
 		while(eee.hasMoreElements()){
@@ -141,13 +141,20 @@ public class ServerProcessServlet extends HttpServlet {
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevicecommand command=(MemDevicecommand)memservice.get(MemDevicecommand.class, Integer.parseInt(commandid));
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, command.getDeviceid());
-			
-			
+			device.setLoginName(username);
+			device.setLoginPwd(password);
 			//标准命令 进行命令解析
 			if(command.getCommandtype()==1){
 				try{
 					
+//					Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
+					
+					
+					System.out.println("加裁类1=="+command.getPlugin());
 					Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
+					System.out.println("加裁类2=="+command.getPlugin());
+					System.out.println("----"+cmdprocess);
+					
 					result=cmdprocess.getresult(memservice, device, command, userid);
 				}catch(Exception e){
 					result=e.getMessage();
@@ -163,11 +170,12 @@ public class ServerProcessServlet extends HttpServlet {
 			MemService memservice=(MemService) Globals.getBean("memService");
 			MemDevice device=(MemDevice)memservice.get(MemDevice.class, Integer.parseInt(deviceid));
 			
-			if(device.getLoginName().equals(username)&&device.getLoginPwd().equals(password)){
-				result="OK";
-			}else{
-				result="user/password wrong!";
-			}
+//			if(device.getLoginName().equals(username)&&device.getLoginPwd().equals(password)){
+//				result="OK";
+//			}else{
+//				result="user/password wrong!";
+//			}
+			result=Client.testlogin(device.getIp(), username, password);
 		}else if(optype.equals("execommand_cus")){
 			
 			String commandstr=request.getParameter("commandstr");
@@ -191,10 +199,16 @@ public class ServerProcessServlet extends HttpServlet {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+//			result=new String(result.getBytes("GBK"),"ISO-8859-1");
+			
+			
+			
 		}
 		
-//		result=new String(result.getBytes("GBK"),"ISO-8859-1");
+		System.out.println("result:"+result);
 		out.write(result);
+//		out.flush();
+
 	}
 	
 	public static void main(String[] args) throws Exception{
