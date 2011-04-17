@@ -15,6 +15,7 @@ import com.sxit.common.CommonDatas;
 import com.sxit.common.Globals;
 import com.sxit.common.action.AbstractAction;
 import com.sxit.communicateguard.service.MemService;
+import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.system.SysUser;
 
@@ -70,10 +71,12 @@ public class DeviceLoginAction extends AbstractAction {
 		}
 
 		String usernametemp = new URLDecoder().decode(username, "utf-8");
+		
 		String passwordtemp = new URLDecoder().decode(password, "utf-8");
+		String flag=Client.testlogin(device.getIp(), usernametemp, passwordtemp);
+		
 		System.out.println("username==" + username + "password=" + password);
-		if (device.getLoginName().equals(usernametemp)
-				&& device.getLoginPwd().equals(passwordtemp)) {
+		if (flag.equals("OK")) {
 			isok = "1";
 			if(deviceList==null||deviceList.size()==0)
 				deviceList=new HashMap<String, MemDevice>();
