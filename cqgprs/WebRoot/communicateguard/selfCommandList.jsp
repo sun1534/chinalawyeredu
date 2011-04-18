@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-MEM设备命令管理</title>
+ <title>${sysName}-自定义命令管理</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />
@@ -90,11 +90,11 @@ function createEditCommand(action,deviceId){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>通信保障</a>＞<em>MEM设备命令管理</em>
+						<span>您所在是位置:</span><a>通信保障</a>＞<em>自定义命令管理</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="memCommandList" method="POST">	
+			<s:form name="form1" action="selfCommandList" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -107,16 +107,9 @@ function createEditCommand(action,deviceId){
                                   <s:hidden name="resultType"/>
                                 <td>设备列表：<s:select name="deviceId" list="deviceList" headerKey="0" headerValue="全部"/>&nbsp;</td>
                                 <td>命令名称：<s:textfield name="name" id="name" cssClass="txt" size="12"/>&nbsp;</td>
-                                <td>
-                                <s:if test="commandtype!=3">    
-                                命令类型：<s:select name="commandtype" list="#{'1':'普通命令','2':'应急命令'}" />&nbsp;
-                                </s:if>
-                                <s:else>
-                                <input type="hidden" name="commandtype" value="${commandtype }"/>
-                                </s:else>
-                                </td>
+                            
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-								 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditCommandPre('1',0,'${commandtype}');"/> </td>
+								 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditCommandPre('1',0,3);"/> </td>
 								</tr>
 							</tbody>
 						</table>
@@ -127,15 +120,10 @@ function createEditCommand(action,deviceId){
 			        <table class="tableBox" id="a">
                       <thead>
                         <tr>
-                       
                           <th>命令名称</th>
                           <th>脚本脚本</th>
-                           <th>命令类型</th>
-                        
-                     
                           <th>新增时间</th>
                           <th>修改</th>
-                       
                           <th>删除</th>
                           </tr>
                       </thead>
@@ -144,26 +132,13 @@ function createEditCommand(action,deviceId){
                         <tr>
                           <td>${commananame}</td>
                           <td>${commandscript} </td>
-                          <td>
-                      
-                          <s:if test="commandtype==1">普通命令
-                          </s:if>
-                          <s:elseif test="commandtype==2">应急命令
-                          </s:elseif>
-                          <s:else>自定义命令
-                          </s:else>
-                     
-                           </td>
-                            
-                        
                           <td>${createtime}</td>
-                          
                <td>
                <s:if test="deviceId==0">
-               <a href="#" onclick="createEditCommandPre('0','${commandid}','${commandtype}')">修改</a>
+               <a href="#" onclick="createEditCommandPre('0','${commandid}','3')">修改</a>
                </s:if>
                <s:else>               
-               <a href="#" onclick="createEditCommandPre('0','${batchid}','${commandtype}')">修改</a>
+               <a href="#" onclick="createEditCommandPre('0','${batchid}','3')">修改</a>
                </s:else>
                </td>
                           <td>

@@ -124,7 +124,9 @@ public class ServerProcessServlet extends HttpServlet {
 		}else if(optype.equals("getcommand")){
 			MemService memservice=(MemService) Globals.getBean("memService");
 			
-			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), "", 1, Integer.MAX_VALUE).getItems();
+//			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), "", 1, Integer.MAX_VALUE).getItems();
+			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), 0, null, 1, Integer.MAX_VALUE).getItems();
+
 			Element xmlInfo = DocumentHelper.createElement("commandlist");
 			System.out.println("commandlist.size():"+commandlist.size());
 			for(int i=0;i<commandlist.size();i++){

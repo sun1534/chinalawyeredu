@@ -38,7 +38,13 @@
           <result name="success" type="dispatcher">/communicateguard/memCommandList.jsp</result>	
        </action>
        
-		
+		 <action name="selfCommandList" class="com.sxit.communicateguard.action.SelfCommandListAction">
+          <result name="success" type="dispatcher">/communicateguard/selfCommandList.jsp</result>	
+       </action>
+       
+        <action name="selfDeviceList" class="com.sxit.communicateguard.action.SelfDeviceListAction">
+          <result name="success" type="dispatcher">/communicateguard/selfDeviceList.jsp</result>	
+       </action>
 
         <action name="memDeviceCreateEdit" class="com.sxit.communicateguard.action.ajax.MemDeviceCreateEditAction">
 			<result name="input" type="dispatcher">/communicateguard/memDeviceCreateEdit.jsp</result>	

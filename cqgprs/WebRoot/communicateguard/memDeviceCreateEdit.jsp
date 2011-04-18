@@ -29,7 +29,7 @@
 									</td> 
 								</tr> 
 								
-								
+								<!-- 
 								<tr class="fEven"> 
 									<td class="w120 fname">登录名：</td> 
 									<td class="fvalue">
@@ -45,7 +45,8 @@
 									<input type="hidden" name="deviceId" value="${deviceId}"/>
 									<s:textfield name="device.loginPwd" id="device.loginPwd" cssClass="txt" size="20"/>
 									</td> 
-								</tr> 
+								</tr>
+								 --> 
 								<tr class="fEven"> 
 									<td class="w120 fname">备注信息：</td> 
 									<td class="fvalue">

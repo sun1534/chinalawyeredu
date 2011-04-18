@@ -11,7 +11,15 @@
 								<tr class="fEven">  
 									<td class="w120 fname">请选择设备：</td> 
 									<td class="fvalue">
-									<s:select list="deviceList" name="command.deviceid"></s:select>
+									<s:iterator value="deviceList">
+									<s:if test="selectdevice.contains(key)">
+									<input type="checkbox" name="selectdevice" value="${key}" checked/>${value}
+									</s:if>
+									<s:else><input type="checkbox" name="selectdevice" value="${key}"/>${value}
+									</s:else>
+									</s:iterator>
+									
+								
 									</td> 
 								</tr> 
 								<tr class="fEven"> 
@@ -30,16 +38,27 @@
 									</td> 
 								</tr> 
 								
-								
+								<s:if test="commandtype!=3">
 								<tr class="fEven"> 
 									<td class="w120 fname">命令类型：</td> 
 									<td class="fvalue">
 									<s:select name="command.commandtype" list="#{'1':'普通命令','2':'应急命令'}"/>
 									</td> 
 								</tr> 
+								</s:if>
 								
 								
-							
+								
+								<tr class="fEven"> 
+									<td class="w120 fname">命令执行解析类：</td> 
+									<td class="fvalue">
+									<s:if test="commandtype==3">
+									<s:hidden name="command.commandtype"/>
+									</s:if>
+									
+									<s:textfield name="command.plugin" cssClass="txt" cssClass="txt" size="60"></s:textfield>
+									</td> 
+								</tr>
 							
 								
 							</tbody> 

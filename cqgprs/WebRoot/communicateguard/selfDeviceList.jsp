@@ -7,7 +7,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"  />
  <meta name="author" content="KevinXiao Email:kevin_218@163.com" />
- <title>${sysName}-MEM设备列表管理</title>
+ <title>${sysName}-我的设备列表</title>
  <link rel="stylesheet" type="text/css" href="../css/reset.css" />
  <link rel="stylesheet" type="text/css" href="../css/main.css" />
  <link rel="stylesheet" type="text/css" href="../css/pager.css" />  
@@ -121,11 +121,11 @@ function createEditDevice(action,deviceId){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>通信保障</a>＞<em>MEM设备管理</em>
+						<span>您所在是位置:</span><a>通信保障</a>＞<em>我的设备列表</em>
 				</div>
 			</div>
 		</div>
-			<s:form name="form1" action="memDeviceList" method="POST">	
+			<s:form name="form1" action="selfDeviceList" method="POST">	
 		<div class="main">
 			<div class="inmain">
 				<div class="wrap">
@@ -138,8 +138,8 @@ function createEditDevice(action,deviceId){
                                   <s:hidden name="resultType"/>
                                 <td>输入设备名称：<s:textfield name="deviceName" id="deviceName" cssClass="txt" size="12"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-									 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditDevicePre('1',0);"/> </td>
-							<!--  <td><input type="button" class="btnSubmit" value="删  除" onclick="deletecell()"/></td>
+								<!--	 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditDevicePre('1',0);"/> </td>
+							  <td><input type="button" class="btnSubmit" value="删  除" onclick="deletecell()"/></td>
 								-->
 								</tr>
 							</tbody>
@@ -164,9 +164,7 @@ function createEditDevice(action,deviceId){
                           <th>登录密码</th>-->
                           <th>备注</th>
                           <th>新增时间</th>
-                         <th>修改</th>
-                           <th>修改</th>
-                           <th>关联用户</th>
+                     
                         </tr>
                       </thead>
                       <tbody id="checkForm">
@@ -180,9 +178,7 @@ function createEditDevice(action,deviceId){
                           <td>${loginPwd}</td>-->
                           <td>${description}</td>
                           <td>${createtime}</td>
-                          <td><a href="#" onclick="createEditDevicePre('0','${deviceid}')">修改</a></td>
-                          <td><a href="#" onclick="deleteDevice('${deviceid}')">删除</a>
-                           <td><a href="#" onclick="setUserDevicePre('${deviceid}')">关联用户</a>
+                      
                           </td>
                         </tr>
                         </s:iterator>

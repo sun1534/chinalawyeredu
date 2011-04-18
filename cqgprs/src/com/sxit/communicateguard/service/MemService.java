@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sxit.common.BasicService;
 import com.sxit.common.PaginationSupport;
+import com.sxit.models.mem.MemCommand;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
@@ -42,13 +43,34 @@ public class MemService extends BasicService {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
+	public List getDevicesByCommandId(int commandId) {
+		String sql = "select deviceid from mem_devicecommand where batchid=" + commandId;
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List list = new ArrayList();
+
+				while (rs.next()) {
+
+					list.add(rs.getInt("deviceid"));
+				}
+
+				return list;
+			}
+		});
+		List list = (List) object;
+		return list;
+	}
+
 	/**
 	 * 删除一个命令,根据设备来显示命令
 	 * 
 	 * @param commandId
 	 */
+	@Transactional
 	public void deleteCommand(int commandId) {
-		String sql = "delete from mem_devicecommand where commandid=" + commandId;
+		String sql = "delete from mem_devicecommand where batchid=" + commandId;
+		jdbcTemplate.execute(sql);
+		sql = "delete from mem_command where commandid=" + commandId;
 		jdbcTemplate.execute(sql);
 	}
 
@@ -62,15 +84,59 @@ public class MemService extends BasicService {
 	 * @param typename
 	 */
 	@Transactional
-	public void addCommand(int[] deviceids, String name, String command, int type, String typename) {
-		for (int deviceid : deviceids) {
+	public void addCommand(List deviceids, MemCommand command) {
+		basicDAO.save(command);
+		for (int i = 0; i < deviceids.size(); i++) {
+			int deviceid = (Integer.parseInt(deviceids.get(i).toString()));
 			MemDevicecommand dcommand = new MemDevicecommand();
-			dcommand.setCommananame(name);
-			dcommand.setCommandscript(command);
-			dcommand.setCommandtype(type);
-			dcommand.setTypename(typename);
+			dcommand.setCommananame(command.getCommananame());
+			dcommand.setCommandscript(command.getCommandscript());
+			dcommand.setCommandtype(command.getCommandtype());
+			dcommand.setTypename(command.getTypename());
+			dcommand.setPlugin(command.getPlugin());
+			dcommand.setBatchid(command.getCommandid());
+			dcommand.setCreatetime(command.getCreatetime());
+			dcommand.setCreateuser(command.getCreateuser());
+			dcommand.setCreateusername(command.getCreateusername());
 			dcommand.setDeviceid(deviceid);
+			super.save(dcommand);
+		}
 
+		if (command.getCommandtype() == 3) {// 自定义命令，插入到mem_usercommand表中
+			String sql = "insert into mem_usercommoad(userid,commandid) values(" + command.getCreateuser() + ","
+					+ command.getCommandid() + ")";
+			int s = jdbcTemplate.update(sql);
+			System.out.println("自定义命令:::" + s);
+
+		}
+	}
+
+	/**
+	 * 新增命令
+	 * 
+	 * @param deviceids
+	 * @param command
+	 */
+	@Transactional
+	public void updateCommand(List deviceids, MemCommand command) {
+		basicDAO.update(command);
+		// 先删除，再新增
+		String sql = "delete from mem_devicecommand where batchid=" + command.getCommandid();
+		int result = jdbcTemplate.update(sql);
+
+		for (int i = 0; i < deviceids.size(); i++) {
+			int deviceid = (Integer.parseInt(deviceids.get(i).toString()));
+			MemDevicecommand dcommand = new MemDevicecommand();
+			dcommand.setCommananame(command.getCommananame());
+			dcommand.setCommandscript(command.getCommandscript());
+			dcommand.setCommandtype(command.getCommandtype());
+			dcommand.setTypename(command.getTypename());
+			dcommand.setPlugin(command.getPlugin());
+			dcommand.setBatchid(command.getCommandid());
+			dcommand.setCreatetime(command.getCreatetime());
+			dcommand.setCreateuser(command.getCreateuser());
+			dcommand.setCreateusername(command.getCreateusername());
+			dcommand.setDeviceid(deviceid);
 			super.save(dcommand);
 		}
 	}
@@ -108,24 +174,24 @@ public class MemService extends BasicService {
 		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
 
 	}
-	
+
 	/**
 	 * 
 	 * @param deviceId
 	 * @return
 	 */
-	public List getDeviceUserList(int deviceId){
-		String sql="select userid from mem_userdevice where deviceid="+deviceId;
-		List list=basicDAO.findBySqlQuery(sql);
-		if(list!=null&&list.size()>0){
-			List newlist=new ArrayList();
-			for(int i=0;i<list.size();i++){
+	public List getDeviceUserList(int deviceId) {
+		String sql = "select userid from mem_userdevice where deviceid=" + deviceId;
+		List list = basicDAO.findBySqlQuery(sql);
+		if (list != null && list.size() > 0) {
+			List newlist = new ArrayList();
+			for (int i = 0; i < list.size(); i++) {
 				newlist.add(Integer.parseInt(list.get(i).toString()));
 			}
 			return newlist;
 		}
 		return null;
-//		return basicDAO.findBySqlQuery(sql);
+		// return basicDAO.findBySqlQuery(sql);
 	}
 
 	/**
@@ -137,8 +203,67 @@ public class MemService extends BasicService {
 	 * @return
 	 */
 	public com.sxit.common.PaginationSupport getUserDeviceList(int userId, int pageNo, int pageSize) {
+		// String sql = "select a.* from mem_device a inner join mem_userdevice
+		// b on a.deviceid=b.deviceid where b.userid="
+		// + userId;
+		// String ordersqy = sql + " order by a.deviceid desc";
+		// String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
+		// int totalCount = 0;
+		//
+		// int startIndex = (pageNo - 1) * pageSize;
+		// String querysql = "select * from(select a.*,rownum rn from(" +
+		// ordersqy + ") a " + " where rownum<="
+		// + (startIndex + pageSize) + ") where rn>" + startIndex;
+		//
+		// Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+		// public Object extractData(ResultSet rs) throws SQLException,
+		// DataAccessException {
+		// List list = new ArrayList();
+		//
+		// while (rs.next()) {
+		// MemDevice model = new MemDevice();
+		// model.setCreatetime(rs.getTimestamp("createtime"));
+		// model.setCreateuser(rs.getInt("createuser"));
+		// model.setCreateusername(rs.getString("createusername"));
+		// model.setDescription(rs.getString("description"));
+		// model.setDeviceid(rs.getInt("deviceid"));
+		// model.setDevicename(rs.getString("devicename"));
+		// model.setIp(rs.getString("ip"));
+		// model.setLoginName(rs.getString("status"));
+		// model.setLoginPwd(rs.getString("status"));
+		// model.setPort(rs.getInt("port"));
+		// model.setStatus(rs.getInt("status"));
+		//
+		// list.add(model);
+		// }
+		//
+		// return list;
+		// }
+		// });
+		// List list = (List) object;
+		//
+		// if (pageSize == Integer.MAX_VALUE) {
+		// totalCount = list.size();
+		// } else {
+		//
+		// totalCount = jdbcTemplate.queryForInt(cntsql);
+		// }
+		//
+		// PaginationSupport ps = new PaginationSupport(list, totalCount,
+		// pageSize, startIndex);
+		// return ps;
+
+		return this.getUserDeviceList(userId, null, pageNo, pageSize);
+
+	}
+
+	public com.sxit.common.PaginationSupport getUserDeviceList(int userId, String name, int pageNo, int pageSize) {
 		String sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where b.userid="
 				+ userId;
+		if (!(name == null || name.equals(""))) {
+			sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where a.devicename like '%"
+					+ name + "%' and b.userid=" + userId;
+		}
 		String ordersqy = sql + " order by a.deviceid desc";
 		String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
 		int totalCount = 0;
@@ -185,50 +310,107 @@ public class MemService extends BasicService {
 
 	}
 
-	/**
-	 * 得到设备的命令列表
-	 * 
-	 * @param deviceId
-	 * @param command
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 */
-	public com.sxit.common.PaginationSupport getCommandList(int deviceId, String name, int pageNo, int pageSize) {
+	public com.sxit.common.PaginationSupport getUserCommandList(int deviceId, int userId, String name, int pageNo,
+			int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(MemDevicecommand.class);
-		if (deviceId != 0)
-			dc.add(Restrictions.eq("deviceid", deviceId));
-		if (name != null && !name.equals(""))
+		DetachedCriteria dc1 = DetachedCriteria.forClass(MemCommand.class);
+		boolean commanddirect = true;
+		if (name != null && !name.equals("")) {
 			dc.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
-		dc.addOrder(Order.desc("commandid"));
-		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
-	}
-	
-	
-	
-	
-	
-	/**
-	 * 得到设备的命令列表
-	 * 
-	 * @param deviceId
-	 * @param command
-	 * @param pageNo
-	 * @param pageSize
-	 * @return
-	 */
-	public com.sxit.common.PaginationSupport getCommandList(int deviceId, String name,int commandtype, int pageNo, int pageSize) {
-		DetachedCriteria dc = DetachedCriteria.forClass(MemDevicecommand.class);
-		if (deviceId != 0)
+			dc1.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
+		}
+
+		if (deviceId != 0) {
+			commanddirect = false;
 			dc.add(Restrictions.eq("deviceid", deviceId));
-		if (name != null && !name.equals(""))
-			dc.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
-		if (commandtype!=0)
-			dc.add(Restrictions.eq("commandtype",commandtype));
-		dc.addOrder(Order.desc("commandid"));
-		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+		}
+
+		if (userId != 0) {
+			dc.add(Restrictions.eq("createuser", userId));
+			dc1.add(Restrictions.eq("createuser", userId));
+
+		}
+
+		dc.add(Restrictions.eq("commandtype", 3));
+		dc1.add(Restrictions.eq("commandtype", 3));
+
+		if (commanddirect) {
+
+			dc1.addOrder(Order.desc("commandid"));
+			return basicDAO.findPageByCriteria(dc1, pageSize, pageNo);
+		} else {
+			dc.addOrder(Order.desc("commandid"));
+			return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+		}
 	}
 
+	/**
+	 * 得到设备的命令列表
+	 * 
+	 * 这里要distinct的方式展示
+	 * 
+	 * 
+	 * @param deviceId
+	 * @param command
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public com.sxit.common.PaginationSupport getCommandList(int deviceId, int commandtype, String name, int pageNo,
+			int pageSize) {
+		DetachedCriteria dc = DetachedCriteria.forClass(MemDevicecommand.class);
+		DetachedCriteria dc1 = DetachedCriteria.forClass(MemCommand.class);
+		boolean commanddirect = true;
+		if (name != null && !name.equals("")) {
+			dc.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
+			dc1.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
+		}
+
+		if (deviceId != 0) {
+			commanddirect = false;
+			dc.add(Restrictions.eq("deviceid", deviceId));
+		}
+		if (commandtype != 0) {
+			dc.add(Restrictions.eq("commandtype", commandtype));
+			dc1.add(Restrictions.eq("commandtype", commandtype));
+		} else {
+			dc.add(Restrictions.ne("commandtype", 3));
+			dc1.add(Restrictions.ne("commandtype", 3)); // 不显示自定义的命令
+		}
+
+		System.out.println("commanddirect========" + commanddirect + ",commandtype=" + commandtype);
+		if (commanddirect) {
+
+			dc1.addOrder(Order.desc("commandid"));
+			return basicDAO.findPageByCriteria(dc1, pageSize, pageNo);
+		} else {
+			dc.addOrder(Order.desc("commandid"));
+			return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+		}
+	}
+
+	// /**
+	// * 得到设备的命令列表
+	// *
+	// * @param deviceId
+	// * @param command
+	// * @param pageNo
+	// * @param pageSize
+	// * @return
+	// */
+	// public com.sxit.common.PaginationSupport getCommandList(int deviceId,
+	// String name, int commandtype, int pageNo,
+	// int pageSize) {
+	// DetachedCriteria dc = DetachedCriteria.forClass(MemDevicecommand.class);
+	// if (deviceId != 0)
+	// dc.add(Restrictions.eq("deviceid", deviceId));
+	// if (name != null && !name.equals(""))
+	// dc.add(Restrictions.like("commananame", name, MatchMode.ANYWHERE));
+	// if (commandtype != 0)
+	// dc.add(Restrictions.eq("commandtype", commandtype));
+	// dc.addOrder(Order.desc("commandid"));
+	// return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
+	// }
 
 	/**
 	 * 新增设备
@@ -268,10 +450,10 @@ public class MemService extends BasicService {
 	 */
 	@Transactional
 	public void setUserDevice(int deviceId, int[] userIds) {
-//		if(userIds==null||userIds.length==0){
-			String sql="delete from mem_userdevice where deviceid="+deviceId;
-			jdbcTemplate.execute(sql);
-//		}
+		// if(userIds==null||userIds.length==0){
+		String sql = "delete from mem_userdevice where deviceid=" + deviceId;
+		jdbcTemplate.execute(sql);
+		// }
 		for (int userId : userIds) {
 			MemUserdeviceId deviceids = new MemUserdeviceId();
 			deviceids.setDeviceid(deviceId);
@@ -284,12 +466,14 @@ public class MemService extends BasicService {
 		}
 
 	}
+
 	/**
 	 * <pre>
 	 * commandId=0登录
 	 *           -1代表设置自定义命令
 	 *           -2自己加设备
-	 *         </pre>
+	 * </pre>
+	 * 
 	 * @param userId
 	 * @param deviceId
 	 * @param commandId
@@ -299,8 +483,9 @@ public class MemService extends BasicService {
 	 * @param pageSize
 	 * @return
 	 */
-	public com.sxit.common.PaginationSupport getLogList(int userId,int deviceId,int commandId,Timestamp start,Timestamp end,int pageNo,int pageSize){
-		
+	public com.sxit.common.PaginationSupport getLogList(int userId, int deviceId, int commandId, Timestamp start,
+			Timestamp end, int pageNo, int pageSize) {
+
 		DetachedCriteria dc = DetachedCriteria.forClass(MemLog.class);
 		if (deviceId != 0)
 			dc.add(Restrictions.eq("deviceid", deviceId));
@@ -308,13 +493,13 @@ public class MemService extends BasicService {
 			dc.add(Restrictions.eq("userid", userId));
 		if (commandId != -5)
 			dc.add(Restrictions.eq("commandid", commandId));
-		if (start != null )
+		if (start != null)
 			dc.add(Restrictions.ge("createtime", start));
-		if (end != null )
+		if (end != null)
 			dc.add(Restrictions.le("createtime", end));
 		dc.addOrder(Order.desc("logid"));
 		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
-		
+
 	}
 
 }

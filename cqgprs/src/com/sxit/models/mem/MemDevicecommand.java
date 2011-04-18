@@ -22,7 +22,22 @@ public class MemDevicecommand implements java.io.Serializable {
 	private int createuser;
 	private String createusername;
 	private String plugin;
+	private long batchid;
 	// Constructors
+
+	/**
+	 * @return the batchid
+	 */
+	public long getBatchid() {
+		return batchid;
+	}
+
+	/**
+	 * @param batchid the batchid to set
+	 */
+	public void setBatchid(long batchid) {
+		this.batchid = batchid;
+	}
 
 	/**
 	 * @return the createtime

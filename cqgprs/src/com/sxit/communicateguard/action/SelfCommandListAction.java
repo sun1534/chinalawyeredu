@@ -16,23 +16,9 @@ import com.sxit.models.mem.MemDevice;
  * Nov 16, 20109:42:04 PM
  *
  */
-public class MemDeviceCommandListAction extends AbstractListAction {
+public class SelfCommandListAction extends AbstractListAction {
 
-	private int commandtype;
-	/**
-	 * @return the commandtype
-	 */
-	public int getCommandtype() {
-		return commandtype;
-	}
-
-	/**
-	 * @param commandtype the commandtype to set
-	 */
-	public void setCommandtype(int commandtype) {
-		this.commandtype = commandtype;
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see com.sxit.common.action.AbstractAction#go()
 	 */
@@ -42,8 +28,8 @@ public class MemDeviceCommandListAction extends AbstractListAction {
 		
 		com.sxit.communicateguard.service.MemService service=(MemService)getBean("memService");
 		
-		this.page=service.getCommandList(deviceId, commandtype,name, pageNo, pageSize);
-		
+		this.page=service.getUserCommandList(deviceId, this.getLoginUser().getUserid(), name, pageNo, pageSize);
+
 		List list=service.getDeviceList(null, 1, Integer.MAX_VALUE).getItems();
 		deviceList =new LinkedHashMap();
 		for(int i=0;i<list.size();i++){
