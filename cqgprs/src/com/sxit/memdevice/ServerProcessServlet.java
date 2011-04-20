@@ -46,6 +46,7 @@ public class ServerProcessServlet extends HttpServlet {
 		String deviceid="";
 		String userid="";
 		String commandid="";
+		String commandtype="";
 		//获取请求的xml串
 		InputStream is=request.getInputStream();
 		byte[] b=new byte[1024];
@@ -81,6 +82,9 @@ public class ServerProcessServlet extends HttpServlet {
 			}
 			if(element.getName().equals("commandid")){
 				commandid=element.getStringValue();
+			}
+			if(element.getName().equals("commandtype")){
+				commandtype=element.getStringValue();
 			}
 		}
 		System.out.println("[optype,username,password,deviceid,userid]--"+"["+optype+","+username+","+password+","+deviceid+","+userid+","+optype+"]");
@@ -125,7 +129,7 @@ public class ServerProcessServlet extends HttpServlet {
 			MemService memservice=(MemService) Globals.getBean("memService");
 			
 //			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), "", 1, Integer.MAX_VALUE).getItems();
-			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), 0, null, 1, Integer.MAX_VALUE).getItems();
+			List commandlist=memservice.getCommandList(Integer.parseInt(deviceid), Integer.parseInt(commandtype), null, 1, Integer.MAX_VALUE).getItems();
 
 			Element xmlInfo = DocumentHelper.createElement("commandlist");
 			System.out.println("commandlist.size():"+commandlist.size());
