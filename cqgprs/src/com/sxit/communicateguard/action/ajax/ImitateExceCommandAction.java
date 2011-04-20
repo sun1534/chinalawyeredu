@@ -6,6 +6,7 @@ package com.sxit.communicateguard.action.ajax;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.command.Command;
+import com.sxit.memdevice.common.Client;
 import com.sxit.models.mem.MemDevice;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.system.SysUser;
@@ -37,13 +38,22 @@ public class ImitateExceCommandAction extends AbstractListAction {
 		MemDevicecommand command=(MemDevicecommand)memService.get(MemDevicecommand.class, commandId);
 		MemDevice device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
 		try {
-			
+			if(command.getCommandtype()==1){
 			Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
 			result=cmdprocess.getresult(memService, device, command, sysUser.getUserid()+"");
-			result=result.replace("\r\n", "<br/>");
+			
+			System.out.println("111====="+result.indexOf("^p"));
+			System.out.println("2222===="+result.indexOf("\r\n"));
+//			result=result.replace("\r\n", "<br/>");
+			result.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
 			orgresult=cmdprocess.orgresult;
-			orgresult=orgresult.replace("\r\n", "<br/>");
+//			orgresult=orgresult.replace("\r\n", "<br/>");
+			orgresult.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
 			System.out.println("result=="+result+",orgresult=="+orgresult);
+			}else {
+				String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+				result=orgresult;
+			}
 		} catch (Exception e) {
 		    e.printStackTrace();
 		    System.out.println(e.getMessage());

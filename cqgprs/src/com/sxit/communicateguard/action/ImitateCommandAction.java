@@ -31,7 +31,7 @@ public class ImitateCommandAction extends AbstractListAction {
 		MemService service = (MemService) getBean("memService");
 		SysUser sysUser=this.getLoginUser();
 //		commandlist = service.getCommandList(deviceId, 0,name, status, 1,Integer.MAX_VALUE).getItems();
-		commandlist=service.getCommandList(deviceId, 0, name, 1, Integer.MAX_VALUE).getItems();
+		commandlist=service.getCommandList(deviceId, status, name, 1, Integer.MAX_VALUE).getItems();
 		memdevice=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
 		
 		return SUCCESS;
