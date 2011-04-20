@@ -104,8 +104,8 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 								<div class="mobileTab">
 									<ul>
 										<li <s:if test="status==1">class="current"</s:if> ><a href="imitateCommand.action?deviceId=${deviceId}" title="">标准命令</a></li>
-										<li <s:if test="status==2">class="current"</s:if> ><a href="imitateCommand.action?deviceId=${deviceId}&status=2" title="">自定义命令</a></li>
-										<li <s:if test="status==3">class="current"</s:if> ><a href="imitateCommand.action?deviceId=${deviceId}&status=3" title="">紧急维护命令</a></li>
+										<li <s:if test="status==3">class="current"</s:if> ><a href="imitateCommand.action?deviceId=${deviceId}&status=3" title="">自定义命令</a></li>
+										<li <s:if test="status==2">class="current"</s:if> ><a href="imitateCommand.action?deviceId=${deviceId}&status=2" title="">紧急维护命令</a></li>
 										<!-- 当前选中 li class="current" -->
 									</ul>
 								</div>
