@@ -5,6 +5,7 @@ package com.sxit.communicateguard.action.ajax;
 
 import com.sxit.common.action.AbstractAction;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 
 /**
  * @author 华锋 Nov 16, 20109:42:04 PM
@@ -59,12 +60,18 @@ public class MemDeviceCreateEditAction extends AbstractAction {
 				device.setCreateuser(this.getLoginUser().getUserid());
 				device.setCreateusername(getLoginUser().getUsername());
 				basicService.save(device);
+				
+				transit.setDeviceid(device.getDeviceid());
+				basicService.save(transit);
 				this.message = "MEM设备信息新增成功";
 				isok=1;
 			} else {
 
 				basicService.update(device);
-
+				
+				basicService.saveOrupdate(transit);
+				
+				
 				this.message = "MEM设备信息更新成功";
 				isok=2;
 				
@@ -82,18 +89,26 @@ public class MemDeviceCreateEditAction extends AbstractAction {
 		MemDevice device = null;
 		if (isnew == 0) {
 			device = (MemDevice) basicService.get(MemDevice.class, deviceId);
-
+			transit= (MemDeviceTransit) basicService.get(MemDeviceTransit.class, deviceId);
+			
+			if(transit==null){
+				transit= new MemDeviceTransit();
+				transit.setDeviceid(deviceId);
+			}
 		} else {
 			device = new MemDevice();
 			device.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-
+			transit= new MemDeviceTransit();
 		}
+	
+		
 		set("device", device);
-
+		set("transit", transit);
 		return INPUT;
 	}
 
 	private MemDevice device;
+	private MemDeviceTransit transit;
 
 	/**
 	 * @return the device
@@ -103,6 +118,13 @@ public class MemDeviceCreateEditAction extends AbstractAction {
 			device = (MemDevice) get("device");
 		return device;
 	}
+	
+	public MemDeviceTransit getTransit() {
+		if (transit == null)
+			transit = (MemDeviceTransit) get("transit");
+		return transit;
+	}
+
 
 	/**
 	 * @return the deviceId

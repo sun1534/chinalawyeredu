@@ -32,6 +32,7 @@
 								<tr class="fEven"> 
 									<td class="w120 fname">命令脚本：</td> 
 									<td class="fvalue">
+										<s:hidden name="command.commandtype"/>
 									<input type="hidden" name="isnew" value="${isnew }"/>
 									<input type="hidden" name="commandId" value="${commandId}"/>
 									<s:textarea name="command.commandscript" cssClass="txt" rows="3" cols="40"></s:textarea>
@@ -40,26 +41,16 @@
 								
 								<s:if test="commandtype!=3">
 								<tr class="fEven"> 
-									<td class="w120 fname">命令类型：</td> 
-									<td class="fvalue">
-									<s:select name="command.commandtype" list="#{'1':'普通命令','2':'应急命令'}"/>
-									</td> 
-								</tr> 
-								</s:if>
-								
-								
-								
-								<tr class="fEven"> 
 									<td class="w120 fname">命令执行解析类：</td> 
 									<td class="fvalue">
-									<s:if test="commandtype==3">
-									<s:hidden name="command.commandtype"/>
-									</s:if>
+									
+								
+								
 									
 									<s:textfield name="command.plugin" cssClass="txt" cssClass="txt" size="60"></s:textfield>
 									</td> 
 								</tr>
-							
+								</s:if>
 								
 							</tbody> 
 						</table> 

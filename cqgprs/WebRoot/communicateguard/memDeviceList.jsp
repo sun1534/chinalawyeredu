@@ -55,7 +55,7 @@ function createEditDevicePre(isnew,deviceId)
     					$("#dialogBoxAdd").replaceWith(data);
     				else
        					$("body").append(data);
-    				showDialogBox('#dialogBoxAdd',400);
+    				showDialogBox('#dialogBoxAdd',700);
 		}
 	});
 }
@@ -73,7 +73,7 @@ function setUserDevicePre(deviceId)
     					$("#dialogBoxAdd").replaceWith(data);
     				else
        					$("body").append(data);
-    				showDialogBox('#dialogBoxAdd',400);
+    				showDialogBox('#dialogBoxAdd',700);
 		}
 	});
 }
@@ -159,6 +159,8 @@ function createEditDevice(action,deviceId){
                           <th>设备名</th>
                           <th>IP</th>
                           <th>端口</th>
+                          <th>是否华为设备</th>
+                          <th>是否需要中转</th>
                           <!-- 
                           <th>登录名</th>
                           <th>登录密码</th>-->
@@ -166,7 +168,7 @@ function createEditDevice(action,deviceId){
                           <th>新增时间</th>
                          <th>修改</th>
                            <th>修改</th>
-                           <th>关联用户</th>
+                       <!--     <th>关联用户</th> -->
                         </tr>
                       </thead>
                       <tbody id="checkForm">
@@ -175,6 +177,8 @@ function createEditDevice(action,deviceId){
                           <td><a href="memCommandList.action?deviceId=${deviceid}">${devicename}</a></td>
                           <td>${ip} </td>
                           <td>${port }</td>
+                            <td><s:if test="ishuawei==1">是</s:if><s:else>否</s:else></td>
+                               <td><s:if test="istransit==1">是</s:if><s:else>否</s:else></td>
                           <!-- 
                           <td>${loginName}</td>
                           <td>${loginPwd}</td>-->
@@ -182,7 +186,7 @@ function createEditDevice(action,deviceId){
                           <td>${createtime}</td>
                           <td><a href="#" onclick="createEditDevicePre('0','${deviceid}')">修改</a></td>
                           <td><a href="#" onclick="deleteDevice('${deviceid}')">删除</a>
-                           <td><a href="#" onclick="setUserDevicePre('${deviceid}')">关联用户</a>
+                          <!--    <td><a href="#" onclick="setUserDevicePre('${deviceid}')">关联用户</a>-->
                           </td>
                         </tr>
                         </s:iterator>

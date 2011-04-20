@@ -33,4 +33,5 @@ public class MemUserdevice implements java.io.Serializable {
 		this.id = id;
 	}
 
+	
 }

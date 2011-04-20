@@ -36,6 +36,13 @@
         <property name="status" type="int">
             <column name="STATUS" precision="22" scale="0" />
         </property>
+        <property name="istransit" type="int">
+            <column name="istransit" precision="22" scale="0" />
+        </property>
+        <property name="ishuawei" type="int">
+            <column name="ishuawei" precision="22" scale="0" />
+        </property>
+       
         <property name="createtime" type="timestamp">
             <column name="CREATETIME" length="11" />
         </property>

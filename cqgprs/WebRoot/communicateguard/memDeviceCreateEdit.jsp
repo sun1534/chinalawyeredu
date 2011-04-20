@@ -28,6 +28,63 @@
 									<s:textfield name="device.port" id="device.port" cssClass="txt" size="20"/>
 									</td> 
 								</tr> 
+								<tr class="fEven"> 
+									<td class="w120 fname">是否华为设备：</td> 
+									<td class="fvalue">
+										<input type="hidden" name="isnew" value="${isnew}"/>
+									<input type="hidden" name="deviceId" value="${deviceId}"/>
+									<s:select name="device.ishuawei" list="#{'0':'不是','1':'是'}"/>
+									</td> 
+								</tr> 
+								<tr class="fEven"> 
+									<td class="w120 fname">是否需要跳转：</td> 
+									<td class="fvalue">
+									<s:select name="device.istransit" list="#{'0':'不需要','1':'需要'}" onchange="transitview(this.value)"/>
+									<script type="text/javascript">
+									function transitview(val){
+									 if(val==1)
+									 document.getElementById("transitid").style.display="";
+									 else
+									 document.getElementById("transitid").style.display="none";
+									}
+									</script>
+									</td> 
+								</tr>
+							
+								<tr id="transitid" 	<s:if test="device.istransit==0">style="display:none"</s:if>> 
+								<td colspan="6">
+								
+									<table class="operateTabBox"> 
+									
+										<tr class="fEven"> 
+									<td class="w120 fname">跳转IP：</td> 
+									<td class="fvalue">
+									<s:textfield name="transit.ip" cssClass="txt" size="20"/>
+									</td> 
+								</tr>
+									<tr class="fEven"> 
+									<td class="w120 fname">跳转端口：</td> 
+									<td class="fvalue">
+									<s:textfield name="transit.port" cssClass="txt" size="20"/>
+									</td> 
+								</tr>
+								<tr class="fEven"> 
+									<td class="w120 fname">跳转登录用户：</td> 
+									<td class="fvalue">
+									<s:textfield name="transit.loginname" cssClass="txt" size="20"/>
+									</td> 
+								</tr>
+								<tr class="fEven"> 
+									<td class="w120 fname">跳转登录密码：</td> 
+									<td class="fvalue">
+									<s:textfield name="transit.pwd" cssClass="txt" size="20"/>
+									</td> 
+								</tr>
+									</table>
+								</td>
+								
+									</tr>
+								
 								
 								<!-- 
 								<tr class="fEven"> 
@@ -41,8 +98,7 @@
 								<tr class="fEven"> 
 									<td class="w120 fname">登录密码：</td> 
 									<td class="fvalue">
-									<input type="hidden" name="isnew" value="${isnew}"/>
-									<input type="hidden" name="deviceId" value="${deviceId}"/>
+								
 									<s:textfield name="device.loginPwd" id="device.loginPwd" cssClass="txt" size="20"/>
 									</td> 
 								</tr>

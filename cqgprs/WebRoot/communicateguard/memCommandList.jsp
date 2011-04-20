@@ -108,12 +108,9 @@ function createEditCommand(action,deviceId){
                                 <td>设备列表：<s:select name="deviceId" list="deviceList" headerKey="0" headerValue="全部"/>&nbsp;</td>
                                 <td>命令名称：<s:textfield name="name" id="name" cssClass="txt" size="12"/>&nbsp;</td>
                                 <td>
-                                <s:if test="commandtype!=3">    
-                                命令类型：<s:select name="commandtype" list="#{'1':'普通命令','2':'应急命令'}" />&nbsp;
-                                </s:if>
-                                <s:else>
+                             
                                 <input type="hidden" name="commandtype" value="${commandtype }"/>
-                                </s:else>
+                              
                                 </td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
 								 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditCommandPre('1',0,'${commandtype}');"/> </td>
@@ -146,7 +143,7 @@ function createEditCommand(action,deviceId){
                           <td>${commandscript} </td>
                           <td>
                       
-                          <s:if test="commandtype==1">普通命令
+                          <s:if test="commandtype==1">标准维护命令
                           </s:if>
                           <s:elseif test="commandtype==2">应急命令
                           </s:elseif>

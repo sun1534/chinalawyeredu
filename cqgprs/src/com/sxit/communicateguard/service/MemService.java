@@ -258,55 +258,56 @@ public class MemService extends BasicService {
 	}
 
 	public com.sxit.common.PaginationSupport getUserDeviceList(int userId, String name, int pageNo, int pageSize) {
-		String sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where b.userid="
-				+ userId;
-		if (!(name == null || name.equals(""))) {
-			sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where a.devicename like '%"
-					+ name + "%' and b.userid=" + userId;
-		}
-		String ordersqy = sql + " order by a.deviceid desc";
-		String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
-		int totalCount = 0;
-
-		int startIndex = (pageNo - 1) * pageSize;
-		String querysql = "select * from(select a.*,rownum rn from(" + ordersqy + ") a " + " where rownum<="
-				+ (startIndex + pageSize) + ") where rn>" + startIndex;
-
-		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-				List list = new ArrayList();
-
-				while (rs.next()) {
-					MemDevice model = new MemDevice();
-					model.setCreatetime(rs.getTimestamp("createtime"));
-					model.setCreateuser(rs.getInt("createuser"));
-					model.setCreateusername(rs.getString("createusername"));
-					model.setDescription(rs.getString("description"));
-					model.setDeviceid(rs.getInt("deviceid"));
-					model.setDevicename(rs.getString("devicename"));
-					model.setIp(rs.getString("ip"));
-					model.setLoginName(rs.getString("status"));
-					model.setLoginPwd(rs.getString("status"));
-					model.setPort(rs.getInt("port"));
-					model.setStatus(rs.getInt("status"));
-
-					list.add(model);
-				}
-
-				return list;
-			}
-		});
-		List list = (List) object;
-
-		if (pageSize == Integer.MAX_VALUE) {
-			totalCount = list.size();
-		} else {
-
-			totalCount = jdbcTemplate.queryForInt(cntsql);
-		}
-
-		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
-		return ps;
+		return this.getDeviceList(name, pageNo, pageSize);
+		//		String sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where b.userid="
+//				+ userId;
+//		if (!(name == null || name.equals(""))) {
+//			sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where a.devicename like '%"
+//					+ name + "%' and b.userid=" + userId;
+//		}
+//		String ordersqy = sql + " order by a.deviceid desc";
+//		String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
+//		int totalCount = 0;
+//
+//		int startIndex = (pageNo - 1) * pageSize;
+//		String querysql = "select * from(select a.*,rownum rn from(" + ordersqy + ") a " + " where rownum<="
+//				+ (startIndex + pageSize) + ") where rn>" + startIndex;
+//
+//		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+//			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				List list = new ArrayList();
+//
+//				while (rs.next()) {
+//					MemDevice model = new MemDevice();
+//					model.setCreatetime(rs.getTimestamp("createtime"));
+//					model.setCreateuser(rs.getInt("createuser"));
+//					model.setCreateusername(rs.getString("createusername"));
+//					model.setDescription(rs.getString("description"));
+//					model.setDeviceid(rs.getInt("deviceid"));
+//					model.setDevicename(rs.getString("devicename"));
+//					model.setIp(rs.getString("ip"));
+//					model.setLoginName(rs.getString("status"));
+//					model.setLoginPwd(rs.getString("status"));
+//					model.setPort(rs.getInt("port"));
+//					model.setStatus(rs.getInt("status"));
+//
+//					list.add(model);
+//				}
+//
+//				return list;
+//			}
+//		});
+//		List list = (List) object;
+//
+//		if (pageSize == Integer.MAX_VALUE) {
+//			totalCount = list.size();
+//		} else {
+//
+//			totalCount = jdbcTemplate.queryForInt(cntsql);
+//		}
+//
+//		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
+//		return ps;
 
 	}
 

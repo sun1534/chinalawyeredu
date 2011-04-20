@@ -18,7 +18,7 @@ import com.sxit.models.mem.MemDevice;
  */
 public class MemDeviceCommandListAction extends AbstractListAction {
 
-	private int commandtype;
+	private int commandtype=1;
 	/**
 	 * @return the commandtype
 	 */

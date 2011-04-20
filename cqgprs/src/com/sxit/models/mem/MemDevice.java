@@ -1,7 +1,8 @@
 package com.sxit.models.mem;
 
 import java.sql.Timestamp;
-import java.util.Date;
+
+import org.json.JSONObject;
 
 /**
  * MemDevice entity.
@@ -11,8 +12,10 @@ import java.util.Date;
 
 public class MemDevice implements java.io.Serializable {
 
+private int istransit;
+private int ishuawei;
 	// Fields
-
+	
 	private int deviceid;
 	private String devicename;
 	private String ip;
@@ -35,7 +38,8 @@ public class MemDevice implements java.io.Serializable {
 	}
 
 	/**
-	 * @param createusername the createusername to set
+	 * @param createusername
+	 *            the createusername to set
 	 */
 	public void setCreateusername(String createusername) {
 		this.createusername = createusername;
@@ -124,7 +128,8 @@ public class MemDevice implements java.io.Serializable {
 	}
 
 	/**
-	 * @param loginName the loginName to set
+	 * @param loginName
+	 *            the loginName to set
 	 */
 	public void setLoginName(String loginName) {
 		this.loginName = loginName;
@@ -138,10 +143,41 @@ public class MemDevice implements java.io.Serializable {
 	}
 
 	/**
-	 * @param loginPwd the loginPwd to set
+	 * @param loginPwd
+	 *            the loginPwd to set
 	 */
 	public void setLoginPwd(String loginPwd) {
 		this.loginPwd = loginPwd;
 	}
+
+	/**
+	 * @return the istransit
+	 */
+	public int getIstransit() {
+		return istransit;
+	}
+
+	/**
+	 * @param istransit the istransit to set
+	 */
+	public void setIstransit(int istransit) {
+		this.istransit = istransit;
+	}
+
+	/**
+	 * @return the ishuawei
+	 */
+	public int getIshuawei() {
+		return ishuawei;
+	}
+
+	/**
+	 * @param ishuawei the ishuawei to set
+	 */
+	public void setIshuawei(int ishuawei) {
+		this.ishuawei = ishuawei;
+	}
+
+	
 
 }
