@@ -36,7 +36,7 @@ public class ImitatePhoneAction extends AbstractListAction {
 		}
 		
 		MemService memservice=(MemService) Globals.getBean("memService");
-		devicelist=memservice.getUserDeviceList(sysUser.getUserid(), 0, Integer.MAX_VALUE).getItems();
+		devicelist=memservice.getUserDeviceList(sysUser.getUserid(), 1, Integer.MAX_VALUE).getItems();
 		memdevice=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
 		return SUCCESS;
 	}
