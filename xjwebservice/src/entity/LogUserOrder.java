@@ -20,11 +20,11 @@ public class LogUserOrder implements java.io.Serializable {
 //  `optime` datetime NOT NULL COMMENT '操作时间',   
 	// Fields
 
-	private Integer id;
+	private int id;
 	private String mobile;
 	private String productid;
-	private Integer optype;
-	private Integer useridtype;
+	private int optype;
+	private int useridtype;
 	private String streamno;
 	private String packageid;
 	private String remarks;
@@ -60,11 +60,11 @@ public class LogUserOrder implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -84,19 +84,19 @@ public class LogUserOrder implements java.io.Serializable {
 		this.productid = productid;
 	}
 
-	public Integer getOptype() {
+	public int getOptype() {
 		return this.optype;
 	}
 
-	public void setOptype(Integer optype) {
+	public void setOptype(int optype) {
 		this.optype = optype;
 	}
 
-	public Integer getUseridtype() {
+	public int getUseridtype() {
 		return this.useridtype;
 	}
 
-	public void setUseridtype(Integer useridtype) {
+	public void setUseridtype(int useridtype) {
 		this.useridtype = useridtype;
 	}
 

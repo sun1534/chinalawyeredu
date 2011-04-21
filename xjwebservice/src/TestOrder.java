@@ -26,7 +26,7 @@ public class TestOrder {
 
 			SmsMessage message = new SmsMessage();
 			message.setMessage("C#新车牌#蓝");
-			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613510073023"));
+			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613510012012"));
 			message.setSmsServiceActivationNumber(new org.apache.axis.types.URI("tel:+8610628719"));
 
 			String registrationIdentifier = System.currentTimeMillis() + "";
@@ -58,7 +58,7 @@ public class TestOrder {
 			param.setPackageID(System.currentTimeMillis() + "");
 			param.setProductID(OrderConstant.DZJC_PRODUCTID);
 			param.setStreamingNo(System.currentTimeMillis() + "");
-			param.setUserID("13510073023");
+			param.setUserID("13510012012");
 			param.setUserIDType(3);
 
 			Response resp = service.orderRelationUpdateNotify(param);

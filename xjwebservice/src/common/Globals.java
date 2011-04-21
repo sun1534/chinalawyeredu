@@ -26,8 +26,9 @@ public class Globals {
  */
 	public static Object getWebBean(String name) {
 
-		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-		return wac.getBean(name);
+		return getMainBean(name);
+//		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+//		return wac.getBean(name);
 	}
 
 	/**

@@ -10,13 +10,13 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="jdbcUrl">
-			<value>jdbc:mysql://211.154.157.174:3306/base?characterEncoding=utf-8</value> 
+			<value>jdbc:mysql://localhost:3306/telcome?characterEncoding=utf-8</value> 
 		</property>
 		<property name="user">
-			<value>saaspxxt</value>
+			<value>root</value>
 		</property>
 		<property name="password">
-			<value>saaspxxt</value>
+			<value>root</value>
 		</property>
 		<!--连接池中保留的最小连接数。-->
 		<property name="minPoolSize">
@@ -138,4 +138,38 @@
 			<ref bean="jdbcTemplate" />
 		</property>
 	</bean>
+	
+	<bean id="sendService" class="service.SendService">
+		<property name="basicDao">
+			<ref bean="basicDao" />
+		</property>
+		<property name="jdbcTemplate">
+			<ref bean="jdbcTemplate" />
+		</property>
+	</bean>
+	
+	<bean id="timerTask" class="main.ScheduleTask">
+    </bean>
+    <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="timerTask">
+    		<ref bean="timerTask"/>
+    	</property>
+		<!-- 每600秒跑一次 -->
+    	<property name="period">
+    		<value>600000</value>
+    	</property>
+    
+		<!-- 实例化后60秒跑一次 -->
+    	<property name="delay">
+    		<value>60000</value>
+    	</property>
+    </bean>
+     <bean id="timerFactoryBean" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+    		<list>
+    			<ref bean="scheduleTimerTask"/>
+    		</list>		
+    	</property>
+    </bean>
+	
 </beans>

@@ -18,7 +18,7 @@ public class LogDianxinmo implements java.io.Serializable {
 //  `remarks` varchar(200) DEFAULT NULL COMMENT '备注信息',   
 	// Fields
 
-	private Integer id;
+	private int id;
 	private String mobile;
 	private String destnumber;
 	private String content;
@@ -34,7 +34,7 @@ public class LogDianxinmo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public LogDianxinmo(Integer id, String mobile, String destnumber, Timestamp createTime) {
+	public LogDianxinmo(int id, String mobile, String destnumber, Timestamp createTime) {
 		this.id = id;
 		this.mobile = mobile;
 		this.destnumber = destnumber;
@@ -42,7 +42,7 @@ public class LogDianxinmo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public LogDianxinmo(Integer id, String mobile, String destnumber, String content, Timestamp createTime, Timestamp doTime,
+	public LogDianxinmo(int id, String mobile, String destnumber, String content, Timestamp createTime, Timestamp doTime,
 			String remarks) {
 		this.id = id;
 		this.mobile = mobile;
@@ -55,11 +55,11 @@ public class LogDianxinmo implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -25,16 +25,17 @@ public class UserOrder implements java.io.Serializable {
 //  `optime` datetime NOT NULL COMMENT '操作时间', 
 	// Fields
 
-	private Integer id;
+	private int id;
 	private String mobile;
 	private String productid;
-	private Integer status;
-	private Integer useridtype;
+	private int status;
+	private int useridtype;
 	private String streamno;
 	private String packageid;
 	private String remarks;
 	private String chepai;
 	private String areacode;
+	private String cityname;
 	private String chepaileixing;
 	private Timestamp optime;
 
@@ -47,11 +48,11 @@ public class UserOrder implements java.io.Serializable {
 	
 	// Property accessors
 
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -72,11 +73,11 @@ public class UserOrder implements java.io.Serializable {
 	}
 
 	
-	public Integer getUseridtype() {
+	public int getUseridtype() {
 		return this.useridtype;
 	}
 
-	public void setUseridtype(Integer useridtype) {
+	public void setUseridtype(int useridtype) {
 		this.useridtype = useridtype;
 	}
 
@@ -140,7 +141,7 @@ public class UserOrder implements java.io.Serializable {
 	/**
 	 * @return the status
 	 */
-	public Integer getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
@@ -148,8 +149,24 @@ public class UserOrder implements java.io.Serializable {
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
+	}
+
+
+	/**
+	 * @return the cityname
+	 */
+	public String getCityname() {
+		return cityname;
+	}
+
+
+	/**
+	 * @param cityname the cityname to set
+	 */
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
 	}
 
 }

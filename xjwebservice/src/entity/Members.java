@@ -12,33 +12,33 @@ public class Members implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
+	private int id;
 	private String telNumber;
 	private String service;
 	private String jiashizheng;
 	private String chepai;
-	private Integer chepaiType=1;
+	private int chepaiType=1;
 
 	private Timestamp regTime;
 	private Timestamp quitTime;
 	private Timestamp returnTime;
 	//1是ok0是暂停
-	private Integer active=1;
-	private Integer sentPos=0;
+	private int active=1;
+	private int sentPos=0;
 	private Timestamp lastSentTime;
-	private Integer score=0;
+	private int score=0;
 	private String remark;
-	private Integer dzFlag=0;
+	private int dzFlag=0;
 	private String banner;
 	//违章次数
-	private Integer wzCount=0;
+	private int wzCount=0;
 	private Timestamp wzLastSentTime;
 //	mtflag=1时表示无违章里不下发短信
-	private Integer mtFlag=0;
-	private Integer isfree=0;
-	private Integer ismisc=0;
-	private Integer x=0;
-	private Integer mtFlag1=1;
+	private int mtFlag=0;
+	private int isfree=0;
+	private int ismisc=0;
+	private int x=0;
+	private int mtFlag1=1;
 
 	// Constructors
 
@@ -47,8 +47,8 @@ public class Members implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Members(Integer id, String telNumber, String service, Timestamp regTime, Integer active, Integer sentPos,
-			Integer score, Integer dzFlag) {
+	public Members(int id, String telNumber, String service, Timestamp regTime, int active, int sentPos,
+			int score, int dzFlag) {
 		this.id = id;
 		this.telNumber = telNumber;
 		this.service = service;
@@ -60,10 +60,10 @@ public class Members implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Members(Integer id, String telNumber, String service, String jiashizheng, String chepai, Integer chepaiType,
-			Timestamp regTime, Timestamp quitTime, Timestamp returnTime, Integer active, Integer sentPos, Timestamp lastSentTime,
-			Integer score, String remark, Integer dzFlag, String banner, Integer wzCount, Timestamp wzLastSentTime,
-			Integer mtFlag, Integer isfree, Integer ismisc, Integer x, Integer mtFlag1) {
+	public Members(int id, String telNumber, String service, String jiashizheng, String chepai, int chepaiType,
+			Timestamp regTime, Timestamp quitTime, Timestamp returnTime, int active, int sentPos, Timestamp lastSentTime,
+			int score, String remark, int dzFlag, String banner, int wzCount, Timestamp wzLastSentTime,
+			int mtFlag, int isfree, int ismisc, int x, int mtFlag1) {
 		this.id = id;
 		this.telNumber = telNumber;
 		this.service = service;
@@ -91,11 +91,11 @@ public class Members implements java.io.Serializable {
 
 	// Property accessors
 
-	public Integer getId() {
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -131,11 +131,11 @@ public class Members implements java.io.Serializable {
 		this.chepai = chepai;
 	}
 
-	public Integer getChepaiType() {
+	public int getChepaiType() {
 		return this.chepaiType;
 	}
 
-	public void setChepaiType(Integer chepaiType) {
+	public void setChepaiType(int chepaiType) {
 		this.chepaiType = chepaiType;
 	}
 
@@ -163,19 +163,19 @@ public class Members implements java.io.Serializable {
 		this.returnTime = returnTime;
 	}
 
-	public Integer getActive() {
+	public int getActive() {
 		return this.active;
 	}
 
-	public void setActive(Integer active) {
+	public void setActive(int active) {
 		this.active = active;
 	}
 
-	public Integer getSentPos() {
+	public int getSentPos() {
 		return this.sentPos;
 	}
 
-	public void setSentPos(Integer sentPos) {
+	public void setSentPos(int sentPos) {
 		this.sentPos = sentPos;
 	}
 
@@ -187,11 +187,11 @@ public class Members implements java.io.Serializable {
 		this.lastSentTime = lastSentTime;
 	}
 
-	public Integer getScore() {
+	public int getScore() {
 		return this.score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(int score) {
 		this.score = score;
 	}
 
@@ -203,11 +203,11 @@ public class Members implements java.io.Serializable {
 		this.remark = remark;
 	}
 
-	public Integer getDzFlag() {
+	public int getDzFlag() {
 		return this.dzFlag;
 	}
 
-	public void setDzFlag(Integer dzFlag) {
+	public void setDzFlag(int dzFlag) {
 		this.dzFlag = dzFlag;
 	}
 
@@ -219,11 +219,11 @@ public class Members implements java.io.Serializable {
 		this.banner = banner;
 	}
 
-	public Integer getWzCount() {
+	public int getWzCount() {
 		return this.wzCount;
 	}
 
-	public void setWzCount(Integer wzCount) {
+	public void setWzCount(int wzCount) {
 		this.wzCount = wzCount;
 	}
 
@@ -235,43 +235,43 @@ public class Members implements java.io.Serializable {
 		this.wzLastSentTime = wzLastSentTime;
 	}
 
-	public Integer getMtFlag() {
+	public int getMtFlag() {
 		return this.mtFlag;
 	}
 
-	public void setMtFlag(Integer mtFlag) {
+	public void setMtFlag(int mtFlag) {
 		this.mtFlag = mtFlag;
 	}
 
-	public Integer getIsfree() {
+	public int getIsfree() {
 		return this.isfree;
 	}
 
-	public void setIsfree(Integer isfree) {
+	public void setIsfree(int isfree) {
 		this.isfree = isfree;
 	}
 
-	public Integer getIsmisc() {
+	public int getIsmisc() {
 		return this.ismisc;
 	}
 
-	public void setIsmisc(Integer ismisc) {
+	public void setIsmisc(int ismisc) {
 		this.ismisc = ismisc;
 	}
 
-	public Integer getX() {
+	public int getX() {
 		return this.x;
 	}
 
-	public void setX(Integer x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public Integer getMtFlag1() {
+	public int getMtFlag1() {
 		return this.mtFlag1;
 	}
 
-	public void setMtFlag1(Integer mtFlag1) {
+	public void setMtFlag1(int mtFlag1) {
 		this.mtFlag1 = mtFlag1;
 	}
 

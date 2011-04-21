@@ -23,12 +23,9 @@ import org.hibernate.impl.CriteriaImpl.OrderEntry;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-
-
 /**
  * 
- * @author 华锋
- * Feb 21, 2011 9:54:47 PM
+ * @author 华锋 Feb 21, 2011 9:54:47 PM
  */
 public class BasicDao extends HibernateDaoSupport {
 
@@ -212,7 +209,7 @@ public class BasicDao extends HibernateDaoSupport {
 		return (List) getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException {
 				Criteria criteria = dc.getExecutableCriteria(session);
-				//criteria.setProjection(null);
+				// criteria.setProjection(null);
 				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY).setMaxResults(count);
 				return criteria.list();
 			}
@@ -240,7 +237,7 @@ public class BasicDao extends HibernateDaoSupport {
 		});
 		return ((Integer) object).intValue();
 	}
-	
+
 	/**
 	 * 执行hql 更新,删除 操作
 	 * 
@@ -296,19 +293,19 @@ public class BasicDao extends HibernateDaoSupport {
 		});
 		return ((Long) object).intValue();
 	}
-	
+
 	/**
 	 * hql
+	 * 
 	 * @param hql
 	 * @return
 	 */
 	public int findCountByQuery(final String hql) {
-		
-		
+
 		Object object = getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
 				Query queryObject = session.createQuery(hql);
-		      	Object obj=	queryObject.uniqueResult();
+				Object obj = queryObject.uniqueResult();
 				return Integer.parseInt(obj.toString());
 			}
 		});
@@ -325,38 +322,68 @@ public class BasicDao extends HibernateDaoSupport {
 	 * @return PaginationSupport
 	 * @throws ServiceException
 	 */
-	public PageSupport findPageOnPageNo(final DetachedCriteria dc, final int pageSize,
-			final int pageNo) {
+	public PageSupport findPageOnPageNo(final DetachedCriteria dc, final int pageSize, final int pageNo) {
 
-	
 		return this.findPageByCriteria(dc, pageSize, pageNo);
 
 	}
-    /**
-     * 分页查询
-     * @param dc 条件
-     * @param page 页面信息  包含 maxperpage  pagenumber �?
-     */
+
+	/**
+	 * 分页查询
+	 * 
+	 * @param dc
+	 *            条件
+	 * @param page
+	 *            页面信息 包含 maxperpage pagenumber �?
+	 */
 
 	public PageSupport findPageOnPageNo(final DetachedCriteria dc, final PageSupport page) {
-        return (PageSupport) getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
-            public Object doInHibernate(Session session) throws HibernateException {
+		return (PageSupport) getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
 
-                Criteria criteria = dc.getExecutableCriteria(session);
-                long recordCount = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();                
-        		//请不要随便动这里的代�?, 如果这里报错 请先�?�? 配置文件有没有包含hibernate的xml文件
-                //计算记录条数                
-                criteria.setProjection(null);
-                criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
-                
-                List items = criteria.setCacheable(true).setFirstResult(page.getStartRecord()).setMaxResults(page.getPageSize()).list();
-                PageSupport ps = new PageSupport(page,items,(int)recordCount);  
-                return ps;
-                
-            }
-        });
-    }
-	
+				Criteria criteria = dc.getExecutableCriteria(session);
+				long recordCount = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).longValue();
+				// 请不要随便动这里的代�?, 如果这里报错 请先�?�? 配置文件有没有包含hibernate的xml文件
+				// 计算记录条数
+				criteria.setProjection(null);
+				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+
+				List items = criteria.setCacheable(true).setFirstResult(page.getStartRecord()).setMaxResults(
+						page.getPageSize()).list();
+				PageSupport ps = new PageSupport(page, items, (int) recordCount);
+				return ps;
+
+			}
+		});
+	}
+
+	/**
+	 * 
+	 * @param dc
+	 * @param pageSize
+	 * @param pageNo
+	 * @return
+	 */
+	public List findNumByCriteria(final DetachedCriteria dc, final int pageSize, final int startIndex) {
+
+		return (List) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+
+				Criteria criteria = dc.getExecutableCriteria(session);
+			
+				Projection projection = HibernateUtil.getProjection(criteria);
+
+				criteria.setProjection(projection);
+				if (projection == null) {
+					criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+				}
+			
+				List items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
+				return items;
+			}
+		});
+	}
+
 	/**
 	 * 
 	 * @param dc
@@ -365,31 +392,31 @@ public class BasicDao extends HibernateDaoSupport {
 	 * @return
 	 */
 	private PageSupport findPageByCriteria(final DetachedCriteria dc, final int pageSize, final int pageNo) {
-		
+
 		return (PageSupport) getHibernateTemplate().execute(new HibernateCallback() {
-					public Object doInHibernate(Session session) {
-				
+			public Object doInHibernate(Session session) {
+
 				Criteria criteria = dc.getExecutableCriteria(session);
 				OrderEntry[] orderEntries = HibernateUtil.getOrders(criteria);
 				criteria = HibernateUtil.removeOrders(criteria);
 				Projection projection = HibernateUtil.getProjection(criteria);
-				
+
 				Object object = criteria.setProjection(Projections.rowCount()).uniqueResult();
-				
+
 				System.out.println(object.getClass());
-				
-				int recordCount = ((Long)object).intValue();
-				
+
+				int recordCount = ((Long) object).intValue();
+
 				criteria.setProjection(projection);
 				if (projection == null) {
 					criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 				}
 				// Add the orginal orderEntries
 				criteria = HibernateUtil.addOrders(criteria, orderEntries);
-	
-				int reallyPageNo=pageNo;
-				int pageCount = recordCount-1 / pageSize+1; //总页数，如果当前的pageNo大于总页�?,那就设置为�?�页�?,否则总显示为�?
-				//pageCount=10�?,pageNo=11,那实际上pageNo应该�?
+
+				int reallyPageNo = pageNo;
+				int pageCount = recordCount - 1 / pageSize + 1; // 总页数，如果当前的pageNo大于总页�?,那就设置为�?�页�?,否则总显示为�?
+				// pageCount=10�?,pageNo=11,那实际上pageNo应该�?
 				if (reallyPageNo <= 0) {
 					reallyPageNo = 0;
 				}
@@ -413,22 +440,26 @@ public class BasicDao extends HibernateDaoSupport {
 	 *            第一条记录的序号
 	 * @return PaginationSupport
 	 */
-//	private PaginationSupport findPageByCriteria(final DetachedCriteria dc, final int pageSize,
-//			final int startIndex) {
-//		return (PaginationSupport) getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
-//			public Object doInHibernate(Session session) throws HibernateException {
-//				Criteria criteria = dc.getExecutableCriteria(session);
-//				int totalCount = ((Integer) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
-//				criteria.setProjection(null);
-//				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
-//				List items = criteria.setCacheable(true).setFirstResult(startIndex).setMaxResults(pageSize).list();
-//
-//				PaginationSupport ps = new PaginationSupport(items, totalCount, pageSize, startIndex);
-//				return ps;
-//			}
-//		});
-//	}
-
+	// private PaginationSupport findPageByCriteria(final DetachedCriteria dc,
+	// final int pageSize,
+	// final int startIndex) {
+	// return (PaginationSupport)
+	// getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
+	// public Object doInHibernate(Session session) throws HibernateException {
+	// Criteria criteria = dc.getExecutableCriteria(session);
+	// int totalCount = ((Integer)
+	// criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+	// criteria.setProjection(null);
+	// criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+	// List items =
+	// criteria.setCacheable(true).setFirstResult(startIndex).setMaxResults(pageSize).list();
+	//
+	// PaginationSupport ps = new PaginationSupport(items, totalCount, pageSize,
+	// startIndex);
+	// return ps;
+	// }
+	// });
+	// }
 	/**
 	 * 返回符合条件的记录数�?
 	 * 

@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import common.BasicService;
 
 import entity.LogUserOrder;
-import entity.Members;
 import entity.UserOrder;
 
 /**
@@ -73,12 +72,13 @@ public class OrderService extends BasicService {
 	private String getMemberTable(String areacode) {
 
 		String regix = "";
-		if (areacode == null || areacode.equals("") || !AREA_DATABASE.containsKey(areacode)) {
-			regix = DEFAULT_TABLE_DATABASE;
+		if (areacode == null || areacode.equals("") || !OrderConstant.AREA_DATABASE.containsKey(areacode)) {
+			regix = OrderConstant.DEFAULT_TABLE_DATABASE;
 		} else {
-			regix = AREA_DATABASE.get(areacode);
+//			regix = AREA_DATABASE.get(areacode);
+			regix = OrderConstant.DEFAULT_TABLE_DATABASE;
 		}
-		return regix + "." + DEFAULT_MEMBER_TABLE;
+		return regix + "." + OrderConstant.DEFAULT_MEMBER_TABLE;
 	}
 
 	/**
@@ -87,9 +87,9 @@ public class OrderService extends BasicService {
 	 * @return
 	 */
 	private int getMemberChepaiType(String chepaileixing) {
-		if (chepaileixing == null || chepaileixing.equals("") || !MEMBER_CHEPAI.containsKey(chepaileixing))
+		if (chepaileixing == null || chepaileixing.equals("") || !OrderConstant.MEMBER_CHEPAI.containsKey(chepaileixing))
 			return -1;
-		return MEMBER_CHEPAI.get(chepaileixing);
+		return OrderConstant.MEMBER_CHEPAI.get(chepaileixing);
 	}
 
 	/**
@@ -164,7 +164,6 @@ public class OrderService extends BasicService {
 		} catch (Exception e) {
 			LOG.error("updateLogOrderResult", e);
 		}
-
 	}
 
 	/**
@@ -177,9 +176,10 @@ public class OrderService extends BasicService {
 	public int order(String mobile, String packageid, String productid, String streamno, String remarks, int useridtype) {
 
 		UserOrder uo = this.getUserOrder(mobile, productid);
-		if (uo != null)
+		if (uo != null){
+			LOG.warn("该用户已经订购该产品!"+mobile+"=>"+productid);
 			return -2; // 已经订购
-
+		}
 		try {
 			UserOrder order = new UserOrder();
 			order.setMobile(mobile);
@@ -190,7 +190,6 @@ public class OrderService extends BasicService {
 			order.setRemarks(remarks);
 			order.setStreamno(streamno);
 			order.setUseridtype(useridtype);
-
 			// 插入到表里面
 			basicDao.save(order);
 			this.saveMember(order);
@@ -336,8 +335,10 @@ public class OrderService extends BasicService {
 				order.setChepai(chepai);
 			if (leixing != null && !leixing.equals(""))
 				order.setChepaileixing(leixing);
-			if (areacode != null && !areacode.equals(""))
+			if (areacode != null && !areacode.equals("")){
 				order.setAreacode(areacode);// 新的地市
+				order.setCityname(OrderConstant.AREA_DATABASE.get(areacode));
+			}
 
 			basicDao.update(order);
 			this.updateMembers(order, oldarea);// 老的里面删掉,新的里面新增。记录这种日志
@@ -347,6 +348,25 @@ public class OrderService extends BasicService {
 			LOG.error("更新车牌信息失败", e);
 			return -1;
 		}
+	}
+	
+	/**
+	 * 为了避免内存的溢出,一次取出来的个数,轮询处理
+	 * 得到所有的用户列表
+	 * @return
+	 */
+	public List getAllOrdreUsers(int startIndex,int pageSize){
+		DetachedCriteria dc = DetachedCriteria.forClass(UserOrder.class);
+		dc.add(Restrictions.eq("status", 0));
+		return basicDao.findNumByCriteria(dc, pageSize, startIndex);
+	}
+	
+	/**
+	 * 得到所有的订购人数
+	 * @return
+	 */
+	public int getAllOrderUserCount(){
+		return jdbcTemplate.queryForInt("select count(*) from user_order where status=0"); 
 	}
 
 	/**
@@ -410,19 +430,7 @@ public class OrderService extends BasicService {
 		}
 	}
 
-	public static Map<String, Integer> MEMBER_CHEPAI = new LinkedHashMap<String, Integer>();
-	public static Map<String, String> AREA_DATABASE = new LinkedHashMap<String, String>();
-	public static String DEFAULT_TABLE_DATABASE = "base";
-	public static String DEFAULT_MEMBER_TABLE = "members";
-	static {
-		MEMBER_CHEPAI.put("黄", 1);
-		MEMBER_CHEPAI.put("蓝", 2);
-		MEMBER_CHEPAI.put("黑", 3);
-		MEMBER_CHEPAI.put("", -1);
 
-		AREA_DATABASE.put("0990", "test");
-		AREA_DATABASE.put("0991", "base");
-		AREA_DATABASE.put("0992", "test");
 
-	}
+
 }
