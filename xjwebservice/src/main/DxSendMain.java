@@ -39,15 +39,19 @@ public class DxSendMain {
 
 	private static final int PAGE_SIZE = 1000;
 
-	private SendService sendService = (SendService) Globals.getWebBean("sendService");
-	private OrderService orderservice = (OrderService) Globals.getWebBean("orderService");
+	private SendService sendService = null;
+	private OrderService orderservice = null;
 	private Map<String, CityTemplateContent> templist = null;
 	private Map<String, CityPrompt> promtlist = null;
 
 	private static String DEFAULT_PROMPT = "提示信息";// 默认提示信息
-	private static String DEFAULT_BANNER = "";// 默认的banner信息
+	private static String DEFAULT_BANNER = "【尊敬的汽车保姆用户】";// 默认的banner信息
 	// 下发的违章信息,要加入这个
 	private static String DEFAULT_ENDFIX = "（违章内容仅供参考，详情请前往就近交警大队查询）";
+
+	public DxSendMain() {
+
+	}
 
 	/**
 	 * @param args
@@ -62,7 +66,8 @@ public class DxSendMain {
 	}
 
 	public void process() {
-		SendService sendService = (SendService) Globals.getWebBean("sendService");
+		sendService = (SendService) Globals.getWebBean("sendService");
+		orderservice = (OrderService) Globals.getWebBean("orderService");
 		// 更新昨天违章，但是到今天已经不再违章的情况，这类短信不下发
 		int s = sendService.setHasBeenHandled();
 		LOG.info("更新" + s + "条违章为已处理");
@@ -75,12 +80,15 @@ public class DxSendMain {
 
 		// 得到订购用户今天所有的违章记录，和违章车牌表绑定
 		Map<String, List<DzjcAllHistory>> todaylist = sendService.getTodayList();
+
+		LOG.info("得到今天的违章数据完毕：" + todaylist.size());
 		// 得到所有的订购用户总数,没有退订的
 		int usercount = orderservice.getAllOrderUserCount();
-		LOG.debug("用户总数:::"+usercount);
+		LOG.info("用户总数:::" + usercount);
+		int smscount = 0;
 		if (usercount != 0) {// 有订购用户的情况下
 
-			int getcount = ((usercount - 1) / PAGE_SIZE )+ 1;
+			int getcount = ((usercount - 1) / PAGE_SIZE) + 1;
 			LOG.debug("总计处理次数:::" + getcount);
 			for (int i = 0; i < getcount; i++) {
 				int startIndex = i * PAGE_SIZE;
@@ -119,22 +127,18 @@ public class DxSendMain {
 					if (smscontent != null && !smscontent.equals("")) {
 
 						// 这里真的下发短信
-						// String result=Sms.sendSms(uo.getMobile(),
-						// smscontent);
+						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw");
 						LOG.debug("下发短信:" + uo.getMobile() + "," + smscontent);
-						String result = "-1";
+						// String result = "-1";
 						// 将下发的短信存储到数据库里
-						LogMtsend mtsend = new LogMtsend();
-						mtsend.setContent(smscontent);
-						mtsend.setMobile(uo.getMobile());
-						mtsend.setResult(result);
-						mtsend.setSendTime(new java.sql.Timestamp(System.currentTimeMillis()));
 
+						smscount++;
 					}
 				}
 				list.clear();
 			}
 		}
+		LOG.info("本次处理完成,短信下发数:" + smscount);
 	}
 
 	/**
@@ -145,7 +149,7 @@ public class DxSendMain {
 	 */
 	public String sendStatic(UserOrder uo, List<DzjcAllHistory> histories) {
 		String content = "您有" + histories.size() + "条违章信息（" + this.getPromptContent(uo.getAreacode()) + "）";
-		return content;
+		return DEFAULT_BANNER + content;
 	}
 
 	/**
@@ -156,7 +160,7 @@ public class DxSendMain {
 	 */
 	public String sendWzNotHandle(UserOrder uo, DzjcAllHistory history) {
 		String content = "您有1条违章信息需要处理（" + this.getPromptContent(uo.getAreacode()) + "）";
-		return content;
+		return DEFAULT_BANNER + content;
 	}
 
 	/**
@@ -178,7 +182,7 @@ public class DxSendMain {
 					+ history.getWzxx() + "违章。";
 		}
 		content = content + DxSendMain.DEFAULT_ENDFIX;
-		return content;
+		return DEFAULT_BANNER + content;
 	}
 
 	/**

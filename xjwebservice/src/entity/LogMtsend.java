@@ -16,6 +16,7 @@ public class LogMtsend implements java.io.Serializable {
 	private String mobile;
 	private String content;
 	private Date sendTime;
+	private String type;
 	private String result;
 
 	// Constructors
@@ -80,6 +81,20 @@ public class LogMtsend implements java.io.Serializable {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

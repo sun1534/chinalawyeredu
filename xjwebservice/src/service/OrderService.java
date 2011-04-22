@@ -377,11 +377,11 @@ public class OrderService extends BasicService {
 	 */
 	public int updateMembers(UserOrder order, String oldarea) {
 
-		String oldtable = this.getMemberTable(oldarea);
+//		String oldtable = this.getMemberTable(oldarea);
 		String newtable = this.getMemberTable(order.getAreacode());
-		try {
+//		try {
 
-			boolean oldb = this.isExistMemberMobile(oldtable, order.getMobile());
+//			boolean oldb = this.isExistMemberMobile(oldtable, order.getMobile());
 
 			String newarea = order.getAreacode();// 新的
 
@@ -389,7 +389,7 @@ public class OrderService extends BasicService {
 			if (newarea == null || newarea.equals("") || newarea.equals(oldarea)) {
 
 				boolean newb = this.isExistMemberMobile(newtable, order.getMobile());// 新的里面存不存在
-				if (newb) {
+				if (!newb) {
 					this.saveMember(order);
 				} else {
 
@@ -424,10 +424,10 @@ public class OrderService extends BasicService {
 			}
 
 			return 0;
-		} catch (Exception e) {
-			LOG.error("更新车牌信息失败", e);
-			return -1;
-		}
+//		} catch (Exception e) {
+//			LOG.error("更新车牌信息失败", e);
+//			return -1;
+//		}
 	}
 
 

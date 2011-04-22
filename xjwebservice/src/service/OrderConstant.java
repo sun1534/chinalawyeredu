@@ -29,8 +29,10 @@ public class OrderConstant  {
 	public static String ORDER_CANCEL_CONTENT = "您已经成功退订该业务";
 	public static String NOT_ORDER = "对不起,您没有订购电子警察的业务,请发送内容到进行订购";
 	public static String MO_DO_ERROR="对不起,您上传的命令字处理失败,请重新上传";
+	public static String MO_AREACODE_ERROR="对不起,您上传的行政区号不正确,请上传新疆某地州的电话区号";
 	
-	
+	public static String MO_ERROR="对不起,您上传的命令字不存在,请重新上传";
+	public static String MO_HANDLE_OK="您好，您的短信命令字业务处理成功";
 	
 	public static String SPID = "31100215";
 	public static String SPPWD = "2688229";

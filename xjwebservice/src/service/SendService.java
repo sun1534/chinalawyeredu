@@ -81,9 +81,10 @@ public class SendService extends BasicService {
 	 * 
 	 */
 	public int setHasBeenHandled() {
-		String sql = "update dzjc_all_history a set a.is_handled=1,a.handle_time=now() where a.is_handled=0 and not exists(select b.hphm,b.hpzl,b.dzjcsj from "+SendConstant.DZJC_DATABASE+".dzjc_all b where a.hphm=b.hphm and b.hpzl=b.hpzl  and  b.dzjcsj=b.dzjcsj)";
-		int s = jdbcTemplate.update(sql);
-		return s;
+//		String sql = "update dzjc_all_history a set a.is_handled=1,a.handle_time=now() where a.is_handled=0 and not exists(select b.hphm,b.hpzl,b.dzjcsj from "+SendConstant.DZJC_DATABASE+".dzjc_all b where a.hphm=b.hphm and b.hpzl=b.hpzl and b.dzjcsj=b.dzjcsj)";
+//		int s = jdbcTemplate.update(sql);
+//		return s;
+		return 0;
 	}
 
 //	public List getTodayListVo() {
@@ -121,6 +122,7 @@ public class SendService extends BasicService {
 //		final List list = basicDao.findAll(DzjcAll.class);
 		final List list=new ArrayList();
 		String sql="select a.* from "+SendConstant.DZJC_DATABASE+".dzjc_all a inner join user_order b on a.hphm=b.chepai and a.hpzl=b.chepaileixing";
+		LOG.debug("sql:"+sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 
@@ -139,10 +141,6 @@ public class SendService extends BasicService {
 				return null;
 			}
 		});
-
-		
-		
-	
 		int len = list == null ? 0 : list.size();
 		// List<DzjcAllHistory> result = new ArrayList<DzjcAllHistory>();
 

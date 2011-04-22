@@ -15,6 +15,10 @@
                 <comment>发送手机</comment>
             </column>
         </property>
+        <property name="type" type="java.lang.String">
+            <column name="type" length="20">
+            </column>
+        </property>
         <property name="content" type="java.lang.String">
             <column name="content" length="65535">
                 <comment>发送内容</comment>

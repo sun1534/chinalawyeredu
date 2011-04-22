@@ -16,7 +16,8 @@ public class TestOrder {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
-		String urlStr = "http://211.154.157.174:50090/axis2/services/SmsNotificationService?wsdl";
+//		String urlStr = "http://211.154.157.174:50090/axis2/services/SmsNotificationService?wsdl";
+		String urlStr="http://60.13.166.203:6102/axis2/services/SmsNotificationService?wsdl";
 		// String
 		// urlStr="http://211.137.43.181:6080/LnXxtSIInterface/services/SyncSmsService?wsdl";
 		try {
@@ -26,12 +27,14 @@ public class TestOrder {
 
 			SmsMessage message = new SmsMessage();
 			message.setMessage("C#新车牌#蓝");
+//			message.setMessage("B#0990");
 			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613510012012"));
 			message.setSmsServiceActivationNumber(new org.apache.axis.types.URI("tel:+8610628719"));
 
 			String registrationIdentifier = System.currentTimeMillis() + "";
 			service.notifySmsReception(registrationIdentifier, message);
 
+			System.out.println("MO下发完成");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -41,11 +44,12 @@ public class TestOrder {
 	/**
 	 * @param args
 	 */
-	public static void main1(String[] args) {
+	public static void main11(String[] args) {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
-		String urlStr = "http://211.154.157.174:50090/axis2/services/IsmpSpEngineService?wsdl";
+//		String urlStr = "http://211.154.157.174:50090/axis2/services/IsmpSpEngineService?wsdl";
+		String urlStr="http://60.13.166.203:6102/axis2/services/IsmpSpEngineService?wsdl";
 		// String
 		// urlStr="http://211.137.43.181:6080/LnXxtSIInterface/services/SyncSmsService?wsdl";
 		try {
