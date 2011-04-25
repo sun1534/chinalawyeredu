@@ -28,7 +28,11 @@
             <column name="TYPENAME" length="200" />
         </property>
         
-                <property name="createtime" type="timestamp">
+        <property name="remarks" type="string">
+            <column name="remarks" length="200" />
+        </property>
+        
+        <property name="createtime" type="timestamp">
             <column name="CREATETIME" length="11" />
         </property>
         <property name="createuser" type="int">

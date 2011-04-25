@@ -23,7 +23,23 @@ public class MemDevicecommand implements java.io.Serializable {
 	private String createusername;
 	private String plugin;
 	private long batchid;
+	private String remarks;
+
 	// Constructors
+
+	/**
+	 * @return the remarks
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
+
+	/**
+	 * @param remarks the remarks to set
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
 
 	/**
 	 * @return the batchid

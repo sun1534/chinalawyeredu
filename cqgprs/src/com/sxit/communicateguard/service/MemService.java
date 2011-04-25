@@ -72,6 +72,8 @@ public class MemService extends BasicService {
 		jdbcTemplate.execute(sql);
 		sql = "delete from mem_command where commandid=" + commandId;
 		jdbcTemplate.execute(sql);
+		sql = "delete from mem_usercommoad where commandid=" + commandId;
+		jdbcTemplate.execute(sql);
 	}
 
 	/**
@@ -99,6 +101,7 @@ public class MemService extends BasicService {
 			dcommand.setCreateuser(command.getCreateuser());
 			dcommand.setCreateusername(command.getCreateusername());
 			dcommand.setDeviceid(deviceid);
+			dcommand.setRemarks(command.getRemarks());
 			super.save(dcommand);
 		}
 
@@ -137,6 +140,7 @@ public class MemService extends BasicService {
 			dcommand.setCreateuser(command.getCreateuser());
 			dcommand.setCreateusername(command.getCreateusername());
 			dcommand.setDeviceid(deviceid);
+			dcommand.setRemarks(command.getRemarks());
 			super.save(dcommand);
 		}
 	}
@@ -167,10 +171,12 @@ public class MemService extends BasicService {
 	 */
 	public com.sxit.common.PaginationSupport getDeviceList(String deviceName, int pageNo, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(MemDevice.class);
+		System.out.println("deviceName==="+deviceName);
 		if (deviceName != null && !deviceName.equals(""))
 			dc.add(Restrictions.like("devicename", deviceName, MatchMode.ANYWHERE));
 		dc.addOrder(Order.desc("deviceid"));
-
+		if(pageNo<=0)
+			pageNo=1;
 		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);
 
 	}
@@ -203,111 +209,13 @@ public class MemService extends BasicService {
 	 * @return
 	 */
 	public com.sxit.common.PaginationSupport getUserDeviceList(int userId, int pageNo, int pageSize) {
-		// String sql = "select a.* from mem_device a inner join mem_userdevice
-		// b on a.deviceid=b.deviceid where b.userid="
-		// + userId;
-		// String ordersqy = sql + " order by a.deviceid desc";
-		// String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
-		// int totalCount = 0;
-		//
-		// int startIndex = (pageNo - 1) * pageSize;
-		// String querysql = "select * from(select a.*,rownum rn from(" +
-		// ordersqy + ") a " + " where rownum<="
-		// + (startIndex + pageSize) + ") where rn>" + startIndex;
-		//
-		// Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-		// public Object extractData(ResultSet rs) throws SQLException,
-		// DataAccessException {
-		// List list = new ArrayList();
-		//
-		// while (rs.next()) {
-		// MemDevice model = new MemDevice();
-		// model.setCreatetime(rs.getTimestamp("createtime"));
-		// model.setCreateuser(rs.getInt("createuser"));
-		// model.setCreateusername(rs.getString("createusername"));
-		// model.setDescription(rs.getString("description"));
-		// model.setDeviceid(rs.getInt("deviceid"));
-		// model.setDevicename(rs.getString("devicename"));
-		// model.setIp(rs.getString("ip"));
-		// model.setLoginName(rs.getString("status"));
-		// model.setLoginPwd(rs.getString("status"));
-		// model.setPort(rs.getInt("port"));
-		// model.setStatus(rs.getInt("status"));
-		//
-		// list.add(model);
-		// }
-		//
-		// return list;
-		// }
-		// });
-		// List list = (List) object;
-		//
-		// if (pageSize == Integer.MAX_VALUE) {
-		// totalCount = list.size();
-		// } else {
-		//
-		// totalCount = jdbcTemplate.queryForInt(cntsql);
-		// }
-		//
-		// PaginationSupport ps = new PaginationSupport(list, totalCount,
-		// pageSize, startIndex);
-		// return ps;
-
-		return this.getUserDeviceList(userId, null, pageNo, pageSize);
+		
+		return this.getDeviceList(null, pageNo, pageSize);
 
 	}
 
 	public com.sxit.common.PaginationSupport getUserDeviceList(int userId, String name, int pageNo, int pageSize) {
 		return this.getDeviceList(name, pageNo, pageSize);
-		//		String sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where b.userid="
-//				+ userId;
-//		if (!(name == null || name.equals(""))) {
-//			sql = "select a.* from mem_device a inner join mem_userdevice b on a.deviceid=b.deviceid  where a.devicename like '%"
-//					+ name + "%' and b.userid=" + userId;
-//		}
-//		String ordersqy = sql + " order by a.deviceid desc";
-//		String cntsql = "select count(aa.rowid) from (" + sql + ") aa";
-//		int totalCount = 0;
-//
-//		int startIndex = (pageNo - 1) * pageSize;
-//		String querysql = "select * from(select a.*,rownum rn from(" + ordersqy + ") a " + " where rownum<="
-//				+ (startIndex + pageSize) + ") where rn>" + startIndex;
-//
-//		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
-//			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
-//				List list = new ArrayList();
-//
-//				while (rs.next()) {
-//					MemDevice model = new MemDevice();
-//					model.setCreatetime(rs.getTimestamp("createtime"));
-//					model.setCreateuser(rs.getInt("createuser"));
-//					model.setCreateusername(rs.getString("createusername"));
-//					model.setDescription(rs.getString("description"));
-//					model.setDeviceid(rs.getInt("deviceid"));
-//					model.setDevicename(rs.getString("devicename"));
-//					model.setIp(rs.getString("ip"));
-//					model.setLoginName(rs.getString("status"));
-//					model.setLoginPwd(rs.getString("status"));
-//					model.setPort(rs.getInt("port"));
-//					model.setStatus(rs.getInt("status"));
-//
-//					list.add(model);
-//				}
-//
-//				return list;
-//			}
-//		});
-//		List list = (List) object;
-//
-//		if (pageSize == Integer.MAX_VALUE) {
-//			totalCount = list.size();
-//		} else {
-//
-//			totalCount = jdbcTemplate.queryForInt(cntsql);
-//		}
-//
-//		PaginationSupport ps = new PaginationSupport(list, totalCount, pageSize, startIndex);
-//		return ps;
 
 	}
 

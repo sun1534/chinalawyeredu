@@ -39,14 +39,18 @@
 									</td> 
 								</tr> 
 								
+								
+								<tr class="fEven"> 
+									<td class="w120 fname">脚本说明：</td> 
+									<td class="fvalue">
+									<s:textarea name="command.remarks" cssClass="txt" rows="4" cols="40"></s:textarea>
+									</td> 
+								</tr>
+								
 								<s:if test="commandtype!=3">
 								<tr class="fEven"> 
 									<td class="w120 fname">命令执行解析类：</td> 
 									<td class="fvalue">
-									
-								
-								
-									
 									<s:textfield name="command.plugin" cssClass="txt" cssClass="txt" size="60"></s:textfield>
 									</td> 
 								</tr>

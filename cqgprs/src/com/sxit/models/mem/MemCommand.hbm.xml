@@ -32,6 +32,11 @@
         <property name="createuser" type="int">
             <column name="CREATEUSER" precision="22" scale="0" />
         </property>
+        
+        <property name="remarks" type="string">
+            <column name="remarks" length="200" />
+        </property>
+        
         <property name="createusername" type="string">
             <column name="createusername" length="20" />
         </property>

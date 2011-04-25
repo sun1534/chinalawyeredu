@@ -121,7 +121,8 @@ function createEditCommand(action,deviceId){
                       <thead>
                         <tr>
                           <th>命令名称</th>
-                          <th>脚本脚本</th>
+                          <th>脚本</th>
+                            <th>脚本说明</th>
                           <th>新增时间</th>
                           <th>修改</th>
                           <th>删除</th>
@@ -132,6 +133,7 @@ function createEditCommand(action,deviceId){
                         <tr>
                           <td>${commananame}</td>
                           <td>${commandscript} </td>
+                           <td>${remarks} </td>
                           <td>${createtime}</td>
                <td>
                <s:if test="deviceId==0">

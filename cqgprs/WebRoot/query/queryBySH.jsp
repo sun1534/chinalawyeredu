@@ -92,7 +92,7 @@ function queryit(){
 		//异步的方式调用执行脚本的action
 		//1秒钟调用轮询数据产生的action
 		 random=new Date().getTime();
-		 mobile=$("#mobile").attr("value");
+		 mobile=$("#mobileinput").attr("value");
 		$("#resultlist").html(""); //清空显示的结果
 		 waitinterval=setInterval("waiting()",1000);
 		 $("#querybutton").attr("disabled",true);
@@ -124,7 +124,7 @@ function getResults(){
 	$("#querylist").load("../query/shQueryResultView.action?now="+new Date().getTime()+"&random="+random+"&mobile="+mobile);
 }
 function checkvalue(){
-	var apnni=$("#mobile").attr("value");
+	var apnni=$("#mobileinput").attr("value");
 	
 	if(!mobileCheck(apnni)){
 		alert("请输入正确的要查询的手机号码,不以86开头");
@@ -155,7 +155,7 @@ function trace(){
 
 	if(checkvalue()){
 		 random=new Date().getTime();
-		 mobile=$("#mobile").attr("value");
+		 mobile=$("#mobileinput").attr("value");
 		$("#resultlist").html(""); //清空显示的结果
 		 waitinterval=setInterval("waiting()",1000);
 		 $("#tracebutton").attr("disabled",true);
@@ -204,7 +204,7 @@ function gettracelogs(){
 	 }
 	if(checkvalue()){
 		 random=new Date().getTime();
-		 mobile=$("#mobile").attr("value");
+		 mobile=$("#mobileinput").attr("value");
 		$("#resultlist").html(""); //清空显示的结果
 		 waitinterval=setInterval("waiting()",1000);
 		 $("#gettracelogsbutton").attr("disabled",true);
@@ -247,7 +247,7 @@ function stopalltraces(){
 }
 function go2query(){
 	if(checkvalue()){
-		mobile=$("#mobile").attr("value");
+		mobile=$("#mobileinput").attr("value");
 		$("#resultlist").html(""); //清空显示的结果
 		$("#querylist").html("");
 		 waitinterval=setInterval("waiting()",1000);
@@ -287,7 +287,7 @@ function go2query(){
 						<table>
 							<tbody>
 								<tr>
-								  <td width="25%" >输入手机编号：<s:textfield name="mobile" cssClass="txt" id="mobile" size="12"/>&nbsp;</td>
+								  <td width="25%" >输入手机编号：<s:textfield name="mobile" cssClass="txt" id="mobileinput" size="12"/>&nbsp;</td>
                                   <td width="40%" >
                                   <input type="button" class="btnSubmit" id="querybutton" value="状态查询" onclick="queryit()"/>
                                   &nbsp;&nbsp;

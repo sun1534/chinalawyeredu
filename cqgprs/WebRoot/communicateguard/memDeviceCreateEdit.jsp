@@ -29,11 +29,11 @@
 									</td> 
 								</tr> 
 								<tr class="fEven"> 
-									<td class="w120 fname">是否华为设备：</td> 
+									<td class="w120 fname">设备厂家：</td> 
 									<td class="fvalue">
 										<input type="hidden" name="isnew" value="${isnew}"/>
 									<input type="hidden" name="deviceId" value="${deviceId}"/>
-									<s:select name="device.ishuawei" list="#{'0':'不是','1':'是'}"/>
+									<s:select name="device.ishuawei" list="#{'0':'爱立信','2':'JUPER','1':'华为'}"/>
 									</td> 
 								</tr> 
 								<tr class="fEven"> 

@@ -60,13 +60,12 @@ function createEditCommandPre(isnew,deviceId,commandtype)
     					$("#dialogBoxAdd").replaceWith(data);
     				else
        					$("body").append(data);
-    				showDialogBox('#dialogBoxAdd',600);
+    				showDialogBox('#dialogBoxAdd',700);
 		}
 	});
 }
 
 function createEditCommand(action,deviceId){
-
 	var params= $('#commandCreateEditForm').formSerialize();
    $.ajax({
 		    type:"post",
@@ -90,7 +89,7 @@ function createEditCommand(action,deviceId){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>通信保障</a>＞<em>MEM设备命令管理</em>
+						<span>您所在是位置:</span><a>通信保障</a>＞<em><s:if test="commandtype=1">应急维护命令管理</s:if><s:else>标准维护命令管理</s:else></em>
 				</div>
 			</div>
 		</div>
@@ -126,9 +125,11 @@ function createEditCommand(action,deviceId){
                         <tr>
                        
                           <th>命令名称</th>
-                          <th>脚本脚本</th>
+                          <th>脚本</th>
+                            <th>脚本说明</th>
+                            <!-- 
                            <th>命令类型</th>
-                        
+                         -->
                      
                           <th>新增时间</th>
                           <th>修改</th>
@@ -141,6 +142,8 @@ function createEditCommand(action,deviceId){
                         <tr>
                           <td>${commananame}</td>
                           <td>${commandscript} </td>
+                           <td>${remarks} </td>
+                          <!-- 
                           <td>
                       
                           <s:if test="commandtype==1">标准维护命令
@@ -151,7 +154,7 @@ function createEditCommand(action,deviceId){
                           </s:else>
                      
                            </td>
-                            
+                             -->
                         
                           <td>${createtime}</td>
                           

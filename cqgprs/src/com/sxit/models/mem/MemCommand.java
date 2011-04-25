@@ -24,6 +24,7 @@ public class MemCommand implements java.io.Serializable {
 	private Timestamp createtime;
 	private int createuser;
 	private String createusername;
+	private String remarks;
 	private String plugin;
 	public List getDeviceIdList(){
 		MemService memservice=(MemService)Globals.getBean("memService");
@@ -136,6 +137,18 @@ public class MemCommand implements java.io.Serializable {
 	 */
 	public void setPlugin(String plugin) {
 		this.plugin = plugin;
+	}
+	/**
+	 * @return the remarks
+	 */
+	public String getRemarks() {
+		return remarks;
+	}
+	/**
+	 * @param remarks the remarks to set
+	 */
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 	
 }
