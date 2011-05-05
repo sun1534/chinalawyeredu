@@ -60,8 +60,10 @@ public class ImitateExceCommandAction extends AbstractListAction {
 //			orgresult.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
 			System.out.println("result=="+result+",orgresult=="+orgresult);
 			}else {
-				String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+				
+				orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
 				result=orgresult;
+				commandtype=command.getCommandtype();
 			}
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -94,6 +96,8 @@ public class ImitateExceCommandAction extends AbstractListAction {
 	 * 解析前的结果
 	 */
 	public String orgresult;
+	
+	public int commandtype;
 	public String getResult() {
 		return result;
 	}
@@ -106,6 +110,13 @@ public class ImitateExceCommandAction extends AbstractListAction {
 	public void setOrgresult(String orgresult) {
 		this.orgresult = orgresult;
 	}
+	public int getCommandtype() {
+		return commandtype;
+	}
+	public void setCommandtype(int commandtype) {
+		this.commandtype = commandtype;
+	}
+	
 	
 	
 	
