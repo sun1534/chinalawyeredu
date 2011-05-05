@@ -3,6 +3,9 @@
  */
 package com.sxit.communicateguard.action.ajax;
 
+import java.util.HashMap;
+
+import com.sxit.common.CommonDatas;
 import com.sxit.common.action.AbstractListAction;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.command.Command;
@@ -36,19 +39,25 @@ public class ImitateExceCommandAction extends AbstractListAction {
 		
 		MemService memService = (MemService) getBean("memService");
 		MemDevicecommand command=(MemDevicecommand)memService.get(MemDevicecommand.class, commandId);
-		MemDevice device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
+//		MemDevice device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
+		HashMap<String, MemDevice> userListDevice=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
+		MemDevice device=(MemDevice)userListDevice.get(command.getDeviceid());
+		if(device==null)
+		{
+			device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
+		}
 		try {
 			if(command.getCommandtype()==1){
 			Command cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
 			result=cmdprocess.getresult(memService, device, command, sysUser.getUserid()+"");
-			
-			System.out.println("111====="+result.indexOf("^p"));
-			System.out.println("2222===="+result.indexOf("\r\n"));
-//			result=result.replace("\r\n", "<br/>");
-			result.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
+//			
+//			System.out.println("111====="+result.indexOf("^p"));
+//			System.out.println("2222===="+result.indexOf("\r\n"));
+			result=result.replace("\r\n", "<br/>");
+//			result.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
 			orgresult=cmdprocess.orgresult;
-//			orgresult=orgresult.replace("\r\n", "<br/>");
-			orgresult.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
+			orgresult=orgresult.replace("\r\n", "<br/>");
+//			orgresult.replaceAll("^p", "<br/>").replaceAll("^p","<br/>");
 			System.out.println("result=="+result+",orgresult=="+orgresult);
 			}else {
 				String orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());

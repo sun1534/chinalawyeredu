@@ -70,17 +70,17 @@ public class DeviceLoginAction extends AbstractAction {
 			return SUCCESS;
 		}
 
-		String usernametemp = new URLDecoder().decode(username, "utf-8");
-		
+		String usernametemp = new URLDecoder().decode(username, "utf-8");		
 		String passwordtemp = new URLDecoder().decode(password, "utf-8");
 		String flag=Client.testlogin(device.getIp(), usernametemp, passwordtemp);
-		
 		System.out.println("username==" + username + "password=" + password);
 		if (flag.equals("OK")) {
 			isok = "1";
 			if(deviceList==null||deviceList.size()==0)
 				deviceList=new HashMap<String, MemDevice>();
 			
+			device.setLoginName(usernametemp);
+			device.setLoginPwd(passwordtemp);
 			deviceList.put(device.getDeviceid()+"",device);
 			CommonDatas.LOGINDEVICE.put(sysUser.getUserid()+"", deviceList);
 		} else {
