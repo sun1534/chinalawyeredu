@@ -26,7 +26,9 @@ var now=new Date().getTime();
 $.getJSON("../communicateguardajax/imitateExcecommand.action?commandId="+commandid+"&now="+now,function(json){
    $("#resultlist").empty();
    $("#querylist").empty();
-   $("#resultlist").html(json.result);
+   if(json.commandtype!=3){
+      $("#resultlist").html(json.result);
+   }
    $("#querylist").html(json.orgresult);
    $("#userpdperrorall").hide();
    $("#start").show();
@@ -115,8 +117,9 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 										<p><a href="#" onclick="execommand(${commandid});">${commananame}</a></p>
 									 </s:iterator>
 									</div>
-									<pre id="resultlist" >
-									</pre>
+										<pre id="resultlist" >
+									    </pre>
+								
 								</div>
 							</div>
 							<div class="mobileFt">
@@ -137,9 +140,15 @@ $.getJSON("../communicateguardajax/deviceLogin.action?deviceId="+deviceid+"&now=
 								<h3 ><div id="start"> 请选择左边命令执行</div><div class="tablist" id="userpdperrorall" style="display: none"><img src="../images/loading.gif"/></div></h3>
 								 <div class="tablist consoleresult eqHeight" style="overflow:auto" id="div1">
 								   <!-- 存储返回的内容使用的 -->
+										
+										
+										
 										<pre id="querylist" style="overflow:auto">
 									     暂无原始结果
 										</pre>
+								
+										
+										
 									</div>
 								<!--
 								    <div class="tablist queryresult eqHeight" id="div2">
