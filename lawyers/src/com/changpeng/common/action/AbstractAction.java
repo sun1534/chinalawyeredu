@@ -5,16 +5,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.util.ServletContextAware;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.changpeng.common.BasicService;
-import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.service.LawyerOperLogService;
 import com.changpeng.models.Lawyers;
-import com.changpeng.models.SysUnionparams;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -29,7 +28,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author 华锋 2008-2-20 下午04:54:59
  * 
  */
-public abstract class AbstractAction extends ActionSupport {
+public abstract class AbstractAction extends ActionSupport   {
 	
 	protected BasicService basicService = null;
 	

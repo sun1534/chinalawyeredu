@@ -9,6 +9,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.changpeng.common.BasicService;
 import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.exception.ServiceException;
@@ -244,9 +246,20 @@ public class LawyerlessonxfService extends BasicService {
 		return 0;
 	}
 
+	private JdbcTemplate jdbcTemplate;
+	
+	/**
+	 * @param jdbcTemplate the jdbcTemplate to set
+	 */
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	public float getLawyerZongjifen(int lawyerid, int year) {
-		String sql = "select FORMAT(sum(pxxf),2) from lawyerlessonxf where theyear=" + year + " and lawyerid="
+		String sql = "select FORMAT(sum(pxxf),2) as pxxf from lawyerlessonxf where theyear=" + year + " and lawyerid="
 				+ lawyerid;
+		
+		System.out.println("====sql"+sql);
 		List list = lawyersDAO.findBySqlQuery(sql);
 //		System.out.println(list);
 		if (list != null && list.size() != 0) {

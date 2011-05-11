@@ -119,7 +119,7 @@
         <td height="24" colspan="11" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left" title="点此修改您的个人信息">&nbsp;&nbsp;<a href="../lawyers/lawyersEditSelf!input.pl">个人信息</a></td>
         </tr>
       <tr>
-        <td height="23" colspan="3"  align="left" background="../imagesa/top-bg1.gif"><b>&nbsp;&nbsp;积分年度：${jifentime.startstr} 至 ${jifentime.endstr}</b></td>
+        <td height="23" colspan="3"  align="left" background="../imagesa/top-bg1.gif"><b>&nbsp;&nbsp;积分年度：<s:if test="lawyers.directunion!=37777">${jifentime.startstr} 至 ${jifentime.endstr}</s:if><s:else>2010-06-20至2011-04-20</s:else></b></td>
       </tr>
       <tr>
         <td align="center" bgcolor="#F2F8FF" width="35" height="30" valign="middle">
@@ -155,9 +155,9 @@
         <td align="left" bgcolor="#F2F8FF">
          	<font color="red">
            <s:if test="nowxuefen>=needfen">
-           	 已通过
+           	 已达标
             </s:if>
-             <s:else>未通过
+             <s:else>未达标
             </s:else> </font>
         </td>
         </tr>

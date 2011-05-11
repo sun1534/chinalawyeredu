@@ -120,6 +120,7 @@ public class ElearningInterfaceServlet extends HttpServlet {
 			}
 			LOG.debug("返回消息:\r\n" + result);
 
+//			response.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
 			OutputStream os = response.getOutputStream();
 			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os));

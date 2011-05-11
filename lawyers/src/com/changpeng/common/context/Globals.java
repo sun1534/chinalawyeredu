@@ -20,7 +20,7 @@ public class Globals {
 	static {
 //		FileSystemXmlApplicationContext;
 		
-		context = new ClassPathXmlApplicationContext(configName);
+//		context = new ClassPathXmlApplicationContext(configName);
 		 
 	}
 	/**

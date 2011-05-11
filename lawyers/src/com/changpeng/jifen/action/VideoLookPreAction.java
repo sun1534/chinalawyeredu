@@ -147,6 +147,13 @@ public class VideoLookPreAction extends AbstractAction {
 		// getBean("lxnetrecsService");
 		// BasicService basicService = (BasicService) getBean("basicService");
 		this.lessons = (Lessons) basicService.get(Lessons.class, lessonid);
+//		前面的路径格式是：mms://uc3.lawyeredu.com/uc3.lawyeredu.com，后面的不变。
+//			全部路径的格式为：
+//			mms://uc3.lawyeredu.com/uc3.lawyeredu.com/henan/shenglvxie/0371_1_20090516_01_a.wmv
+
+
+
+		
 		if (this.lessons == null) {
 			this.message = "系统有误,请在在线课程里,选择课程点击观看";
 			this.nextPage = "javascript:window.close()";
@@ -155,6 +162,18 @@ public class VideoLookPreAction extends AbstractAction {
 			this.message = "该课程视频文件为空,请返回";
 			this.nextPage = "javascript:window.close()";
 			return "message";
+		}
+		
+		if(this.getLoginUser().getProvinceunion()==23){
+			
+		
+			String url=lessons.getOnlinefile();
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");			
+			
+			LOG.debug("海南律协的地址:"+url);
+			
+			lessons.setOnlinefile(url);
 		}
 
 		// this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid,

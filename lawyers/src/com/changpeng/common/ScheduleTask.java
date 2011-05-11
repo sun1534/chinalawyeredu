@@ -20,14 +20,14 @@ public class ScheduleTask extends TimerTask{
 		BasicService service=(BasicService)Globals.getBean("basicService");
 		try {
 			LOG.info("执行定时任务连接数据库");
-			LOG.info("总数:"+service.findBySqlQuery("select count(*) from sys_user"));
+			LOG.info("总数:"+service.findBySqlQuery("select count(*) as cnt from sys_user"));
 			LOG.info("在线用户数:"+com.changpeng.common.CommonDatas.ONLINE_USERS.size());
 			com.changpeng.lessons.util.CommonDatas.getAlllessons();
 			com.changpeng.common.CommonDatas.getGroups();
 //			com.changpeng.system.util.CommonDatas.getUsers();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			LOG.error("执行定时任务错误："+e.getMessage());
+			LOG.error("执行定时任务错误：",e);
 		}
 	}
 }

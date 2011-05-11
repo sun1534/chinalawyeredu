@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
 import com.changpeng.models.SysUnionparams;
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
@@ -38,6 +39,11 @@ public class UserVisitInterceptor implements Interceptor {
 //		String action = context.getName();
 		// context.get(ServletActionContext.APPLICATION);
 
+		Action action=(Action)invocation.getAction();
+		
+		System.out.println("action==="+action);
+		
+		
 		HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
 		// String ip = ((HttpServletRequest)
 		// context.get(ServletActionContext.HTTP_REQUEST)).getRemoteAddr();
@@ -47,7 +53,9 @@ public class UserVisitInterceptor implements Interceptor {
     	try{
 		// 最理想的,在这里,通过这个url从数据库找到对应的rightcode。从而在代码中免除设置rightcode
 		// 有个问题,abc!input.pl实际上是等于abc.pl的.一个是入口,一个是保存
-
+    		
+    		
+    		
 		// webcontext初始化的时候,得到系统所有的rightcode到内存中
     		getDomain(request);
     		result=invocation.invoke();

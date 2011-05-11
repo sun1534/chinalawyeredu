@@ -258,12 +258,12 @@ public class LessonsService extends BasicService {
 //			}
 			// 不显示删除的
 			dc.add(Restrictions.eq("deleteflag", false));
-			dc.add(Restrictions.eq("isshare", 1));
+//			dc.add(Restrictions.eq("isshare", 1));
 //			hql += " and a.lessons.deleteflag=false";
 			// 具体的来源
 			if (groupid != -1) {
 //				dc.add(Restrictions.eq("lessons.groupid", groupid));
-				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("lessons.provinceid", groupid)));
+				dc.add(Restrictions.or(Restrictions.eq("groupid", groupid), Restrictions.eq("provinceid", groupid)));
 				
 //				hql += " and (a.lessons.groupid=" + groupid+" or a.lessons.provinceid="+groupid+")";
 			}

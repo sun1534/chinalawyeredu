@@ -41,7 +41,7 @@ public class GetLawyerRequest extends ElearningRequests {
 			List list = userservice.findAllByCriteria(detachedCriteria);
 			int lawyersize = list == null ? 0 : list.size();
 			temp.append("<respcode>").append(lawyersize).append("</respcode>");
-			temp.append("<respmsg>").append("有" + lawyersize + "个律师").append("</respmsg>");
+			temp.append("<respmsg>").append("have" + lawyersize + "lawyers").append("</respmsg>");
 
 			lawyertemp.append("<lawyers>");
 			int j=0;
@@ -54,15 +54,18 @@ public class GetLawyerRequest extends ElearningRequests {
 				if(cardno==null||cardno.equals("")){
 					cardno="0000990000"+(j++);
 				}
-				
+				int theoffice=lawyer.getTheoffice();
+				SysGroup group=(SysGroup)userservice.get(SysGroup.class, theoffice);
 				//如果这个律师没卡号，则就不送到下面去了
-				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0) {
+				if (lawyer.getStatus()==0&&lawyer.getLawyertype()==0&&group!=null) {
+					
+				
+					
 					lawyertemp.append("<lawyer>");
 					lawyertemp.append("<userid>").append(lawyer.getLawyerid()).append("</userid>");
 					lawyertemp.append("<cardno>").append(cardno == null ? "" : cardno.trim()).append("</cardno>");
 					lawyertemp.append("<username>").append(lawyer.getLawyername() == null ? "" : lawyer.getLawyername().trim()).append("</username>");
-					int theoffice=lawyer.getTheoffice();
-					SysGroup group=(SysGroup)userservice.get(SysGroup.class, theoffice);
+				
 					lawyertemp.append("<officename>").append(group.getGroupname().trim()).append("</officename>");
 					lawyertemp.append("<systemno>").append(lawyer.getSystemno() == null ? "" : lawyer.getSystemno().trim()).append("</systemno>");
 					lawyertemp.append("<lawyerno>").append(lawyer.getLawyerno()).append("</lawyerno>");
@@ -77,7 +80,7 @@ public class GetLawyerRequest extends ElearningRequests {
 
 		}
 		catch (Exception e) {
-			LOG.error(e);
+			LOG.error("GetLawyerRequest",e);
 			result.append("<respcode>").append(-1).append("</respcode>");
 			result.append("<respmsg>获取律师信息异常:").append(e.getMessage()).append("</respmsg>");
 		}

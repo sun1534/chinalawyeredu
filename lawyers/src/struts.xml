@@ -152,7 +152,7 @@
 			<!--<result name="success" type="dispatcher">/common/message.jsp</result> 提示密码修改成功 -->
 		</action>  
 		<!--系统访问,实现一些数据的初始化工作-->
-        <action name="index" class="com.changpeng.common.action.IndexAction">
+        <action name="index" class="indexAction123">
 		    <interceptor-ref name="visitStack"/>  
 			<result name="success" type="dispatcher">/common/login.jsp</result><!-- 提示密码修改成功 -->
 		</action> 
