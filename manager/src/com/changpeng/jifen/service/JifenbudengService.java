@@ -192,18 +192,17 @@ public class JifenbudengService extends BasicService {
 						Jifenbudeng budeng = new Jifenbudeng();
 						Lawyerlessonxf xf = new Lawyerlessonxf();
 						int lessonid = 0;
-						// if (budengbatch.getIslocal().equals("否")) {
-						xf.setLearnmode(4);
-						budeng.setIslocal(false);
-						// } else {
-						// Integer _lessonid =
-						// com.changpeng.lessons.util.CommonDatas.ALL_LOCAL_LESSONS
-						// .get(budengbatch.getTitle());
-						// if (_lessonid != null)
-						// lessonid = _lessonid.intValue();
-						// xf.setLearnmode(1);
-						// budeng.setIslocal(true);
-						// }
+						if (budengbatch.getIslocal().equals("否")) {
+							xf.setLearnmode(4);
+							budeng.setIslocal(false);
+						} else {
+							Integer _lessonid = com.changpeng.lessons.util.CommonDatas.ALL_LOCAL_LESSONS
+									.get(budengbatch.getTitle());
+							if (_lessonid != null)
+								lessonid = _lessonid.intValue();
+							xf.setLearnmode(1);
+							budeng.setIslocal(true);
+						}
 						budeng.setLawyerno(budengbatch.getLawyerno());
 						budeng.setTitle(budengbatch.getTitle());
 						budeng.setTheyear(theyear);

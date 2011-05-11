@@ -186,7 +186,7 @@ public class WebSiteTransfer {
 			group.setCorpaddr(org.getAddress());
 			group.setPostcode(org.getZipcode());
 			group.setLicenceno(org.getFileNo());
-
+		group.setLicenceno(org.getCertCode());	
 			group.setRegisterdate(org.getFormDate() == null ? new java.sql.Timestamp(System.currentTimeMillis())
 					: new java.sql.Timestamp(org.getFormDate().getTime()));
 			// group.setRegfund(org.getEnrollCapital());
@@ -424,6 +424,7 @@ public class WebSiteTransfer {
 			rususer.setContacteremail(null);
 			rususer.setContacterfax(null);
 			rususer.setContactertel(null);
+			rususer.setLicenceno(group.getLicenceno());
 			rususer.setCorporationid(group.getCorporationid());
 			rususer.setCorporationname(group.getCorporationname());
 			rususer.setCreatedate(staff.getCreatedate());

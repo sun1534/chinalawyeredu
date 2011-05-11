@@ -309,6 +309,7 @@ public class LessonsService extends BasicService {
 //			dc.createAlias("lessons", "lessons");
 //			String hql = "select distinct a.lessons from Lessonshared a where 1=1 ";
 
+			
 //			if (mygroup != null && mygroup.getGrouptype() <= 3) {// mygroup为null的话,能看到所有律协的
 //				List<Integer> groupids = new ArrayList<Integer>();
 ////				String str = "";
@@ -337,7 +338,7 @@ public class LessonsService extends BasicService {
 //			}
 			// 不显示删除的
 //			dc.add(Restrictions.eq("lessons.deleteflag", false));
-			dc.add(Restrictions.eq("isshare", 1));
+//			dc.add(Restrictions.eq("isshare", 1));
 //			hql += " and a.lessons.deleteflag=false";
 			// 具体的来源
 			if (groupid != -1) {

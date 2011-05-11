@@ -10,8 +10,13 @@
         <td height="24" colspan="10" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/jifenStaticsQuery.pl">培训统计信息</a></td>
         </tr>
          <tr>
-        <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
-            到 【${jifentime.endstr}】</b></td>
+        <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>
+     
+    
+        【${jifentime.startstr}】
+            到 【${jifentime.endstr}】
+          
+            </b></td>
       </tr>
       <s:if test="lessonstatics!=null">
         <tr bgcolor="#F2F8FF" >
@@ -78,8 +83,14 @@
         </s:else>
         </tr>
       <tr>
-        <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
-            到 【${jifentime.endstr}】</b></td>
+        <td height="23" colspan="3"  align="right" background="../imagesa/top-bg1.gif"><b>
+          <s:if test="sysuser.cityid!=37777"> 
+        【${jifentime.startstr}】
+            到 【${jifentime.endstr}】
+            </s:if>
+            <s:else>2010-06-20到2011-04-20
+            </s:else>
+        </b></td>
       </tr>
         
       <tr  bgcolor="#F2F8FF" >
@@ -187,8 +198,12 @@
         <td height="24" colspan="2" background="../imagesa/top-bg2.gif" class="baseFontBold"  align="left">&nbsp;&nbsp;<a href="../jifen/officeJifenStatic.pl">培训统计信息</a></td>
         </tr>
          <tr>
-        <td height="23" colspan="2"  align="right" background="../imagesa/top-bg1.gif"><b>【${jifentime.startstr}】
-            到 【${jifentime.endstr}】</b></td>
+        <td height="23" colspan="2"  align="right" background="../imagesa/top-bg1.gif"><b>  <s:if test="sysuser.cityid!=37777"> 
+        【${jifentime.startstr}】
+            到 【${jifentime.endstr}】
+            </s:if>
+            <s:else>2010-06-20到2011-04-20
+            </s:else></b></td>
       </tr>
     
   

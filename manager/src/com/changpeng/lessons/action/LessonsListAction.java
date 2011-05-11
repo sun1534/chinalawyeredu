@@ -35,7 +35,7 @@ public class LessonsListAction extends AbstractListAction {
 
 	private int lessontype = -1;
 	private String teachers = "";
-//	private int groupid = -1; // 0是代表来自平台的添加
+	// private int groupid = -1; // 0是代表来自平台的添加
 	private List fromlist = null;
 
 	/**
@@ -52,8 +52,9 @@ public class LessonsListAction extends AbstractListAction {
 		datavisible.setProvinceid(-1);
 	}
 
-	private int audioQuality=-1;
-	private int videoQuality=-1;
+	private int audioQuality = -1;
+	private int videoQuality = -1;
+
 	@Override
 	protected String go() throws Exception {
 
@@ -62,46 +63,42 @@ public class LessonsListAction extends AbstractListAction {
 
 		SysGroup _mygroup = this.getLoginUser().getSysGroup();
 		String nianshen = "01-01";
-		
-		int groupid=-1;
-		myuserid=this.getLoginUser().getUserid();
+
+		int groupid = -1;
+		myuserid = this.getLoginUser().getUserid();
 		if (_mygroup != null) {
 			mygroupid = _mygroup.getGroupid();
-		
+
 			if (_mygroup.getGrouptype() == 1)
 				groupid = _mygroup.getParentid();
 			else if (_mygroup.getGrouptype() == 2)
 				groupid = _mygroup.getGroupid();
-		
 
 		}
-		
+
 		if (datavisible.getProvinceid() != 0)
 			groupid = datavisible.getProvinceid();
 		if (datavisible.getCityid() != 0)
 			groupid = datavisible.getCityid();
-		
-		
-//		System.out.println("=============groupid="+groupid);
-		
-		
+
+		// System.out.println("=============groupid="+groupid);
+
 		SysUnionparams params = (SysUnionparams) basicservice.get(SysUnionparams.class, groupid);
 		if (params != null)
 			nianshen = params.getNianshen();
-		Timestamp start=null;
-		Timestamp end=null;
+		Timestamp start = null;
+		Timestamp end = null;
 
 		jifentime = CommonDatas.getJifenTime(nianshenyear, nianshen);
-if(nianshenyear!=0){
-		this.nianshenyear = jifentime.getNianshenyear();
-		start=jifentime.getStart();
-    	end=jifentime.getEnd();
-}
-//		System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
+		if (nianshenyear != 0) {
+			this.nianshenyear = jifentime.getNianshenyear();
+			start = jifentime.getStart();
+			end = jifentime.getEnd();
+		}
+		// System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
 
-	
-		this.page = lessonsService.getPages(_mygroup, groupid,audioQuality,videoQuality ,onlineType,lessonstyle, lessontype, title, teachers, pageSize,
-				pageNo, start, end);
+		this.page = lessonsService.getPages(_mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
+				lessontype, title, teachers, pageSize, pageNo, start, end);
 		com.changpeng.system.util.CommonDatas.getGroups();
 
 		// 课程来源的选择列表，这里就不什么省、市的选择了，统一一个课程的来源
@@ -146,24 +143,23 @@ if(nianshenyear!=0){
 	public void setTeachers(String teachers) {
 		this.teachers = teachers;
 	}
-	
-	private int onlineType=-1;
-	
 
-//	/**
-//	 * @return the groupid
-//	 */
-//	public int getGroupid() {
-//		return groupid;
-//	}
-//
-//	/**
-//	 * @param groupid
-//	 *            the groupid to set
-//	 */
-//	public void setGroupid(int groupid) {
-//		this.groupid = groupid;
-//	}
+	private int onlineType = -1;
+
+	// /**
+	// * @return the groupid
+	// */
+	// public int getGroupid() {
+	// return groupid;
+	// }
+	//
+	// /**
+	// * @param groupid
+	// * the groupid to set
+	// */
+	// public void setGroupid(int groupid) {
+	// this.groupid = groupid;
+	// }
 
 	/**
 	 * @return the onlineType
@@ -173,7 +169,8 @@ if(nianshenyear!=0){
 	}
 
 	/**
-	 * @param onlineType the onlineType to set
+	 * @param onlineType
+	 *            the onlineType to set
 	 */
 	public void setOnlineType(int onlineType) {
 		this.onlineType = onlineType;
@@ -226,7 +223,8 @@ if(nianshenyear!=0){
 	}
 
 	/**
-	 * @param audioQuality the audioQuality to set
+	 * @param audioQuality
+	 *            the audioQuality to set
 	 */
 	public void setAudioQuality(int audioQuality) {
 		this.audioQuality = audioQuality;
@@ -240,7 +238,8 @@ if(nianshenyear!=0){
 	}
 
 	/**
-	 * @param videoQuality the videoQuality to set
+	 * @param videoQuality
+	 *            the videoQuality to set
 	 */
 	public void setVideoQuality(int videoQuality) {
 		this.videoQuality = videoQuality;

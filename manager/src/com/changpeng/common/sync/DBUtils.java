@@ -21,8 +21,8 @@ public class DBUtils {
 	private static String oracle_password = "gxlg";
 
 	private static String website_url = "jdbc:mysql://211.154.157.174:3306/lxguangxi?characterEncoding=utf-8";
-	private static String website_username = "root";
-	private static String website_password = "password";
+	private static String website_username = "lxguangxi";
+	private static String website_password = "lxguangxi";
 
 	private static String oa_url = "jdbc:mysql://211.154.157.174:3306/oa?characterEncoding=utf-8";
 	private static String oa_username = "root";

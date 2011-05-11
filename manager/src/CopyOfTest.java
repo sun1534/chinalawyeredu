@@ -19,11 +19,11 @@ public class CopyOfTest {
 		//		
 		// System.out.println(new
 		// String(com.changpeng.common.util.Base64.encode("18184|童晓明".getBytes("gb2312")),"gb2312"));
-		// System.out.println(com.changpeng.common.util.MD5.md5("123456"));
+		 System.out.println(com.changpeng.common.util.MD5.md5("123456"));
 		// getAllLessons();
 		// saveteachers();
 		// updatecardno();
-		setalllxs();
+//		setalllxs();
 	}
 
 	private static Connection getCon() throws Exception {
