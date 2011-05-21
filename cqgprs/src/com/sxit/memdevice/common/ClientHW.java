@@ -5,7 +5,7 @@ import java.io.PrintStream;
 
 import org.apache.commons.net.telnet.TelnetClient;
 
-public class Client {
+public class ClientHW {
 
 	InputStream in;
 	PrintStream out;
@@ -16,11 +16,10 @@ public class Client {
 	String username;
 	String password;
 
-	public static String end1 ="~ #";
-	public static String end2 ="$";
-	public static String end3 =">";
+	public static String end1 =">";
+	public static String end2 =">";
 
-	public Client(String ip,String username,String password) throws Exception {
+	public ClientHW(String ip,String username,String password) throws Exception {
 		System.out.println("TelnetClient:"+ip+","+username+","+password);
 		this.username=username;
 		this.password=password;
@@ -45,33 +44,28 @@ public class Client {
 			byte[] buff = new byte[1024];
             int ret_read = 0;
             String tmpStr="";
+            Thread.sleep(250);
+            write("LGI:OP =\""+username+"\",PWD=\""+password+"\";");
+            int i=0;
             do
             {
-                ret_read = in.read(buff);
-                
+            	ret_read = in.read(buff);
                 if(ret_read > 0)
                 {
+                	i++;
                 	String bufstring=new String(buff, 0, ret_read);
                 	tmpStr=tmpStr+bufstring;
-                    System.out.println("tmpStr:"+tmpStr);
-                    if(bufstring.endsWith("login: ")||bufstring.endsWith("login:")){
-                    	write(username);
-                    	System.out.println("Client-login-username:"+username);
-                    	step++;
-                    }else if(bufstring.contains("Password: ")||bufstring.contains("Password:")){
-                    	write(password);
-                    	System.out.println("Client-login-password:"+password);
-                    	islogin=true;
-                    	step++;
-                    }else if(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)||bufstring.trim().endsWith(end3)){
+//                    System.out.println("tmpStr:"+tmpStr);
+                    if(tmpStr.contains("RETCODE = 0")){
                     	return "login";
-                    }else if(bufstring.trim().toLowerCase().contains("login incorrect")){
-                    	return "errcode -999:wrong password";
-                    }else if(step>8){
-                    	return "errcode -999:wrong password";
+                    }else if(tmpStr.contains("RETCODE = ")){
+                    	return "password error";
+                    }else if(i>8){
+                    	return "time out!";
                     }
+                    
                 }
-                Thread.sleep(200);
+                Thread.sleep(250);
             } while (ret_read >= 0);
             
 		} catch (Exception e) {
@@ -88,6 +82,7 @@ public class Client {
 		
 		byte[] buff = new byte[1024];
         int ret_read = 0;
+        //System.out.println("-->"+cmd);
         try{
         	write(cmd);
         	isstart=true;
@@ -97,11 +92,11 @@ public class Client {
 	            
 	            if(ret_read > 0){
 	            	String bufstring=new String(buff, 0, ret_read);
-	                System.out.println("--"+bufstring+"E");
+	                //System.out.println("--"+bufstring+"E");
 	                
-					if(islogin&&!isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)||bufstring.trim().endsWith(end3))){
+					if(islogin&&!isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2))){
 			        	
-			        }else if(islogin&&isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)||bufstring.trim().endsWith(end3))){
+			        }else if(islogin&&isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2))){
 			        	isend=true;
 			        	response.append(bufstring);
 			        	return response.toString();
@@ -123,8 +118,11 @@ public class Client {
 	 */
 	public void write(String value) {
 		try {
+			
+			System.out.println("----------------------------->"+value);
 			out.println(value);
 			out.flush();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -146,7 +144,7 @@ public class Client {
 		String string="";
 		try {
 			
-			Client telnet = new Client(ip,username,password);
+			ClientHW telnet = new ClientHW(ip,username,password);
 			if(telnet.islogin){
 				string=telnet.execute(cmd);
 				if(string.indexOf(": not found\r\n")>-1||string.indexOf(": Command not found.\r\n")>-1){//
@@ -167,7 +165,7 @@ public class Client {
 		String string="";
 		try {
 			
-			Client telnet = new Client(ip,username,password);
+			ClientHW telnet = new ClientHW(ip,username,password);
 			if(telnet.islogin){
 				return string="OK";
 			}else{

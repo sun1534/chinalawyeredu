@@ -159,7 +159,7 @@ function createEditDevice(action,deviceId){
                           <th>设备名</th>
                           <th>IP</th>
                           <th>端口</th>
-                          <th>设备类型</th>
+                          <th>连接协议</th>
                           <th>是否需要中转</th>
                           <!-- 
                           <th>登录名</th>
@@ -177,7 +177,7 @@ function createEditDevice(action,deviceId){
                           <td><a href="memCommandList.action?deviceId=${deviceid}">${devicename}</a></td>
                           <td>${ip} </td>
                           <td>${port }</td>
-                            <td><s:if test="ishuawei==2">JUPER</s:if><s:elseif test="ishuawei==1">华为</s:elseif><s:else>爱立信</s:else></td>
+                            <td><s:if test="ishuawei==2">SSH</s:if><s:elseif test="ishuawei==1">华为TELNET</s:elseif><s:else>TELNET</s:else></td>
                                <td><s:if test="istransit==1">是</s:if><s:else>否</s:else></td>
                           <!-- 
                           <td>${loginName}</td>

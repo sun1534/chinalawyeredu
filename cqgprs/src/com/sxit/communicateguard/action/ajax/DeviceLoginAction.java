@@ -65,8 +65,8 @@ public class DeviceLoginAction extends AbstractAction {
 			if (deviceList == null || deviceList.size() == 0)
 				deviceList = new HashMap<String, MemDevice>();
 
-			deviceList.put(device.getDeviceid() + "", device);
-			CommonDatas.LOGINDEVICE.put(sysUser.getUserid() + "", deviceList);
+//			deviceList.put(device.getDeviceid() + "", device);
+//			CommonDatas.LOGINDEVICE.put(sysUser.getUserid() + "", deviceList);
 			return SUCCESS;
 		}
 

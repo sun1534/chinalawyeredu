@@ -68,7 +68,7 @@ public class SysParameterListAction extends AbstractListAction {
 
 		if (paramname != null && !"".equals(paramname))
 			detachedCriteria.add(Restrictions.like("paramname", paramname, MatchMode.ANYWHERE));
-	
+		detachedCriteria.add(Restrictions.eq("typeid", 0));
 		// 按createtime逆序排序
 		detachedCriteria.addOrder(Order.asc("createtime"));
 		BasicService service = (BasicService) getBean("basicService");

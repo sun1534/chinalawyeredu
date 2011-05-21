@@ -171,10 +171,10 @@ public class MemService extends BasicService {
 	 */
 	public com.sxit.common.PaginationSupport getDeviceList(String deviceName, int pageNo, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(MemDevice.class);
-		System.out.println("deviceName==="+deviceName);
+//		System.out.println("deviceName==="+deviceName);
 		if (deviceName != null && !deviceName.equals(""))
 			dc.add(Restrictions.like("devicename", deviceName, MatchMode.ANYWHERE));
-		dc.addOrder(Order.desc("deviceid"));
+		dc.addOrder(Order.desc("devicename"));
 		if(pageNo<=0)
 			pageNo=1;
 		return basicDAO.findPageByCriteria(dc, pageSize, pageNo);

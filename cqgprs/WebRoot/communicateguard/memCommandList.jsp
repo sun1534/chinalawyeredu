@@ -89,7 +89,7 @@ function createEditCommand(action,deviceId){
 		<div class="navigation" id="quickTools">
 			<div class="innavigation">
 				<div  class="navlist">
-						<span>您所在是位置:</span><a>通信保障</a>＞<em><s:if test="commandtype=1">应急维护命令管理</s:if><s:else>标准维护命令管理</s:else></em>
+						<span>您所在是位置:</span><a>通信保障</a>＞<em><s:if test="commandtype==2">应急维护命令管理</s:if><s:else>标准维护命令管理</s:else></em>
 				</div>
 			</div>
 		</div>

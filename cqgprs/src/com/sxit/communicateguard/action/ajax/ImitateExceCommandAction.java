@@ -41,10 +41,11 @@ public class ImitateExceCommandAction extends AbstractListAction {
 		MemDevicecommand command=(MemDevicecommand)memService.get(MemDevicecommand.class, commandId);
 //		MemDevice device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
 		HashMap<String, MemDevice> userListDevice=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
-		MemDevice device=(MemDevice)userListDevice.get(command.getDeviceid());
+		MemDevice device=(MemDevice)userListDevice.get(command.getDeviceid()+"");
 		if(device==null)
 		{
 			device=(MemDevice)memService.get(MemDevice.class, command.getDeviceid());
+			System.out.println("对应的设备信息不存在......");
 		}
 		try {
 			if(command.getCommandtype()==1){

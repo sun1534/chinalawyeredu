@@ -29,11 +29,11 @@
 									</td> 
 								</tr> 
 								<tr class="fEven"> 
-									<td class="w120 fname">设备厂家：</td> 
+									<td class="w120 fname">连接协议：</td> 
 									<td class="fvalue">
 										<input type="hidden" name="isnew" value="${isnew}"/>
 									<input type="hidden" name="deviceId" value="${deviceId}"/>
-									<s:select name="device.ishuawei" list="#{'0':'爱立信','2':'JUPER','1':'华为'}"/>
+									<s:select name="device.ishuawei" list="#{'0':'TELNET','2':'SSH','1':'华为TELNET'}"/>
 									</td> 
 								</tr> 
 								<tr class="fEven"> 

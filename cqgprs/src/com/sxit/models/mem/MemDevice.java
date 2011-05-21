@@ -13,6 +13,7 @@ import org.json.JSONObject;
 public class MemDevice implements java.io.Serializable {
 
 private int istransit;
+//#{'0':'TELNET','2':'SSH','1':'华为TELNET'}
 private int ishuawei;
 	// Fields
 	
