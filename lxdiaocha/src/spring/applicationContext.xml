@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">          
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />          
+        <property name="jdbcUrl" value="jdbc:mysql://localhost/pm" />          
+        <property name="user" value="pmcpsoft" />          
+        <property name="password" value="pmcpsoft" />               
+        <property name="minPoolSize" value="1" />        
+        <property name="maxPoolSize" value="5" />        
+        <property name="maxIdleTime" value="1800" />        
+        <property name="acquireIncrement" value="1" />         
+        <property name="maxStatements" value="0" />          
+        <property name="initialPoolSize" value="1" />          
+        <property name="idleConnectionTestPeriod" value="60" />          
+        <property name="acquireRetryAttempts" value="30" />          
+        <property name="breakAfterAcquireFailure" value="true" />              
+        <property name="testConnectionOnCheckout" value="false" />          
+    </bean> 
+    -->       
+           
+           
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName">
+      <value>com.mysql.jdbc.Driver</value>
+    </property>
+    <property name="url">
+       <value>jdbc:mysql://211.154.157.174:3306/lxdiaocha</value>
+    </property>
+    <property name="username">
+      <value>saaspxxt</value>
+    </property>
+    <property name="password">
+      <value>saaspxxt</value>
+    </property>
+  </bean>   
+  
+
+           
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">       
+        <property name="dataSource">       
+            <ref bean="dataSource" />       
+        </property>       
+        <property name="hibernateProperties">       
+            <props>       
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLInnoDBDialect</prop>    
+                   <!--
+                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                 -->  
+            	 <prop key="hibernate.show_sql">true</prop>
+               <prop key="hibernate.generate_statistics">false</prop>       
+               <prop key="hibernate.connection.release_mode">auto</prop>       
+               <prop key="hibernate.autoReconnect">true</prop> 
+               <prop key="hibernate.jdbc.fetch_size">25</prop> 
+               <prop key="hibernate.jdbc.batch_size">30</prop> 
+              <!-- <prop key="hibernate.cache.use_second_level_cache">true</prop>
+               <prop key="hibernate.cache.provider_class">org.hibernate.cache.OSCacheProvider</prop> 
+               <prop key="hibernate.cache.region_prefix">hibernate.oscache</prop> 
+               <prop key="hibernate.cache.use_minimal_puts">false</prop> 
+               -->
+                
+            </props>       
+        </property>       
+        <!-- 将所有的hibernate的配置文件都放在这里,就不要人为来对这个xml文件进行处理了-->
+        <property name="mappingDirectoryLocations">
+        	<list>
+        		<value>classpath:com/changpeng/models/</value>
+        	</list>
+        </property> 
+    </bean>      
+    
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">           
+          <property name="sessionFactory">           
+              <ref bean="sessionFactory"/>           
+          </property>           
+    </bean>         
+     <!--        
+    <bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">           
+        <property name="transactionManager" ref="transactionManager"/>           
+        <property name="transactionAttributes">         
+            <props>         
+                <prop key="save*">PROPAGATION_REQUIRED</prop>         
+                <prop key="insert*">PROPAGATION_REQUIRED</prop>    
+                <prop key="delete*">PROPAGATION_REQUIRED</prop>  
+                <prop key="update*">PROPAGATION_REQUIRED</prop>  
+                <prop key="insert*">PROPAGATION_REQUIRED</prop>       
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop> 
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>          
+            </props>         
+        </property>         
+    </bean>           
+                  
+   <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">           
+        <property name="beanNames">         
+            <value>*Service</value>         
+        </property>         
+        <property name="interceptorNames">           
+            <list>           
+                <value>transactionInterceptor</value>           
+            </list>           
+        </property>           
+    </bean>           
+           
+    <bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">           
+          <property name="transactionInterceptor" ref="transactionInterceptor"/>           
+    </bean>  -->
+  
+  
+   <bean id="basicDAO" class="com.changpeng.common.BasicDAO">           
+          <property name="sessionFactory">           
+              <ref bean="sessionFactory"/>           
+          </property>           
+    </bean>    
+    <bean id="basicService" class="com.changpeng.common.BasicService">           
+          <property name="basicDAO">           
+              <ref bean="basicDAO"/>           
+          </property>           
+    </bean>      
+    
+        <!-- 定义定时任务 
+        -->   
+     
+    <bean id="timerTask" class="com.changpeng.common.mssql.ScheduleTask">
+    </bean>
+    <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="timerTask">
+    		<ref bean="timerTask"/>
+    	</property>
+		<!-- 每隔指定时间执行定时任务毫秒 
+		-->
+    	<property name="period">
+    		<value>7200000</value>
+    	</property>
+    	<!-- 系统加载后延时多久执行定时任务 毫秒 
+    	-->
+    	<property name="delay">
+    		<value>360000</value>
+    	</property>
+    </bean>
+     <bean id="timerFactoryBean" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+    		<list>
+    			<ref bean="scheduleTimerTask"/>
+    		</list>		
+    	</property>
+    </bean>
+</beans>

@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>WMS功能扩展插件――用户授权演示（JSP）</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<body>
+<p><font color="#0000FF" size="4" face="黑体">WMS 功能扩展插件――用户授权演示（JSP）</font></p>
+<hr>
+<p>本实例通过每次为点播地址生成一临时会话标识来配合“授权代理插件”实现防盗链功能。对于Web服务器端，本实例使用JSP的Application对象(实际上是 ServletContext)保存临时会话标识，因此不需要数据库支持。如进行实际应用，请注意设定一种机制对保存的会话标识进行定期清理。</p>
+<hr>
+<form action="play.jsp" method="post" name="form1" target="_blank">
+  <p>点播地址：
+    <input name="url" type="text" id="url" value="mms://127.0.0.1/demo/test.wmv" size="40">
+<input type="submit" name="Submit" value="开始">  
+  </p>
+</form>
+<hr>
+<p><a href="monitor.jsp" target="_blank">监控会话标识</a></p>
+<hr>
+<p>&nbsp;</p>
+</body>
+</html>

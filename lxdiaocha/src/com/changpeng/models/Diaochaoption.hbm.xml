@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-5-4 12:08:05 by Hibernate Tools 3.2.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.changpeng.models.Diaochaoption" table="diaochaoption">
+        <id name="optionid" type="int">
+            <column name="optionid" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="diaochawenti" class="com.changpeng.models.Diaochawenti" fetch="select">
+            <column name="wentiid" precision="10" scale="0"  not-null="true">
+                <comment>&#229;&#175;&#185;&#229;&#186;&#148;&#229;&#147;&#170;&#228;&#184;&#170;&#233;&#151;&#174;&#233;&#162;&#152;</comment>
+            </column>
+        </many-to-one>
+       <property name="title" type="string">
+            <column name="title" length="200" not-null="true" />
+   
+        </property>
+        <property name="logicwenti" type="java.lang.Integer">
+            <column name="logicwenti">
+                <comment>
+                &#229;&#166;&#130;&#230;&#158;&#156;&#229;&#175;&#185;&#229;&#186;&#148;&#231;&#154;&#132;wentid&#231;&#154;&#132;islogic=true&#231;&#154;&#132;&#232;&#175;&#157;&#239;&#188;&#140;&#233;?&#228;&#186;&#134;&#232;&#191;&#153;&#228;&#184;&#170;&#239;&#188;&#140;&#232;&#183;&#179;&#232;&#189;&#172;&#229;&#136;&#176;&#229;&#147;&#170;&#233;&#135;&#140;&#229;&#142;&#187;</comment>
+            </column>
+        </property>
+        <property name="createtime" type="timestamp">
+            <column name="createtime" length="0" not-null="true" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="400">
+                <comment>&#233;&#162;&#152;&#231;&#155;&#174;&#231;&#154;&#132;&#229;&#133;&#182;&#228;&#187;&#150;&#232;&#175;&#180;&#230;&#152;?</comment>
+            </column>
+        </property>
+        
+       <property name="options" type="string">
+            <column name="options" length="20">
+            </column>
+        </property>
+         <property name="replycount" type="int">
+            <column name="replycount" not-null="true" />
+        </property>
+        <property name="others" type="java.lang.Boolean">
+            <column name="others" />
+        </property>
+    </class>
+</hibernate-mapping>
