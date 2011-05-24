@@ -23,7 +23,7 @@ public class Jifenbudeng implements java.io.Serializable {
 
 	private Float xuefen;
 	
-
+	private int notchange;
 	private int provinceid;
 	private int cityid;
 	private int officeid;
@@ -233,6 +233,20 @@ public class Jifenbudeng implements java.io.Serializable {
 	 */
 	public void setLessonid(int lessonid) {
 		this.lessonid = lessonid;
+	}
+
+	/**
+	 * @return the notchange
+	 */
+	public int getNotchange() {
+		return notchange;
+	}
+
+	/**
+	 * @param notchange the notchange to set
+	 */
+	public void setNotchange(int notchange) {
+		this.notchange = notchange;
 	}
 
 }

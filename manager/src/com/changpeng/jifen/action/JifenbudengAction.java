@@ -85,6 +85,8 @@ public class JifenbudengAction extends AbstractAction {
 
 			budengservice.updateJifenbudeng(budeng, oldxuefen);
 			this.opResult = "为" + budeng.getLawyerno() + "修改补登积分成功";
+			
+			this.message="积分补登修改成功";
 		}
 
 		this.nextPage = "jifenbudengList.pl";

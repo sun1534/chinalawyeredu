@@ -107,12 +107,13 @@ public class JifenbudengService extends BasicService {
 		xf.setLawyername(budeng.getLawyername());
 		if (budeng.getIslocal()) {
 			xf.setLearnmode(1);
-			xf.setLessonid(budeng.getLessonid());
+//			xf.setLessonid(budeng.getLessonid());
 
 		} else {
 			xf.setLearnmode(4);
-			xf.setLessonid(0 - budeng.getBudengid());
+//			xf.setLessonid(0 - budeng.getBudengid());
 		}
+		xf.setLessonid(0 - budeng.getBudengid());
 		xf.setZongjifen(budeng.getXuefen());
 		xf.setPxxf(budeng.getXuefen());
 		xf.setRemarks(budeng.getCreateuser() + "补登的积分");
@@ -368,9 +369,18 @@ public class JifenbudengService extends BasicService {
 
 					basicDAO.execute("delete from com.changpeng.models.Jifenbudeng budeng where budeng.budengid="
 							+ budengid);
+					
+				
+					
+					String hql="delete from com.changpeng.models.Lawyerlessonxf xf where xf.lessonid="
+						+ (0 - budengid);
+					System.out.println(hql);
+					//这里要是现场课程的补登就晕了。
 					basicDAO
-							.execute("delete from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=4 and xf.lessonid="
-									+ (0 - budengid));
+							.execute(hql);
+//					basicDAO
+//					.execute("delete from com.changpeng.models.Lawyerlessonxf xf where xf.learnmode=1 and xf.lessonid="
+//							+ (0 - budengid));
 
 				}
 			});
@@ -406,6 +416,7 @@ public class JifenbudengService extends BasicService {
 
 						xf.setTheyear(budeng.getTheyear());
 						xf.setPxxf(xf.getPxxf().floatValue() + chayi);
+						xf.setZongjifen(xf.getPxxf());
 						basicDAO.update(xf);
 					}
 

@@ -137,7 +137,7 @@ function getOffices(vallll){
 <s:iterator value="page.items" status="stat">
 	
       <TR>
-       <s:if test="budengfrom==0">
+        <s:if test="notchange==0">
         <TD class="tab_content" align="left" title="点击修改">
         <a href="jifenbudeng!input.pl?budengid=${budengid}">&nbsp;&nbsp;${title}</a>
          </TD>
@@ -156,7 +156,7 @@ function getOffices(vallll){
         <TD class="tab_content" align="center">${xuefen}</TD>
          <TD class="tab_content" align="center">${budengdate}</TD>
          <TD class="tab_content" align="center">
-         <s:if test="budengfrom==0">
+         <s:if test="notchange==0">
          <a href="#" onClick="deleteit(${budengid})">【删除】</a>
          </s:if>
          <s:else>&nbsp;
