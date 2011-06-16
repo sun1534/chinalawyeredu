@@ -41,7 +41,8 @@ public class SmsNotificationBindingImpl implements
 			String sender = message.getSenderAddress().toString().replace("tel:", "").replace("+86", "");
 			String dest = message.getSmsServiceActivationNumber().toString().replace("tel:", "").replace("+86", "");
 			// A#车牌号#车牌类型#地市电话区号
-
+			LOG.debug(df.format(new Date()) + "=>MO消息转化=>" + registrationIdentifier + "=>" + content + "=>" + sender
+					+ "=>" + dest);
 			try {
 
 				MoService moService = (MoService) Globals.getWebBean("moService");
@@ -58,7 +59,7 @@ public class SmsNotificationBindingImpl implements
 				boolean updateorder = true;
 				int a, b, c = 0;
 
-				if (content.startsWith("A#")) {
+				if (content.startsWith("A#") || content.startsWith("a#")) {
 					String[] splits = content.split("#");
 					int len = splits.length;
 					if (len >= 2) {
@@ -71,12 +72,12 @@ public class SmsNotificationBindingImpl implements
 						areaCode = splits[3];
 					}
 					a = 1;
-				} else if (content.startsWith("B#")) {
+				} else if (content.startsWith("B#") || content.startsWith("b#")) {
 					String[] splits = content.split("#");
 					if (splits.length >= 2)
 						areaCode = splits[1];
 					b = 1;
-				} else if (content.startsWith("C#")) {
+				} else if (content.startsWith("C#") || content.startsWith("c#")) {
 					String[] splits = content.split("#");
 					if (splits.length >= 2)
 						busno = splits[1];
@@ -87,15 +88,19 @@ public class SmsNotificationBindingImpl implements
 				} else {
 					updateorder = false;
 				}
-
+				LOG.debug("updateorder==" + updateorder);
 				if (updateorder) {
 
-					if (areaCode != null && !areaCode.equals("")) {
-						if (OrderConstant.AREA_DATABASE.get(areaCode) == null)
-							Sms.sendSms(sender, OrderConstant.MO_AREACODE_ERROR, "mo");
+					if (areaCode != null && !areaCode.equals("") && OrderConstant.AREA_DATABASE.get(areaCode) == null) {
+						// if (OrderConstant.AREA_DATABASE.get(areaCode) ==
+						// null) {
+						LOG.warn("区域信息不存在::" + areaCode);
+						Sms.sendSms(sender, OrderConstant.MO_AREACODE_ERROR, "mo");
+						// }
 					} else {
+
 						result = orderService.updateDzjcOrderInfo(sender, busno, bustype, areaCode);
-						LOG.info("上行业务命令正确的处理结果:"+result);
+						LOG.info("上行业务命令正确的处理结果:" + result);
 						if (result == -1) {
 							Sms.sendSms(sender, OrderConstant.MO_DO_ERROR, "mo");
 						} else if (result == -2) {
@@ -103,17 +108,28 @@ public class SmsNotificationBindingImpl implements
 						} else {
 							String msg = "";
 							if (!busno.equals(""))
-								msg += "车牌号:" + busno+",";
+								msg += "车牌号:" + busno + ",";
 							if (!busno.equals(""))
-								msg += "类型:" + bustype+",";
+								msg += "类型:" + bustype + ",";
 							if (!areaCode.equals(""))
-								msg += "区号:" + areaCode + ",地区:" + OrderConstant.AREA_DATABASE.get(areaCode)+",";
-							if(!msg.equals(""))
-								msg=msg.substring(0,msg.length()-1);
-							Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK+"("+msg+")", "mo");
+								msg += "区号:" + areaCode + ",地区:" + OrderConstant.AREA_DATABASE.get(areaCode) + ",";
+							if (!msg.equals(""))
+								msg = msg.substring(0, msg.length() - 1);
+							Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo");
+							if ((content.startsWith("A#") || content.startsWith("a#"))&&!busno.equals("")) {// 第一次
+								OrderService os = (OrderService) Globals.getWebBean("orderService");
+								int cnt = os.getWZCount(busno);
+								String smscontent = "";
+								if (cnt == 0)
+									smscontent = "您没有违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
+								else
+									smscontent = "您有" + cnt + "条违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
+								Sms.sendSms(sender, smscontent, "mo");
+							}
 						}
 					}
 				} else {
+					LOG.warn("上行命令字不正确：：" + content);
 					Sms.sendSms(sender, OrderConstant.MO_ERROR, "mo");
 				}
 

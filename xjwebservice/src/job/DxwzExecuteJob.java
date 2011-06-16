@@ -1,4 +1,4 @@
-package main;
+package job;
 
 import java.sql.Connection;
 import java.text.DateFormat;
@@ -6,29 +6,28 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TimerTask;
+
+import main.DxSendMain;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.quartz.DisallowConcurrentExecution;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.quartz.PersistJobDataAfterExecution;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import common.Globals;
 
-/**
- * 
- * <pre>
- * </pre>
- * 
- * @修改：
- */
-public class ScheduleTask extends TimerTask {
-	private static Log LOG = LogFactory.getLog(ScheduleTask.class);
-
+@DisallowConcurrentExecution
+@PersistJobDataAfterExecution
+public class DxwzExecuteJob implements Job {
+	
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
-	public ScheduleTask() {
-	}
-
+	private static Log LOG = LogFactory.getLog(DxwzExecuteJob.class);
+	
 	// 8点整的时候执行
 	private static int EXECUTE_HOUR = 8;
 	private static int EXECUTE_MINUTE = 0;
@@ -36,9 +35,8 @@ public class ScheduleTask extends TimerTask {
 	private static long LASTTIME = 0;
 
 	private static Map<String, Boolean> HAS_BEEN = new HashMap<String, Boolean>();
-
-	public void run() {
-
+	
+	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		Connection con = null;
 		try {
 			LOG.info("开始执行定时任务======================>" + (SCHEDULE_SEQ++));
@@ -76,9 +74,7 @@ public class ScheduleTask extends TimerTask {
 		} catch (Exception e) {
 			LOG.error("执行定时任务错误:", e);
 		}
+		
 	}
 
-	public static void main(String[] args) {
-
-	}
 }

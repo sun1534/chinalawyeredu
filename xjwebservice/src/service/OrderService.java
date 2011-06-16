@@ -4,9 +4,9 @@
 package service;
 
 import java.text.DateFormat;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+
+import main.SendConstant;
 
 import org.apache.commons.logging.Log;
 import org.hibernate.criterion.DetachedCriteria;
@@ -369,6 +369,16 @@ public class OrderService extends BasicService {
 		return jdbcTemplate.queryForInt("select count(*) from user_order where status=0"); 
 	}
 
+	/**
+	 * 判断这个号码有几条违章信息
+	 * @param chepai
+	 * @return
+	 */
+	public int getWZCount(String chepai){
+		String sql="select count(*) from "+SendConstant.DZJC_DATABASE+".dzjc_all where hphm='"+chepai.toUpperCase()+"'";
+		return jdbcTemplate.queryForInt(sql);
+	}
+	
 	/**
 	 * 
 	 * @param order

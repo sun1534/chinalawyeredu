@@ -77,6 +77,8 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 				// 下发短信，提示发送上行短信. 车牌号#车牌类型#地市电话区号
 				result = orderService.order(userId, packageId, productId, streamNo, "", userIdType);
 				if (result >= 0) {
+//					LOG.warn(userId+"您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" + OrderConstant.ORDER_MO_CONTENT);
+
 					Sms.sendSms(userId, "您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" + OrderConstant.ORDER_MO_CONTENT,"order");
 				} else {
 					LOG.warn("订购业务处理失败,不下发短信");

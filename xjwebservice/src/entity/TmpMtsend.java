@@ -8,7 +8,7 @@ import java.util.Date;
  * @author MyEclipse Persistence Tools
  */
 
-public class LogMtsend implements java.io.Serializable {
+public class TmpMtsend implements java.io.Serializable {
 
 	// Fields
 
@@ -16,25 +16,39 @@ public class LogMtsend implements java.io.Serializable {
 	private String mobile;
 	private String content;
 	private Date sendTime;
-	private Date createTime;
 	private String type;
 	private String result;
+	private int sendcount;
 
 	// Constructors
 
+	/**
+	 * @return the sendcount
+	 */
+	public int getSendcount() {
+		return sendcount;
+	}
+
+	/**
+	 * @param sendcount the sendcount to set
+	 */
+	public void setSendcount(int sendcount) {
+		this.sendcount = sendcount;
+	}
+
 	/** default constructor */
-	public LogMtsend() {
+	public TmpMtsend() {
 	}
 
 	/** minimal constructor */
-	public LogMtsend(int id, String mobile, Date sendTime) {
+	public TmpMtsend(int id, String mobile, Date sendTime) {
 		this.id = id;
 		this.mobile = mobile;
 		this.sendTime = sendTime;
 	}
 
 	/** full constructor */
-	public LogMtsend(int id, String mobile, String content, Date sendTime, String result) {
+	public TmpMtsend(int id, String mobile, String content, Date sendTime, String result) {
 		this.id = id;
 		this.mobile = mobile;
 		this.content = content;
@@ -98,18 +112,5 @@ public class LogMtsend implements java.io.Serializable {
 		this.type = type;
 	}
 
-	/**
-	 * @return the createTime
-	 */
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	/**
-	 * @param createTime the createTime to set
-	 */
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 
 }
