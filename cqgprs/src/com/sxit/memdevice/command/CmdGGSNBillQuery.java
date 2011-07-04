@@ -5,10 +5,13 @@ import java.util.Date;
 
 import org.hibernate.Hibernate;
 
-import com.mysql.jdbc.Clob;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
+import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
+import com.sxit.memdevice.common.ClientTZHW;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 
@@ -54,7 +57,19 @@ public class CmdGGSNBillQuery extends Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript());
+		if (device.getIshuawei() == 1) {
+			if(device.getIstransit()==1){
+				MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+				orgresult = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(), command.getCommandscript());
+			}else{
+				orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+			}
+		} else if(device.getIstransit()==1) {
+			MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+			orgresult = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),command.getCommandscript());
+		} else{
+			orgresult = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+		}
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

@@ -7,7 +7,11 @@ import org.hibernate.Hibernate;
 
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
+import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
+import com.sxit.memdevice.common.ClientTZHW;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 
@@ -87,9 +91,31 @@ public class CmdGGSNAPNCMNETCMWAP extends Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult_cmnet=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  cmnet");
-		String orgresult_cmwap=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  cmwap");
-		String orgresult_apn=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  (smjt.cq)");
+		String orgresult_cmnet="";Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  cmnet");
+		String orgresult_cmwap="";Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  cmwap");
+		String orgresult_apn="";Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show services ggsn  statistics apn  (smjt.cq)");
+		if (device.getIshuawei() == 1) {
+			if(device.getIstransit()==1){
+				MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+				orgresult_cmnet = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),  "show services ggsn  statistics apn  cmnet");
+				orgresult_cmwap = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),  "show services ggsn  statistics apn  cmwap");
+				orgresult_apn = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),  "show services ggsn  statistics apn  (smjt.cq)");
+			}else{
+				orgresult_cmnet = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  cmnet");
+				orgresult_cmwap = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  cmwap");
+				orgresult_apn = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  (smjt.cq)");
+			}
+		} else if(device.getIstransit()==1) {
+			MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+			orgresult_cmnet = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"show services ggsn  statistics apn  cmnet");
+			orgresult_cmwap = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"show services ggsn  statistics apn  cmwap");
+			orgresult_apn = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"show services ggsn  statistics apn  (smjt.cq)");
+		} else{
+			orgresult_cmnet = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  cmnet");
+			orgresult_cmwap = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  cmwap");
+			orgresult_apn = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show services ggsn  statistics apn  (smjt.cq)");
+		}
+		
 		String result=orgresult_cmnet+"\r\n"+orgresult_cmwap+"\r\n"+orgresult_apn;
 		orgresult=result;
 		

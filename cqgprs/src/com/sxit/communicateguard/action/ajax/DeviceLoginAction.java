@@ -4,9 +4,7 @@
 package com.sxit.communicateguard.action.ajax;
 
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,7 +14,10 @@ import com.sxit.common.Globals;
 import com.sxit.common.action.AbstractAction;
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
+import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.system.SysUser;
 
 /**
@@ -29,7 +30,7 @@ import com.sxit.models.system.SysUser;
 public class DeviceLoginAction extends AbstractAction {
 
 	private static Log _LOG = LogFactory.getLog(GuadrNoSetAction.class);
-	private int flag;   //1表示输入用户密码登录   2表示不用登录
+	private int flag; // 1表示输入用户密码登录 2表示不用登录
 	private String now;
 	private String username;
 	private String password;
@@ -53,8 +54,8 @@ public class DeviceLoginAction extends AbstractAction {
 	protected String go() throws Exception {
 		MemService memservice = (MemService) Globals.getBean("memService");
 		MemDevice device = (MemDevice) memservice.get(MemDevice.class, deviceId);
-		SysUser sysUser=this.getLoginUser();
-		HashMap<String, MemDevice> deviceList=CommonDatas.LOGINDEVICE.get(sysUser.getUserid()+"");
+		SysUser sysUser = this.getLoginUser();
+		HashMap<String, MemDevice> deviceList = CommonDatas.LOGINDEVICE.get(sysUser.getUserid() + "");
 		// System.out.println("username1=="+username1+"password1="+password1);
 		if (device == null) {
 			isok = "2";
@@ -65,24 +66,42 @@ public class DeviceLoginAction extends AbstractAction {
 			if (deviceList == null || deviceList.size() == 0)
 				deviceList = new HashMap<String, MemDevice>();
 
-//			deviceList.put(device.getDeviceid() + "", device);
-//			CommonDatas.LOGINDEVICE.put(sysUser.getUserid() + "", deviceList);
+			// deviceList.put(device.getDeviceid() + "", device);
+			// CommonDatas.LOGINDEVICE.put(sysUser.getUserid() + "",
+			// deviceList);
 			return SUCCESS;
 		}
 
-		String usernametemp = new URLDecoder().decode(username, "utf-8");		
+		String usernametemp = new URLDecoder().decode(username, "utf-8");
 		String passwordtemp = new URLDecoder().decode(password, "utf-8");
-		String flag=Client.testlogin(device.getIp(), usernametemp, passwordtemp);
+		String flag = "";
+		if (device.getIstransit() == 1&&device.getIshuawei()==0) {
+			int deviceid = device.getDeviceid();
+			com.sxit.models.mem.MemDeviceTransit mdt = (MemDeviceTransit) basicService.get(MemDeviceTransit.class,
+					deviceid);
+			flag = ClientTZ
+					.testlogin(device.getIp(), username, password, mdt.getIp(), mdt.getLoginname(), mdt.getPwd());
+		} else if (device.getIshuawei() == 1&&device.getIstransit()==0) {
+			flag = ClientHW.testlogin(device.getIp(), username, password);
+		} else if (device.getIshuawei() == 1 && device.getIstransit() == 1) {
+			int deviceid = device.getDeviceid();
+			com.sxit.models.mem.MemDeviceTransit mdt = (MemDeviceTransit) basicService.get(MemDeviceTransit.class,
+					deviceid);
+			flag =	com.sxit.memdevice.common.ClientTZHW.testlogin(device.getIp(), username, password, mdt.getIp(), mdt
+					.getLoginname(), mdt.getPwd());
+
+		} else
+			flag = Client.testlogin(device.getIp(), usernametemp, passwordtemp);
 		System.out.println("username==" + username + "password=" + password);
 		if (flag.equals("OK")) {
 			isok = "1";
-			if(deviceList==null||deviceList.size()==0)
-				deviceList=new HashMap<String, MemDevice>();
-			
+			if (deviceList == null || deviceList.size() == 0)
+				deviceList = new HashMap<String, MemDevice>();
+
 			device.setLoginName(usernametemp);
 			device.setLoginPwd(passwordtemp);
-			deviceList.put(device.getDeviceid()+"",device);
-			CommonDatas.LOGINDEVICE.put(sysUser.getUserid()+"", deviceList);
+			deviceList.put(device.getDeviceid() + "", device);
+			CommonDatas.LOGINDEVICE.put(sysUser.getUserid() + "", deviceList);
 		} else {
 			isok = "2";
 		}

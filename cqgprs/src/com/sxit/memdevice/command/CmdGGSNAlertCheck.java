@@ -8,7 +8,11 @@ import org.hibernate.Hibernate;
 
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
+import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
+import com.sxit.memdevice.common.ClientTZHW;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 
@@ -53,8 +57,27 @@ public class CmdGGSNAlertCheck extends Command {
 	
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String orgresult1=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show chassis alarms");
-		String orgresult2=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"show system alarms");
+		String orgresult1="";
+		String orgresult2="";
+
+		if (device.getIshuawei() == 1) {
+			if(device.getIstransit()==1){
+				MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+				orgresult1 = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),  "show chassis alarms");
+				orgresult2 = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),  "show system alarms");
+			}else{
+				orgresult1 = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show chassis alarms");
+				orgresult1 = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show system alarms");
+			}
+		} else if(device.getIstransit()==1) {
+			MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+			orgresult1 = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"show chassis alarms");
+			orgresult2 = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"show system alarms");
+		} else{
+			orgresult1 = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show chassis alarms");
+			orgresult2 = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), "show system alarms");
+		}
+		
 		String result="无告警";
 		if(orgresult1.indexOf("No alarms currently active")<0){
 			result=orgresult1;

@@ -27,7 +27,10 @@ import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.command.Command;
 import com.sxit.memdevice.common.Client;
 import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
+import com.sxit.memdevice.common.ClientTZHW;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 import com.sxit.models.system.SysParameter;
@@ -169,10 +172,6 @@ public class ServerProcessServlet extends HttpServlet {
 				// 标准命令 进行命令解析
 				if (command.getCommandtype() == 1) {
 					try {
-
-						// Command
-						// cmdprocess=(Command)Class.forName(command.getPlugin()).newInstance();
-
 						System.out.println("加裁类1==" + command.getPlugin());
 						Command cmdprocess = (Command) Class.forName(command.getPlugin()).newInstance();
 						System.out.println("加裁类2==" + command.getPlugin());
@@ -184,8 +183,22 @@ public class ServerProcessServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 				} else {
-					String orgresult = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),
-							command.getCommandscript());
+					String orgresult = "";
+					if (device.getIshuawei() == 1) {
+						if(device.getIstransit()==1){
+							MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+							orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+						}else{
+							orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+						}
+					} else if(device.getIstransit()==1) {
+						MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+						orgresult = ClientTZ.getres(device.getIp(), username, password,transit.getIp(),transit.getLoginname(),transit.getPwd(),command.getCommandscript());
+					} else{
+						orgresult = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+					}
+					
+					
 					result = orgresult;
 				}
 
@@ -199,8 +212,16 @@ public class ServerProcessServlet extends HttpServlet {
 				// result="user/password wrong!";
 				// }
 				if (device.getIshuawei() == 1) {
-					result = ClientHW.testlogin(device.getIp(), username, password);
-				} else {
+					if(device.getIstransit()==1){
+						MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+						result = ClientTZHW.testlogin(device.getIp(), username, password,transit.getIp(),transit.getLoginname(),transit.getPwd());
+					}else{
+						result = ClientHW.testlogin(device.getIp(), username, password);
+					}
+				} else if(device.getIstransit()==1) {
+					MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+					result = ClientTZ.testlogin(device.getIp(), username, password,transit.getIp(),transit.getLoginname(),transit.getPwd());
+				} else{
 					result = Client.testlogin(device.getIp(), username, password);
 				}
 			} else if (optype.equals("execommand_cus")) {
@@ -325,9 +346,11 @@ public class ServerProcessServlet extends HttpServlet {
 						+ "</paramvalue>";
 			}
 		} catch (Exception e) {
-e.printStackTrace();
+			e.printStackTrace();
 		}
 		System.out.println("result:" + result);
+		 result = new String(result.getBytes("utf-8"), "iso-8859-1");
+
 		out.write(result);
 		// out.flush();
 

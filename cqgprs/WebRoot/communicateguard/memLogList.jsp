@@ -60,7 +60,8 @@ function queryit(){
                                   <td>用户列表：<s:select name="userId" list="userList" headerKey="0" headerValue="全部"/>&nbsp;</td>
                                 <td>设备列表：<s:select name="deviceId" list="deviceList" headerKey="0" headerValue="全部"/>&nbsp;</td>
 								 <td><input type="button" class="btnSubmit" value="查　询" onclick="queryit()"/></td>
-								 <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditCommandPre('1',0);"/> </td>
+								<!--  <td><input type="button" class="btnSubmit" value="新　增" onclick="createEditCommandPre('1',0);"/> </td>
+								 -->
 								</tr>
 							</tbody>
 						</table>
@@ -95,7 +96,7 @@ function queryit(){
                           <s:property value="commandList[commandid]"/>
                           </s:else>
                           </a></td>
-                          <td>${result}</td>
+                          <td width="60%">${result}</td>
                            <td>${createtime}</td>
             
                         </tr>

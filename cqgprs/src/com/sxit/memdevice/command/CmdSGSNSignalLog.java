@@ -12,7 +12,11 @@ import org.hibernate.Hibernate;
 
 import com.sxit.communicateguard.service.MemService;
 import com.sxit.memdevice.common.Client;
+import com.sxit.memdevice.common.ClientHW;
+import com.sxit.memdevice.common.ClientTZ;
+import com.sxit.memdevice.common.ClientTZHW;
 import com.sxit.models.mem.MemDevice;
+import com.sxit.models.mem.MemDeviceTransit;
 import com.sxit.models.mem.MemDevicecommand;
 import com.sxit.models.mem.MemLog;
 
@@ -141,11 +145,31 @@ public class CmdSGSNSignalLog extends Command {
 	}
 	public String getresult(MemService memservice,MemDevice device,MemDevicecommand command, String userid) {
 
-		String getpath=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),"ls /logs/session_event_log/tmp");
-		String lastid=getlastlogid(getpath);
+		String getpath="";
+		String lastid="";		
 		
-		
-		 orgresult=Client.getres(device.getIp(),device.getLoginName(), device.getLoginPwd(),command.getCommandscript()+lastid);
+		if (device.getIshuawei() == 1) {
+			if(device.getIstransit()==1){
+				MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+				getpath=ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"ls /logs/session_event_log/tmp");
+				lastid=getlastlogid(getpath);
+				orgresult = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(), command.getCommandscript());
+				
+			}else{
+				getpath=ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),"ls /logs/session_event_log/tmp");
+				lastid=getlastlogid(getpath);
+				orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+			}
+		} else if(device.getIstransit()==1) {
+			MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+			getpath=ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),"ls /logs/session_event_log/tmp");
+			lastid=getlastlogid(getpath);
+			orgresult = ClientTZ.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(),command.getCommandscript());
+		} else{
+			getpath=Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),"ls /logs/session_event_log/tmp");
+			lastid=getlastlogid(getpath);
+			orgresult = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+		}
 		String result=getresult(orgresult);		
 
 		MemLog log=new MemLog();

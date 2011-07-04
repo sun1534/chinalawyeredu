@@ -78,6 +78,40 @@
        <action name="imitateCommand" class="com.sxit.communicateguard.action.ImitateCommandAction">
           <result name="success" type="dispatcher">/communicateguard/imitateCommand.jsp</result>	
        </action>
+       
+        <action name="tracertipset" class="com.sxit.communicateguard.action.MemParamSetAction" method="input">
+       	 	<param name="settype">tracertip</param>
+          <result name="input" type="dispatcher">/communicateguard/memParamSet.jsp</result>	
+       </action>
+       
+        <action name="memParamSet" class="com.sxit.communicateguard.action.MemParamSetAction">
+          <result name="input" type="dispatcher">/communicateguard/memParamSet.jsp</result>	
+       </action>
+       
+       <action name="pingipset" class="com.sxit.communicateguard.action.MemParamSetAction" method="input">
+       	  <param name="settype">pingip</param>
+          <result name="input" type="dispatcher">/communicateguard/memParamSet.jsp</result>	
+       </action>
+       
+       <action name="ggsnipset" class="com.sxit.communicateguard.action.GgsnipSetAction">
+          <result name="input" type="dispatcher">/communicateguard/ggsnipset.jsp</result>	
+       </action>
+       
+        
+       <action name="ggsnipList" class="com.sxit.communicateguard.action.GgsnipListAction">
+          <result name="success" type="dispatcher">/communicateguard/ggsnipList.jsp</result>	
+       </action>
+       
+       <action name="ipdescList" class="com.sxit.communicateguard.action.IpdescListAction">
+          <result name="success" type="dispatcher">/communicateguard/ipdescList.jsp</result>	
+       </action>
+       
+       
+       <action name="ipdescset" class="com.sxit.communicateguard.action.IpdescSetAction">
+          <result name="input" type="dispatcher">/communicateguard/ipdescset.jsp</result>	
+       </action>
+       
+       
     </package>
 	
 	 <package name="communicateguardajax" extends="defaultajax" namespace="/communicateguardajax">

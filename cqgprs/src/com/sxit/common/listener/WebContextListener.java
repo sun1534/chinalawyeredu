@@ -136,7 +136,7 @@ public class WebContextListener implements ServletContextListener {
 			com.sxit.system.util.CommonDatas.getUsers();
 			com.sxit.system.util.CommonDatas.getGroups();
 			BasicSetService setservice = (BasicSetService) Globals.getBean("basicSetService");
-			setservice.getAllSets();
+//			setservice.getAllSets();
 			ChrQueryService queryservice = (ChrQueryService) Globals.getBean("chrQueryService");
 			queryservice.getFlowids();
 	
