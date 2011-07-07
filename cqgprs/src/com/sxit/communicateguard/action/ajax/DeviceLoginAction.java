@@ -34,6 +34,7 @@ public class DeviceLoginAction extends AbstractAction {
 	private String now;
 	private String username;
 	private String password;
+	private String password1;
 	private int deviceId;
 
 	private String isok;
@@ -72,27 +73,36 @@ public class DeviceLoginAction extends AbstractAction {
 			return SUCCESS;
 		}
 
+		
+		
+		
 		String usernametemp = new URLDecoder().decode(username, "utf-8");
 		String passwordtemp = new URLDecoder().decode(password, "utf-8");
+		
+		username=usernametemp;
+		password=passwordtemp;
+		
+		System.out.println(password1+",,,,"+password+",,,"+passwordtemp);
+		System.out.println("username==" + username + "password=" + password);
+
 		String flag = "";
 		if (device.getIstransit() == 1&&device.getIshuawei()==0) {
 			int deviceid = device.getDeviceid();
 			com.sxit.models.mem.MemDeviceTransit mdt = (MemDeviceTransit) basicService.get(MemDeviceTransit.class,
 					deviceid);
 			flag = ClientTZ
-					.testlogin(device.getIp(), username, password, mdt.getIp(), mdt.getLoginname(), mdt.getPwd());
+					.testlogin(device.getIp(), usernametemp, passwordtemp, mdt.getIp(), mdt.getLoginname(), mdt.getPwd());
 		} else if (device.getIshuawei() == 1&&device.getIstransit()==0) {
-			flag = ClientHW.testlogin(device.getIp(), username, password);
+			flag = ClientHW.testlogin(device.getIp(), usernametemp, passwordtemp);
 		} else if (device.getIshuawei() == 1 && device.getIstransit() == 1) {
 			int deviceid = device.getDeviceid();
 			com.sxit.models.mem.MemDeviceTransit mdt = (MemDeviceTransit) basicService.get(MemDeviceTransit.class,
 					deviceid);
-			flag =	com.sxit.memdevice.common.ClientTZHW.testlogin(device.getIp(), username, password, mdt.getIp(), mdt
+			flag =	com.sxit.memdevice.common.ClientTZHW.testlogin(device.getIp(), usernametemp, passwordtemp, mdt.getIp(), mdt
 					.getLoginname(), mdt.getPwd());
 
 		} else
 			flag = Client.testlogin(device.getIp(), usernametemp, passwordtemp);
-		System.out.println("username==" + username + "password=" + password);
 		if (flag.equals("OK")) {
 			isok = "1";
 			if (deviceList == null || deviceList.size() == 0)
@@ -159,6 +169,20 @@ public class DeviceLoginAction extends AbstractAction {
 
 	public void setIsok(String isok) {
 		this.isok = isok;
+	}
+
+	/**
+	 * @param password1 the password1 to set
+	 */
+	public void setPassword1(String password1) {
+		this.password1 = password1;
+	}
+
+	/**
+	 * @return the password1
+	 */
+	public String getPassword1() {
+		return password1;
 	}
 
 }

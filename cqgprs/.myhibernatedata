@@ -1,5 +1,5 @@
 #
-#Tue Nov 23 18:49:43 CST 2010
+#Sun Jun 05 11:32:59 CST 2011
 genBasicCompId=false
 sessionFactoryName=
 profile=
@@ -16,7 +16,7 @@ addLibs2Project=false
 genVersionTag=false
 sessionFactoryId=
 basePersistenceClass=
-reSettingsFile=
+reSettingsFile=/cqgprs/hibernate.reveng.xml
 configFile=/cqgprs/src/hibernate.cfg.xml
 createConfigFile=true
 addLibs2Classpath=false

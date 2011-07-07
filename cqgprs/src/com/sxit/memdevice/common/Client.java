@@ -97,7 +97,7 @@ public class Client {
 	            
 	            if(ret_read > 0){
 	            	String bufstring=new String(buff, 0, ret_read);
-	                System.out.println("--"+bufstring+"E");
+//	                System.out.println("--"+bufstring+"E");
 	                
 					if(islogin&&!isstart&&(bufstring.trim().endsWith(end1)||bufstring.trim().endsWith(end2)||bufstring.trim().endsWith(end3))){
 			        	
@@ -111,7 +111,7 @@ public class Client {
 	            }
 	        }while (ret_read >= 0);
         }catch(Exception e){
-        	
+        	e.printStackTrace();
         }
         return response.toString();
 	}
@@ -152,7 +152,7 @@ public class Client {
 				if(string.indexOf(": not found\r\n")>-1||string.indexOf(": Command not found.\r\n")>-1){//
 					string="errcode -998:command error";
 				}
-				System.out.println("response:\r\n"+string);
+//				System.out.println("response:\r\n"+string);
 			}else{
 				string="errcode -999:not login";
 				System.out.println("not login");

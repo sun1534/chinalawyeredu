@@ -50,6 +50,7 @@ public class ServerProcessServlet extends HttpServlet {
 			// TODO Auto-generated method stub
 			response.setCharacterEncoding("utf-8");
 
+			
 			String optype = "";
 			String username = "";
 			String password = "";
@@ -58,6 +59,8 @@ public class ServerProcessServlet extends HttpServlet {
 			String commandid = "";
 			String commandtype = "";
 			String paramname = "";
+			String value1="";
+			String value2="";
 			// 获取请求的xml串
 			InputStream is = request.getInputStream();
 			byte[] b = new byte[1024];
@@ -77,28 +80,34 @@ public class ServerProcessServlet extends HttpServlet {
 			List<Element> list = doc.getRootElement().elements();
 			for (Element element : list) {
 				if (element.getName().equals("optype")) {
-					optype = element.getStringValue();
+					optype = element.getStringValue().trim();
 				}
 				if (element.getName().equals("username")) {
-					username = element.getStringValue();
+					username = element.getStringValue().trim();
 				}
 				if (element.getName().equals("password")) {
-					password = element.getStringValue();
+					password = element.getStringValue().trim();
 				}
 				if (element.getName().equals("deviceid")) {
-					deviceid = element.getStringValue();
+					deviceid = element.getStringValue().trim();
 				}
 				if (element.getName().equals("userid")) {
-					userid = element.getStringValue();
+					userid = element.getStringValue().trim();
 				}
 				if (element.getName().equals("commandid")) {
-					commandid = element.getStringValue();
+					commandid = element.getStringValue().trim();
 				}
 				if (element.getName().equals("commandtype")) {
-					commandtype = element.getStringValue();
+					commandtype = element.getStringValue().trim();
 				}
 				if (element.getName().equals("paramname")) {
-					paramname = element.getStringValue();
+					paramname = element.getStringValue().trim();
+				}
+				if (element.getName().equals("value1")) {
+					value1 = element.getStringValue().trim();
+				}
+				if (element.getName().equals("value2")) {
+					value2 = element.getStringValue().trim();
 				}
 
 			}
@@ -182,12 +191,39 @@ public class ServerProcessServlet extends HttpServlet {
 						result = e.getMessage();
 						e.printStackTrace();
 					}
-				} else {
+				} else if (command.getCommandtype() == 2) {//应急命令
+					
+					String cmdstr=command.getCommandscript();
+					if(cmdstr.indexOf("${1}")>-1){
+						cmdstr.replace("${1}", value1);
+					}
+					if(cmdstr.indexOf("${2}")>-1){
+						cmdstr.replace("${2}", value2);
+					}
+					
 					String orgresult = "";
 					if (device.getIshuawei() == 1) {
 						if(device.getIstransit()==1){
 							MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+							orgresult = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(), command.getCommandscript());
+						}else{
 							orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+						}
+					} else if(device.getIstransit()==1) {
+						MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+						orgresult = ClientTZ.getres(device.getIp(), username, password,transit.getIp(),transit.getLoginname(),transit.getPwd(),command.getCommandscript());
+					} else{
+						orgresult = Client.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
+					}
+					
+					
+					result = orgresult;
+				}else{
+					String orgresult = "";
+					if (device.getIshuawei() == 1) {
+						if(device.getIstransit()==1){
+							MemDeviceTransit transit=(MemDeviceTransit)memservice.get(MemDeviceTransit.class, device.getDeviceid());
+							orgresult = ClientTZHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(),transit.getIp(),transit.getLoginname(),transit.getPwd(), command.getCommandscript());
 						}else{
 							orgresult = ClientHW.getres(device.getIp(), device.getLoginName(), device.getLoginPwd(), command.getCommandscript());
 						}

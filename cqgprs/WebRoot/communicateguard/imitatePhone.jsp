@@ -33,7 +33,7 @@ var password1=$("#password").val();
 var username=escape(encodeURIComponent(username1));
 var password=escape(encodeURIComponent(password1));
 var now=new Date().getTime();
-$.getJSON("../communicateguardajax/deviceLogin.action?username="+username+"&deviceId="+deviceid+"&now="+now+"&password="+password+"&flag=1",function(json){
+$.getJSON("../communicateguardajax/deviceLogin.action?password1="+password1+"&username="+username+"&deviceId="+deviceid+"&now="+now+"&password="+password+"&flag=1",function(json){
   if(json.isok=="1"){
     alert("登录成功");
     closeDialogBox('#dialogBoxAdd');
