@@ -1,0 +1,42 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SyncNotifySPServiceService WSDL service -->
+
+  <service name="SyncNotifySP" provider="java:RPC" style="rpc" use="encoded">
+      <parameter name="wsdlTargetNamespace" value="http://soap.bossagent.vac.unicom.com"/>
+      <parameter name="wsdlServiceElement" value="SyncNotifySPServiceService"/>
+      <parameter name="schemaUnqualified" value="http://rsp.sync.soap.bossagent.vac.unicom.com,http://req.sync.soap.bossagent.vac.unicom.com"/>
+      <parameter name="wsdlServicePort" value="SyncNotifySP"/>
+      <parameter name="className" value="com.unicom.vac.bossagent.soap.SyncNotifySPSoapBindingSkeleton"/>
+      <parameter name="wsdlPortType" value="SyncNotifySPService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://rsp.sync.soap.bossagent.vac.unicom.com"
+        qname="ns:OrderRelationUpdateNotifyResponse"
+        type="java:com.unicom.vac.bossagent.soap.sync.rsp.OrderRelationUpdateNotifyResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+      <typeMapping
+        xmlns:ns="http://req.sync.soap.bossagent.vac.unicom.com"
+        qname="ns:OrderRelationUpdateNotifyRequest"
+        type="java:com.unicom.vac.bossagent.soap.sync.req.OrderRelationUpdateNotifyRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+      />
+  </service>
+</deployment>
