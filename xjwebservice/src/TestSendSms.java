@@ -23,7 +23,7 @@ public class TestSendSms {
 			SendSms service = locat.getSendSms(url);
 
 			
-			org.apache.axis.types.URI address=new org.apache.axis.types.URI("tel:+8618999105664");
+			org.apache.axis.types.URI address=new org.apache.axis.types.URI("tel:+8618999910502");
 			org.apache.axis.types.URI[] addresses=new  org.apache.axis.types.URI[]{address};
 			
 			java.lang.String senderName="10628919";
@@ -33,10 +33,10 @@ public class TestSendSms {
 			charging.setCurrency("0");
 			charging.setDescription("免费");
 			
-			java.lang.String message="20100330 14:06测试短信下发到18999105664";
+			java.lang.String message="20110726 00:49测试短信下发到8618999910502";
 			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference receiptRequest=new SimpleReference();
 			receiptRequest.setCorrelator(System.currentTimeMillis()+"");
-			org.apache.axis.types.URI uri=new org.apache.axis.types.URI("tel:+8618999105664");
+			org.apache.axis.types.URI uri=new org.apache.axis.types.URI("tel:+8618999910502");
 			receiptRequest.setEndpoint(uri);
 			receiptRequest.setInterfaceName("SendSms");
 //			DeliveryInformation[] informations=service.getSmsDeliveryStatus("19310100212172529300627");

@@ -21,7 +21,7 @@ public class SetSOAPHeaderHelper {
 
 	private static String SPID = OrderConstant.SPID;
 	private static String SPPWD = OrderConstant.SPPWD;
-	private static String PRODUCTID = OrderConstant.DZJC_PRODUCTID;
+	public static String PRODUCTID = OrderConstant.DZJC_PRODUCTID;
 	private static String QNAME = OrderConstant.QNAME;
 	private static DateFormat SDF = new SimpleDateFormat("MMddHHmmss");
 	/**

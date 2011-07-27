@@ -19,8 +19,23 @@ public class LogMtsend implements java.io.Serializable {
 	private Date createTime;
 	private String type;
 	private String result;
+	private String productId;
 
 	// Constructors
+
+	/**
+	 * @return the productId
+	 */
+	public String getProductId() {
+		return productId;
+	}
+
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
 
 	/** default constructor */
 	public LogMtsend() {

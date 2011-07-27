@@ -10,9 +10,9 @@ import com.chinatelecom.ismp.sp.IsmpSpEngineServiceLocator;
 import com.chinatelecom.ismp.sp.req.OrderRelationUpdateNotifyReq;
 import com.chinatelecom.ismp.sp.rsp.Response;
 
-public class TestOrder {
+public class TestUnicomOrder {
 
-	public static void main(String[] args) throws Exception {
+	public static void main1(String[] args) throws Exception {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
@@ -26,10 +26,10 @@ public class TestOrder {
 			SmsNotification service = locat.getSmsNotification(url);
 
 			SmsMessage message = new SmsMessage();
-			message.setMessage("C#A2D252");
+			message.setMessage("a#新Ap3370#蓝#0991");
 //			message.setMessage("B#0990");
-			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613325640065"));
-			message.setSmsServiceActivationNumber(new org.apache.axis.types.URI("tel:+8610628919"));
+			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613369629088"));
+			message.setSmsServiceActivationNumber(new org.apache.axis.types.URI("tel:+8610628719"));
 
 			String registrationIdentifier = System.currentTimeMillis() + "";
 			service.notifySmsReception(registrationIdentifier, message);
@@ -44,7 +44,7 @@ public class TestOrder {
 	/**
 	 * @param args
 	 */
-	public static void main11(String[] args) {
+	public static void main(String[] args) {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";

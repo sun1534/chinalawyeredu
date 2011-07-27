@@ -40,5 +40,10 @@
                 <comment>返回结果</comment>
             </column>
         </property>
+        
+        <property name="productId" type="java.lang.String">
+            <column name="productId" length="50">
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

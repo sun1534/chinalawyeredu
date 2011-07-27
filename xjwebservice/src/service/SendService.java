@@ -83,13 +83,14 @@ public class SendService extends BasicService {
 	 * @param type
 	 */
 	@Transactional
-	public void sendSms(String mobile, String content, String result, String type) {
+	public void sendSms(String mobile, String content, String result, String type,String productId) {
 
 		TmpMtsend tmp = new TmpMtsend();
 		tmp.setContent(content);
 		tmp.setMobile(mobile);
 		tmp.setResult(result);
 		tmp.setType(type);
+		tmp.setProductId(productId);
 		tmp.setSendTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		basicDao.save(tmp);
 
@@ -100,6 +101,7 @@ public class SendService extends BasicService {
 		mtsend.setMobile(mobile);
 		mtsend.setResult(result);
 		mtsend.setType(type);
+		mtsend.setProductId(productId);
 		mtsend.setCreateTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		mtsend.setId(id);
 		basicDao.save(mtsend);

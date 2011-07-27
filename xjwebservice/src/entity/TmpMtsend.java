@@ -17,6 +17,7 @@ public class TmpMtsend implements java.io.Serializable {
 	private String content;
 	private Date sendTime;
 	private String type;
+	private String productId;
 	private String result;
 	private int sendcount;
 
@@ -110,6 +111,20 @@ public class TmpMtsend implements java.io.Serializable {
 	 */
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	/**
+	 * @return the productId
+	 */
+	public String getProductId() {
+		return productId;
+	}
+
+	/**
+	 * @param productId the productId to set
+	 */
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 

@@ -53,7 +53,6 @@ public class DxwzExecuteJob implements Job {
 			Date today = new Date();
 //			if (hour == EXECUTE_HOUR && EXECUTE_MINUTE < 10) {
 			if (hour == EXECUTE_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
-				Calendar cd = Calendar.getInstance();
 
 				HAS_BEEN.put(df.format(today), true);
 

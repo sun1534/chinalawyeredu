@@ -32,7 +32,7 @@ public class SmsUtil {
 	private static String URL = "http://115.168.94.105:38080/sag/services/SendSmsService?wsdl";
 	private static String SENDER_NAME = "10628919";
 
-	public static String sendSms(String mobile, String content, String type) {
+	public static String sendSms(String mobile, String content, String type,String productId) {
 		if (mobile == null || mobile.equals("") || mobile.length() != 11)
 			return "-3";
 		if (content == null || content.equals(""))
@@ -59,9 +59,11 @@ public class SmsUtil {
 			org.apache.axis.types.URI uri = new org.apache.axis.types.URI("tel:+86" + mobile);
 			receiptRequest.setEndpoint(uri);
 			receiptRequest.setInterfaceName("SendSms");
+			//每次这里都要重新处理下那个productId;
+			SetSOAPHeaderHelper.PRODUCTID=productId;
 			result = service.sendSms(addresses, senderName, charging, message, receiptRequest);
 			// String result="1";
-			LOG.info(mobile + "发送结果:" + result);
+			LOG.info(mobile +"=>"+ SetSOAPHeaderHelper.PRODUCTID+"=>发送结果:" + result);
 
 			//
 

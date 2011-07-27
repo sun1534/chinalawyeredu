@@ -69,27 +69,43 @@ public class OrderService extends BasicService {
 	 * @param areacode
 	 * @return
 	 */
-	private String getMemberTable(String areacode) {
+	public String getMemberTable(String areacode) {
 
 		String regix = "";
 		if (areacode == null || areacode.equals("") || !OrderConstant.AREA_DATABASE.containsKey(areacode)) {
 			regix = OrderConstant.DEFAULT_TABLE_DATABASE;
 		} else {
-//			regix = AREA_DATABASE.get(areacode);
+			// regix = AREA_DATABASE.get(areacode);
 			regix = OrderConstant.DEFAULT_TABLE_DATABASE;
 		}
 		return regix + "." + OrderConstant.DEFAULT_MEMBER_TABLE;
 	}
 
 	/**
+	 * 得到1
 	 * 
 	 * @param chepaileixing
 	 * @return
 	 */
-	private int getMemberChepaiType(String chepaileixing) {
-		if (chepaileixing == null || chepaileixing.equals("") || !OrderConstant.MEMBER_CHEPAI.containsKey(chepaileixing))
+	public int getMemberChepaiType(String chepaileixing) {
+		if (chepaileixing == null || chepaileixing.equals(""))
 			return -1;
-		return OrderConstant.MEMBER_CHEPAI.get(chepaileixing);
+		if (OrderConstant.MEMBER_CHEPAI.values().contains(chepaileixing))
+			return Integer.parseInt(chepaileixing);
+		if (!OrderConstant.MEMBER_CHEPAI.containsKey(chepaileixing))
+			return -1;
+		return Integer.parseInt(OrderConstant.MEMBER_CHEPAI.get(chepaileixing));
+	}
+
+	// 得到蓝
+	public String getMemberChepaiTypeName(String chepaileixing) {
+		if (chepaileixing == null || chepaileixing.equals(""))
+			return "未知";
+		if (OrderConstant.MEMBER_CHEPAI.containsKey(chepaileixing))
+			return chepaileixing;
+		if (OrderConstant.MEMBER_CHEPAI_NAME.containsKey(chepaileixing))
+			return OrderConstant.MEMBER_CHEPAI_NAME.get(chepaileixing);
+		return "未知";
 	}
 
 	/**
@@ -176,9 +192,10 @@ public class OrderService extends BasicService {
 	public int order(String mobile, String packageid, String productid, String streamno, String remarks, int useridtype) {
 
 		UserOrder uo = this.getUserOrder(mobile, productid);
-		if (uo != null){
-			LOG.warn("该用户已经订购该产品!"+mobile+"=>"+productid);
-			return -2; // 已经订购
+		if (uo != null) {
+			LOG.warn("该用户已经订购该产品!因此返回给ISMP订购成功" + mobile + "=>" + productid);
+			// return -2; // 已经订购
+			return uo.getId();
 		}
 		try {
 			UserOrder order = new UserOrder();
@@ -243,15 +260,13 @@ public class OrderService extends BasicService {
 				String hql = "update UserOrder set status=0 where mobile=? and productid=?";
 				basicDao.execute(hql, new Object[] { userId, productId });
 
-				
 				String table = this.getMemberTable(order.getAreacode());
 				String sql = "update " + table + " set active=1 where tel_number='" + userId + "' and service='"
 						+ MEMBER_SERVICE_ID + "'";
 				int i = jdbcTemplate.update(sql);
 
 				LOG.debug("更新" + table + "的active:" + sql + ",结果:" + i);
-				
-				
+
 			}
 			return 0;
 		} catch (Exception e) {
@@ -308,7 +323,8 @@ public class OrderService extends BasicService {
 	public UserOrder getUserOrder(String mobile, String productId) {
 		DetachedCriteria dc = DetachedCriteria.forClass(UserOrder.class);
 		dc.add(Restrictions.eq("mobile", mobile));
-		dc.add(Restrictions.eq("productid", productId));
+		if (productId != null && !productId.equals(""))
+			dc.add(Restrictions.eq("productid", productId));
 		List list = basicDao.findByCriteria(dc);
 		int len = list == null ? 0 : list.size();
 		if (len > 0)
@@ -327,15 +343,17 @@ public class OrderService extends BasicService {
 	@Transactional
 	public int updateDzjcOrderInfo(String mobile, String chepai, String leixing, String areacode) {
 		try {
-			UserOrder order = this.getUserOrder(mobile, OrderConstant.DZJC_PRODUCTID);
+			UserOrder order = this.getUserOrder(mobile, null);
 			if (order == null)
 				return -2;
 			String oldarea = order.getAreacode();// 老的所在地市
 			if (chepai != null && !chepai.equals(""))
 				order.setChepai(chepai);
-			if (leixing != null && !leixing.equals(""))
-				order.setChepaileixing(leixing);
-			if (areacode != null && !areacode.equals("")){
+			if (leixing != null && !leixing.equals("")) {
+				int changed = this.getMemberChepaiType(leixing);
+				order.setChepaileixing(changed + ""); // 数据库里存的数据只有1，2，3这样子的
+			}
+			if (areacode != null && !areacode.equals("")) {
 				order.setAreacode(areacode);// 新的地市
 				order.setCityname(OrderConstant.AREA_DATABASE.get(areacode));
 			}
@@ -349,36 +367,43 @@ public class OrderService extends BasicService {
 			return -1;
 		}
 	}
-	
+
 	/**
-	 * 为了避免内存的溢出,一次取出来的个数,轮询处理
-	 * 得到所有的用户列表
+	 * 为了避免内存的溢出,一次取出来的个数,轮询处理 得到所有的用户列表
+	 * 
 	 * @return
 	 */
-	public List getAllOrdreUsers(int startIndex,int pageSize){
+	public List getAllOrdreUsers(int startIndex, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(UserOrder.class);
 		dc.add(Restrictions.eq("status", 0));
 		return basicDao.findNumByCriteria(dc, pageSize, startIndex);
 	}
-	
+
 	/**
 	 * 得到所有的订购人数
+	 * 
 	 * @return
 	 */
-	public int getAllOrderUserCount(){
-		return jdbcTemplate.queryForInt("select count(*) from user_order where status=0"); 
+	public int getAllOrderUserCount() {
+		return jdbcTemplate.queryForInt("select count(*) from user_order where status=0");
 	}
 
 	/**
 	 * 判断这个号码有几条违章信息
+	 * 
 	 * @param chepai
 	 * @return
 	 */
-	public int getWZCount(String chepai){
-		String sql="select count(*) from "+SendConstant.DZJC_DATABASE+".dzjc_all where hphm='"+chepai.toUpperCase()+"'";
-		return jdbcTemplate.queryForInt(sql);
+	public int getWZCount(String chepai) {
+		if (chepai != null && !chepai.equals("")) {
+			String sql = "select count(*) from " + SendConstant.DZJC_DATABASE + ".dzjc_all where hphm='"
+					+ chepai.toUpperCase() + "'";
+			LOG.debug("getWZCount:" + sql);
+			return jdbcTemplate.queryForInt(sql);
+		}
+		return 0;
 	}
-	
+
 	/**
 	 * 
 	 * @param order
@@ -387,60 +412,57 @@ public class OrderService extends BasicService {
 	 */
 	public int updateMembers(UserOrder order, String oldarea) {
 
-//		String oldtable = this.getMemberTable(oldarea);
+		// String oldtable = this.getMemberTable(oldarea);
 		String newtable = this.getMemberTable(order.getAreacode());
-//		try {
+		// try {
 
-//			boolean oldb = this.isExistMemberMobile(oldtable, order.getMobile());
+		// boolean oldb = this.isExistMemberMobile(oldtable, order.getMobile());
 
-			String newarea = order.getAreacode();// 新的
+		String newarea = order.getAreacode();// 新的
 
-			// 新的区域和旧的区域一样,或者新的区域
-			if (newarea == null || newarea.equals("") || newarea.equals(oldarea)) {
+		// 新的区域和旧的区域一样,或者新的区域
+		if (newarea == null || newarea.equals("") || newarea.equals(oldarea)) {
 
-				boolean newb = this.isExistMemberMobile(newtable, order.getMobile());// 新的里面存不存在
-				if (!newb) {
-					this.saveMember(order);
-				} else {
+			boolean newb = this.isExistMemberMobile(newtable, order.getMobile());// 新的里面存不存在
+			if (!newb) {
+				this.saveMember(order);
+			} else {
 
-					String upd = "";
+				String upd = "";
 
-					int chepai_type = getMemberChepaiType(order.getChepaileixing());
+				int chepai_type = getMemberChepaiType(order.getChepaileixing());
 
-					if (order.getChepai() != null && !order.getChepai().equals(""))
-						upd += " chepai='" + order.getChepai() + "',";
-					if (chepai_type != -1)
-						upd += " chepai_type=" + chepai_type + ",";
+				if (order.getChepai() != null && !order.getChepai().equals(""))
+					upd += " chepai='" + order.getChepai() + "',";
+				if (chepai_type != -1)
+					upd += " chepai_type=" + chepai_type + ",";
 
-					if (upd.length() != 0) {
-						int len = upd.length();
-						upd = upd.substring(0, len - 1);
-						String sql = "update " + newtable + " set " + upd + " where tel_number='" + order.getMobile()
-								+ "' and service='" + MEMBER_SERVICE_ID + "'";
-						// 插入到现有业务的订购关系表
-						LOG.debug("更新sql:" + sql);
-						jdbcTemplate.execute(sql);
-					}
-
-					else {
-						LOG.debug("不需要更新members表");
-					}
+				if (upd.length() != 0) {
+					int len = upd.length();
+					upd = upd.substring(0, len - 1);
+					String sql = "update " + newtable + " set " + upd + " where tel_number='" + order.getMobile()
+							+ "' and service='" + MEMBER_SERVICE_ID + "'";
+					// 插入到现有业务的订购关系表
+					LOG.debug("更新sql:" + sql);
+					jdbcTemplate.execute(sql);
 				}
 
-			} else {
-				LOG.warn("两次的areacode不一样，删除旧的，新增到新的");
-				this.deleteMembers(oldarea, order.getMobile());
-				this.saveMember(order);
+				else {
+					LOG.debug("不需要更新members表");
+				}
 			}
 
-			return 0;
-//		} catch (Exception e) {
-//			LOG.error("更新车牌信息失败", e);
-//			return -1;
-//		}
+		} else {
+			LOG.warn("两次的areacode不一样，删除旧的，新增到新的");
+			this.deleteMembers(oldarea, order.getMobile());
+			this.saveMember(order);
+		}
+
+		return 0;
+		// } catch (Exception e) {
+		// LOG.error("更新车牌信息失败", e);
+		// return -1;
+		// }
 	}
-
-
-
 
 }

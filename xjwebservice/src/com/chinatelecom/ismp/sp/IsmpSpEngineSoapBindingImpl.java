@@ -16,13 +16,11 @@ import org.apache.axis.MessageContext;
 import org.apache.axis.transport.http.HTTPConstants;
 import org.apache.commons.logging.Log;
 
-import service.MoService;
 import service.OrderConstant;
 import service.OrderService;
 import sms.Sms;
 
 import com.chinatelecom.ismp.sp.req.NotifyManagementInfoReq;
-import com.chinatelecom.ismp.sp.req.OrderRelationUpdateNotifyReq;
 import com.chinatelecom.ismp.sp.req.ServiceConsumeNotifyReq;
 import com.chinatelecom.ismp.sp.rsp.NotifyManagementInfoRsp;
 import com.chinatelecom.ismp.sp.rsp.Response;
@@ -77,11 +75,21 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 				// 下发短信，提示发送上行短信. 车牌号#车牌类型#地市电话区号
 				result = orderService.order(userId, packageId, productId, streamNo, "", userIdType);
 				if (result >= 0) {
-//					LOG.warn(userId+"您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" + OrderConstant.ORDER_MO_CONTENT);
+					// LOG.warn(userId+"您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号："
+					// + OrderConstant.ORDER_MO_CONTENT);
+					String sms = "";
+					if (productId.equals(OrderConstant.TY_DZJC_PRODUCTID))
+						sms = "您已成功定制新疆宽洋汽车保姆体验业务，本业务信息费0元/月，请回复您所在地区号，如乌鲁木齐请回复B#0991。询09915881229";
+					else
+						sms = "您已成功定制新疆宽洋汽车保姆业务，本业务信息费10元/月，请回复您所在地区号，如乌鲁木齐请回复B#0991。询09915881229";
 
-					Sms.sendSms(userId, "您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" + OrderConstant.ORDER_MO_CONTENT,"order");
+					// Sms.sendSms(userId,
+					// "您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" +
+					// OrderConstant.ORDER_MO_CONTENT,"order");
+					Sms.sendSms(userId, sms, "order", productId);
+
 				} else {
-					LOG.warn("订购业务处理失败,不下发短信");
+					LOG.warn("订购业务处理失败,不下发短信（即使下发也不能成功,因为没有订购关系）");
 					// Sms.sendSms(userId,"");
 				}
 			} else if (optype == 1) {

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 
+import service.OrderConstant;
 import service.OrderService;
 import service.SendService;
 import sms.Sms;
@@ -17,7 +18,6 @@ import common.Globals;
 import entity.CityPrompt;
 import entity.CityTemplateContent;
 import entity.DzjcAllHistory;
-import entity.LogMtsend;
 import entity.UserDzjcVo;
 import entity.UserOrder;
 
@@ -44,7 +44,7 @@ public class DxSendMain {
 	private Map<String, CityTemplateContent> templist = null;
 	private Map<String, CityPrompt> promtlist = null;
 
-	private static String DEFAULT_PROMPT = "提示信息";// 默认提示信息
+//	private static String DEFAULT_PROMPT = "提示信息";// 默认提示信息
 	private static String DEFAULT_BANNER = "【尊敬的汽车保姆用户】";// 默认的banner信息
 	// 下发的违章信息,要加入这个
 	private static String DEFAULT_ENDFIX = "（违章内容仅供参考，详情请前往就近交警大队查询）";
@@ -97,6 +97,12 @@ public class DxSendMain {
 				for (int j = 0; j < len; j++) {
 					String smscontent = ""; // 要下发的短信内容
 					UserOrder uo = (UserOrder) list.get(j);
+					if (!(uo.getAreacode() == null || uo.getAreacode().equals("")
+							|| !OrderConstant.AREA_DATABASE.containsKey(uo.getAreacode()) || !OrderConstant.CITY_DATABASE
+							.containsKey(uo.getAreacode()))) {
+						LOG.warn(uo.getMobile() + "没有上传区域信息,忽略");
+						continue;
+					}
 					String userkey = uo.getChepai() + "_" + uo.getChepaileixing();
 					if (todaylist.containsKey(userkey)) {// 这个人有违章的情况
 						List<DzjcAllHistory> histories = todaylist.get(userkey);
@@ -127,8 +133,8 @@ public class DxSendMain {
 					if (smscontent != null && !smscontent.equals("")) {
 
 						// 这里真的下发短信
-						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw");
-						LOG.debug("下发短信:" + uo.getMobile() + "," + smscontent);
+						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw", uo.getProductid());
+						LOG.debug("下发短信:" + uo.getMobile() + "," + smscontent + "," + uo.getProductid());
 						// String result = "-1";
 						// 将下发的短信存储到数据库里
 
@@ -148,7 +154,11 @@ public class DxSendMain {
 	 * @param histories
 	 */
 	public String sendStatic(UserOrder uo, List<DzjcAllHistory> histories) {
-		String content = "您有" + histories.size() + "条违章信息（" + this.getPromptContent(uo.getAreacode()) + "）";
+		String s=this.getPromptContent(uo.getAreacode());
+		if(!(s==null||s.equals("")))
+			s="（" + s+ "）";
+			
+		String content = "您有" + histories.size() + "条违章信息"+s;
 		return DEFAULT_BANNER + content;
 	}
 
@@ -159,7 +169,11 @@ public class DxSendMain {
 	 * @param history
 	 */
 	public String sendWzNotHandle(UserOrder uo, DzjcAllHistory history) {
-		String content = "您有1条违章信息需要处理（" + this.getPromptContent(uo.getAreacode()) + "）";
+		String s=this.getPromptContent(uo.getAreacode());
+		if(!(s==null||s.equals("")))
+			s="（" + s+ "）";
+			
+		String content = "您有1条违章信息需要处理（" + s + "）";
 		return DEFAULT_BANNER + content;
 	}
 
@@ -213,11 +227,13 @@ public class DxSendMain {
 	 */
 	private String getPromptContent(String area) {
 		CityPrompt promp = promtlist.get(area);
+		if (promp == null)
+			promp = promtlist.get(OrderConstant.AREA_DATABASE.get(area));
 		String tcontent = "";
 		if (promp != null)
 			tcontent = promp.getSqlContent();
-		else
-			tcontent = DEFAULT_PROMPT;
+//		else
+//			tcontent = DEFAULT_PROMPT;
 		return tcontent;
 	}
 
