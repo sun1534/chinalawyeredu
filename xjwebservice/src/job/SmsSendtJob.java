@@ -53,7 +53,7 @@ public class SmsSendtJob implements Job {
 					minid = id;
 				if (maxid < id)
 					maxid = id;
-				String result = smsutil.sendSms(tmp.getMobile(), tmp.getContent(), tmp.getType(),tmp.getProductId());
+				String result = smsutil.sendSms(tmp.getMobile(), tmp.getContent(), tmp.getType(),tmp.getLinkid(),tmp.getProductId());
 				if (result.equals("-1") || result.equals("-2")) {
 					// 重发
 					sqls.add("update tmp_mtsend set result='0',send_count=send_count+1 where id=" + id);

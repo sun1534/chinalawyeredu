@@ -20,8 +20,22 @@ public class LogMtsend implements java.io.Serializable {
 	private String type;
 	private String result;
 	private String productId;
-
+	private String linkid;
 	// Constructors
+
+	/**
+	 * @return the linkid
+	 */
+	public String getLinkid() {
+		return linkid;
+	}
+
+	/**
+	 * @param linkid the linkid to set
+	 */
+	public void setLinkid(String linkid) {
+		this.linkid = linkid;
+	}
 
 	/**
 	 * @return the productId

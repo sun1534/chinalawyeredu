@@ -20,8 +20,23 @@ public class TmpMtsend implements java.io.Serializable {
 	private String productId;
 	private String result;
 	private int sendcount;
+	private String linkid;
 
 	// Constructors
+
+	/**
+	 * @return the linkid
+	 */
+	public String getLinkid() {
+		return linkid;
+	}
+
+	/**
+	 * @param linkid the linkid to set
+	 */
+	public void setLinkid(String linkid) {
+		this.linkid = linkid;
+	}
 
 	/**
 	 * @return the sendcount

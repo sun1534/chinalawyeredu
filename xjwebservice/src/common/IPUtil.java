@@ -24,7 +24,24 @@ public class IPUtil {
 	public static void main(String[] args) {
 
 		System.out.println(getLocalIP());
-		 System.out.println(getMacAddr());
+		// System.out.println(getMacAddr());
+		java.util.Properties p = System.getProperties();
+		java.util.Enumeration e = p.keys();
+		while (e.hasMoreElements()) {
+			String s = e.nextElement().toString();
+//			System.out.println(s + "==>" + p.getProperty(s));
+		}
+
+		try {
+			InetAddress addr = InetAddress.getLocalHost();
+			String ip = addr.getHostAddress().toString();// 获得本机IP
+			String address = addr.getHostName().toString();// 获得本机名称
+
+			System.out.println("addr=:" + ip + ",,," + address);
+		} catch (Exception ee) {
+			System.out.println("Bad IP Address!" + e);
+		}
+
 	}
 
 	/**
@@ -43,8 +60,8 @@ public class IPUtil {
 			}
 			MacAddr = str.toUpperCase();
 		} catch (SocketException e) {
-//			e.printStackTrace();
-			LOG.error("得到MAC地址失误",e);
+			// e.printStackTrace();
+			LOG.error("得到MAC地址失误", e);
 			System.exit(-1);
 		}
 		return MacAddr;
@@ -70,9 +87,9 @@ public class IPUtil {
 				}
 			}
 		} catch (SocketException e) {
-//			e.printStackTrace();
-			LOG.error("得到本地IP地址失误",e);
-			System.exit(-1);
+			e.printStackTrace();
+			// LOG.error("得到本地IP地址失误",e);
+			// System.exit(-1);
 		}
 		return ip;
 	}

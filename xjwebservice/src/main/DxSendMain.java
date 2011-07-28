@@ -133,7 +133,7 @@ public class DxSendMain {
 					if (smscontent != null && !smscontent.equals("")) {
 
 						// 这里真的下发短信
-						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw", uo.getProductid());
+						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw","", uo.getProductid());
 						LOG.debug("下发短信:" + uo.getMobile() + "," + smscontent + "," + uo.getProductid());
 						// String result = "-1";
 						// 将下发的短信存储到数据库里

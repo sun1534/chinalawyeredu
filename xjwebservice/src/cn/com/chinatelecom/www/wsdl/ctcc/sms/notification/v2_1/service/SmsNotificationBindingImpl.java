@@ -9,7 +9,13 @@ package cn.com.chinatelecom.www.wsdl.ctcc.sms.notification.v2_1.service;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
+import javax.xml.soap.SOAPElement;
+
+import org.apache.axis.MessageContext;
+import org.apache.axis.message.SOAPEnvelope;
+import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.commons.logging.Log;
 
 import service.MoService;
@@ -233,8 +239,30 @@ public class SmsNotificationBindingImpl implements
 	 */
 	public void notifySmsReception(java.lang.String registrationIdentifier,
 			cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.SmsMessage message) throws java.rmi.RemoteException {
-
+		String linkid = "";
+		String productId = "";
 		if (message != null) {
+			MessageContext context = MessageContext.getCurrentContext();
+			SOAPEnvelope requestEnvelope = context.getRequestMessage().getSOAPEnvelope();
+			SOAPHeaderElement requestSequenceIdHeader = requestEnvelope.getHeaderByName(
+					"http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1", "NotifySOAPHeader");
+			LOG.debug("SOAPHeaderElement==" + requestSequenceIdHeader);
+			if (requestSequenceIdHeader != null) {
+				Iterator iterator = requestSequenceIdHeader.getChildElements();
+				while (iterator.hasNext()) {
+					SOAPElement element = (SOAPElement) iterator.next();
+					String elementName = element.getElementName().getLocalName();
+
+					LOG.info("头部信息：" + elementName + "==>" + element.getValue());
+
+					if (elementName.equals("linkId"))
+						linkid = element.getValue();
+					// soapHeader.setServiceCode(element.getValue());
+					// else if (elementName.equals("servicePwd"))
+					// soapHeader.setServicePwd(element.getValue());
+				}
+			}
+			// soapHeader.setIp(this.getIP());
 
 			LOG.debug(df.format(new Date()) + "=>MO消息=>" + registrationIdentifier + "=>" + message.getMessage() + "=>"
 					+ message.getSenderAddress() + "=>" + message.getSmsServiceActivationNumber());
@@ -265,15 +293,18 @@ public class SmsNotificationBindingImpl implements
 					LOG.warn("上行的为定制命令字,不考虑");
 				} else if (content.startsWith("B#") || content.startsWith("b#")) { // B#0991
 					int idx = content.indexOf("#");
+					productId = "131100215010000000997";
 					areaCode = content.substring(idx + 1);
 					a = 1;
 				} else if (content.startsWith("C#") || content.startsWith("c#")) { // C#A2D250
 					int idx = content.indexOf("#");
 					busno = content.substring(idx + 1);
+					productId = "131100215010000000999";
 					b = 1;
 				} else if (content.startsWith("L#") || content.startsWith("l#")) {// L#蓝牌
 					int idx = content.indexOf("#");
 					bustype = content.substring(idx + 1);
+					productId = "131100215010000000998";
 					if (bustype.length() >= 1)
 						bustype = bustype.substring(0, 1);
 
@@ -291,7 +322,10 @@ public class SmsNotificationBindingImpl implements
 						+ ",busno=" + busno + ",bustype=" + bustype);
 				UserOrder uo = (UserOrder) orderService.getUserOrder(sender, null);
 				if (uo != null) {
-					String productId = uo.getProductid();
+					if (productId.equals("")) {
+						productId = uo.getProductid();
+						linkid = "";
+					}
 					if (updateorder) {
 
 						String s = orderService.getMemberChepaiTypeName(bustype);
@@ -299,17 +333,17 @@ public class SmsNotificationBindingImpl implements
 						if (areaCode != null && !areaCode.equals("")
 								&& OrderConstant.AREA_DATABASE.get(areaCode) == null) {
 							LOG.warn("区域信息不存在::" + areaCode);
-							Sms.sendSms(sender, OrderConstant.MO_AREACODE_ERROR, "mo", productId);
+							Sms.sendSms(sender, OrderConstant.MO_AREACODE_ERROR, "mo", linkid, productId);
 						} else if (bustype != null && !bustype.equals("") && s.equals("未知")) {
 							LOG.warn("车牌类型信息不正确::" + bustype);
-							Sms.sendSms(sender, OrderConstant.MO_CHEPAITYPE_ERROR, "mo", productId);
+							Sms.sendSms(sender, OrderConstant.MO_CHEPAITYPE_ERROR, "mo", linkid, productId);
 						} else {
 							result = orderService.updateDzjcOrderInfo(sender, busno, bustype, areaCode);
 							LOG.info("上行业务命令正确的处理结果:" + result);
 							if (result == -1) {
-								Sms.sendSms(sender, OrderConstant.MO_DO_ERROR, "mo", productId);
+								Sms.sendSms(sender, OrderConstant.MO_DO_ERROR, "mo", linkid, productId);
 							} else if (result == -2) {
-								Sms.sendSms(sender, OrderConstant.NOT_ORDER, "mo", productId);
+								Sms.sendSms(sender, OrderConstant.NOT_ORDER, "mo", linkid, productId);
 							} else {
 								String msg = "";
 								if (!busno.equals(""))
@@ -323,10 +357,13 @@ public class SmsNotificationBindingImpl implements
 
 								if (a == 1) { // 上行的是修改区号信息
 									Sms.sendSms(sender, "您选择" + OrderConstant.AREA_DATABASE.get(areaCode)
-											+ "地区，请提供您的车牌类型1、蓝牌2、黄牌3、黑牌，请回复L#蓝牌或者L#1。", "mo", productId);
+											+ "地区，请提供您的车牌类型1、蓝牌2、黄牌3、黑牌，请回复L#蓝牌或者L#1。", "mo", linkid, productId);
 								} else if (c == 1) {// 上行的是车牌类型,则现在设置车牌
-									Sms.sendSms(sender, "您选择的车牌类型为" + orderService.getMemberChepaiTypeName(bustype)
-											+ "牌车，请回复您的车牌号码（英文字母+数字），如车牌号为新AC4102则回复c#AC4102。", "mo", productId);
+									Sms
+											.sendSms(sender, "您选择的车牌类型为"
+													+ orderService.getMemberChepaiTypeName(bustype)
+													+ "牌车，请回复您的车牌号码（英文字母+数字），如车牌号为新AC4102则回复c#AC4102。", "mo", linkid,
+													productId);
 
 								} else if (b == 1) { // 车牌
 									// 您已成功开通汽车保姆体验业务，您的车牌是蓝牌车新AC4102，感谢您的使用，变更车牌请回复0，询：09915881229
@@ -336,11 +373,11 @@ public class SmsNotificationBindingImpl implements
 										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是"
 												+ orderService.getMemberChepaiTypeName(uo.getChepaileixing()) + "牌车"
 												+ uo.getChepai()
-												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo",
+												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo", linkid,
 												productId);
 									else
 										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是" + uo.getChepai()
-												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo",
+												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo", linkid,
 												productId);
 									if (busno != null && !busno.equals("")) {
 										if (uo.getChepai() != null) {
@@ -350,18 +387,19 @@ public class SmsNotificationBindingImpl implements
 												smscontent = "您没有违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
 											else
 												smscontent = "您有" + cnt + "条违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
-											Sms.sendSms(sender, smscontent, "mo", productId);
+											Sms.sendSms(sender, smscontent, "mo", productId, linkid);
 										}
 									}
 								} else if (a == 1) {
-									Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo", productId);
+									Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo", productId,
+											linkid);
 								}
 
 							}
 						}
 					} else {
 						LOG.warn("上行命令字不正确：：" + content);
-						Sms.sendSms(sender, OrderConstant.MO_ERROR, "mo", productId);
+						Sms.sendSms(sender, OrderConstant.MO_ERROR, "mo", productId, linkid);
 					}
 				}
 
@@ -382,6 +420,22 @@ public class SmsNotificationBindingImpl implements
 	public void notifySmsDeliveryReceipt(java.lang.String correlator,
 			cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryInformation deliveryStatus)
 			throws java.rmi.RemoteException {
+		
+		MessageContext context = MessageContext.getCurrentContext();
+		SOAPEnvelope requestEnvelope = context.getRequestMessage().getSOAPEnvelope();
+		SOAPHeaderElement requestSequenceIdHeader = requestEnvelope.getHeaderByName(
+				"http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1", "NotifySOAPHeader");
+		LOG.debug("SOAPHeaderElement==" + requestSequenceIdHeader);
+		if (requestSequenceIdHeader != null) {
+			Iterator iterator = requestSequenceIdHeader.getChildElements();
+			while (iterator.hasNext()) {
+				SOAPElement element = (SOAPElement) iterator.next();
+				String elementName = element.getElementName().getLocalName();
+
+				LOG.info("状态报告头部信息：" + elementName + "==>" + element.getValue());
+			}
+		}
+		
 		if (deliveryStatus != null)
 			LOG.debug(df.format(new Date()) + "=>状态报告=>" + correlator + "=>" + deliveryStatus.getAddress() + "=>"
 					+ deliveryStatus.getDeliveryStatus());

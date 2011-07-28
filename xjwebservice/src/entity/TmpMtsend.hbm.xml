@@ -19,6 +19,10 @@
             <column name="type" length="20">
             </column>
         </property>
+        <property name="linkid" type="java.lang.String">
+            <column name="linkid" length="30">
+            </column>
+        </property>
         <property name="content" type="java.lang.String">
             <column name="content" length="65535">
                 <comment>发送内容</comment>

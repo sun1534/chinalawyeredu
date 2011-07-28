@@ -9,10 +9,14 @@ package com.chinatelecom.ismp.sp;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.soap.SOAPElement;
 
 import org.apache.axis.MessageContext;
+import org.apache.axis.message.SOAPEnvelope;
+import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.axis.transport.http.HTTPConstants;
 import org.apache.commons.logging.Log;
 
@@ -44,6 +48,27 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 	 */
 	public com.chinatelecom.ismp.sp.rsp.Response orderRelationUpdateNotify(
 			com.chinatelecom.ismp.sp.req.OrderRelationUpdateNotifyReq req) throws java.rmi.RemoteException {
+
+		String linkid = "";
+
+		MessageContext context = MessageContext.getCurrentContext();
+		SOAPEnvelope requestEnvelope = context.getRequestMessage().getSOAPEnvelope();
+		SOAPHeaderElement requestSequenceIdHeader = requestEnvelope.getHeaderByName(
+				"http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1", "RequestSOAPHeader");
+		Iterator iterator = requestSequenceIdHeader.getChildElements();
+		while (iterator.hasNext()) {
+			SOAPElement element = (SOAPElement) iterator.next();
+			String elementName = element.getElementName().getLocalName();
+
+			System.out.println("头部信息：" + elementName + "==>" + element.getValue());
+
+			if (elementName.equals("linkId"))
+				linkid = element.getValue();
+			// soapHeader.setServiceCode(element.getValue());
+			// else if (elementName.equals("servicePwd"))
+			// soapHeader.setServicePwd(element.getValue());
+		}
+		// soapHeader.setIp(this.getIP());
 
 		LOG.debug(df.format(new Date()) + "=>订购关系=>" + req.getOPType() + "=>" + req.getPackageID() + "=>"
 				+ req.getProductID() + "=>" + req.getStreamingNo() + "=>" + req.getUserID() + "=>"
@@ -86,7 +111,7 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 					// Sms.sendSms(userId,
 					// "您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" +
 					// OrderConstant.ORDER_MO_CONTENT,"order");
-					Sms.sendSms(userId, sms, "order", productId);
+					Sms.sendSms(userId, sms, "order", linkid,productId);
 
 				} else {
 					LOG.warn("订购业务处理失败,不下发短信（即使下发也不能成功,因为没有订购关系）");

@@ -24,7 +24,7 @@ public class Sms {
 	private static Log LOG = LogFactory.getLog(Sms.class);
 
 
-	public static String sendSms(String mobile, String content, String type,String productId) {
+	public static String sendSms(String mobile, String content, String type,String linkid,String productId) {
 		if (mobile == null || mobile.equals("") || mobile.length() != 11)
 			return "-3";
 		if (content == null || content.equals(""))
@@ -33,7 +33,7 @@ public class Sms {
 
 		SendService sendService = (SendService) Globals.getWebBean("sendService");
 		
-		sendService.sendSms(mobile, content, result,type,productId);
+		sendService.sendSms(mobile, content, result,type,linkid,productId);
 		
 //		LogMtsend mtsend = new LogMtsend();
 //		mtsend.setContent(content);
