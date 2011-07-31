@@ -289,7 +289,7 @@ public class SmsNotificationBindingImpl implements
 				boolean updateorder = true;
 				int a = 0, b = 0, c = 0;
 
-				if (content.equalsIgnoreCase("TY") || content.equalsIgnoreCase("DZ")) {
+				if (content.equalsIgnoreCase("TY") || content.equalsIgnoreCase("DZ")||content.equalsIgnoreCase("QX") || content.equalsIgnoreCase("QXTY")) {
 					LOG.warn("上行的为定制命令字,不考虑");
 				} else if (content.startsWith("B#") || content.startsWith("b#")) { // B#0991
 					int idx = content.indexOf("#");
@@ -305,7 +305,7 @@ public class SmsNotificationBindingImpl implements
 					int idx = content.indexOf("#");
 					bustype = content.substring(idx + 1);
 					productId = "131100215010000000998";
-					if (bustype.length() >= 1)
+					if (bustype.length() > 1)
 						bustype = bustype.substring(0, 1);
 
 					c = 1;
@@ -372,12 +372,15 @@ public class SmsNotificationBindingImpl implements
 									if (!s.equals("未知"))
 										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是"
 												+ orderService.getMemberChepaiTypeName(uo.getChepaileixing()) + "牌车"
-												+ uo.getChepai()
+//												+ uo.getChepai()
+												+busno
 												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo", linkid,
 												productId);
-									else
-										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是" + uo.getChepai()
-												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo", linkid,
+									else//您已成功开通汽车保姆体验业务，您的车牌是蓝牌车null，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229
+										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是" 
+//												+ uo.getChepai()
+												+busno
+												+ "，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229", "mo", linkid,
 												productId);
 									if (busno != null && !busno.equals("")) {
 										if (uo.getChepai() != null) {
@@ -387,13 +390,14 @@ public class SmsNotificationBindingImpl implements
 												smscontent = "您没有违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
 											else
 												smscontent = "您有" + cnt + "条违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
-											Sms.sendSms(sender, smscontent, "mo", productId, linkid);
+											Sms.sendSms(sender, smscontent, "mo", "",productId);
 										}
 									}
-								} else if (a == 1) {
-									Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo", productId,
-											linkid);
-								}
+								} 
+//								else if (a == 1) {
+//									Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo", linkid,
+//											productId);
+//								}
 
 							}
 						}

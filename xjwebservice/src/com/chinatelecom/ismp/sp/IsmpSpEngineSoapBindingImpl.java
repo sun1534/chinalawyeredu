@@ -54,22 +54,24 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 		MessageContext context = MessageContext.getCurrentContext();
 		SOAPEnvelope requestEnvelope = context.getRequestMessage().getSOAPEnvelope();
 		SOAPHeaderElement requestSequenceIdHeader = requestEnvelope.getHeaderByName(
-				"http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1", "RequestSOAPHeader");
-		Iterator iterator = requestSequenceIdHeader.getChildElements();
-		while (iterator.hasNext()) {
-			SOAPElement element = (SOAPElement) iterator.next();
-			String elementName = element.getElementName().getLocalName();
+				"http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1", "OrderRelationSOAPHeader");
+		if (requestSequenceIdHeader != null) {
+			Iterator iterator = requestSequenceIdHeader.getChildElements();
 
-			System.out.println("头部信息：" + elementName + "==>" + element.getValue());
+			while (iterator.hasNext()) {
+				SOAPElement element = (SOAPElement) iterator.next();
+				String elementName = element.getElementName().getLocalName();
 
-			if (elementName.equals("linkId"))
-				linkid = element.getValue();
-			// soapHeader.setServiceCode(element.getValue());
-			// else if (elementName.equals("servicePwd"))
-			// soapHeader.setServicePwd(element.getValue());
+				System.out.println("订购头部信息：" + elementName + "==>" + element.getValue());
+
+				if (elementName.equals("linkId"))
+					linkid = element.getValue();
+				// soapHeader.setServiceCode(element.getValue());
+				// else if (elementName.equals("servicePwd"))
+				// soapHeader.setServicePwd(element.getValue());
+			}
+			// soapHeader.setIp(this.getIP());
 		}
-		// soapHeader.setIp(this.getIP());
-
 		LOG.debug(df.format(new Date()) + "=>订购关系=>" + req.getOPType() + "=>" + req.getPackageID() + "=>"
 				+ req.getProductID() + "=>" + req.getStreamingNo() + "=>" + req.getUserID() + "=>"
 				+ req.getUserIDType());
@@ -111,7 +113,7 @@ public class IsmpSpEngineSoapBindingImpl implements com.chinatelecom.ismp.sp.Ism
 					// Sms.sendSms(userId,
 					// "您的订购信息已受理成功,请按照如下的格式上传您的车牌号、车牌类型和车牌所在地市区号：" +
 					// OrderConstant.ORDER_MO_CONTENT,"order");
-					Sms.sendSms(userId, sms, "order", linkid,productId);
+					Sms.sendSms(userId, sms, "order", linkid, productId);
 
 				} else {
 					LOG.warn("订购业务处理失败,不下发短信（即使下发也不能成功,因为没有订购关系）");
