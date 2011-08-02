@@ -43,7 +43,9 @@ public class TongnanPowerAction extends AbstractListAction {
 	private String uploadmonth;
 	private String cellid;
 	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMM");
-
+	public TongnanPowerAction(){
+		this.needsession=false;
+	}
 	// 1中达日均/载频 2中达日均/话务 3电力日均/载频 4电力日均/话务 5中达日均和电力日均
 	//
 	private int flashby;

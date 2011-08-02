@@ -163,7 +163,7 @@ public class ClientTZ {
 	            }
 	        }while (ret_read >= 0);
         }catch(Exception e){
-        	
+        	e.printStackTrace();
         }
         return response.toString();
 	}

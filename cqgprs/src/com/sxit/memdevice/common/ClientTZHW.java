@@ -158,7 +158,7 @@ public class ClientTZHW {
 	            }
 	        }while (ret_read >= 0);
         }catch(Exception e){
-        	
+        	e.printStackTrace();
         }
         return response.toString();
 	}

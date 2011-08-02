@@ -29,7 +29,9 @@ public class TongnanPowerSetAction extends AbstractListAction {
 	// 选择月份
 	private String uploadmonth;
 
-
+public TongnanPowerSetAction(){
+	this.needsession=false;
+}
 	/**
 	 * @return the upload
 	 */
