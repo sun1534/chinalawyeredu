@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="help-suggest" extends="default" namespace="/help">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="suggestList" class="com.changpeng.help.action.SuggestListAction">
+           <result name="success" type="dispatcher">/help/suggestList.jsp</result>
+ 	 </action>
+         <action name="suggestCreate" class="com.changpeng.help.action.SuggestCreateAction">
+	   <result name="input" type="dispatcher">/help/suggestCreate.jsp</result>
+         </action>
+         <action name="suggestEdit" class="com.changpeng.help.action.SuggestEditAction">
+	   <result name="input" type="dispatcher">/help/suggestEdit.jsp</result>
+         </action>
+         <action name="suggestDelete" class="com.changpeng.help.action.SuggestDeleteAction">
+         </action>
+         <action name="suggestDeletes" class="com.changpeng.help.action.SuggestDeletesAction">
+         </action>
+         <action name="suggestView" class="com.changpeng.help.action.SuggestViewAction">
+           <result name="success" type="dispatcher">/help/suggestView.jsp</result>
+         </action>
+  </package>
+</struts>

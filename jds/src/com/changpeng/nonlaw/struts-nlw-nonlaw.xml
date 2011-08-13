@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="nonlaw-nonlaw" extends="default" namespace="/nonlaw">
+        <default-interceptor-ref name="adminStack"/>
+        <action name="nonlawdptList" class="com.changpeng.nonlaw.action.NonlawdptListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawdptList.jsp</result>
+ 	 </action>
+ 	 <action name="nonlawExport" class="com.changpeng.nonlaw.action.NonlawExportAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawExport.jsp</result>
+ 	 </action>
+         <action name="nonlawList" class="com.changpeng.nonlaw.action.NonlawListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawList.jsp</result>
+ 	 </action>
+ 	  <action name="nonlawendList" class="com.changpeng.nonlaw.action.NonlawendListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawendList.jsp</result>
+ 	 </action>
+ 	   <action name="nonlawtdList" class="com.changpeng.nonlaw.action.NonlawtdListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawtdList.jsp</result>
+ 	 </action>
+ 	 
+         <action name="nonlawCreate" class="com.changpeng.nonlaw.action.NonlawCreateAction">
+	   <result name="input" type="dispatcher">/nonlaw/nonlawCreate.jsp</result>
+         </action>
+         <action name="nonlawCreateBatch" class="com.changpeng.nonlaw.action.NonlawCreateBatchAction">
+	   		<result name="input" type="dispatcher">/nonlaw/nonlawCreateBatch.jsp</result>
+         </action>
+         
+          <action name="nonlawreoper" class="com.changpeng.nonlaw.action.NonlawreoperAction">
+         </action>
+         
+         <action name="nonlawEdit" class="com.changpeng.nonlaw.action.NonlawEditAction">
+	   <result name="input" type="dispatcher">/nonlaw/nonlawEdit.jsp</result>
+         </action>
+         <action name="nonlawUpdate" class="com.changpeng.nonlaw.action.NonlawUpdateAction">
+         </action>
+         <action name="nonlawDelete" class="com.changpeng.nonlaw.action.NonlawDeleteAction">
+         </action>
+         <action name="nonlawDeletes" class="com.changpeng.nonlaw.action.NonlawDeletesAction">
+         </action>
+         <action name="nonlawView" class="com.changpeng.nonlaw.action.NonlawViewAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawView.jsp</result>
+         </action>
+         
+         <action name="nonlawUpdateBatch" class="com.changpeng.nonlaw.action.NonlawUpdateBatchAction">
+	   		<result name="input" type="dispatcher">/nonlaw/nonlawUpdateBatch.jsp</result>
+         </action>
+         
+        <action name="nonlawtaskList" class="com.changpeng.nonlaw.action.NonlawtaskListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawtaskList.jsp</result>
+           <result name="export" type="dispatcher">/nonlaw/nonlawtaskExport.jsp</result>
+ 	 	</action>
+ 	 	<!-- 导出后重新分配 导出的excel中承办人中需要录入承办人名字 -->
+ 	 	 <action name="nonlawReassignBatch" class="com.changpeng.nonlaw.action.NonlawReassignBatchAction">
+ 	 	 	<result name="input" type="dispatcher">/nonlaw/nonlawReassignBatch.jsp</result>
+ 	 	</action>
+ 	 	
+ 	 	<action name="nonlawtaskAssign" class="com.changpeng.nonlaw.action.NonlawtaskAssignAction">
+ 	 	</action>
+ 	 	<action name="mynonlawtaskList" class="com.changpeng.nonlaw.action.MynonlawtaskListAction">
+           <result name="success" type="dispatcher">/nonlaw/mynonlawtaskList.jsp</result>
+ 	 	</action>
+ 	 	
+ 	 	<action name="nonlawCall" class="com.changpeng.nonlaw.action.NonlawCallAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawCall.jsp</result>
+ 	 	</action>
+ 	 	<action name="nonlawUserView" class="com.changpeng.nonlaw.action.NonlawUserViewAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawUserView.jsp</result>
+ 	 	</action>
+ 	 	
+ 	 	<action name="nonlawlogCreate" class="com.changpeng.nonlaw.action.NonlawlogCreateAction">
+	  	   <result name="input" type="dispatcher">/nonlaw/nonlawlogCreate.jsp</result>
+         </action>         
+         <action name="nonlawlogCreate2" class="com.changpeng.nonlaw.action.NonlawlogCreate2Action" >
+          <result name="input" type="dispatcher">/nonlaw/nonlawlogCreate2.jsp</result>
+          <result name="success" type="dispatcher">/nonlaw/message.jsp</result>
+        </action>
+         <action name="nonlawlogList" class="com.changpeng.nonlaw.action.NonlawlogListAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawlogList.jsp</result>
+ 	 	</action>
+         <action name="nonlawlogEdit" class="com.changpeng.nonlaw.action.NonlawlogEditAction">
+	  	 <result name="input" type="dispatcher">/nonlaw/nonlawlogEdit.jsp</result>
+         </action>
+         <action name="nonlawlogDelete" class="com.changpeng.nonlaw.action.NonlawlogDeleteAction">
+         </action>
+         <action name="nonlawlogDeletes" class="com.changpeng.nonlaw.action.NonlawlogDeletesAction">
+         </action>
+         <action name="nonlawlogView" class="com.changpeng.nonlaw.action.NonlawlogViewAction">
+           <result name="success" type="dispatcher">/nonlaw/nonlawlogView.jsp</result>
+         </action>
+		
+		 <action name="reassignTask" class="com.changpeng.nonlaw.action.ReassignTaskAction" >
+          <result name="input" type="dispatcher">/nonlaw/reassignTask.jsp</result>
+          <result name="success" type="dispatcher">/nonlaw/message.jsp</result>
+        </action>
+        <action name="refeeUpdate" class="com.changpeng.nonlaw.action.RefeeUpdateAction" >
+          <result name="input" type="dispatcher">/nonlaw/refeeUpdate.jsp</result>
+          <result name="success" type="dispatcher">/nonlaw/message.jsp</result>
+        </action>
+        <action name="setPaydate" class="com.changpeng.nonlaw.action.SetPaydateAction" >
+          <result name="input" type="dispatcher">/nonlaw/setPaydate.jsp</result>
+          <result name="success" type="dispatcher">/nonlaw/message.jsp</result>
+        </action>
+  </package>   
+</struts>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    
+    <field name="member.username">
+        <field-validator type="requiredstring">
+            <message>请输入姓名!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+        	<param name="minLength">1</param>
+        	<param name="maxLength">20</param>
+        	<message>姓名的长度应为${minLength}-${maxLength}位!</message>
+        </field-validator>
+    </field>
+    <field name="member.phone">
+        <field-validator type="requiredstring">
+            <message>请输入电话!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+        	<param name="minLength">1</param>
+        	<param name="maxLength">20</param>
+        	<message>电话的长度应为${minLength}-${maxLength}位!</message>
+        </field-validator>
+    </field>
+    <field name="member.mobile">
+        <field-validator type="requiredstring">
+            <message>请输入手机号码!</message>
+        </field-validator>
+        <field-validator type="int">
+            <message>请输入正确的手机号码,全为数字!</message>
+        </field-validator>
+        <field-validator type="stringlength">
+        	<param name="minLength">11</param>
+        	<param name="maxLength">11</param>
+        	<message>手机号码的长度应为${minLength}位!</message>
+        </field-validator>
+    </field>
+    <field name="member.email">
+        <field-validator type="requiredstring">
+            <message>请输入邮件!</message>
+        </field-validator>
+        <field-validator type="email">
+      		<message>请输入正确的邮件地址!</message>
+   		</field-validator>
+   		<field-validator type="stringlength">
+        	<param name="minLength">1</param>
+        	<param name="maxLength">50</param>
+        	<message>邮件的长度应为${minLength}-${maxLength}位!</message>
+        </field-validator>
+    </field>
+ 
+</validators> 

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="member-resume" extends="default" namespace="/member">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/member/error.jsp</result>
+           <result name="message" type="dispatcher">/member/viewMessage.jsp</result>
+         </global-results>
+         <action name="resumeList" class="com.sxit.member.action.ResumeListAction">
+           <result name="success" type="dispatcher">/member/resumeList.jsp</result>
+ 	 </action>
+         <action name="resumeCreate" class="com.sxit.member.action.ResumeCreateAction">
+	   <result name="input" type="dispatcher">/member/resumeCreate.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="resumeEdit" class="com.sxit.member.action.ResumeEditAction">
+	   <result name="input" type="dispatcher">/member/resumeEdit.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="resumeDelete" class="com.sxit.member.action.ResumeDeleteAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="resumeDeletes" class="com.sxit.member.action.ResumeDeletesAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="resumeView" class="com.sxit.member.action.ResumeViewAction">
+           <result name="success" type="dispatcher">/member/resumeView.jsp</result>
+         </action>
+         <action name="resumeSearch" class="com.sxit.member.action.ResumeSearchAction">
+	   <result name="input" type="dispatcher">/member/resumeSearch.jsp</result>
+           <result name="success" type="dispatcher">/member/resumeList.jsp</result>
+         </action>
+
+         <action name="skillList" class="com.sxit.member.action.SkillListAction">
+           <result name="success" type="dispatcher">/member/skillList.jsp</result>
+ 	 </action>
+         <action name="skillCreate" class="com.sxit.member.action.SkillCreateAction">
+	   <result name="input" type="dispatcher">/member/skillCreate.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="skillEdit" class="com.sxit.member.action.SkillEditAction">
+	   <result name="input" type="dispatcher">/member/skillEdit.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="skillDelete" class="com.sxit.member.action.SkillDeleteAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="skillDeletes" class="com.sxit.member.action.SkillDeletesAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="skillView" class="com.sxit.member.action.SkillViewAction">
+           <result name="success" type="dispatcher">/member/skillView.jsp</result>
+         </action>
+         <action name="skillSearch" class="com.sxit.member.action.SkillSearchAction">
+	   <result name="input" type="dispatcher">/member/skillSearch.jsp</result>
+           <result name="success" type="dispatcher">/member/skillList.jsp</result>
+         </action>
+
+         <action name="studyexpList" class="com.sxit.member.action.StudyexpListAction">
+           <result name="success" type="dispatcher">/member/studyexpList.jsp</result>
+ 	 </action>
+         <action name="studyexpCreate" class="com.sxit.member.action.StudyexpCreateAction">
+	   <result name="input" type="dispatcher">/member/studyexpCreate.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="studyexpEdit" class="com.sxit.member.action.StudyexpEditAction">
+	   <result name="input" type="dispatcher">/member/studyexpEdit.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="studyexpDelete" class="com.sxit.member.action.StudyexpDeleteAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="studyexpDeletes" class="com.sxit.member.action.StudyexpDeletesAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="studyexpView" class="com.sxit.member.action.StudyexpViewAction">
+           <result name="success" type="dispatcher">/member/studyexpView.jsp</result>
+         </action>
+         <action name="studyexpSearch" class="com.sxit.member.action.StudyexpSearchAction">
+	   <result name="input" type="dispatcher">/member/studyexpSearch.jsp</result>
+           <result name="success" type="dispatcher">/member/studyexpList.jsp</result>
+         </action>
+ 
+         <action name="workexpList" class="com.sxit.member.action.WorkexpListAction">
+           <result name="success" type="dispatcher">/member/workexpList.jsp</result>
+ 	 </action>
+         <action name="workexpCreate" class="com.sxit.member.action.WorkexpCreateAction">
+	   <result name="input" type="dispatcher">/member/workexpCreate.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="workexpEdit" class="com.sxit.member.action.WorkexpEditAction">
+	   <result name="input" type="dispatcher">/member/workexpEdit.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="workexpDelete" class="com.sxit.member.action.WorkexpDeleteAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="workexpDeletes" class="com.sxit.member.action.WorkexpDeletesAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="workexpView" class="com.sxit.member.action.WorkexpViewAction">
+           <result name="success" type="dispatcher">/member/workexpView.jsp</result>
+         </action>
+         <action name="workexpSearch" class="com.sxit.member.action.WorkexpSearchAction">
+	   <result name="input" type="dispatcher">/member/workexpSearch.jsp</result>
+           <result name="success" type="dispatcher">/member/workexpList.jsp</result>
+         </action> 
+
+  </package>
+</struts>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-function" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="functionList" class="com.sxit.system.action.FunctionListAction">
+           <result name="success" type="dispatcher">/system/functionList.jsp</result>
+ 	 </action>
+         <action name="functionCreate" class="com.sxit.system.action.FunctionCreateAction">
+	   <result name="input" type="dispatcher">/system/functionCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="functionEdit" class="com.sxit.system.action.FunctionEditAction">
+	   <result name="input" type="dispatcher">/system/functionEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="functionDelete" class="com.sxit.system.action.FunctionDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="functionView" class="com.sxit.system.action.FunctionViewAction">
+           <result name="success" type="dispatcher">/system/functionView.jsp</result>
+         </action>
+         <action name="functionSearch" class="com.sxit.system.action.FunctionSearchAction">
+	   <result name="input" type="dispatcher">/system/functionSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/functionList.jsp</result>
+         </action>
+         <action name="functionViewPower" class="com.sxit.system.action.FunctionViewPowerAction">
+           <result name="success" type="dispatcher">/system/functionViewPower.jsp</result>
+         </action>
+
+         <action name="functionChangeUserPower" class="com.sxit.system.action.FunctionChangeUserPowerAction">
+           <result name="success" type="dispatcher">/system/functionChangeUserPower.jsp</result>
+         </action>
+         <action name="functionChangeRolePower" class="com.sxit.system.action.FunctionChangeRolePowerAction">
+           <result name="success" type="dispatcher">/system/functionChangeRolePower.jsp</result>
+         </action>
+  </package>
+</struts>

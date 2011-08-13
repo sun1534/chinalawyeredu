@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="operation-repaylog" extends="default" namespace="/operation">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="repaylogList" class="com.changpeng.operation.action.RepaylogListAction">
+           <result name="float" type="dispatcher">/operation/repaylogFloat.jsp</result>
+           <result name="success" type="dispatcher">/operation/repaylogList.jsp</result>
+ 	 </action>
+         <action name="repaylogCreate" class="com.changpeng.operation.action.RepaylogCreateAction">
+	  		 <result name="input" type="dispatcher">/operation/repaylogCreate.jsp</result>
+         </action>
+         <action name="repaylogCreateBatch" class="com.changpeng.operation.action.RepaylogCreateBatchAction">
+	  		 <result name="input" type="dispatcher">/operation/repaylogCreateBatch.jsp</result>
+         </action>
+         <action name="repaylogEdit" class="com.changpeng.operation.action.RepaylogEditAction">
+	   <result name="input" type="dispatcher">/operation/repaylogEdit.jsp</result>
+         </action>
+         <action name="repaylogDelete" class="com.changpeng.operation.action.RepaylogDeleteAction">
+         </action>
+         <action name="repaylogDeletes" class="com.changpeng.operation.action.RepaylogDeletesAction">
+         </action>
+         <action name="repaylogView" class="com.changpeng.operation.action.RepaylogViewAction">
+           <result name="success" type="dispatcher">/operation/repaylogView.jsp</result>
+         </action>
+  </package>
+  <package name="operationAjax" extends="defaultajax" namespace="/operationAjax">
+       <default-interceptor-ref name="adminStack"/>
+	      <action name="creditlogAjaxDelete" class="com.changpeng.operation.action.CreditlogDeleteAjaxAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+	 	  <action name="taskcanLink" class="com.changpeng.operation.action.TaskcanlinkAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+	 	 <action name="editComments" class="com.changpeng.operation.action.EditCommentsAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+    </package>
+</struts>

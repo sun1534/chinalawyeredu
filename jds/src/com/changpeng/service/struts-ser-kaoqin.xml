@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="service-kaoqin" extends="default" namespace="/service">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="kaoqinList" class="com.changpeng.service.action.KaoqinListAction">
+           <result name="success" type="dispatcher">/service/kaoqinList.jsp</result>
+ 	 </action>
+         <action name="kaoqinCreate" class="com.changpeng.service.action.KaoqinCreateAction">
+	   <result name="input" type="dispatcher">/service/kaoqinCreate.jsp</result>
+         </action>
+         <action name="kaoqinEdit" class="com.changpeng.service.action.KaoqinEditAction">
+	   <result name="input" type="dispatcher">/service/kaoqinEdit.jsp</result>
+         </action>
+         <action name="kaoqinDelete" class="com.changpeng.service.action.KaoqinDeleteAction">
+         </action>
+         <action name="kaoqinDeletes" class="com.changpeng.service.action.KaoqinDeletesAction">
+         </action>
+         <action name="kaoqinView" class="com.changpeng.service.action.KaoqinViewAction">
+           <result name="success" type="dispatcher">/service/kaoqinView.jsp</result>
+         </action>
+  </package>
+</struts>

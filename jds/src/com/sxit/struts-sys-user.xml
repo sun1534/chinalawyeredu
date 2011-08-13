@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-user" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+<!--User -->
+         <action name="userList" class="com.sxit.system.action.UserListAction">
+           <result name="success" type="dispatcher">/system/userList.jsp</result>
+ 	 </action>
+         <action name="userCreate" class="com.sxit.system.action.UserCreateAction">
+	   <result name="input" type="dispatcher">/system/userCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userEdit" class="com.sxit.system.action.UserEditAction">
+	   <result name="input" type="dispatcher">/system/userEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userDelete" class="com.sxit.system.action.UserDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userView" class="com.sxit.system.action.UserViewAction">
+           <result name="success" type="dispatcher">/system/userView.jsp</result>
+         </action>
+         <action name="userSearch" class="com.sxit.system.action.UserSearchAction">
+	   <result name="input" type="dispatcher">/system/userSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/userList.jsp</result>
+         </action>
+<!--User Roles -->
+         <action name="userViewRoles" class="com.sxit.system.action.UserViewRolesAction">
+           <result name="success" type="dispatcher">/system/userViewRoles.jsp</result>
+         </action>
+         <action name="userAddRoles" class="com.sxit.system.action.UserAddRolesAction">
+           <result name="success" type="dispatcher">/system/userViewRoles.jsp</result>
+            <result name="input" type="dispatcher">/system/userAddRoles.jsp</result>
+         </action>
+         <action name="userDeleteRole" class="com.sxit.system.action.UserDeleteRoleAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userDeleteRoles" class="com.sxit.system.action.UserDeleteRolesAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+<!--User Groups -->
+         <action name="userViewGroups" class="com.sxit.system.action.UserViewGroupsAction">
+           <result name="success" type="dispatcher">/system/userViewGroups.jsp</result>
+         </action>
+         <action name="userAddGroups" class="com.sxit.system.action.UserAddGroupsAction">
+           <result name="success" type="dispatcher">/system/userViewGroups.jsp</result>
+            <result name="input" type="dispatcher">/system/userAddGroups.jsp</result>
+         </action>
+         <action name="userDeleteGroup" class="com.sxit.system.action.UserDeleteGroupAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userDeleteGroups" class="com.sxit.system.action.UserDeleteGroupsAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+<!--User Function -->
+         <action name="userViewFunctions" class="com.sxit.system.action.UserViewFunctionsAction">
+           <result name="success" type="dispatcher">/system/userViewFunctions.jsp</result>
+         </action>
+         <action name="userAddFunctions" class="com.sxit.system.action.UserAddFunctionsAction">
+           <result name="success" type="dispatcher">/system/userViewFunctions.jsp</result>
+            <result name="input" type="dispatcher">/system/userAddFunctions.jsp</result>
+         </action>
+         <action name="userDeleteFunction" class="com.sxit.system.action.UserDeleteFunctionAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userDeleteFunctions" class="com.sxit.system.action.UserDeleteFunctionsAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="userChangeFunction" class="com.sxit.system.action.UserChangeFunctionAction">
+           <result name="success" type="dispatcher">/system/userChangeFunction.jsp</result>
+         </action>
+         <action name="loginlogList" class="com.sxit.system.action.LoginlogListAction">
+           <result name="success" type="dispatcher">/system/loginlogList.jsp</result>
+         </action>
+  </package>
+</struts>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="info-info" extends="default" namespace="/info">
+		<default-interceptor-ref name="adminStack" />
+		<global-results>
+			<result name="error" type="dispatcher">
+				/info/error.jsp
+			</result>
+			<result name="message" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</global-results>
+		<action name="infoList"
+			class="com.sxit.info.action.InfoListAction">
+			<result name="success" type="dispatcher">
+				/info/infoList.jsp
+			</result>
+		</action>
+		<action name="infoCreate"
+			class="com.sxit.info.action.InfoCreateAction">
+			<result name="input" type="dispatcher">
+				/info/infoCreate.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoEdit"
+			class="com.sxit.info.action.InfoEditAction">
+			<result name="input" type="dispatcher">
+				/info/infoEdit.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoDelete"
+			class="com.sxit.info.action.InfoDeleteAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoDeletes"
+			class="com.sxit.info.action.InfoDeletesAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoView"
+			class="com.sxit.info.action.InfoViewAction">
+			<result name="success" type="dispatcher">
+				/info/infoView.jsp
+			</result>
+		</action>
+		<action name="infoSearch"
+			class="com.sxit.info.action.InfoSearchAction">
+			<result name="input" type="dispatcher">
+				/info/infoSearch.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/infoSearchList.jsp
+			</result>
+		</action>
+		<action name="infoPromSearch"
+			class="com.sxit.info.action.InfoPromSearchAction">
+			<result name="input" type="dispatcher">
+				/info/infoPromSearch.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/infoPromSearchList.jsp
+			</result>
+		</action>
+		<action name="infoManageSearch"
+			class="com.sxit.info.action.InfoManageSearchAction">
+			<result name="input" type="dispatcher">
+				/info/infoManageSearch.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/infoManageSearchList.jsp
+			</result>
+		</action>
+		<action name="infoViewList"
+			class="com.sxit.info.action.InfoViewListAction">
+			<result name="success" type="dispatcher">
+				/info/infoViewList.jsp
+			</result>
+		</action>
+		<action name="infoCreateList"
+			class="com.sxit.info.action.InfoCreateListAction">
+			<result name="success" type="dispatcher">
+				/info/infoCreateList.jsp
+			</result>
+		</action>
+		<action name="infoSendApprove"
+			class="com.sxit.info.action.InfoSendApproveAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoApprove"
+			class="com.sxit.info.action.InfoApproveAction">
+			<result name="success" type="dispatcher">
+				/info/infoApprove.jsp
+			</result>
+		</action>
+		<action name="infoSetApprove"
+        	class="com.sxit.info.action.InfoSetApproveAction">
+        	<result  name="success" type="dispatcher">
+        		/info/viewMessage.jsp
+        	</result>
+        </action>
+		<action name="infoApproveList"
+			class="com.sxit.info.action.InfoApproveListAction">
+			<result name="success" type="dispatcher">
+				/info/infoApproveList.jsp
+			</result>
+		</action>
+		<action name="infoApproveEdit"
+			class="com.sxit.info.action.InfoApproveEditAction">
+			<result name="input" type="dispatcher">
+				/info/infoApproveEdit.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoPromList"
+			class="com.sxit.info.action.InfoPromListAction">
+			<result name="success" type="dispatcher">
+				/info/infoPromList.jsp
+			</result>
+		</action>
+		<action name="infoProm"
+			class="com.sxit.info.action.InfoPromAction">
+			<result name="success" type="dispatcher">
+				/info/infoProm.jsp
+			</result>
+		</action>
+		<action name="infoPromEdit"
+			class="com.sxit.info.action.InfoPromEditAction">
+			<result name="input" type="dispatcher">
+				/info/infoPromEdit.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoSetProm"
+        	class="com.sxit.info.action.InfoSetPromAction">
+        	<result  name="success" type="dispatcher">
+        		/info/viewMessage.jsp
+        	</result>
+        </action>
+		<action name="infoWebView"
+			class="com.sxit.info.action.InfoWebViewAction">
+			<result name="success" type="dispatcher">
+				/info/infoWebView.jsp
+			</result>
+		</action>
+		<action name="webViewList" class="com.sxit.info.action.WebViewListAction">
+      		<result name="success" type="dispatcher">/info/webViewList.jsp</result>
+    	</action>
+    	
+    	<action name="infoAdminView"
+			class="com.sxit.info.action.InfoAdminViewAction">
+			<result name="success" type="dispatcher">
+				/info/infoAdminView.jsp
+			</result>
+		</action>
+		
+		<action name="infoAdminEdit"
+			class="com.sxit.info.action.InfoAdminEditAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+			<result name="input" type="dispatcher">
+				/info/infoAdminEdit.jsp
+			</result>
+		</action>
+		<action name="infoAdminDelete"
+			class="com.sxit.info.action.InfoAdminDeleteAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="infoAdminDeletes"
+			class="com.sxit.info.action.InfoAdminDeletesAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+
+		
+
+		<action name="setList"
+			class="com.sxit.info.action.SetListAction">
+			<result name="success" type="dispatcher">
+				/info/setList.jsp
+			</result>
+		</action>
+		<action name="setCreate"
+			class="com.sxit.info.action.SetCreateAction">
+			<result name="input" type="dispatcher">
+				/info/setCreate.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="setEdit"
+			class="com.sxit.info.action.SetEditAction">
+			<result name="input" type="dispatcher">
+				/info/setEdit.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="setDelete"
+			class="com.sxit.info.action.SetDeleteAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="setDeletes"
+			class="com.sxit.info.action.SetDeletesAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+		<action name="setView"
+			class="com.sxit.info.action.SetViewAction">
+			<result name="success" type="dispatcher">
+				/info/setView.jsp
+			</result>
+		</action>
+		<action name="setSearch"
+			class="com.sxit.info.action.SetSearchAction">
+			<result name="input" type="dispatcher">
+				/info/setSearch.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/setList.jsp
+			</result>
+		</action>
+
+		<action name="download"
+			class="com.sxit.info.action.FileDownloadAction">
+			  <result name="success" type="stream">
+			  	<param name="inputName">targetFile</param>
+			  	<param name="bufferSize">4096</param>
+			  </result>
+		</action>
+
+
+		<action name="attachCreate"
+			class="com.sxit.info.action.AttachCreateAction">
+			<result name="input" type="dispatcher">
+				/info/attachCreate.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+
+		<action name="attachDelete"
+			class="com.sxit.info.action.AttachDeleteAction">
+			<result name="success" type="dispatcher">
+				/info/viewMessage.jsp
+			</result>
+		</action>
+
+
+	</package>
+</struts>

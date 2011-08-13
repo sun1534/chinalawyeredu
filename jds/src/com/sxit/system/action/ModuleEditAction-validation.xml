@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="module.moduleid">
+        <field-validator type="requiredstring">
+            <message>请输入模块id!</message>
+        </field-validator>
+    </field>
+    <field name="module.modulename">
+        <field-validator type="requiredstring">
+            <message>请输入模块名!</message>
+        </field-validator>
+    </field>
+</validators>

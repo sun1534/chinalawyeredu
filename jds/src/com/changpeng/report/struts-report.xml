@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="report" extends="default" namespace="/report">
+       <default-interceptor-ref name="adminStack"/>
+       <action name="lawfeeList" class="com.changpeng.report.action.LawfeeListAction">
+           <result name="success" type="dispatcher">/report/lawfee.jsp</result>
+ 	 	</action>     
+  </package>
+</struts>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.wait.model.TwatInteface"
+    table="TWAT_INTERFACE"
+>
+
+    <id
+        name="intefaceid"
+        type="int"
+        column="INTEFACEID"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="username"
+        type="java.lang.String"
+        column="USERNAME"
+        length="50"
+    />
+    <property
+        name="mobile"
+        type="java.lang.String"
+        column="MOBILE"
+        length="20"
+    />
+    <property
+        name="bqqno"
+        type="java.lang.String"
+        column="BQQNO"
+        length="10"
+    />
+    <property
+        name="email"
+        type="java.lang.String"
+        column="EMAIL"
+        length="100"
+    />
+    <property
+        name="content"
+        type="java.lang.String"
+        column="CONTENT"
+        length="500"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+
+    <!-- associations -->
+
+</class>
+</hibernate-mapping>

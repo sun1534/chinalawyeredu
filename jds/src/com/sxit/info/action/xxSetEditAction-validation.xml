@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="set.setid">
+        <field-validator type="requiredstring">
+            <message>请输入设置id!</message>
+        </field-validator>
+    </field>
+    <field name="set.typeid">
+        <field-validator type="requiredstring">
+            <message>请输入公告类别!</message>
+        </field-validator>
+    </field>
+    <field name="set.userid">
+        <field-validator type="requiredstring">
+            <message>请输入用户id!</message>
+        </field-validator>
+    </field>
+    <field name="set.username">
+        <field-validator type="requiredstring">
+            <message>请输入用户名!</message>
+        </field-validator>
+    </field>
+    <field name="set.powerid">
+        <field-validator type="requiredstring">
+            <message>请输入权限!</message>
+        </field-validator>
+    </field>
+ 
+ 
+</validators> 

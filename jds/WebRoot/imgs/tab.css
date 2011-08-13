@@ -1,0 +1,227 @@
+/* Tab */
+.tab{float:left;width:5000px;position:relative;left:0px;height:21px;}
+.tab .on{ display:block; height:17px; color:#000000; padding-top:4px; text-align:center; background:url(tag_house_on.gif); overflow:hidden}
+.tab .off{ display:block;height:16px; color:#000000; padding-top:4px; text-align:center; background:url(tag_house_off.gif); overflow:hidden}
+.tab a:hover{color:#000000}
+.tab .close{float:right; width:11px;height:11px;margin-right:3px;display:block;margin-top:0px; background:url(tab-close.gif) no-repeat;}
+.tab ul{display:block;list-style:none;padding:0;margin:0}
+.tab li{list-style:none;padding:0;float:left;width:65px;height:21px;margin:0px;margin-left:1px;cursor:pointer}
+.tab .inner{}
+
+.tab-div{background:url(bnt.gif);margin:0;margin-top:7px;}
+.tab-div-html{background:url(tag_house_bg.gif);margin:0;margin-top:0px !important;margin-top:7px;width:200px !important;width:197px;float:right;text-align:right}
+.tab-div-content{border: 1px solid #0968AC;}
+
+@CHARSET "UTF-8";
+.benma_ui_tab {
+	margin: 0px;
+	padding: 0px;
+	font-size: 9px;
+	position: relative;
+	top: 0px;
+	line-height: 22px;
+	width: 1000px;
+	border-bottom: 3px solid #0968AC;
+	padding-top: 0px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.benma_ui_tab .scroll-left{float:left;position:relative;background:url(btnleft.gif) no-repeat;width:10px;height:25px;cursor:pointer;z-index:5}
+.benma_ui_tab .scroll-right{float:right;position:relative;background:url(btnright.gif) no-repeat;width:10px;height:25px;cursor:pointer;z-index:5}
+.benma_ui_tab .tab_hr {
+	width: 100%;
+	height: 2px;
+	background-color: #336688;
+	position: relative;
+	top: 24px;
+	z-index: 113;
+	font-size: 0px;
+	display: block;
+}
+
+.benma_ui_tab .tab_item {
+	line-height: 25px;
+	z-index: 100;
+	white-space: nowrap;
+	word-spacing: 0px;
+	border-collapse: collapse;
+	margin-left: 2px;
+	float: left;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.benma_ui_tab .tab_item1 {
+	background-image: url(tab1.gif);
+	background-repeat: no-repeat;
+	width: 5px;
+	z-index: 100;
+	white-space: nowrap;
+}
+
+.benma_ui_tab .tab_item1_mouseover {
+	background-position: 0px -42px;
+}
+
+.benma_ui_tab .tab_item1_selected {
+	background-position: 0px -84px;
+}
+
+.benma_ui_tab .tab_item2 {
+	background-image: url(tab2.gif);
+	background-repeat: repeat-x;
+	white-space: nowrap;
+	z-index: 101;
+}
+
+.benma_ui_tab .tab_item2_mouseover {
+	background-position: 0px -42px;
+}
+
+.benma_ui_tab .tab_item2_selected {
+	background-position: 0px -84px;
+	color: #ffffff;
+}
+
+.benma_ui_tab .tab_item3 {
+	background-image: url(tab3.gif);
+	background-repeat: no-repeat;
+	width: 5px;
+}
+
+.benma_ui_tab .tab_item3_mouseover {
+	background-position: 0px -42px;
+}
+
+.benma_ui_tab .tab_item3_selected {
+	background-position: 0px -84px;
+}
+
+.benma_ui_tab .tab_title {
+	padding: 4px;
+	line-height: 16px;
+		font-size: 9px;
+}
+
+.benma_ui_tab .tab_close {
+	background-image: url(close.gif);
+	background-repeat: no-repeat;
+	position: relative;
+	top: -1px;
+	height: 14px;
+	width: 14px;
+	font-size: 9px;
+}
+
+.benma_ui_tab .tab_close_mouseover {
+	background-position: 0px -14px;
+}
+
+.benma_ui_tab .tab_close_selected {
+	background-position: 0px 0px;
+}
+
+.benma_ui_tab .tab_close_noselected {
+	background-position: 0px -28px;
+}
+
+.benma_ui_tab .tab_close_none {
+	display: none;
+}
+
+.benma_ui_tab ul{display:block;list-style:none;padding:0;margin:0}
+.benma_ui_tab li{list-style:none;padding:0;float:left;height:25px;margin:0px;margin-left:1px;cursor:pointer}
+
+/* bottom */
+.benma_ui_tab_bottom {
+	position: relative;
+	top: 0px;
+	width: 1024%;
+	border: 0px solid #999999;
+	padding-top:0px;
+	padding-bottom: 4px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.benma_ui_tab .tab_hr_bottom {
+	width: 100%;
+	height: 2px;
+	background-color: #336688;
+	position: relative;
+	top: 0px;
+	z-index: 113;
+	font-size: 0px;
+	display: block;
+	position: relative;
+}
+
+.benma_ui_tab .tab_item_bottom {
+	position: relative;
+	top: -2px;
+	line-height: 20px;
+	z-index: 100;
+	white-space: nowrap;
+	word-spacing: 0px;
+	border-collapse: collapse;
+	margin-left: 4px;
+	float: left;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.benma_ui_tab .tab_item1_bottom {
+	background-image: url(tab1_bottom.gif);
+	background-repeat: no-repeat;
+	background-position: 0px -18px;
+	width: 5px;
+}
+
+.benma_ui_tab .tab_item1_mouseover_bottom {
+	background-position: 0px -60px;
+}
+
+.benma_ui_tab .tab_item1_selected_bottom {
+	background-position: 0px -102px;
+}
+
+.benma_ui_tab .tab_item2_bottom {
+	background-image: url(tab2_bottom.gif);
+	background-repeat: repeat-x;
+	background-position: 0px -18px;
+}
+
+.benma_ui_tab .tab_item2_mouseover_bottom {
+	background-position: 0px -60px;
+}
+
+.benma_ui_tab .tab_item2_selected_bottom {
+	background-position: 0px -102px;
+	color: #ffffff;
+}
+
+.benma_ui_tab .tab_item3_bottom {
+	background-image: url(tab3_bottom.gif);
+	background-repeat: no-repeat;
+	background-position: 0px -18px;
+	width: 5px;
+}
+
+.benma_ui_tab .tab_item3_mouseover_bottom {
+	background-position: left -60px;
+}
+
+.benma_ui_tab .tab_item3_selected_bottom {
+	background-position: left -102px;
+}
+
+.benma_ui_tab .tab_title_bottom {
+	padding: 0px;
+	line-height: 16px;
+}
+
+.benma_ui_tab .tab_close_bottom {
+	font-size: 9px;
+	top: 1px;
+}
+.showitem{}

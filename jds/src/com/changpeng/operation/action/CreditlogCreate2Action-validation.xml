@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    
+    <field name="creditlog.logtime">
+        <field-validator type="required">
+            <message>请输入催收日期!</message>
+        </field-validator>
+    </field>
+    <field name="creditlog.comments">
+        <field-validator type="required">
+            <message>请输入催收情况!</message>
+        </field-validator>
+    </field>
+
+</validators> 

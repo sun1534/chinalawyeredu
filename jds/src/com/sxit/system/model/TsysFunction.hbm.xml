@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysFunction"
+    table="TSYS_FUNCTION"
+>
+
+    <id
+        name="functionid"
+        type="java.lang.String"
+        column="FUNCTIONID"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="functionname"
+        type="java.lang.String"
+        column="FUNCTIONNAME"
+        length="20"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="80"
+    />
+    <property
+        name="url"
+        type="java.lang.String"
+        column="URL"
+        length="100"
+    />
+    <property
+        name="iconname"
+        type="java.lang.String"
+        column="ICONNAME"
+        length="40"
+    />
+    <property
+        name="iscommon"
+        type="boolean"
+        column="ISCOMMON"
+        length="1"
+    />
+    <property
+        name="ismenu"
+        type="boolean"
+        column="ISMENU"
+        length="1"
+    />
+    <property
+        name="functionorder"
+        type="short"
+        column="FUNCTIONORDER"
+        length="3"
+    />
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysFunctionUser -->
+    <set
+        name="tsysFunctionUsers"
+        lazy="true"
+        inverse="true"
+        order-by="userid"
+    >
+        <key>
+            <column name="FUNCTIONID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysFunctionUser"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TsysFunctionRole -->
+    <set
+        name="tsysFunctionRoles"
+        lazy="true"
+        inverse="true"
+        order-by="roleid"
+    >
+        <key>
+            <column name="FUNCTIONID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysFunctionRole"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TsysModule -->
+    <many-to-one
+        name="tsysModule"
+        class="com.sxit.system.model.TsysModule"
+        not-null="true"
+    >
+        <column name="MODULEID" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

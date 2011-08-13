@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="help-msg" extends="default" namespace="/help">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="msgList" class="com.changpeng.help.action.MsgListAction">
+           <result name="success" type="dispatcher">/help/msgList.jsp</result>
+ 	 </action>
+         <action name="msgCreate" class="com.changpeng.help.action.MsgCreateAction">
+	   		<result name="input" type="dispatcher">/help/msgCreate.jsp</result>
+         </action>
+     
+         <action name="msgDelete" class="com.changpeng.help.action.MsgDeleteAction">
+         </action>
+       
+         <action name="msgView" class="com.changpeng.help.action.MsgViewAction">
+           <result name="success" type="dispatcher">/help/msgView.jsp</result>
+         </action>
+         <action name="msgReply" class="com.changpeng.help.action.MsgReplyAction">
+           <result name="success" type="dispatcher">/help/msgReply.jsp</result>
+         </action>
+  </package>
+</struts>

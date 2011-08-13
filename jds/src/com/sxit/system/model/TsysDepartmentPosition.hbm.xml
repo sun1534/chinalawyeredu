@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysDepartmentPosition"
+    table="TSYS_DEPARTMENT_POSITION"
+>
+
+    <composite-id name="comp_id" class="com.sxit.system.model.TsysDepartmentPositionPK">
+        <!-- bi-directional many-to-one association to TsysDepartment -->
+        <key-many-to-one
+        	name="tsysDepartment"
+	        class="com.sxit.system.model.TsysDepartment"
+	    >
+    	    <column name="DEPARTMENTID" />
+	    </key-many-to-one>
+        <!-- bi-directional many-to-one association to TsysPosition -->
+        <key-many-to-one
+        	name="tsysPosition"
+	        class="com.sxit.system.model.TsysPosition"
+	    >
+    	    <column name="POSITIONID" />
+	    </key-many-to-one>
+    </composite-id>
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TsysUser -->
+    <many-to-one
+        name="tsysUser"
+        class="com.sxit.system.model.TsysUser"
+        not-null="true"
+    >
+        <column name="USERID" />
+    </many-to-one>
+
+
+    <!-- associations -->
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.workflow.model.TwflBusinessUser"
+    table="TWFL_BUSINESS_USER"
+>
+
+    <composite-id name="comp_id" class="com.sxit.workflow.model.TwflBusinessUserPK">
+    <key-property
+        name="userid"
+        type="long"
+        column="USERID"
+    />
+    <key-property
+        name="businessid"
+        type="int"
+        column="businessid"
+    />
+    </composite-id>
+</class>
+</hibernate-mapping>

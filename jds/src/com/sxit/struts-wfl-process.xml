@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="workflow-process" extends="default" namespace="/workflow">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/workflow/error.jsp</result>
+           <result name="message" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </global-results>
+         <action name="processList" class="com.sxit.workflow.action.ProcessListAction">
+           <result name="success" type="dispatcher">/workflow/processList.jsp</result>
+ 	 </action>
+         <action name="processCreate" class="com.sxit.workflow.action.ProcessCreateAction">
+	   <result name="input" type="dispatcher">/workflow/processCreate.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="processEdit" class="com.sxit.workflow.action.ProcessEditAction">
+	   <result name="input" type="dispatcher">/workflow/processEdit.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="processDelete" class="com.sxit.workflow.action.ProcessDeleteAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="processView" class="com.sxit.workflow.action.ProcessViewAction">
+           <result name="success" type="dispatcher">/workflow/processView.jsp</result>
+         </action>
+         <action name="processSearch" class="com.sxit.workflow.action.ProcessSearchAction">
+	   <result name="input" type="dispatcher">/workflow/processSearch.jsp</result>
+           <result name="success" type="dispatcher">/workflow/processList.jsp</result>
+         </action>
+         <action name="processPicView" class="com.sxit.workflow.action.ProcessPicViewAction">
+           <result name="success" type="dispatcher">/workflow/processPicView.jsp</result>
+ 	 </action>
+  </package>
+</struts>

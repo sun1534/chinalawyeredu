@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="workflow-business" extends="default" namespace="/workflow">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/workflow/error.jsp</result>
+           <result name="message" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </global-results>
+         <action name="businessList" class="com.sxit.workflow.action.BusinessListAction">
+           <result name="success" type="dispatcher">/workflow/businessList.jsp</result>
+ 	 </action>
+         <action name="businessCreate" class="com.sxit.workflow.action.BusinessCreateAction">
+	   <result name="input" type="dispatcher">/workflow/businessCreate.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="businessEdit" class="com.sxit.workflow.action.BusinessEditAction">
+	   <result name="input" type="dispatcher">/workflow/businessEdit.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="businessDelete" class="com.sxit.workflow.action.BusinessDeleteAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="businessDeletes" class="com.sxit.workflow.action.BusinessDeletesAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="businessView" class="com.sxit.workflow.action.BusinessViewAction">
+           <result name="success" type="dispatcher">/workflow/businessView.jsp</result>
+         </action>
+         <action name="businessSearch" class="com.sxit.workflow.action.BusinessSearchAction">
+	   <result name="input" type="dispatcher">/workflow/businessSearch.jsp</result>
+           <result name="success" type="dispatcher">/workflow/businessList.jsp</result>
+         </action>
+
+<!--Business Users -->
+         <action name="businessViewUsers" class="com.sxit.workflow.action.BusinessViewUsersAction">
+           <result name="success" type="dispatcher">/workflow/businessViewUsers.jsp</result>
+         </action>
+         <action name="businessAddUsers" class="com.sxit.workflow.action.BusinessAddUsersAction">
+           <result name="success" type="dispatcher">/workflow/businessViewUsers.jsp</result>
+            <result name="input" type="dispatcher">/workflow/businessAddUsers.jsp</result>
+         </action>
+         <action name="businessDeleteUser" class="com.sxit.workflow.action.BusinessDeleteUserAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="businessDeleteUsers" class="com.sxit.workflow.action.BusinessDeleteUsersAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+  </package>
+</struts>

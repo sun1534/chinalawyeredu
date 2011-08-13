@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysModule"
+    table="TSYS_MODULE"
+>
+
+    <id
+        name="moduleid"
+        type="java.lang.String"
+        column="MODULEID"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="modulename"
+        type="java.lang.String"
+        column="MODULENAME"
+        length="20"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="80"
+    />
+    <property
+        name="moduleorder"
+        type="short"
+        column="MODULEORDER"
+        length="3"
+    />
+    <property
+        name="powertype"
+        type="int"
+        column="POWERTYPE"
+        length="1"
+    />
+
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysFunction -->
+    <set
+        name="tsysFunctions"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="MODULEID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysFunction"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TsysPower -->
+    <set
+        name="tsysPowers"
+        lazy="true"
+        inverse="true"
+        order-by="powernum"
+    >
+        <key>
+            <column name="MODULEID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysPower"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

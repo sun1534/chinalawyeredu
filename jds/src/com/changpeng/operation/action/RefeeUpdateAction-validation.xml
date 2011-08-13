@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="creditcard.refee">
+        <field-validator type="required">
+            <message>请输入还款金额!</message>
+        </field-validator>
+        <field-validator type="double">
+            <message>请输入正确还款金额,必须为数字!</message>
+        </field-validator>
+    </field>
+</validators> 

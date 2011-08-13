@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-role" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="roleList" class="com.sxit.system.action.RoleListAction">
+           <result name="success" type="dispatcher">/system/roleList.jsp</result>
+ 	 </action>
+         <action name="roleCreate" class="com.sxit.system.action.RoleCreateAction">
+	   <result name="input" type="dispatcher">/system/roleCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleEdit" class="com.sxit.system.action.RoleEditAction">
+	   <result name="input" type="dispatcher">/system/roleEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleDelete" class="com.sxit.system.action.RoleDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleView" class="com.sxit.system.action.RoleViewAction">
+           <result name="success" type="dispatcher">/system/roleView.jsp</result>
+         </action>
+         <action name="roleSearch" class="com.sxit.system.action.RoleSearchAction">
+	   <result name="input" type="dispatcher">/system/roleSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/roleList.jsp</result>
+         </action>
+<!--Role Users -->
+         <action name="roleViewUsers" class="com.sxit.system.action.RoleViewUsersAction">
+           <result name="success" type="dispatcher">/system/roleViewUsers.jsp</result>
+         </action>
+         <action name="roleAddUsers" class="com.sxit.system.action.RoleAddUsersAction">
+           <result name="success" type="dispatcher">/system/RoleViewUsers.jsp</result>
+            <result name="input" type="dispatcher">/system/roleAddUsers.jsp</result>
+         </action>
+         <action name="roleDeleteUser" class="com.sxit.system.action.RoleDeleteUserAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleDeleteUsers" class="com.sxit.system.action.RoleDeleteUsersAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+<!--Role Function -->
+         <action name="roleViewFunctions" class="com.sxit.system.action.RoleViewFunctionsAction">
+           <result name="success" type="dispatcher">/system/roleViewFunctions.jsp</result>
+         </action>
+         <action name="roleAddFunctions" class="com.sxit.system.action.RoleAddFunctionsAction">
+           <result name="success" type="dispatcher">/system/roleViewFunctions.jsp</result>
+            <result name="input" type="dispatcher">/system/roleAddFunctions.jsp</result>
+         </action>
+         <action name="roleDeleteFunction" class="com.sxit.system.action.RoleDeleteFunctionAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleDeleteFunctions" class="com.sxit.system.action.RoleDeleteFunctionsAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="roleChangeFunction" class="com.sxit.system.action.RoleChangeFunctionAction">
+           <result name="success" type="dispatcher">/system/roleChangeFunction.jsp</result>
+         </action>
+  </package>
+</struts>

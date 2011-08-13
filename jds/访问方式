@@ -1,0 +1,23 @@
+192.168.1.9 ora10 system/jiadexin jds/jds
+
+administrator/szjdx.cc
+
+
+呼叫中心：szjdx.3322.org/szjdx.99.cn
+
+
+
+远程连接：
+192.168.1.164:3388 
+szjds.3322.org:3388 administrator/jds123
+ftp:
+ftp_jds1/cpsoft_123
+
+cpsoft.3322.org/changpeng123/689306
+
+
+
+admin/jds_0755_jds
+
+
+091026:将tsys_user中的user_name设置为唯一,主要是要根据user_name找到userid，因为在导入的资料中有承办人字段

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="address-address" extends="default" namespace="/address">
+        <default-interceptor-ref name="adminStack"/> 
+         <action name="addressCreate" class="com.changpeng.address.action.AddressCreateAction">
+	   		<result name="input" type="dispatcher">/address/addressCreate.jsp</result>
+	   		<result name="success" type="dispatcher">/address/message.jsp</result>
+         </action>
+         <action name="addressEdit" class="com.changpeng.address.action.AddressEditAction">
+	   		<result name="input" type="dispatcher">/address/addressEdit.jsp</result>
+	   		<result name="success" type="dispatcher">/address/message.jsp</result>
+         </action>
+         <action name="addressList" class="com.changpeng.address.action.AddressListAction">
+	   		<result name="success" type="dispatcher">/address/addressList.jsp</result>
+         </action>
+  </package>
+   <package name="addressAjax" extends="defaultajax" namespace="/addressAjax">
+       <default-interceptor-ref name="adminStack"/>
+	      <action name="addressDelete" class="com.changpeng.address.action.AddressDeleteAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+    </package>
+</struts>

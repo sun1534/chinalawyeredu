@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="loginname">
+        <field-validator type="requiredstring">
+            <message>请输入登录名!</message>
+        </field-validator>
+    </field>
+    <field name="password">
+        <field-validator type="requiredstring">
+            <message>请输入密码!</message>
+        </field-validator>
+    </field>
+    <field name="randnum">
+        <field-validator type="requiredstring">
+            <message>请输入验证码!</message>
+        </field-validator>
+    </field>  
+</validators> 

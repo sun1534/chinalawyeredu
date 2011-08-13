@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-position" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="positionList" class="com.sxit.system.action.PositionListAction">
+           <result name="success" type="dispatcher">/system/positionList.jsp</result>
+ 	 </action>
+         <action name="positionCreate" class="com.sxit.system.action.PositionCreateAction">
+	   <result name="input" type="dispatcher">/system/positionCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="positionEdit" class="com.sxit.system.action.PositionEditAction">
+	   <result name="input" type="dispatcher">/system/positionEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="positionDelete" class="com.sxit.system.action.PositionDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="positionView" class="com.sxit.system.action.PositionViewAction">
+           <result name="success" type="dispatcher">/system/positionView.jsp</result>
+         </action>
+         <action name="positionSearch" class="com.sxit.system.action.PositionSearchAction">
+	   <result name="input" type="dispatcher">/system/positionSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/positionList.jsp</result>
+         </action>
+<!--Position Department -->
+         <action name="positionViewDepartments" class="com.sxit.system.action.PositionViewDepartmentsAction">
+           <result name="success" type="dispatcher">/system/positionViewDepartments.jsp</result>
+         </action>
+         <action name="positionAddDepartments" class="com.sxit.system.action.PositionAddDepartmentsAction">
+           <result name="success" type="dispatcher">/system/positionViewDepartments.jsp</result>
+            <result name="input" type="dispatcher">/system/positionAddDepartments.jsp</result>
+         </action>
+         <action name="positionDeleteDepartment" class="com.sxit.system.action.PositionDeleteDepartmentAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="positionDeleteDepartments" class="com.sxit.system.action.PositionDeleteDepartmentsAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="positionChangeDepartment" class="com.sxit.system.action.PositionChangeDepartmentAction">
+           <result name="success" type="dispatcher">/system/positionChangeDepartment.jsp</result>
+         </action>
+  </package>
+</struts>

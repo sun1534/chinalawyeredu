@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="operation-creditcard" extends="default" namespace="/operation">
+        <default-interceptor-ref name="adminStack"/>
+		 <action name="creditdptList" class="com.changpeng.operation.action.CreditdptListAction">
+           <result name="success" type="dispatcher">/operation/creditdptList.jsp</result>
+ 	 	</action>
+         <action name="creditcardList" class="com.changpeng.operation.action.CreditcardListAction">
+           <result name="success" type="dispatcher">/operation/creditcardList.jsp</result>
+           <result name="export" type="dispatcher">/operation/creditcardExport.jsp</result>
+ 	 	</action>
+ 	 	 <action name="creditendList" class="com.changpeng.operation.action.CreditendListAction">
+           <result name="success" type="dispatcher">/operation/creditendList.jsp</result>
+ 	 	</action>
+ 	 	<action name="credittdList" class="com.changpeng.operation.action.CredittdListAction">
+           <result name="success" type="dispatcher">/operation/credittdList.jsp</result>
+ 	 	</action>
+         <action name="creditcardCreate" class="com.changpeng.operation.action.CreditcardCreateAction">
+	   		<result name="input" type="dispatcher">/operation/creditcardCreate.jsp</result>
+
+         </action>
+          <action name="creditcardCreateBatch" class="com.changpeng.operation.action.CreditcardCreateBatchAction">
+	   		<result name="input" type="dispatcher">/operation/creditcardCreateBatch.jsp</result>
+         </action>
+         <action name="creditcardEdit" class="com.changpeng.operation.action.CreditcardEditAction">
+	   		<result name="input" type="dispatcher">/operation/creditcardEdit.jsp</result>
+         </action>
+       
+          <action name="creditcardUpdate" class="com.changpeng.operation.action.CreditcardUpdateAction">
+         </action>
+          <action name="cardreoper" class="com.changpeng.operation.action.CardreoperAction">
+         </action>
+         <action name="creditcardDelete" class="com.changpeng.operation.action.CreditcardDeleteAction">
+
+         </action>
+         <action name="creditcardDeletes" class="com.changpeng.operation.action.CreditcardDeletesAction">
+         </action>
+         <action name="creditcardUpdateBatch" class="com.changpeng.operation.action.CreditcardUpdateBatchAction">
+	   		<result name="input" type="dispatcher">/operation/creditcardUpdateBatch.jsp</result>
+         </action>
+         
+         <action name="creditcardView" class="com.changpeng.operation.action.CreditcardViewAction">
+           <result name="success" type="dispatcher">/operation/creditcardView.jsp</result>
+         </action>
+         
+         <action name="credittaskList" class="com.changpeng.operation.action.CredittaskListAction">
+           <result name="success" type="dispatcher">/operation/credittaskList.jsp</result>
+           <result name="export" type="dispatcher">/operation/credittaskExport.jsp</result>
+ 	 	</action>
+ 	 	<!-- 导出后重新分配 导出的excel中承办人中需要录入承办人名字 -->
+ 	 	 <action name="creditReassignBatch" class="com.changpeng.operation.action.CreditReassignBatchAction">
+ 	 	 	<result name="input" type="dispatcher">/operation/creditReassignBatch.jsp</result>
+ 	 	</action>
+ 	 	
+ 	 	<action name="credittaskAssign" class="com.changpeng.operation.action.CredittaskAssignAction">
+ 	 	</action>
+ 	 	<action name="mycredittaskList" class="com.changpeng.operation.action.MyCreditcardListAction">
+           <result name="success" type="dispatcher">/operation/mycredittaskList.jsp</result>
+ 	 	</action>
+ 	 	<action name="creditCall" class="com.changpeng.operation.action.CreditCallAction">
+           <result name="success" type="dispatcher">/operation/creditCall.jsp</result>
+ 	 	</action>
+ 	 	<action name="creditUserView" class="com.changpeng.operation.action.CreditUserViewAction">
+           <result name="success" type="dispatcher">/operation/creditUserView.jsp</result>
+ 	 	</action>
+ 	 	
+ 	 	<action name="creditlogCreate" class="com.changpeng.operation.action.CreditlogCreateAction">
+	  	   <result name="input" type="dispatcher">/operation/creditlogCreate.jsp</result>
+         </action>         
+         <action name="creditlogCreate2" class="com.changpeng.operation.action.CreditlogCreate2Action" >
+          <result name="input" type="dispatcher">/operation/creditlogCreate2.jsp</result>
+           <result name="success" type="dispatcher">/operation/message.jsp</result>
+        </action>
+         <action name="creditlogList" class="com.changpeng.operation.action.CreditlogListAction">
+           <result name="success" type="dispatcher">/operation/creditlogList.jsp</result>
+ 	 	</action>
+         <action name="creditlogEdit" class="com.changpeng.operation.action.CreditlogEditAction">
+	  	 <result name="input" type="dispatcher">/operation/creditlogEdit.jsp</result>
+         </action>
+         <action name="creditlogEdit2" class="com.changpeng.operation.action.CreditlogEdit2Action">
+	  	 	<result name="input" type="dispatcher">/operation/creditlogEdit2.jsp</result>
+	  	 	<result name="success" type="dispatcher">/operation/message.jsp</result>
+         </action>
+         <action name="creditlogDelete" class="com.changpeng.operation.action.CreditlogDeleteAction">
+         </action>
+         <action name="creditlogDeletes" class="com.changpeng.operation.action.CreditlogDeletesAction">
+         </action>
+         <action name="creditlogView" class="com.changpeng.operation.action.CreditlogViewAction">
+           <result name="success" type="dispatcher">/operation/creditlogView.jsp</result>
+         </action>     
+         
+         <action name="reassignTask" class="com.changpeng.operation.action.ReassignTaskAction" >
+          <result name="input" type="dispatcher">/operation/reassignTask.jsp</result>
+          <result name="success" type="dispatcher">/operation/message.jsp</result>
+        </action>
+        <action name="refeeUpdate" class="com.changpeng.operation.action.RefeeUpdateAction" >
+          <result name="input" type="dispatcher">/operation/refeeUpdate.jsp</result>
+          <result name="success" type="dispatcher">/operation/message.jsp</result>
+        </action>
+        <action name="assignBatch" class="com.changpeng.operation.action.CredittaskAssignBatchAction" >
+          <result name="input" type="dispatcher">/operation/credittaskAssignBatch.jsp</result>
+        </action>
+        
+         <action name="exportLOG" class="com.changpeng.operation.action.ExportLOGAction" >
+          <result name="success" type="dispatcher">/operation/exportLOG.jsp</result>
+        </action>
+        <action name="exportLogs" class="com.changpeng.operation.action.ExportLogsAction" >
+          <result name="success" type="dispatcher">/operation/exportLogs.jsp</result>
+        </action>
+        
+        <action name="setPaydate" class="com.changpeng.operation.action.SetPaydateAction" >
+          <result name="input" type="dispatcher">/operation/setPaydate.jsp</result>
+          <result name="success" type="dispatcher">/operation/message.jsp</result>
+        </action>
+  </package>
+</struts>

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.workflow.model.TwflProcess"
+    table="TWFL_PROCESS"
+>
+
+    <id
+        name="processid"
+        type="int"
+        column="PROCESSID"
+    >
+        <generator class="sequence">
+            <param name="sequence">twflprocessid</param>
+        </generator>
+    </id>
+
+    <property
+        name="processname"
+        type="java.lang.String"
+        column="PROCESSNAME"
+        length="40"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="200"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+    <property
+        name="usetype"
+        type="int"
+        column="USETYPE"
+        length="2"
+    />
+    <property
+        name="xposition"
+        type="int"
+        column="XPOSITION"
+        length="8"
+    />
+    <property
+        name="yposition"
+        type="int"
+        column="YPOSITION"
+        length="8"
+    />
+    <property
+        name="newnodeid"
+        type="int"
+        column="NEWNODEID"
+        length="8"
+    />
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TsysGroup -->
+    <many-to-one
+        name="business"
+        class="com.sxit.workflow.model.TwflBusiness"
+        not-null="true"
+    >
+        <column name="businessid" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TwflNode -->
+    <set
+        name="twflNodes"
+        lazy="true"
+        inverse="true"
+        order-by="nodeid"
+    >
+        <key>
+            <column name="PROCESSID" />
+        </key>
+        <one-to-many
+            class="com.sxit.workflow.model.TwflNode"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TsysUser -->
+    <many-to-one
+        name="author"
+        class="com.sxit.system.model.TsysUser"
+        not-null="true"
+    >
+        <column name="AUTHORID" />
+    </many-to-one>
+</class>
+</hibernate-mapping>

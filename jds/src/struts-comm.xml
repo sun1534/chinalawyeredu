@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="common" extends="default" namespace="">
+        <default-interceptor-ref name="adminStack"/>
+        <default-action-ref name="index"/>
+        <!--User start
+        <action name="createVerify" class="com.sxit.sm.verify.action.CreateVerifyAction">
+            <result name="success" type="chart"></result>
+        </action>-->
+        <action name="userLogin" class="com.sxit.common.action.UserLoginAction">
+            <result name="success" type="dispatcher">/common/index.jsp</result>
+            <result name="style1" type="dispatcher">/common/index_1.jsp</result>
+            <result name="style2" type="dispatcher">/common/index_2.jsp</result>
+            <result name="style3" type="dispatcher">/common/index_3.jsp</result>
+            <result name="input" type="dispatcher">/userlogin.jsp</result>
+            <result name="toback" type="dispatcher">/common/redirct.jsp</result>
+            <result name="error" type="dispatcher">/common/error.jsp</result>
+        </action>
+        
+        
+
+        <action name="webUserLogin" class="com.sxit.member.action.MemberLoginAction">
+            <result name="success" type="dispatcher">/common/index.jsp</result>
+            <result name="input" type="dispatcher">/common/index.jsp</result>
+            <result name="toback" type="dispatcher">/common/index.jsp</result>
+            <result name="error" type="dispatcher">/common/error.jsp</result>
+        </action>
+
+        <action name="randomImgCode" class="com.sxit.common.action.RandomImgCode">   
+	      <result name="success" type="stream">   
+	            <param name="contentType">image/jpeg</param>   
+	            <!-- 指定提供InputStream的filed name -->   
+	            <param name="inputName">imageStream</param>   
+	            <param name="bufferSize">1024</param>   
+	      </result>   
+        <interceptor-ref name="defaultStack"/>   
+        </action>  
+        <action name="userLogout" class="com.sxit.common.action.UserLogoutAction">
+            <result name="success" type="dispatcher">/userlogin.jsp</result>
+        </action>
+        <action name="webUserLogout" class="com.sxit.common.action.UserLogoutAction">
+            <result name="success" type="dispatcher">/weblogin.jsp</result>
+        </action>
+        <action name="randomImgCode" class="com.sxit.common.action.RandomImgCode">   
+	      <result name="success" type="stream">   
+	            <param name="contentType">image/jpeg</param>   
+	            <!-- 指定提供InputStream的filed name -->   
+	            <param name="inputName">imageStream</param>   
+	            <param name="bufferSize">1024</param>   
+	      </result>   
+        <interceptor-ref name="defaultStack"/>   
+        </action>  
+        <action name="setStyle" class="com.sxit.common.action.SetStytleAction">
+            <result name="style1" type="dispatcher">/common/index_1.jsp</result>
+            <result name="style2" type="dispatcher">/common/index_2.jsp</result>
+            <result name="style3" type="dispatcher">/common/index_3.jsp</result>
+            <result name="error" type="dispatcher">/common/error.jsp</result>
+            <result name="message" type="dispatcher">/common/error.jsp</result>
+        </action>
+        <action name="userChangePassword" class="com.sxit.common.action.UserChangePasswordAction">
+            <result name="input" type="dispatcher">/common/userChangePassword.jsp</result>
+            <result name="message" type="dispatcher">/common/viewMessage.jsp</result>
+        </action>
+   </package>
+   
+   	<package name="commonajax" extends="defaultajax" namespace="/commonajax">
+       <default-interceptor-ref name="adminStack"/>
+           <action name="ajaxlogout" class="com.sxit.common.action.UserLogoutAjaxAction">
+           <result name="success" type="json"></result>
+   	   </action>
+    </package>
+</struts>

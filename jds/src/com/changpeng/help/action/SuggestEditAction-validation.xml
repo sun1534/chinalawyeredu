@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="suggest.suggestid">
+        <field-validator type="required">
+            <message>请输入主键!</message>
+        </field-validator>
+    </field>
+    <field name="suggest.title">
+        <field-validator type="required">
+            <message>请输入标题!</message>
+        </field-validator>
+    </field>
+    <field name="suggest.contents">
+        <field-validator type="required">
+            <message>请输入问题建议!</message>
+        </field-validator>
+    </field>
+    <field name="suggest.createuser">
+        <field-validator type="required">
+            <message>请输入提交用户!</message>
+        </field-validator>
+    </field>
+    <field name="suggest.createtime">
+        <field-validator type="required">
+            <message>请输入提交时间!</message>
+        </field-validator>
+    </field>
+    <field name="suggest.parentid">
+        <field-validator type="required">
+            <message>请输入 !</message>
+        </field-validator>
+    </field>
+ 
+ 
+</validators> 

@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.sxit.system.model">
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysDepartment"
+    table="TSYS_DEPARTMENT"
+>
+
+    <id
+        name="departmentid"
+        type="int"
+        column="DEPARTMENTID"
+    >
+        <generator class="sequence">
+            <param name="sequence">TsysDepartmentid</param>
+        </generator>
+    </id>
+
+    <property
+        name="departmentname"
+        type="java.lang.String"
+        column="DEPARTMENTNAME"
+        length="20"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="200"
+    />
+    <property
+        name="displayname"
+        type="java.lang.String"
+        column="displayname"
+        length="200"
+    />
+    <property
+        name="type"
+        type="int"
+        column="TYPE"
+        length="2"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+    <property
+        name="phone"
+        type="java.lang.String"
+        column="PHONE"
+        length="20"
+    />
+    <property
+        name="linkman"
+        type="java.lang.String"
+        column="LINKMAN"
+        length="40"
+    />
+    <property
+        name="address"
+        type="java.lang.String"
+        column="ADDRESS"
+        length="100"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysUser -->
+    <set
+        name="tsysUsers"
+        lazy="true"
+        inverse="true"
+        where="statusid=1"
+    >
+        <key>
+            <column name="DEPARTMENTID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysUser"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TsysDepartment -->
+    <set
+        name="children"
+        lazy="true"
+        inverse="true"
+        order-by="departmentid"
+    >
+        <key>
+            <column name="PARENTID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysDepartment"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TsysDepartment -->
+    <many-to-one
+        name="parent"
+        class="com.sxit.system.model.TsysDepartment"
+        not-null="true"
+        not-found="ignore"
+     >
+        <column name="PARENTID" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TsysDepartmentPosition -->
+    <set
+        name="tsysDepartmentPositions"
+        lazy="true"
+        inverse="true"
+        order-by="positionid"
+    >
+        <key>
+            <column name="DEPARTMENTID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysDepartmentPosition"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

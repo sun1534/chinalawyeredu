@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="wait-wait" extends="default" namespace="/wait">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/wait/error.jsp</result>
+           <result name="message" type="dispatcher">/wait/viewMessage.jsp</result>
+         </global-results>
+        <!--Wait start-->
+        <action name="listNum" class="com.sxit.wait.action.ListNumAction">
+            <result name="success" type="dispatcher">/wait/listNum.jsp</result>
+         </action>
+        <action name="listWait" class="com.sxit.wait.action.ListWaitAction">
+            <result name="success" type="dispatcher">/wait/listWait.jsp</result>
+        </action>
+        <action name="listWait1" class="com.sxit.wait.action.ListWaitAction1">
+            <result name="success" type="dispatcher">/wait/listWait1.jsp</result>
+        </action>
+        <action name="listWait2" class="com.sxit.wait.action.ListWaitAction2">
+            <result name="success" type="dispatcher">/wait/listWait2.jsp</result>
+        </action>
+        <action name="listWait3" class="com.sxit.wait.action.ListWaitAction3">
+            <result name="success" type="dispatcher">/wait/listWait3.jsp</result>
+        </action>
+        <action name="listWait4" class="com.sxit.wait.action.ListWaitAction4">
+            <result name="success" type="dispatcher">/wait/listWait4.jsp </result>
+        </action>
+        <action name="deleteWait" class="com.sxit.wait.action.DeleteWaitAction">
+            <result name="message" type="dispatcher">/wait/viewMessage.jsp</result>
+        </action>
+        <action name="deleteWaits" class="com.sxit.wait.action.DeleteWaitsAction">
+            <result name="message" type="dispatcher">/wait/viewMessage.jsp</result>
+        </action>
+        <action name="searchWait" class="com.sxit.wait.action.SearchWaitAction">
+            <result name="success" type="dispatcher">/wait/searchWait.jsp</result>
+            <result name="search" type="dispatcher">/wait/searchListWait.jsp</result>
+        </action>
+        <!--Wait end-->
+    </package>
+</struts>
+
+

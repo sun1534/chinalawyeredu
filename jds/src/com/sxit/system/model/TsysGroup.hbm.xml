@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="com.sxit.system.model.TsysGroup" 
+    table="TSYS_GROUP"
+>
+
+    <id
+        name="groupid"
+        type="int"
+        column="GROUPID"
+    >
+        <generator class="sequence">
+            <param name="sequence">TsysGroupID</param>
+        </generator>
+    </id>
+
+    <property
+        name="groupname"
+        type="java.lang.String"
+        column="GROUPNAME"
+        length="40"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="80"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysGroupUser -->
+    <set
+        name="tsysGroupUsers"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="GROUPID" />
+        </key>
+        <one-to-many 
+            class="com.sxit.system.model.TsysGroupUser"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

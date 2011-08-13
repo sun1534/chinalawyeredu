@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.sxit.workflow.model.TwflAction"
+    table="TWFL_ACTION"
+>
+
+    <id
+        name="actionid"
+        type="int"
+        column="actionid"
+    >
+    <generator class="assigned" />
+    </id>
+
+    <property
+        name="actionname"
+        type="java.lang.String"
+        column="actionname"
+        length="100"
+    />
+    <property
+        name="actionurl"
+        type="java.lang.String"
+        column="actionurl"
+        length="100"
+    />
+
+     <property
+        name="isbixu"
+        type="java.lang.String"
+        column="isbixu"
+        length="2"
+    />
+         <property
+        name="stagetime"
+        type="java.lang.String"
+        column="stagetime"
+        length="20"
+    />
+    
+      <property
+        name="tonext"
+        type="java.lang.String"
+        column="tonext"
+        length="2"
+    />
+    <many-to-one
+        name="twflnode"
+        class="com.sxit.workflow.model.TwflNode"
+        not-null="true"
+    >
+        <column name="nodeid" />
+    </many-to-one>
+   
+  
+
+</class>
+</hibernate-mapping>

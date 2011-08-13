@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-group" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="groupList" class="com.sxit.system.action.GroupListAction">
+           <result name="success" type="dispatcher">/system/groupList.jsp</result>
+ 	 </action>
+         <action name="groupCreate" class="com.sxit.system.action.GroupCreateAction">
+	   <result name="input" type="dispatcher">/system/groupCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="groupEdit" class="com.sxit.system.action.GroupEditAction">
+	   <result name="input" type="dispatcher">/system/groupEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="groupDelete" class="com.sxit.system.action.GroupDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="groupView" class="com.sxit.system.action.GroupViewAction">
+           <result name="success" type="dispatcher">/system/groupView.jsp</result>
+         </action>
+         <action name="groupSearch" class="com.sxit.system.action.GroupSearchAction">
+	   <result name="input" type="dispatcher">/system/groupSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/groupList.jsp</result>
+         </action>
+<!--Group Users -->
+         <action name="groupViewUsers" class="com.sxit.system.action.GroupViewUsersAction">
+           <result name="success" type="dispatcher">/system/groupViewUsers.jsp</result>
+         </action>
+         <action name="groupAddUsers" class="com.sxit.system.action.GroupAddUsersAction">
+           <result name="success" type="dispatcher">/system/groupViewUsers.jsp</result>
+            <result name="input" type="dispatcher">/system/groupAddUsers.jsp</result>
+         </action>
+         <action name="groupDeleteUser" class="com.sxit.system.action.GroupDeleteUserAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="groupDeleteUsers" class="com.sxit.system.action.GroupDeleteUsersAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+  </package>
+</struts>

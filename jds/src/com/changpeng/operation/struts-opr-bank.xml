@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="operation-bank" extends="default" namespace="/operation">
+      <default-interceptor-ref name="adminStack"/>
+
+      <action name="bankList" class="com.changpeng.operation.action.BankListAction">
+           <result name="success" type="dispatcher">/operation/bankList.jsp</result>
+ 	 </action>
+         <action name="bankCreate" class="com.changpeng.operation.action.BankCreateAction">
+	   <result name="input" type="dispatcher">/operation/bankCreate.jsp</result>
+
+         </action>
+         <action name="bankEdit" class="com.changpeng.operation.action.BankEditAction">
+	   <result name="input" type="dispatcher">/operation/bankEdit.jsp</result>
+
+         </action>
+         <action name="bankDelete" class="com.changpeng.operation.action.BankDeleteAction">
+
+         </action>
+         <action name="bankDeletes" class="com.changpeng.operation.action.BankDeletesAction">
+         </action>
+         <action name="bankView" class="com.changpeng.operation.action.BankViewAction">
+           <result name="success" type="dispatcher">/operation/bankView.jsp</result>
+         </action>
+  </package>
+</struts>

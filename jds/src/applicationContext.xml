@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="byName">
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName">
+      <value>oracle.jdbc.driver.OracleDriver</value>
+    </property>
+  
+    <property name="url">
+       <value>jdbc:oracle:thin:@localhost:1521:orcl</value>
+    </property>
+    <property name="username">
+      <value>jds</value> 
+    </property>
+    <property name="password">
+      <value>jds</value>
+    </property>
+    <!--    <property name="url">
+    <value>jdbc:oracle:thin:@58.60.231.4:13001:ora10</value>  
+    </property>
+		<property name="user">
+			<value>zsllfx</value>
+		</property>
+		<property name="password">
+			<value>zsllfx</value>
+		</property>
+    -->
+  </bean>
+  <bean id="hibernateSessionFactory" class="com.sxit.common.component.HibernateSessionFactory" init-method="init" destroy-method="dispose" singleton="true">
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+     <property name="mappingDirectoryLocations">
+      <list>
+        <value>classpath:com/sxit/system/model/</value>         
+        <value>classpath:com/sxit/wait/model/</value>
+        <value>classpath:com/sxit/inteface/model/</value>
+        <value>classpath:com/sxit/workflow/model/</value>
+        <value>classpath:com/sxit/info/model/</value>
+		<value>classpath:com/sxit/member/model/</value>
+		<value>classpath:com/changpeng/address/model/</value>   
+		<value>classpath:com/changpeng/operation/model/</value> 
+		<value>classpath:com/changpeng/nonlaw/model/</value>  
+		<value>classpath:com/changpeng/lawcase/model/</value>  
+		<value>classpath:com/changpeng/service/model/</value>   
+		<value>classpath:com/changpeng/help/model/</value> 
+		<value>classpath:com/changpeng/customer/model/</value> 
+		<value>classpath:com/changpeng/sms/model/</value> 
+		<value>classpath:com/changpeng/report/models/</value> 
+		
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+        <!--  <prop key="hibernate.hbm2ddl.auto">update</prop>-->
+        <prop key="hibernate.show_sql">true</prop>
+      </props>
+    </property>
+  </bean>
+  <bean id="hibernateSession" class="com.sxit.common.component.HibernateSession" singleton="false">
+    <property name="hibernateSessionFactory">
+      <ref bean="hibernateSessionFactory"/>
+    </property>
+    <!--   <aop:scope type="request"/>-->
+  </bean>
+  
+    	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+			
+		</property>
+	</bean>
+
+	<bean id="basicDao" class="com.sxit.common.BasicDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	<bean id="basicService" class="com.sxit.common.BasicService">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
+	
+  <!--  
+      <bean id="timerTask" class="com.sxit.workbill.util.ScheduleTask">
+    </bean>
+    <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
+    	<property name="timerTask">
+    		<ref bean="timerTask"/>
+    	</property>
+		
+    	<property name="period">
+    		<value>7200000</value>
+    	</property>
+    
+    	<property name="delay">
+    		<value>7200000</value>
+    	</property>
+    </bean>
+     <bean id="timerFactoryBean" class="org.springframework.scheduling.timer.TimerFactoryBean">
+    	<property name="scheduledTimerTasks">
+    		<list>
+    			<ref bean="scheduleTimerTask"/>
+    		</list>		
+    	</property>
+    </bean>
+  -->
+  
+</beans>

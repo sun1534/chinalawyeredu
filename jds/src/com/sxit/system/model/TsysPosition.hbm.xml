@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysPosition"
+    table="TSYS_POSITION"
+>
+
+    <id
+        name="positionid"
+        type="int"
+        column="POSITIONID"
+    >
+        <generator class="sequence">
+            <param name="sequence">tsyspositionid</param>
+        </generator>
+    </id>
+
+    <property
+        name="positionname"
+        type="java.lang.String"
+        column="POSITIONNAME"
+        length="50"
+    />
+    <property
+        name="type"
+        type="int"
+        column="TYPE"
+        length="2"
+    />
+   <property
+        name="mark"
+        type="java.lang.String"
+        column="mark"
+        length="500"
+    />
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysDepartmentPosition -->
+    <set
+        name="tsysDepartmentPositions"
+        lazy="true"
+        inverse="true"
+        order-by="departmentid"
+    >
+        <key>
+            <column name="POSITIONID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysDepartmentPosition"
+        />
+    </set>
+
+</class>
+</hibernate-mapping>

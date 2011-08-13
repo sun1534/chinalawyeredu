@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="phobill.username">
+        <field-validator type="required">
+            <message>请输入电话用户!</message>
+        </field-validator>
+    </field>
+    <field name="phobill.phone">
+        <field-validator type="required">
+            <message>请输入电话号码!</message>
+        </field-validator>
+    </field>
+    <field name="phobill.fee">
+        <field-validator type="required">
+            <message>请输入电话费用!</message>
+        </field-validator>
+    </field>
+</validators> 

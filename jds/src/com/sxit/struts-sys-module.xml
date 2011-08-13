@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-module" extends="default" namespace="/system">
+         <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="moduleList" class="com.sxit.system.action.ModuleListAction">
+           <result name="success" type="dispatcher">/system/moduleList.jsp</result>
+ 	 </action>
+         <action name="moduleCreate" class="com.sxit.system.action.ModuleCreateAction">
+	   <result name="input" type="dispatcher">/system/moduleCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="moduleEdit" class="com.sxit.system.action.ModuleEditAction">
+	   <result name="input" type="dispatcher">/system/moduleEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="moduleDelete" class="com.sxit.system.action.ModuleDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="moduleView" class="com.sxit.system.action.ModuleViewAction">
+           <result name="success" type="dispatcher">/system/moduleView.jsp</result>
+         </action>
+         <action name="moduleSearch" class="com.sxit.system.action.ModuleSearchAction">
+	   <result name="input" type="dispatcher">/system/moduleSearch.jsp</result>
+           <result name="success" type="dispatcher">/system/moduleList.jsp</result>
+         </action>
+  </package>
+</struts>

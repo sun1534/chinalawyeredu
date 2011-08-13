@@ -1,0 +1,21 @@
+body{ font-size:12px;height:100%;margin:0; padding:0; color:#1248AC;}
+img{ border:0}
+
+
+
+
+
+/* Tab */
+.tab{float:left;width:5000px;position:relative;left:0px;height:21px;}
+.tab .on{ display:block; height:17px; color:#000000; padding-top:4px; text-align:center; background:url(tag_house_on.gif); overflow:hidden}
+.tab .off{ display:block;height:16px; color:#000000; padding-top:4px; text-align:center; background:url(tag_house_off.gif); overflow:hidden}
+.tab a:hover{color:#000000}
+.tab .close{float:right; width:11px;height:11px;margin-right:3px;display:block;margin-top:0px; background:url(tab-close.gif) no-repeat;}
+.tab ul{display:block;list-style:none;padding:0;margin:0}
+.tab li{list-style:none;padding:0;float:left;width:65px;height:21px;margin:0px;margin-left:1px;cursor:pointer}
+.tab .inner{}
+.scroll-left{float:left;position:relative;background:url(tab-left.gif) no-repeat;width:19px;height:20px;cursor:pointer;z-index:5}
+.scroll-right{float:right;position:relative;background:url(tab-right.gif) no-repeat;width:19px;height:20px;cursor:pointer;z-index:5}
+.tab-div{background:url(tag_house_bg.gif);margin:0;margin-top:7px;}
+.tab-div-html{background:url(tag_house_bg.gif);margin:0;margin-top:0px !important;margin-top:7px;width:200px !important;width:197px;float:right;text-align:right}
+.tab-div-content{border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;border-right:1px solid #ccc;}

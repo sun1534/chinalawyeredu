@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+  		"-//OpenSymphony Group//XWork Validator 1.0//EN"
+  		"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="attach.attachid">
+        <field-validator type="requiredstring">
+            <message>请输入附件id!</message>
+        </field-validator>
+    </field>
+    <field name="attach.infoid">
+        <field-validator type="requiredstring">
+            <message>请输入公告id!</message>
+        </field-validator>
+    </field>
+    <field name="attach.filename">
+        <field-validator type="requiredstring">
+            <message>请输入附件名称!</message>
+        </field-validator>
+    </field>
+    <field name="attach.filepath">
+        <field-validator type="requiredstring">
+            <message>请输入附件路径!</message>
+        </field-validator>
+    </field>
+    <field name="attach.createuser">
+        <field-validator type="requiredstring">
+            <message>请输入创建用户!</message>
+        </field-validator>
+    </field>
+    <field name="attach.createtime">
+        <field-validator type="requiredstring">
+            <message>请输入创建时间!</message>
+        </field-validator>
+    </field>
+ 
+ 
+</validators> 

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.sxit.workflow.model.TwflDirection"
+    table="TWFL_DIRECTION"
+>
+
+    <id
+        name="directionid"
+        type="int"
+        column="DIRECTIONID"
+    >
+        <generator class="sequence">
+            <param name="sequence">twfldirectionid</param>
+        </generator>
+    </id>
+
+    <property
+        name="directionname"
+        type="java.lang.String"
+        column="DIRECTIONNAME"
+        length="20"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="80"
+    />
+
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TwflNode -->
+    <many-to-one
+        name="toNode"
+        class="com.sxit.workflow.model.TwflNode"
+        not-null="true"
+    >
+        <column name="TONODEID" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TwflNode -->
+    <many-to-one
+        name="fromNode"
+        class="com.sxit.workflow.model.TwflNode"
+        not-null="true"
+    >
+        <column name="FROMNODEID" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

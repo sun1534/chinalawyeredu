@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="workflow-node" extends="default" namespace="/workflow">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/workflow/error.jsp</result>
+           <result name="message" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </global-results>
+         <action name="nodeList" class="com.sxit.workflow.action.NodeListAction">
+           <result name="success" type="dispatcher">/workflow/nodeList.jsp</result>
+ 	 </action>
+         <action name="nodeCreate" class="com.sxit.workflow.action.NodeCreateAction">
+	   <result name="input" type="dispatcher">/workflow/nodeCreate.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="nodeEdit" class="com.sxit.workflow.action.NodeEditAction">
+	   <result name="input" type="dispatcher">/workflow/nodeEdit.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="nodeDelete" class="com.sxit.workflow.action.NodeDeleteAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="nodeView" class="com.sxit.workflow.action.NodeViewAction">
+           <result name="success" type="dispatcher">/workflow/nodeView.jsp</result>
+         </action>
+         <action name="nodeSearch" class="com.sxit.workflow.action.NodeSearchAction">
+	   <result name="input" type="dispatcher">/workflow/nodeSearch.jsp</result>
+           <result name="success" type="dispatcher">/workflow/nodeList.jsp</result>
+         </action>
+         <action name="nodeAddList" class="com.sxit.workflow.action.NodeAddListAction">
+           <result name="success" type="dispatcher">/workflow/nodeAddList.jsp</result>
+ 	 </action>
+         <action name="nodeAddTo" class="com.sxit.workflow.action.NodeAddToAction">
+           <result name="success" type="redirect">/workflow/nodeView.action?nodeid=${node.nodeid}</result>
+ 	 </action>
+         <action name="nodeDeleteTo" class="com.sxit.workflow.action.NodeDeleteToAction">
+           <result name="success" type="redirect">/workflow/nodeView.action?nodeid=${nodeid}</result>
+ 	 </action>
+  </package>
+</struts>

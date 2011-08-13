@@ -1,0 +1,36 @@
+TD {
+	FONT-SIZE: 9pt
+}
+A {
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: black
+}
+.105V {
+	FONT-SIZE: 10.5pt; FONT-FAMILY: ??
+}
+TD {
+	FONT-SIZE: 9pt; FONT-FAMILY: ??
+}
+.90V {
+	FONT-SIZE: 9pt; FONT-FAMILY: ??
+}
+.90VE {
+	FONT-SIZE: 9pt; FONT-FAMILY: arial
+}
+A:hover {
+	COLOR: red
+}
+A.bb {
+	TEXT-DECORATION: none
+}
+A.bbr {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.Button {
+	BORDER-RIGHT: #ffffff 2px solid; BORDER-TOP: #ffffff 2px solid; FONT-WEIGHT: bold; FONT-SIZE: 9pt; BORDER-LEFT: #ffffff 2px solid; CURSOR: hand; COLOR: #ffffff; BORDER-BOTTOM: #ffffff 2px solid; FONT-FAMILY: "??"; BACKGROUND-COLOR: #6699cc
+}
+H2 {
+	COLOR: #ffffff
+}

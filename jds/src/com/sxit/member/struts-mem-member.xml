@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="member-member" extends="default" namespace="/member">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/member/error.jsp</result>
+           <result name="message" type="dispatcher">/member/viewMessage.jsp</result>
+           <result name="weblogin" type="dispatcher">/member/memberLogin.jsp</result>
+         </global-results>
+         <action name="memberList" class="com.sxit.member.action.MemberListAction">
+           <result name="success" type="dispatcher">/member/memberList.jsp</result>
+ 	 	 </action>
+ 	 	 <action name="memberCreate" class="com.sxit.member.action.MemberCreateAction">
+	   	   <result name="input" type="dispatcher">/member/memberCreate.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="memberEdit" class="com.sxit.member.action.MemberEditAction">
+	   	   <result name="input" type="dispatcher">/member/memberEdit.jsp</result>
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="memberDelete" class="com.sxit.member.action.MemberDeleteAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="memberDeletes" class="com.sxit.member.action.MemberDeletesAction">
+           <result name="success" type="dispatcher">/member/viewMessage.jsp</result>
+         </action>
+         <action name="memberView" class="com.sxit.member.action.MemberViewAction">
+           <result name="success" type="dispatcher">/member/memberView.jsp</result>
+         </action>
+         <action name="memberSearch" class="com.sxit.member.action.MemberSearchAction">
+	       <result name="input" type="dispatcher">/member/memberSearch.jsp</result>
+           <result name="success" type="dispatcher">/member/memberList.jsp</result>
+         </action>
+  </package>
+</struts>

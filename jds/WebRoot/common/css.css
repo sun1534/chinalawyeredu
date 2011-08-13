@@ -1,0 +1,70 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom:0px;
+	margin-right:0px;
+} 
+td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #214A58;
+}
+a:link {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #333333;
+	text-decoration: none;
+}
+a:visited {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #333333;
+	text-decoration: none;
+}
+a:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #0066CC;
+	text-decoration: underline;
+}
+a.blue:link {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #214A58;
+	text-decoration: none;
+}
+a.blue:visited {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #214A58;
+	text-decoration: none;
+}
+a.blue:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000000;
+	text-decoration: underline;
+}
+.input1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	border: 1px solid #327389;
+	height: 18px;
+	color: #245666;
+}
+.t_black {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	color: #000000;
+	font-weight: bold;
+}
+.button {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	background-image: url(images/bt_bg.gif);
+	border: 1px solid #0B73BF;
+	height: 23px;
+	color: #05579A;
+	width: 60px;
+}

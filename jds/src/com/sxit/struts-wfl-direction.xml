@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="workflow-direction" extends="default" namespace="/workflow">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/workflow/error.jsp</result>
+           <result name="message" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </global-results>
+         <action name="directionList" class="com.sxit.workflow.action.DirectionListAction">
+           <result name="success" type="dispatcher">/workflow/directionList.jsp</result>
+ 	 </action>
+         <action name="directionCreate" class="com.sxit.workflow.action.DirectionCreateAction">
+	   <result name="input" type="dispatcher">/workflow/directionCreate.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="directionEdit" class="com.sxit.workflow.action.DirectionEditAction">
+	   <result name="input" type="dispatcher">/workflow/directionEdit.jsp</result>
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="directionDelete" class="com.sxit.workflow.action.DirectionDeleteAction">
+           <result name="success" type="dispatcher">/workflow/viewMessage.jsp</result>
+         </action>
+         <action name="directionView" class="com.sxit.workflow.action.DirectionViewAction">
+           <result name="success" type="dispatcher">/workflow/directionView.jsp</result>
+         </action>
+         <action name="directionSearch" class="com.sxit.workflow.action.DirectionSearchAction">
+	   <result name="input" type="dispatcher">/workflow/directionSearch.jsp</result>
+           <result name="success" type="dispatcher">/workflow/directionList.jsp</result>
+         </action>
+  </package>
+</struts>

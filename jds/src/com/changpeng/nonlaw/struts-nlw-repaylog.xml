@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="nonlaw-repaylog" extends="default" namespace="/nonlaw">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="repaylogList" class="com.changpeng.nonlaw.action.RepaylogListAction">
+           <result name="float" type="dispatcher">/nonlaw/repaylogFloat.jsp</result>
+           <result name="success" type="dispatcher">/nonlaw/repaylogList.jsp</result>
+ 	 </action>
+         <action name="repaylogCreate" class="com.changpeng.nonlaw.action.RepaylogCreateAction">
+	   <result name="input" type="dispatcher">/nonlaw/repaylogCreate.jsp</result>
+         </action>
+         <action name="repaylogCreateBatch" class="com.changpeng.nonlaw.action.RepaylogCreateBatchAction">
+	   		<result name="input" type="dispatcher">/nonlaw/repaylogCreateBatch.jsp</result>
+         </action>
+         <action name="repaylogEdit" class="com.changpeng.nonlaw.action.RepaylogEditAction">
+	   <result name="input" type="dispatcher">/nonlaw/repaylogEdit.jsp</result>
+         </action>
+         <action name="repaylogDelete" class="com.changpeng.nonlaw.action.RepaylogDeleteAction">
+         </action>
+         <action name="repaylogDeletes" class="com.changpeng.nonlaw.action.RepaylogDeletesAction">
+         </action>
+         <action name="repaylogView" class="com.changpeng.nonlaw.action.RepaylogViewAction">
+           <result name="success" type="dispatcher">/nonlaw/repaylogView.jsp</result>
+         </action>
+  </package>
+  <package name="nonlawAjax" extends="defaultajax" namespace="/nonlawAjax">
+       <default-interceptor-ref name="adminStack"/>
+	      <action name="nonlawlogAjaxDelete" class="com.changpeng.nonlaw.action.NonlawlogDeleteAjaxAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+	 	  <action name="taskcanLink" class="com.changpeng.nonlaw.action.TaskcanlinkAction">
+	           <result name="success" type="json"></result>
+	 	 </action>
+    </package>
+</struts>

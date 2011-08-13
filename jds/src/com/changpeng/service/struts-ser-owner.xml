@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="service-owner" extends="default" namespace="/service">
+        <default-interceptor-ref name="adminStack"/>
+         <action name="ownerList" class="com.changpeng.service.action.OwnerListAction">
+           <result name="success" type="dispatcher">/service/ownerList.jsp</result>
+ 	 </action>
+         <action name="ownerCreate" class="com.changpeng.service.action.OwnerCreateAction">
+	   <result name="input" type="dispatcher">/service/ownerCreate.jsp</result>
+         </action>
+         <action name="ownerEdit" class="com.changpeng.service.action.OwnerEditAction">
+	   <result name="input" type="dispatcher">/service/ownerEdit.jsp</result>
+         </action>
+         <action name="ownerDelete" class="com.changpeng.service.action.OwnerDeleteAction">
+         </action>
+         <action name="ownerDeletes" class="com.changpeng.service.action.OwnerDeletesAction">
+         </action>
+         <action name="ownerView" class="com.changpeng.service.action.OwnerViewAction">
+           <result name="success" type="dispatcher">/service/ownerView.jsp</result>
+         </action>
+  </package>
+</struts>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+<!-- 
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class 
+    name="com.sxit.system.model.TsysGroupUser" 
+    table="TSYS_GROUP_USER"
+>
+
+    <composite-id name="comp_id" class="com.sxit.system.model.TsysGroupUserPK">
+        <!-- bi-directional many-to-one association to TsysUser -->
+        <key-many-to-one
+        	name="tsysUser"
+	        class="com.sxit.system.model.TsysUser"
+	    >
+    	    <column name="USERID" />
+	    </key-many-to-one>
+        <!-- bi-directional many-to-one association to TsysGroup -->
+        <key-many-to-one
+        	name="tsysGroup"
+	        class="com.sxit.system.model.TsysGroup"
+	    >
+    	    <column name="GROUPID" />
+	    </key-many-to-one>
+    </composite-id>    
+
+
+    <!-- associations -->
+
+</class>
+</hibernate-mapping>

@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.sxit.workflow.model.TwflNode"
+    table="TWFL_NODE"
+>
+
+    <id
+        name="nodeid"
+        type="int"
+        column="NODEID"
+    >
+    <generator class="assigned" />
+    </id>
+
+    <property
+        name="nodename"
+        type="java.lang.String"
+        column="NODENAME"
+        length="20"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="80"
+    />
+    <property
+        name="image"
+        type="java.lang.String"
+        column="IMAGE"
+        length="80"
+    />
+    <property
+        name="nodetype"
+        type="byte"
+        column="NODETYPE"
+        length="2"
+    />
+    <property
+        name="xcoordinate"
+        type="int"
+        column="XCOORDINATE"
+        length="6"
+    />
+    <property
+        name="ycoordinate"
+        type="int"
+        column="YCOORDINATE"
+        length="6"
+    />
+    <property
+        name="width"
+        type="int"
+        column="WIDTH"
+        length="6"
+    />
+    <property
+        name="height"
+        type="int"
+        column="HEIGHT"
+        length="6"
+    />
+    <property
+        name="nodedotype"
+        type="byte"
+        column="NODEDOTYPE"
+        length="2"
+    />
+    <property
+        name="bodydotype"
+        type="byte"
+        column="BODYDOTYPE"
+        length="2"
+    />
+    <property
+        name="flowdotype"
+        type="byte"
+        column="FLOWDOTYPE"
+        length="2"
+    />
+    <property
+        name="attachdotype"
+        type="byte"
+        column="ATTACHDOTYPE"
+        length="2"
+    />
+    <property
+        name="sendemail"
+        type="boolean"
+        column="SENDEMAIL"
+        length="1"
+    />
+    <property
+        name="sendsms"
+        type="boolean"
+        column="SENDSMS"
+        length="1"
+    />
+    <property
+        name="jumpself"
+        type="boolean"
+        column="JUMPSELF"
+        length="1"
+    />
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TwflProcess -->
+    <many-to-one
+        name="twflProcess"
+        class="com.sxit.workflow.model.TwflProcess"
+        not-null="true"
+    >
+        <column name="PROCESSID" />
+    </many-to-one>
+    <!-- bi-directional many-to-one association to TsysPosition 
+    <many-to-one
+        name="tsysPosition"
+        class="com.sxit.system.model.TsysPosition"
+        not-null="true"
+    >
+        <column name="POSITIONID" />
+    </many-to-one>
+    -->
+    
+     <many-to-one
+        name="tsysRole"
+        class="com.sxit.system.model.TsysRole"
+        not-null="true"
+    >
+        <column name="positionid" />
+    </many-to-one>
+    <!-- bi-directional one-to-many association to TwflDirection -->
+    <set
+        name="fromNode"
+        lazy="false"
+        inverse="true"
+    >
+        <key>
+            <column name="TONODEID" />
+        </key>
+        <one-to-many
+            class="com.sxit.workflow.model.TwflDirection"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TwflDirection -->
+    <set
+        name="toNode"
+        lazy="false"
+        inverse="true"
+    >
+        <key>
+            <column name="FROMNODEID" />
+        </key>
+        <one-to-many
+            class="com.sxit.workflow.model.TwflDirection"
+        />
+    </set>
+ <set
+        name="actions"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="nodeid" />
+        </key>
+        <one-to-many
+            class="com.sxit.workflow.model.TwflAction"
+        />
+    </set>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+#
+#Sun Nov 28 10:23:39 CST 2010
+genBasicCompId=false
+sessionFactoryName=
+profile=
+daoSFId=
+version=3.1
+jndiPath=
+detectM2M=false
+reStrategyClass=
+springDaoFile=
+useJavaTypes=true
+keyGenerator=sequence
+libInstallFolder=<no jars/zips in selected libraries>
+addLibs2Project=true
+genVersionTag=false
+sessionFactoryId=
+basePersistenceClass=
+reSettingsFile=/jdx_system/hibernate.reveng.xml
+configFile=/jdx_system/src/applicationContext.xml
+createConfigFile=false
+addLibs2Classpath=true

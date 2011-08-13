@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysPower"
+    table="TSYS_POWER"
+>
+
+    <id
+        name="powerid"
+        type="short"
+        column="POWERID"
+    >
+        <generator class="sequence">
+            <param name="sequence">TsysPowerid</param>
+        </generator>
+    </id>
+
+    <property
+        name="powername"
+        type="java.lang.String"
+        column="POWERNAME"
+        length="20"
+    />
+    <property
+        name="powernum"
+        type="int"
+        column="POWERNUM"
+        length="5"
+    />
+
+    <!-- associations -->
+    <!-- bi-directional many-to-one association to TsysModule -->
+    <many-to-one
+        name="tsysModule"
+        class="com.sxit.system.model.TsysModule"
+        not-null="true"
+    >
+        <column name="MODULEID" />
+    </many-to-one>
+
+</class>
+</hibernate-mapping>

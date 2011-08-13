@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+<class
+    name="com.sxit.workflow.model.TwflBusiness"
+    table="TWFL_BUSINESS"
+>
+
+    <id
+        name="businessid"
+        type="int"
+        column="BUSINESSID"
+    >
+        <generator class="sequence">
+            <param name="sequence">twflbusinessid</param>
+        </generator>
+    </id>
+    <property
+        name="businessname"
+        type="java.lang.String"
+        column="BUSINESSNAME"
+        length="20"
+    />
+    <property
+        name="usetype"
+        type="int"
+        column="USETYPE"
+        length="2"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+    <property
+        name="ordernum"
+        type="int"
+        column="ORDERNUM"
+        length="2"
+    />
+    <!-- bi-directional many-to-one association to TsysModule -->
+    <many-to-one
+        name="module"
+        class="com.sxit.system.model.TsysModule"
+        not-null="true"
+    >
+        <column name="MODULEID" />
+    </many-to-one>
+    <!-- bi-directional many-to-many association to TsysUser -->
+    <set name="users" table="TWFL_BUSINESS_USER">
+        <key column="businessid"/>
+        <many-to-many column="userid"
+            class="com.sxit.system.model.TsysUser"/>
+    </set>
+
+</class>
+</hibernate-mapping>

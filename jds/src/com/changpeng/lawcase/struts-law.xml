@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="lawcase" extends="default" namespace="/lawcase">
+       <default-interceptor-ref name="adminStack"/>
+       
+       <global-results>
+           <result name="error" type="dispatcher">/lawcase/error.jsp</result>
+           <result name="message" type="dispatcher">/lawcase/viewMessage.jsp</result>
+           <result name="flowmessage" type="dispatcher">/lawcase/viewFlowMessage.jsp</result>
+           <result name="success" type="dispatcher">/lawcase/viewMessage.jsp</result>
+           <result name="noright" type="dispatcher">/lawcase/noright.jsp</result>
+           
+           
+         </global-results>
+         <action name="mycaseList" class="com.changpeng.lawcase.action.MyCaseListAction">
+           <result name="success" type="dispatcher">/lawcase/mycaseList.jsp</result>
+ 	 </action>
+ 	 <action name="newcaseList" class="com.changpeng.lawcase.action.NewCaseListAction">
+           <result name="success" type="dispatcher">/lawcase/newcaseList.jsp</result>
+ 	 </action>
+ 	 
+ 	 
+ 	 <action name="caseDelete" class="com.changpeng.lawcase.action.CaseDeleteAction">
+ 	 </action>
+ 	 
+     <action name="caseView" class="com.changpeng.lawcase.action.CaseViewAction">
+       <result name="success" type="dispatcher">/lawcase/caseView.jsp</result>
+ 	 </action>
+ 	 
+    
+    
+ 	 <action name="caseAssignList" class="com.changpeng.lawcase.action.CaseAssignListAction">
+       <result name="success" type="dispatcher">/lawcase/caseAssignList.jsp</result>
+ 	 </action>
+
+     <action name="caselawCreateEditPre" class="com.changpeng.lawcase.action.CaselawCreateEditAction" method="input">
+           <result name="input" type="dispatcher">/lawcase/caselawCreateEdit.jsp</result>
+ 	 </action>
+ 	 <action name="caselawCreateEdit" class="com.changpeng.lawcase.action.CaselawCreateEditAction">
+      <result name="success" type="redirect">${nextpage}</result>
+     </action>
+ 	 <action name="caselawCreateBatch" class="com.changpeng.lawcase.action.CaselawCreateBatchAction">
+           <result name="input" type="dispatcher">/lawcase/caselawCreateBatch.jsp</result>
+ 	 </action>
+ 	 <action name="lawcaseList" class="com.changpeng.lawcase.action.LawcaseListAction">
+           <result name="success" type="dispatcher">/lawcase/lawcaseList.jsp</result>
+           <result name="exception" type="dispatcher">/lawcase/exceptionCaseList.jsp</result>
+           <result name="rukou" type="dispatcher">/lawcase/rukouCaseList.jsp</result>
+      </action>
+      
+      <!-- 等待处理的案件列表,也就是所有未结案的案件 -->
+          <action name="waitCasesList" class="com.changpeng.lawcase.action.LawcaseListAction">
+       <param name="statusid">wait</param>
+           <result name="wait" type="dispatcher">/lawcase/waitCasesList.jsp</result>
+      </action>
+      
+       <action name="rukouCases" class="com.changpeng.lawcase.action.LawcaseListAction">
+       <param name="statusid">rukou</param>
+           <result name="rukou" type="dispatcher">/lawcase/rukouCases.jsp</result>
+      </action>
+       <action name="cunliangCases" class="com.changpeng.lawcase.action.LawcaseListAction">
+       <param name="statusid">cunliang</param>
+           <result name="rukou" type="dispatcher">/lawcase/cunliangCases.jsp</result>
+      </action>
+      <action name="chukouCases" class="com.changpeng.lawcase.action.LawcaseListAction">
+            <param name="statusid">chukou</param>
+           <result name="rukou" type="dispatcher">/lawcase/chukouCases.jsp</result>
+      </action>
+          <action name="jieaningCases" class="com.changpeng.lawcase.action.LawcaseListAction">
+            <param name="statusid">jieaning</param>
+           <result name="rukou" type="dispatcher">/lawcase/jieaningCases.jsp</result>
+      </action>
+       <action name="exceptionCases" class="com.changpeng.lawcase.action.LawcaseListAction">
+            <param name="statusid">exeption</param>
+           <result name="exception" type="dispatcher">/lawcase/exceptionCases.jsp</result>
+      </action>
+      
+     <action name="susongConfirm" class="com.changpeng.lawcase.action.SusongConfirmAction">
+           <result name="input" type="dispatcher">/lawcase/susongConfirm.jsp</result>
+ 	 </action>
+ 	 <action name="zhixingConfirm" class="com.changpeng.lawcase.action.ZhixingConfirmAction">
+           <result name="input" type="dispatcher">/lawcase/zhixingConfirm.jsp</result>
+ 	 </action>
+ 	 
+ 	 <action name="susongCreateEdit" class="com.changpeng.lawcase.action.SusongCreateEditAction">
+           <result name="input" type="dispatcher">/lawcase/susongCreateEdit.jsp</result>
+ 	 </action>
+ 	 
+ 	<action name="zhixingCreateEdit" class="com.changpeng.lawcase.action.ZhixingCreateEditAction">
+           <result name="input" type="dispatcher">/lawcase/zhixingCreateEdit.jsp</result>
+ 	 </action>
+     <action name="caselogWrite" class="com.changpeng.lawcase.action.CaselogWriteAction">
+           <result name="input" type="dispatcher">/lawcase/caselogWrite.jsp</result>
+ 	 </action>
+     <action name="caselogList" class="com.changpeng.lawcase.action.CaselogListAction">
+           <result name="success" type="dispatcher">/lawcase/caselogList.jsp</result>
+ 	 </action>
+ 	 
+ 	 <action name="caseJixiaoList" class="com.changpeng.lawcase.action.CaseJixiaoListAction">
+           <result name="success" type="dispatcher">/lawcase/caseJixiaoList.jsp</result>
+ 	 </action>
+ 	
+ 	
+   	 <action name="dengjiList" class="com.changpeng.lawcase.action.CaseDengjiListAction">
+           <result name="success" type="dispatcher">/lawcase/dengjiList.jsp</result>
+ 	 </action>
+ 	   	 <action name="tiaojieList" class="com.changpeng.lawcase.action.CaseTiaojieListAction">
+           <result name="success" type="dispatcher">/lawcase/tiaojieList.jsp</result>
+ 	 </action>
+ 	
+ 	<action name="caseDoView" class="com.changpeng.lawcase.workflow.CaseDoViewAction">
+           <result name="success" type="dispatcher">/lawcase/caseDoView.jsp</result>
+ 	 </action>
+ 	 <action name="caseDoSubmit" class="com.changpeng.lawcase.workflow.CaseDoSubmitAction">
+ 	 
+ 	 <result name="selectman" type="dispatcher">/lawcase/caseDoSubmitSelectMan.jsp</result>
+      </action>
+ 	 
+ 	  <action name="susongView" class="com.changpeng.lawcase.action.SusongViewAction">
+ 	    <result name="success" type="dispatcher">/lawcase/susongView.jsp</result>
+      </action>
+       <action name="zhixingView" class="com.changpeng.lawcase.action.ZhixingViewAction">
+         <result name="success" type="dispatcher">/lawcase/zhixingView.jsp</result>
+      </action>
+       <action name="lianinfoView" class="com.changpeng.lawcase.action.LianinfoViewAction">
+         <result name="success" type="dispatcher">/lawcase/lianinfoView.jsp</result>
+      </action>
+ 	 
+ 	  <action name="case2Exception" class="com.changpeng.lawcase.action.Case2ExceptionAction">
+       <result name="input" type="dispatcher">/lawcase/case2Exception.jsp</result>
+       <result name="success" type="redirect">/lawcase/caseDoSubmit.action?actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+ 	 </action>
+       
+    <action name="case2ResendNew" class="com.changpeng.lawcase.action.Case2ResendNewAction">
+           <result name="input" type="dispatcher">/lawcase/case2ResendNew.jsp</result>
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+ 	 </action>
+ 	 
+ 	 <action name="caseAssignPre" class="com.changpeng.lawcase.action.CaseAssignPreAction">
+ 	     <result name="success" type="redirect">/lawcase/caseDoSubmit.action?actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+ 	 </action>
+ 	 
+ 	 <action name="caseAssignFlowPre" class="com.changpeng.lawcase.action.CaseAssignFlowPreAction">
+ 	     <result name="success" type="redirect">/lawcase/caseDoSubmit.action?actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+ 	 </action>
+ 	 
+ 	  <action name="caseAssign" class="com.changpeng.lawcase.action.CaseAssignAction">
+       <result name="input" type="dispatcher">/lawcase/caseAssign.jsp</result> 	    
+        <result name="success" type="redirect">/lawcase/caseDoSubmit.action?actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+      </action>
+       
+      <action name="lianinfoCreateEdit" class="com.changpeng.lawcase.action.LianinfoCreateEditAction">
+        <result name="input" type="dispatcher">/lawcase/lianinfoCreateEdit.jsp</result> 	    
+      </action> 
+      
+      <action name="kaitinginfoCreateEdit" class="com.changpeng.lawcase.action.KaitinginfoCreateEditAction">
+        <result name="input" type="dispatcher">/lawcase/kaitinginfoCreateEdit.jsp</result> 	
+         <result name="caijue" type="dispatcher">/lawcase/kaitinginfoCaijue.jsp</result> 
+           <result name="jixiao" type="dispatcher">/lawcase/kaitinginfoJixiao.jsp</result> 	    
+      </action>
+      
+      <action name="kaitingInfoView" class="com.changpeng.lawcase.action.KaitingInfoViewAction">
+        <result name="success" type="dispatcher">/lawcase/kaitingInfoView.jsp</result>    
+      </action>
+      
+      
+     <action name="planlogWrite" class="com.changpeng.lawcase.action.CasePlanlogWriteAction">
+        <result name="input" type="dispatcher">/lawcase/planlogWrite.jsp</result> 	    
+      </action> 
+       
+      <action name="tiaojieError" class="com.changpeng.lawcase.action.CaseTiaojieErrorAction">
+        <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+      </action> 
+       
+       <!-- 案件转到审理,实际就是将案件提交给台帐管理员录入其他的数据 -->
+      <action name="case2shenli" class="com.changpeng.lawcase.action.Case2ShenliAction">
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+      </action>  
+      
+      <action name="case2Execute" class="com.changpeng.lawcase.action.Case2ExecuteAction">
+           <result name="input" type="dispatcher">/lawcase/case2Execute.jsp</result>
+      </action> 
+      
+      <action name="zhixingInfoCreateEdit" class="com.changpeng.lawcase.action.ZhixingInfoCreateEditAction">
+           <result name="input" type="dispatcher">/lawcase/zhixingInfoCreateEdit.jsp</result>
+      </action> 
+      
+       <action name="zhixingInfoAllView" class="com.changpeng.lawcase.action.ZhixingInfoAllViewAction">
+           <result name="input" type="dispatcher">/lawcase/zhixingInfoAllView.jsp</result>
+      </action> 
+      
+      
+      
+            <action name="pingguInfoCreateEdit" class="com.changpeng.lawcase.action.PingguInfoCreateEditAction">
+           <result name="input" type="dispatcher">/lawcase/pingguInfoCreateEdit.jsp</result>
+      </action> 
+      
+            <action name="paimaiInfoCreateEdit" class="com.changpeng.lawcase.action.PaimaiInfoCreateEditAction">
+           <result name="input" type="dispatcher">/lawcase/paimaiInfoCreateEdit.jsp</result>
+      </action> 
+      <!-- 台帐管理员转结案 -->
+         <action name="case2endpre" class="com.changpeng.lawcase.action.Case2EndPreAction">
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+   <result name="input" type="dispatcher">/lawcase/case2endpre.jsp</result>
+      </action>  
+      
+      <action name="case2TaizhangEndCase" class="com.changpeng.lawcase.action.Case2TaizhangEndCaseAction">
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+   <result name="input" type="dispatcher">/lawcase/case2TaizhangEndCase.jsp</result>    
+ </action>
+      
+      <action name="caseEndReally" class="com.changpeng.lawcase.action.CaseEndReallyAction">
+       <result name="input" type="dispatcher">/lawcase/caseEndReally.jsp</result>
+      </action> 
+      <action name="caseEndManagerConfirm" class="com.changpeng.lawcase.action.CaseEndManagerConfirmAction">
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+       <result name="input" type="dispatcher">/lawcase/caseEndManagerConfirm.jsp</result>
+      </action> 
+      <action name="caseEndPresentConfirm" class="com.changpeng.lawcase.action.CaseEndPresentConfirmAction">
+           <result name="success" type="redirect">/lawcase/caseDoSubmit.action?userid=${userid}&amp;actionid=${actionid}&amp;nodeid=${nodeid}&amp;caseid=${caseid}&amp;remarks=${remarks}</result>
+     <result name="input" type="dispatcher">/lawcase/caseEndPresentConfirm.jsp</result>
+      </action> 
+      
+  </package>
+</struts>

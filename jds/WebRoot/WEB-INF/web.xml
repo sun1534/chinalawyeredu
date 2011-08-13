@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4" id="WebApp_9">
+  <display-name>Struts Showcase Application</display-name>
+  <filter>
+    <filter-name>struts</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>struts</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  	<!-- 用户会话的listener -->
+ 
+	<listener>
+		<listener-class>
+			com.sxit.system.common.listener.UserSessionListener
+		</listener-class>
+	</listener>
+	
+	<!-- 系统启动的初始化动作 -->
+	<listener>
+		<listener-class>
+			com.sxit.system.common.listener.WebContextListener
+		</listener-class>
+	</listener>
+	
+  <servlet>
+    <servlet-name>RandomImgCodeServlet</servlet-name>
+    <servlet-class>com.sxit.common.util.RandomImgCodeServlet</servlet-class>
+  </servlet>
+  
+  
+    <servlet>
+		<servlet-name>Connector</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.connector.ConnectorServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>SimpleUploader</servlet-name>
+		<servlet-class>com.fredck.FCKeditor.uploader.SimpleUploaderServlet</servlet-class>
+		<init-param>
+			<param-name>baseDir</param-name>
+			<param-value>/UserFiles/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFile</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFile</param-name>
+			<param-value>php|php3|php5|phtml|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|dll|reg|cgi</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsImage</param-name>
+			<param-value>jpg|gif|jpeg|png|bmp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsImage</param-name>
+			<param-value></param-value>
+		</init-param>
+		<init-param>
+			<param-name>AllowedExtensionsFlash</param-name>
+			<param-value>swf|fla</param-value>
+		</init-param>
+		<init-param>
+			<param-name>DeniedExtensionsFlash</param-name>
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>CallAnswer</servlet-name>
+		<servlet-class>com.changpeng.common.CallAnswerServlet</servlet-class>
+	</servlet>	
+	 <servlet-mapping>
+		<servlet-name>CallAnswer</servlet-name>
+    	<url-pattern>/callAnswer</url-pattern>
+  	</servlet-mapping> 
+  	
+  <servlet-mapping>
+    <servlet-name>Connector</servlet-name>
+    <url-pattern>/editor/filemanager/browser/default/connectors/jsp/connector</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>SimpleUploader</servlet-name>
+    <url-pattern>/editor/filemanager/upload/simpleuploader</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+  	
+    <servlet-name>RandomImgCodeServlet</servlet-name>
+    <url-pattern>/servlet/randomImgCodeServlet</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>userlogin.jsp</welcome-file>
+  </welcome-file-list>
+  <session-config>
+      <session-timeout>30</session-timeout>
+ </session-config>
+</web-app>
+

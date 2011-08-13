@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<!-- START SNIPPET: xworkSample -->
+<struts>
+
+    <!-- Some or all of these can be flipped to true for debugging -->
+    <constant name="struts.i18n.reload" value="false" />
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <constant  name="struts.devMode"  value="true" />
+    <constant  name="struts.i18n.encoding"  value="utf-8"  />
+    <constant name="struts.serve.static" value="true" />
+    <constant name="struts.multipart.saveDir" value="/uploads" />
+    <constant name="struts.serve.static.browserCache" value="false" />
+    
+    <include file="struts-comm.xml" />
+    <include file="com/sxit/struts-sys-department.xml" />
+    <include file="com/sxit/struts-sys-user.xml" />
+    <include file="com/sxit/struts-sys-group.xml" />
+    <include file="com/sxit/struts-sys-role.xml" />
+    <include file="com/sxit/struts-sys-module.xml" />
+    <include file="com/sxit/struts-sys-function.xml" />
+    <include file="com/sxit/struts-sys-position.xml" />
+    <include file="com/sxit/struts-wat-wait.xml" />
+    <include file="com/sxit/struts-wfl-process.xml" />
+    <include file="com/sxit/struts-wfl-node.xml" />
+    <include file="com/sxit/struts-wfl-direction.xml" />
+    <include file="com/sxit/struts-wfl-business.xml" />
+    <include file="com/sxit/struts-inf-info.xml" />
+    <include file="com/sxit/member/struts-mem-member.xml" />
+    <include file="com/sxit/member/struts-mem-resume.xml" />
+    
+    <include file="com/changpeng/operation/struts-opr-bank.xml" />
+    <include file="com/changpeng/operation/struts-opr-creditcard.xml" />
+    <include file="com/changpeng/operation/struts-opr-repaylog.xml" />
+    <include file="com/changpeng/nonlaw/struts-nlw-nonlaw.xml" />
+    <include file="com/changpeng/nonlaw/struts-nlw-repaylog.xml" />
+    <include file="com/changpeng/callcenter/struts-ccl-center.xml" />
+    <include file="com/changpeng/lawcase/struts-law.xml" />
+    <include file="com/changpeng/address/struts-usr-address.xml" />
+    
+    <include file="com/changpeng/service/struts-ser-bus.xml" />
+    <include file="com/changpeng/service/struts-ser-kaoqin.xml" />
+    <include file="com/changpeng/service/struts-ser-owner.xml" />
+    <include file="com/changpeng/service/struts-ser-phobill.xml" />
+    
+    <include file="com/changpeng/help/struts-hlp-suggest.xml" />
+    <include file="com/changpeng/help/struts-hlp-msg.xml" />
+    
+    <include file="com/changpeng/customer/struts-usr-customer.xml" />
+    <include file="com/changpeng/sms/struts-sms.xml" />
+    
+    <include file="com/changpeng/report/struts-report.xml" />
+    
+    <include file="com/changpeng/lawcase/struts-law.xml" />
+    
+    <package name="default" extends="struts-default">
+       <interceptors>
+        <interceptor name="hibernate" class="com.sxit.common.interceptor.HibernateInterceptor"/>
+          <interceptor-stack name="adminStack">
+              <interceptor-ref name="timer"/>
+              <!-- <interceptor-ref name="logger"/> -->
+              <interceptor-ref name="static-params"/>
+              <interceptor-ref name="params"/>
+              <interceptor-ref name="defaultStack" />
+              <interceptor-ref name="hibernate"/>
+            </interceptor-stack>
+        </interceptors>
+         <global-results>
+           <result name="error" type="dispatcher">/common/error.jsp</result>
+           <result name="login" type="dispatcher">/common/login.jsp</result>
+           <result name="message" type="dispatcher">/common/viewMessage.jsp</result>
+           <result name="success" type="dispatcher">/common/viewMessage.jsp</result>
+         </global-results>
+    </package>
+
+
+    <package name="defaultajax" extends="json-default">
+       <interceptors>
+        <interceptor name="hibernate" class="com.sxit.common.interceptor.HibernateInterceptor"/>
+        <interceptor-stack name="adminStack">
+              <interceptor-ref name="static-params"/>
+              <interceptor-ref name="params"/>
+              <interceptor-ref name="defaultStack" />
+              <interceptor-ref name="hibernate"/>
+            </interceptor-stack>
+        </interceptors>
+    </package>
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+

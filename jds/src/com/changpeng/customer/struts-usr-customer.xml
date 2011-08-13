@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="customer-customer" extends="default"
+		namespace="/customer">
+		<default-interceptor-ref name="adminStack" />
+		<action name="userList"
+			class="com.changpeng.customer.action.UserListAction">
+			<result name="success" type="dispatcher">
+				/customer/userList.jsp
+			</result>
+		</action>
+		<action name="customerList"
+			class="com.changpeng.customer.action.CustomerListAction">
+			<result name="success" type="dispatcher">
+				/customer/customerList.jsp
+			</result>
+		</action>
+		<action name="customerCreate"
+			class="com.changpeng.customer.action.CustomerCreateAction">
+			<result name="input" type="dispatcher">
+				/customer/customerCreate.jsp
+			</result>
+		</action>
+		<action name="customerExport"
+			class="com.changpeng.customer.action.CustomerExportAction">
+			<result name="input" type="dispatcher">
+				/customer/customerExport.jsp
+			</result>
+		</action>
+		<action name="customerEdit"
+			class="com.changpeng.customer.action.CustomerEditAction">
+			<result name="input" type="dispatcher">
+				/customer/customerEdit.jsp
+			</result>
+		</action>
+		<action name="customerDelete"
+			class="com.changpeng.customer.action.CustomerDeleteAction">
+		</action>
+		<action name="customerDeletes"
+			class="com.changpeng.customer.action.CustomerDeletesAction">
+		</action>
+		<action name="customerView"
+			class="com.changpeng.customer.action.CustomerViewAction">
+			<result name="success" type="dispatcher">
+				/customer/customerView.jsp
+			</result>
+		</action>
+
+		<action name="customer2List"
+			class="com.changpeng.customer.action.Customer2ListAction">
+			<result name="success" type="dispatcher">
+				/customer/customer2List.jsp
+			</result>
+		</action>
+		<action name="customer2Create"
+			class="com.changpeng.customer.action.Customer2CreateAction">
+			<result name="input" type="dispatcher">
+				/customer/customer2Create.jsp
+			</result>
+		</action>
+		<action name="customer2Export"
+			class="com.changpeng.customer.action.Customer2ExportAction">
+			<result name="input" type="dispatcher">
+				/customer/customer2Export.jsp
+			</result>
+		</action>
+		<action name="customer2Edit"
+			class="com.changpeng.customer.action.Customer2EditAction">
+			<result name="input" type="dispatcher">
+				/customer/customer2Edit.jsp
+			</result>
+		</action>
+		<action name="customer2Delete"
+			class="com.changpeng.customer.action.Customer2DeleteAction">
+		</action>
+		<action name="customer2Deletes"
+			class="com.changpeng.customer.action.Customer2DeletesAction">
+		</action>
+		<action name="customer2View"
+			class="com.changpeng.customer.action.Customer2ViewAction">
+			<result name="success" type="dispatcher">
+				/customer/customer2View.jsp
+			</result>
+		</action>
+
+
+
+		<action name="customer3List"
+			class="com.changpeng.customer.action.Customer3ListAction">
+			<result name="success" type="dispatcher">
+				/customer/customer3List.jsp
+			</result>
+		</action>
+
+		<action name="customer3ServiceList"
+			class="com.changpeng.customer.action.Customer3ServiceListAction">
+			<result name="success" type="dispatcher">
+				/customer/customer3ServiceList.jsp
+			</result>
+		</action>
+
+		<action name="customer3View"
+			class="com.changpeng.customer.action.Customer3ViewAction">
+			<result name="success" type="dispatcher">
+				/customer/customer3View.jsp
+			</result>
+		</action>
+
+		<action name="customer3Edit"
+			class="com.changpeng.customer.action.Customer3EditAction">
+			<result name="input" type="dispatcher">
+				/customer/customer3Edit.jsp
+			</result>
+			<result name="success" type="dispatcher">
+				/customer/message.jsp
+			</result>
+
+		</action>
+	</package>
+</struts>

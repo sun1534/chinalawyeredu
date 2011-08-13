@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+<!--
+    Created by the Middlegen Hibernate plugin
+
+    http://boss.bekk.no/boss/middlegen/
+    http://hibernate.sourceforge.net/
+-->
+
+<class
+    name="com.sxit.system.model.TsysUser"
+    table="TSYS_USER"
+>
+
+    <id
+        name="userid"
+        type="long"
+        column="USERID"
+    >
+        <generator class="sequence">
+            <param name="sequence">TsysUserID</param>
+        </generator>
+    </id>
+
+    <property
+        name="username"
+        type="java.lang.String"
+        column="USERNAME"
+        length="20"
+    />
+    <property
+        name="loginname"
+        type="java.lang.String"
+        column="LOGINNAME"
+        length="20"
+    />
+    <property
+        name="createtime"
+        type="java.sql.Timestamp"
+        column="CREATETIME"
+        length="7"
+    />
+    <property
+        name="password"
+        type="java.lang.String"
+        column="PASSWORD"
+        length="32"
+    />
+    <property
+        name="email"
+        type="java.lang.String"
+        column="EMAIL"
+        length="50"
+    />
+    <property
+        name="phone"
+        type="java.lang.String"
+        column="PHONE"
+        length="20"
+    />
+    <property
+        name="mobile"
+        type="java.lang.String"
+        column="MOBILE"
+        length="20"
+    />
+    <property
+        name="statusid"
+        type="int"
+        column="STATUSID"
+        length="2"
+    />
+    <property
+        name="description"
+        type="java.lang.String"
+        column="DESCRIPTION"
+        length="100"
+    />
+    <property
+        name="isadmin"
+        type="boolean"
+        column="ISADMIN"
+        length="1"
+    />
+    <property
+        name="isleader"
+        type="boolean"
+        column="ISLEADER"
+        length="1"
+    />
+    <property
+        name="userno"
+        type="java.lang.String"
+        column="USERNO"
+        length="10"
+    />
+    <property
+        name="bqqno"
+        type="java.lang.String"
+        column="BQQNO"
+        length="10"
+    />
+    <property
+        name="msnmail"
+        type="java.lang.String"
+        column="MSNMAIL"
+        length="10"
+    />
+        <property
+        name="positionname"
+        type="java.lang.String"
+        column="positionname"
+        length="25"
+    />
+    
+    
+    <property
+        name="image"
+        type="java.lang.String"
+        column="IMAGE"
+        length="10"
+    />
+    <property
+        name="style"
+        type="int"
+        column="STYLE"
+        length="2"
+    />
+    <!-- associations -->
+    <!-- bi-directional one-to-many association to TsysFunctionUser -->
+    <set
+        name="tsysFunctionUsers"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="USERID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysFunctionUser"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TsysUserRole -->
+    <set
+        name="tsysUserRoles"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="USERID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysUserRole"
+        />
+    </set>
+    <!-- bi-directional one-to-many association to TsysGroupUser -->
+    <set
+        name="tsysGroupUsers"
+        lazy="true"
+        inverse="true"
+    >
+        <key>
+            <column name="USERID" />
+        </key>
+        <one-to-many
+            class="com.sxit.system.model.TsysGroupUser"
+        />
+    </set>
+    <!-- bi-directional many-to-one association to TsysDepartment -->
+    <many-to-one
+        name="tsysDepartment"
+        class="com.sxit.system.model.TsysDepartment"
+        not-null="true"
+        lazy="false"
+    >
+        <column name="DEPARTMENTID" />
+    </many-to-one>
+     
+</class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+  <package name="system-department" extends="default" namespace="/system">
+        <default-interceptor-ref name="adminStack"/>
+         <global-results>
+           <result name="error" type="dispatcher">/system/error.jsp</result>
+           <result name="message" type="dispatcher">/system/viewMessage.jsp</result>
+         </global-results>
+         <action name="departmentList" class="com.sxit.system.action.DepartmentListAction">
+           <result name="success" type="dispatcher">/system/departmentList.jsp</result>
+ 	 </action>
+         <action name="departmentCreate" class="com.sxit.system.action.DepartmentCreateAction">
+	   <result name="input" type="dispatcher">/system/departmentCreate.jsp</result>
+           <result name="success" type="dispatcher">/system/departmentView.jsp</result>
+         </action>
+         <action name="departmentEdit" class="com.sxit.system.action.DepartmentEditAction">
+	   <result name="input" type="dispatcher">/system/departmentEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/departmentView.jsp</result>
+         </action>
+         <action name="departmentDelete" class="com.sxit.system.action.DepartmentDeleteAction">
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="departmentView" class="com.sxit.system.action.DepartmentViewAction">
+           <result name="success" type="dispatcher">/system/departmentView.jsp</result>
+         </action>
+         <action name="departmentTree" class="com.sxit.system.action.DepartmentTreeAction">
+           <result name="success" type="dispatcher">/system/departmentTree.jsp</result>
+ 	 </action>
+          <action name="departmentTreeView" class="com.sxit.system.action.DepartmentViewAction">
+           <result name="success" type="dispatcher">/system/departmentTreeView.jsp</result>
+         </action>
+         <action name="departmentTreeEdit" class="com.sxit.system.action.DepartmentEditAction">
+	   <result name="input" type="dispatcher">/system/departmentTreeEdit.jsp</result>
+           <result name="success" type="dispatcher">/system/viewMessage.jsp</result>
+         </action>
+         <action name="departmentMain" class="com.sxit.system.action.DepartmentMainAction">
+           <result name="success" type="dispatcher">/system/departmentMain.jsp</result>
+         </action>
+  </package>
+</struts>
