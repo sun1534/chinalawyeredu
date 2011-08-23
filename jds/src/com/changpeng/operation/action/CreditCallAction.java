@@ -109,7 +109,7 @@ public class CreditCallAction extends AbstractListAction  {
         }
         
         private Query getQuery() throws HibernateException {
-            String queryName="select a from ToprCredittask a,ToprCreditcard b where a.userid="+curuser.getUserid()+" and a.toprCreditcard.creditcardid=b.creditcardid  and a.taskstat=0";
+            String queryName="from ToprCredittask a,ToprCreditcard b where a.userid="+curuser.getUserid()+" and a.toprCreditcard.creditcardid=b.creditcardid  and a.taskstat=0";
           
             if(repaystatus==0) //不显示全清的
             	queryName+="  and b.repaystatus<>2";	
@@ -155,10 +155,18 @@ public class CreditCallAction extends AbstractListAction  {
               	 
                }
     		//queryName+=" and b.repaystatus<>2";
+    	    basicDao.setSession(getSession());
+            recordsize=basicDao.getCountOfQuery(queryName);
+            
+            System.out.println("recordsize==="+recordsize);
+            
+    		queryName="select a "+queryName+" order by to_number(b.curcnfee) desc";
     		
-    		queryName+=" order by to_number(b.curcnfee) desc";
+    		 System.out.println("queryName==="+queryName);
+             
+    		
             Query query = getSession().createQuery(queryName);
-            recordsize = query.list().size();
+//            recordsize = query.list().size();
             pagesize = (recordsize - 1) / maxperpage + 1;
             pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
             return query;

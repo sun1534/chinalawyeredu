@@ -133,7 +133,7 @@ public class CustomerCreateBatch {
 						}else
 							cus.setCustomerflag(2);
 						cus.setCustomertype(2);
-						cus.setCreateuser(userid);
+						cus.setCreateuser((int)userid);
 						session.save(cus);
 					}
 			}//end for row

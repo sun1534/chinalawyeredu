@@ -1,4 +1,4 @@
-package com.changpeng.lawcase.util;
+package com.sxit.common;
 /**
  * 
  */
@@ -40,7 +40,7 @@ public class HSSFCellToString {
 				return df.format(cell.getNumericCellValue());
 			}
 		case HSSFCell.CELL_TYPE_STRING:
-			return cell.getRichStringCellValue().getString();
+			return cell.getRichStringCellValue().getString().replace(" ", "");
 		default:
 			return "未知类型:" + cell.getCellType();
 		}

@@ -29,7 +29,10 @@ public class MsgListAction extends AbstractListAction  {
                 String queryName ;
                 queryName="from ThlpMsg  where touser="+curuser.getUserid()+" order by msgid desc";
                 Query query = getSession().createQuery(queryName);
-                recordsize = query.list().size();
+
+                basicDao.setSession(getSession());
+                recordsize=basicDao.getCountOfQuery(queryName);
+//                recordsize = query.list().size();
                 pagesize = (recordsize - 1) / maxperpage + 1;
                 pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
                 return query;

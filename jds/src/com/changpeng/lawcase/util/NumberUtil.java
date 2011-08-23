@@ -161,21 +161,20 @@ public class NumberUtil {
 		}
 	}
 
-	public static boolean isNumeric(String str) {
-		Pattern pattern = Pattern.compile("[0-9]*");
+	public static boolean isMoney(String str) {
+		Pattern pattern = Pattern.compile("[0-9]+.?[0-9]*");
 		Matcher isNum = pattern.matcher(str);
 		if (!isNum.matches()) {
 			return false;
 		}
 		return true;
 	}
-
 	
 
 	public static void main(String args[]) {
-		// System.out.println(reversensquare(15, 2));
-		// System.out.println(reversensquare(13, 2));
-		// System.out.println(reversensquare(17, 2));
+		 System.out.println(isMoney("f0.01"));
+		 System.out.println(isMoney("0.41"));
+		 System.out.println(isMoney("1.235"));
 	
 	}
 

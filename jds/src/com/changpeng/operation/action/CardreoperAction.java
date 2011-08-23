@@ -68,8 +68,14 @@ public class CardreoperAction extends AbstractAction {
 					} else {
 						System.out.println(temp.getUsername() + ",," + temp.getIdcard() + "没找到用户");
 					}
+					
 				} else
 					getSession().update(temp);
+			}
+			if(opflag==3){
+				message="全部新增处理成功";
+			}else{
+				message="全部覆盖处理成功";
 			}
 		} else {
 			for (ToprCreditcard temp : list) {

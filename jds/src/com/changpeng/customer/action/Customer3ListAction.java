@@ -119,17 +119,18 @@ public class Customer3ListAction extends AbstractListAction {
 		if (company != null && !"".equals(company))
 			sql += " and company like '%" + company + "%'";
 		if (idcard != null && !"".equals(idcard))
-			sql += " and idcard like '%" + idcard + "%'";
+			sql += " and idcard = '" + idcard + "'";
 		if (phone != null && !"".equals(phone)) {
 			sql += " and(homephone like '%" + phone + "%' or mobile like '%" + phone + "%' or mobile2 like '%" + phone
 					+ "%' or compphone like '%" + phone + "%' or compfax like '%" + phone + "%')";
 
 		}
-
+		 basicDao.setSession(getSession());
+        recordsize=basicDao.getCountOfQuery(sql);
 		sql += " order by customerid";
 		System.out.println(sql);
 		Query query = getSession().createQuery(sql);
-		recordsize = query.list().size();
+//		recordsize = query.list().size();
 		pagesize = (recordsize - 1) / maxperpage + 1;
 		pagenumber = pagenumber > pagesize - 1 ? pagesize - 1 : pagenumber;
 		return query;

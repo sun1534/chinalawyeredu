@@ -92,30 +92,30 @@ public class CommanDatas {
 	public static void getAllActions(Session session) {
 		long now = System.currentTimeMillis();
 		if (now - actioninterval > 3 * 60 * 60 * 1000) {
-			List list = session.createQuery("from TwflAction a").list();
-			ALLACTIONS.clear();
-			for (int i = 0; list != null && i < list.size(); i++) {
-				TwflAction action = (TwflAction) list.get(i);
-				ALLACTIONS.put(action.getActionid(), action);
-			}
-			System.out.println(ALLACTIONS);
-			list = session.createQuery("from TwflNode a").list();
-			ALLNODES.clear();
-			for (int i = 0; list != null && i < list.size(); i++) {
-				TwflNode action = (TwflNode) list.get(i);
-				ALLNODES.put(action.getNodeid(), action);
-			}
-			System.out.println(ALLNODES);
-			list = session.createQuery("from JiXiaos a").list();
-			ALLJIXIAOS.clear();
-			for (int i = 0; list != null && i < list.size(); i++) {
-				JiXiaos action = (JiXiaos) list.get(i);
-				ALLJIXIAOS.put(action.getJixiaoid(), action);
-			}
+//			List list = session.createQuery("from TwflAction a").list();
+//			ALLACTIONS.clear();
+//			for (int i = 0; list != null && i < list.size(); i++) {
+//				TwflAction action = (TwflAction) list.get(i);
+//				ALLACTIONS.put(action.getActionid(), action);
+//			}
+//			System.out.println(ALLACTIONS);
+//			list = session.createQuery("from TwflNode a").list();
+//			ALLNODES.clear();
+//			for (int i = 0; list != null && i < list.size(); i++) {
+//				TwflNode action = (TwflNode) list.get(i);
+//				ALLNODES.put(action.getNodeid(), action);
+//			}
+//			System.out.println(ALLNODES);
+//			List list = session.createQuery("from JiXiaos a").list();
+//			ALLJIXIAOS.clear();
+//			for (int i = 0; list != null && i < list.size(); i++) {
+//				JiXiaos action = (JiXiaos) list.get(i);
+//				ALLJIXIAOS.put(action.getJixiaoid(), action);
+//			}
 			actioninterval=now;
-			System.out.println(ALLJIXIAOS);
+//			System.out.println(ALLJIXIAOS);
 		} else {
-			System.out.println("从内存里面拿字典数据");
+//			System.out.println("从内存里面拿字典数据");
 		}
 	}
 
@@ -142,9 +142,9 @@ public class CommanDatas {
 				ALLUSERS.put(user.getUserid(), user);
 			}
 			interval = now;
-			System.out.println(USER_ID_NAME);
+//			System.out.println(USER_ID_NAME);
 		} else {
-			System.out.println("从内存里面拿用户数据");
+//			System.out.println("从内存里面拿用户数据");
 		}
 	}
 }

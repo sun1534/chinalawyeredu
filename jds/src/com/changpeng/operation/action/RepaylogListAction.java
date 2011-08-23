@@ -47,9 +47,12 @@ public class RepaylogListAction extends AbstractListAction  {
                 queryName="from ToprRepaylog as repaylog where 1=1";
                 if(creditcardid!=0)
                 	queryName+=" and toprCreditcard.creditcardid="+creditcardid;
+                
+                basicDao.setSession(getSession());
+                recordsize=basicDao.getCountOfQuery(queryName);
                 queryName+=" order by repaylog.repaylogid desc";
                 Query query = getSession().createQuery(queryName);
-                recordsize = query.list().size();
+//                recordsize = query.list().size();
                 pagesize = (recordsize - 1) / maxperpage + 1;
                 pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
                 return query;

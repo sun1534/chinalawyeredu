@@ -26,14 +26,32 @@ public class Globals {
 
 	private static Globals instance=null;
 	private Globals(){
-		context = new ClassPathXmlApplicationContext(configName);
-		session=(HibernateSession)context.getBean("hibernateSession");
-		ds=(org.apache.commons.dbcp.BasicDataSource)context.getBean("dataSource");
+//		context = new ClassPathXmlApplicationContext(configName);
+//		session=(HibernateSession)context.getBean("hibernateSession");
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		session=(HibernateSession)wac.getBean("hibernateSession");
+//		ds=(org.apache.commons.dbcp.BasicDataSource)context.getBean("dataSource");
+		ds=(org.apache.commons.dbcp.BasicDataSource)wac.getBean("dataSource");
 	}
 	public static synchronized Globals getInstance(){
 		if(instance==null)
 			instance=new Globals();
 		return instance;
+	}
+
+	private static Object obj=new Object();
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static synchronized Object getBeanWithoutWeb(String name) {
+		synchronized (obj) {
+			if (context == null) {
+				context = new ClassPathXmlApplicationContext(configName);
+			}
+		}
+		return context.getBean(name);
 	}
 
 	/**
@@ -46,10 +64,11 @@ public class Globals {
 		//if (context == null) {
 		//	context = new ClassPathXmlApplicationContext(configName);
 		 //}
-	//	WebApplicationContext wac =(WebApplicationContext)ActionContext.getContext().getApplication().get(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+//		WebApplicationContext wac =(WebApplicationContext)ActionContext.getContext().getApplication().get(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 
-		return context.getBean(name);
-	
+//		return context.getBean(name);
+		WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
+		return wac.getBean(name);
 	}
 	
 	public List findAll(String query){

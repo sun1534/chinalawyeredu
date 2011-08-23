@@ -127,8 +127,10 @@ public class NonlawtaskListAction extends AbstractListAction  {
         }
         private Query getQuery() throws HibernateException {
             String queryName ;
+            basicDao.setSession(getSession());
     		if(chengbanren!=null&&!"".equals(chengbanren)){	
-    			queryName="select a from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.tdflag=0 and a.repaystatus<>2  and a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid and c.username like '%"+chengbanren+"%'  and b.taskstat=0";   	
+    			queryName="from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.tdflag=0 and a.repaystatus<>2  and a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid and c.username like '%"+chengbanren+"%'  and b.taskstat=0";   	
+    			  recordsize=basicDao.getCountOfQuery(queryName);
     		}else{
     			queryName="from TnlwNonlaw as nonlaw where 1=1 and repaystatus<>2 ";
                 if (state != -1)
@@ -148,7 +150,8 @@ public class NonlawtaskListAction extends AbstractListAction  {
         		
         		//未退单的
         		queryName+=" and tdflag=0";  
-        		
+        		 recordsize=basicDao.getCountOfQuery(queryName);
+        		  
         		queryName+=" order by nonlawid";
         		
         		
@@ -156,9 +159,10 @@ public class NonlawtaskListAction extends AbstractListAction  {
     		
     		Query query = getSession().createQuery(queryName);
             
+    		
+          
             
-            
-            recordsize = query.list().size();
+//            recordsize = query.list().size();
             pagesize = (recordsize - 1) / maxperpage + 1;
             pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
             return query;

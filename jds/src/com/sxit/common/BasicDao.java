@@ -6,12 +6,11 @@ package com.sxit.common;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.hssf.record.formula.functions.T;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -20,17 +19,29 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.impl.CriteriaImpl.OrderEntry;
-import org.springframework.orm.hibernate3.HibernateCallback;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * 
  * @author 华锋 Feb 21, 2011 9:54:47 PM
  */
 
-public class BasicDao<T> extends HibernateDaoSupport {
+//public class BasicDao<T> extends HibernateDaoSupport {
+	public class BasicDao {
 
+		public BasicDao(){
+		}
+		public BasicDao(Session session){
+			this.session=session;
+		}
+		
+		private Session session;
 
+	/**
+		 * @param session the session to set
+		 */
+		public void setSession(Session session) {
+			this.session = session;
+		}
 
 	/**
 	 * 保存对象 新增
@@ -38,8 +49,8 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @param entity
 	 * 
 	 */
-	public void save(final T entity) {
-		getHibernateTemplate().save(entity);
+	public void save(final Object entity) {
+		session.save(entity);
 	}
 
 	/**
@@ -48,7 +59,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @param entity
 	 */
 	public void saveOrupdate(final T entity) {
-		getHibernateTemplate().saveOrUpdate(entity);
+		session.saveOrUpdate(entity);
 	}
 
 	/**
@@ -57,7 +68,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @param entity
 	 */
 	public void update(final T entity) {
-		getHibernateTemplate().update(entity);
+		session.update(entity);
 
 	}
 
@@ -67,7 +78,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @param entity
 	 */
 	public void delete(final T entity) {
-		getHibernateTemplate().delete(entity);
+		session.delete(entity);
 	}
 
 	/**
@@ -79,13 +90,10 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return int
 	 */
 	public int deletes(final String hql, final Object[] ids) {
-		Integer object =(Integer) getHibernateTemplate().execute(new HibernateCallback() {
-			public Integer doInHibernate(Session session) {
+	
 				int deletedEntities = session.createQuery(hql).setParameterList("ids", ids).executeUpdate();
 				return deletedEntities;
-			}
-		});
-		return object.intValue();
+		
 	}
 
 	/**
@@ -96,53 +104,13 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return 对象，或者未能发现符合条件的记录，返回null
 	 */
 	public Object get(final Class<T> entity, final Serializable id) {
-		return getHibernateTemplate().get(entity, id);
+		return session.get(entity, id);
 	}
 
-	/**
-	 * 返回所有对象的列表 List list=findAll(CoreUser.class);
-	 * 
-	 * @param entity
-	 * @return
-	 */
-	public List findAll(final Class<T> entity) {
-		
-		List l = getHibernateTemplate().find("from " + entity.getName());
-		return l;
-	}
 
-	/**
-	 * List list=findByQuery("from CoreUser");
-	 * 
-	 * @param query
-	 * @return list
-	 */
-	public List findByQuery(final String query) {
-		return getHibernateTemplate().find(query);
-	}
 
-	/**
-	 * List list=findByQuery("from CoreUser u where u.loginName=?");
-	 * 
-	 * @param query
-	 * @param parameter
-	 * @return list
-	 */
-	public List findByQuery(final String query, final Object parameter) {
-		return getHibernateTemplate().find(query, parameter);
-	}
 
-	/**
-	 * List list=findByQuery("from CoreUser u where u.loginName=? and
-	 * u.password=?"); parameter为new String[]{"tom","123456"};
-	 * 
-	 * @param query
-	 * @param parameter
-	 * @return
-	 */
-	public List findByQuery(final String query, final Object... parameters) {
-		return getHibernateTemplate().find(query, parameters);
-	}
+	
 
 	/**
 	 * sql语句查询 List list="select * from core_user where statusid=0"
@@ -151,13 +119,10 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return
 	 */
 	public List findBySqlQuery(final String sql) {
-		List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+
 				Query queryObject = session.createSQLQuery(sql);
 				return queryObject.list();
-			}
-		});
-		return object;
+			
 	}
 
 	/**
@@ -168,24 +133,20 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return list
 	 */
 	public List findByCriteria(final DetachedCriteria detachedCriteria) {
-		return  (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) throws HibernateException {
+		
 				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
 				criteria.setProjection(null);
 				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 				return criteria.list();
-			}
-		});
+			
 	}
 
 	public List findByProjectCriteria(final DetachedCriteria detachedCriteria) {
-		return  (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) throws HibernateException {
+		
 				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
 //				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 				return criteria.list();
-			}
-		});
+		
 	}
 	/**
 	 * 搜索指定数量的数据,detachedCriteria封装了所有的业务请求
@@ -195,14 +156,12 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return
 	 */
 	public List findByCriteria(final DetachedCriteria detachedCriteria, final int count) {
-		return  (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) throws HibernateException {
+	
 				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
 				criteria.setProjection(null);
 				criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY).setMaxResults(count);
 				return criteria.list();
-			}
-		});
+			
 	}
 
 	/**
@@ -214,8 +173,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return
 	 */
 	public int execute(final String hql, final Object[] values) {
-		Integer object = (Integer)getHibernateTemplate().execute(new HibernateCallback() {
-			public Integer doInHibernate(Session session) {
+		
 				Query queryObject = session.createQuery(hql);
 				if (values != null) {
 					for (int i = 0; i < values.length; i++) {
@@ -224,9 +182,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 				}
 				int i = queryObject.executeUpdate();
 				return i;
-			}
-		});
-		return  object.intValue();
+			
 	}
 
 	/**
@@ -236,15 +192,13 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return int
 	 */
 	public int execute(final String hql) {
-		Integer object = (Integer)getHibernateTemplate().execute(new HibernateCallback() {
-			public Integer doInHibernate(Session session) {
+		
 				Query queryObject = session.createQuery(hql);
 				int i = queryObject.executeUpdate();
 				return new Integer(i);
 			}
-		});
-		return ((Integer) object).intValue();
-	}
+		
+
 
 	/**
 	 * 分页查询
@@ -278,8 +232,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	private PageSupport findPageByCriteria(final DetachedCriteria detachedCriteria, final int pageSize, final int pageNo) {
 
 //		return (PageSupport) getHibernateTemplate().execute(new HibernateCallback<PageSupport>() {
-		return (PageSupport)getHibernateTemplate().execute(new HibernateCallback() {
-			public PageSupport doInHibernate(Session session) {
+		
 				List items = null;
 				int recordCount=0;
 				int reallyPageNo = pageNo;
@@ -318,8 +271,8 @@ public class BasicDao<T> extends HibernateDaoSupport {
 				}
 				PageSupport ps = new PageSupport(items, recordCount, pageSize, reallyPageNo);
 				return ps;
-			}
-		});
+		
+
 	}
 	
 	/**
@@ -333,14 +286,13 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	private PageSupport findPageByCriteria(final Criteria criteria, final int pageSize, final int pageNo) {
 
 //		return (PageSupport) getHibernateTemplate().execute(new HibernateCallback<PageSupport>() {
-		return (PageSupport)getHibernateTemplate().execute(new HibernateCallback() {
-			public PageSupport doInHibernate(Session session) {
+		
 				List items = null;
 				int recordCount=0;
 				int reallyPageNo = pageNo;
-				if (reallyPageNo <= 0) {
-					reallyPageNo = 1;
-				}
+//				if (reallyPageNo <= 0) {
+//					reallyPageNo = 1;
+//				}
 				if (reallyPageNo==1&&pageSize == Integer.MAX_VALUE) {
 					criteria.setProjection(null);
 					criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
@@ -348,33 +300,35 @@ public class BasicDao<T> extends HibernateDaoSupport {
 					recordCount=items.size();
 				} else {
 //					Criteria executableCriteria = detachedCriteria.getExecutableCriteria(session);
-					Criteria executableCriteria =criteria;
-					OrderEntry[] orderEntries = HibernateUtil.getOrders(executableCriteria);
-					executableCriteria = HibernateUtil.removeOrders(executableCriteria);
-					Projection projection = HibernateUtil.getProjection(executableCriteria);
-
-					recordCount = ((Long) executableCriteria.setProjection(Projections.rowCount()).uniqueResult())
+//					Criteria executableCriteria =criteria;
+//					OrderEntry[] orderEntries = HibernateUtil.getOrders(executableCriteria);
+//					executableCriteria = HibernateUtil.removeOrders(executableCriteria);
+//					Projection projection = HibernateUtil.getProjection(executableCriteria);
+					criteria.setProjection(null);
+					recordCount = ((Integer) criteria.setProjection(Projections.rowCount()).uniqueResult())
 							.intValue();
 
-					executableCriteria.setProjection(projection);
-					if (projection == null) {
-						executableCriteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
-					}
+					criteria.setProjection(null);
+//					if (projection == null) {
+						criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+//					}
 					// Add the orginal orderEntries
-					executableCriteria = HibernateUtil.addOrders(executableCriteria, orderEntries);
+//					executableCriteria = HibernateUtil.addOrders(executableCriteria, orderEntries);
 
 					
 					int pageCount = recordCount - 1 / pageSize + 1; // 总页数，如果当前的pageNo大于总页数,那就设置为总页数,否则总显示为空
 					// pageCount=10页,pageNo=11,那实际上pageNo应该为
 					
 					reallyPageNo = pageNo > pageCount ? pageCount : pageNo;
-					int startIndex = pageSize * (pageNo - 1);
-					items = executableCriteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
+//					int startIndex = pageSize * (reallyPageNo - 1);
+					int startIndex = pageSize * (reallyPageNo );
+					
+					items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
+					System.out.println("items====="+items+",startIndex==="+startIndex+",,,"+pageSize+"==="+pageNo);
 				}
 				PageSupport ps = new PageSupport(items, recordCount, pageSize, reallyPageNo);
 				return ps;
-			}
-		});
+			
 	}
 
 	/**
@@ -384,15 +338,12 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return int
 	 */
 	public int getCountByCriteria(final DetachedCriteria detachedCriteria) {
-		Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
-			public Integer doInHibernate(Session session) throws HibernateException {
+		
 				Criteria criteria = detachedCriteria.getExecutableCriteria(session);
 
 				int i = ((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 				return i;
-			}
-		});
-		return count.intValue();
+			
 	}
 
 //	/**
@@ -454,20 +405,17 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return
 	 */
 	public List findNumList(final String query, final int start,final int resultcount) {
-		return (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) throws HibernateException {
+		
 				Query q = session.createQuery(query);
 				q.setFirstResult(start);
 				q.setMaxResults(resultcount);
 				return q.list();
-			}
-		});
+			
 	}
 
 	public List<Object[]> findBySqlQuery(final String sql, final Class[] entities,
 			final Object[] params, final int first, final int maxResults) {
-		List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+		
 				SQLQuery queryObject = session.createSQLQuery(sql);
 				if (entities != null){
 					for(Class c:entities){
@@ -488,15 +436,12 @@ public class BasicDao<T> extends HibernateDaoSupport {
 					queryObject.setMaxResults(maxResults);
 				}
 				return queryObject.list();
-			}
-		});
-		return object;
+	
 	}
 	
 	public List<Object[]> findBySqlQuery(final String sql, final Class[] entities1, final Map<String,Class> entities2,
 			final Object[] params, final int first, final int maxResults) {
-		List object =(List) getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+		
 				SQLQuery queryObject = session.createSQLQuery(sql);
 				if (entities1 != null){
 					for(Class c:entities1){
@@ -522,9 +467,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 					queryObject.setMaxResults(maxResults);
 				}
 				return queryObject.list();
-			}
-		});
-		return object;
+		
 	}
 	
 	/**
@@ -537,8 +480,8 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 */
 	public PageSupport findByQuery(final String hsql,
 			final Object[] params, final int pageSize, final int pageNo) {
-			List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+//			List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
+//			public List doInHibernate(Session session) {
 				List items=null;
 				Query queryObject = session.createQuery(hsql);
 				
@@ -580,14 +523,18 @@ public class BasicDao<T> extends HibernateDaoSupport {
 				
 				PageSupport ps = new PageSupport(items,recordCount,pageSize,pageNo);
 				
-				List result = new ArrayList();
-				result.add(ps);
-				return result;
-			}
-		});
+				return ps;
+//				List result = new ArrayList();
+//				result.add(ps);
+//				return result;
+//			}
+//		});
 		
 		
-		return (PageSupport) object.get(0);
+//		return (PageSupport) object.get(0);
+	}
+	public Integer getCountOfQuery(final String hsql) {
+		return this.countOfQuery(hsql, null);
 	}
 	/**
 	 * 计算总数
@@ -596,7 +543,9 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	 * @return
 	 */
 	public Integer countOfQuery(final String hsql,final Object[] params) {
-		Query  query =getHibernateTemplate().getSessionFactory().openSession().createQuery("select count(*) "+ hsql);
+//		Query  query =getHibernateTemplate().getSessionFactory().openSession().createQuery("select count(*) "+ hsql);
+		Query  query =session.createQuery("select count(*) "+ hsql);
+		
 		if (params != null){
 			int idx = 0;
 			for(Object p : params){
@@ -611,9 +560,9 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	
 	
 	
-	public int executeUpdateSqlQuery(final String sql,final Object...params){
-		int result =(Integer) getHibernateTemplate().execute(new HibernateCallback() {
-			public Integer doInHibernate(Session session) {
+	public int executeUpdateSqlQuery(final String sql,Session session,final Object...params){
+//		int result =(Integer) getHibernateTemplate().execute(new HibernateCallback() {
+//			public Integer doInHibernate(Session session) {
 				
 				SQLQuery queryObject = session.createSQLQuery(sql);
 				if (params != null){
@@ -624,14 +573,13 @@ public class BasicDao<T> extends HibernateDaoSupport {
 					}
 				}
 				return queryObject.executeUpdate();
-			}
-		});
-		return result;
+//			}
+//		});
+//		return result;
 	}
 	
 	public List executeSqlQuery(final String sql,final Object... params){
-		List object =(List) getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+		
 				
 				SQLQuery queryObject = session.createSQLQuery(sql);
 				if (params != null){
@@ -642,44 +590,18 @@ public class BasicDao<T> extends HibernateDaoSupport {
 					}
 				}
 				return queryObject.list();
-			}
-		});
-		return object;
+		
 	}
 	
-	public int countOfSqlQuery(final String sql,final Object... params){
-		List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
-				int frompos = sql.toLowerCase().indexOf(" from ");
-				String newsql = "select distinct count(*) " + sql.substring(frompos);
-				SQLQuery queryObject = session.createSQLQuery(newsql);
-				
-				if (params != null){
-					int idx = 0;
-					for(Object p : params){
-						queryObject.setParameter(idx, p);
-						idx += 1;
-					}
-				}
-				return queryObject.list();
-			}
-		});
-		BigInteger count = (BigInteger)object.get(0);
-		
-		return count.intValue();
-	}
+	
 	
 	public int countOfSqlQuery(final String sql){
-		List object = (List)getHibernateTemplate().execute(new HibernateCallback() {
-			public List doInHibernate(Session session) {
+
 				String newsql = "select distinct count(*) from (" + sql +") zz";
 				SQLQuery queryObject = session.createSQLQuery(newsql);
-				return queryObject.list();
-			}
-		});
-		BigInteger count = (BigInteger)object.get(0);
-		
-		return count.intValue();
+				BigInteger count =(	BigInteger) queryObject.list();
+				return count.intValue();
+			
 	}
 	
 	
@@ -687,7 +609,7 @@ public class BasicDao<T> extends HibernateDaoSupport {
 	public PageSupport getPageSupportBySqlQuery(final String sql, final Class[] classes,
 			final Object[] params, PageSupport ps){
 		List lst = findBySqlQuery(sql,classes,params,ps.getFirstRecordNo(),ps.getPageSize());
-		int count = countOfSqlQuery(sql,null);
+		int count = countOfSqlQuery(sql);
 		ps.setRecordCount(count);
 		ps.setItems(lst);
 		return ps;

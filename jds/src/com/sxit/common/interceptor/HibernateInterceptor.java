@@ -29,18 +29,12 @@ public class HibernateInterceptor implements Interceptor {
 
 	public void init() {
 	}
-
-//	private static List memorylist = new ArrayList();
-
 	public String intercept(ActionInvocation invocation) throws Exception {
-//		LOG.info("------拦截器开始执行!!!!!!!!!!" + memorylist.size());
 		LOG.info("------拦截器开始执行!!!!!!!!!!");
 		Action action = (Action) invocation.getAction();
 		if (!(action instanceof AbstractAction))
 			return invocation.invoke();
-	
-//		for (int i = 0; i < 1; i++)
-//			memorylist.add(new Object());
+
 
 		HibernateSession hs = ((AbstractAction) action).getHibernateSession();
 		try {
@@ -50,15 +44,15 @@ public class HibernateInterceptor implements Interceptor {
 				resultstr = ((AbstractAction) action).getPowerResult();
 			}
 
-			if (action instanceof MyCreditcardListAction) {
-				TsysUser obj = (TsysUser) ActionContext.getContext().getSession().get("curuser");
-				if (obj != null && obj.getIscookie() != null && obj.getIscookie().equals("cookie"))
-					try {
-//						Thread.sleep(Long.parseLong(obj.getImage()));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-			}
+//			if (action instanceof MyCreditcardListAction) {
+//				TsysUser obj = (TsysUser) ActionContext.getContext().getSession().get("curuser");
+//				if (obj != null && obj.getIscookie() != null && obj.getIscookie().equals("cookie"))
+//					try {
+////						Thread.sleep(Long.parseLong(obj.getImage()));
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//			}
 
 			if (!"success".equals(resultstr)) {
 				return resultstr;

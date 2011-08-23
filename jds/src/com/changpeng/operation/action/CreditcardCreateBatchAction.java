@@ -2,7 +2,9 @@ package com.changpeng.operation.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -38,6 +40,7 @@ public class CreditcardCreateBatchAction extends AbstractAction {
 	private File file;
 	private String fileName;
 	private String contenttype;
+	private static final DateFormat df=new java.text.SimpleDateFormat("yyyyMM");
 
 	public String getConsigndate() {
 		return consigndate;
@@ -83,10 +86,19 @@ public class CreditcardCreateBatchAction extends AbstractAction {
 
 	public String go() throws HibernateException {
 		getSession();
+		String nowmonth=df.format(new Date());
 		if (fileName != null && !"".equals(fileName)) {
-			String extendPath = "/uploads/";
-			String name = "CreditcardCreateBatch"+new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+			
+			String extendPath = "/uploads/"+nowmonth;
 			String toPath = ServletActionContext.getServletContext().getRealPath("") + extendPath;
+			File dir=new File(toPath);
+			if(!dir.exists())
+			{
+				dir.mkdirs();
+			}
+			String name = "CreditcardCreateBatch"
+					+ new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
+			
 			String ext = getExtention(fileName);
 			String filename = name + ext;
 			try {
@@ -100,39 +112,51 @@ public class CreditcardCreateBatchAction extends AbstractAction {
 				} else {
 
 					List existUserList = new ArrayList();
+					List<String> errorList = new ArrayList<String>();
 					List<ToprCreditcard> list = com.changpeng.operation.util.CreditcardCreateBatch.save(dest,
-							consigndate, bankid, getSession(), existUserList);
-					if (list != null && list.size() > 0) {
-						message = "以下信用卡账号在系统中已经存在，如需继续，请手动录入：<br>";
-						for (ToprCreditcard card : list) {
-							message = message + card.getUsername() + "【" + card.getCreditcard() + "】"
-									+ "<a href='cardreoper.action?opflag=0&creditcard=" + card.getCreditcard()
-									+ "' target='_blank'>" + "<font color='red'>新增</font></a>&nbsp;&nbsp;"
-									+ "<a href='cardreoper.action?opflag=1&creditcard=" + card.getCreditcard()
-									+ "' target='_blank'>" + "<font color='red'>覆盖</font></a><br>";
+							consigndate, bankid, getSession(), existUserList, errorList);
+					if (errorList != null && errorList.size() > 0) {
+						message="上传的excel数据有误,请修改后重新上传";
+						for(String msg:errorList){
+							message+=msg+"<br/>";
+						}
+						return ERROR;
+					} else {
+						if (list != null && list.size() > 0) {
+							message = "以下信用卡账号在系统中已经存在，如需继续，请手动录入：<br>";
+							for (ToprCreditcard card : list) {
+								message = message + card.getUsername() + "【" + card.getCreditcard() + "】"
+										+ "<a href='cardreoper.action?opflag=0&creditcard=" + card.getCreditcard()
+										+ "' target='_blank'>" + "<font color='red'>新增</font></a>&nbsp;&nbsp;"
+										+ "<a href='cardreoper.action?opflag=1&creditcard=" + card.getCreditcard()
+										+ "' target='_blank'>" + "<font color='red'>覆盖</font></a><br>";
+							}
+
+							message += "<a href='cardreoper.action?opflag=3' target='_blank'><font color='red'>全部新增</font></a>&nbsp;&nbsp;";
+							message += "<a href='cardreoper.action?opflag=4' target='_blank'><font color='red'>全部覆盖</font></a>";
+							// 将重复的单放在session中,以便在页面中覆盖或跳过
+							set("recards", list);
+
+						} else {
+							message = "保存成功！";
 						}
 
-						message += "<a href='cardreoper.action?opflag=3' target='_blank'><font color='red'>全部新增</font></a>&nbsp;&nbsp;";
-						message += "<a href='cardreoper.action?opflag=4' target='_blank'><font color='red'>全部覆盖</font></a>";
-						// 将重复的单放在session中,以便在页面中覆盖或跳过
-						set("recards", list);
-
-					} else {
-						message = "保存成功！";
-					}
-
-					if (existUserList.size() != 0) {
-						message += "<br/>以下用户在系统中已经存在,请知悉:<br/>";
-						for (int i = 0; i < existUserList.size(); i++) {
-							TusrCustomerNew customer = (TusrCustomerNew) existUserList.get(i);
-							if (customer.getIdcard() != null && !customer.getIdcard().equals(""))
-								message +="<a href='../customer/customer3View.action?customerid="+customer.getCustomerid()+"' target='_blank'>"+ customer.getUsername() + "(" + customer.getIdcard() + ")</a><br/>";
-							else {
-								message +="<a href='../customer/customer3View.action?customerid="+customer.getCustomerid()+"' target='_blank'>"+ customer.getUsername() + "</a><br/>";
+						if (existUserList.size() != 0) {
+							message += "<br/>以下用户在系统中已经存在,请知悉:<br/>";
+							for (int i = 0; i < existUserList.size(); i++) {
+								TusrCustomerNew customer = (TusrCustomerNew) existUserList.get(i);
+								if (customer.getIdcard() != null && !customer.getIdcard().equals(""))
+									message += "<a href='../customer/customer3View.action?customerid="
+											+ customer.getCustomerid() + "' target='_blank'>" + customer.getUsername()
+											+ "(" + customer.getIdcard() + ")</a><br/>";
+								else {
+									message += "<a href='../customer/customer3View.action?customerid="
+											+ customer.getCustomerid() + "' target='_blank'>" + customer.getUsername()
+											+ "</a><br/>";
+								}
 							}
 						}
 					}
-
 				}
 			} catch (IOException e) {
 				message = "上传委托文件错误：" + e.getMessage();

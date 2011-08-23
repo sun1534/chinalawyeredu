@@ -145,7 +145,7 @@ public class NonlawListAction extends AbstractListAction  {
         	//显示全清记录
         	String queryName="from TnlwNonlaw a where 1=1";
             if(chengbanren!=null&&!"".equals(chengbanren)){
-    			queryName="select a from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid and c.username like '%"+chengbanren.trim()+"%'  and b.taskstat=0";
+    			queryName="from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid and c.username like '%"+chengbanren.trim()+"%'  and b.taskstat=0";
     		}
             
             if(overnum==0)
@@ -176,14 +176,17 @@ public class NonlawListAction extends AbstractListAction  {
     		if (begindate!= null&&!"".equals(begindate)&&enddate!= null&&!"".equals(enddate))
     			queryName+=" and a.consigndate>='"+begindate+"' and a.consigndate<='"+enddate+"'";   
     		
-    		//queryName+=" order by to_number(a.lendfee) desc,a.nonlawid desc";
     		
+    		 basicDao.setSession(getSession());
+    		  recordsize=basicDao.getCountOfQuery(queryName);
     		//未退单的
-    		queryName+=" and a.tdflag=0";  
+    		queryName="select a "+queryName+" and a.tdflag=0";  
+    		queryName+=" order by to_number(a.lendfee) desc,a.nonlawid desc";
     		
-    		queryName+=" order by a.nonlawid desc";
+          
+//    		queryName+=" order by a.nonlawid desc";
     		Query query = getSession().createQuery(queryName);
-            recordsize = query.list().size();
+//            recordsize = query.list().size();
             pagesize = (recordsize - 1) / maxperpage + 1;
             pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
             

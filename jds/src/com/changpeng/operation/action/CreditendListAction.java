@@ -44,9 +44,9 @@ public class CreditendListAction extends AbstractListAction  {
         		if (consignflag!= null&&!"".equals(consignflag))
             		criteria.add(Expression.eq("consigntype", consignflag));
         		if (username!= null&&!"".equals(username))
-        			criteria.add(Expression.like("username", username,MatchMode.ANYWHERE));
+        			criteria.add(Expression.like("username", username,MatchMode.START));
         		if (creditcard!= null&&!"".equals(creditcard))
-            		criteria.add(Expression.like("creditcard", creditcard,MatchMode.ANYWHERE));
+            		criteria.add(Expression.like("creditcard", creditcard,MatchMode.START));
         		
         		//criteria.add(Expression.eq("lawflag", 2));   
         		criteria.add(Expression.eq("repaystatus", 2));  

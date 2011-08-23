@@ -116,7 +116,7 @@ public class MyCreditcardListAction extends AbstractListAction  {
                 return SUCCESS;
         }
         private Query getQuery() throws HibernateException {
-            String queryName="select a from ToprCredittask a,ToprCreditcard b where a.userid="+curuser.getUserid()+" and a.toprCreditcard.creditcardid=b.creditcardid and a.taskstat=0";
+            String queryName="from ToprCredittask a,ToprCreditcard b where a.userid="+curuser.getUserid()+" and a.toprCreditcard.creditcardid=b.creditcardid and a.taskstat=0";
             if(repaystatus==0) //不显示全清的
             	queryName+="  and b.repaystatus<>2";	
             else if(repaystatus==2) //仅显示全清的
@@ -161,10 +161,11 @@ public class MyCreditcardListAction extends AbstractListAction  {
               	queryName+="  and b.tdflag=0";	
               else if(tdflag==2) //仅显示退单的
               	queryName+="  and b.tdflag<>0";	
-    		
-    		queryName+=" order by to_number(b.curcnfee) desc,b.creditcardid desc";
+    		  basicDao.setSession(getSession());
+              recordsize=basicDao.getCountOfQuery(queryName);
+    		queryName="select a "+queryName+" order by to_number(b.curcnfee) desc,b.creditcardid desc";
             Query query = getSession().createQuery(queryName);
-            recordsize = query.list().size();
+//            recordsize = query.list().size();
             pagesize = (recordsize - 1) / maxperpage + 1;
             pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
             return query;

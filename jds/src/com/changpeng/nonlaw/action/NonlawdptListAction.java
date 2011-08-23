@@ -67,7 +67,7 @@ public class NonlawdptListAction extends AbstractListAction  {
         }
         private Query getQuery() throws HibernateException {
         	
-            String queryName="select a from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.repaystatus<>2 and a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid";
+            String queryName="from TnlwNonlaw a,TnlwNonlawtask b,TsysUser c where a.repaystatus<>2 and a.nonlawid=b.tnlwNonlaw.nonlawid and b.userid=c.userid";
             
             if(curuser.getTsysDepartment()!=null)
             	queryName+=" and c.tsysDepartment.departmentid="+curuser.getTsysDepartment().getDepartmentid();
@@ -84,10 +84,14 @@ public class NonlawdptListAction extends AbstractListAction  {
       		
       	//未退单的
     		queryName+=" and a.tdflag=0";  
-      		
-    		queryName+=" order by a.nonlawid desc";
+    		 basicDao.setSession(getSession());
+    		 
+    		 System.out.println("非诉任务:"+queryName);
+    		 
+            recordsize=basicDao.getCountOfQuery(queryName);
+    		queryName="select a "+queryName+" order by a.nonlawid desc";
             Query query = getSession().createQuery(queryName);
-            recordsize = query.list().size();
+//            recordsize = query.list().size();
             pagesize = (recordsize - 1) / maxperpage + 1;
             pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
             

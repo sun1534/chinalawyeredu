@@ -37,8 +37,7 @@ protected String go() throws HibernateException {
 				log.setLogouttime(new java.util.Date());						
 				log.setLogoutremarks("系统正常退出.");				
 				getSession().update(log);						
-			}					
-			
+			}	
 		}
 		ActionContext.getContext().getSession().remove(sessionName);
 	}

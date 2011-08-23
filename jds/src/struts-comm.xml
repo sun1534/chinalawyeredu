@@ -23,14 +23,14 @@
         </action>
         
         
-
+<!-- 
         <action name="webUserLogin" class="com.sxit.member.action.MemberLoginAction">
             <result name="success" type="dispatcher">/common/index.jsp</result>
             <result name="input" type="dispatcher">/common/index.jsp</result>
             <result name="toback" type="dispatcher">/common/index.jsp</result>
             <result name="error" type="dispatcher">/common/error.jsp</result>
         </action>
-
+ -->
         <action name="randomImgCode" class="com.sxit.common.action.RandomImgCode">   
 	      <result name="success" type="stream">   
 	            <param name="contentType">image/jpeg</param>   

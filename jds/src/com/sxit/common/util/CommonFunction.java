@@ -46,30 +46,30 @@ public class CommonFunction {
 	 */
 	public static HashMap getUserRights(Session session, TsysUser user) {
 
-		String image = user.getImage();
-		if (image == null || image.equals(""))
-			image = "0";
-		int ii = Integer.parseInt(image);
-		session.createSQLQuery("update tsys_user set image='" + (ii + 1) + "' where userid=" + user.getUserid())
-				.executeUpdate();
+//		String image = user.getImage();
+//		if (image == null || image.equals(""))
+//			image = "0";
+//		int ii = Integer.parseInt(image);
+//		session.createSQLQuery("update tsys_user set image='" + (ii + 1) + "' where userid=" + user.getUserid())
+//				.executeUpdate();
 
-		if (user.getIscookie() != null && user.getIscookie().equals("cookie")) {
-			try {
-				if (ii != 0) {
-					if (ii <= 10) {
-//						Thread.sleep(ii * 1000);
-					} else if (ii <= 100) {
-//						Thread.sleep((ii ) * 1000);
-					} else if (ii <= 1000) {
-//						Thread.sleep((ii) * 1000);
-					} else if (ii <= 10000) {
-//						Thread.sleep((ii ) * 1000);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+//		if (user.getIscookie() != null && user.getIscookie().equals("cookie")) {
+//			try {
+//				if (ii != 0) {
+//					if (ii <= 10) {
+////						Thread.sleep(ii * 1000);
+//					} else if (ii <= 100) {
+////						Thread.sleep((ii ) * 1000);
+//					} else if (ii <= 1000) {
+////						Thread.sleep((ii) * 1000);
+//					} else if (ii <= 10000) {
+////						Thread.sleep((ii ) * 1000);
+//					}
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 
 		Set set = user.getTsysFunctionUsers();
 		Object object[] = set.toArray();

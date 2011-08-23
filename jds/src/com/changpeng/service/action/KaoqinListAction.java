@@ -45,9 +45,12 @@ public class KaoqinListAction extends AbstractListAction  {
                 	queryName+=" and username like '%"+username+"%'";
                 if(kqdate!=null&&!"".equals(kqdate))
                 	queryName+=" and kqdate='"+kqdate+"'";
+                
+                basicDao.setSession(getSession());
+                recordsize=basicDao.getCountOfQuery(queryName);
                 queryName+=" order by kaoqin.kaoqinid desc";
                 Query query = getSession().createQuery(queryName);
-                recordsize = query.list().size();
+//                recordsize = query.list().size();
                 pagesize = (recordsize - 1) / maxperpage + 1;
                 pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
                 return query;

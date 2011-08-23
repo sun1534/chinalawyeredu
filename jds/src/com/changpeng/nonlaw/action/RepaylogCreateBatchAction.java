@@ -2,6 +2,7 @@ package com.changpeng.nonlaw.action;
 
 
 import java.io.*;
+import java.text.DateFormat;
 import java.util.*;
 
 import org.apache.commons.io.FileUtils;
@@ -56,10 +57,21 @@ public class RepaylogCreateBatchAction extends AbstractAction {
     }
 	public String go() throws HibernateException {
 		getSession();
-		if(fileName!=null&&!"".equals(fileName)){
-			String extendPath="/uploads/";
+//		if(fileName!=null&&!"".equals(fileName)){
+//			String extendPath="/uploads/";
+		DateFormat df=new java.text.SimpleDateFormat("yyyyMM");
+		String nowmonth=df.format(new Date());
+		if (fileName != null && !"".equals(fileName)) {
+			
+			String extendPath = "/uploads/"+nowmonth;
+			String toPath = ServletActionContext.getServletContext().getRealPath("") + extendPath;
+			File dir=new File(toPath);
+			if(!dir.exists())
+			{
+				dir.mkdirs();
+			}
 			String name="NonlawRepaylogCreateBatch"+new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date());
-			String toPath=ServletActionContext.getServletContext().getRealPath("")+extendPath;
+//			String toPath=ServletActionContext.getServletContext().getRealPath("")+extendPath;
 			String ext=getExtention(fileName);		
 			String filename=name+ext;		
 			try {

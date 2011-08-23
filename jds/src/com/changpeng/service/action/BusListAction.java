@@ -33,8 +33,10 @@ public class BusListAction extends AbstractListAction  {
         private Query getQuery() throws HibernateException {
                 String queryName ;
                 queryName="from TserBus as bus order by bus.busid desc";
+                basicDao.setSession(getSession());
+                recordsize=basicDao.getCountOfQuery(queryName);
                 Query query = getSession().createQuery(queryName);
-                recordsize = query.list().size();
+//                recordsize = query.list().size();
                 pagesize = (recordsize - 1) / maxperpage + 1;
                 pagenumber= pagenumber>pagesize-1?pagesize-1:pagenumber;
                 return query;

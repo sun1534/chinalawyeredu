@@ -129,8 +129,9 @@ public class CreditcardListAction extends AbstractListAction {
 		}
 
 		String queryName = "from ToprCreditcard  a where 1=1   and a.repaystatus<>2";
+		
 		if (chengbanren != null && !"".equals(chengbanren)) {
-			queryName = "select a from ToprCreditcard a,ToprCredittask b,TsysUser c where a.repaystatus<>2 and a.creditcardid=b.toprCreditcard.creditcardid and b.userid=c.userid and c.username like '%"
+			queryName = "from ToprCreditcard a,ToprCredittask b,TsysUser c where a.repaystatus<>2 and a.creditcardid=b.toprCreditcard.creditcardid and b.userid=c.userid and c.username like '%"
 					+ chengbanren.trim() + "%'  and b.taskstat=0";
 
 		}
@@ -158,9 +159,18 @@ public class CreditcardListAction extends AbstractListAction {
 
 		// queryName+=" order by to_number(a.curcnfee) desc,a.creditcardid
 		// desc";
+		
+		 basicDao.setSession(getSession());
+		 recordsize=basicDao.getCountOfQuery(queryName);
+		
 		queryName += " order by consigndate desc,idcard asc";
+		
+		
+		queryName="select a "+queryName;
 		Query query = getSession().createQuery(queryName);
-		recordsize = query.list().size();
+//		recordsize = query.list().size();
+		
+		
 		pagesize = (recordsize - 1) / maxperpage + 1;
 		pagenumber = pagenumber > pagesize - 1 ? pagesize - 1 : pagenumber;
 
