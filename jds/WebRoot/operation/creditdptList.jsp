@@ -231,6 +231,7 @@ function   toNum(str){
 					   
 					   客户姓名：<s:textfield name="username" size="10"/>
 					   <br>
+					   案件编号:<input type="text" name="bianhao" size="10" value="" />
 					  客户账号：<s:textfield name="creditcard" size="10"/>	
 					 委托日期：<jscalendar:jscalendar	name="consigndate" format="%Y-%m-%d"/>
 					 承办人：<s:textfield name="chengbanren" size="10"/>	

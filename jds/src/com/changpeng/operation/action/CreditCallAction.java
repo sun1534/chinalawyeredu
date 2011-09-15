@@ -109,7 +109,7 @@ public class CreditCallAction extends AbstractListAction  {
         }
         
         private Query getQuery() throws HibernateException {
-            String queryName="from ToprCredittask a,ToprCreditcard b where a.userid="+curuser.getUserid()+" and a.toprCreditcard.creditcardid=b.creditcardid  and a.taskstat=0";
+            String queryName="from ToprCredittask a,ToprCreditcard b where a.toprCreditcard.creditcardid=b.creditcardid  and a.taskstat=0";
           
             if(repaystatus==0) //不显示全清的
             	queryName+="  and b.repaystatus<>2";	
@@ -154,6 +154,7 @@ public class CreditCallAction extends AbstractListAction  {
               		queryName+=" and (a.canlink='y' or a.canlink is null)";
               	 
                }
+    		queryName+=" and a.userid="+curuser.getUserid(); 
     		//queryName+=" and b.repaystatus<>2";
     	    basicDao.setSession(getSession());
             recordsize=basicDao.getCountOfQuery(queryName);

@@ -192,7 +192,7 @@
             </key>
             <one-to-many class="com.changpeng.operation.model.ToprRepaylog" />
         </set>
-         <set name="toprCreditlogs" inverse="true">
+         <set name="toprCreditlogs" inverse="true"  order-by="logid desc">
             <key>
                 <column name="creditcardid" precision="10" scale="0" not-null="true" />
             </key>

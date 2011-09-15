@@ -68,7 +68,8 @@ public class CreditReassignBatchAction extends AbstractAction {
 		String nowmonth=df.format(new Date());
 		if (fileName != null && !"".equals(fileName)) {
 			
-			String extendPath = "/uploads/"+nowmonth;
+//			String extendPath = "/uploads/"+nowmonth;
+			String extendPath = "/uploads/"+nowmonth+"/";
 			String toPath = ServletActionContext.getServletContext().getRealPath("") + extendPath;
 			File dir=new File(toPath);
 			if(!dir.exists())

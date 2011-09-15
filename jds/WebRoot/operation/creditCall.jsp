@@ -58,8 +58,9 @@
 				    d.add("${bankid}",0,"${bankname}");
 				</s:iterator>
 				<s:iterator value="tasklist" status="status">
+				//全清的不显示了
 					<s:if test="toprCreditcard.repaystatus==2">
-						d.add("${credittaskid}${toprCreditcard.bankid}","${toprCreditcard.bankid}","<font color='red'><B>${toprCreditcard.username}</B></font>","creditUserView.action?creditcardid=${toprCreditcard.creditcardid}&credittaskid=${credittaskid}","","mainDiv");					
+						//d.add("${credittaskid}${toprCreditcard.bankid}","${toprCreditcard.bankid}","<font color='red'><B>${toprCreditcard.username}</B></font>","creditUserView.action?creditcardid=${toprCreditcard.creditcardid}&credittaskid=${credittaskid}","","mainDiv");					
 					</s:if>
 					
 					<s:elseif test="canlink==\"n\"">

@@ -60,7 +60,7 @@ public class OperationUtil {
 	}
 
 	public static ToprCreditcard getExistCredit(String creditcard) {
-		String q = "from ToprCreditcard where creditcard='" + creditcard + "'";
+		String q = "from ToprCreditcard where creditcard='" + creditcard + "' order by creditcardid desc";
 		List list = com.changpeng.common.Globals.getInstance().findAll(q);
 		int len = list == null ? 0 : list.size();
 		if (len >= 1)

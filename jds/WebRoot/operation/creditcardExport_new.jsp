@@ -53,14 +53,17 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
  
                       <TR>
                         <TD>客户姓名</TD>
-                        <TD >卡号</TD>
+                        <TD>卡号</TD>
                         <TD>身份证</TD>
-                        <TD>逾期金额</TD>
+                        <TD>逾期金额(人民币)</TD>
+                           <TD>逾期金额(美金)</TD>
+                              <TD>逾期金额(欧元)</TD>
+                                 <TD>逾期金额(港币)</TD>
                          <TD>联系人</TD>
                          <TD>担保人</TD>
-                        <TD >催收时间</TD>
-                        <TD >催收记录</TD>
-                        <TD >案件编号</TD>
+                             <TD>案件编号</TD>
+                        <TD>催收记录</TD>
+                    
                       </TR>
 <s:iterator value="creditcardlist" status="status">
             <TR>
@@ -68,15 +71,19 @@ out.println("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-
             <TD x:str>${creditcard}</TD>
             <TD x:str>${idcard}</TD>
             <TD x:str>${curcnfee}</TD>
+            <TD x:str>${curusafee}</TD>
+            <TD x:str>${cureurfee}</TD>
+            <TD x:str>${curhkfee}</TD>
             <TD>${contactp1phone1}</TD>
             <TD>${cautioner}</TD>
-            <s:iterator value="toprCreditlogs" status="stat">
-            <TD >
-            <s:property value="@com.changpeng.operation.util.OperationUtil@showDate(logtime)"/></TD>
-            </TD>
-        	<TD>${comments}</TD>
-        	   <TD>${bianhao}</TD>
+           	<TD>${bianhao}</TD>
+         
+            <TD>
+               <s:iterator value="toprCreditlogs" status="stat">
+            	<s:property value="#stat.index+1"/>:${comments}(<s:property value="@com.changpeng.operation.util.OperationUtil@showDate(logtime)"/>)<br/>
          	</s:iterator>		
+            </TD>        
+         	
         </TR>
 </s:iterator>
 

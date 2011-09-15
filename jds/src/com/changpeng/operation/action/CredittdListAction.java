@@ -26,7 +26,20 @@ public class CredittdListAction extends AbstractListAction  {
         private String username;
         private String creditcard;
         private int state=-1;
-        public CredittdListAction() {
+        private String bianhao;
+        /**
+		 * @return the bianhao
+		 */
+		public String getBianhao() {
+			return bianhao;
+		}
+		/**
+		 * @param bianhao the bianhao to set
+		 */
+		public void setBianhao(String bianhao) {
+			this.bianhao = bianhao;
+		}
+		public CredittdListAction() {
           rights="opr8,1";
         }
         public String go() throws HibernateException {
@@ -37,6 +50,9 @@ public class CredittdListAction extends AbstractListAction  {
                         .list();*/
                 
                 Criteria criteria = getSession().createCriteria(ToprCreditcard.class);
+                if (bianhao != null && !"".equals(bianhao))
+//        			queryName += " and a.bianhao='" + bianhao + "'";
+                	criteria.add(Expression.eq("bianhao", bianhao));      
         		if (bankid != 0)
         			criteria.add(Expression.eq("bankid", bankid));        		
         		if (consigntype!= null&&!"".equals(consigntype))

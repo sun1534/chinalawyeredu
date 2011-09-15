@@ -463,13 +463,18 @@ public class CreditcardCreateBatch {
 						String creditcard = cellVal(row.getCell(1)); // 信用卡卡号
 
 						String status = cellVal(row.getCell(3)); // 还款状态
+						boolean td=false;
 						if (status == null)
 							status = "";
 						int repaystatus = 1;
-						if (status.equals("全清"))
+						if (status.trim().equals("全清"))
 							repaystatus = 2;
-						if (status.equals("备注清零"))
+						else if (status.trim().equals("备注清零"))
 							repaystatus = 3;
+						else if(status.trim().equals(""))//这样的执行退单
+							td=true;
+							
+						
 						String fee = cellVal(row.getCell(4)); // 还款人民币
 						if (fee == null)
 							fee = "";
@@ -489,6 +494,9 @@ public class CreditcardCreateBatch {
 									.getDateCellValue());
 
 						String comments = cellVal(row.getCell(9));
+						if(comments==null)
+							comments="";
+						comments+="(批量导入还款)";
 
 						String consigndate = "";
 						String cell10Val = cellVal(row.getCell(10));
@@ -507,8 +515,16 @@ public class CreditcardCreateBatch {
 						else if (count == 1) {
 							long creditcardid = creditcardid(con, creditcard, consigndate);
 							long taskuserid = userid(con, creditcardid);
-							stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + ",refee=refee+'"
+							String tdsql="";
+							if(td){
+								tdsql="tdflag=2,";
+							}
+							if(consigndate==null||consigndate.equals(""))
+								stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + ","+tdsql+"refee=refee+'"
 									+ fee + "' where creditcard='" + creditcard + "'");
+							else
+								stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + ","+tdsql+"refee=refee+'"
+										+ fee + "' where consigndate='"+consigndate+"' and creditcard='" + creditcard + "'");
 							String sql = "insert into topr_repaylog (repaylogid,creditcardid,fee,usafee,hkfee,eurfee,repaytime,comments,createtime,userid,repaystatus) values"
 									+ "(toprrepaylogid.nextval,"
 									+ creditcardid

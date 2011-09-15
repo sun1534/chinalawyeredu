@@ -138,7 +138,8 @@ function query(){
 					  委托类型：<s:select name="consigntype" list="@com.changpeng.operation.util.OperationUtil@consigntypeMap" headerKey="" headerValue="全部"/>
 					  委托类别：<s:select name="consignflag" list="@com.changpeng.operation.util.OperationUtil@consignflagMap" headerKey="" headerValue="全部"/>
 					
-					   <br>
+					   <br/>
+					    案件编号:<input type="text" name="bianhao" size="10" value="" />
 					   客户姓名：<s:textfield name="username" size="10"/>
 					  客户账号：<s:textfield name="creditcard" size="10"/>	
 					  <input type="button" value="查询" class="botton" onclick="query()"/>		

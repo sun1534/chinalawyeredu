@@ -33,8 +33,20 @@ public class CreditdptListAction extends AbstractListAction  {
         private int state=-1;
         private String consigndate; //委托日期
         private String chengbanren; //承办人
-        
-        public String getConsigndate() {
+    	private String bianhao;
+        /**
+		 * @return the bianhao
+		 */
+		public String getBianhao() {
+			return bianhao;
+		}
+		/**
+		 * @param bianhao the bianhao to set
+		 */
+		public void setBianhao(String bianhao) {
+			this.bianhao = bianhao;
+		}
+		public String getConsigndate() {
 			return consigndate;
 		}
 		public String getChengbanren() {
@@ -70,7 +82,8 @@ public class CreditdptListAction extends AbstractListAction  {
                 
                 if(chengbanren!=null&&!"".equals(chengbanren))
         			queryName+=" and c.username like '%"+chengbanren.trim()+"%'";
-          
+                if (bianhao != null && !"".equals(bianhao))
+        			queryName += " and a.bianhao='" + bianhao + "'";
                 if (bankid != 0)
                 	queryName+=" and a.bankid="+bankid;	
         		if (consigntype!= null&&!"".equals(consigntype))

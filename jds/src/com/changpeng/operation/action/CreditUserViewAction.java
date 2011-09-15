@@ -1,11 +1,14 @@
 package com.changpeng.operation.action;
 
-import org.hibernate.HibernateException;
-import com.sxit.common.action.AbstractAction;
-import com.changpeng.customer.util.NewCustomerUtil;
-import com.changpeng.operation.model.*;
-import org.hibernate.Query;
 import java.util.List;
+
+import org.hibernate.HibernateException;
+
+import com.changpeng.customer.util.NewCustomerUtil;
+import com.changpeng.operation.model.ToprCreditcard;
+import com.changpeng.operation.model.ToprCredittask;
+import com.changpeng.operation.model.ToprRepaylog;
+import com.sxit.common.action.AbstractAction;
 
 /**
  * 
@@ -86,9 +89,9 @@ public class CreditUserViewAction extends AbstractAction {
 		// }
 
 		int customerid = NewCustomerUtil.getCustomerByService(getSession(), (int) creditcardid, 1);
-		System.out.println("显示这个人的所有联系号码的情况");
-
-		addressList = getSession().createQuery(" from TusrAddress where customerid=" + customerid).list();
+		LOG.debug("显示这个人的所有联系号码的情况:"+customerid);
+		if(customerid!=0)
+			addressList = getSession().createQuery(" from TusrAddress where customerid=" + customerid).list();
 
 		logList = getSession().createQuery(
 				" from ToprCreditlog where toprCredittask.toprCreditcard.creditcardid=" + creditcardid

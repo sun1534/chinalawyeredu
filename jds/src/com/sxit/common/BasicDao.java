@@ -324,7 +324,7 @@ import org.hibernate.impl.CriteriaImpl.OrderEntry;
 					int startIndex = pageSize * (reallyPageNo );
 					
 					items = criteria.setFirstResult(startIndex).setMaxResults(pageSize).list();
-					System.out.println("items====="+items+",startIndex==="+startIndex+",,,"+pageSize+"==="+pageNo);
+//					System.out.println("items====="+items+",startIndex==="+startIndex+",,,"+pageSize+"==="+pageNo);
 				}
 				PageSupport ps = new PageSupport(items, recordCount, pageSize, reallyPageNo);
 				return ps;
