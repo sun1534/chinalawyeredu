@@ -65,6 +65,10 @@ public class CreditcardListAction extends AbstractListAction {
 	}
 
 	public String go() throws HibernateException {
+		
+		System.out.println("===recordsize========》》》》》"+recordsize);
+		
+		
 		creditcardlist = getQuery().setMaxResults(maxperpage).setFirstResult(maxperpage * pagenumber)
 		// .setCacheable(true)
 				.list();
@@ -174,6 +178,9 @@ public class CreditcardListAction extends AbstractListAction {
 		pagesize = (recordsize - 1) / maxperpage + 1;
 		pagenumber = pagenumber > pagesize - 1 ? pagesize - 1 : pagenumber;
 
+		
+		
+		
 		return query;
 	}
 

@@ -36,6 +36,10 @@
         <property name="comments" type="java.lang.String">
             <column name="COMMENTS" length="200" />
         </property>
+        
+        <property name="md5val" type="java.lang.String">
+            <column name="md5val" length="200" />
+        </property>
         <property name="oprflag" type="int">
             <column name="OPRFLAG" precision="2" scale="0" />
         </property>

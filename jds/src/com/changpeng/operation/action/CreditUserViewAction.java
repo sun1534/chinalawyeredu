@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 
+import com.changpeng.customer.model.TusrCustomerNew;
 import com.changpeng.customer.util.NewCustomerUtil;
 import com.changpeng.operation.model.ToprCreditcard;
 import com.changpeng.operation.model.ToprCredittask;
 import com.changpeng.operation.model.ToprRepaylog;
+import com.changpeng.operation.util.CreditcardCreateBatch;
 import com.sxit.common.action.AbstractAction;
 
 /**
@@ -90,9 +92,16 @@ public class CreditUserViewAction extends AbstractAction {
 
 		int customerid = NewCustomerUtil.getCustomerByService(getSession(), (int) creditcardid, 1);
 		LOG.debug("显示这个人的所有联系号码的情况:"+customerid);
+		
+		if(customerid==0)
+		{
+			TusrCustomerNew customer=null;
+			customerid=CreditcardCreateBatch.addCustomerAndAddress(getSession(), this.curuser, customer, creditcard);
+			LOG.debug("重新新增这个人的联系号码情况:"+customerid);
+		}
 		if(customerid!=0)
 			addressList = getSession().createQuery(" from TusrAddress where customerid=" + customerid).list();
-
+		
 		logList = getSession().createQuery(
 				" from ToprCreditlog where toprCredittask.toprCreditcard.creditcardid=" + creditcardid
 						+ "  order by logtime asc").list();

@@ -1,13 +1,15 @@
 package com.changpeng.nonlaw.action;
 
+import java.util.List;
+
 import org.hibernate.HibernateException;
-import com.sxit.common.action.AbstractAction;
+
+import com.changpeng.customer.model.TusrCustomerNew;
 import com.changpeng.customer.util.NewCustomerUtil;
 import com.changpeng.nonlaw.model.TnlwNonlaw;
 import com.changpeng.nonlaw.model.TnlwNonlawtask;
-import com.changpeng.operation.model.*;
-import org.hibernate.Query;
-import java.util.List;
+import com.changpeng.nonlaw.util.NonlawCreateBatch;
+import com.sxit.common.action.AbstractAction;
 
 
 /**
@@ -67,7 +69,14 @@ public class NonlawUserViewAction extends AbstractAction {
 		logList=getSession().createQuery("from TnlwNonlawlog where tnlwNonlaw.nonlawid="+nonlawid+" order by logtime desc").list();
 		//获取关联该业务的所有联系人信息
 		int customerid = NewCustomerUtil.getCustomerByService(getSession(), (int) nonlawid, 2);
-		addressList = getSession().createQuery(" from TusrAddress where customerid=" + customerid).list();
+
+		if(customerid==0){
+			TusrCustomerNew customer=null;
+			 customerid = NonlawCreateBatch.addCustomerAndAddress(getSession(), this.curuser, customer, nonlaw);
+			 LOG.debug("重新新增这个人的联系号码情况:"+customerid);
+		}
+		if(customerid!=0)
+			addressList = getSession().createQuery(" from TusrAddress where customerid=" + customerid).list();
 
 //		addressList=getSession().createQuery(" from TusrAddress where tsysUser.userid="+curuser.getUserid()+" and oprid="+nonlawid+" and oprflag=2").list();
 	       if(nonlaw==null){

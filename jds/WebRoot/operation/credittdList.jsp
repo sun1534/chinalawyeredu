@@ -1,6 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="jscalendar" uri="/jscalendar" %>
+<jscalendar:head/>
 <%
 /**
  * <p>功能： 退单记录</p>
@@ -103,6 +104,9 @@ function query(){
  document.form1.submit();
  return true;
 }
+function change(){
+location.href='changeTddate!input.action';
+}
 -->
 </script>
 </HEAD>
@@ -142,8 +146,10 @@ function query(){
 					    案件编号:<input type="text" name="bianhao" size="10" value="" />
 					   客户姓名：<s:textfield name="username" size="10"/>
 					  客户账号：<s:textfield name="creditcard" size="10"/>	
-					  <input type="button" value="查询" class="botton" onclick="query()"/>		
-					  
+					  委托日期：<jscalendar:jscalendar	name="consigndate" format="%Y-%m-%d"/>
+					  <input type="button" value="查询" class="botton" onclick="query()"/>
+					  &nbsp;&nbsp;		
+					   <input type="button" value="更改退单时间" class="botton" onclick="change()"/>	
 					  </TD>
 			          </TR>
                       <TR class="listheadline">

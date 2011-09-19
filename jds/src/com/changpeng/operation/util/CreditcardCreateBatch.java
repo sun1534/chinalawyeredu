@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.hibernate.Session;
 
 import com.changpeng.address.model.TusrAddress;
 import com.changpeng.customer.model.TusrCustomerNew;
@@ -91,11 +92,10 @@ public class CreditcardCreateBatch {
 						ToprCreditcard card = new ToprCreditcard();
 						card.setUsername(cellVal(row.getCell(0)));// 姓名
 						card.setCreditcard(cellVal(row.getCell(1)));// 帐号
-						String msg = "第" + (i + 1) + "行（姓名："+card.getUsername()+"）数据错误:";
+						String msg = "第" + (i + 1) + "行（姓名：" + card.getUsername() + "）数据错误:";
 						boolean iserror = false;
 						// System.out.println(i+"========="+cellnum);
-					
-						
+
 						card.setIdcard(cellVal(row.getCell(2))); // 身份证号
 						card.setCnfee(cellVal(row.getCell(3)).replace(",", ""));
 						card.setUsafee(cellVal(row.getCell(4)).replace(",", ""));
@@ -195,6 +195,253 @@ public class CreditcardCreateBatch {
 		}
 		return cardList;
 	}
+/**
+ * 
+ * @param session
+ * @param sysUser
+ * @param customer
+ * @param card
+ * @return
+ */
+	public static int addCustomerAndAddress(Session session, TsysUser sysUser, TusrCustomerNew customer,
+			ToprCreditcard card) {
+		int cardid = (int) card.getCreditcardid();
+		int customerid = 0;
+		if (customer == null) {
+			customer = new TusrCustomerNew();
+			// insert into tusr_customer_new(customerid,
+			// username,idcard,mobile1,homephone,compphone,company,compaddr,homeaddr,idcardaddr,compemail,personalemail,createsrc,createsrcid,createtime)select
+			// tusrcustomerid.nextval,
+			// username,idcard,mobileold,homephoneold,workphoneold,company,compaddr,homeaddr,idcardaddr,email,email,1
+			// as createsrc,creditcardid,createtime from
+			// topr_creditcard;
+			customer.setUsername(card.getUsername());
+			customer.setIdcard(card.getIdcard());
+			customer.setMobile1(card.getMobileold());
+			customer.setHomephone(card.getHomephoneold());
+			customer.setCompphone(card.getWorkphoneold());
+			customer.setCompany(card.getCompany());
+			customer.setCompaddr(card.getCompaddr());
+			customer.setHomeaddr(card.getHomeaddr());
+			customer.setIdcardaddr(card.getIdcardaddr());
+			customer.setCompemail(card.getEmail());
+			customer.setPersonalemail(card.getEmail());
+			customer.setCreatesrc(1);
+			customer.setCreatesrcid(cardid);
+			customer.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+			customer.setCreateuser((int) sysUser.getUserid());
+			customer.setCustomerflag(2);// 1:VIP 2:一般
+			customer.setCustomertype(3);// 1:机构客户 2:个人客户 3当事人客户
+
+			session.save(customer);
+			customerid = customer.getCustomerid();
+		} else {
+			customerid = customer.getCustomerid();
+		}
+
+		TusrCustomerService service = new TusrCustomerService();
+		service.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
+		service.setCreateuser(sysUser.getUsername());
+		service.setCreateuserid((int) sysUser.getUserid());
+		service.setServiceid((int) cardid);
+		service.setServicetype(1);
+		service.setTusrCustomerNew(customer);
+		service.setRemarks("导入新增");
+		session.save(service);
+
+		// 保存住宅电话
+		if (card.getHomephoneold() != null && !"".equals(card.getHomephoneold().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("住宅电话");
+			p.setPhone(phone(card.getHomephoneold() == null ? "" : card.getHomephoneold()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			// md5val=md5(username||phone||homeaddr||oprid||customerid)
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+				session.save(p);
+		}
+		// 保存手机
+		if (card.getMobileold() != null && !"".equals(card.getMobileold().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("手机");
+			p.setPhone(phone(card.getMobileold() == null ? "" : card.getMobileold()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+				session.save(p);
+		}
+		List list = new ArrayList();
+		// 保存工作电话
+		if (card.getWorkphoneold() != null && !"".equals(card.getWorkphoneold().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("工作电话");
+			p.setPhone(phone(card.getWorkphoneold() == null ? "" : card.getWorkphoneold()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+
+		// 保存联系人
+		if (card.getContactp1phone1() != null && !"".equals(card.getContactp1phone1().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople1() + "】");
+			p.setPhone(phone(card.getContactp1phone1() == null ? "" : card.getContactp1phone1()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		if (card.getContactp1phone2() != null && !"".equals(card.getContactp1phone2().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople1() + "】");
+			p.setPhone(phone(card.getContactp1phone2() == null ? "" : card.getContactp1phone2()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		if (card.getContactp1phone3() != null && !"".equals(card.getContactp1phone3().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople1() + "】");
+			p.setPhone(phone(card.getContactp1phone3() == null ? "" : card.getContactp1phone3()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		if (card.getContactp2phone1() != null && !"".equals(card.getContactp2phone1().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople2() + "】");
+			p.setPhone(phone(card.getContactp2phone1() == null ? "" : card.getContactp2phone1()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		if (card.getContactp2phone2() != null && !"".equals(card.getContactp2phone2().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople2() + "】");
+			p.setPhone(phone(card.getContactp2phone2() == null ? "" : card.getContactp2phone2()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		if (card.getContactp2phone3() != null && !"".equals(card.getContactp2phone3().trim())) {
+			TusrAddress p = new TusrAddress();
+			p.setUsername(card.getUsername() == null ? "" : card.getUsername());
+			p.setHomeaddr(card.getHomeaddr() == null ? "" : card.getHomeaddr());
+			p.setCompany(card.getCompany());
+			p.setOprid(card.getCreditcardid());
+			p.setOprflag(1); // 信用卡业务
+
+			p.setComments("联系人【" + card.getContactpeople2() + "】");
+			p.setPhone(phone(card.getContactp2phone3() == null ? "" : card.getContactp2phone3()));
+			p.setCreatetime(new java.util.Date());
+			p.setCustomerid(customerid);
+			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
+					+ p.getCustomerid());
+			p.setMd5val(md5val);
+			if (!list.contains(md5val)) {
+				list.add(md5val);
+				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
+					session.save(p);
+			}
+		}
+		return customerid;
+
+	}
 
 	/**
 	 * 将EXCEL中催收记录插入数据库，如果账号重复，做覆盖操作。
@@ -208,10 +455,11 @@ public class CreditcardCreateBatch {
 	public static List<ToprCreditcard> save(File excel, String consigndate, long bankid, org.hibernate.Session session,
 			List existCustomerList, List errorlist) throws IOException {
 		List<ToprCreditcard> cardList = parseXls(excel, errorlist);
-		if(errorlist.size()!=0){
+		if (errorlist.size() != 0) {
 			return new ArrayList();
 		}
-//		HashMap<String, ToprCreditcard> creditcardMap = OperationUtil.creditcardMap();
+		// HashMap<String, ToprCreditcard> creditcardMap =
+		// OperationUtil.creditcardMap();
 		List<ToprCreditcard> reCard = new ArrayList<ToprCreditcard>();
 		// NewCustomerUtil customerutil=new NewCustomerUtil();
 		TsysUser sysUser = (TsysUser) ActionContext.getContext().getSession().get("curuser");
@@ -233,11 +481,12 @@ public class CreditcardCreateBatch {
 			card.setState(0);
 
 			card.setTdflag(0); // 退单标记
-			ToprCreditcard exist=OperationUtil.getExistCredit(card.getCreditcard());
-			if(exist!=null){
-//			if (creditcardMap.containsKey(card.getCreditcard())) { // 账户重复，覆盖操作。
+			ToprCreditcard exist = OperationUtil.getExistCredit(card.getCreditcard());
+			if (exist != null) {
+				// if (creditcardMap.containsKey(card.getCreditcard())) { //
+				// 账户重复，覆盖操作。
 				card.setUpdatetime(new java.util.Date());
-//				card.setCreditcardid(creditcardMap.get(card.getCreditcard()).getCreditcardid());
+				// card.setCreditcardid(creditcardMap.get(card.getCreditcard()).getCreditcardid());
 				card.setCreditcardid(exist.getCreditcardid());
 				// session.update(card);
 				reCard.add(card);
@@ -250,179 +499,301 @@ public class CreditcardCreateBatch {
 				TusrCustomerNew customer = NewCustomerUtil.getCustomer(session, card.getUsername(), card.getIdcard());
 				int customerid = 0;
 				if (customer != null) {
-					customerid = customer.getCustomerid();
 					existCustomerList.add(customer);
-				} else {// 新增一个用户,同时将这个要加到那个service里面去
-					customer = new TusrCustomerNew();
-					// insert into tusr_customer_new(customerid,
-					// username,idcard,mobile1,homephone,compphone,company,compaddr,homeaddr,idcardaddr,compemail,personalemail,createsrc,createsrcid,createtime)select
-					// tusrcustomerid.nextval,
-					// username,idcard,mobileold,homephoneold,workphoneold,company,compaddr,homeaddr,idcardaddr,email,email,1
-					// as createsrc,creditcardid,createtime from
-					// topr_creditcard;
-					customer.setUsername(card.getUsername());
-					customer.setIdcard(card.getIdcard());
-					customer.setMobile1(card.getMobileold());
-					customer.setHomephone(card.getHomephoneold());
-					customer.setCompphone(card.getWorkphoneold());
-					customer.setCompany(card.getCompany());
-					customer.setCompaddr(card.getCompaddr());
-					customer.setHomeaddr(card.getHomeaddr());
-					customer.setIdcardaddr(card.getIdcardaddr());
-					customer.setCompemail(card.getEmail());
-					customer.setPersonalemail(card.getEmail());
-					customer.setCreatesrc(1);
-					customer.setCreatesrcid(cardid);
-					customer.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-					customer.setCreateuser((int) sysUser.getUserid());
-					customer.setCustomerflag(2);// 1:VIP 2:一般
-					customer.setCustomertype(3);// 1:机构客户 2:个人客户 3当事人客户
-
-					session.save(customer);
-					customerid = customer.getCustomerid();
 				}
+				customerid = addCustomerAndAddress(session, sysUser, customer, card);
 
-				TusrCustomerService service = new TusrCustomerService();
-				service.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
-				service.setCreateuser(sysUser.getUsername());
-				service.setCreateuserid((int) sysUser.getUserid());
-				service.setServiceid((int) cardid);
-				service.setServicetype(1);
-				service.setTusrCustomerNew(customer);
-				service.setRemarks("");
-				session.save(service);
-
-				// 保存住宅电话
-				if (card.getHomephoneold() != null && !"".equals(card.getHomephoneold().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("住宅电话");
-					p.setPhone(phone(card.getHomephoneold()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				// 保存手机
-				if (card.getMobileold() != null && !"".equals(card.getMobileold().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("手机");
-					p.setPhone(phone(card.getMobileold()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				// 保存工作电话
-				if (card.getWorkphoneold() != null && !"".equals(card.getWorkphoneold().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("工作电话");
-					p.setPhone(phone(card.getWorkphoneold()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-
-				// 保存联系人
-				if (card.getContactp1phone1() != null && !"".equals(card.getContactp1phone1().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople1() + "】");
-					p.setPhone(phone(card.getContactp1phone1()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				if (card.getContactp1phone2() != null && !"".equals(card.getContactp1phone2().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople1() + "】");
-					p.setPhone(phone(card.getContactp1phone2()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				if (card.getContactp1phone3() != null && !"".equals(card.getContactp1phone3().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople1() + "】");
-					p.setPhone(phone(card.getContactp1phone3()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				if (card.getContactp2phone1() != null && !"".equals(card.getContactp2phone1().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople2() + "】");
-					p.setPhone(phone(card.getContactp2phone1()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				if (card.getContactp2phone2() != null && !"".equals(card.getContactp2phone2().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople2() + "】");
-					p.setPhone(phone(card.getContactp2phone2()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
-				if (card.getContactp2phone3() != null && !"".equals(card.getContactp2phone3().trim())) {
-					TusrAddress p = new TusrAddress();
-					p.setUsername(card.getUsername());
-					p.setHomeaddr(card.getHomeaddr());
-					p.setCompany(card.getCompany());
-					p.setOprid(card.getCreditcardid());
-					p.setOprflag(1); // 信用卡业务
-
-					p.setComments("联系人【" + card.getContactpeople2() + "】");
-					p.setPhone(phone(card.getContactp2phone3()));
-					p.setCreatetime(new java.util.Date());
-					p.setCustomerid(customerid);
-					session.save(p);
-				}
+				// if (customer != null) {
+				// customerid = customer.getCustomerid();
+				// existCustomerList.add(customer);
+				// } else {// 新增一个用户,同时将这个要加到那个service里面去
+				// customer = new TusrCustomerNew();
+				// // insert into tusr_customer_new(customerid,
+				// //
+				// username,idcard,mobile1,homephone,compphone,company,compaddr,homeaddr,idcardaddr,compemail,personalemail,createsrc,createsrcid,createtime)select
+				// // tusrcustomerid.nextval,
+				// //
+				// username,idcard,mobileold,homephoneold,workphoneold,company,compaddr,homeaddr,idcardaddr,email,email,1
+				// // as createsrc,creditcardid,createtime from
+				// // topr_creditcard;
+				// customer.setUsername(card.getUsername());
+				// customer.setIdcard(card.getIdcard());
+				// customer.setMobile1(card.getMobileold());
+				// customer.setHomephone(card.getHomephoneold());
+				// customer.setCompphone(card.getWorkphoneold());
+				// customer.setCompany(card.getCompany());
+				// customer.setCompaddr(card.getCompaddr());
+				// customer.setHomeaddr(card.getHomeaddr());
+				// customer.setIdcardaddr(card.getIdcardaddr());
+				// customer.setCompemail(card.getEmail());
+				// customer.setPersonalemail(card.getEmail());
+				// customer.setCreatesrc(1);
+				// customer.setCreatesrcid(cardid);
+				// customer.setCreatetime(new
+				// java.sql.Timestamp(System.currentTimeMillis()));
+				// customer.setCreateuser((int) sysUser.getUserid());
+				// customer.setCustomerflag(2);// 1:VIP 2:一般
+				// customer.setCustomertype(3);// 1:机构客户 2:个人客户 3当事人客户
+				//
+				// session.save(customer);
+				// customerid = customer.getCustomerid();
+				// }
+				// System.out.println(card.getUsername()+",,,,"+customerid);
+				// TusrCustomerService service = new TusrCustomerService();
+				// service.setCreatetime(new
+				// java.sql.Timestamp(System.currentTimeMillis()));
+				// service.setCreateuser(sysUser.getUsername());
+				// service.setCreateuserid((int) sysUser.getUserid());
+				// service.setServiceid((int) cardid);
+				// service.setServicetype(1);
+				// service.setTusrCustomerNew(customer);
+				// service.setRemarks("");
+				// session.save(service);
+				//
+				// // 保存住宅电话
+				// if (card.getHomephoneold() != null &&
+				// !"".equals(card.getHomephoneold().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("住宅电话");
+				// p.setPhone(phone(card.getHomephoneold() == null ? "" :
+				// card.getHomephoneold()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// // md5val=md5(username||phone||homeaddr||oprid||customerid)
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// // 保存手机
+				// if (card.getMobileold() != null &&
+				// !"".equals(card.getMobileold().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("手机");
+				// p.setPhone(phone(card.getMobileold() == null ? "" :
+				// card.getMobileold()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// List list = new ArrayList();
+				// // 保存工作电话
+				// if (card.getWorkphoneold() != null &&
+				// !"".equals(card.getWorkphoneold().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("工作电话");
+				// p.setPhone(phone(card.getWorkphoneold() == null ? "" :
+				// card.getWorkphoneold()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				//
+				// // 保存联系人
+				// if (card.getContactp1phone1() != null &&
+				// !"".equals(card.getContactp1phone1().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople1() + "】");
+				// p.setPhone(phone(card.getContactp1phone1() == null ? "" :
+				// card.getContactp1phone1()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				// if (card.getContactp1phone2() != null &&
+				// !"".equals(card.getContactp1phone2().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople1() + "】");
+				// p.setPhone(phone(card.getContactp1phone2() == null ? "" :
+				// card.getContactp1phone2()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				// if (card.getContactp1phone3() != null &&
+				// !"".equals(card.getContactp1phone3().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople1() + "】");
+				// p.setPhone(phone(card.getContactp1phone3() == null ? "" :
+				// card.getContactp1phone3()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				// if (card.getContactp2phone1() != null &&
+				// !"".equals(card.getContactp2phone1().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople2() + "】");
+				// p.setPhone(phone(card.getContactp2phone1() == null ? "" :
+				// card.getContactp2phone1()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				// if (card.getContactp2phone2() != null &&
+				// !"".equals(card.getContactp2phone2().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople2() + "】");
+				// p.setPhone(phone(card.getContactp2phone2() == null ? "" :
+				// card.getContactp2phone2()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
+				// if (card.getContactp2phone3() != null &&
+				// !"".equals(card.getContactp2phone3().trim())) {
+				// TusrAddress p = new TusrAddress();
+				// p.setUsername(card.getUsername() == null ? "" :
+				// card.getUsername());
+				// p.setHomeaddr(card.getHomeaddr() == null ? "" :
+				// card.getHomeaddr());
+				// p.setCompany(card.getCompany());
+				// p.setOprid(card.getCreditcardid());
+				// p.setOprflag(1); // 信用卡业务
+				//
+				// p.setComments("联系人【" + card.getContactpeople2() + "】");
+				// p.setPhone(phone(card.getContactp2phone3() == null ? "" :
+				// card.getContactp2phone3()));
+				// p.setCreatetime(new java.util.Date());
+				// p.setCustomerid(customerid);
+				// String md5val = com.sxit.common.util.md5.MD5(p.getUsername()
+				// + p.getPhone() + p.getHomeaddr()
+				// + p.getCustomerid());
+				// p.setMd5val(md5val);
+				// if (!list.contains(md5val)) {
+				// list.add(md5val);
+				// if (CreditcardUpdateBatch.getUsrAddress(session, md5val) ==
+				// 0)
+				// session.save(p);
+				// }
+				// }
 			}
 		}
 		session.flush();
@@ -436,7 +807,7 @@ public class CreditcardCreateBatch {
 		return str;
 	}
 
-	public static String saveRepaylog(File excel, long userid) throws IOException, SQLException {
+	public static String saveRepaylog(File excel, long userid, Session session) throws IOException, SQLException {
 		String message = "";
 		FileInputStream stream = null;
 		List<ToprCreditcard> cardList = null;
@@ -463,7 +834,7 @@ public class CreditcardCreateBatch {
 						String creditcard = cellVal(row.getCell(1)); // 信用卡卡号
 
 						String status = cellVal(row.getCell(3)); // 还款状态
-						boolean td=false;
+						boolean td = false;
 						if (status == null)
 							status = "";
 						int repaystatus = 1;
@@ -471,10 +842,10 @@ public class CreditcardCreateBatch {
 							repaystatus = 2;
 						else if (status.trim().equals("备注清零"))
 							repaystatus = 3;
-						else if(status.trim().equals(""))//这样的执行退单
-							td=true;
-							
-						
+						else if (status.trim().equals(""))// 这样的执行退单
+							td = true;
+
+						float refee = 0.0f;
 						String fee = cellVal(row.getCell(4)); // 还款人民币
 						if (fee == null)
 							fee = "";
@@ -487,6 +858,18 @@ public class CreditcardCreateBatch {
 						String eurfee = cellVal(row.getCell(7)); // 还款欧元
 						if (eurfee == null)
 							eurfee = "";
+						if (!fee.equals("")) {
+							refee += Float.parseFloat(fee);
+						}
+						if (!usafee.equals("")) {
+							refee += Float.parseFloat(usafee);
+						}
+						if (!hkfee.equals("")) {
+							refee += Float.parseFloat(hkfee);
+						}
+						if (!eurfee.equals("")) {
+							refee += Float.parseFloat(eurfee);
+						}
 						String repaytime = "";
 						String cell8Val = cellVal(row.getCell(8));
 						if (cell8Val != null && !"".equals(cell8Val))
@@ -494,9 +877,9 @@ public class CreditcardCreateBatch {
 									.getDateCellValue());
 
 						String comments = cellVal(row.getCell(9));
-						if(comments==null)
-							comments="";
-						comments+="(批量导入还款)";
+						if (comments == null)
+							comments = "";
+						comments += "(批量导入还款)";
 
 						String consigndate = "";
 						String cell10Val = cellVal(row.getCell(10));
@@ -507,24 +890,57 @@ public class CreditcardCreateBatch {
 						if (comments == null)
 							comments = "";
 
-						int count = count(con, creditcard, consigndate);
-						if (count == 0)
-							message += "【" + creditcard + " " + consigndate + "】在系统中不存在<br>";
-						else if (count > 1)
-							message += "【" + creditcard + " " + consigndate + "】在系统中存在【" + count + "】条记录<br>";
-						else if (count == 1) {
-							long creditcardid = creditcardid(con, creditcard, consigndate);
-							long taskuserid = userid(con, creditcardid);
-							String tdsql="";
-							if(td){
-								tdsql="tdflag=2,";
+						// int count = count(con, creditcard, consigndate);
+						List list = countofcreditcards(session, creditcard, consigndate);
+						int len = list == null ? 0 : list.size();
+						long creditcardid = 0;
+						if (len > 1) {
+							// 对于大于1的，要看他是什么款项，这里和他匹配起来
+							for (int j = 0; j < len; j++) {
+								ToprCreditcard card = (ToprCreditcard) list.get(j);
+								String _cnfee = card.getCnfee();
+								String _usafee = card.getUsafee();
+								String _hkfee = card.getHkfee();
+								String _eurfee = card.getEurfee();
+								if (fee != ""
+										&& (!(_cnfee == null || _cnfee.equals("") || Float.parseFloat(_cnfee) == 0))) {// 还款人民币
+									creditcardid = card.getCreditcardid();
+									break;
+								} else if (usafee != ""
+										&& (!(_usafee == null || _usafee.equals("") || Float.parseFloat(_usafee) == 0))) {// 还款美金
+									creditcardid = card.getCreditcardid();
+									break;
+								} else if (hkfee != ""
+										&& (!(_hkfee == null || _hkfee.equals("") || Float.parseFloat(_hkfee) == 0))) {// 还款港币
+									creditcardid = card.getCreditcardid();
+									break;
+								} else if (eurfee != ""
+										&& (!(_eurfee == null || _eurfee.equals("") || Float.parseFloat(_eurfee) == 0))) {// 还款欧元
+									creditcardid = card.getCreditcardid();
+									break;
+								}
 							}
-							if(consigndate==null||consigndate.equals(""))
-								stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + ","+tdsql+"refee=refee+'"
-									+ fee + "' where creditcard='" + creditcard + "'");
-							else
-								stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + ","+tdsql+"refee=refee+'"
-										+ fee + "' where consigndate='"+consigndate+"' and creditcard='" + creditcard + "'");
+						} else if (len == 1) {
+							ToprCreditcard card = (ToprCreditcard) list.get(0);
+							creditcardid = card.getCreditcardid();
+						}
+
+						if (creditcardid != 0) {
+							long taskuserid = userid(con, creditcardid);
+							String tdsql = "";
+							if (td) {
+								tdsql = "tdflag=2,";
+							}
+							// if (consigndate == null ||
+							// consigndate.equals(""))
+							stmt.addBatch("update topr_creditcard set repaystatus=" + repaystatus + "," + tdsql
+									+ "refee=refee+'" + fee + "' where creditcardid=" + creditcardid);
+							// else
+							// stmt.addBatch("update topr_creditcard set
+							// repaystatus=" + repaystatus + "," + tdsql
+							// + "refee=refee+'" + fee + "' where consigndate='"
+							// + consigndate
+							// + "' and creditcard='" + creditcard + "'");
 							String sql = "insert into topr_repaylog (repaylogid,creditcardid,fee,usafee,hkfee,eurfee,repaytime,comments,createtime,userid,repaystatus) values"
 									+ "(toprrepaylogid.nextval,"
 									+ creditcardid
@@ -542,8 +958,12 @@ public class CreditcardCreateBatch {
 									+ comments
 									+ "',sysdate,"
 									+ taskuserid + "," + repaystatus + ")";
-							// System.out.println(sql);
 							stmt.addBatch(sql);
+						} else {
+							if (len == 0)
+								message += "【" + creditcard + "(" + consigndate + ")】在系统中不存在<br>";
+							else
+								message += "【" + creditcard + "(" + consigndate + ")】在系统中存在【" + len + "】条记录<br/>";
 						}
 					}
 				}
@@ -587,6 +1007,22 @@ public class CreditcardCreateBatch {
 				pstmt.close();
 		}
 		return count;
+	}
+
+	private static List countofcreditcards(Session session, String creditcard, String consigndate) throws SQLException {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = null;
+		try {
+			String sql = "from ToprCreditcard where creditcard='" + creditcard + "'";
+			if (consigndate != null && !"".equals(consigndate))
+				sql += " and consigndate='" + consigndate + "'";
+			list = session.createQuery(sql).list();
+		} finally {
+
+		}
+		return list;
 	}
 
 	private static long creditcardid(Connection con, String creditcard, String consigndate) throws SQLException {

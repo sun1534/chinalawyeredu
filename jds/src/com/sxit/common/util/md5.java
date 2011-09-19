@@ -9,7 +9,7 @@ import java.security.spec.*;
 
 public class md5 {
 //加密函数
-  public final static String MD5(String s) {
+  public static String MD5(String s) {
     try {
       byte[] strTemp = s.getBytes();
       MessageDigest mdTemp = MessageDigest.getInstance("MD5");
@@ -22,7 +22,7 @@ public class md5 {
     }
   }
 //二进制转字符串
-  public final static String byte2hex(byte[] b) {
+  public static String byte2hex(byte[] b) {
     String hs = "";
     String stmp = "";
     for (int n = 0; n < b.length; n++) {
@@ -38,7 +38,7 @@ public class md5 {
     return hs.toUpperCase();
   }
 //验证函数
-  public final static boolean isEquale(String pass, String key) { //二行制转字符串
+  public static boolean isEquale(String pass, String key) { //二行制转字符串
     try {
       byte[] strTemp = pass.getBytes();
       MessageDigest mdTemp = MessageDigest.getInstance("MD5");

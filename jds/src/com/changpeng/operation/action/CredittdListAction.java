@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.MatchMode;
 
@@ -27,7 +25,20 @@ public class CredittdListAction extends AbstractListAction  {
         private String creditcard;
         private int state=-1;
         private String bianhao;
+        private String consigndate;
         /**
+		 * @return the consigndate
+		 */
+		public String getConsigndate() {
+			return consigndate;
+		}
+		/**
+		 * @param consigndate the consigndate to set
+		 */
+		public void setConsigndate(String consigndate) {
+			this.consigndate = consigndate;
+		}
+		/**
 		 * @return the bianhao
 		 */
 		public String getBianhao() {
@@ -62,7 +73,11 @@ public class CredittdListAction extends AbstractListAction  {
         		if (username!= null&&!"".equals(username))
         			criteria.add(Expression.like("username", username,MatchMode.ANYWHERE));
         		if (creditcard!= null&&!"".equals(creditcard))
-            		criteria.add(Expression.like("creditcard", creditcard,MatchMode.ANYWHERE));
+            		criteria.add(Expression.eq("creditcard", creditcard));
+        		if (consigndate!= null&&!"".equals(consigndate))
+            		criteria.add(Expression.eq("consigndate", consigndate));
+        		
+        		
         		
         		//退单记录
         		criteria.add(Expression.ne("tdflag", 0));

@@ -20,6 +20,12 @@
  	 	<action name="credittdList" class="com.changpeng.operation.action.CredittdListAction">
            <result name="success" type="dispatcher">/operation/credittdList.jsp</result>
  	 	</action>
+ 	 	<action name="changeTddate" class="com.changpeng.operation.action.ChangeTddateAction">
+           <result name="success" type="dispatcher">/common/viewMessage.jsp</result>
+            <result name="input" type="dispatcher">/operation/changeTddate.jsp</result>
+ 	 	</action>
+ 	 	 
+ 	 	
          <action name="creditcardCreate" class="com.changpeng.operation.action.CreditcardCreateAction">
 	   		<result name="input" type="dispatcher">/operation/creditcardCreate.jsp</result>
 

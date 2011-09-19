@@ -3,16 +3,6 @@
 
 <%@ taglib prefix="jscalendar" uri="/jscalendar" %>
 
-<%
-/**
- * <p>功能：	批量导入还款记录</p>
- * <p>作者： 刘兴华</p>
- * <p>公司： 长鹏软件</p>
- * <p>日期： 2009-08-14</p>
- * @版本： V1.0
- * @修改：
-**/
-%>
 
 <HTML>
 <HEAD>
@@ -45,7 +35,7 @@ body {
 		  <img src="../images/arr.gif" width="13" height="13">
 		 </div>
 	      </td>
-              <td width="97%"><span class="sort-title">信用卡业务管理&gt;&gt;批量导入记录</span></td>
+              <td width="97%"><span class="sort-title">业务管理&gt;&gt;更改退单日期</span></td>
             </tr>
           </table>
       </div></TD>
@@ -58,28 +48,34 @@ body {
                 <br>
                 <TABLE width="460"  border=0 align=center cellPadding=3 cellSpacing=1 >
                   <TBODY>
-               <s:form name="form1" action="repaylogCreateBatch" validate="true" method="post" enctype="multipart/form-data">
+               <s:form name="form1" action="changeTddate" method="post" >
                <s:hidden name="pagenumber" value="${pagenumber}"/>
+	 			 	<TR>
+						<TD width="15%" class="listheadline">委托日期</TD>
+						<TD width="35%" class="listline">
+						<jscalendar:jscalendar	name="consigndate" format="%Y-%m-%d"/>
+					</TR>
 	 			
 	 			 	<TR>
-						<TD width="15%" class="listheadline">还款记录:</TD>
-						<TD width="35%" class="listline"><s:file name="file"/></TD>
+						<TD width="15%" class="listheadline">新的退单时间:</TD>
+						<TD width="35%" class="listline">
+						<jscalendar:jscalendar	name="newtddate" format="%Y-%m-%d"/>
+						</TD>
 					</TR>
 					
-					  <TR>
-						<TD width="15%" class="listheadline">下载还款模板</TD>
-						<TD width="35%" class="listline"><a href="repaylog.xls"/>点此下载</a></TD>
+					<TR>
+						<TD width="15%" class="listheadline">备注说明:</TD>
+						<TD width="35%" class="listline">
+						此功能2个目的：<br/>
+						1个是更改退单日期,1个是将已退的单修改为未退单
+						</TD>
 					</TR>
-					
                     <TR bgcolor="#CCCCCC">
                       <TD colspan="4" align="center">
                         <INPUT name="insert" type="submit" class="botton" value="保存">&nbsp;
 			            <INPUT name="back" type=button class="botton" onClick="javascript:history.back(-1)" value="返回">
 		              </TD>
                     </TR>
-                    
-                    
-                  
                    </s:form>
                   </TBODY>
                 </TABLE>

@@ -88,7 +88,7 @@ public class RepaylogCreateBatchAction extends AbstractAction {
 					return ERROR;
 				}else{
 					getSession().createSQLQuery("update topr_creditcard set refee='0' where refee is null or refee=''").executeUpdate();		
-					String retmsg=com.changpeng.operation.util.CreditcardCreateBatch.saveRepaylog(dest, curuser.getUserid());
+					String retmsg=com.changpeng.operation.util.CreditcardCreateBatch.saveRepaylog(dest, curuser.getUserid(),getSession());
 					message="还款记录导入成功<br>"+retmsg;
 				}
 			}catch(IOException e){

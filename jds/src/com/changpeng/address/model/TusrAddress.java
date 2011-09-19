@@ -26,6 +26,7 @@ public class TusrAddress implements java.io.Serializable {
 	private int oprflag; //1.信用卡催收业务 2.非诉催收业务 3.诉讼业务
 	private long oprid; //关联的业务ID
 	private int customerid;
+	private String md5val;
 	/**
 	 * @return the customerid
 	 */
@@ -103,6 +104,18 @@ public class TusrAddress implements java.io.Serializable {
 	}
 	public void setOprid(long oprid) {
 		this.oprid = oprid;
+	}
+	/**
+	 * @return the md5val
+	 */
+	public String getMd5val() {
+		return md5val;
+	}
+	/**
+	 * @param md5val the md5val to set
+	 */
+	public void setMd5val(String md5val) {
+		this.md5val = md5val;
 	}
 	
 }

@@ -30,7 +30,7 @@ public class AddressListAction extends AbstractListAction  {
 
 		public String go() throws HibernateException {
                 if(phone!=null&&!"".equals(phone))
-                	addresslist=getSession().createQuery(" from TusrAddress where phone='"+phone+"'").list();
+                	addresslist=getSession().createQuery(" from TusrAddress where phone like '"+phone.trim()+"%'").list();
                 return SUCCESS;
         }
       
