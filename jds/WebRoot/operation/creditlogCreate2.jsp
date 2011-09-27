@@ -55,12 +55,7 @@ body {
                 <TABLE width="350"  border=0 align=center cellPadding=3 cellSpacing=1 >
                   <TBODY>
                <s:form name="form1" action="creditlogCreate2" validate="true" method="post">
-       				<!--  
-					<TR>
-						<TD width="15%" class="listheadline">客户姓名:</TD>
-					<TD width="35%" class="listline"><s:select name="creditlog.toprCredittask.credittaskid" list="tasklist" listKey="credittaskid" listValue="toprCreditcard.username" value="${credittaskid}"/></TD>
-					</TR>
-					-->
+       				
 					<s:hidden name="creditlog.toprCredittask.credittaskid" value="${credittaskid}"/>
 	 			 	
 	 			 	

@@ -177,6 +177,13 @@ function _export(){
  return true;
 }
 
+function _exportS(){
+ document.form1.action="credittaskList!export.action?selected=selected";
+ document.form1.submit();
+ return true;
+}
+
+
 -->
 </script>
 </HEAD>
@@ -320,6 +327,7 @@ function _export(){
                       <TR bgcolor="#F9F9F7" class="pt9-18">
                       <TD colSpan=12 >
 						<div align="center">
+						  <input class="botton" type=button onclick="_exportS()" value="选择批量导出">&nbsp;
 						 <input class="botton" type=button onclick="_export()" value="批量导出">&nbsp;
 						 <input class="botton" type=button onclick="location.href='creditReassignBatch!input.action'" value="重新分配">
 						</div>

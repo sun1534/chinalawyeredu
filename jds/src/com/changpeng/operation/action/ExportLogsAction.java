@@ -23,6 +23,22 @@ public class ExportLogsAction extends AbstractAction {
     private String paydate;
     private String canlink;
     private String curdate;
+    private String selected;
+	private int[] check;
+	/**
+	 * @param selected the selected to set
+	 */
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}
+
+	/**
+	 * @param check the check to set
+	 */
+	public void setCheck(int[] check) {
+		this.check = check;
+	}
+
     public String getCurdate() {
 		return curdate;
 	}
@@ -94,7 +110,29 @@ public class ExportLogsAction extends AbstractAction {
  }
 	 
 	public String go() throws HibernateException {
-		tasklist= getQuery().list();
+		
+		if (selected != null && selected.equals("selected")) {
+			if(check==null||check.length==0){
+				this.message="您没有选择任何需要导出的记录,请选择";
+				this.nextpage="javascript:history.go(-1)";
+				
+				return ERROR;
+				
+			}else{
+				String s="";
+				for(int ss:check){
+					s+=ss+",";
+				}
+				s+="0";	
+				
+				String queryName = "select a from ToprCredittask a,ToprCreditcard b where a.toprCreditcard.creditcardid=b.creditcardid  and b.creditcardid in("+s+")";
+				tasklist =getSession().createQuery(queryName).list();				
+			}
+			
+		} else {
+			tasklist = getQuery().list();
+		}		
+//		tasklist= getQuery().list();
         return SUCCESS;
 	}
 	public List getTasklist() {

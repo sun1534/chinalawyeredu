@@ -94,7 +94,7 @@ public class MyCreditcardListAction extends AbstractListAction {
 	public MyCreditcardListAction() {
 		rights = "opr4,1";
 	}
-
+	
 	public String go() throws HibernateException {
 
 		/*

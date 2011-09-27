@@ -101,8 +101,34 @@ public class CredittaskListAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
+	private String selected;
+	private int[] check;
+	
 	public String export() throws HibernateException {
-		creditcardlist = getQuery().list();
+		
+		if (selected != null && selected.equals("selected")) {
+			if(check==null||check.length==0){
+				this.message="您没有选择任何需要导出的记录,请选择";
+				this.nextpage="javascript:history.go(-1)";
+				
+				return ERROR;
+				
+			}else{
+				String s="";
+				for(int ss:check){
+					s+=ss+",";
+				}
+				s+="0";	
+				
+				String queryName = "from ToprCreditcard a where a.creditcardid in("+s+")";
+				creditcardlist =getSession().createQuery(queryName).list();				
+			}
+			
+		} else {
+			creditcardlist = getQuery().list();
+		}
+		
+//		creditcardlist = getQuery().list();
 		return "export";
 	}
 
@@ -213,6 +239,20 @@ public class CredittaskListAction extends AbstractListAction {
 	 */
 	public void setBianhao(String bianhao) {
 		this.bianhao = bianhao;
+	}
+
+	/**
+	 * @param selected the selected to set
+	 */
+	public void setSelected(String selected) {
+		this.selected = selected;
+	}
+
+	/**
+	 * @param check the check to set
+	 */
+	public void setCheck(int[] check) {
+		this.check = check;
 	}
 
 }

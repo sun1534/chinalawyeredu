@@ -57,7 +57,6 @@ public class CreditlogCreate2Action extends AbstractAction {
 	}
     public String input() throws Exception {
     	creditlog.setLogtime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
-        	tasklist=getSession().createQuery(" from ToprCredittask where userid="+curuser.getUserid()+" order by creditcardid desc").list();
             return "input";
     }
 

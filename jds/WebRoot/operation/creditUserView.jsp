@@ -243,12 +243,13 @@ function saveComments(){
 		<input type=button class="mask" value="呼叫" id="call"> &nbsp;&nbsp;
 		<!-- 
 		<input type=button class="mask" value="挂断"> &nbsp;&nbsp;
-		 
+		
 		<a href="creditlogCreate2!input.action?credittaskid=${credittaskid}&keepThis=true&TB_iframe=true&height=190&width=420" title="记录日志" class="thickbox" >
 			<input type=button class="mask" value="记录日志">
-		</a>
-		-->
+		</a> -->
+		
 		 <input type=button class="mask" value="记录日志" id="savelog">
+		 
 		&nbsp;&nbsp;
 		<a href="repaylogList.action?oprflag=1&creditcardid=${creditcard.creditcardid}&keepThis=true&TB_iframe=true&height=200&width=500" title="还款记录" class="thickbox" >
 			<input type=button class="mask" value="还款记录">

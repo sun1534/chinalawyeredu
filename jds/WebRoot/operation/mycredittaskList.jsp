@@ -92,6 +92,14 @@ function exportLogs(){
  	document.form1.submit();
  	return true;
 }
+
+function exportLogsSelected(){
+	document.form1.action="exportLogs.action?selected=selected";
+ 	document.form1.submit();
+ 	return true;
+}
+
+
 function showFee(usafee,hkfee,eurfee){
 	var fee="";
 	if(usafee!="")
@@ -255,14 +263,14 @@ function   toNum(str){
                       	<input type="hidden" value="${toprCreditcard.curhkfee}">
                       	<input type="hidden" value="${toprCreditcard.cureurfee}">
                       	<input type="hidden" value="${toprCreditcard.refee}">
-                        <INPUT type="checkbox"  name="check" onclick="change(this)">
+                        <INPUT type="checkbox"  name="check" onclick="change(this)" value="${toprCreditcard.creditcardid}">
 						
                         </TD>
-                          <TD >${bianhao}</TD>
-                        <TD ><s:property value="@com.changpeng.operation.util.OperationUtil@bankMap()[toprCreditcard.bankid+\"\"]"/></TD>
-                      <TD >${toprCreditcard.username}</TD>
-					   <TD >${toprCreditcard.creditcard}</TD>
-                       <TD >${toprCreditcard.idcard}</TD>
+                          <TD>${bianhao}</TD>
+                        <TD><s:property value="@com.changpeng.operation.util.OperationUtil@bankMap()[toprCreditcard.bankid+\"\"]"/></TD>
+                      <TD>${toprCreditcard.username}</TD>
+					   <TD>${toprCreditcard.creditcard}</TD>
+                       <TD>${toprCreditcard.idcard}</TD>
 					  
              		 <TD >
              		 	
@@ -312,6 +320,8 @@ ${pagestring}
 							<input class="botton" type=button onclick="creditCall()" value="电话催收">
 							&nbsp;
 							<input class="botton" type=button onclick="exportLogs()" value="导出催收记录">
+							&nbsp;
+							<input class="botton" type=button onclick="exportLogsSelected()" value="选择导出催收记录">
 						</div>
                        </TD>
                     </TR>

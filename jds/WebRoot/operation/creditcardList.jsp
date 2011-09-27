@@ -134,6 +134,13 @@ function exportLogs(){
  document.form1.submit();
  return true;
 }
+function exportSelectedLogs(){
+
+	
+ document.form1.action="creditcardList!export.action?selected=selected";
+ document.form1.submit();
+ return true;
+}
 
 function showFee(usafee,hkfee,eurfee){
 	var fee="";
@@ -371,6 +378,7 @@ function   toNum(str){
 
 <input  class="botton" type=button onclick="location.href='repaylogCreateBatch!input.action'" value="还款记录导入">&nbsp;
 <input  class="botton" type=button onclick="return exportLogs()" value="催收记录导出">
+<input  class="botton" type=button onclick="return exportSelectedLogs()" value="催收记录选择导出">
 </div>
                        </TD>
                     </TR>

@@ -61,14 +61,13 @@ public class CreditcardListAction extends AbstractListAction {
 	}
 
 	public CreditcardListAction() {
-//		rights = "opr2,1";
+		// rights = "opr2,1";
 	}
 
 	public String go() throws HibernateException {
-		
-		System.out.println("===recordsize========》》》》》"+recordsize);
-		
-		
+
+		System.out.println("===recordsize========》》》》》" + recordsize);
+
 		creditcardlist = getQuery().setMaxResults(maxperpage).setFirstResult(maxperpage * pagenumber)
 		// .setCacheable(true)
 				.list();
@@ -94,46 +93,62 @@ public class CreditcardListAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
-	public String export() throws HibernateException {
-		/*
-		 * creditcardlist = getQuery() .setMaxResults(maxperpage)
-		 * .setFirstResult(maxperpage * pagenumber) .setCacheable(true) .list();
-		 */
+	private String selected;
+	private int[] check;
 
-		/*
-		 * Criteria criteria =
-		 * getSession().createCriteria(ToprCreditcard.class); if (bankid != 0)
-		 * criteria.add(Expression.eq("bankid", bankid)); if (consigntype!=
-		 * null&&!"".equals(consigntype))
-		 * criteria.add(Expression.eq("consigntype", consigntype)); if
-		 * (consignflag!= null&&!"".equals(consignflag))
-		 * criteria.add(Expression.eq("consigntype", consignflag)); if
-		 * (username!= null&&!"".equals(username))
-		 * criteria.add(Expression.like("username",
-		 * username,MatchMode.ANYWHERE)); if (creditcard!=
-		 * null&&!"".equals(creditcard))
-		 * criteria.add(Expression.like("creditcard",
-		 * creditcard,MatchMode.ANYWHERE)); if (state != -1)
-		 * criteria.add(Expression.eq("state", state)); creditcardlist =
-		 * criteria.list();
-		 */
-		creditcardlist = getQuery().list();
+	/**
+	 * @param creditcards the creditcards to set
+	 */
+	public void setCheck(int[] creditcards) {
+		this.check = creditcards;
+	}
+
+	public String export() throws HibernateException {
+
+		System.out.println("selected====="+selected);
+		
+		if (selected != null && selected.equals("selected")) {
+			if(check==null||check.length==0){
+				this.message="您没有选择任何需要导出的记录,请选择";
+				this.nextpage="javascript:history.go(-1)";
+				
+				return ERROR;
+				
+			}else{
+				String s="";
+				for(int ss:check){
+					s+=ss+",";
+				}
+				s+="0";				
+				
+				
+				System.out.println("s===="+s);				
+				String queryName = "from ToprCreditcard a where a.creditcardid in("+s+")";
+				creditcardlist =getSession().createQuery(queryName).list();				
+			}
+			
+		} else {
+			creditcardlist = getQuery().list();
+		}
+
 		return "export";
 	}
 
 	private Query getQuery() throws HibernateException {
 
 		if (ext != null && ext.equals("ext")) {
-			getSession().createSQLQuery("update topr_creditcard set repaystatus = null where repaystatus =0").executeUpdate();
+			getSession().createSQLQuery("update topr_creditcard set repaystatus = null where repaystatus =0")
+					.executeUpdate();
 			getSession().createSQLQuery("update tnlw_nonlaw set overnum=null where overnum=0").executeUpdate();
 		} else {
-			getSession().createSQLQuery("update topr_creditcard set repaystatus=0 where repaystatus is null").executeUpdate();
+			getSession().createSQLQuery("update topr_creditcard set repaystatus=0 where repaystatus is null")
+					.executeUpdate();
 			getSession().createSQLQuery("update tnlw_nonlaw set overnum=0 where overnum is null").executeUpdate();
 
 		}
 
 		String queryName = "from ToprCreditcard  a where 1=1   and a.repaystatus<>2";
-		
+
 		if (chengbanren != null && !"".equals(chengbanren)) {
 			queryName = "from ToprCreditcard a,ToprCredittask b,TsysUser c where a.repaystatus<>2 and a.creditcardid=b.toprCreditcard.creditcardid and b.userid=c.userid and c.username like '%"
 					+ chengbanren.trim() + "%'  and b.taskstat=0";
@@ -163,24 +178,19 @@ public class CreditcardListAction extends AbstractListAction {
 
 		// queryName+=" order by to_number(a.curcnfee) desc,a.creditcardid
 		// desc";
-		
-		 basicDao.setSession(getSession());
-		 recordsize=basicDao.getCountOfQuery(queryName);
-		
+
+		basicDao.setSession(getSession());
+		recordsize = basicDao.getCountOfQuery(queryName);
+
 		queryName += " order by consigndate desc,idcard asc";
-		
-		
-		queryName="select a "+queryName;
+
+		queryName = "select a " + queryName;
 		Query query = getSession().createQuery(queryName);
-//		recordsize = query.list().size();
-		
-		
+		// recordsize = query.list().size();
+
 		pagesize = (recordsize - 1) / maxperpage + 1;
 		pagenumber = pagenumber > pagesize - 1 ? pagesize - 1 : pagenumber;
 
-		
-		
-		
 		return query;
 	}
 
@@ -274,5 +284,12 @@ public class CreditcardListAction extends AbstractListAction {
 	 */
 	public void setBianhao(String bianhao) {
 		this.bianhao = bianhao;
+	}
+
+	/**
+	 * @param selected the selected to set
+	 */
+	public void setSelected(String selected) {
+		this.selected = selected;
 	}
 }
