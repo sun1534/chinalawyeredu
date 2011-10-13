@@ -203,13 +203,9 @@ public class ScheduleTask extends TimerTask {
 			LOG.info("定时获取用户信息成功");
 
 			con = DBUtils.getOracleCon();
-
-			
-			System.out.println("================================="+con);
 			
 			syncPxxt(con);
-
-//			syncOa(con);
+//
 
 			syncWebSite(con);
 

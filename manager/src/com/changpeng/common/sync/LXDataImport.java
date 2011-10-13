@@ -159,12 +159,12 @@ public class LXDataImport {
 	public static void main(String args[]) {
 
 		Connection lgptCon = null;
-		Connection oaCon = null;
+//		Connection oaCon = null;
 		Connection webCon = null;
 		try {
 			lgptCon = com.changpeng.common.sync.DBUtils.getOracleCon();
 			webCon = com.changpeng.common.sync.DBUtils.getWebsiteCon();
-			oaCon = com.changpeng.common.sync.DBUtils.getOACon();
+//			oaCon = com.changpeng.common.sync.DBUtils.getOACon();
 			Map map = syncAllLXOrg(lgptCon);
 
 			Iterator iterator = map.keySet().iterator();
@@ -181,7 +181,7 @@ public class LXDataImport {
 
 		} finally {
 			com.changpeng.common.sync.DBUtils.closeConnection(lgptCon);
-			com.changpeng.common.sync.DBUtils.closeConnection(oaCon);
+//			com.changpeng.common.sync.DBUtils.closeConnection(oaCon);
 			com.changpeng.common.sync.DBUtils.closeConnection(webCon);
 		}
 	}

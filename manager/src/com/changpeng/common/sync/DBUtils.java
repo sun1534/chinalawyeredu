@@ -15,18 +15,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DBUtils {
 	private static Log LOG = LogFactory.getLog(DBUtils.class);
-//	private static String oracle_url = "jdbc:oracle:thin:@192.168.0.4:1521:orcl";
-	private static String oracle_url = "jdbc:oracle:thin:@changpeng.3322.org:1521:orcl";
+//	private static String oracle_url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	private static String oracle_url = "jdbc:oracle:thin:@cpsoft.3322.org:1521:orcl";
 	private static String oracle_username = "gxlg";
 	private static String oracle_password = "gxlg";
 
-	private static String website_url = "jdbc:mysql://211.154.157.174:3306/lxguangxi?characterEncoding=utf-8";
+	private static String website_url = "jdbc:mysql://116.252.185.108:3306/lxguangxi?characterEncoding=utf-8";
 	private static String website_username = "lxguangxi";
 	private static String website_password = "lxguangxi";
 
-	private static String oa_url = "jdbc:mysql://211.154.157.174:3306/oa?characterEncoding=utf-8";
-	private static String oa_username = "root";
-	private static String oa_password = "password";
+//	private static String oa_url = "jdbc:mysql://211.154.157.174:3306/oa?characterEncoding=utf-8";
+//	private static String oa_username = "root";
+//	private static String oa_password = "password";
 
 	static {
 		try {
@@ -57,15 +57,15 @@ public class DBUtils {
 		}
 	}
 
-	public static Connection getOACon() {
-		try {
-			Connection con = DriverManager.getConnection(oa_url, oa_username, oa_password);
-			return con;
-		} catch (Exception e) {
-			LOG.error("getOACon::" + e);
-			return null;
-		}
-	}
+//	public static Connection getOACon() {
+//		try {
+//			Connection con = DriverManager.getConnection(oa_url, oa_username, oa_password);
+//			return con;
+//		} catch (Exception e) {
+//			LOG.error("getOACon::" + e);
+//			return null;
+//		}
+//	}
 
 	public static Connection getWebsiteCon() {
 		try {

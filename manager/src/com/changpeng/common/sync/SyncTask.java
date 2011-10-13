@@ -25,38 +25,38 @@ public class SyncTask {
 	private static Log LOG = LogFactory.getLog(SyncTask.class);
 
 	public boolean syncOA(List lawyerList, List orgList, List orgUsers, List lxUsers) throws Exception {
-
-		Connection con = null;
-		try {
-			con = DBUtils.getOACon();
-			con.setAutoCommit(false);
-			for (int i = 0; i < orgList.size(); i++) {
-				OrgOfficeInfo org = (OrgOfficeInfo) orgList.get(i);
-				com.changpeng.common.sync.oa.OaTransfer.syncOrgs(org, con);
-			}
-
-			for (int i = 0; i < lawyerList.size(); i++) {
-				PersonInfo person = (PersonInfo) lawyerList.get(i);
-				com.changpeng.common.sync.oa.OaTransfer.syncLawyers(person, con);
-			}
-			for (int i = 0; i < orgUsers.size(); i++) {
-				OrgUserInfo person = (OrgUserInfo) orgUsers.get(i);
-				com.changpeng.common.sync.oa.OaTransfer.syncOrgManagers(person, con);
-			}
-			for (int i = 0; i < lxUsers.size(); i++) {
-				GuildUserInfo person = (GuildUserInfo) lxUsers.get(i);
-				com.changpeng.common.sync.oa.OaTransfer.syncLXManagers(person, con);
-			}
-			con.commit();
-			con.setAutoCommit(true);
-			return true;
-		} catch (Exception e) {
-			LOG.error("网站数据同步失败:::", e);
-			return false;
-		} finally {
-			DBUtils.closeConnection(con);
-			LOG.info("网站数据同步完毕:::");
-		}
+		throw new Exception();
+//		Connection con = null;
+//		try {
+//			con = DBUtils.getOACon();
+//			con.setAutoCommit(false);
+//			for (int i = 0; i < orgList.size(); i++) {
+//				OrgOfficeInfo org = (OrgOfficeInfo) orgList.get(i);
+//				com.changpeng.common.sync.oa.OaTransfer.syncOrgs(org, con);
+//			}
+//
+//			for (int i = 0; i < lawyerList.size(); i++) {
+//				PersonInfo person = (PersonInfo) lawyerList.get(i);
+//				com.changpeng.common.sync.oa.OaTransfer.syncLawyers(person, con);
+//			}
+//			for (int i = 0; i < orgUsers.size(); i++) {
+//				OrgUserInfo person = (OrgUserInfo) orgUsers.get(i);
+//				com.changpeng.common.sync.oa.OaTransfer.syncOrgManagers(person, con);
+//			}
+//			for (int i = 0; i < lxUsers.size(); i++) {
+//				GuildUserInfo person = (GuildUserInfo) lxUsers.get(i);
+//				com.changpeng.common.sync.oa.OaTransfer.syncLXManagers(person, con);
+//			}
+//			con.commit();
+//			con.setAutoCommit(true);
+//			return true;
+//		} catch (Exception e) {
+//			LOG.error("网站数据同步失败:::", e);
+//			return false;
+//		} finally {
+//			DBUtils.closeConnection(con);
+//			LOG.info("网站数据同步完毕:::");
+//		}
 	}
 
 	/**
