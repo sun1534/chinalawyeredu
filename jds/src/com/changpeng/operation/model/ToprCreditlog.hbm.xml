@@ -21,6 +21,13 @@
         <property name="userid" type="long">
             <column name="USERID" precision="8" scale="0" not-null="true" />
         </property>
+        
+        <property name="bankno" type="java.lang.String">
+            <column name="bankno" length="2000" />
+        </property>
+         <property name="username" type="java.lang.String">
+            <column name="username" length="2000" />
+        </property>
         <property name="createtime" type="java.util.Date">
             <column name="CREATETIME" length="7" not-null="true" />
         </property>
@@ -30,5 +37,27 @@
         <property name="comments" type="java.lang.String">
             <column name="COMMENTS" length="2000" />
         </property>
+        <property name="contacttype" type="java.lang.String">
+            <column name="contacttype" length="2000" />
+        </property>
+        <property name="contactmanner" type="java.lang.String">
+            <column name="contactmanner" length="2000" />
+        </property>
+        <property name="contactobj" type="java.lang.String">
+            <column name="contactobj" length="2000" />
+        </property>
+        <property name="contactresult" type="java.lang.String">
+            <column name="contactresult" length="2000" />
+        </property>
+        <property name="cuishoucuoshi" type="java.lang.String">
+            <column name="cuishoucuoshi" length="2000" />
+        </property>
+        <property name="promisedate" type="java.lang.String">
+            <column name="promisedate" length="2000" />
+        </property>
+        <property name="promisemoney" type="java.lang.String">
+            <column name="promisemoney" length="2000" />
+        </property>
+        	
     </class>
 </hibernate-mapping>

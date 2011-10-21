@@ -88,7 +88,7 @@ $(document).ready(function(){
 	$("#jqdrag").hide();
 	$('#savelog').click(function(){
 		$("#jqdrag").show();
-		$("#logFrame").get(0).src="creditlogCreate2!input.action?credittaskid=${credittaskid}";
+		$("#logFrame").get(0).src="creditlogCreate2!input.action?bankid=${creditcard.bankid}&credittaskid=${credittaskid}&addressid="+$("#addressidid").val();
 	});
 	$('#closelog').click(function(){
 		$("#jqdrag").hide();
@@ -130,8 +130,9 @@ $(document).ready(function(){
 	});
 	$('#jqdrag').jqDrag();
 });
-function setPhone(val){
+function setPhone(val,addressid){
 	$("#phone").val(val);
+	$("#addressidid").val(addressid);
 }
 function phoneDelete(phoneid){
 	if(confirm("是否确认删除？")){
@@ -224,7 +225,7 @@ function saveComments(){
 		<TR class="listheadline"><td>&nbsp;</td><td>号码</td><td>姓名</td><td>说明</td><td>编辑</td><td>删除</td></tr>
 		<s:iterator value="addressList" status="stat">
 			<TR class=listline>
-				<td><input type="radio" name="phoneradio" value="${phone}" onclick="setPhone(this.value)"></td>
+				<td><input type="radio" name="phoneradio" value="${phone}" onclick="setPhone(this.value,'${addressid }')"></td>
 				<td><div id="phone${stat.index}">${phone}</div></td>
 				<td>${username}</td>
 				<td>${comments}</td>
@@ -249,6 +250,7 @@ function saveComments(){
 		</a> -->
 		
 		 <input type=button class="mask" value="记录日志" id="savelog">
+		 <input type=hidden value="0" id="addressidid">
 		 
 		&nbsp;&nbsp;
 		<a href="repaylogList.action?oprflag=1&creditcardid=${creditcard.creditcardid}&keepThis=true&TB_iframe=true&height=200&width=500" title="还款记录" class="thickbox" >
@@ -405,7 +407,7 @@ function saveComments(){
 </div>           
 <div id="jqdrag" class="jqDnR">
   <div style="height:20px;width:400px;text-align:right"><a href="#" id="closelog" style="float:right;FONT-SIZE:12px;color:blue">关闭</a></div>
-  <iframe src="#" id="logFrame" name="logFrame" height="200px" width="398px"/>
+  <iframe src="#" id="logFrame" name="logFrame" height="250px" width="598px"/>
 </div>             
 </BODY>
 </HTML>

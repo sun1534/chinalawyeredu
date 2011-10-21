@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -25,6 +26,7 @@ import com.changpeng.lawcase.util.NumberUtil;
 import com.changpeng.operation.model.ToprCreditcard;
 import com.opensymphony.xwork2.ActionContext;
 import com.sxit.common.HSSFCellToString;
+import com.sxit.common.action.AbstractAction;
 import com.sxit.system.model.TsysUser;
 
 /**
@@ -33,6 +35,7 @@ import com.sxit.system.model.TsysUser;
  * @author sinhoo Jun 10, 2009
  */
 public class CreditcardCreateBatch {
+	protected static final Logger LOG = Logger.getLogger(CreditcardCreateBatch.class);
 	/**
 	 * 获取EXCEL单元格中的值
 	 * 
@@ -235,9 +238,13 @@ public class CreditcardCreateBatch {
 
 			session.save(customer);
 			customerid = customer.getCustomerid();
+			
+
+			LOG.debug("点击用户的时候新增customerid:::"+customerid);
 		} else {
 			customerid = customer.getCustomerid();
 		}
+		
 
 		TusrCustomerService service = new TusrCustomerService();
 		service.setCreatetime(new java.sql.Timestamp(System.currentTimeMillis()));
@@ -248,6 +255,8 @@ public class CreditcardCreateBatch {
 		service.setTusrCustomerNew(customer);
 		service.setRemarks("导入新增");
 		session.save(service);
+		
+		LOG.debug("关联表的主键id:::"+service.getServiceid());
 
 		// 保存住宅电话
 		if (card.getHomephoneold() != null && !"".equals(card.getHomephoneold().trim())) {
@@ -266,6 +275,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getHomephoneold()+"此处的md5val:::"+md5val);
 			if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
 				session.save(p);
 		}
@@ -285,6 +295,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getMobileold()+"此处的md5val:::"+md5val);
 			if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
 				session.save(p);
 		}
@@ -305,6 +316,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getWorkphoneold()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -328,6 +340,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp1phone1()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -349,6 +362,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp1phone2()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -370,6 +384,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp1phone3()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -391,6 +406,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp2phone1()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -412,6 +428,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp2phone2()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)
@@ -433,6 +450,7 @@ public class CreditcardCreateBatch {
 			String md5val = com.sxit.common.util.md5.MD5(p.getUsername() + p.getPhone() + p.getHomeaddr()
 					+ p.getCustomerid());
 			p.setMd5val(md5val);
+			LOG.debug(card.getContactp2phone3()+"此处的md5val:::"+md5val);
 			if (!list.contains(md5val)) {
 				list.add(md5val);
 				if (CreditcardUpdateBatch.getUsrAddress(session, md5val) == 0)

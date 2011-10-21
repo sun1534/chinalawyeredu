@@ -71,6 +71,7 @@ public class CreditUserViewAction extends AbstractAction {
 
 	public String go() throws HibernateException {
 		creditcard = (ToprCreditcard) getSession().get(ToprCreditcard.class, creditcardid);
+	
 		credittask = (ToprCredittask) getSession().get(ToprCredittask.class, credittaskid);
 		// 获取关联该业务的所有联系人信息
 		// addressList=getSession().createQuery(" from TusrAddress where
@@ -92,10 +93,18 @@ public class CreditUserViewAction extends AbstractAction {
 
 		int customerid = NewCustomerUtil.getCustomerByService(getSession(), (int) creditcardid, 1);
 		LOG.debug("显示这个人的所有联系号码的情况:"+customerid);
+		TusrCustomerNew customer=null;
+	boolean ad=false;
+		if(customerid==0){
+			 customer = NewCustomerUtil.getCustomer(getSession(), creditcard.getUsername(), creditcard.getIdcard());
+			 ad=true;
+			 if(customer!=null)
+			 customerid=customer.getCustomerid();
+		}
 		
-		if(customerid==0)
+		if(customerid==0||ad)
 		{
-			TusrCustomerNew customer=null;
+			
 			customerid=CreditcardCreateBatch.addCustomerAndAddress(getSession(), this.curuser, customer, creditcard);
 			LOG.debug("重新新增这个人的联系号码情况:"+customerid);
 		}

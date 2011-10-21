@@ -84,6 +84,21 @@
         </action>
          <action name="creditlogList" class="com.changpeng.operation.action.CreditlogListAction">
            <result name="success" type="dispatcher">/operation/creditlogList.jsp</result>
+            <result name="sysmsg" type="dispatcher">/common/viewMessage.jsp</result>
+          <result name="txt" type="stream">
+<param name="contentType">text/plain</param>
+<param name="inputName">inputstream</param>
+<param name="contentDisposition">attachment;filename="export.txt"</param>
+<param name="bufferSize">4096</param>
+</result>
+          <result name="excelsimple" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputstream</param>
+				<param name="contentDisposition">
+					attachment;filename="export.xls"
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
  	 	</action>
          <action name="creditlogEdit" class="com.changpeng.operation.action.CreditlogEditAction">
 	  	 <result name="input" type="dispatcher">/operation/creditlogEdit.jsp</result>
@@ -117,6 +132,15 @@
         </action>
         <action name="exportLogs" class="com.changpeng.operation.action.ExportLogsAction" >
           <result name="success" type="dispatcher">/operation/exportLogs.jsp</result>
+           <result name="sysmsg" type="dispatcher">/common/viewMessage.jsp</result>
+          <result name="excelsimple" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="inputName">inputstream</param>
+				<param name="contentDisposition">
+					attachment;filename="export.xls"
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
         </action>
         
         <action name="setPaydate" class="com.changpeng.operation.action.SetPaydateAction" >

@@ -1,6 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="jscalendar" uri="/jscalendar" %>
+<jscalendar:head/>
 <%
 /**
  * <p>功能： 查看creditlog列表</p>
@@ -20,20 +21,20 @@
 <script language=javascript>
 <!--
 function getSearch(){
-     document.form1.action = "searchUser.action";
-     document.form1.submit();
+     document.pageForm.action = "searchUser.action";
+     document.pageForm.submit();
 }
 function noChecked() {
      var i;
-     if(document.form1.check!=null){
-       if(document.form1.check.length!=null){
-            for(i=0;i<document.form1.check.length;i++){
-                 if(document.form1.check[i].checked==true){
+     if(document.pageForm.check!=null){
+       if(document.pageForm.check.length!=null){
+            for(i=0;i<document.pageForm.check.length;i++){
+                 if(document.pageForm.check[i].checked==true){
                       return false;
                  }
             }
        }else{
-            if(document.form1.check.checked==true) return false;
+            if(document.pageForm.check.checked==true) return false;
        }
      }
      return true;
@@ -41,13 +42,13 @@ function noChecked() {
 function getCheckAll(){
      var i;
      var b=0;
-     if(document.form1.check!=null){
-          if(document.form1.check.length!=null){
-               for(i=0;i<document.form1.check.length;i++){
-                    document.form1.check[i].checked=document.form1.selectAll.checked;
+     if(document.pageForm.check!=null){
+          if(document.pageForm.check.length!=null){
+               for(i=0;i<document.pageForm.check.length;i++){
+                    document.pageForm.check[i].checked=document.pageForm.selectAll.checked;
                }
           }else{
-               document.form1.check.checked=document.form1.selectAll.checked;
+               document.pageForm.check.checked=document.pageForm.selectAll.checked;
           }
      }
 }
@@ -57,8 +58,8 @@ function getDelete(){
           return false;
      }
      if (confirm("您确定要进行删除?")) {
-          document.form1.action="creditlogDeletes.action";
-          document.form1.submit();
+          document.pageForm.action="creditlogDeletes.action";
+          document.pageForm.submit();
           return true;
      }
      else {
@@ -69,6 +70,21 @@ function page(str){
   document.pageForm.pagenumber.value=str;
   document.pageForm.submit()
   return true;
+}
+function query(){
+document.pageForm.action="creditlogList.action";
+ 	document.pageForm.submit();
+ 	return true;
+}
+function ccbexport(){
+document.pageForm.action="creditlogList.action?ccbexport=ccbexport";
+ 	document.pageForm.submit();
+ 	return true;
+}
+function ccbtxtexport(){
+document.pageForm.action="creditlogList.action?ccbexport=txt";
+ 	document.pageForm.submit();
+ 	return true;
 }
 -->
 </script>
@@ -93,23 +109,44 @@ function page(str){
         <TABLE cellSpacing=1 cellPadding=1 width="100%" bgColor=#999999 border=0>
           <TR>
             <TD  valign="top" bgColor=#F9F9F7>
-<s:form name="form1" action="creditlogDeletes.action" method="POST">
+<s:form name="pageForm" action="creditlogList.action" method="POST">
 <s:hidden name="credittaskid"/>
+<s:hidden name="pagenumber"/>
+<s:hidden name="ismine"/>
                 <TABLE width="100%"  border=0 align=center cellPadding=3 cellSpacing=1 bgcolor="#F9F9F7">
                   <TBODY>
+                  <TR class=listline >
+			           <TD colSpan=13 >
+			           委托银行:<s:select name="bankid" list="@com.changpeng.operation.util.OperationUtil@listBank()" headerKey="0" headerValue="全部" listKey="bankid" listValue="bankname"/>
+					  
+					  客户帐号：<s:textfield name="creditcard" size="15"/>
+					 催收日期:<jscalendar:jscalendar	name="start" format="%Y-%m-%d"/>至<jscalendar:jscalendar	name="end" format="%Y-%m-%d"/>
+					  <input type="button" value="查询" class="botton" onclick="query()"/>		
+					<input type="button" value="导出成excel" class="botton" onclick="ccbexport()"/>	
+					<input type="button" value="导出成文本txt" class="botton" onclick="ccbtxtexport()"/>
+			           	
+			           	
+			           </TD>
+			          </TR>
+			          <tr>
+			          <td colSpan=13 class=listline><span id="sum_desc" style="color:red"></span></td>
+			          </tr>
+                  
                       <TR class="listheadline">
                         <TD>选择</TD>
-	                    <TD >客户姓名</TD>                  
-                      <TD >催收日期</TD>
-                      <TD >催收情况</TD>
-                      <TD >记录时间</TD>
-                       <TD >详细信息</TD>
+                         <TD>客户帐号</TD>         
+                         <TD>客户姓名</TD>                  
+                      <TD>催收日期</TD>
+                      <TD>催收情况</TD>
+                      <TD>记录时间</TD>
+                       <TD>详细信息</TD>
                       </TR>
 <s:iterator value="creditloglist" status="status">
                       <TR class=listline>
                         <TD >
                         <INPUT type="checkbox" value='${logid}' name="check">
                         </TD>
+                          <TD >${toprCredittask.toprCreditcard.creditcard}</TD>
                       <TD >${toprCredittask.toprCreditcard.username}</TD>
               
                       <TD >${logtime}</TD>
@@ -118,7 +155,8 @@ function page(str){
                         <TD><a href="creditlogView.action?creditlogid=${logid}&pagenumber=${pagenumber}">查看</a></TD>
                   </TR>
 </s:iterator>
-<s:if test="creditloglist!=null">                    <TR bgcolor="#ECECFF" class="pt9-18">
+<s:if test="creditloglist!=null">                    
+<TR bgcolor="#ECECFF" class="pt9-18">
                       <TD colSpan=12 ><div align="left">
                          <input type="checkbox" name="selectAll" onClick="getCheckAll()" value="checkbox">全选</div>
                       </TD>
@@ -129,7 +167,14 @@ ${pagestring}
                       <TD colSpan=12 >
 <div align="center">
 <input class="botton" type=button onclick="document.createForm.submit()" value="新增">&nbsp;
+
+					<input type="button" value="导出成excel" class="botton" onclick="ccbexport()"/>	&nbsp;
+					
+					<input type="button" value="导出成文本txt" class="botton" onclick="ccbtxtexport()"/>
+<!-- 
 <input  class="botton" type=button onclick="return getDelete()" value="删除">&nbsp;
+
+-->
 <input  class="botton" type=button onclick="history.go(-1)" value="返回">
 </div>
                        </TD>
@@ -145,7 +190,7 @@ ${pagestring}
 </TABLE>
 </BODY>
 </HTML>
-<s:form name="pageForm" action="creditlogList.action" method="POST">
+<s:form name="pageForm1" action="creditlogList.action" method="POST">
 	<s:hidden name="credittaskid"/>
 	<s:hidden name="pagenumber"/>
 </s:form>

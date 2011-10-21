@@ -1,5 +1,7 @@
 package com.changpeng.operation.action;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -41,7 +43,7 @@ public class CardreoperAction extends AbstractAction {
 	public CardreoperAction() {
 
 	}
-
+	private static final DateFormat dfminute = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
 	public String go() throws HibernateException {
 		List<ToprCreditcard> list = (List<ToprCreditcard>) get("recards");
 
@@ -50,6 +52,13 @@ public class CardreoperAction extends AbstractAction {
 		if (opflag == 3 || opflag == 4) { // 全部新增 或 覆盖
 			for (ToprCreditcard temp : list) {
 				if (opflag == 3) {// 新增的话,就要加到那个service里面去
+					String comments=temp.getComments();
+					if(comments==null||comments.trim().equals(""))
+						comments="相同数据选择新增:"+dfminute.format(new Date());
+					else
+						comments=comments+"(相同数据选择新增:"+dfminute.format(new Date())+")";
+					temp.setComments(comments);
+					
 					getSession().save(temp);
 
 					TusrCustomerNew customer = NewCustomerUtil.getCustomer(getSession(), temp.getUsername(), temp
@@ -69,8 +78,15 @@ public class CardreoperAction extends AbstractAction {
 						System.out.println(temp.getUsername() + ",," + temp.getIdcard() + "没找到用户");
 					}
 					
-				} else
+				} else{
+					String comments=temp.getComments();
+					if(comments==null||comments.trim().equals(""))
+						comments="相同数据选择更新:"+dfminute.format(new Date());
+					else
+						comments=comments+"(相同数据选择更新:"+dfminute.format(new Date())+")";
+					temp.setComments(comments);
 					getSession().update(temp);
+				}
 			}
 			if(opflag==3){
 				message="全部新增处理成功";

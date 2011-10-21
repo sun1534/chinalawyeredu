@@ -61,25 +61,7 @@ body {
                <s:form name="form1" action="creditlogCreate" validate="true" method="post">
                <s:hidden name="pagenumber" value="${pagenumber}"/>
         
-	 			 	<!--
-	 			 	<TR>
-						<TD width="15%" class="listheadline"> :</TD>
-					<TD width="35%" class="listline"><s:textfield name="creditlog.logid"/></TD>
-					</TR>
-	 			 	
-	 			 	<TR>
-						<TD width="15%" class="listheadline">主键 关联任务:</TD>
-					<TD width="35%" class="listline"><s:textfield name="creditlog.toprCredittask.creditcardid"/></TD>
-					</TR>
-	 			 	<TR>
-						<TD width="15%" class="listheadline">用户id:</TD>
-					<TD width="35%" class="listline"><s:textfield name="creditlog.userid"/></TD>
-					</TR>
-	 			 	<TR>
-						<TD width="15%" class="listheadline">日志记录时间:</TD>
-					<TD width="35%" class="listline"><s:textfield name="creditlog.createtime"/></TD>
-					</TR>
-					-->
+	 			
 				
 					<TR>
 						<TD width="15%" class="listheadline">客户姓名:</TD>

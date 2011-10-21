@@ -3,11 +3,7 @@
 <%@ taglib prefix="jscalendar" uri="/jscalendar" %>
 <%
 /**
- * <p>功能： 查看creditcard列表</p>
- * <p>作者： 刘兴华</p>
- * <p>公司： 长鹏软件</p>
- * <p>日期： 2009-06-09</p>
- * @版本： V1.0
+ * 建行的催收记录导出
  * @修改：
 **/
 %>
@@ -23,143 +19,26 @@
 <script type="text/javascript" src="../js/common.js"></script> 
 <jscalendar:head/>
 <script language="javascript">
-<!--
-var sum_cnfee=0;
-var	sum_usafee=0;
-var sum_hkfee=0;
-var sum_eurfee=0;
-var sum_refee=0;
-function changePagesize(maxperpage){ 
-	var url = location.href; 
-	if(url.indexOf("?")>0)
-		url=url.substring(0,url.indexOf("?"));
-	location.replace(url+"?maxperpage="+maxperpage);
-}
-function getSearch(){
-     document.form1.action = "searchUser.action";
-     document.form1.submit();
-}
-function noChecked() {
-     var i;
-     if(document.form1.check!=null){
-       if(document.form1.check.length!=null){
-            for(i=0;i<document.form1.check.length;i++){
-                 if(document.form1.check[i].checked==true){
-                      return false;
-                 }
-            }
-       }else{
-            if(document.form1.check.checked==true) return false;
-       }
-     }
-     return true;
-}
-function getCheckAll(){
-     var i;
-     var b=0;
-     if(document.form1.check!=null){
-          if(document.form1.check.length!=null){
-               for(i=0;i<document.form1.check.length;i++){
-                    document.form1.check[i].checked=document.form1.selectAll.checked;
-               }
-          }else{
-               document.form1.check.checked=document.form1.selectAll.checked;
-          }
-     }
-     
-     if(document.form1.selectAll.checked){
-		calCol();
-	 }else{
-		sum_cnfee=sum_usafee=sum_hkfee=sum_eurfee=sum_refee=0;
-	 }
-	 sum_desc.innerHTML="当前所选任务人民币【"+sum_cnfee+"】,美元【"+sum_usafee+"】,港元【"+sum_hkfee+"】,欧元【"+sum_eurfee+"】,已还金额为【"+sum_refee+"】";
-}
-function getDelete(){
-     if(noChecked()){
-          alert("请选择记录，删除需要选择记录！");
-          return false;
-     }
-     if (confirm("您确定要进行删除?")) {
-          document.form1.action="creditcardDeletes.action";
-          document.form1.submit();
-          return true;
-     }
-     else {
-          return false;
-     }
-}
-function transfer(cflag){
-	if(noChecked()){
-          alert("请选择催收记录！");
-          return false;
-     }
-     if (confirm("确定?")) {
-          document.form1.action="creditcardUpdate.action?cflag="+cflag;
-          document.form1.submit();
-          return true;
-     }
-     else {
-          return false;
-     }
-}
-function updateStat(cflag){
-	if(noChecked()){
-          alert("请选择需要变更状态的记录！");
-          return false;
-     }
-     if (confirm("您确定要变更还款状态吗?")) {
-          document.form1.action="creditcardUpdate.action?cflag="+cflag;
-          document.form1.submit();
-          return true;
-     }
-     else {
-          return false;
-     }
-}
+
 function page(str){
- // document.pageForm.pagenumber.value=str;
- // document.pageForm.submit()
   document.form1.pagenumber.value=str;
-  document.form1.action="creditcardList.action";
+  document.form1.action="ccbExportLogs.action";
   document.form1.submit();
   return true;
 }
 function query(){
- document.form1.action="creditcardList.action";
+ document.form1.action="ccbExportLogs.action";
  document.form1.submit();
  return true;
 }
 function exportLogs(){
- document.form1.action="creditcardList!export.action";
- document.form1.submit();
- return true;
-}
-function exportSelectedLogs(){
-
-	
- document.form1.action="creditcardList!export.action?selected=selected";
- document.form1.submit();
- return true;
-}
-function exportCCbLogs(){
-	document.form1.action="creditlogList.action";
- //document.form1.action="creditcardList!export.action?ccbexport=ccbexport";
+ document.form1.action="ccbExportLogs!export.action";
  document.form1.submit();
  return true;
 }
 
 
-function showFee(usafee,hkfee,eurfee){
-	var fee="";
-	if(usafee!="")
-		fee="透支美元:"+usafee;
-	if(hkfee!="")
-		fee+="  透支港元:"+hkfee;
-	if(eurfee!="")
-		fee+="  透支欧元:"+eurfee;
-	if(fee!="")
-		alert(fee);
-}
+
 
 function   toNum(str){   
 	try{
@@ -170,52 +49,8 @@ function   toNum(str){
     if(isNaN(n))   return   0;   
     else   return   n   ;   
 }   
-  function   calCol(){   //计算指定列之和   
-      //var   s=0;     
-      sum_cnfee=sum_usafee=sum_hkfee=sum_eurfee=0;
-      for(i=1;i<tasks.rows.length;i++){
-      	var o=tasks.rows(i).cells(4).childNodes;
-      	sum_cnfee+=toNum(o[0].value);
-		sum_usafee+=toNum(o[2].value);
-		sum_hkfee+=toNum(o[4].value);
-		sum_eurfee+=toNum(o[6].value);
-		sum_refee+=toNum(o[8].value);
-      }   
-           // s   +=   toNum(tasks.rows(i).cells(n).innerText);   
-     // return s;
-  }   
-    function change(obj){	
-  	var o=obj.parentNode.parentNode.cells(4).childNodes
-	if(obj.checked){
-		sum_cnfee=accAdd(sum_cnfee,o[0].value);
-		sum_usafee=accAdd(sum_usafee,o[2].value);
-		sum_hkfee=accAdd(sum_hkfee,o[4].value);
-		sum_eurfee=accAdd(sum_eurfee,o[6].value);
-		sum_refee=accAdd(sum_refee,o[8].value);
-		//sum_cnfee+=toNum(o[0].value);
-		//sum_usafee+=toNum(o[2].value);
-		//sum_hkfee+=toNum(o[4].value);
-		//sum_eurfee+=toNum(o[6].value);
-		//sum_refee+=toNum(o[8].value);
-	 }else{
-	 	sum_cnfee=accSub(sum_cnfee,o[0].value);
-		sum_usafee=accSub(sum_usafee,o[2].value);
-		sum_hkfee=accSub(sum_hkfee,o[4].value);
-		sum_eurfee=accSub(sum_eurfee,o[6].value);
-		sum_refee=accSub(sum_refee,o[8].value);
-		//sum_cnfee-=toNum(o[0].value);
-		//sum_usafee-=toNum(o[2].value);
-		//sum_hkfee-=toNum(o[4].value);
-		//sum_eurfee-=toNum(o[6].value);
-		//sum_refee-=toNum(o[8].value);
-		if(sum_cnfee<0) sum_cnfee=0;
-		if(sum_usafee<0) sum_usafee=0;
-		if(sum_hkfee<0) sum_hkfee=0;
-		if(sum_eurfee<0) sum_eurfee=0;
-		if(sum_refee<0) sum_refee=0;
-	 }
-	 sum_desc.innerHTML="当前所选任务人民币【"+sum_cnfee+"】,美元【"+sum_usafee+"】,港元【"+sum_hkfee+"】,欧元【"+sum_eurfee+"】,已还金额为【"+sum_refee+"】";
-}
+ 
+   
 
 -->
 </script>
@@ -242,7 +77,7 @@ function   toNum(str){
          
           <TR>
             <TD  valign="top" bgColor=#F9F9F7>
-<s:form name="form1" action="creditcardDeletes.action" method="POST">
+<s:form name="form1" action="ccbExportLogs.action" method="POST">
 <s:hidden name="pagenumber"/>
 <s:hidden name="maxperpage"/>
                 <TABLE width="100%"  border=0 align=center cellPadding=3 cellSpacing=1 bgcolor="#F9F9F7">
@@ -250,13 +85,9 @@ function   toNum(str){
                   <TR class=listline >
 			           <TD colSpan=13 >
 			           委托银行:<s:select name="bankid" list="@com.changpeng.operation.util.OperationUtil@listBank()" headerKey="0" headerValue="全部" listKey="bankid" listValue="bankname"/>
-					  委托类型:<s:select name="consigntype" list="@com.changpeng.operation.util.OperationUtil@consigntypeMap" headerKey="" headerValue="全部"/>
-					  委托类别:<s:select name="consignflag" list="@com.changpeng.operation.util.OperationUtil@consignflagMap" headerKey="" headerValue="全部"/>
-					  状态:<s:select name="state" list="#{-1:'全部',0:'未分配',1:'已分配'}"/>
-					   客户姓名:<s:textfield name="username" size="10"/>
+					 客户账号:<s:textfield name="creditcard" size="10"/>	 :<s:textfield name="username" size="10"/>
 					   <br/>
 					    
-					     案件编号:<s:textfield name="bianhao" size="10"/>	
 					  客户账号:<s:textfield name="creditcard" size="10"/>	
 					 委托日期:<jscalendar:jscalendar	name="consigndate" format="%Y-%m-%d"/>
 					 承办人:<s:textfield name="chengbanren" size="10"/>	
@@ -386,7 +217,7 @@ function   toNum(str){
 <input  class="botton" type=button onclick="location.href='repaylogCreateBatch!input.action'" value="还款记录导入">&nbsp;
 <input  class="botton" type=button onclick="return exportLogs()" value="催收记录导出">
 <input  class="botton" type=button onclick="return exportSelectedLogs()" value="催收记录选择导出">
-<input  class="botton" type=button onclick="return exportCCbLogs()" value="建行格式催收记录">
+<input  class="botton" type=button onclick="return exportCCbLogs()" value="建行格式催收记录导出">
 </div>
                        </TD>
                     </TR>

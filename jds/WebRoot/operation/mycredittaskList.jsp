@@ -99,7 +99,11 @@ function exportLogsSelected(){
  	return true;
 }
 
-
+function exportccbLogs(){
+	document.form1.action="creditlogList.action?ismine=ismine";
+ 	document.form1.submit();
+ 	return true;
+}
 function showFee(usafee,hkfee,eurfee){
 	var fee="";
 	if(usafee!="")
@@ -322,6 +326,8 @@ ${pagestring}
 							<input class="botton" type=button onclick="exportLogs()" value="导出催收记录">
 							&nbsp;
 							<input class="botton" type=button onclick="exportLogsSelected()" value="选择导出催收记录">
+							&nbsp;
+							<input class="botton" type=button onclick="exportccbLogs()" value="建行格式催收记录">
 						</div>
                        </TD>
                     </TR>

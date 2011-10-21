@@ -43,7 +43,10 @@
                 <br>
                 <TABLE width="460"  border=0 align=center cellPadding=3 cellSpacing=1 >
                   <TBODY >
-	 		
+	 			<TR>
+						<TD width="15%" class="listheadline">客户帐号:</TD>
+						<TD width="35%" class="listline">${creditlog.toprCredittask.toprCreditcard.creditcard}</TD>
+					</TR>
 	 			 	<TR>
 						<TD width="15%" class="listheadline">客户姓名:</TD>
 						<TD width="35%" class="listline">${creditlog.toprCredittask.toprCreditcard.username}</TD>

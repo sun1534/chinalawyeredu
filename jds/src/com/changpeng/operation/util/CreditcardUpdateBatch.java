@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -26,6 +27,7 @@ import com.changpeng.operation.model.ToprCreditcard;
  * @author sinhoo Jul 18, 2009
  */
 public class CreditcardUpdateBatch {
+	protected static final Logger LOG = Logger.getLogger(CreditcardUpdateBatch.class);
 	/**
 	 * 获取EXCEL单元格中的值
 	 * 
@@ -336,8 +338,8 @@ public class CreditcardUpdateBatch {
 			int len = list == null ? 0 : list.size();
 			return len;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
+			LOG.error("getUsrAddress异常",e);
+			return -1;
 		}
 	}
 
