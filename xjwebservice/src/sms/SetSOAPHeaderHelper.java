@@ -21,11 +21,12 @@ public class SetSOAPHeaderHelper {
 
 	private static String SPID = OrderConstant.SPID;
 	private static String SPPWD = OrderConstant.SPPWD;
-	public static String PRODUCTID = OrderConstant.DZJC_PRODUCTID;
+	public static String PRODUCTID = OrderConstant.TY_DZJC_PRODUCTID;
 	public static String LINKID = "";
 	private static String QNAME = OrderConstant.QNAME;
 	private static DateFormat SDF = new SimpleDateFormat("MMddHHmmss");
-	public static String OAFA="";
+	public static String OAFA = "";
+
 	/**
 	 * 设置请求头信息
 	 * 
@@ -41,16 +42,17 @@ public class SetSOAPHeaderHelper {
 		String transEnd = "-1";
 		String linkId = LINKID;
 		// OA应该是主叫号码 ，FA是计费号码
-//		String OA = "tel:1234567890";
-//		String FA = "tel:1234567890";
-		String OA="tel:"+OAFA;
-		String FA="tel:"+OAFA;
+		// String OA = "tel:1234567890";
+		// String FA = "tel:1234567890";
+		String OA = "tel:+86" + OAFA;
+		String FA = "tel:+86" + OAFA;
 		// 获取当前时间作为时间戳(MMddHHmmss)
 		Date date = new Date();
-	
+
 		timeStamp = SDF.format(date);
 		String multicastMessaging = "false";
 		try {
+			System.out.println("header:::" + productId + ",,,linkid:" + linkId);
 			PrefixedQName qName = new PrefixedQName(QNAME, "RequestSOAPHeader", "");
 			SOAPHeaderElement header = new SOAPHeaderElement(qName);
 			SOAPElement _spId = header.addChildElement("spId");
@@ -61,15 +63,16 @@ public class SetSOAPHeaderHelper {
 			_productId.addTextNode(productId);
 			SOAPElement _timeStamp = header.addChildElement("timeStamp");
 			_timeStamp.addTextNode(timeStamp);
-			// SOAPElement _SAN = header.addChildElement("SAN");
+			// SOAPElement _SAN = header.addChildElement("SAN");2
+
 			// _SAN.addTextNode(SAN);
-			// SOAPElement _transactionId =
-			// header.addChildElement("transactionId");
-			// _transactionId.addTextNode(transactionId);
+			SOAPElement _transactionId = header.addChildElement("transactionId");
+			transactionId = "";
+			_transactionId.addTextNode(transactionId);
 			SOAPElement _transEnd = header.addChildElement("transEnd");
 			_transEnd.addTextNode(transEnd);
-			 SOAPElement _linkId = header.addChildElement("linkId");
-			 _linkId.addTextNode(linkId);
+			SOAPElement _linkId = header.addChildElement("linkId");
+			_linkId.addTextNode((linkId == null ? "" : linkId));
 			SOAPElement _OA = header.addChildElement("OA");
 			_OA.addTextNode(OA);
 			SOAPElement _FA = header.addChildElement("FA");

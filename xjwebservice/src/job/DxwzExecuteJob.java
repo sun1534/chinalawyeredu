@@ -29,10 +29,10 @@ public class DxwzExecuteJob implements Job {
 	private static Log LOG = LogFactory.getLog(DxwzExecuteJob.class);
 	
 	// 8点整的时候执行
-	private static int EXECUTE_HOUR = 8;
-	private static int EXECUTE_MINUTE = 0;
+//	private static int EXECUTE_HOUR = 9;
+//	private static int EXECUTE_MINUTE = 0;
 	private static volatile int SCHEDULE_SEQ = 0;
-	private static long LASTTIME = 0;
+//	private static long LASTTIME = 0;
 
 	private static Map<String, Boolean> HAS_BEEN = new HashMap<String, Boolean>();
 	
@@ -52,7 +52,7 @@ public class DxwzExecuteJob implements Job {
 			long now = System.currentTimeMillis();
 			Date today = new Date();
 //			if (hour == EXECUTE_HOUR && EXECUTE_MINUTE < 10) {
-			if (hour == EXECUTE_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
+//			if (hour == EXECUTE_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
 
 				HAS_BEEN.put(df.format(today), true);
 
@@ -60,15 +60,15 @@ public class DxwzExecuteJob implements Job {
 				DxSendMain main = new DxSendMain();
 				main.process();
 
-				if (minute != 0) {
-					EXECUTE_MINUTE = minute;
-				} else
-					EXECUTE_MINUTE = -1;
+//				if (minute != 0) {
+//					EXECUTE_MINUTE = minute;
+//				} else
+//					EXECUTE_MINUTE = -1;
 
-			} else {
-				EXECUTE_MINUTE = 0;
-				LOG.info("未到短信下发时间,忽略,本次完成>" + hour + ":" + minute);
-			}
+//			} else {
+//				EXECUTE_MINUTE = 0;
+//				LOG.info("未到短信下发时间,忽略,本次完成>" + hour + ":" + minute);
+//			}
 
 		} catch (Exception e) {
 			LOG.error("执行定时任务错误:", e);

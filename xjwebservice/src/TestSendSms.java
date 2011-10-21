@@ -1,5 +1,8 @@
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DateFormat;
+
+import sms.SetSOAPHeaderHelper;
 
 import cn.com.chinatelecom.www.schema.ctcc.common.v2_1.ChargingInformation;
 import cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference;
@@ -8,6 +11,7 @@ import cn.com.chinatelecom.www.wsdl.ctcc.sms.send.v2_1._interface.SendSms;
 import cn.com.chinatelecom.www.wsdl.ctcc.sms.send.v2_1.service.SendSmsServiceLocator;
 
 public class TestSendSms {
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	/**
 	 * @param args
 	 */
@@ -23,7 +27,7 @@ public class TestSendSms {
 			SendSms service = locat.getSendSms(url);
 
 			
-			org.apache.axis.types.URI address=new org.apache.axis.types.URI("tel:+8618999910502");
+			org.apache.axis.types.URI address=new org.apache.axis.types.URI("tel:+86"+args[0]);
 			org.apache.axis.types.URI[] addresses=new  org.apache.axis.types.URI[]{address};
 			
 			java.lang.String senderName="10628919";
@@ -31,14 +35,19 @@ public class TestSendSms {
 			charging.setAmount(new BigDecimal(0));
 			charging.setCode("0");
 			charging.setCurrency("0");
-			charging.setDescription("免费");
+			charging.setDescription("FREE");
 			
-			java.lang.String message="20110726 00:49测试短信下发到8618999910502";
+			java.lang.String message="20110926 21:13 TEST SEND SMS TO 86"+args[0];
 			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference receiptRequest=new SimpleReference();
 			receiptRequest.setCorrelator(System.currentTimeMillis()+"");
-			org.apache.axis.types.URI uri=new org.apache.axis.types.URI("tel:+8618999910502");
+			org.apache.axis.types.URI uri=new org.apache.axis.types.URI("tel:+86"+args[0]);
 			receiptRequest.setEndpoint(uri);
 			receiptRequest.setInterfaceName("SendSms");
+			
+			
+			SetSOAPHeaderHelper.OAFA=args[0];
+			SetSOAPHeaderHelper.PRODUCTID="131100215010000000991";
+			
 //			DeliveryInformation[] informations=service.getSmsDeliveryStatus("19310100212172529300627");
 			String result = service.sendSms(addresses, senderName, charging, message, receiptRequest);
 

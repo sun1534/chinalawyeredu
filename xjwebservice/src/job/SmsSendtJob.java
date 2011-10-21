@@ -40,10 +40,11 @@ public class SmsSendtJob implements Job {
 		int len = list == null ? 0 : list.size();
 		int minid = 0;
 		int maxid = 0;
-		LOG.info("短信下发个数:" + len);
+		
 		if (len == 0) {
 
 		} else {
+			LOG.info("短信下发个数:" + len);
 			long now = System.currentTimeMillis();
 			List sqls = new ArrayList();
 			for (int i = 0; i < len; i++) { // 更新log_mtsend并删除tmp_mtsend里的值
@@ -53,7 +54,7 @@ public class SmsSendtJob implements Job {
 					minid = id;
 				if (maxid < id)
 					maxid = id;
-				String result = smsutil.sendSms(tmp.getMobile(), tmp.getContent(), tmp.getType(),tmp.getLinkid(),tmp.getProductId());
+				String result = SmsUtil.sendSms(tmp.getMobile(), tmp.getContent(), tmp.getType(),tmp.getLinkid(),tmp.getProductId());
 				if (result.equals("-1") || result.equals("-2")) {
 					// 重发
 					sqls.add("update tmp_mtsend set result='0',send_count=send_count+1 where id=" + id);

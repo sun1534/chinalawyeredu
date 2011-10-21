@@ -396,8 +396,10 @@ public class OrderService extends BasicService {
 	 */
 	public int getWZCount(String chepai) {
 		if (chepai != null && !chepai.equals("")) {
-			String sql = "select count(*) from " + SendConstant.DZJC_DATABASE + ".dzjc_all where hphm='"
-					+ chepai.toUpperCase() + "'";
+//			String sql = "select count(*) from " + SendConstant.DZJC_DATABASE + ".dzjc_all where hphm='"
+//					+ chepai.toUpperCase() + "'";
+			String sql = "select count(*) from dzjc where hphm='"
+			+ chepai.toUpperCase() + "'";
 			LOG.debug("getWZCount:" + sql);
 			return jdbcTemplate.queryForInt(sql);
 		}

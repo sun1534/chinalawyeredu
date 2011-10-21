@@ -26,9 +26,10 @@ public class TestOrder {
 			SmsNotification service = locat.getSmsNotification(url);
 
 			SmsMessage message = new SmsMessage();
-			message.setMessage("C#A2D252");
+//			message.setMessage("L#蓝");
 //			message.setMessage("B#0990");
-			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8613325640065"));
+			message.setMessage("C#12345");
+			message.setSenderAddress(new org.apache.axis.types.URI("tel:+8615309912535"));
 			message.setSmsServiceActivationNumber(new org.apache.axis.types.URI("tel:+8610628919"));
 
 			String registrationIdentifier = System.currentTimeMillis() + "";
@@ -44,7 +45,7 @@ public class TestOrder {
 	/**
 	 * @param args
 	 */
-	public static void main11(String[] args) {
+	public static void main2(String[] args) {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
@@ -60,9 +61,9 @@ public class TestOrder {
 			OrderRelationUpdateNotifyReq param = new OrderRelationUpdateNotifyReq();
 			param.setOPType(0);
 			param.setPackageID(System.currentTimeMillis() + "");
-			param.setProductID(OrderConstant.DZJC_PRODUCTID);
+			param.setProductID(OrderConstant.TY_DZJC_PRODUCTID);
 			param.setStreamingNo(System.currentTimeMillis() + "");
-			param.setUserID("13510012015");
+			param.setUserID("15309912535");
 			param.setUserIDType(3);
 
 			Response resp = service.orderRelationUpdateNotify(param);

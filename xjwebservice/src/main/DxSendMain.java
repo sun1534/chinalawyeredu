@@ -89,7 +89,7 @@ public class DxSendMain {
 		if (usercount != 0) {// 有订购用户的情况下
 
 			int getcount = ((usercount - 1) / PAGE_SIZE) + 1;
-			LOG.debug("总计处理次数:::" + getcount);
+			LOG.info("总计处理次数:::" + getcount);
 			for (int i = 0; i < getcount; i++) {
 				int startIndex = i * PAGE_SIZE;
 				List list = orderservice.getAllOrdreUsers(startIndex, PAGE_SIZE); // 得到这批用户并匹配是否
