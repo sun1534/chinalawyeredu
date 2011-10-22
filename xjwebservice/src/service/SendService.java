@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import main.SendConstant;
+
 import org.apache.commons.logging.Log;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -27,6 +29,7 @@ import entity.DzjcAll;
 import entity.DzjcAllHistory;
 import entity.LogMtsend;
 import entity.TmpMtsend;
+import entity.UserOrder;
 
 /**
  * 
@@ -158,7 +161,7 @@ public class SendService extends BasicService {
 		int count = jdbcTemplate.queryForInt(sql);
 		DetachedCriteria dc = DetachedCriteria.forClass(DzjcAllHistory.class);
 		dc.add(Restrictions.eq("isHandled", 0));
-		int pagesize = 1000;
+		int pagesize = SendConstant.PAGESIZE;
 		int getcount = ((count - 1) / pagesize) + 1;
 		int handlecount = 0;
 		for (int i = 0; i < getcount; i++) {
@@ -186,7 +189,49 @@ public class SendService extends BasicService {
 				+ zhonglei ;
 		return jdbcTemplate.queryForInt(sql);
 	}
+/**
+ * 多条违章记录
+ * @param uo
+ * @return
+ */
+	public List<DzjcAllHistory> getTodayList(UserOrder uo){
+	
+		final List list = new ArrayList();
+	
+		String sql = "select a.* from dzjc a  where a.hphm='"+uo.getChepai()+"' and a.hpzl="+uo.getChepaileixing()+" order by dzjcsj";
+		LOG.debug("sql:" + sql);
+		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
 
+				while (rs.next()) {
+					DzjcAll all = new DzjcAll();
+					all.setDiqu(rs.getString("diqu"));
+					all.setDzjcdd(rs.getString("dzjcdd"));
+					all.setDzjcsj(rs.getTimestamp("dzjcsj"));
+					all.setHphm(rs.getString("hphm"));
+					all.setHpzl(rs.getShort("hpzl"));
+					all.setId(rs.getInt("id"));
+					all.setWzxw(rs.getString("wzxw"));
+					list.add(all);
+				}
+				return null;
+			}
+		});
+		int len = (list == null ? 0 : list.size());
+		if(len==0)
+			return null;
+		List<DzjcAllHistory> result = new ArrayList<DzjcAllHistory>();
+		long now = System.currentTimeMillis();
+		for (int i = 0; i < len; i++) {
+			DzjcAll all = (DzjcAll) list.get(i);
+			DzjcAllHistory history = updateHistoryHandleTimes(all);
+			String key = history.getHphm() + "_" + history.getHpzl();
+			result.add(history);
+		}
+		LOG.debug("处理完毕时间:" + (System.currentTimeMillis() - now));
+		return result;
+	}
+	
 	/**
 	 * 得到今天的违章列表信息，并同时更新到表里面 返回车牌信息，该车牌的违章记录情况 这里只匹配我有车牌号的
 	 * 
@@ -199,7 +244,7 @@ public class SendService extends BasicService {
 		// String sql = "select a.* from " + SendConstant.DZJC_DATABASE
 		// + ".dzjc_all a inner join user_order b on a.hphm=b.chepai and
 		// a.hpzl=b.chepaileixing";
-		String sql = "select a.* from dzjc a inner join user_order b on a.hphm=b.chepai and a.hpzl=b.chepaileixing";
+		String sql = "select a.* from dzjc a inner join user_order b on a.hphm=b.chepai and a.hpzl=b.chepaileixing where b.status=0";
 		LOG.debug("sql:" + sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {
 			public Object extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -261,23 +306,17 @@ public class SendService extends BasicService {
 			history.setWzxx(dzjc.getWzxw());
 			history.setFirstTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			basicDao.save(history);
-		} else if(history.getIsHandled()==0){//没有处理过的才ok吧，如果已经处理过了，不放在里面了
+		} else {//对于没有处理过的违章,处理次数在此要加1,实际上在这个段来看的话
 
 			history.setHandleTime(new java.sql.Timestamp(System.currentTimeMillis()));
 			history.setHandleDays(history.getHandleDays() + 1);
 			basicDao.update(history);
-			// String sql = "update dzjc_all_history set
-			// handle_days=handle_days+1,handle_Time=now() where hphm='"
-			// + dzjc.getHphm() + "' and hpzl=" + dzjc.getHpzl() + " and
-			// dzjcsj='" + df.format(dzjc.getDzjcsj())
-			// + "'";
-			// int result = jdbcTemplate.update(sql);
 		}
 		return history;
 	}
 
 	/**
-	 * 
+	 * 这里应该加上未处理的情况，不可以加了，因为是车牌号、类型和时间是唯一的
 	 * @param chepai
 	 * @param leixing
 	 * @param date
@@ -285,7 +324,8 @@ public class SendService extends BasicService {
 	 */
 	public DzjcAllHistory getHistoryByKey(String chepai, int leixing, Timestamp date) {
 		DetachedCriteria dc = DetachedCriteria.forClass(DzjcAllHistory.class);
-		
+
+//		dc.add(Restrictions.eq("isHandled", 0)); //未处理
 		dc.add(Restrictions.eq("hpzl", (short) leixing));
 		dc.add(Restrictions.eq("hphm", chepai));
 		dc.add(Restrictions.eq("dzjcsj", date));

@@ -37,6 +37,7 @@ public class UserOrder implements java.io.Serializable {
 	private String areacode;
 	private String cityname;
 	private String chepaileixing;
+	private int sendcount;
 	private Timestamp optime;
 
 	// Constructors
@@ -167,6 +168,22 @@ public class UserOrder implements java.io.Serializable {
 	 */
 	public void setCityname(String cityname) {
 		this.cityname = cityname;
+	}
+
+
+	/**
+	 * @return the sendcount
+	 */
+	public int getSendcount() {
+		return sendcount;
+	}
+
+
+	/**
+	 * @param sendcount the sendcount to set
+	 */
+	public void setSendcount(int sendcount) {
+		this.sendcount = sendcount;
 	}
 
 }

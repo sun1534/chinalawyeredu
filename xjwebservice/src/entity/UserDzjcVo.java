@@ -1,5 +1,7 @@
 package entity;
 
+import main.SendConstant;
+
 
 /**
  * 下发构造短信的vo
@@ -40,7 +42,7 @@ public class UserDzjcVo implements java.io.Serializable {
 		this.date="2011-03-12 23:12:12";
 		this.address="交叉路口";
 	}
-	public UserDzjcVo(UserOrder order,DzjcAllHistory history){
+	public UserDzjcVo(UserOrder order,DzjcAllHistory history,boolean banner){
 		this.mobile=order.getMobile();
 		this.chepai=order.getChepai();
 		this.areacode=order.getAreacode();
@@ -48,6 +50,8 @@ public class UserDzjcVo implements java.io.Serializable {
 		this.date=df.format(history.getDzjcsj());
 		this.cause=history.getWzxx();
 		this.address=history.getDzjcdd();
+		if(banner)
+		this.banner=SendConstant.DEFAULT_BANNER;
 		
 	}
 	/**

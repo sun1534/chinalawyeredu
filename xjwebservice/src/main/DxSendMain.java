@@ -37,17 +37,13 @@ import entity.UserOrder;
 public class DxSendMain {
 	private static final Log LOG = org.apache.commons.logging.LogFactory.getLog(DxSendMain.class);
 
-	private static final int PAGE_SIZE = 1000;
 
 	private SendService sendService = null;
 	private OrderService orderservice = null;
 	private Map<String, CityTemplateContent> templist = null;
 	private Map<String, CityPrompt> promtlist = null;
 
-//	private static String DEFAULT_PROMPT = "提示信息";// 默认提示信息
-	private static String DEFAULT_BANNER = "【尊敬的汽车保姆用户】";// 默认的banner信息
-	// 下发的违章信息,要加入这个
-	private static String DEFAULT_ENDFIX = "（违章内容仅供参考，详情请前往就近交警大队查询）";
+	
 
 	public DxSendMain() {
 
@@ -79,61 +75,98 @@ public class DxSendMain {
 		LOG.info("得到地市要下发的公共信息完成");
 
 		// 得到订购用户今天所有的违章记录，和违章车牌表绑定
-		Map<String, List<DzjcAllHistory>> todaylist = sendService.getTodayList();
+//		Map<String, List<DzjcAllHistory>> todaylist = sendService.getTodayList();
 
-		LOG.info("得到今天的违章数据完毕：" + todaylist.size());
+//		
 		// 得到所有的订购用户总数,没有退订的
 		int usercount = orderservice.getAllOrderUserCount();
-		LOG.info("用户总数:::" + usercount);
+		LOG.info("订购的用户总数:::" + usercount);
 		int smscount = 0;
-		if (usercount != 0) {// 有订购用户的情况下
+		int allcount=0;
+		if (usercount != 0) {// 有订购用户的情况下,主要是对没违章用户的处理
 
-			int getcount = ((usercount - 1) / PAGE_SIZE) + 1;
+			int getcount = ((usercount - 1) / SendConstant.PAGESIZE) + 1;
 			LOG.info("总计处理次数:::" + getcount);
 			for (int i = 0; i < getcount; i++) {
-				int startIndex = i * PAGE_SIZE;
-				List list = orderservice.getAllOrdreUsers(startIndex, PAGE_SIZE); // 得到这批用户并匹配是否
-				int len = list == null ? 0 : list.size();
+				int startIndex = i * SendConstant.PAGESIZE;
+				List list = orderservice.getAllOrdreUsers(startIndex, SendConstant.PAGESIZE); // 得到这批用户并匹配是否
+				int len = (list == null ? 0 : list.size());
+				
+//				len=1; //测试用而已
 				for (int j = 0; j < len; j++) {
 					String smscontent = ""; // 要下发的短信内容
 					UserOrder uo = (UserOrder) list.get(j);
+					
+					//这里得到违章信息,一个个的来处理,而不是所有的
 					if (!(uo.getAreacode() == null || uo.getAreacode().equals("")
 							|| !OrderConstant.AREA_DATABASE.containsKey(uo.getAreacode()) || !OrderConstant.CITY_DATABASE
 							.containsKey(uo.getAreacode()))) {
 						LOG.warn(uo.getMobile() + "没有上传区域信息,忽略");
 						continue;
 					}
-					String userkey = uo.getChepai() + "_" + uo.getChepaileixing();
-					if (todaylist.containsKey(userkey)) {// 这个人有违章的情况
-						List<DzjcAllHistory> histories = todaylist.get(userkey);
+//					String userkey = uo.getChepai() + "_" + uo.getChepaileixing();
+					List<DzjcAllHistory> histories =sendService.getTodayList(uo);
+					// 这个人有违章的情况
+					// 1、连续3天发送违章的详情
+					// 2、第四天开始发送统计信息，如果没有新的违章，统计信息后带公告信息
+					// 3、 如果有新的违章，统计信息后带违章信息
+					//
+					//
+//					if (todaylist.containsKey(userkey)) {
+					int slen=(histories==null?0:histories.size());
+					LOG.debug(uo.getMobile()+"的违章个数为:"+slen);
+					allcount+=slen;
+					if(slen>0){
+//						List<DzjcAllHistory> histories = todaylist.get(userkey);
 						// 有违章信息,看有几条,然后看是不是之前的违章信息
-						int hlen = histories == null ? 0 : histories.size();
-						if (hlen == 1) {// 只一条违章
-							DzjcAllHistory history = histories.get(0);
-							if (history.getHandleDays() == 0) {// 第一次违章
-								smscontent = sendFirstWz(uo, history);
-							} else {// 这条违章信息一直没处理
-								smscontent = sendWzNotHandle(uo, history);
+						// 每次都发详细并更新这个用户的详细发送次数
+					
+							if (uo.getSendcount() < SendConstant.DETAIL_COUNT) {
+								for (DzjcAllHistory history : histories) {
+									String _smscontent = sendDetailWz(uo, history,true); // 下发完整的短信
+									String result = Sms.sendSms(uo.getMobile(), _smscontent, "yw", "", uo.getProductid());
+									LOG.debug("下发短信:" + uo.getMobile() + "," + _smscontent + "," + uo.getProductid()+","+result);
+									// String result = "-1";
+									// 将下发的短信存储到数据库里
+									smscount++;
+								}
+								//更新
+								orderservice.updateDetailCount(uo.getMobile());
+							} else {//下发统计信息，如果有新的违章的话，加入最新的那条违章
+							
+								DzjcAllHistory newhistory=null; 
+								for (DzjcAllHistory history : histories) {
+									if(history.getHandleDays()==0)
+										newhistory=history; //不管有多条新的，都只发一条
+								}
+								
+								if(newhistory==null){
+									smscontent = sendStatic(uo, histories);
+								}else{
+									String content=sendDetailWz(uo,newhistory,false);
+									smscontent=SendConstant.DEFAULT_BANNER+"您有"+slen+"条违章信息待处理（"+content+"）";
+								}
+							
+//								if (hlen == 1) {// 只一条违章
+//									DzjcAllHistory history = histories.get(0);
+//									if (history.getHandleDays() == 0) {// 第一次违章
+//										smscontent = sendDetailWz(uo, history);
+//									} else {// 这条违章信息一直没处理
+//										smscontent = sendWzNotHandle(uo, history);
+//									}
+//								} else if (hlen > 1) {// 有多条违章，只是发送统计信息
+//									smscontent = sendStatic(uo, histories);
+//								}
 							}
-						} else if (hlen > 1) {// 有多条违章，只是发送统计信息
-							smscontent = sendStatic(uo, histories);
-							// 下面再考虑
-							// for(DzjcAllHistory history:histories){
-							// if(history.getHandleDays()==0){//第一次违章
-							// sendFirstWz(uo,history);
-							// }else{//违章信息一直没处理
-							// sendWzNotHandle(uo,history);
-							// }
-							// }
-						}
-					} else {// 这个人已经没有违章的情况了,
+				
+					} else {// 这个人已经没有违章的情况了,下发公告信息
 						smscontent = sendNoWz(uo);
 					}
 
 					if (smscontent != null && !smscontent.equals("")) {
 
 						// 这里真的下发短信
-						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw","", uo.getProductid());
+						String result = Sms.sendSms(uo.getMobile(), smscontent, "yw", "", uo.getProductid());
 						LOG.debug("下发短信:" + uo.getMobile() + "," + smscontent + "," + uo.getProductid());
 						// String result = "-1";
 						// 将下发的短信存储到数据库里
@@ -144,7 +177,7 @@ public class DxSendMain {
 				list.clear();
 			}
 		}
-		LOG.info("本次处理完成,短信下发数:" + smscount);
+		LOG.info("本次处理完成,短信下发数:" + smscount+",违章数:"+allcount);
 	}
 
 	/**
@@ -154,12 +187,12 @@ public class DxSendMain {
 	 * @param histories
 	 */
 	public String sendStatic(UserOrder uo, List<DzjcAllHistory> histories) {
-		String s=this.getPromptContent(uo.getAreacode());
-		if(!(s==null||s.equals("")))
-			s="（" + s+ "）";
-			
-		String content = "您有" + histories.size() + "条违章信息"+s;
-		return DEFAULT_BANNER + content;
+		String s = this.getPromptContent(uo.getAreacode());
+		if (!(s == null || s.equals("")))
+			s = "（" + s + "）";
+
+		String content = "您有" + histories.size() + "条违章信息待处理" + s;
+		return SendConstant.DEFAULT_BANNER + content;
 	}
 
 	/**
@@ -168,14 +201,14 @@ public class DxSendMain {
 	 * @param uo
 	 * @param history
 	 */
-	public String sendWzNotHandle(UserOrder uo, DzjcAllHistory history) {
-		String s=this.getPromptContent(uo.getAreacode());
-		if(!(s==null||s.equals("")))
-			s="（" + s+ "）";
-			
-		String content = "您有1条违章信息需要处理（" + s + "）";
-		return DEFAULT_BANNER + content;
-	}
+//	public String sendWzNotHandle(UserOrder uo, DzjcAllHistory history) {
+//		String s = this.getPromptContent(uo.getAreacode());
+//		if (!(s == null || s.equals("")))
+//			s = "（" + s + "）";
+//
+//		String content = "您有1条违章信息需要处理（" + s + "）";
+//		return SendConstant.DEFAULT_BANNER + content;
+//	}
 
 	/**
 	 * 第一次违章的处理，发送公共模板信息并带入后缀
@@ -183,22 +216,21 @@ public class DxSendMain {
 	 * @param uo
 	 * @param history
 	 */
-	public String sendFirstWz(UserOrder uo, DzjcAllHistory history) {
+	public String sendDetailWz(UserOrder uo, DzjcAllHistory history,boolean banner) {
 
-		UserDzjcVo vo = new UserDzjcVo(uo, history);
-
-		CityTemplateContent template = templist.get(uo.getAreacode());
+		UserDzjcVo vo = new UserDzjcVo(uo, history, banner);
+		CityTemplateContent template = templist.get(uo.getCityname());
 		String content = "";
 		if (template != null && template.getDetailtemplate() != null) {
 			content = TemplateUtil.getDetailedContent(template.getDetailtemplate(), vo);
 		} else {
-			content = "您的" + history.getHphm() + "于" + history.getDzjcsj() + "在" + history.getDzjcdd() + "因"
-					+ history.getWzxx() + "违章。";
-		}
-		content = content + DxSendMain.DEFAULT_ENDFIX;
-		return DEFAULT_BANNER + content;
+			content = SendConstant.DEFAULT_BANNER+"您的" + history.getHphm() + "于" + history.getDzjcsj() + "在" + history.getDzjcdd() + "因"
+					+ history.getWzxx() + "产生了违章。";
+		}		
+		return  content+SendConstant.DEFAULT_ENDFIX;
 	}
 
+	private static int ii=0;
 	/**
 	 * uo没有违章信息，怎么处理？
 	 * 
@@ -232,8 +264,6 @@ public class DxSendMain {
 		String tcontent = "";
 		if (promp != null)
 			tcontent = promp.getSqlContent();
-//		else
-//			tcontent = DEFAULT_PROMPT;
 		return tcontent;
 	}
 

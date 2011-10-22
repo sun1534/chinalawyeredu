@@ -6,10 +6,9 @@ package service;
 import java.text.DateFormat;
 import java.util.List;
 
-import main.SendConstant;
-
 import org.apache.commons.logging.Log;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -376,9 +375,20 @@ public class OrderService extends BasicService {
 	public List getAllOrdreUsers(int startIndex, int pageSize) {
 		DetachedCriteria dc = DetachedCriteria.forClass(UserOrder.class);
 		dc.add(Restrictions.eq("status", 0));
+		dc.addOrder(Order.desc("id"));
 		return basicDao.findNumByCriteria(dc, pageSize, startIndex);
 	}
 
+	/**
+	 * 更新详细信息的发送个数
+	 * @param mobile
+	 * @return
+	 */
+	public int updateDetailCount(String mobile){
+		String sql="update user_order set sendcount=sendcount+1 where mobile='"+mobile+"'";
+		int s=jdbcTemplate.update(sql);
+		return s;
+	}
 	/**
 	 * 得到所有的订购人数
 	 * 
