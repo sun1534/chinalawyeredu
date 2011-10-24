@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.xml.soap.SOAPElement;
 
+import main.SendConstant;
+
 import org.apache.axis.message.PrefixedQName;
 import org.apache.axis.message.SOAPHeaderElement;
 
@@ -19,11 +21,11 @@ import service.OrderConstant;
  */
 public class SetSOAPHeaderHelper {
 
-	private static String SPID = OrderConstant.SPID;
-	private static String SPPWD = OrderConstant.SPPWD;
+	private static String SPID = SendConstant.SPID;
+	private static String SPPWD = SendConstant.SPPWD;
 	public static String PRODUCTID = OrderConstant.TY_DZJC_PRODUCTID;
 	public static String LINKID = "";
-	private static String QNAME = OrderConstant.QNAME;
+	private static String QNAME = SendConstant.QNAME;
 	private static DateFormat SDF = new SimpleDateFormat("MMddHHmmss");
 	public static String OAFA = "";
 

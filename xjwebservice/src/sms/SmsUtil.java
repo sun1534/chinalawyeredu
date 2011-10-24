@@ -8,6 +8,8 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.util.Date;
 
+import main.SendConstant;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,22 +28,69 @@ import cn.com.chinatelecom.www.wsdl.ctcc.sms.send.v2_1.service.SendSmsServiceLoc
 public class SmsUtil {
 
 	private static Log LOG = LogFactory.getLog(SmsUtil.class);
-
-	private static String URL = "http://115.168.94.105:38080/sag/services/SendSmsService?wsdl";
-	private static String SENDER_NAME = "10628919";
-	private static final DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+//	private static String URL = "http://115.168.94.105:38080/sag/services/SendSmsService?wsdl";
+	private static String URL=SendConstant.SMSURL;
+	private static String SENDER_NAME = SendConstant.SEND_NAME;
+	private static final DateFormat df = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
 
 	public static void main(String[] args) {
 		String content = "测试:" + df.format(new Date());
 		String type = "test";
 		String linkid = null;
 		String productId = OrderConstant.TY_DZJC_PRODUCTID;
-		String s = sendSms(args[0], content, type, linkid, productId);
+		String s = sendSms((int)(System.currentTimeMillis()/1000),args[0], content, type, linkid, productId);
 		System.out.println("短信结果:::" + s);
 	}
+	public static String sendSms(SendSms service,int id,String mobile, String content, String type, String linkid, String productId) {
+		long now=System.currentTimeMillis();
+		if (mobile == null || mobile.equals("") || mobile.length() != 11)
+			return "-3";
+		if (content == null || content.equals(""))
+			return "-4";
+		URL url = null;
+		String result = "-100";
+		try {
+			org.apache.axis.types.URI address = new org.apache.axis.types.URI("tel:+86" + mobile);
+			org.apache.axis.types.URI[] addresses = new org.apache.axis.types.URI[] { address };
 
-	public static String sendSms(String mobile, String content, String type, String linkid, String productId) {
-		System.out.println(mobile + "->" + productId + "->" + linkid + "->" + content);
+			java.lang.String senderName = SENDER_NAME;
+			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.ChargingInformation charging = new ChargingInformation();
+			charging.setAmount(new BigDecimal(0));
+			charging.setCode("0");
+			charging.setCurrency("0");
+			charging.setDescription("FREE");
+
+			java.lang.String message = content;
+			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference receiptRequest = new SimpleReference();
+//			receiptRequest.setCorrelator(System.currentTimeMillis() + "");
+			receiptRequest.setCorrelator(id+"");
+			org.apache.axis.types.URI uri = new org.apache.axis.types.URI("tel:+86" + mobile);
+			receiptRequest.setEndpoint(uri);
+			receiptRequest.setInterfaceName("SendSms");
+			// 每次这里都要重新处理下那个productId;
+			SetSOAPHeaderHelper.PRODUCTID = productId;
+			SetSOAPHeaderHelper.LINKID = linkid;
+			SetSOAPHeaderHelper.OAFA = mobile;
+
+			result = service.sendSms(addresses, senderName, charging, message, receiptRequest);
+			// String result="1";
+			LOG.info(mobile + "=>" + SetSOAPHeaderHelper.PRODUCTID + "=>发送结果:" + result+"=>"+(System.currentTimeMillis()-now));
+
+			return result;
+		} catch (Exception e) {
+			LOG.error("短信发送异常", e);
+			result = "-1";
+		} catch (Error error) {
+			LOG.error("短信失败", error);
+			result = "-2";
+		}
+		return result;
+	}
+
+	public static String sendSms(int id,String mobile, String content, String type, String linkid, String productId) {
+//		System.out.println(mobile + "->" + productId + "->" + linkid + "->" + content);
+		long now=System.currentTimeMillis();
 		if (mobile == null || mobile.equals("") || mobile.length() != 11)
 			return "-3";
 		if (content == null || content.equals(""))
@@ -64,7 +113,8 @@ public class SmsUtil {
 
 			java.lang.String message = content;
 			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference receiptRequest = new SimpleReference();
-			receiptRequest.setCorrelator(System.currentTimeMillis() + "");
+//			receiptRequest.setCorrelator(System.currentTimeMillis() + "");
+			receiptRequest.setCorrelator(id+"");
 			org.apache.axis.types.URI uri = new org.apache.axis.types.URI("tel:+86" + mobile);
 			receiptRequest.setEndpoint(uri);
 			receiptRequest.setInterfaceName("SendSms");
@@ -75,10 +125,9 @@ public class SmsUtil {
 
 			result = service.sendSms(addresses, senderName, charging, message, receiptRequest);
 			// String result="1";
-			LOG.info(mobile + "=>" + SetSOAPHeaderHelper.PRODUCTID + "=>发送结果:" + result);
+			LOG.info(mobile + "=>" + SetSOAPHeaderHelper.PRODUCTID + "=>发送结果:" + result+"=>"+(System.currentTimeMillis()-now));
 
 			//
-
 			return result;
 		} catch (Exception e) {
 			LOG.error("短信发送异常", e);

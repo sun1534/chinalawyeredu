@@ -8,6 +8,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import main.SendConstant;
+
 import org.apache.commons.logging.Log;
 
 /**
@@ -43,11 +45,11 @@ public class OrderConstant  {
 	//命令字处理正确时候的提醒短信
 	public static String MO_HANDLE_OK="您好，您的短信命令字业务处理成功";
 	
-	public static String SPID = "31100215";
-	public static String SPPWD = "2688229";
+//	public static String SPID = SendConstant.SPID;
+//	public static String SPPWD = SendConstant.SPPWD;
 	public static String DZJC_PRODUCTID = "131100215010000000933";
 	public static String TY_DZJC_PRODUCTID = "131100215010000000991";
-	public static String QNAME = "http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1";
+//	public static String QNAME = "http://www.chinatelecom.com.cn/schema/ctcc/common/v2_1";
 	
 	
 

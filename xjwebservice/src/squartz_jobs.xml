@@ -51,7 +51,7 @@
 	            <job-name>DxwzExecuteJob</job-name>
 	            <job-group>uu800</job-group>
                 <misfire-instruction>MISFIRE_INSTRUCTION_FIRE_ONCE_NOW</misfire-instruction>
-                <cron-expression>0 0 8 * * ?</cron-expression> 
+                <cron-expression>0 15 21 * * ?</cron-expression> 
 	           <!-- <cron-expression>0 0/10 * * * ?</cron-expression> 每天8点跑,暂设置为每10分钟跑一次 -->
 	        </cron>
 	    </trigger>   

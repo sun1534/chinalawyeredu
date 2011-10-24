@@ -31,6 +31,14 @@ public class SendConstant {
 	public static String DEFAULT_ENDFIX = "（违章内容仅供参考，详情请前往就近交警大队查询）";
 
 	public static int PAGESIZE = 1000;
+	public static String SMSURL;
+	public static int SENDCOUNT=10;
+	
+	public static String SPID = "31100215";
+	public static String SPPWD = "2688229";
+	public static String SEND_NAME;
+	
+	public static String QNAME;
 	static {
 		InputStream in = null;
 
@@ -53,9 +61,15 @@ public class SendConstant {
 			// DEFAULT_BANNER = new String(prop.getProperty("banner"));
 
 			DETAIL_COUNT = Integer.parseInt(prop.getProperty("detailcount"));
-
+			SENDCOUNT = Integer.parseInt(prop.getProperty("sendcount"));
 			SEND_HOUR = Integer.parseInt(prop.getProperty("sendhour"));
 			PAGESIZE = Integer.parseInt(prop.getProperty("pagesize"));
+			SMSURL=prop.getProperty("smsurl");
+			SEND_NAME=prop.getProperty("sendname");
+			SPID=prop.getProperty("spid");
+			SPPWD=prop.getProperty("sppwd");
+			
+			QNAME=prop.getProperty("qname");
 			String weekdays = prop.getProperty("weekdays");
 			String s[] = weekdays.split(",");
 			for (String ss : s) {
@@ -92,10 +106,12 @@ public class SendConstant {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(DETAIL_COUNT);
-		System.out.println(DEFAULT_ENDFIX);
+		System.out.println(SPID);
+		System.out.println(SPPWD);
+		System.out.println(QNAME);
+		System.out.println(SMSURL);
+		System.out.println(SEND_NAME);
 		System.out.println(DEFAULT_BANNER);
-		System.out.println(SEND_PROMPT_WEEKDAY);
-		System.out.println(SEND_WEEKDAY);
+		System.out.println(DEFAULT_ENDFIX);
 	}
 }

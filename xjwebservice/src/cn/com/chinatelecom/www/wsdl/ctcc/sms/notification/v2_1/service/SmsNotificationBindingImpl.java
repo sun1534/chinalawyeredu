@@ -17,6 +17,7 @@ import org.apache.axis.MessageContext;
 import org.apache.axis.message.SOAPEnvelope;
 import org.apache.axis.message.SOAPHeaderElement;
 import org.apache.commons.logging.Log;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import service.MoService;
 import service.OrderConstant;
@@ -289,7 +290,8 @@ public class SmsNotificationBindingImpl implements
 				boolean updateorder = true;
 				int a = 0, b = 0, c = 0;
 
-				if (content.equalsIgnoreCase("TY") || content.equalsIgnoreCase("DZ")||content.equalsIgnoreCase("QX") || content.equalsIgnoreCase("QXTY")) {
+				if (content.equalsIgnoreCase("TY") || content.equalsIgnoreCase("DZ") || content.equalsIgnoreCase("QX")
+						|| content.equalsIgnoreCase("QXTY")) {
 					LOG.warn("上行的为定制命令字,不考虑");
 				} else if (content.startsWith("B#") || content.startsWith("b#")) { // B#0991
 					int idx = content.indexOf("#");
@@ -372,16 +374,15 @@ public class SmsNotificationBindingImpl implements
 									if (!s.equals("未知"))
 										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是"
 												+ orderService.getMemberChepaiTypeName(uo.getChepaileixing()) + "牌车"
-//												+ uo.getChepai()
-												+busno
-												+ "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo", linkid,
-												productId);
-									else//您已成功开通汽车保姆体验业务，您的车牌是蓝牌车null，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229
-										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是" 
-//												+ uo.getChepai()
-												+busno
-												+ "，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229", "mo", linkid,
-												productId);
+												// + uo.getChepai()
+												+ busno + "，感谢您的使用，假设您的车牌是新AC4102，变更车牌请回复c#AC4102，询：09915881229", "mo",
+												linkid, productId);
+									else
+										// 您已成功开通汽车保姆体验业务，您的车牌是蓝牌车null，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229
+										Sms.sendSms(sender, "您已成功开通汽车保姆体验业务，您的车牌是"
+										// + uo.getChepai()
+												+ busno + "，感谢您的使用，如需变更车牌请回复c#车牌号码，如C#AA4062，询：09915881229", "mo",
+												linkid, productId);
 									if (busno != null && !busno.equals("")) {
 										if (uo.getChepai() != null) {
 											int cnt = orderService.getWZCount(uo.getChepai());
@@ -390,14 +391,16 @@ public class SmsNotificationBindingImpl implements
 												smscontent = "您没有违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
 											else
 												smscontent = "您有" + cnt + "条违章信息（违章内容仅供参考，详情请前往就近交警大队查询）";
-											Sms.sendSms(sender, smscontent, "mo", "",productId);
+											Sms.sendSms(sender, smscontent, "mo", "", productId);
 										}
 									}
-								} 
-//								else if (a == 1) {
-//									Sms.sendSms(sender, OrderConstant.MO_HANDLE_OK + "(" + msg + ")", "mo", linkid,
-//											productId);
-//								}
+								}
+								// else if (a == 1) {
+								// Sms.sendSms(sender,
+								// OrderConstant.MO_HANDLE_OK + "(" + msg + ")",
+								// "mo", linkid,
+								// productId);
+								// }
 
 							}
 						}
@@ -424,7 +427,7 @@ public class SmsNotificationBindingImpl implements
 	public void notifySmsDeliveryReceipt(java.lang.String correlator,
 			cn.com.chinatelecom.www.schema.ctcc.sms.v2_1.DeliveryInformation deliveryStatus)
 			throws java.rmi.RemoteException {
-		
+
 		MessageContext context = MessageContext.getCurrentContext();
 		SOAPEnvelope requestEnvelope = context.getRequestMessage().getSOAPEnvelope();
 		SOAPHeaderElement requestSequenceIdHeader = requestEnvelope.getHeaderByName(
@@ -435,16 +438,29 @@ public class SmsNotificationBindingImpl implements
 			while (iterator.hasNext()) {
 				SOAPElement element = (SOAPElement) iterator.next();
 				String elementName = element.getElementName().getLocalName();
-
-				LOG.info("状态报告头部信息：" + elementName + "==>" + element.getValue());
+				// LOG.debug("状态报告头部信息：" + elementName + "==>" +
+				// element.getValue());
 			}
 		}
-		
-		if (deliveryStatus != null)
-			LOG.debug(df.format(new Date()) + "=>状态报告=>" + correlator + "=>" + deliveryStatus.getAddress() + "=>"
+
+		if (deliveryStatus != null) {
+
+			LOG.info(df.format(new Date()) + "=>状态=>" + correlator + "=>" + deliveryStatus.getAddress() + "=>"
 					+ deliveryStatus.getDeliveryStatus());
-		else
-			LOG.debug(df.format(new Date()) + "=>notifySmsDeliveryReceipt=>" + correlator + "=>"
+			try {
+				// 更新发送历史记录中的状态报告信息
+				String sql = "insert into log_mtsend_rpt(mtsend_id,rptstatus,rptdate)values(" + correlator + ",'"
+						+ deliveryStatus.getDeliveryStatus() + "',now())";
+				// String sql="update log_mtsend set
+				// rptstatus='"+deliveryStatus.getDeliveryStatus()+"',rptdate=now()
+				// where id="+correlator;
+				JdbcTemplate jt = (JdbcTemplate) Globals.getWebBean("jdbcTemplate");
+				int i = jt.update(sql);
+			} catch (Exception e) {
+				LOG.error("状态报告失败", e);
+			}
+		} else
+			LOG.info(df.format(new Date()) + "=>notifySmsDeliveryReceipt=>" + correlator + "=>"
 					+ DeliveryInformation.getTypeDesc() + "=>deliveryStatus为null");
 
 	}

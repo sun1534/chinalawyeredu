@@ -19,14 +19,14 @@ public class TestSendSms {
 		URL url = null;
 		
 		String urlStr = "http://115.168.94.105:38080/sag/services/SendSmsService?wsdl";
-
+long now=System.currentTimeMillis();
 		try {
 			url = new URL(urlStr);
 			SendSmsServiceLocator locat = new SendSmsServiceLocator();
 		
 			SendSms service = locat.getSendSms(url);
-
-			
+//
+			args=new String[]{"13510073023"};
 			org.apache.axis.types.URI address=new org.apache.axis.types.URI("tel:+86"+args[0]);
 			org.apache.axis.types.URI[] addresses=new  org.apache.axis.types.URI[]{address};
 			
@@ -40,19 +40,24 @@ public class TestSendSms {
 			java.lang.String message="20110926 21:13 TEST SEND SMS TO 86"+args[0];
 			cn.com.chinatelecom.www.schema.ctcc.common.v2_1.SimpleReference receiptRequest=new SimpleReference();
 			receiptRequest.setCorrelator(System.currentTimeMillis()+"");
+//			receiptRequest.setCorrelator(correlator)
 			org.apache.axis.types.URI uri=new org.apache.axis.types.URI("tel:+86"+args[0]);
 			receiptRequest.setEndpoint(uri);
 			receiptRequest.setInterfaceName("SendSms");
-			
+
 			
 			SetSOAPHeaderHelper.OAFA=args[0];
 			SetSOAPHeaderHelper.PRODUCTID="131100215010000000991";
 			
 //			DeliveryInformation[] informations=service.getSmsDeliveryStatus("19310100212172529300627");
+			System.out.println("到这里的时间为::"+(System.currentTimeMillis()-now));
+			now=System.currentTimeMillis();
 			String result = service.sendSms(addresses, senderName, charging, message, receiptRequest);
 
+
+			
 //			System.out.println("发送结果:" + informations[0]);
-			System.out.println("发送结果:" + result);
+			System.out.println("发送结 果:" + result+"===>"+(System.currentTimeMillis()-now));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
