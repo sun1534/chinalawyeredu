@@ -448,14 +448,15 @@ public class SmsNotificationBindingImpl implements
 			LOG.info(df.format(new Date()) + "=>状态=>" + correlator + "=>" + deliveryStatus.getAddress() + "=>"
 					+ deliveryStatus.getDeliveryStatus());
 			try {
+				JdbcTemplate jt = (JdbcTemplate) Globals.getWebBean("jdbcTemplate");
 				// 更新发送历史记录中的状态报告信息
 				String sql = "insert into log_mtsend_rpt(mtsend_id,rptstatus,rptdate)values(" + correlator + ",'"
 						+ deliveryStatus.getDeliveryStatus() + "',now())";
-				// String sql="update log_mtsend set
-				// rptstatus='"+deliveryStatus.getDeliveryStatus()+"',rptdate=now()
-				// where id="+correlator;
-				JdbcTemplate jt = (JdbcTemplate) Globals.getWebBean("jdbcTemplate");
 				int i = jt.update(sql);
+				sql = "update log_mtsend set rptstatus='" + deliveryStatus.getDeliveryStatus()
+						+ "',rptdate=now() where id=" + correlator;
+
+				i = jt.update(sql);
 			} catch (Exception e) {
 				LOG.error("状态报告失败", e);
 			}

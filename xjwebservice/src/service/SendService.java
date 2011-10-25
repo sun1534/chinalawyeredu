@@ -197,7 +197,7 @@ public class SendService extends BasicService {
 	public List<DzjcAllHistory> getTodayList(UserOrder uo){
 	
 		final List list = new ArrayList();
-	
+		
 		String sql = "select a.* from dzjc a  where a.hphm='"+uo.getChepai()+"' and a.hpzl="+uo.getChepaileixing()+" order by dzjcsj";
 		LOG.debug("sql:" + sql);
 		Object object = jdbcTemplate.query(sql, new ResultSetExtractor() {

@@ -98,11 +98,23 @@ public class DxSendMain {
 					UserOrder uo = (UserOrder) list.get(j);
 					
 					//这里得到违章信息,一个个的来处理,而不是所有的
-					if (!(uo.getAreacode() == null || uo.getAreacode().equals("")
-							|| !OrderConstant.AREA_DATABASE.containsKey(uo.getAreacode()) || !OrderConstant.CITY_DATABASE
-							.containsKey(uo.getAreacode()))) {
+					if ((uo.getAreacode() == null || uo.getAreacode().equals(""))) {
 						LOG.warn(uo.getMobile() + "没有上传区域信息,忽略");
 						continue;
+					}
+				    if(uo.getAreacode() != null &&( 
+							!OrderConstant.AREA_DATABASE.containsKey(uo.getAreacode()) &&
+							!OrderConstant.CITY_DATABASE
+							.containsKey(uo.getAreacode()))){
+						LOG.warn(uo.getMobile() + "上传的区域信息不对"+uo.getAreacode()+",忽略");
+						continue;
+					}
+					if (uo.getChepai() == null || uo.getChepai().equals("")) {
+						LOG.warn(uo.getMobile() + "没有上传车牌信息,忽略");
+						continue;
+					}
+					if (uo.getChepaileixing() == null || uo.getChepaileixing().equals("")) {
+						uo.setChepaileixing("1");
 					}
 //					String userkey = uo.getChepai() + "_" + uo.getChepaileixing();
 					List<DzjcAllHistory> histories =sendService.getTodayList(uo);
@@ -143,8 +155,9 @@ public class DxSendMain {
 								if(newhistory==null){
 									smscontent = sendStatic(uo, histories);
 								}else{
+									
 									String content=sendDetailWz(uo,newhistory,false);
-									smscontent=SendConstant.DEFAULT_BANNER+"您有"+slen+"条违章信息待处理（"+content+"）";
+									smscontent=SendConstant.DEFAULT_BANNER+"您"+uo.getChepai()+"的车有"+slen+"条违章信息待处理（"+content+"）";
 								}
 							
 //								if (hlen == 1) {// 只一条违章
@@ -191,7 +204,7 @@ public class DxSendMain {
 		if (!(s == null || s.equals("")))
 			s = "（" + s + "）";
 
-		String content = "您有" + histories.size() + "条违章信息待处理" + s;
+		String content = "您"+uo.getChepai()+"的车有" + histories.size() + "条违章信息待处理" + s;
 		return SendConstant.DEFAULT_BANNER + content;
 	}
 

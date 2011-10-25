@@ -73,13 +73,13 @@ public class SmsSendJob implements Job {
 				// String result = SmsUtil.sendSms(tmp.getId(),tmp.getMobile(),
 				// tmp.getContent(),
 				// tmp.getType(),tmp.getLinkid(),tmp.getProductId());
-				if (result.equals("-1") || result.equals("-2")) {
-
-					jdbcTemplate.update("update tmp_mtsend set result='0',send_count=send_count+1 where id=" + id);
-					// 重发
-					// sqls.add("update tmp_mtsend set
-					// result='0',send_count=send_count+1 where id=" + id);
-				} else {
+//				if (result.equals("-1") || result.equals("-2")) {
+//
+//					jdbcTemplate.update("update tmp_mtsend set result='0',send_count=send_count+1 where id=" + id);
+//					// 重发
+//					// sqls.add("update tmp_mtsend set
+//					// result='0',send_count=send_count+1 where id=" + id);
+//				} else {
 					int k = jdbcTemplate.update("update log_mtsend set result='" + result
 							+ "',send_time=now() where id=" + id);
 					if (k == 0) {
@@ -91,7 +91,7 @@ public class SmsSendJob implements Job {
 					// sqls.add("update log_mtsend set
 					// result='"+result+"',send_time=now() where id=" + id);
 					// sqls.add("delete from tmp_mtsend where id=" + id);// 删除
-				}
+//				}
 
 				// String[] sql = new String[sqls.size()];
 				// sqls.toArray(sql);

@@ -10,9 +10,28 @@ import com.chinatelecom.ismp.sp.IsmpSpEngineServiceLocator;
 import com.chinatelecom.ismp.sp.req.OrderRelationUpdateNotifyReq;
 import com.chinatelecom.ismp.sp.rsp.Response;
 
+import entity.UserOrder;
+
 public class TestOrder {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args){
+		UserOrder uo=new UserOrder();
+		uo.setAreacode("1991");
+		if ((uo.getAreacode() == null || uo.getAreacode().equals(""))
+				) {
+			System.out.println(uo.getMobile() + "没有上传区域信息,忽略");
+		
+		}
+		
+		if(uo.getAreacode() != null &&( 
+				!OrderConstant.AREA_DATABASE.containsKey(uo.getAreacode()) &&
+				!OrderConstant.CITY_DATABASE
+				.containsKey(uo.getAreacode()))){
+			System.out.println(uo.getMobile() + "上传的区域信息不对"+uo.getAreacode()+",忽略");
+		}
+	}
+	
+	public static void mai1n(String[] args) throws Exception {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
