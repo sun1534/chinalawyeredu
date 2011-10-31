@@ -16,10 +16,10 @@
     
     <schedule>
 	    <job>
-	        <name>SmsSendtJob</name>
+	        <name>SmsSendJob</name>
             <group>uu800</group>
             <description>每5秒钟扫表一次,进行短信的下发</description>
-	        <job-class>job.SmsSendtJob</job-class>
+	        <job-class>job.SmsSendJob</job-class>
             <durability>true</durability>
             <recover>false</recover>
 	    </job>
@@ -35,12 +35,12 @@
 	    
 	       <trigger>
 	        <cron>
-	            <name>Trigger_SmsSendtJob</name>
+	            <name>Trigger_SmsSendJob</name>
 	            <group>uu800Trigger</group>
-	            <job-name>SmsSendtJob</job-name>
+	            <job-name>SmsSendJob</job-name>
 	            <job-group>uu800</job-group>
                 <misfire-instruction>MISFIRE_INSTRUCTION_FIRE_ONCE_NOW</misfire-instruction>
-	            <cron-expression>0/5 * * * * ?</cron-expression><!-- 每5秒触发 -->
+	            <cron-expression>0/2 * * * * ?</cron-expression><!-- 每5秒触发 -->
 	        </cron>
 	    </trigger>
 	    

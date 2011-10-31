@@ -55,7 +55,7 @@ public class SendService extends BasicService {
 		// a.sendTime>=date_sub(now(),interval 1 day) and a.result='0' and
 		// a.sendcount<3 order by a.desc";
 		String query = "from TmpMtsend a where a.sendTime>='" + yestarday
-				+ "' and a.result='0' and a.sendcount<3 order by a.id desc";
+				+ "' and a.result='0' and a.sendcount<3 order by a.id";
 
 		List list = basicDao.findNumList(query, resultcount);
 		int len = list == null ? 0 : list.size();

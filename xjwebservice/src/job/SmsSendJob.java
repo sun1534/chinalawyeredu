@@ -40,14 +40,17 @@ public class SmsSendJob implements Job {
 		// 到tmp表里取数据,进行短信的下发
 		List list = sendService.getSendList(SendConstant.SENDCOUNT);
 		int len = list == null ? 0 : list.size();
-		int minid = 0;
-		int maxid = 0;
 		if (len == 0) {
 
 		} else {
+			
 			LOG.info("短信下发个数:" + len);
-			// long now = System.currentTimeMillis();
 			SendSms service = null;
+			try{
+			Thread.sleep(5000L);
+			}catch(Exception e){
+				
+			}
 			try {
 				long now = System.currentTimeMillis();
 				URL url = new URL(SendConstant.SMSURL);
@@ -59,27 +62,11 @@ public class SmsSendJob implements Job {
 			}
 
 			for (int i = 0; i < len; i++) { // 更新log_mtsend并删除tmp_mtsend里的值
-			// List sqls = new ArrayList();
 				TmpMtsend tmp = (TmpMtsend) list.get(i);
 				int id = tmp.getId();
-				if (minid > id)
-					minid = id;
-				if (maxid < id)
-					maxid = id;
-
-				String result = SmsUtil.sendSms(service, tmp.getId(), tmp.getMobile(), tmp.getContent(), tmp.getType(),
-						tmp.getLinkid(), tmp.getProductId());
-
-				// String result = SmsUtil.sendSms(tmp.getId(),tmp.getMobile(),
-				// tmp.getContent(),
-				// tmp.getType(),tmp.getLinkid(),tmp.getProductId());
-//				if (result.equals("-1") || result.equals("-2")) {
-//
-//					jdbcTemplate.update("update tmp_mtsend set result='0',send_count=send_count+1 where id=" + id);
-//					// 重发
-//					// sqls.add("update tmp_mtsend set
-//					// result='0',send_count=send_count+1 where id=" + id);
-//				} else {
+				String result="-1";
+//				String result = SmsUtil.sendSms(service, tmp.getId(), tmp.getMobile(), tmp.getContent(), tmp.getType(),
+//						tmp.getLinkid(), tmp.getProductId());
 					int k = jdbcTemplate.update("update log_mtsend set result='" + result
 							+ "',send_time=now() where id=" + id);
 					if (k == 0) {
@@ -88,21 +75,7 @@ public class SmsSendJob implements Job {
 										+ result + "',productid,linkid from tmp_mtsend where id=" + id);
 					}
 					jdbcTemplate.update("delete from tmp_mtsend where id=" + id);// 删除
-					// sqls.add("update log_mtsend set
-					// result='"+result+"',send_time=now() where id=" + id);
-					// sqls.add("delete from tmp_mtsend where id=" + id);// 删除
-//				}
-
-				// String[] sql = new String[sqls.size()];
-				// sqls.toArray(sql);
-				// if (sql.length != 0) {
-				// int[] s = jdbcTemplate.batchUpdate(sql);
-				// LOG.info("短信下发历史数据更新完成:" + (System.currentTimeMillis() -
-				// now));
-				// } else {
-				// LOG.info("短信下发没有数据需要更新" + (System.currentTimeMillis() -
-				// now));
-				// }
+					
 			}
 		}
 	}

@@ -14,7 +14,7 @@ import entity.UserOrder;
 
 public class TestOrder {
 
-	public static void main(String[] args){
+	public static void main2(String[] args){
 		UserOrder uo=new UserOrder();
 		uo.setAreacode("1991");
 		if ((uo.getAreacode() == null || uo.getAreacode().equals(""))
@@ -31,7 +31,7 @@ public class TestOrder {
 		}
 	}
 	
-	public static void mai1n(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
@@ -64,7 +64,7 @@ public class TestOrder {
 	/**
 	 * @param args
 	 */
-	public static void main2(String[] args) {
+	public static void main22(String[] args) {
 		URL url = null;
 		// String
 		// urlStr="http://58.83.134.57:9001/LnXxtSIInterface/services/SyncSmsService";
