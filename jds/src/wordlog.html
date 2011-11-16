@@ -1,0 +1,112 @@
+<#escape x as (x)!"">
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<style type="text/css">
+		body,td,th {
+			font-size: 14px;
+			line-height:16px;
+			color: #000000;
+   }
+</style>
+
+</head>
+<body>
+<#if resultlist?? &&(resultlist?size gt 0)>
+<#list resultlist as r>
+<table width="850" border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="20" align="center" style="font:bold" colspan="6">信用卡迟缴催收记录</td>
+  </tr>
+
+  <tr>
+    <td width="5%" rowspan="5" align="left"  class="td">持卡人资料</td>
+    <td width="31%" align="left"  class="td">姓名：${r.creditcard.username}</td>
+    <td width="31%" align="left"  class="td">
+    	透支金额：
+    	<#if r.creditcard.icurcnfee gt 0>${r.creditcard.curcnfee}（人民币）</br></#if>
+    	<#if r.creditcard.icurusafee gt 0>${r.creditcard.curusafee}（美元）</br></#if>
+    	<#if r.creditcard.icurhkfee gt 0>${r.creditcard.curhkfee}（港元）</br></#if>
+    	<#if r.creditcard.icureurfee gt 0>${r.creditcard.cureurfee}（欧元）</br></#if>
+    </td>
+    <td width="31%" align="left" colspan="2"  class="td">信用额度：${r.creditcard.maxfee}</td>
+  </tr>
+  <tr>
+    <td align="left"  class="td">卡号：${r.creditcard.creditcard}</td>
+    <td align="left"  class="td">身份证号：${r.creditcard.idcard}</td>
+    <td align="left"  colspan="2" class="td">透支天数：<s:property value="@com.changpeng.operation.util.OperationUtil@consignflagMap[creditcard.consignflag]"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left"  class="td">住址：${r.creditcard.homeaddr}</td>
+    <td align="left"  colspan="2" class="td">宅电：${r.creditcard.homephoneold}</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left"  class="td">单位名称：${r.creditcard.company}</td>
+    <td align="left"  colspan="2" class="td">单电：${r.creditcard.workphoneold}</td>
+  </tr>
+  <tr>
+    <td colspan="2" align="left"  class="td">单位地址：${r.creditcard.compaddr}</td>
+    <td align="left"  colspan="2" class="td">手机:${r.creditcard.mobileold}</td>
+  </tr>
+
+ 	<tr>
+ 	  <td width="10%" rowspan="2" align="left"  class="td">其他卡号资料</td>
+ 	  <td width="30%" align="left"  class="td">卡号：</td>
+ 	  <td width="30%" align="left"  class="td">欠款金额：</td>
+ 	  <td width="30%" align="left" colspan="2"  class="td">其他电话：</td>
+  </tr>
+ 	<tr>
+    <td colspan="4" align="left"  class="td">EMAIL:${r.creditcard.email}</td>
+  </tr>
+
+     <tr>
+       <td width="10%" align="left"  class="td">担保人/联系人</td>
+       <td width="30%" align="left"  class="td">姓名：${r.creditcard.cautioner}</td>
+       <td width="30%" align="left"  class="td">身份证号：</td>
+       <td width="30%" align="left"  colspan="2" class="td">联系电话：${r.creditcard.cauworkphone}&nbsp;${r.creditcard.cauhomephone}&nbsp;${r.creditcard.caumobile}</td>
+     </tr>
+   <tr>
+    <td width="10%" align="left"  class="td">银行资料</td>
+    <td width="21%" align="left"  class="td">经办网点：</td>
+    <td width="23%" align="left"  class="td">经办人：</td>
+    <td width="23%" align="left"  class="td">电话：</td>
+    <td width="23%" align="left"  class="td">代码:${r.creditcard.guiyuanno}</td>
+  </tr>
+
+     <tr>
+       <td width="10%" rowspan="${r.loglistsize}" align="left"  class="td">催收记录</td>
+       <td align="center"  class="td">日期</td>
+       <td align="center"  class="td" colspan="4">催收情况</td>
+     </tr>
+     <#list r.logList as log>
+      <tr>
+        <td width="18%" align="center"  class="td">&nbsp;${log.logtime}</td>
+       	<td width="72%" align="left"  colspan="4" class="td">&nbsp;${log.comments}</td>
+  	  </tr>
+     </#list>
+     
+      <tr>
+        <td width="18%" align="center"  class="td">&nbsp;</td>
+       	<td width="72%" align="left"  colspan="4" class="td">&nbsp;</td>
+  	  </tr>
+
+   <tr>
+    <td width="15%" align="left"  class="td">是否结清</td>
+    <td width="20%" align="left"  class="td">是□    否□</td>
+    <td width="15%" align="left"  class="td">损失原因</td>
+    <td width="50%" align="left"  colspan="3" class="td">冒用、伪造证件□   恶意透支□   无法联系□   经济困难□</td>
+  </tr>
+  <tr>
+    <td width="15%" align="left"  class="td">催收建议</td>
+    <td width="85%" align="left"  class="td" colspan="5">继续开卡□              停用卡□               额度降半□</td>
+  </tr>
+  <tr>
+    <td width="15%" align="left"  class="td" >新联系方式：</td>
+    <td width="85%" align="left"  class="td" colspan="5">&nbsp;</td>
+  </tr>
+</table>
+</#list>
+</#if>
+</body>
+</html>
+</#escape> 
