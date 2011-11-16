@@ -71,7 +71,8 @@ public class HzlawyersJfServlet extends HttpServlet {
 		result.append("<resps>\r\n");
 		com.changpeng.models.LogClientRequest logclient = new LogClientRequest();
 		logclient.setReqtime(new java.sql.Timestamp(System.currentTimeMillis()));
-		logclient.setReqcontent(sb.toString());
+//		logclient.setReqcontent(sb.toString());
+		logclient.setReqcontent("点睛课程过来的数据");
 		try {
 			Document document = DocumentHelper.parseText(sb.toString());
 			LOG.debug("document:::" + document);

@@ -28,7 +28,7 @@ private static DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss
 		this.groupid = groupid;
 	}
 
-	public String requestService(org.dom4j.Element rootElement) {
+	public String requestService(org.dom4j.Element rootElement1) {
 		StringBuilder result = new StringBuilder();
 		StringBuilder temp = new StringBuilder();
 		StringBuilder lessontemp = new StringBuilder();
