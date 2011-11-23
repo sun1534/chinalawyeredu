@@ -18,6 +18,7 @@ import com.changpeng.models.LawyerlessonxfGongzheng;
 import com.changpeng.models.LawyerlessonxfShixi;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysUnionparams;
+import com.changpeng.models.SysUser;
 
 /**
  * 积分查询，都查自己的律师积分
@@ -62,6 +63,12 @@ public class JifenQueryAction extends AbstractListAction {
 	protected String go() throws Exception {
 		// SysUser lawer = ;
 
+		SysUser user=this.getLoginUser();
+		if(user.getCityid()==31){ //只有东莞的才有删除积分的功能
+			candelete=true;
+		}
+		
+		
 		lawyers = (Lawyers) basicService.get(Lawyers.class, lawyerid);
 		// 根据查询的年来查,默认为当前时间所在的积分年
 
@@ -127,6 +134,11 @@ public class JifenQueryAction extends AbstractListAction {
 	private double localecnt;
 	private double budeng;
 	private double wenbenkejian;
+	private boolean candelete;
+	
+	public boolean getCandelete(){
+		return this.candelete;
+	}
 
 	public double getVideo() {
 		return this.video;

@@ -80,6 +80,9 @@ function exportit(str){
         <TD align="center" background="../imagesa/top-bg1.gif">培训时长（分）</TD>
         <TD align="center" background="../imagesa/top-bg1.gif">获得积分</TD>
          <TD align="center" background="../imagesa/top-bg1.gif">课程积分</TD>
+         <s:if test="candelete">
+          <TD align="center" background="../imagesa/top-bg1.gif">删除</TD>
+          </s:if>
       </tr>
       <s:set name="jifenall" value="0"/>
 <s:iterator value="page.items" status="stat">
@@ -94,6 +97,9 @@ function exportit(str){
         <TD class="tab_content" align="center">${pxminutes}</TD>
          <TD class="tab_content" align="center">${pxxf}</TD>
         <TD class="tab_content" align="center">${zongjifen}</TD>
+          <s:if test="candelete">
+          <a href="jifenDelete.action?xfid=${xfid }&lawyerid=${lawyerid }">【删除】</a>
+          </s:if>
           <s:set name="jifenall" value="#jifenall+pxxf"/>
       </TR>
      </s:iterator> 

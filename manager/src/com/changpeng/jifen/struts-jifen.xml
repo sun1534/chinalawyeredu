@@ -16,8 +16,11 @@
        </action>         
        
        <action name="jifenbudengDelete" class="com.changpeng.jifen.action.JifenbudengDeleteAction">
-     
        </action> 
+       
+       <action name="jifenDelete" class="com.changpeng.jifen.action.JifenDeleteAction">
+       </action> 
+       
        <action name="jifenbudengList" class="com.changpeng.jifen.action.JifenbudengListAction">
        	 	<interceptor-ref name="hibernateSessionStack"/>
        	  <result name="success" type="dispatcher">/jifen/jifenbudengList.jsp</result>

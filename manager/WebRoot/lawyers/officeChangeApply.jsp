@@ -15,7 +15,45 @@ body {
 }
 -->
 </style>
-
+<script type="text/javascript" src="../js/common.js"></script>
+<script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
+<script language="javascript">
+function getCities(vallll){
+  $("#city")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#city")[0].options.add(_o);  
+  
+  
+  $("#office")[0].length=0;
+  var _oo=new Option('请选择',0);
+  $("#office")[0].options.add(_oo);  
+  
+  
+  if(vallll!=0){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#city")[0].options.add(_o);  
+     }
+}); 
+  }
+}
+function getOffices(vallll){
+  $("#office")[0].length=0;
+  var _o=new Option('请选择',0);
+  $("#office")[0].options.add(_o);  
+  if(vallll!=0){
+     $.getJSON("../systemajax/getSubGroup.pl", { "parentid": vallll,"time":new Date().getTime()}, function(json){
+     for(var k in json.groups)  
+     {     
+        var _o=new Option(json.groups[k.toString()],k);
+		$("#office")[0].options.add(_o);  
+     }
+}); 
+  }
+}
+</script>
 
 </head>
 <body leftmargin="0" marginwidth="0" marginheight="0" topmargin="0">
@@ -56,9 +94,10 @@ body {
              <td class="tab_content1">
              <s:hidden name="isedit"/>
              <s:hidden name="lawyerid"/>
-            <s:property value="@com.changpeng.system.util.CommonDatas@groups[lawyers.provinceunion]"/>->
-         <s:property value="@com.changpeng.system.util.CommonDatas@groups[lawyers.directunion]"/>->
-         <s:select name="changeApply.newoffice" list="officelist" listKey="groupid" listValue="groupname"/>
+           
+          <s:select name="changeApply.newprovince" list="provincelist" listKey="groupid" listValue="groupname" onchange="getCities(this.value)" id="province"/>
+          <s:select name="changeApply.newcity" list="grouplist" listKey="groupid" listValue="groupname" onchange="getOffices(this.value)" id="city"/>->
+         <s:select name="changeApply.newoffice" list="officelist" listKey="groupid" listValue="groupname" id="office"/>
               </td>
         </tr>
               

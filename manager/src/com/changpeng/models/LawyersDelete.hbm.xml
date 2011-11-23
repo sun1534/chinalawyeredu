@@ -16,7 +16,7 @@
             </column>
         </property>
         <property name="lawyername" type="java.lang.String">
-            <column name="lawyername" length="45" not-null="true">
+            <column name="lawyername" length="45" >
                 <comment>律师休姓名</comment>
             </column>
         </property>
@@ -26,12 +26,12 @@
             </column>
         </property>
         <property name="lawyerno" type="java.lang.String">
-            <column name="lawyerno" length="20" not-null="true">
+            <column name="lawyerno" length="20" >
                 <comment>职业证号</comment>
             </column>
         </property>
                 <property name="systemno" type="java.lang.String">
-            <column name="systemno" length="30" not-null="true">
+            <column name="systemno" length="30" >
                 <comment>系统编号</comment>
             </column>
         </property>
@@ -42,13 +42,13 @@
             </column>
         </property>
         <property name="loginname" type="java.lang.String">
-            <column name="loginname" length="30" not-null="true">
+            <column name="loginname" length="30" >
                 <comment>登录名</comment>
             </column>
         </property>
         
         <property name="passwd" type="java.lang.String">
-            <column name="passwd" length="40" not-null="true">
+            <column name="passwd" length="40" >
                 <comment>登录密码</comment>
             </column>
         </property>
@@ -73,44 +73,44 @@
             </column>
         </property>
         <property name="ismarrige" type="boolean">
-            <column name="ismarrige" not-null="true">
+            <column name="ismarrige" >
                 <comment>是否结婚了</comment>
             </column>
         </property>
         <property name="countryid" type="int">
-            <column name="countryid" not-null="true">
+            <column name="countryid" >
                 <comment>国家</comment>
             </column>
         </property>
         <property name="provinceid" type="int">
-            <column name="provinceid" not-null="true">
+            <column name="provinceid" >
                 <comment>省</comment>
             </column>
         </property>
         <property name="cityid" type="int">
-            <column name="cityid" not-null="true">
+            <column name="cityid" >
                 <comment>市</comment>
             </column>
         </property>
         <property name="districtid" type="int">
-            <column name="districtid" not-null="true">
+            <column name="districtid" >
                 <comment>所在的区</comment>
             </column>
         </property>
              
         
         <property name="theoffice" type="int">
-            <column name="theoffice" not-null="true">
+            <column name="theoffice" >
                 <comment>所在的事务所</comment>
             </column>
         </property>
         <property name="directunion" type="int">
-            <column name="directunion" not-null="true">
+            <column name="directunion" >
                 <comment>直属律协,直接属于哪个律协管理</comment>
             </column>
         </property>
         <property name="provinceunion" type="int">
-            <column name="provinceunion" not-null="true">
+            <column name="provinceunion" >
                 <comment>所在的省律协</comment>
             </column>
         </property>
@@ -210,7 +210,7 @@
             </column>
         </property>
         <property name="status" type="int">
-            <column name="status" not-null="true">
+            <column name="status" >
                 <comment>0启用1禁用</comment>
             </column>
         </property>
@@ -251,7 +251,7 @@
             </column>
         </property>
            <property name="dabiaofen" type="float">
-            <column name="dabiaofen" not-null="true">
+            <column name="dabiaofen" >
                 <comment>达标分,根据在所在地市的执业日期来，默认为律协设置的达标分</comment>
             </column>
         </property>
