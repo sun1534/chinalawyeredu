@@ -27,7 +27,7 @@
       <tr>
         <td class="tab_content1" align="right" width="45%"><img src="../imagesa/sign.gif"></td>
         <td  class="tab_content1" align="left" valign="middle">
-        <span class="message">对不起,系统错误,请联系管理员!!! </span>        </td>
+        <span class="message">对不起,系统错误,请联系管理员！</span>        </td>
       </tr>
       
       <tr>
