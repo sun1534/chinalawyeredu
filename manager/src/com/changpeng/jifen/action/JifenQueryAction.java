@@ -64,7 +64,12 @@ public class JifenQueryAction extends AbstractListAction {
 		// SysUser lawer = ;
 
 		SysUser user=this.getLoginUser();
-		if(user.getCityid()==37){ //只有东莞的才有删除积分的功能
+
+
+		if(user.getCityid()==37 && user.getSysRole().getRoleid()==2){ //只有东莞的才有删除积分的功能
+
+		
+
 			candelete=true;
 		}
 		
