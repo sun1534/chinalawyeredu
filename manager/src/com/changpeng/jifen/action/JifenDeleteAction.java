@@ -56,7 +56,7 @@ public class JifenDeleteAction extends AbstractListAction {
 		}
 		_LOG.info("删除:"+lawyerid+"的学分信息:::"+xfid);
 		
-		this.nextPage="jifenQuery.action?fromwhere=fromwhere&lawyerid="+lawyerid+"&year="+year;
+		this.nextPage="jifenQuery.pl?fromwhere=fromwhere&lawyerid="+lawyerid+"&year="+year;
 		this.message="学分信息删除成功";
 		
 		return SUCCESS;
