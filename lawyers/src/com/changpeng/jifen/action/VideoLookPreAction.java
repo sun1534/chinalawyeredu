@@ -13,6 +13,7 @@ import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.service.LxnetrecsService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
+import com.changpeng.jifen.util.Ping;
 import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
@@ -20,6 +21,7 @@ import com.changpeng.models.Lessons;
 import com.changpeng.models.LogVideoLook;
 import com.changpeng.models.Lxnetrecs;
 import com.changpeng.models.SysUnionparams;
+import com.mysql.jdbc.PingTarget;
 
 /**
  * <pre>
@@ -164,22 +166,87 @@ public class VideoLookPreAction extends AbstractAction {
 			return "message";
 		}
 		
-		if(this.getLoginUser().getProvinceunion()==23){
 			
+		/***
+		 * 视频服务器列表
+		 * 长鹏公司服务器 编号4：mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 深圳市、东莞市、杭州市律师公用
+		 * 长鹏公司服务器 编号5：mms://uc2.lawyeredu.com/uc2_lawyeredu/    河南省、长春市律师公用 
+		 * 长鹏公司服务器 编号6：mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 海南省、南京市、温州市
+		 * 广西自己服务器 编号7：mms://uc4.lawyeredu.net/uc4_lawyeredu/   广西全区律师使用
+		 * Provinceunion 律师所在省编号  Directunion  律师所在市编号
+		 * 广西区   Provinceunion：22
+		 * 河南省   Provinceunion：18  
+		 * 海南省   Provinceunion：23  
+		 * 东莞市   Provinceunion：21  Directunion：37
+		 * 杭州市   Provinceunion：13  Directunion：8078
+		 * 温州市   Provinceunion：21  Directunion：11002221
+		 * 长春市   Provinceunion：9  Directunion：8079  
+		 * 南京市   Provinceunion：12  Directunion：10325
+		 */
 		
-			String url=lessons.getOnlinefile();
-			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
-			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");			
-			
-			LOG.debug("海南律协的地址:"+url);
-			
-			lessons.setOnlinefile(url);
+		
+		
+		String url=lessons.getOnlinefile();
+		
+		System.out.println("00000："+this.getLoginUser().getProvinceunion());
+		
+		//东莞市、杭州市律师 观看时 都去 4号服务器 mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 观看
+		if(this.getLoginUser().getDirectunion()==37 || this.getLoginUser().getDirectunion()==8078){			
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");	
+			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");
+			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");
+			LOG.debug("东莞市、杭州市 的地址:"+url);
 		}
+		//河南省、长春市  律师 观看时 都去 5号服务器 mms://uc2.lawyeredu.com/uc2_lawyeredu/  观看	
+		else if(this.getLoginUser().getProvinceunion()==18 || this.getLoginUser().getDirectunion()==8079){
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");	
+			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+			LOG.debug("河南省、长春市 的地址:"+url);	
+				
+		}		
+		//海南省、南京市、温州市 律师 观看时 都去 6号服务器 mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 观看	
+		else if(this.getLoginUser().getProvinceunion()==23 || this.getLoginUser().getDirectunion()==10325 || this.getLoginUser().getDirectunion()==11002221){
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");		
+			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
+			
+			LOG.debug("海南省、南京市、温州市 的地址:"+url);			
+			
+		}//广西全区 律师 观看时 都去 7 号服务器 mms://uc4.lawyeredu.net/uc4_lawyeredu/ 观看	
+		else if(this.getLoginUser().getProvinceunion()==22){
+			System.out.println("这是广西的律师："+this.getLoginUser().getProvinceunion());			
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
+			LOG.debug("广西律协的地址:"+url);
+		}
+		lessons.setOnlinefile(url);
+		
+//		else{
+//			//取出2个服务器返回是值
+//			Ping ping=new Ping();
+//			int u4=ping.get1(); //4号服务器 videos.lawyeredu.com 
+//			int u5=ping.get2(); //5号服务器 uc2.lawyeredu.com  
+//			String url=lessons.getOnlinefile();
+//			if(u4<u5){//4号较好  返回值较少的，代表较流畅				
+//				//如果是 4号 服务器较流畅，就将该视频地址改为4号服务器的地址
+//				url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/","mms://videos.lawyeredu.com/uc1.lawyeredu.com/");
+//				LOG.info("其他律协的地址:"+url);				
+//			}else{//5号较好  返回值较少的，代表较流畅
+//				//如果是 5号 服务器较流畅，就将该视频地址改为5号服务器的地址
+//				url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/","mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+//				LOG.info("其他律协的地址:"+url);
+//				
+//			}
+//			lessons.setOnlinefile(url);
+//		}
 
 		// this.lxnetrecs = (Lxnetrecs) lxnetrecsService.getLxnetrecs(lessonid,
 		// userid);
-
 		// debug("this.lxnetrecs==" + this.lxnetrecs);
+		
+		
 		BasicLawyerlessonxf xuefen = null;
 		if ( this.getLoginUser().getLawyertype() == -1)
 			 xuefen = xfservice.getXuefenShixi(lessonid, this.userid, 0);
