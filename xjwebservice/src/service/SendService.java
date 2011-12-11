@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import common.BasicService;
 
 import entity.CityPrompt;
+import entity.CityPromptUpdate;
 import entity.CityTemplateContent;
 import entity.DzjcAll;
 import entity.DzjcAllHistory;
@@ -150,6 +151,23 @@ public class SendService extends BasicService {
 		}
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @param weekday
+	 * @return
+	 */
+	public CityPromptUpdate getWeekContent(int weekday) {
+		List list = basicDao.findAll(CityPromptUpdate.class);
+		int len = list == null ? 0 : list.size();
+		for (int i = 0; i < len; i++) {
+			CityPromptUpdate t = (CityPromptUpdate) list.get(i);
+			if(t.getWeek()==weekday)
+				return t;
+		}
+		return null;
+	}
+
 
 	/**
 	 * 设置dzjc_all_history里的ishandled为已处理 如果历史的都不在新的里面了 否则的话，如果旧的还在新的里面，

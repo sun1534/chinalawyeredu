@@ -43,13 +43,13 @@ public class SmsSendJob implements Job {
 		if (len == 0) {
 
 		} else {
-			
+
 			LOG.info("短信下发个数:" + len);
 			SendSms service = null;
-			try{
-			Thread.sleep(5000L);
-			}catch(Exception e){
-				
+			try {
+				Thread.sleep(5000L);
+			} catch (Exception e) {
+
 			}
 			try {
 				long now = System.currentTimeMillis();
@@ -64,18 +64,18 @@ public class SmsSendJob implements Job {
 			for (int i = 0; i < len; i++) { // 更新log_mtsend并删除tmp_mtsend里的值
 				TmpMtsend tmp = (TmpMtsend) list.get(i);
 				int id = tmp.getId();
-				String result="-1";
-//				String result = SmsUtil.sendSms(service, tmp.getId(), tmp.getMobile(), tmp.getContent(), tmp.getType(),
-//						tmp.getLinkid(), tmp.getProductId());
-					int k = jdbcTemplate.update("update log_mtsend set result='" + result
-							+ "',send_time=now() where id=" + id);
-					if (k == 0) {
-						jdbcTemplate
-								.update("insert into log_mtsend(id,mobile,content,type,create_Time,send_time,result,productid,linkid)select id,mobile,content,type,send_time,now(),'"
-										+ result + "',productid,linkid from tmp_mtsend where id=" + id);
-					}
-					jdbcTemplate.update("delete from tmp_mtsend where id=" + id);// 删除
-					
+				// String result="-1";
+				String result = SmsUtil.sendSms(service, tmp.getId(), tmp.getMobile(), tmp.getContent(), tmp.getType(),
+						tmp.getLinkid(), tmp.getProductId());
+				int k = jdbcTemplate.update("update log_mtsend set result='" + result + "',send_time=now() where id="
+						+ id);
+				if (k == 0) {
+					jdbcTemplate
+							.update("insert into log_mtsend(id,mobile,content,type,create_Time,send_time,result,productid,linkid)select id,mobile,content,type,send_time,now(),'"
+									+ result + "',productid,linkid from tmp_mtsend where id=" + id);
+				}
+				jdbcTemplate.update("delete from tmp_mtsend where id=" + id);// 删除
+
 			}
 		}
 	}
