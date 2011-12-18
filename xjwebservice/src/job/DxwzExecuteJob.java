@@ -52,7 +52,8 @@ public class DxwzExecuteJob implements Job {
 				int hour = c.get(Calendar.HOUR_OF_DAY);
 				int minute = c.get(Calendar.MINUTE);
 				Date today = new Date();
-				if (hour == SendConstant.SEND_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
+//				if (hour == SendConstant.SEND_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
+//				if (hour == SendConstant.SEND_HOUR && !HAS_BEEN.containsKey(df.format(today))) {
 
 					HAS_BEEN.put(df.format(today), true);
 
@@ -60,9 +61,9 @@ public class DxwzExecuteJob implements Job {
 					DxSendMain main = new DxSendMain();
 					main.process();
 
-				} else {
-					LOG.info("未到短信下发时间,忽略,本次完成>" + hour + ":" + minute);
-				}
+//				} else {
+//					LOG.info("未到短信下发时间,忽略,本次完成>" + hour + ":" + minute);
+//				}
 
 			} catch (Exception e) {
 				LOG.error("执行定时任务错误:", e);
