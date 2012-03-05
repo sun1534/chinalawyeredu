@@ -11,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.changpeng.common.BasicService;
+import com.changpeng.common.Constants;
 import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.common.exception.ServiceException;
@@ -19,6 +20,8 @@ import com.changpeng.jifen.util.Jifenstatics;
 import com.changpeng.jifen.util.LearnmodeStatics;
 import com.changpeng.lawyers.dao.LawyersDAO;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.SysUser;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @author 华锋 2008-5-4 下午11:55:50
@@ -169,16 +172,27 @@ public class LawyerlessonxfService extends BasicService {
 
 	public Jifenstatics getFiledDabiaoshu(int year, float dabiaofen, float localfen,String field, int fieldvalue)
 			throws ServiceException {
+		
+		SysUser user=(SysUser)ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
+		
+		String table="lawyerlessonxf";
+		if(user.getSysRole()!=null){
+			int roleid=user.getSysRole().getRoleid();
+			if(roleid==11||roleid==12){
+				table="lawyerlessonxf_gongzheng";
+			}
+		}
+		
 		String sql = "";
 		if (field != null && !field.equals("")) {
 
-			sql = "select a.lawyerid,FORMAT(sum(pxxf),2),format(sum((case when (a.learnmode = 1) then a.pxxf else 0 end)),2) from lawyerlessonxf a where (a.theyear=" + year + ") and a."
+			sql = "select a.lawyerid,FORMAT(sum(pxxf),2),format(sum((case when (a.learnmode = 1) then a.pxxf else 0 end)),2) from "+table+" a where (a.theyear=" + year + ") and a."
 					+ field + "=" + fieldvalue + " group by a.lawyerid";
 		} else {
-			sql = "select a.lawyerid,FORMAT(sum(pxxf),2),format(sum((case when (a.learnmode = 1) then a.pxxf else 0 end)),2) from lawyerlessonxf a where (a.theyear=" + year
+			sql = "select a.lawyerid,FORMAT(sum(pxxf),2),format(sum((case when (a.learnmode = 1) then a.pxxf else 0 end)),2) from "+table+" a where (a.theyear=" + year
 					+ ") group by a.lawyerid";
 		}
-
+		System.out.println("Dabiaoshu sql::"+sql);
 		List list = lawyerlessonxfDAO.findBySqlQuery(sql);
 		int length = list == null ? 0 : list.size();
 		int dabiaoshu = 0;
