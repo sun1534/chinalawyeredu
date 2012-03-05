@@ -66,7 +66,7 @@ public class TeacherLessonsStaticAction extends AbstractListAction {
 		}
 		
 		LessonsService service=(LessonsService)getBean("lessonsService");
-		
+		System.out.println("teacherid ::"+teacherid);
 		this.page=service.getLessonStatic(teacherid, title, null, null, pageNo, pageSize);
 		
 		

@@ -95,10 +95,14 @@ public class LawyersChangeCardNoAction extends AbstractAction {
 				else {//杭州的这样判断，他要能自动去获取数据
 					if (lawyer != null && lawyer.getSystemno().equals(thelawyer.getSystemno())) {
 						cardno = lawyer.getCardno();
+						System.out.println("cardno 111:::::::" + cardno);
 						// carddate=lawyer.getCarddate();
 						thelawyer.setSystemno(systemno);
+						System.out.println("systemno 111:::::::" + systemno);
 						cardno = com.changpeng.common.CommonDatas.AllSystemNos.get(systemno);
+						
 						LOG.debug("cardno:::::::" + cardno);
+						System.out.println("cardno:::::::" + cardno);
 						if (cardno == null || cardno.equals("")) {
 							changeok = "systemnoerror";
 						} else {

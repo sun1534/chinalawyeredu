@@ -28,13 +28,13 @@
       <value>com.mysql.jdbc.Driver</value>
     </property>
     <property name="url">
-       <value>jdbc:mysql://211.154.157.174:3306/saaspxxt?characterEncoding=utf-8</value>
+       <value>jdbc:mysql://localhost:3306/saaspxxt?characterEncoding=utf-8</value>
     </property>
     <property name="username">
-      <value>saaspxxt</value>
+      <value>root</value>
     </property>
     <property name="password">
-      <value>saaspxxt</value>
+      <value>cpsoft</value>
     </property>
   </bean>   
   
@@ -121,7 +121,7 @@
     
         <!-- 定义定时任务 
         -->   
-     
+     <!-- 
      <bean id="timerTask" class="com.changpeng.common.sync.ScheduleTask">
     </bean>
     <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
@@ -143,5 +143,6 @@
     			<ref bean="scheduleTimerTask"/>
     		</list>		
     	</property>
-    </bean> 
+    </bean>  -->
+    
 </beans>

@@ -138,11 +138,20 @@
         <property name="createuser" type="string">
             <column name="createuser" not-null="true" />
         </property>
-                <property name="createuserid" type="int">
+         <property name="createuserid" type="int">
             <column name="createuserid" not-null="true" />
         </property>
         <property name="createtime" type="timestamp">
             <column name="createtime" length="0" not-null="true" />
+        </property>
+        
+         <property name="istuijian" type="int">
+            <column name="istuijian"  />
+        </property>
+        <property name="tuijianContent" type="java.lang.String">
+            <column name="tuijianContent" length="65535">
+                <comment>推荐理由</comment>
+            </column>
         </property>
                 <set name="lessonshareds" inverse="true">
             <key>

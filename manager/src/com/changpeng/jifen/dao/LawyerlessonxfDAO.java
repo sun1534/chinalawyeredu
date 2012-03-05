@@ -94,7 +94,8 @@ public class LawyerlessonxfDAO extends BasicDAO {
 		else
 			sql = "select lawyerid,sum((case when (learnmode = 1) then pxxf else 0 end)) AS xianchang,sum((case when (learnmode = 2) then pxxf else 0 end)) AS video,sum((case when (learnmode = 3) then pxxf else 0 end)) AS doc,sum((case when (learnmode = 4) then pxxf else 0 end)) AS budeng,sum((case when (learnmode = 5) then pxxf else 0 end)) AS koufen,(case when sum(pxxf) is null then 0 else sum(pxxf) end) AS zongjifen from "+table+" where theyear="
 					+ theyear + condition + " group by lawyerid";
-
+		
+		System.out.println("sql ::::::::::::::::"+sql);
 		return sql;
 	}
 

@@ -186,6 +186,11 @@ public class LessonsCreateAction extends AbstractAction {
 					String ext = getExtention(picpreviewFileName);
 					String filename = name + ext;
 					try {
+						//本机测试的上传代码
+						//String dispath=ServletActionContext.getServletContext().getRealPath("/lessonphoto")+"\\"+filename;
+						//File dest = new File(dispath);	
+						
+						//服务器上使用这个代码
 						File dest = new File(toPath + filename);
 						FileUtils.copyFile(picpreview, dest); // 移动文件
 						lesson.setPic(name+ext);
@@ -211,6 +216,8 @@ public class LessonsCreateAction extends AbstractAction {
 			sharedgroupids.add(lesson.getProvinceid());
 		}
 		
+		lesson.setIstuijian(lesson.getIstuijian());
+		lesson.setTuijianContent(lesson.getTuijianContent());
 		service.saveLesson(lesson, null, this.getLoginUser());
 
 		// System.out.println("onlyonline=============="+onlyonline);
@@ -256,7 +263,7 @@ public class LessonsCreateAction extends AbstractAction {
 		this.lesson.setFenshuoff("100");
 		this.lesson.setXuefen(new Float(0.0));
 		datestart = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-
+		
 		hmstart = "14:00";
 		dateend = datestart;
 		hmend = "15:00";

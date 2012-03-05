@@ -57,6 +57,18 @@ public class Lessons implements java.io.Serializable {
 	 */
 	private Float price=0f;
 	private int teacherid;
+	
+	//是否是推荐课件
+	private int istuijian;
+	private String tuijianContent;
+
+	public String getTuijianContent() {
+		return tuijianContent;
+	}
+
+	public void setTuijianContent(String tuijianContent) {
+		this.tuijianContent = tuijianContent;
+	}
 
 	/**
 	 * @return the teacherid
@@ -520,6 +532,14 @@ public class Lessons implements java.io.Serializable {
 	 */
 	public void setIsshare(int isshare) {
 		this.isshare = isshare;
+	}
+
+	public int getIstuijian() {
+		return istuijian;
+	}
+
+	public void setIstuijian(int istuijian) {
+		this.istuijian = istuijian;
 	}
 
 }

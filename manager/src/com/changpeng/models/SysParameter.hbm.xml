@@ -8,7 +8,7 @@
     <class name="com.changpeng.models.SysParameter" table="sys_parameter" catalog="saaspxxt">
         <id name="paramname" type="java.lang.String">
             <column name="paramname" length="20" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <property name="paramvalue" type="java.lang.String">
             <column name="paramvalue" length="50" not-null="true">

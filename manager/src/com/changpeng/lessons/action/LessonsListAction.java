@@ -96,7 +96,8 @@ public class LessonsListAction extends AbstractListAction {
 			end = jifentime.getEnd();
 		}
 		// System.out.println(jifentime.getStart()+",,,"+jifentime.getEnd());
-
+		System.out.println("pageSize:"+pageSize);
+		System.out.println("pageNo:"+pageNo);
 		this.page = lessonsService.getPages(_mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
 				lessontype, title, teachers, pageSize, pageNo, start, end);
 		com.changpeng.system.util.CommonDatas.getGroups();

@@ -197,6 +197,11 @@ public class LessonsEditAction extends AbstractAction {
 					String ext = getExtention(picpreviewFileName);
 					String filename = name + ext;
 					try {
+						//本机测试的上传代码
+						//String dispath=ServletActionContext.getServletContext().getRealPath("/lessonphoto")+"\\"+filename;
+						//File dest = new File(dispath);	
+						
+						//服务器上使用这个代码
 						File dest = new File(toPath + filename);
 						FileUtils.copyFile(picpreview, dest); // 移动文件
 						lesson.setPic(name+ext);
