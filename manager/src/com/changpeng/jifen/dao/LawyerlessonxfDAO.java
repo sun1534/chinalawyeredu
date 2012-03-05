@@ -21,6 +21,7 @@ import com.changpeng.jifen.action.JifenTongji;
 import com.changpeng.jifen.util.NumberUtil;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.SysUser;
+import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -135,6 +136,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					sql += " and a.lawyerno like '" + lawyerno + "%'";
 				}
 
+				System.out.println("sql is 11111111:::::"+sql);
 				if (field != null && !"".equals(field)) {
 					if (field.equals("officeid")) {
 						sql += " and a.theoffice =" + fieldvalue;
@@ -144,6 +146,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql += " and a.provinceunion =" + fieldvalue;
 					}
 				}
+				System.out.println("sql is 22222222222:::::"+sql);
 				String coutnsql = "select count(*) from (" + sql + ") a";
 				System.out.println(coutnsql);
 				int totalCount = getCountBySqlQuery(coutnsql);
