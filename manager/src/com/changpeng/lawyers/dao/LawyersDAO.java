@@ -10,7 +10,10 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicDAO;
+import com.changpeng.common.Constants;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.SysUser;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * @author 华锋 2008-2-22 下午02:09:48
@@ -163,7 +166,24 @@ public class LawyersDAO extends BasicDAO {
 	 * @return
 	 */
 	public int getFieldLawyerCnt(String field, int fieldvalue) {
-		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class).add(Restrictions.ge("lawyertype", 0));
+		DetachedCriteria dc = DetachedCriteria.forClass(Lawyers.class);
+		
+		SysUser user=(SysUser)ActionContext.getContext().getSession().get(Constants.LOGIN_USER);		
+		
+		if(user.getSysRole()!=null){
+			int roleid=user.getSysRole().getRoleid();
+			if(roleid==11||roleid==12){
+				dc.add(Restrictions.ge("lawyertype", -2));
+			}else{
+				dc.add(Restrictions.ge("lawyertype", 0));
+			}
+		}else{
+			dc.add(Restrictions.ge("lawyertype", 0));
+		}
+		
+		
+		
+		
 		dc.setProjection(org.hibernate.criterion.Projections.count("lawyerid"));
 		if (field != null && !field.equals("")) {
 			dc.add(Restrictions.eq(field, fieldvalue));
