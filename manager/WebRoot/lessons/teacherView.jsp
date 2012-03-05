@@ -54,7 +54,7 @@ body {
         <td width="15%" class="tab_content" align="right">老师介绍：
         </td>
         <td width="85%" colspan="2" class="tab_content1" align="left">
-        <div>
+           <div style="font-size:18px">
 									${teacher.comments}
 			</div>		
        

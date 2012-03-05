@@ -59,7 +59,7 @@ function deleteid(lessonid){
 							<s:hidden name="pageNo" value="1"/> 
                          <s:hidden name="groupid"/>
                          <s:hidden name="lessonstyle"/>
-                           类型:<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="0" headerValue="全部"/>
+                           类型:<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="-1" headerValue="全部"/>
 
                             名称:<s:textfield name="title" size="12"/>
                             主讲人:<s:textfield name="teachers" size="8"/>

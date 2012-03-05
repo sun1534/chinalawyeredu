@@ -98,7 +98,7 @@ function exportit(str){
          <TD class="tab_content" align="center">${pxxf}</TD>
         <TD class="tab_content" align="center">${zongjifen}</TD>
           <s:if test="candelete">
-          <a href="jifenDelete.action?xfid=${xfid }&lawyerid=${lawyerid }">【删除】</a>
+          <TD class="tab_content" align="center"><a href="jifenDelete.pl?xfid=${xfid }&lawyerid=${lawyerid }">【删除】</a></TD>
           </s:if>
           <s:set name="jifenall" value="#jifenall+pxxf"/>
       </TR>
@@ -106,7 +106,7 @@ function exportit(str){
      
       
       <tr style='background-color="#F1F1ED"'>
-        <td  colspan="7" align="right">&nbsp;
+        <td  colspan="8" align="right">&nbsp;
          	<font color="red">
     积分统计：
      现场培训:<s:property value="@com.changpeng.jifen.util.NumberUtil@toMoney(localecnt)"/>&nbsp;

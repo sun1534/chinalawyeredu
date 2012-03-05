@@ -84,7 +84,7 @@ function getCities(vallll){
             
 						 	文件类型:<s:select name="onlineType" list="#{'-1':'全部','0':'视频','1':'音频'}"/>
                             课程类型:
-                            	<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="0" headerValue="全部"/>
+                            	<s:select name="lessontype" list="@com.changpeng.lessons.util.CommonDatas@LessonType" headerKey="-1" headerValue="全部"/>
 						
 						 		<s:hidden name="lessonstyle"/>
 						 

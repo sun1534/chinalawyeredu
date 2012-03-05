@@ -13,14 +13,14 @@
 <script language="JavaScript"> 
 function deletephoto(lessonid){
 if(confirm("您确实要删除这个照片吗?")){
-//var url="../systemajax/photoDelete.pl";
- // $.getJSON(url, { "lawyerid":lawyerid,"now":new Date().getTime()}, function(json){
-  //   if(json.success == "true"){
+var url="../systemajax/photoDelete.pl";
+ $.getJSON(url, { "lawyerid":lawyerid,"now":new Date().getTime()}, function(json){
+     if(json.success == "true"){
    		$("#imgdiv").empty();
-    //  }else{
-	//   alert("照片删除失败");
-    //  }
-   //});
+      }else{
+	   alert("照片删除失败");
+      }
+   });
 }
 else{
 return;
@@ -185,7 +185,7 @@ function selectteacher(teacherid){
 						</tr>
 						
 						
-						<s:if test="onlyonline==2"><!-- 授课老师 -->
+						
 						<tr>
 							<td class="tab_content1" align="right">
 									价格：
@@ -195,7 +195,7 @@ function selectteacher(teacherid){
                                  <font color="red">*不能为空且必须为数字</font>
 							</td>
 						</tr>
-						</s:if>
+						
 						<tr>
 							<td class="tab_content" align="right">
 									课程类别：
@@ -254,6 +254,22 @@ function selectteacher(teacherid){
 									<s:textfield  name="lesson.onlinefile" size="60"/>
 							</td>
 						</tr>
+						<tr>
+							<td class="tab_content1" align="right">
+									是否推荐：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="lesson.istuijian" list="#{'1':'推荐','0':'不推荐'}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content1" align="right">
+									推荐理由：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:textfield id="fileid" name="lesson.tuijianContent" size="60"  />
+							</td>
+						</tr>
  	<tr>
 							<td class="tab_content1" align="right">
 									文件类型：
@@ -304,7 +320,8 @@ function selectteacher(teacherid){
 						 <s:if test="lesson.pic!=null&&!lesson.pic.equals(\"\")">
           <div id="imgdiv">
           <img src="${lesson.httpPic}" width="200"/>
-          <a href="#" onclick="deletephoto('${lessonid}')"/>删除照片</a>
+          <!-- <img src="../lessonphoto/${lesson.pic}" width="200" height="163px;"/> -->          
+          <!-- <a href="#" onclick="deletephoto('${lessonid}')"/>删除照片</a> -->
           </div>
           </s:if>
           

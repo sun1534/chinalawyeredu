@@ -181,7 +181,7 @@ function addFile(){
 							</td>
 						</tr>
 						
-						<s:if test="onlyonline==2">
+						
 						<tr>
 							<td class="tab_content1" align="right">
 									价格：
@@ -191,7 +191,8 @@ function addFile(){
                                  <font color="red">*不能为空且必须为数字</font>
 							</td>
 						</tr>
-					</s:if>
+						
+						
 						<tr>
 							<td class="tab_content" align="right">
 									课程类别：
@@ -256,7 +257,22 @@ function addFile(){
 									<s:textfield id="fileid" name="lesson.onlinefile" size="60"/><font color="red">(*不能为空)</font>
 							</td>
 						</tr>
-                       
+                       <tr>
+							<td class="tab_content1" align="right">
+									是否推荐：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:radio name="lesson.istuijian" list="#{'1':'推荐','0':'不推荐'}"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content1" align="right">
+									推荐理由：
+							</td>
+							<td colspan="2" class="tab_content1">
+							 <s:textfield id="fileid" name="lesson.tuijianContent" size="60"  />
+							</td>
+						</tr>
                  	<tr>
 							<td class="tab_content1" align="right">
 									文件类型：
