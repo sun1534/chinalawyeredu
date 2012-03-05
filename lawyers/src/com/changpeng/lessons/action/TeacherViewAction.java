@@ -22,7 +22,9 @@ public class TeacherViewAction extends AbstractAction {
 		// this.rightCode = "sysUserDelete";
 
 	}
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 
 	/**
 	 * @return the userId

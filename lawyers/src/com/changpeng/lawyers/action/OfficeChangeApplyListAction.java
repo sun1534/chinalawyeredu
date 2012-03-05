@@ -8,6 +8,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.action.AbstractListAction;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.LawyersOfficeChangeApply;
 
 /**
@@ -20,14 +21,20 @@ import com.changpeng.models.LawyersOfficeChangeApply;
  *
  */
 public class OfficeChangeApplyListAction extends AbstractListAction {
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	/* (non-Javadoc)
 	 * @see com.changpeng.common.action.AbstractAction#go()
 	 */
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-		
+		this.lawyer = this.getLoginUser();
 		
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(LawyersOfficeChangeApply.class);
 		detachedCriteria.add(Restrictions.eq("lawyerid",this.getLoginUser().getLawyerid()));

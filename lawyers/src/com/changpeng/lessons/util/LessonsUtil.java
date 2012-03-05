@@ -2,6 +2,7 @@ package com.changpeng.lessons.util;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -53,4 +54,40 @@ public class LessonsUtil {
 		time=s.substring(index+1);
 		
 	}
+	
+	public static String lastWeek(){
+		Timestamp s=new Timestamp(System.currentTimeMillis());
+		   int year=Integer.parseInt(new SimpleDateFormat("yyyy").format(s));
+		   int month=Integer.parseInt(new SimpleDateFormat("MM").format(s));
+		   int day=Integer.parseInt(new SimpleDateFormat("dd").format(s))-6;
+		  
+		   if(day<1){
+		    month-=1;
+		    if(month==0){
+		     year-=1;month=12;
+		    }
+		    if(month==4||month==6||month==9||month==11){
+		     day=30+day;
+		    }else if(month==1||month==3||month==5||month==7||month==8||month==10||month==12)
+		    {
+		     day=31+day;
+		    }else if(month==2){
+		     if(year%400==0||(year %4==0&&year%100!=0))day=29+day;
+		     else day=28+day;
+		    }     
+		   }
+		   String y = year+"";String m ="";String d ="";
+		   if(month<10) m = "0"+month;
+		   else m=month+"";
+		   if(day<10) d = "0"+day;
+		   else d = day+"";
+		  
+		   return y+"-"+m+"-"+d;
+		}
+	
+	public static void main(String[] args) {
+		String aa=lastWeek();
+		System.out.println(aa);
+	}
+
 }

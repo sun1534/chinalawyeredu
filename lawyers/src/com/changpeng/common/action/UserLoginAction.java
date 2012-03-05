@@ -28,7 +28,9 @@ import com.opensymphony.xwork2.ActionContext;
 public class UserLoginAction extends AbstractAction {
 
 	private static Log LOG = LogFactory.getLog(UserLoginAction.class);
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private String loginname;
 	private String password;
 	private String randnum;

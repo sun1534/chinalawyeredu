@@ -19,7 +19,9 @@ import com.changpeng.models.Lawyers;
  * 
  */
 public class JifenbudengQueryAction extends AbstractListAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	public JifenbudengQueryAction() {
 
 	}
@@ -34,7 +36,8 @@ public class JifenbudengQueryAction extends AbstractListAction {
 		// SysUser lawer = ;
 
 		int lawyerid = this.getLoginUser().getLawyerid();
-		this.lawyers = this.getLoginUser();
+		this.lawyer = this.getLoginUser();
+		System.out.println("lawyerid ::"+lawyerid);
 		// 根据查询的年来查,默认为当前时间所在的积分年
 
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Jifenbudeng.class);
@@ -42,14 +45,14 @@ public class JifenbudengQueryAction extends AbstractListAction {
 		detachedCriteria.add(Restrictions.eq("lawyerid", lawyerid));
 		detachedCriteria.addOrder(Order.desc("budengdate"));
 		this.page = basicService.findPageByCriteria(detachedCriteria,this.pageSize, pageNo);
-
+System.out.println(page.getPageSize());
 		// TODO Auto-generated method stub
 		return SUCCESS;
 	}
 
-	private Lawyers lawyers;
+	private Lawyers lawyer;
 
-	public Lawyers getLawyers() {
-		return this.lawyers;
+	public Lawyers getLawyer() {
+		return this.lawyer;
 	}
 }

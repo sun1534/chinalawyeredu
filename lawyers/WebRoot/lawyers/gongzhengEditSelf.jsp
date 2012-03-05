@@ -1,20 +1,11 @@
-﻿<%@ page contentType="text/html;charset=utf-8" language="java" %>
+﻿OCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ taglib prefix="jscalendar" uri="/jscalendar"%>
-
 <html>
 <head>
-<title>信息修改</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<jscalendar:head/>
-<link href="../css/css.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-<!--
-body {
-	background-color: #DAE7F6;
-}
--->
-</style>
+<title>中国律师培训网-首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/css_new.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <jscalendar:head/>
@@ -36,23 +27,63 @@ return;
 }
 }
 </script>
+<script language="javascript" type="text/javascript">
+ 
+var issubmit=false;
+function submitform (){	
+	 issubmit=true;
+	 document.form1.submit();
+}
+function exitform(){
+  if(!issubmit){//如果没有提交,直接关闭窗口的话
+  
+    $.getJSON("../commonajax/ajaxlogout.pl", {"now":new Date().getTime()}, function(resp){
+      }
+    ); 
+  }
+}
+</script>
 </head>
-<body leftmargin="0" marginwidth="0" marginheight="0" topmargin="0">
-<table width="99%" border="0" align="center" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td height="23" background="../imagesa/top-bg3.gif"
-					class="baseFontBold">
-					<img src="../imagesa/b_02.gif" width="4" height="7">
-					${navigator}
-				</td>
-			</tr>
-</table>
-<table width="100%" border="0" cellspacing="1" cellpadding="0"
-			align="center" class="border-table">
-	<tr>			
-    <td>
-    <s:form name="form1" action="lawyersEditSelf" method="post" validate="true" enctype="multipart/form-data">
+<body>
+
+<div class="header">
+  <form name="form1" method="post" action="../common/logout.pl">	
+  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="denglu right">
+  	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
+  	<a href="index.pl">首页</a>&nbsp;&nbsp;
+  	<s:if test="lawyer.provinceunion!=22"><a href="../common/passwdChange!input.pl">修改密码</a></s:if>&nbsp;&nbsp;
+  	<a href="#" onclick="submitform()">退出</a>
+  </div>
+  </form>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="../index/index.pl"  >首页</a></li>
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=-1">选课中心</a></li>
+     <!-- <li><a href="../shopping/shoppaidList.pl">我选购的课程</a></li> -->
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=1">培训通知</a></li>
+  <li><a href="../jifen/jifenQuery.pl" >我的学分</a></li>
+  <li><a href="../shopping/shopfavoritesList.pl">收藏夹</a></li>
+  <!--<li><a href="../shopping/shopcartList.pl">购物车</a></li>
+  <li><a href="../shopping/shopOrderList.pl">我的订单</a></li>-->
+  <li><a href="../lawyers/officeChangeApplyList.pl">转所申请</a></li>
+  <li><a href="../lawyers/lawyersEditSelf!input.pl"  class="current">个人信息</a></li>
+  <li><a href="../articles/notifyList.pl?type=1" >系统消息</a></li>
+</ul></div>
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<strong>个人信息</strong></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">个人信息</div>   
+     <ul class="con_wz">
+     <li><a href="newstext.html" target="_blank">个人资料维护</a></li>
+        <li><a href="#">密码修改</a></li>
+      </ul>
+  </div>
+  <div class="con_right6 left">
+    <div class="con_right6_title"><h2>个人信息</h2></div>
+    <div class="star2">
+     <s:form name="form1" action="lawyersEditSelf" method="post" validate="true" enctype="multipart/form-data">
       <table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#EDEDED">
 		<tr>
@@ -162,8 +193,16 @@ return;
         </tr>
       </table>
     </s:form>
-    </td>
-  </tr>
-</table>
+<div class="blank10px"></div>
+   
+    </div>
+    
+  </div>
+</div>
+<div class="blank15px"></div>
+<div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="http://www.cpsoft.cn/" target="_blank">长鹏软件</a></br>
+备案序号：粤ICP备05082150号
+</div>
+
 </body>
 </html>

@@ -10,12 +10,15 @@ import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractListAction;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 
 public class LessonsViewAction extends AbstractListAction {
 	private Lessons lesson;
 	private int lessonid;
-	
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private List<String> filelist;
 	private boolean hasattach;
 	public boolean getHasattach(){
@@ -37,12 +40,15 @@ public class LessonsViewAction extends AbstractListAction {
 	public LessonsViewAction() {
 		
 	}
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
 
 	
 	@Override
 	protected String go() throws Exception {
-
+		this.lawyer = this.getLoginUser();
 		// System.out.println("run here.......................lessonid:"+lessonid);
 	  BasicService basicService =(BasicService)this.getBean("basicService");
 		// lessonid=1;
@@ -83,8 +89,12 @@ public class LessonsViewAction extends AbstractListAction {
 			this.nextPage="../lessons/lessonsCreate!input.pl";//
 			return "message";
 		}
-
-		return SUCCESS;
+		if(lesson.getLessonstyle()==1){
+			return "localview";
+		}else{
+			return "onlineview";
+		}
+		
 	}
 	List replylist=null;
 	public List getReplylist(){

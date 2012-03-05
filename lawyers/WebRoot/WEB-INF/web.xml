@@ -82,14 +82,38 @@
 		<servlet-name>hzlawyersJf</servlet-name>
 		<servlet-class>com.changpeng.service.HzlawyersJfServlet</servlet-class>
 	</servlet>
+
+
 	<servlet-mapping>
     <servlet-name>hzlawyersJf</servlet-name>
     <url-pattern>/hzlawyersJf</url-pattern>
   </servlet-mapping>
+  
+  
 		<servlet-mapping>
     <servlet-name>elearningInterface</servlet-name>
     <url-pattern>/elearningInterface</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+
+    <servlet-name>OrderPayment</servlet-name>
+    <servlet-class>com.changpeng.shopping.action.OrderPayment</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OrderReturn</servlet-name>
+    <servlet-class>com.changpeng.shopping.action.OrderReturn</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>OrderPayment</servlet-name>
+    <url-pattern>/OrderPayment</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OrderReturn</servlet-name>
+    <url-pattern>/OrderReturn</url-pattern>
+  </servlet-mapping>
+  
 	<session-config>
 		<session-timeout>240</session-timeout>
 	</session-config>

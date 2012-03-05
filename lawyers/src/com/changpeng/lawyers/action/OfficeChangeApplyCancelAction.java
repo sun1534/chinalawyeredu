@@ -19,7 +19,14 @@ import com.changpeng.models.SysGroup;
  * 
  */
 public class OfficeChangeApplyCancelAction extends AbstractAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	
 	private int id;
 	
 	/**
@@ -46,7 +53,7 @@ public class OfficeChangeApplyCancelAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-
+		this.lawyer = this.getLoginUser();
 	
 		LawyersOfficeChangeApply apply=(LawyersOfficeChangeApply)basicService.get(LawyersOfficeChangeApply.class, id);
 		apply.setStatus((short)4);

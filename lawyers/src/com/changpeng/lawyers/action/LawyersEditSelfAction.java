@@ -31,7 +31,9 @@ public class LawyersEditSelfAction extends AbstractAction {
 	public LawyersEditSelfAction() {
 
 	}
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -41,7 +43,7 @@ public class LawyersEditSelfAction extends AbstractAction {
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
 
-		if (lawyers.getProvinceunion() == 22) {
+		if (lawyer.getProvinceunion() == 22) {
 
 			this.message = "对不起,广西律协的律师资料来自于律管平台,不能修改";
 
@@ -49,14 +51,14 @@ public class LawyersEditSelfAction extends AbstractAction {
 		}
 
 		com.changpeng.common.BasicService bs = (com.changpeng.common.BasicService) this.getBean("basicService");
-		lawyers.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyers.getLawyername()));
+		lawyer.setLawyerenname(com.changpeng.common.util.Chinese2Pinyin.to2pinyin(lawyer.getLawyername()));
 
-		if (lawyers.getZhiyedatestr() != null && !lawyers.getZhiyedatestr().equals("")) {
+		if (lawyer.getZhiyedatestr() != null && !lawyer.getZhiyedatestr().equals("")) {
 			try {
-				Date date = df.parse(lawyers.getZhiyedatestr());
-				lawyers.setZhiyedate(date);
+				Date date = df.parse(lawyer.getZhiyedatestr());
+				lawyer.setZhiyedate(date);
 			} catch (Exception e) {
-				this.message = "执业日期输入不对,请重新输入:" + lawyers.getZhiyedatestr();
+				this.message = "执业日期输入不对,请重新输入:" + lawyer.getZhiyedatestr();
 				return "message";
 			}
 		}
@@ -78,7 +80,7 @@ public class LawyersEditSelfAction extends AbstractAction {
 				int index = fileName.lastIndexOf(".");
 				String name = System.currentTimeMillis() + fileName.substring(index);
 
-				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + lawyers.getDirectunion() + "/";
+				String indexDir = com.changpeng.common.Constants.PHOTO_SAVE_PATH + lawyer.getDirectunion() + "/";
 				File filedir = new File(indexDir);
 
 				if (!filedir.exists()) {
@@ -89,13 +91,13 @@ public class LawyersEditSelfAction extends AbstractAction {
 				File file = new File(indexDir + System.getProperty("file.separator") + name);
 				upload.renameTo(file);
 
-				lawyers.setPhoto(lawyers.getDirectunion() + "/" + name);
-				lawyers.setPhotoname(fileName);
+				lawyer.setPhoto(lawyer.getDirectunion() + "/" + name);
+				lawyer.setPhotoname(fileName);
 
 				// this.getLoginUser()
 
 				// Lawyers sysUser = (Lawyers) get();
-				this.set(Constants.LOGIN_USER, lawyers);
+				this.set(Constants.LOGIN_USER, lawyer);
 
 			} catch (Exception e) {
 				debug("照片上传失败..." + e);
@@ -103,7 +105,7 @@ public class LawyersEditSelfAction extends AbstractAction {
 		}
 		//
 
-		bs.update(lawyers);
+		bs.update(lawyer);
 		this.message = "您的资料信息修改成功";
 
 		// this.nextPage = "lawyersList.pl";
@@ -117,25 +119,25 @@ public class LawyersEditSelfAction extends AbstractAction {
 		// BasicService bservice = (BasicService) this.getBean("basicService");
 		// lawyers = (Lawyers) bservice.get(Lawyers.class,
 		// this.getLoginUser().getLawyerid());
-		lawyers = this.getLoginUser();
-		if (lawyers.getZhiyedate() != null)
-			lawyers.setZhiyedatestr(df.format(lawyers.getZhiyedate()));
+		lawyer = this.getLoginUser();
+		if (lawyer.getZhiyedate() != null)
+			lawyer.setZhiyedatestr(df.format(lawyer.getZhiyedate()));
 		com.changpeng.common.CommonDatas.getGroups();
 		// set("lawyers", lawyers);
-		if (lawyers.getLawyertype() == -1)
+		if (lawyer.getLawyertype() == -1)
 			return "shixi";
-		else if (lawyers.getLawyertype() == -2)
+		else if (lawyer.getLawyertype() == -2)
 			return "gongzheng";
 		return INPUT;
 	}
 
-	private Lawyers lawyers;
+	private Lawyers lawyer;
 
 	public Lawyers getLawyers() {
-		if (lawyers == null)
+		if (lawyer == null)
 			// lawyers = (Lawyers) this.get("lawyers");
-			lawyers = this.getLoginUser();
-		return this.lawyers;
+			lawyer = this.getLoginUser();
+		return this.lawyer;
 	}
 
 	private File upload;

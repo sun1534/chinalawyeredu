@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractListAction;
 import com.changpeng.models.Articles;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.SysGroup;
 
 /**
@@ -22,7 +23,13 @@ import com.changpeng.models.SysGroup;
  * 
  */
 public class ArticlesListAction extends AbstractListAction {
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -30,6 +37,7 @@ public class ArticlesListAction extends AbstractListAction {
 	 */
 	@Override
 	protected String go() throws Exception {
+		this.lawyer = this.getLoginUser();
 		// TODO Auto-generated method stub
 		BasicService basic = (BasicService) getBean("basicService");
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Articles.class);

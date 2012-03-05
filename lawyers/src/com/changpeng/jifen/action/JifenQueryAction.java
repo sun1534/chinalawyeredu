@@ -26,7 +26,9 @@ import com.changpeng.models.SysUnionparams;
  * 
  */
 public class JifenQueryAction extends AbstractListAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	public JifenQueryAction() {
 
 	}
@@ -41,19 +43,19 @@ public class JifenQueryAction extends AbstractListAction {
 		// SysUser lawer = ;
 
 		int lawyerid = this.getLoginUser().getLawyerid();
-		this.lawyers = this.getLoginUser();
+		this.lawyer = this.getLoginUser();
 		// 根据查询的年来查,默认为当前时间所在的积分年
 
-		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
+		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyer.getDirectunion());
 		dabiaofen = params.getDabiaofen();
 		jifentime = CommonDatas.getJifenTime(nianshenyear, params.getNianshen());
 		this.nianshenyear = jifentime.getNianshenyear();
 		DetachedCriteria detachedCriteria = null;
 		String table = "lawyerlessonxf";
-		if (this.lawyers.getLawyertype() == -1) {
+		if (this.lawyer.getLawyertype() == -1) {
 			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfShixi.class);
 			table = "lawyerlessonxf_shixi";
-		}else if (this.lawyers.getLawyertype() == -2) {
+		}else if (this.lawyer.getLawyertype() == -2) {
 			detachedCriteria = DetachedCriteria.forClass(LawyerlessonxfGongzheng.class);
 			table = "Lawyerlessonxf_gongzheng";
 		}  
@@ -93,10 +95,9 @@ public class JifenQueryAction extends AbstractListAction {
 		return SUCCESS;
 	}
 
-	private Lawyers lawyers;
-
-	public Lawyers getLawyers() {
-		return this.lawyers;
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
 	}
 
 	private float dabiaofen;

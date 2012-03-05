@@ -13,7 +13,9 @@ import com.changpeng.models.*;
 public class ReplyCreateAction extends AbstractAction{
 	private String replycontent;
 	private int lessonid;
-	
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	public void setReplycontent(String replycontent) {
 		this.replycontent = replycontent;
 	}

@@ -53,6 +53,45 @@ private int isshare;
 	 */
 	private Float price=0f;
 	private int teacherid;
+	
+	private int istuijian;
+	
+	private String tuijianContent;
+	
+	private String pic;
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	public String getTuijianContent() {
+		return tuijianContent;
+	}
+	
+	public String getTuijianContentTrim() {
+		if(this.tuijianContent!=null && this.tuijianContent!=""){
+			if(this.tuijianContent.length()>10)
+				return this.tuijianContent.substring(0,10)+"...";
+				return tuijianContent;
+		}
+		return tuijianContent;
+		
+	}
+
+	public void setTuijianContent(String tuijianContent) {
+		this.tuijianContent = tuijianContent;
+	}
+	
+	public int getIstuijian() {
+		return istuijian;
+	}
+	public void setIstuijian(int istuijian) {
+		this.istuijian = istuijian;
+	}
 	/**
 	 * @return the price
 	 */
@@ -188,6 +227,19 @@ private int isshare;
 			return this.title.substring(0,19)+"...";
 			return title;
 	}
+	
+	public String getTitleTrim1(){
+		if(this.title.length()>10)
+			return this.title.substring(0,10)+"...";
+			return title;
+	}
+	
+	public String getTitleTrim2(){
+		if(this.title.length()>15)
+			return this.title.substring(0,14)+"...";
+			return title;
+	}
+	
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -265,6 +317,12 @@ private int isshare;
 		this.lessonaddress = lessonaddress;
 	}
 
+	public String getLessoncontentTrim() {
+		if(this.lessoncontent.length()>30)
+			return this.lessoncontent.substring(0,30)+"...";
+			return lessoncontent;
+	}
+	
 	public String getLessoncontent() {
 		return this.lessoncontent;
 	}

@@ -9,7 +9,8 @@
     <default-interceptor-ref name="adminStack"/>  
    	 
        <action name="lessonsView" class="com.changpeng.lessons.action.LessonsViewAction">
-			<result name="success" type="dispatcher">/lessons/lessonsView.jsp</result>
+			<result name="onlineview" type="dispatcher">/lessons/onlinelessonsView.jsp</result>
+			<result name="localview" type="dispatcher">/lessons/locallessonsView.jsp</result>
        </action>
   
        <action name="lessonsVote" class="com.changpeng.lessons.action.LessonsVoteAction">
@@ -20,6 +21,7 @@
        <action name="lessonsList" class="com.changpeng.lessons.action.LessonsListAction">
 		  <result name="local" type="dispatcher">/lessons/localeList.jsp</result>
 		  <result name="online" type="dispatcher">/lessons/onlineList.jsp</result>
+		  <result name="online2" type="dispatcher">/lessons/onlineList2.jsp</result>
        </action>
 	   <action name="thirdLessons" class="com.changpeng.lessons.action.ThirdLessonsAction">
 		  <result name="success" type="redirect">${url}</result>

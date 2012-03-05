@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><%=com.changpeng.common.Constants.SYS_NAME%>
 </title>
-<link href="../css/css.css" rel="stylesheet" type="text/css">
+<link href="../css/css_new.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/jquery-1.2.6.pack.js"></script>
 <script language="javascript" type="text/javascript">
  
@@ -26,43 +26,28 @@ function exitform(){
 </head>
 
 <body leftmargin="0" topmargin="0" onunload="exitform()">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <!-- <td  align="right" background="../imagesa/top-bg1.jpg">-->
-     <td  align="right" background="${resourcePath }${topbarpic }">
-     <form name="form1" method="post" action="../common/logout.pl" target="_top">
-       <table width="28%" border="0" cellspacing="0" cellpadding="0" background="../imagesa/bgright.jpg">
-        <tr> 
-         	
-          <td height="26"  align="right">
-                 <a href="../index/workspace.pl" target="mainFrame">返回首页</a> ｜
-                 <s:if test="lawyer.provinceunion!=22">
-                 <a href="../common/passwdChange!input.pl" target="mainFrame">修改密码</a> ｜
-                 </s:if>
-                  <s:if test="lawyer.roleid!=null&&lawyer.roleid==1">
-                 <a href="../shouce/lawyers.html" target="_blank"> 操作手册</a> ｜
-                 </s:if>
-                 <s:if test="isofficeadminer">
-                 <a href="../shouce/offices.html" target="_blank"> 操作手册</a> ｜
-                 </s:if>
-                 <a href="#" onclick="submitform()">【退出】</a>         
-          </td> 
-       
-        </tr>
-        <tr>
-          <td height="24" align="right">
-               ${lawyer.lawyername} 您好,欢迎登录培训系统！  
-          </td>
-        </tr>
-</table>
-   </form>
-    </td>
-  </tr>
-</table>
-<table width="100%" height="2" border="0" cellpadding="0" cellspacing="0" bgcolor="eeeeee">
-  <tr>
-    <td> </td>
-  </tr>
-</table>
+<div class="header">
+
+  <div class="logo left"><a href="index.html"><img src="../images/logo.gif" width="234" height="51" /></a></div>
+  <div class="denglu right">${lawyer.lawyername} ，您好，欢迎您登录培训平台！&nbsp;&nbsp;
+  	<a href="index.pl?old=1">旧版</a>&nbsp;&nbsp;
+  	<a href="index.pl">首页</a>&nbsp;&nbsp;
+  	<s:if test="lawyer.provinceunion!=22"><a href="../common/passwdChange!input.pl">修改密码</a></s:if>&nbsp;&nbsp;
+  	<a href="#" onclick="submitform()">退出</a></div>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="index.pl"  class="current">首页</a></li>
+  <li><a href="lessoncenter.html">选课中心</a></li>
+  <li><a href="course.html">我选购的课程</a></li>
+  <li><a href="notice.html">培训通知</a></li>
+  <li><a href="jifen.html">我的学分</a></li>
+  <li><a href="favorites.html">收藏夹</a></li>
+  <li><a href="shopping.html">购物车</a></li>
+  <li><a href="order.html">我的订单</a></li>
+  <li><a href="news.html">我的消息</a></li>
+  <li><a href="application.html">转所申请</a></li>
+  <li><a href="../lawyers/lawyersEditSelf!input.pl">个人信息</a></li>
+</ul></div>
 </body>
 </html>

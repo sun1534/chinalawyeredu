@@ -70,6 +70,8 @@ for(int i=0;i<newright.length;i++)
 //		System.out.println(huodexuefen);
 		
 		System.out.println(netrecsid);
+		
+		
 	}
 
 }

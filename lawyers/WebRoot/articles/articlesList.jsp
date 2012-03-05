@@ -1,112 +1,111 @@
-﻿<%@ page contentType="text/html;charset=utf-8" language="java" %>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>%=com.changpeng.common.Constants.SYS_NAME%></title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="../css/css.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-<!--
-body {
-	background-color: #DAE7F6;
-}
--->
-</style>
+<title>中国律师培训网-首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/css_new.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
+
+<script language="javascript" type="text/javascript"> 
+var issubmit=false;
+function submitform (){	
+	 issubmit=true;
+	 document.form1.submit();
+}
+function exitform(){
+  if(!issubmit){//如果没有提交,直接关闭窗口的话
+  
+    $.getJSON("../commonajax/ajaxlogout.pl", {"now":new Date().getTime()}, function(resp){
+      }
+    ); 
+  }
+}
+</script>
 <script language="javascript">
 function fanye(str){
-  document.form1.pageNo.value=str;
-  document.form1.submit();
+  document.form2.pageNo.value=str;
+  document.form2.submit();
 }
 
 </script>
-
 </head>
 <body>
-<table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
-  <tr>
-    <td height="23" background="../imagesa/top-bg3.gif" class="baseFontBold">
-    	<img src="../imagesa/b_02.gif" width="4" height="7"> 
-    	当前位置：
+
+<div class="header">
+  <form name="form1" method="post" action="../common/logout.pl">	
+  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="denglu right">
+  	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
+  	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;
+  	<s:if test="lawyer.provinceunion!=22"><a href="../common/passwdChange!input.pl">修改密码</a></s:if>&nbsp;&nbsp;
+  	<a href="#" onclick="submitform()">退出</a>
+  </div>
+  </form>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="../index/index.pl"  >首页</a></li>
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=-1">选课中心</a></li>
+    <!-- <li><a href="../shopping/shoppaidList.pl">我选购的课程</a></li> -->
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=1">培训通知</a></li>
+  <li><a href="../jifen/jifenQuery.pl">我的学分</a></li>
+  <li><a href="../shopping/shopfavoritesList.pl">收藏夹</a></li>
+  <!--<li><a href="../shopping/shopcartList.pl">购物车</a></li>
+  <li><a href="../shopping/shopOrderList.pl">我的订单</a></li>-->
+  <li><a href="../lawyers/officeChangeApplyList.pl">转所申请</a></li>
+  <li><a href="../lawyers/lawyersEditSelf!input.pl">个人信息</a></li>
+  <li><a href="../articles/notifyList.pl?type=1" class="current">系统消息</a></li>
+</ul></div>
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<strong>系统消息</strong></div>
+<div class="con">
+  <div class="con_left2 left">
+     <div class="con_left2_title">系统消息</div>   
+     <ul class="con_wz">
+     <li><a href="../articles/notifyList.pl?type=1">重要通知</a></li>
+        <li><a href="../articles/notifyList.pl?type=2">系统帮助</a></li>
+      </ul>
+  </div>
+  <div class="con_right6 left">
+    <div class="con_right2_title"><h2>
     	<s:if test="type==1">
     		重要通知
     	</s:if>
     	<s:else> 
     		系统帮助
-    	</s:else>
-    	</td>
-  </tr>
-</table>
-<table width="99%" height="316" border="0" align="center" cellpadding="0" cellspacing="1" >
-				
-<s:form action="articlesList" name="form1" method="post">
-	  <tr>
-    <td valign="top">	
-    	
-    	<!--
-    	<table width="100%" border="0" cellpadding="0" cellspacing="1">
-        <tr>
-          <td height="24" background="../imagesa/top-bg2.gif" >
-           	<div align="center"> 律师的培训积分</div>
-           	<div align="left">
-     
-           </div>
-          </td>
-        </tr>
-      </table>
-      -->
-    	<table width="100%" border="0" cellpadding="0" cellspacing="1">
-        <tr >
-          <td height="24" align="right" background="../imagesa/login_bg1.gif" >
-    ${page.pageView}
-          </td>
-        </tr>
-      </table>
-   
-  
-    	<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">   
-      <tr>
-       	<TD height="23" align="center" background="../imagesa/top-bg1.gif" >内容标题</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">创建人</TD>
-        <TD align="center" background="../imagesa/top-bg1.gif">创建时间</TD>       
-        <TD align="center" background="../imagesa/top-bg1.gif">查看</TD>
-       
-      </tr>
-      
-<s:iterator value="page.items" status="stat">
-      <TR>
-        <TD class="tab_content" align="left">&nbsp;
-        	<a href="articlesView.pl?articleid=${articleid}">${title}</a>
-        </TD>
-        <TD class="tab_content" align="center">${createuser}</TD>
-        <TD class="tab_content" align="center">${createtime}</TD>
-   
-     <TD align="center" class="tab_content">
-  		<a href="articlesView.pl?articleid=${articleid}">查看</a>
-     </TD>
+    	</s:else></h2>
+    </div>
+    <div class="star2">
+		<s:form action="articlesList" name="form2" method="post">
+		<table width="732" cellpadding="4" cellspacing="1" border="0" class="list">
+			<tr class="list_header">
+			    <td width="16" height="21">&nbsp;</td>
+			    <td width="485">&nbsp;标题</td>
+			    <td width="73">&nbsp;发布者</td>
+			    <td width="97">&nbsp;发布日期</td>
+			    
+			</tr>
+			<s:iterator value="page.items" status="stat">
+			<tr class="alt1">
+			    <td align="center"><img src="../images/message_read.gif" class="icon" /></td>
+			    <td><a href="articlesView.pl?type=${type}&articleid=${articleid}">&nbsp;${title}</a></td>
+			    <td>&nbsp;${createuser}</td>
+			    <td>&nbsp;<s:date name="createtime" format="yyyy-MM-dd HH:mm:ss"/></td>			    
+			</tr>
+			</s:iterator>
+		</table>
+		<s:hidden name="type" /> 	
+		<s:hidden name="pageNo" value="1"/> 		
+    	${page.pageView}
+    	</s:form>
+  </div>
+</div>
+<div class="blank15px"></div>
+<div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="http://www.cpsoft.cn/" target="_blank">长鹏软件</a></br>
+备案序号：粤ICP备05082150号
+</div>
 
-      </TR>
-     </s:iterator> 
-     
-      
-      <tr background-color="#F1F1ED">
-        <td  colspan="7" align="center">&nbsp;
-    
-  
-        	
-       </td>
-      </tr>
-     
-    </table>
- 
-    </td>
-  </tr>
-    </s:form>
-
-
-
-
-</table>
 </body>
 </html>

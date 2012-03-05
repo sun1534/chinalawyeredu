@@ -20,6 +20,9 @@ import com.changpeng.models.Lawyers;
  */
 public class PasswordChangedAction extends AbstractAction {
 
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private static Log LOG = LogFactory.getLog(PasswordChangedAction.class);
 	/**
 	 * 旧密码
@@ -62,8 +65,17 @@ public class PasswordChangedAction extends AbstractAction {
 		this.rightCode="passwdChange";
 	}
 
+	
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	
 	@Override
 	protected String go() throws Exception {
+		this.lawyer = this.getLoginUser();
+		System.out.println(lawyer.getLawyerenname());
+		
 		LOG.debug("旧密码:" + oldpass + ",新密码:" + newpass + ",确认密码:" + passagain);
 		this.nextPage = "passwdChange!input.pl";
 		if (!newpass.equals(passagain)) {
@@ -85,5 +97,10 @@ public class PasswordChangedAction extends AbstractAction {
 		this.opResult="密码修改成功,旧密码:"+oldpass+",新密码:"+newpass;//记录日志
 		// 关闭密码修改页面
 		return SUCCESS;
+	}
+	
+	public String input() throws Exception {
+		this.lawyer = this.getLoginUser();
+		return INPUT;
 	}
 }

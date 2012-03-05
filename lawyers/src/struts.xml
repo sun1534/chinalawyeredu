@@ -24,7 +24,7 @@
     <include file="com/changpeng/articles/struts-articles.xml" />
     <include file="com/changpeng/lawyers/struts-lawyers.xml" />
     <include file="com/changpeng/lessons/struts-lessons.xml" />
-   
+    <include file="com/changpeng/shopping/struts-shopping.xml" />
     
    	<package name="default" extends="struts-default">
      	<interceptors>
@@ -52,11 +52,12 @@
 			</interceptor-stack>
 		</interceptors>
 		<global-results>
+			<result name="shopmessage" type="dispatcher">/shopping/shopmessage.jsp</result>
 			<result name="success" type="dispatcher">/common/message.jsp</result>
 		    <result name="message" type="dispatcher">/common/message.jsp</result>
 			<result name="error" type="dispatcher">/common/error.jsp</result>
 			<result name="login" type="redirect">/common/index.pl</result>
-			<result name="pasivelogin" type="redirect"><!-- /common/index.pl --> /common/passivelogin.jsp </result>
+			<result name="pasivelogin" type="redirect"><!-- /common/index.pl --> /common/index.pl </result>
 			<result name="noright" type="dispatcher">/common/noright.jsp</result>
 			<result name="sqlexception" type="dispatcher">/common/exception.jsp</result>
 			<result name="exception" type="dispatcher">/common/exception.jsp</result>
@@ -131,7 +132,8 @@
 		<action name="login" class="com.changpeng.common.action.UserLoginAction">
 		    <interceptor-ref name="visitStack"/>  
     		<result name="success" type="redirect">/index/index.pl</result><!-- 进入系统首页 -->
-			<result name="pasiveloginsuccess" type="redirect">/index/workspace.pl</result><!-- 进入系统首页 -->
+			<!--  <result name="pasiveloginsuccess" type="redirect">/index/workspace.pl</result>--><!-- 进入系统首页 -->
+			<result name="pasiveloginsuccess" type="redirect">/index/index.pl</result><!-- 进入系统首页 -->
 		</action> 
 		
 		<action name="loginFromWeb" class="com.changpeng.common.action.UserLoginFromWebSiteAction">
@@ -162,7 +164,8 @@
 	<package name="index" extends="default" namespace="/index">
        <default-interceptor-ref name="adminStack"/>
        <action name="index" class="com.changpeng.index.IndexPageAction">
-          <result name="success" type="dispatcher">/index/index.jsp</result>	
+          <!--<result name="success" type="dispatcher">/index/index.jsp</result>-->
+          <result name="success" type="dispatcher">/index/index_new.jsp</result>          
        </action>
         <action name="top" class="com.changpeng.index.IndexPageAction" method="top">
           <result name="top" type="dispatcher">/index/top.jsp</result>	

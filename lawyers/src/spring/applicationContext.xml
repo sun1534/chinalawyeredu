@@ -34,7 +34,7 @@
       <value>root</value>
     </property>
     <property name="password">
-      <value>password</value>
+      <value>cpsoft</value>
     </property>
   </bean>   
   
@@ -121,18 +121,18 @@
     
         <!-- 定义定时任务 
         -->   
-     
+     <!--
     <bean id="timerTask" class="com.changpeng.common.ScheduleTask">
     </bean>
     <bean id="scheduleTimerTask" class="org.springframework.scheduling.timer.ScheduledTimerTask">
     	<property name="timerTask">
     		<ref bean="timerTask"/>
     	</property>
-		<!-- 每隔指定时间执行定时任务毫秒 -->
+		 每隔指定时间执行定时任务毫秒 
     	<property name="period">
     		<value>7200000</value>
     	</property>
-    	<!-- 系统加载后延时多久执行定时任务 毫秒 -->
+   系统加载后延时多久执行定时任务 毫秒 
     	<property name="delay">
     		<value>360000</value>
     	</property>
@@ -143,5 +143,5 @@
     			<ref bean="scheduleTimerTask"/>
     		</list>		
     	</property>
-    </bean>
+    </bean>-->
 </beans>

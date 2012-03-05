@@ -15,6 +15,8 @@ import org.hibernate.transform.ResultTransformer;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 import com.changpeng.common.exception.ServiceException;
+import com.changpeng.models.ShopCart;
+import com.changpeng.models.ShopFavorites;
 
 /**
  * @author 华锋 2008-2-20 下午04:57:11
@@ -216,6 +218,17 @@ public class BasicService {
 		}
 	}
 	
+	public String getSumByQuery(final String hql) throws ServiceException {
+		try {
+			System.out.println("OKKKKKKKKKK");
+			return basicDAO.getSumByQuery(hql);
+		}
+		catch (Exception e) {
+			System.out.println("ERRRRRRRRRR");
+			throw new ServiceException(e);
+		}
+	}
+	
 	public int getCountByCriteria(final DetachedCriteria detachedCriteria)  throws ServiceException {
 		try {
 			return basicDAO.getCountByCriteria(detachedCriteria);
@@ -226,5 +239,24 @@ public class BasicService {
 	}
 	public void setCriteriaSpecification(ResultTransformer resultTransformer) {
 		basicDAO.setCriteriaSpecification(resultTransformer);
+	}
+	
+	public ShopCart getShopCart(int lawyerid, int lessonid) throws ServiceException {
+		try {
+			return basicDAO.getShopCart(lawyerid, lessonid);
+
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
+	}
+	
+	
+	public ShopFavorites getShopFavorites(int lawyerid, int lessonid) throws ServiceException {
+		try {
+			return basicDAO.getShopFavorites(lawyerid, lessonid);
+
+		} catch (Exception e) {
+			throw new ServiceException(e);
+		}
 	}
 }

@@ -19,7 +19,9 @@ import com.changpeng.models.SysGroup;
  * 
  */
 public class OfficeChangeApplyAction extends AbstractAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private LawyersOfficeChangeApply changeApply;
 
 	public LawyersOfficeChangeApply getChangeApply() {
@@ -27,7 +29,10 @@ public class OfficeChangeApplyAction extends AbstractAction {
 			changeApply = (LawyersOfficeChangeApply) this.get("changeApply");
 		return changeApply;
 	}
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
 	/*
 	 * 这里限定只能在同一个律协转换
 	 * 
@@ -38,7 +43,8 @@ public class OfficeChangeApplyAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-
+		this.lawyer = this.getLoginUser();
+		
 		changeApply.setLawyerid(this.getLoginUser().getLawyerid());
 		changeApply.setApplyTime(new java.sql.Timestamp(System.currentTimeMillis()));
 		changeApply.setOldcity(this.getLoginUser().getDirectunion());
@@ -63,7 +69,8 @@ public class OfficeChangeApplyAction extends AbstractAction {
 	}
 
 	public String input() throws Exception {
-
+		this.lawyer = this.getLoginUser();
+		
 		String hql = "from LawyersOfficeChangeApply where status=0 and lawyerid=" + this.getLoginUser().getLawyerid();
 		List list = basicService.find(hql);
 		if (list != null && list.size() > 0) {

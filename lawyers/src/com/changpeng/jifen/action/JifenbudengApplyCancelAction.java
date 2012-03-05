@@ -5,6 +5,7 @@ package com.changpeng.jifen.action;
 
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.JifenbudengApply;
+import com.changpeng.models.Lawyers;
 
 /**
  * 律师发起转所申请
@@ -15,7 +16,9 @@ import com.changpeng.models.JifenbudengApply;
  * 
  */
 public class JifenbudengApplyCancelAction extends AbstractAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private int budengid;
 	
 	
@@ -37,7 +40,10 @@ public class JifenbudengApplyCancelAction extends AbstractAction {
 	}
 
 
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
 	/*
 	 * 这里限定只能在同一个律协转换
 	 * 
@@ -48,7 +54,7 @@ public class JifenbudengApplyCancelAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-
+		this.lawyer = this.getLoginUser();
 	
 		JifenbudengApply apply=(JifenbudengApply)basicService.get(JifenbudengApply.class, budengid);
 		apply.setStatus((short)3);

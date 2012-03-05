@@ -135,6 +135,17 @@
              <property name="teacherid" type="int">
             <column name="teacherid" />
         </property>
+        <property name="pic" type="string">
+            <column name="pic"  length="100" />
+        </property>
+        <property name="istuijian" type="int">
+            <column name="istuijian" />
+        </property>
+        <property name="tuijianContent" type="java.lang.String">
+            <column name="tuijianContent" length="65535">
+                <comment>推荐理由</comment>
+            </column>
+        </property>
                <!--       <set name="lessonshareds" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />

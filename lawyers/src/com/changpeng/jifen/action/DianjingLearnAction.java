@@ -14,7 +14,9 @@ import com.changpeng.common.util.Base64;
  * 
  */
 public class DianjingLearnAction extends AbstractListAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	public DianjingLearnAction() {
 
 	}

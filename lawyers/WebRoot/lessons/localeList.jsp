@@ -1,93 +1,83 @@
-﻿<%@ page contentType="text/html;charset=utf-8" language="java"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
-
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html;charset=utf-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
-	<head>
-		<title>网上支付</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link href="../css/css.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-<!--
-body {
-	background-color: #DAE7F6;
-}
-
-.tab {
-	font-size: 9pt;
-	color: #666666;
-	background-color: #F2F8FF;
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	height: 15px;
-}
--->
-</style>
-
+<head>
+<title>中国律师培训网-首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/css_new.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/common.js"></script>
 <script language="javascript" src="../js/jquery-1.2.6.pack.js"></script>
-<script language="javascript">
-function getCities(vallll){
-  $("#city")[0].length=0;
-  var _o=new Option('请选择',0);
-  $("#city")[0].options.add(_o);  
-  if(vallll!=0){
-     $.getJSON("../commonajax/getSubGroup.pl", { "parentid": vallll,"now":new Date().getTime()}, function(json){
-     for(var k in json.groups)  
-     {     
-        var _o=new Option(json.groups[k.toString()],k);
-		$("#city")[0].options.add(_o);  
-     }
-}); 
+
+<script language="javascript" type="text/javascript">
+ 
+var issubmit=false;
+function submitform (){	
+	 issubmit=true;
+	 document.form1.submit();
+}
+function exitform(){
+  if(!issubmit){//如果没有提交,直接关闭窗口的话
+  
+    $.getJSON("../commonajax/ajaxlogout.pl", {"now":new Date().getTime()}, function(resp){
+      }
+    ); 
   }
 }
+
 function fanye(str){
   document.form1.pageNo.value=str;
   document.form1.submit();
 }
-
-
-
 </script>
-	</head>
-	<body>
-	<table width="99%" border="0" align="center" cellpadding="0"
-			cellspacing="0">
-			<tr>
-				<td height="23" background="../imagesa/top-bg3.gif"
-					class="baseFontBold">
-					<img src="../imagesa/b_02.gif" width="4" height="7">
-					现场课程列表
-				</td>
-			</tr>
-		</table>
-		<s:form name="form1" action="lessonsList" method="post">
-			<s:hidden name="lessonstyle"/>
-			<s:hidden name="pageNo" /> 
-		<table width="100%" border="0" cellspacing="0" cellpadding="0"
-						align="center" class="query-table">
-			<tr>
-				<td align="left">
-		
-				<span style="font-weight: bold">
-			 
-			 <s:if test="viewother">
-			                 来源：
-                  <s:select name="datavisible.provinceid" id="province" list="datavisible.provincelist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择" onchange="getCities(this.value)"/>
-             <s:select name="datavisible.cityid" id="city" list="datavisible.citylist" listKey="groupid" listValue="groupname" headerKey="0" headerValue="请选择"/>
-             </s:if>
-               老师:<s:textfield name="teachers" size="12"/>
-            
-   			 	    名称:<s:textfield name="title" size="15"/>
-			 	课程年份:<s:select name="nianshenyear" headerKey="0" headerValue="全部" list="jifentime.years" onchange="document.form1.submit()"/>
-			 <s:if test="nianshenyear!=0">
-			 	（从【${jifentime.startstr}】到【${jifentime.endstr}】）
-			 	</s:if>
-			<s:submit value="查询"/>
-			 	</span>
-			 	
-			 	</td>
-			</tr>
-     	 </table>
-			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+</head>
+<body>
+
+<div class="header">
+  <form name="form1" method="post" action="../common/logout.pl">	
+  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="denglu right">
+  	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
+  	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;
+  	<s:if test="lawyer.provinceunion!=22"><a href="../common/passwdChange!input.pl">修改密码</a></s:if>&nbsp;&nbsp;
+  	<a href="#" onclick="submitform()">退出</a>
+  </div>
+  </form>
+</div>
+<div class="blank15px"></div>
+<div class="nav2"><ul>
+  <li><a href="../index/index.pl"  >首页</a></li>
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=-1">选课中心</a></li>
+      <!-- <li><a href="../shopping/shoppaidList.pl">我选购的课程</a></li> -->
+  <li><a href="../lessons/lessonsList.pl?lessonstyle=1"  class="current">培训通知</a></li>
+  <li><a href="../jifen/jifenQuery.pl" >我的学分</a></li>
+  <li><a href="../shopping/shopfavoritesList.pl">收藏夹</a></li>
+  <!--<li><a href="../shopping/shopcartList.pl">购物车</a></li>
+  <li><a href="../shopping/shopOrderList.pl">我的订单</a></li>-->
+  <li><a href="../lawyers/officeChangeApplyList.pl" >转所申请</a></li>
+  <li><a href="../lawyers/lawyersEditSelf!input.pl" >个人信息</a></li>
+  <li><a href="../articles/notifyList.pl?type=1" >系统消息</a></li>
+</ul></div>
+<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<strong>培训通知</strong></div>
+<div class="con">
+    <div class="con_left3 left">
+     <div class="con_left3_title">培训通知</div>   
+     <ul class="con_wz">
+     	<li><a href="../lessons/lessonsList.pl?lessonstyle=1" >现场培训通知</a></li>
+      </ul>
+  </div>
+  <div class="con_right2 left">
+  	<s:form name="form2" action="lessonsList" method="post">
+    <div class="con_right2_title"><h2>现场培训通知</h2></div>
+    <div class="star">
+	<div class="news_con1">      	
+	    <ul>
+	    	<s:iterator value="lessonlist" status="stat">	
+				<li><span>[<s:date name="lessondate" format="yyyy-MM-dd"/>]</span><a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a></li>
+			</s:iterator>
+	    </ul>	    
+	  </div>
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0"
 				align="center" class="page-table">
 				<tr>
 					<td align="right">
@@ -95,75 +85,15 @@ function fanye(str){
 					</td>
 				</tr>
 			</table>
+		<s:hidden name="lessonstyle"/>
+		<s:hidden name="pageNo" value="1"/>  
+  </div>
+  </s:form>
+</div>
+<div class="blank15px"></div>
+<div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="http://www.cpsoft.cn/" target="_blank">长鹏软件</a></br>
+备案序号：粤ICP备05082150号
+</div>
 
-			<table width="100%" border="0" cellpadding="0" cellspacing="1"
-				bgcolor="#EDEDED">
-				<tr>
-					<TD height="23" width="250" align="center" background="../imagesa/top-bg1.gif">
-						课程名称
-					</TD>
-					<TD height="23" width="12%" align="center" background="../imagesa/top-bg1.gif">
-						主讲人
-					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						类别
-					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						学分
-					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						授课时间
-					</TD>
-					<TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						授课地点
-					</TD>
-				 <s:if test="viewother">
-				 <TD height="23" align="center" background="../imagesa/top-bg1.gif">
-						课程来源
-					</TD>
-				 </s:if>
-				</tr>
-				<s:iterator value="lessonlist" status="stat">
-					<TR>
-						<TD class="tab_content" align="left" title="${title}">&nbsp;
-							<a href="lessonsView.pl?lessonid=${lessonid}">${titleTrim}</a>
-						</TD>				
-						<TD class="tab_content" align="center">
-						<s:if test="teacherid!=0">
-							<a href="teacherView.pl?userId=${teacherid }">${teachers}</a>
-							</s:if>
-							<s:else>
-							${teachers}
-							</s:else>
-						</TD>
-						<TD class="tab_content" align="center">
-						 <s:property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]"/>
-                      
-						</TD>
-						
-						<TD class="tab_content" align="center">
-							${xuefen}
-						</TD>
-
-						<TD class="tab_content" align="center">
-							
-							<s:date name="lessondate" format="yyyy-MM-dd HH:mm"/>
-
-						</TD>
-						<TD class="tab_content" align="center">
-							${lessonaddress}
-						</TD>
-					 <s:if test="viewother">
-   <TD class="tab_content" align="center">
-                         <s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/>
-                       </TD>
-						   </s:if>
-					</TR>
-				</s:iterator>
-			
-			</table>
-
-		</s:form>
-
-	</body>
+</body>
 </html>

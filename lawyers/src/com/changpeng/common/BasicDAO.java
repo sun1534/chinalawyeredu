@@ -17,12 +17,15 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.impl.CriteriaImpl.OrderEntry;
 import org.hibernate.transform.ResultTransformer;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.changpeng.common.util.HibernateUtils;
+import com.changpeng.models.ShopCart;
+import com.changpeng.models.ShopFavorites;
 
 /**
  * @author 华锋 2008-2-20 下午04:57:11
@@ -157,13 +160,30 @@ public class BasicDAO extends HibernateDaoSupport {
 	
 	public int getCountByQuery(final String hql) {
 		Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+			
 			public Object doInHibernate(Session session) throws HibernateException {
+				
 				Query queryObject = session.createQuery(hql);
 		      	Object obj=	queryObject.uniqueResult();
 				return Integer.parseInt(obj.toString());
 			}
 		}, true);
+		System.out.println("count.intValue():"+count.intValue());
 		return count.intValue();
+	}
+	
+	public String getSumByQuery(final String hql) {
+		String count = (String) getHibernateTemplate().execute(new HibernateCallback() {
+			
+			public Object doInHibernate(Session session) throws HibernateException {
+				
+				Query queryObject = session.createQuery(hql);
+		      	Object obj=	queryObject.uniqueResult();
+				return obj.toString();
+			}
+		}, true);
+		System.out.println("count.intValue():"+count);
+		return count;
 	}
 
 
@@ -391,5 +411,34 @@ public class BasicDAO extends HibernateDaoSupport {
 	public void setCriteriaSpecification(ResultTransformer resultTransformer) {
 		setTransformer = true;
 		this.resultTransformer = resultTransformer;
+	}
+	
+	
+	//根据律师编号和课程编号查询
+	public ShopCart getShopCart(int lawyerid, int lessonid) {
+
+		DetachedCriteria dc = DetachedCriteria.forClass(ShopCart.class);
+		dc.add(Restrictions.eq("lawyerid", lawyerid));
+		dc.add(Restrictions.eq("lessonid", lessonid));
+		List list = this.findAllByCriteria(dc);
+		if (list == null || list.size() == 0)
+			return null;
+		else
+			return (ShopCart) list.get(0);
+
+	}
+	
+	//根据律师编号和课程编号查询
+	public ShopFavorites getShopFavorites(int lawyerid, int lessonid) {
+
+		DetachedCriteria dc = DetachedCriteria.forClass(ShopFavorites.class);
+		dc.add(Restrictions.eq("lawyerid", lawyerid));
+		dc.add(Restrictions.eq("lessonid", lessonid));
+		List list = this.findAllByCriteria(dc);
+		if (list == null || list.size() == 0)
+			return null;
+		else
+			return (ShopFavorites) list.get(0);
+
 	}
 }

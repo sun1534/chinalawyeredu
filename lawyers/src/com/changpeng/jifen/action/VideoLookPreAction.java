@@ -4,23 +4,32 @@
 
 package com.changpeng.jifen.action;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 import com.changpeng.common.BasicService;
+import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.service.LxnetrecsService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.jifen.util.Ping;
+import com.changpeng.lessons.service.TeacherService;
 import com.changpeng.models.BasicLawyerlessonxf;
 import com.changpeng.models.Lawyerlessonxf;
 import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.LogVideoLook;
 import com.changpeng.models.Lxnetrecs;
+import com.changpeng.models.ShopCart;
 import com.changpeng.models.SysUnionparams;
+import com.changpeng.models.Teacher;
 import com.mysql.jdbc.PingTarget;
 
 /**
@@ -38,6 +47,14 @@ public class VideoLookPreAction extends AbstractAction {
 	private int lessonid;
 	private float videotimeout = 0;
 	private int visitid;
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
+	//评论回复
+	List replylist=null;
+	public List getReplylist(){
+		return this.replylist;
+	}
 
 	public int getVisitid() {
 		return this.visitid;
@@ -168,11 +185,12 @@ public class VideoLookPreAction extends AbstractAction {
 		
 			
 		/***
-		 * 视频服务器列表
-		 * 长鹏公司服务器 编号4：mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 深圳市、东莞市、杭州市律师公用
-		 * 长鹏公司服务器 编号5：mms://uc2.lawyeredu.com/uc2_lawyeredu/    河南省、长春市律师公用 
-		 * 长鹏公司服务器 编号6：mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 海南省、南京市、温州市
-		 * 广西自己服务器 编号7：mms://uc4.lawyeredu.net/uc4_lawyeredu/   广西全区律师使用
+		 * 视频服务器列表 2012-01-06 修改
+		 * 长鹏公司服务器 4号：mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 深圳市、东莞市  律师公用
+		 * 长鹏公司服务器 5号：mms://uc2.lawyeredu.com/uc2_lawyeredu/    河南省(直属和郑州除外)
+		 * 长鹏公司服务器 6号：mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 海南省、南京市、温州市、长春市
+		 * 广西自己服务器 7号：mms://uc4.lawyeredu.net/uc4_lawyeredu/   广西全区、杭州市律师使用
+		 * 长鹏公司服务器 8号：mms://uc5.lawyeredu.net/uc5_lawyeredu/   河南省直、郑州
 		 * Provinceunion 律师所在省编号  Directunion  律师所在市编号
 		 * 广西区   Provinceunion：22
 		 * 河南省   Provinceunion：18  
@@ -190,36 +208,58 @@ public class VideoLookPreAction extends AbstractAction {
 		
 		System.out.println("00000："+this.getLoginUser().getProvinceunion());
 		
-		//东莞市、杭州市律师 观看时 都去 4号服务器 mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 观看
-		if(this.getLoginUser().getDirectunion()==37 || this.getLoginUser().getDirectunion()==8078){			
-			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");	
-			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");
-			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://videos.lawyeredu.com/uc1.lawyeredu.com/");
+		//东莞市、律师 观看时 都去 7号服务器 mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 观看
+		if(this.getLoginUser().getDirectunion()==37){			
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");
 			LOG.debug("东莞市、杭州市 的地址:"+url);
 		}
-		//河南省、长春市  律师 观看时 都去 5号服务器 mms://uc2.lawyeredu.com/uc2_lawyeredu/  观看	
-		else if(this.getLoginUser().getProvinceunion()==18 || this.getLoginUser().getDirectunion()==8079){
-			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");	
-			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
-			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
-			LOG.debug("河南省、长春市 的地址:"+url);	
+		//河南省直属和郑州去8号 服务器 mms://uc5.lawyeredu.net/uc5_lawyeredu/  观看，其他去5号	mms://uc2.lawyeredu.com/uc2_lawyeredu/ 
+		else if(this.getLoginUser().getProvinceunion()==18 ){
+			//河南省直和郑州律协、洛阳市、开封都用8号服务器
+			if(this.getLoginUser().getDirectunion()==8495 || this.getLoginUser().getDirectunion()==8496){
+				url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc5.lawyeredu.net/uc5_lawyeredu/");	
+				url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc5.lawyeredu.net/uc5_lawyeredu/");	
+				url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc5.lawyeredu.net/uc5_lawyeredu/");
+				url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc5.lawyeredu.net/uc5_lawyeredu/");
 				
+			}//洛阳市、开封、平顶山、安阳、新乡 都用7号服务器
+			else if(this.getLoginUser().getDirectunion()==8497 || this.getLoginUser().getDirectunion()==8498 || this.getLoginUser().getDirectunion()==8499 || this.getLoginUser().getDirectunion()==8500 || this.getLoginUser().getDirectunion()==8501){
+				url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
+				url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+				url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+				url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");
+				
+			}else{//河南其他市去5号
+				url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");	
+				url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+				url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+				url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc2.lawyeredu.com/uc2_lawyeredu/");
+				LOG.debug("河南省、长春市 的地址:"+url);	
+			}	
 		}		
-		//海南省、南京市、温州市 律师 观看时 都去 6号服务器 mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 观看	
-		else if(this.getLoginUser().getProvinceunion()==23 || this.getLoginUser().getDirectunion()==10325 || this.getLoginUser().getDirectunion()==11002221){
+		//海南省、南京市、温州市、长春市 律师 观看时 都去 6号服务器 mms://uc3.lawyeredu.com/uc3.lawyeredu.com/ 观看	
+		else if(this.getLoginUser().getProvinceunion()==23 || this.getLoginUser().getDirectunion()==10325 || this.getLoginUser().getDirectunion()==11002221 || this.getLoginUser().getDirectunion()==8079){
 			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
 			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");		
-			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
-			
-			LOG.debug("海南省、南京市、温州市 的地址:"+url);			
-			
-		}//广西全区 律师 观看时 都去 7 号服务器 mms://uc4.lawyeredu.net/uc4_lawyeredu/ 观看	
-		else if(this.getLoginUser().getProvinceunion()==22){
+			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
+			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
+		}//广西全区、杭州 律师 观看时 都去 7 号服务器 mms://uc4.lawyeredu.net/uc4_lawyeredu/ 观看	
+		else if(this.getLoginUser().getProvinceunion()==22 || this.getLoginUser().getDirectunion()==8078){
 			System.out.println("这是广西的律师："+this.getLoginUser().getProvinceunion());			
 			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
 			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
-			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
+			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
+			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
 			LOG.debug("广西律协的地址:"+url);
+		}else{//其他未指定的城市
+			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");
+			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");		
+			url=url.replace("mms://uc4.lawyeredu.net/uc4_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
+			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
+			
 		}
 		lessons.setOnlinefile(url);
 		
@@ -291,11 +331,39 @@ public class VideoLookPreAction extends AbstractAction {
 		//记录这个窗口的打开记录,怎么判断这个用户当前正在听课呢???
 		visitid = loglook(lawyers.getLawyerid(), lawyers.getProvinceunion(), lawyers.getDirectunion(), lawyers
 				.getTheoffice());
-
+		
+		System.out.println("LLLL:"+lessons.getTeacherid());
+		if(lessons.getTeacherid()!=0){
+			TeacherService service = (TeacherService) this.getBean("teacherService");
+			Teacher teacher=(Teacher)service.get(Teacher.class, lessons.getTeacherid());
+			TeacherContent=teacher.getComments();
+			
+		}
+		
+		//判断是否购买
+		
+		ShopCart shopcart=basicService.getShopCart(lawyers.getLawyerid(), lessonid);
+		if(shopcart!=null && shopcart.getState()==2){
+			isbuy=1;//已经付款购买。
+		}
+		System.err.println("isbuy LLLL:"+isbuy);
+		
+		///课件评价
+		DetachedCriteria dc=DetachedCriteria.forClass(com.changpeng.models.Lessonreply.class);
+		dc.add(Restrictions.eq("lessonid",lessonid));
+		dc.addOrder(Order.desc("replytime"));
+		PaginationSupport __page=basicService.findPageByCriteria(dc, 3, 1);
+		this.replylist=__page.getItems();
 		return SUCCESS;
 
 	}
 
+	//授课老师简介
+	private String TeacherContent;
+	public String getTeacherContent() {
+		return TeacherContent;
+	}
+	
 	private boolean localelesson;
 
 	public boolean getLocalelesson() {
@@ -350,4 +418,17 @@ public class VideoLookPreAction extends AbstractAction {
 	public float getLookedminutes() {
 		return lookedminutes;
 	}
+	
+	
+	private int isbuy=0;
+	public int getIsbuy() {
+		return isbuy;
+	}
+
+	public void setIsbuy(int isbuy) {
+		this.isbuy = isbuy;
+	}
+
+
+
 }

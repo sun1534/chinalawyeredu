@@ -68,11 +68,31 @@ public class LogLessonListen implements java.io.Serializable {
 		this.firsttime = firsttime;
 	}
 
+	
+	
 	/**
 	 * @return the title
 	 */
 	public String getTitle() {
-		return title;
+		//return title;
+		System.out.println("AAAAAAAAAA");
+		if(this.title.length()>15){
+			
+			return this.title.substring(0,15)+"...";
+		}else{
+			return title;
+		}
+	}
+	
+	public String getTitleTrim(){
+		if(this.title.length()>15){
+			
+			return this.title.substring(0,15)+"...";
+		}else{
+			return title;
+		}
+			
+			
 	}
 
 	/**

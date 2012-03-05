@@ -27,11 +27,24 @@ import com.changpeng.models.SysUnionparams;
  */
 
 public class LessonsListAction extends AbstractListAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private BasicService basicService = null;
 	private JifenTime jifentime;
 	private int lessontype=-1;
+	
+	//显示类型，详细显示还是列表显示
+	private int viewtype=1;
+	
+	//显示 全部或者收费、免费课件
+	private int viewstyle=0;
 
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	
 	public int getLessontype() {
 		return lessontype;
 	}
@@ -59,6 +72,8 @@ public class LessonsListAction extends AbstractListAction {
 
 	@Override
 	protected String go() throws Exception {
+		this.lawyer = this.getLoginUser();
+		
 //		this.pageSize = 20;
 		this.datavisible.getVisibleDatas(this.getLoginUser(), false);
 
@@ -87,10 +102,15 @@ public class LessonsListAction extends AbstractListAction {
 				groupid = datavisible.getProvinceid();
 			if (datavisible.getCityid() != 0)
 				groupid = datavisible.getCityid();
+		}else if (this.lessonstyle == 1 || this.lessonstyle == 100) {
+			groupid=this.getLoginUser().getProvinceunion();
+			System.out.println("groupid 222="+groupid);
 		}
+		
+		System.out.println("viewstyle ::::"+viewstyle);
 //System.out.println("audioQuality="+audioQuality+",,videoQuality="+videoQuality);
 		this.page = lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
-				lessontype, title, teachers, pageSize, pageNo, start, end);
+				lessontype, title, teachers, pageSize, pageNo, start, end,viewstyle);
 
 		int lawyerid = this.getLoginUser().getLawyerid();
 		lessonlist = new ArrayList();
@@ -126,7 +146,13 @@ public class LessonsListAction extends AbstractListAction {
 		if (this.lessonstyle == 1 || this.lessonstyle == 100) {
 			return "local";
 		}
-		return "online";
+		System.out.println("aaaaaaaaa:"+viewtype);
+		if(viewtype==1){
+			return "online";
+		}else{
+			return "online2";
+		}
+		
 	}
 
 	private int audioQuality = -1;
@@ -271,5 +297,21 @@ public class LessonsListAction extends AbstractListAction {
 	 */
 	public void setVideoQuality(int videoQuality) {
 		this.videoQuality = videoQuality;
+	}
+
+	public int getViewtype() {
+		return viewtype;
+	}
+
+	public void setViewtype(int viewtype) {
+		this.viewtype = viewtype;
+	}
+
+	public int getViewstyle() {
+		return viewstyle;
+	}
+
+	public void setViewstyle(int viewstyle) {
+		this.viewstyle = viewstyle;
 	}
 }

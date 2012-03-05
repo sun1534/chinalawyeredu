@@ -7,7 +7,8 @@ package com.changpeng.articles.action;
 import com.changpeng.common.BasicService;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.Articles;
-
+import com.changpeng.models.Lawyers;
+	
 /**
  * 看主题帖
  * 
@@ -15,8 +16,14 @@ import com.changpeng.models.Articles;
  * 
  */
 public class ArticlesViewAction extends AbstractAction {
-
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
+	
 	/**
 	 * 主题帖的id
 	 */
@@ -24,6 +31,9 @@ public class ArticlesViewAction extends AbstractAction {
 
 	public int getArticleid() {
 		return articleid;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	/**
 	 * @param articlesid
@@ -37,6 +47,7 @@ public class ArticlesViewAction extends AbstractAction {
 	 * 看主题贴和回帖
 	 */
 	public String go() throws Exception {
+		this.lawyer = this.getLoginUser();
 		BasicService basicService = (BasicService) getBean("basicService");
 		this.articles = (Articles) basicService.get(Articles.class, articleid);
 		return SUCCESS;
@@ -51,6 +62,16 @@ public class ArticlesViewAction extends AbstractAction {
 	 */
 	public Articles getArticles() {
 		return articles;
+	}
+	
+
+	private int type;
+
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
 	}
 
 }

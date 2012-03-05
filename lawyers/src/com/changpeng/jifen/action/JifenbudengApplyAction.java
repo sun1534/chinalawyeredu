@@ -16,6 +16,7 @@ import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.util.JifenTime;
 import com.changpeng.models.JifenbudengApply;
 import com.changpeng.models.Lawyerlessonxf;
+import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.SysUnionparams;
 
@@ -28,7 +29,9 @@ import com.changpeng.models.SysUnionparams;
  * 
  */
 public class JifenbudengApplyAction extends AbstractAction {
-
+	public String getTopbarpic(){
+		return com.changpeng.common.Constants.TOP_BAR_PIC;
+	}
 	private JifenbudengApply budengApply;
 
 	public JifenbudengApply getBudengApply() {
@@ -36,7 +39,10 @@ public class JifenbudengApplyAction extends AbstractAction {
 			budengApply = (JifenbudengApply) this.get("budengApply");
 		return budengApply;
 	}
-
+	private Lawyers lawyer;
+	public Lawyers getLawyer() {
+		return lawyer;
+	}
 	/*
 	 * 
 	 * 
@@ -47,7 +53,7 @@ public class JifenbudengApplyAction extends AbstractAction {
 	@Override
 	protected String go() throws Exception {
 		// TODO Auto-generated method stub
-
+		this.lawyer = this.getLoginUser();
 		budengApply.setLawyerid(this.getLoginUser().getLawyerid());
 		budengApply.setApplytime(new java.sql.Timestamp(System.currentTimeMillis()));
 		budengApply.setLawyername(this.getLoginUser().getLawyername());
@@ -83,7 +89,7 @@ public class JifenbudengApplyAction extends AbstractAction {
 	}
 
 	public String input() throws Exception {
-
+		this.lawyer = this.getLoginUser();
 		String hql = "from JifenbudengApply where status=0 and applyuserid=" + this.getLoginUser().getLawyerid();
 		List list = basicService.find(hql);
 		if (list != null && list.size() > 0) {
@@ -96,7 +102,10 @@ public class JifenbudengApplyAction extends AbstractAction {
 Calendar c=Calendar.getInstance();
 c.add(Calendar.YEAR, -1);
 		Timestamp lessondate=new Timestamp(c.getTimeInMillis());
-		int directunion = this.getLoginUser().getDirectunion();
+		//int directunion = this.getLoginUser().getDirectunion();
+		int directunion = this.getLoginUser().getProvinceunion();
+		System.out.println("lessondate ::"+lessondate);
+		System.out.println("directunion ::"+directunion);
 		DetachedCriteria dc = DetachedCriteria.forClass(Lessons.class).add(Restrictions.eq("groupid", directunion))
 				.add(Restrictions.in("lessonstyle", new Object[] { 1, 3 })).add(Restrictions.ge("lessondate", lessondate));
 		
@@ -104,6 +113,7 @@ c.add(Calendar.YEAR, -1);
 
 		dc.addOrder(Order.desc("lessonid"));
 		this.locallessonlist = basicService.findAllByCriteria(dc);
+		System.out.println(locallessonlist.size());
 		
 		com.changpeng.models.SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class,
 				directunion);

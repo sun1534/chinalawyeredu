@@ -5,6 +5,11 @@ package com.changpeng.lessons.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
 import com.changpeng.common.BasicDAO;
 import com.changpeng.models.Lessonscore;
 
@@ -28,6 +33,17 @@ public class LessonsDAO extends BasicDAO {
 			score=(Lessonscore)list.get(0);
 		return score;
 	}
-
+	
+	
+	public int getCountBySqlQuery(final String sql) {
+		Integer count = (Integer) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query queryObject = session.createSQLQuery(sql);
+		      	Object obj=	queryObject.uniqueResult();
+				return Integer.parseInt(obj.toString());
+			}
+		}, true);
+		return count.intValue();
+	}
 
 }
