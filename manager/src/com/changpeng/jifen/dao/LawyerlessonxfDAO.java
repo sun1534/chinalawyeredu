@@ -124,7 +124,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid left join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1  and a.lawyertype!=-1  ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '%" + officename + "%'";
@@ -146,17 +146,18 @@ public class LawyerlessonxfDAO extends BasicDAO {
 						sql += " and a.provinceunion =" + fieldvalue;
 					}
 				}
-				System.out.println("sql is 22222222222:::::"+sql);
-				String coutnsql = "select count(*) from (" + sql + ") a";
-				System.out.println(coutnsql);
+				_LOG.info("getJifentongjiAll 查询列表:::::" + sql);
+				
+				String coutnsql = "select count(*) from (" + sql + ") a";				
 				int totalCount = getCountBySqlQuery(coutnsql);
-
+				_LOG.info("getJifentongjiAll 统计总数:::::"+totalCount);
+				
 				sql += " order by b.groupid";
-				_LOG.info("统计SQL:" + sql);
+				
 
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
 				int startIndex = (pageNo - 1) * pageSize;
-				_LOG.debug("总数::::" + totalCount);
+				
 				List items = queryObject.setFirstResult(startIndex).setMaxResults(pageSize).list();
 
 				List newlist = new ArrayList();
@@ -182,7 +183,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and a.lawyertype!=-1 ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -234,7 +235,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 
 				String staticsql = getStaticSql(year, field, fieldvalue, title);
 				String sql = "select a.dabiaofen,a.lawyername,a.lawyerid,b.groupid,c.xianchang,c.video,c.doc,c.budeng,c.koufen,c.zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice=b.groupid inner join ("
-						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and ";
+						+ staticsql + ") c on a.lawyerid=c.lawyerid where 1=1 and a.lawyertype!=-1  ";
 
 				if (officename != null && !"".equals(officename)) {
 					sql += " and b.groupname like '" + officename + "%'";
@@ -255,7 +256,7 @@ public class LawyerlessonxfDAO extends BasicDAO {
 				}
 
 				sql += " and (format(c.zongjifen,2)<a.dabiaofen or format(c.xianchang,2)<a.localfen)";
-
+				_LOG.info("未达标数的统计SQL:" + sql);
 				String coutnsql = "select count(*) from (" + sql + ") a";
 				int totalCount = getCountBySqlQuery(coutnsql);
 				sql += " order by b.groupid";
@@ -286,17 +287,27 @@ public class LawyerlessonxfDAO extends BasicDAO {
 			final String field, final int fieldvalue) {
 		Object object = getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
-
+				SysUser user=(SysUser)ActionContext.getContext().getSession().get(Constants.LOGIN_USER);
+				
+				String table="lawyerlessonxf";
+				if(user.getSysRole()!=null){
+					int roleid=user.getSysRole().getRoleid();
+					if(roleid==11||roleid==12){
+						table="lawyerlessonxf_gongzheng";
+					}
+				}
+				
+				
 				String sql = "";
 				String condition = "";
 				if (title != null && !title.equals(""))
 					condition = " and title like '%" + title + "%'";
 
 				if (field != null && !"".equals(field)) {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from "+table+" c where a.lawyerid=c.lawyerid "
 							+ condition + " and c.theyear=" + year + " and c." + field + "=" + fieldvalue + ") ";
 				} else {
-					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from lawyerlessonxf c where a.lawyerid=c.lawyerid "
+					sql = "select a.dabiaofen,a.lawyername ,a.lawyerid,b.GROUPID ,0.00 AS xianchang,0.00 AS video,0.00 AS doc,0.00 AS budeng,0.00 AS koufen,0.00 AS zongjifen,a.localfen from lawyers a inner join sys_group b on a.theoffice = b.GROUPID where not exists (select distinct lawyerid from "+table+" c where a.lawyerid=c.lawyerid "
 							+ condition + " and c.theyear=" + year + ") ";
 				}
 				// if (title != null && !"".equals(title)) {
@@ -320,11 +331,13 @@ public class LawyerlessonxfDAO extends BasicDAO {
 					else
 						sql += " and a.provinceunion =" + fieldvalue;
 				}
-
+				
+				sql+="  and a.lawyertype!=-1  ";
+				_LOG.info("未培训数的统计SQL:" + sql);
 				String coutnsql = "select count(*) from (" + sql + ") a";
 				int totalCount = getCountBySqlQuery(coutnsql);
 				sql += " order by b.groupid";
-				_LOG.info("未培训数的统计SQL:" + sql);
+				
 				Query queryObject = session.createSQLQuery(sql);// .addEntity(Jifentongji.class);
 
 				int startIndex = (pageNo - 1) * pageSize;

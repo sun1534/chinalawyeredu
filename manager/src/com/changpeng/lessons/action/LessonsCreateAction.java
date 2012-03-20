@@ -94,10 +94,10 @@ public class LessonsCreateAction extends AbstractAction {
 		lesson.setLessondate(LessonsUtil.str2timestamp(datestart + " " + hmstart));
 		if (onlyonline != 0) {
 			lesson.setLessonend(lesson.getLessondate());
-			if (lesson.getOnlinefile() == null || lesson.getOnlinefile().equals("")) {
-				this.message = "在线文件不能为空,请返回";
-				return "message";
-			}
+//			if ((lesson.getOnlinefile() == null || lesson.getOnlinefile().equals("")) && (lesson.getSoundfile()== null || lesson.getSoundfile().equals(""))) {
+//				this.message = "在线视频和音频必须填写其中一个,请返回";
+//				return "message";
+//			}
 			// if(onlyonline==2){
 			if (lesson.getTeacherid() != 0) {
 				Teacher teacher = (Teacher) basicService.get(Teacher.class, lesson.getTeacherid());

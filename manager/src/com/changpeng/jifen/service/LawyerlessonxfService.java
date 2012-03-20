@@ -178,7 +178,7 @@ public class LawyerlessonxfService extends BasicService {
 		String table="lawyerlessonxf";
 		if(user.getSysRole()!=null){
 			int roleid=user.getSysRole().getRoleid();
-			if(roleid==11||roleid==12){
+			if(roleid==11||roleid==12){//公证员
 				table="lawyerlessonxf_gongzheng";
 			}
 		}
@@ -192,12 +192,14 @@ public class LawyerlessonxfService extends BasicService {
 			sql = "select a.lawyerid,FORMAT(sum(pxxf),2),format(sum((case when (a.learnmode = 1) then a.pxxf else 0 end)),2) from "+table+" a where (a.theyear=" + year
 					+ ") group by a.lawyerid";
 		}
-		System.out.println("Dabiaoshu sql::"+sql);
-		List list = lawyerlessonxfDAO.findBySqlQuery(sql);
+		_LOG.info("getFiledDabiaoshu sql ::"+sql);
+		List list = lawyerlessonxfDAO.findBySqlQuery(sql);		
+		
 		int length = list == null ? 0 : list.size();
 		int dabiaoshu = 0;
 		int weidabiaoshu = 0;
-
+		_LOG.info("getFiledDabiaoshu length::"+length);
+		
 		for (int i = 0; i < length; i++) {
 			Object[] obj = (Object[]) list.get(i);
 			float xuefen = Float.parseFloat(obj[1].toString());
@@ -209,6 +211,8 @@ public class LawyerlessonxfService extends BasicService {
 				weidabiaoshu++;
 			}
 		}
+
+		
 		String lawyerfield = "theoffice";
 		if (field.equals("officeid"))
 			lawyerfield = "theoffice";
@@ -218,11 +222,21 @@ public class LawyerlessonxfService extends BasicService {
 			lawyerfield = "provinceunion";
 
 		int lawyercnt = lawyersDAO.getFieldLawyerCnt(lawyerfield, fieldvalue);
+		_LOG.info("lawyercnt ::"+lawyercnt);
+		
+		
+		
 		Jifenstatics jifenstatics = new Jifenstatics();
 		jifenstatics.setAllusers(lawyercnt);
 		jifenstatics.setWeipeixun(lawyercnt - length);
 		jifenstatics.setDabiaoshu(dabiaoshu);
 		jifenstatics.setWeidabiao(weidabiaoshu);
+		
+		_LOG.info("Allusers ::"+length);
+		_LOG.info("dabiaoshu ::"+dabiaoshu);
+		_LOG.info("weidabiaoshu ::"+weidabiaoshu);
+		_LOG.info("Weipeixun ::"+(lawyercnt - length));
+		
 		return jifenstatics;
 	}
 

@@ -31,7 +31,6 @@ public class JifenStaticsQueryAction extends AbstractListAction {
 	protected String go() throws Exception {
 	
 		SysGroup group=this.getLoginUser().getSysGroup();
-		System.out.println("aaaaaaaa:"+group.getGrouptype());
 		if(group==null||(group!=null&&group.getGrouptype()>3)){
 			return "globals";
 		}

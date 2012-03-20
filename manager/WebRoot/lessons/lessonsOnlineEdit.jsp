@@ -248,10 +248,19 @@ function selectteacher(teacherid){
 						</tr>
 						<tr>
 							<td class="tab_content" align="right">
-									在线文件：
+									视频在线文件：
 							</td>
 							<td colspan="2" class="tab_content">
 									<s:textfield  name="lesson.onlinefile" size="60"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="tab_content" align="right">
+									音频在线文件：
+                                 
+							</td>
+							<td colspan="2" class="tab_content">
+									<s:textfield id="fileid" name="lesson.soundfile" size="60"/>
 							</td>
 						</tr>
 						<tr>

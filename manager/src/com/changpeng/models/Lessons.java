@@ -61,6 +61,12 @@ public class Lessons implements java.io.Serializable {
 	//是否是推荐课件
 	private int istuijian;
 	private String tuijianContent;
+	
+	
+	//音频文件
+	private String soundfile;
+
+
 
 	public String getTuijianContent() {
 		return tuijianContent;
@@ -540,6 +546,14 @@ public class Lessons implements java.io.Serializable {
 
 	public void setIstuijian(int istuijian) {
 		this.istuijian = istuijian;
+	}
+
+	public String getSoundfile() {
+		return soundfile;
+	}
+
+	public void setSoundfile(String soundfile) {
+		this.soundfile = soundfile;
 	}
 
 }

@@ -76,6 +76,9 @@ public class CityUnionJifenStaticAction extends AbstractListAction {
 
 		this.jifenstatics = xfservice.getFiledDabiaoshu(jifentime.getNianshenyear(), dabiaofen, localfen, "cityid",
 				selectcityid);
+		
+
+		
 
 		// 显示律师的明细情况
 
