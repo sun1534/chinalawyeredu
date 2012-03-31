@@ -4,19 +4,25 @@
 
 package com.changpeng.common.action;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
+import com.changpeng.common.BasicService;
 import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
+import com.changpeng.common.context.Globals;
 import com.changpeng.lawyers.service.LawyerLoginLogService;
 import com.changpeng.lawyers.service.LawyersService;
 import com.changpeng.models.LawyerLoginlog;
 import com.changpeng.models.Lawyers;
+import com.changpeng.models.SysUnionparams;
 import com.opensymphony.xwork2.ActionContext;
 
 /**
@@ -29,7 +35,7 @@ public class UserLoginAction extends AbstractAction {
 
 	private static Log LOG = LogFactory.getLog(UserLoginAction.class);
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private String loginname;
 	private String password;
@@ -63,6 +69,10 @@ public class UserLoginAction extends AbstractAction {
 		String _remoteAddr = super.getIpAddr();
 		Object obj = get(Constants.VALIDATE_CODE);
 		LOG.debug("===================验证码:::" + obj);
+		
+		
+
+		
 //		if (!_remoteAddr.startsWith("127.0.0")) {
 //			// 验证码为空
 //			if (obj == null) {
@@ -120,7 +130,11 @@ public class UserLoginAction extends AbstractAction {
 			response.addCookie(cookie);
 			response.addCookie(passwd);
 		}
+		
 
+//		System.out.println("登录加载："+Constants.SYS_NAME);
+//		System.out.println("登录加载："+Constants.TOP_BAR_PIC);
+		
 		if (pasivelogin != null && pasivelogin.equals("true")) {
 			LOG.debug("系统被动登录成功.............");
 			int loginid = loginService.insertLoginLog(_remoteAddr, lawyers, contextid, "会话退出重新登录");
@@ -135,6 +149,8 @@ public class UserLoginAction extends AbstractAction {
 			this.set(Constants.LOGIN_USER, lawyers);
 			return SUCCESS;
 		}
+		
+		
 
 	}
 

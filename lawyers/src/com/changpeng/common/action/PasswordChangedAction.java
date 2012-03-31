@@ -21,7 +21,7 @@ import com.changpeng.models.Lawyers;
 public class PasswordChangedAction extends AbstractAction {
 
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private static Log LOG = LogFactory.getLog(PasswordChangedAction.class);
 	/**

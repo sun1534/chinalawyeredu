@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.changpeng.common.BasicService;
 import com.changpeng.common.Constants;
+import com.changpeng.common.WebPara;
 import com.changpeng.common.exception.ServiceException;
 import com.changpeng.lawyers.service.LawyerOperLogService;
 import com.changpeng.models.Lawyers;
@@ -124,6 +124,25 @@ public abstract class AbstractAction extends ActionSupport   {
 		return this.message;
 
 	}
+	
+	protected WebPara webpara;
+	
+
+	/**  
+	 * @return the webpara  
+	 */
+	
+	public WebPara getWebpara() {
+		return webpara;
+	}
+
+	/**  
+	 * @param webpara the webpara to set  
+	 */
+	
+	public void setWebpara(WebPara webpara) {
+		this.webpara = webpara;
+	}
 
 	/**
 	 * 根据在spring配置文件中的bean的id,得到初始化了的bean对象
@@ -236,7 +255,7 @@ public abstract class AbstractAction extends ActionSupport   {
 //		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
 //	}
 	public String getLogopath() {
-		return com.changpeng.common.Constants.LOGO_PATH;
+		return webpara.getLogopath();
 	}
 
 	public String getResourcePath() {

@@ -17,7 +17,7 @@ import com.changpeng.models.Lawyers;
  */
 public class JifenbudengApplyCancelAction extends AbstractAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private int budengid;
 	

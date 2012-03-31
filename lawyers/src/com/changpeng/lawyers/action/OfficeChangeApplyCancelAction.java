@@ -20,7 +20,7 @@ import com.changpeng.models.SysGroup;
  */
 public class OfficeChangeApplyCancelAction extends AbstractAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private Lawyers lawyer;
 	public Lawyers getLawyer() {

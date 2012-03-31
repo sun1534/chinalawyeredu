@@ -28,7 +28,7 @@ import com.changpeng.models.SysUnionparams;
 
 public class LessonsListAction extends AbstractListAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private BasicService basicService = null;
 	private JifenTime jifentime;
@@ -84,13 +84,14 @@ public class LessonsListAction extends AbstractListAction {
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyers.getDirectunion());
 		Timestamp start = null;
 		Timestamp end = null;
-
+		System.out.println("nianshenyear::"+nianshenyear);
 		jifentime = CommonDatas.getJifenTime(nianshenyear, params.getNianshen());
 		if (nianshenyear != 0) {
 			this.nianshenyear = jifentime.getNianshenyear();
 			start = jifentime.getStart();
 			end = jifentime.getEnd();
 		}
+		System.out.println("nianshenyear::"+nianshenyear);
 		SysGroup mygroup = (SysGroup) basicService.get(SysGroup.class, this.getLoginUser().getDirectunion());
 
 		LessonsService lessonservice = (LessonsService) this.getBean("lessonsService");
@@ -110,7 +111,7 @@ public class LessonsListAction extends AbstractListAction {
 		System.out.println("viewstyle ::::"+viewstyle);
 //System.out.println("audioQuality="+audioQuality+",,videoQuality="+videoQuality);
 		this.page = lessonservice.getPages(mygroup, groupid, audioQuality, videoQuality, onlineType, lessonstyle,
-				lessontype, title, teachers, pageSize, pageNo, start, end,viewstyle);
+				lessontype, title, teachers, pageSize, pageNo, start, end,viewstyle,pxname,pxtype);
 
 		int lawyerid = this.getLoginUser().getLawyerid();
 		lessonlist = new ArrayList();
@@ -314,4 +315,23 @@ public class LessonsListAction extends AbstractListAction {
 	public void setViewstyle(int viewstyle) {
 		this.viewstyle = viewstyle;
 	}
+	//排序
+	private int pxname;
+	private int pxtype;
+	public int getPxname() {
+		return pxname;
+	}
+
+	public void setPxname(int pxname) {
+		this.pxname = pxname;
+	}
+
+	public int getPxtype() {
+		return pxtype;
+	}
+
+	public void setPxtype(int pxtype) {
+		this.pxtype = pxtype;
+	}
+	 
 }

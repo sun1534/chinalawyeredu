@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>中国律师培训网-首页</title>
+<title>${webpara.sysname}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../css/css_new.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/common.js"></script>
@@ -48,7 +48,7 @@ function exitform(){
 
 <div class="header">
   <form name="form1" method="post" action="../common/logout.pl">	
-  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="logo left"><img src="${resourcePath}${webpara.topbarpic}" width="234" height="51" /></div>
   <div class="denglu right">
   	${lawyers.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
   	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;
@@ -83,7 +83,7 @@ function exitform(){
   <div class="con_right6 left">
     <div class="con_right2_title"><h2>个人资料维护</h2></div>
     <div class="star2">
-      <s:form name="form1" action="lawyersEditSelf" method="post" validate="true" enctype="multipart/form-data">
+      <s:form name="form2" action="lawyersEditSelf" method="post" validate="true" enctype="multipart/form-data">
       <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#EDEDED">
 		<tr>
           <td colspan="2">&nbsp;

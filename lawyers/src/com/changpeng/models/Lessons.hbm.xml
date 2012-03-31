@@ -146,6 +146,12 @@
                 <comment>推荐理由</comment>
             </column>
         </property>
+        <property name="soundfile" type="java.lang.String">
+            <column name="soundfile" length="100">
+                <comment>在线音频的地址</comment>
+            </column>
+        </property>
+        
                <!--       <set name="lessonshareds" inverse="true">
             <key>
                 <column name="lessonid" not-null="true" />

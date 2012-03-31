@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="saaspxxt_lawyerNew"
+  name="lawyerNew"
   id="myeclipse.1238805875295"
   context-root="/lawyerNew"
   j2ee-spec="1.4"
-  archive="saaspxxt_lawyerNew.war">
+  archive="lawyerNew.war">
   <attributes>
     <attribute name="webrootdir" value="/WebRoot" />
   </attributes>

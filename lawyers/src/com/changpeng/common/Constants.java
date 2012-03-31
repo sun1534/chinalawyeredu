@@ -31,29 +31,29 @@ public class Constants {
 	public static final int ROOT_GROUP = 0;
 	
 	public static final String COMPANY_NAME="深圳市长鹏计算机软件有限公司";
-	public static String SYS_NAME="执业律师继续教育培训考核系统";
+//	public static String SYS_NAME="执业律师继续教育培训考核系统";
 	public static String DEFAULT_SYS_NAME="执业律师继续教育培训考核系统";
 	public static String FROMADDR="server";
 	public static  int START_YER=2006;
-	public static  String LOCATION="东莞";
+//	public static  String LOCATION="东莞";
 	
 	
-	public static  boolean HAVELOCAL=true;
+//	public static  boolean HAVELOCAL=true;
 	public static  boolean DEFAULT_HAVELOCAL=true;
 	/**
 	 * 显示各地的律师的照片的路径
 	 */
-	public static String LOGO_PATH;
+//	public static String LOGO_PATH;
 	public static String DEFAULT_LOGO_PATH;
 	/**
 	 *
 	 */
 	public static String RESOURCE_PATH;
 	
-	public static String INDEX_PIC;
-	public static String TOP_BAR_PIC;
+//	public static String INDEX_PIC;
+//	public static String TOP_BAR_PIC;
 	//反问的url是什么
-	public static String CURRENT_DOMAIN;
+//	public static String CURRENT_DOMAIN;
 	
 	
 	public static String DEFAULT_INDEX_PIC;

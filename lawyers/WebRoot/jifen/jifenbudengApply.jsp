@@ -4,7 +4,7 @@
 <%@ taglib prefix="jscalendar" uri="/jscalendar"%>
 <html>
 <head>
-<title>中国律师培训网-首页</title>
+<title>${webpara.sysname}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <jscalendar:head/>
 <link href="../css/css_new.css" rel="stylesheet" type="text/css" />
@@ -71,7 +71,7 @@ function exitform(){
 
 <div class="header">
   <form name="form1" method="post" action="../common/logout.pl">	
-  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+   <div class="logo left"><img src="${resourcePath}${webpara.topbarpic}" width="234" height="51" /></div>
   <div class="denglu right">
   	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
   	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;

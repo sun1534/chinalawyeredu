@@ -13,7 +13,7 @@ import com.changpeng.common.util.Base64;
  */
 public class ThirdLessonsAction extends AbstractAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	/* (non-Javadoc)
 	 * @see com.changpeng.common.action.AbstractAction#go()

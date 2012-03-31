@@ -10,6 +10,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.changpeng.common.CommonDatas;
 import com.changpeng.common.Constants;
+import com.changpeng.common.WebPara;
+import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.SysUnionparams;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -41,7 +43,6 @@ public class UserVisitInterceptor implements Interceptor {
 
 		Action action=(Action)invocation.getAction();
 		
-		System.out.println("action==="+action);
 		
 		
 		HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
@@ -50,20 +51,24 @@ public class UserVisitInterceptor implements Interceptor {
 		String ip = getIpAddr((HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST));
     	long now=System.currentTimeMillis();
     	String result="message";
+    	WebPara para=new WebPara();
     	try{
 		// 最理想的,在这里,通过这个url从数据库找到对应的rightcode。从而在代码中免除设置rightcode
 		// 有个问题,abc!input.pl实际上是等于abc.pl的.一个是入口,一个是保存
+    		AbstractAction a=null;
     		
-    		
-    		
-		// webcontext初始化的时候,得到系统所有的rightcode到内存中
-    		getDomain(request);
+    		// webcontext初始化的时候,得到系统所有的rightcode到内存中
+    		getDomain(request,para);
+    		if(action instanceof AbstractAction){
+    			a=(AbstractAction)action;
+    			a.setWebpara(para);
+    		}
     		result=invocation.invoke();
     	}catch(Exception e){
-    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+Constants.SYS_NAME);
+    		LOG.error("拦截失败:" + e+">"+ip+">"+request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+para.getSysname());
     		throw e;
     	}
-		LOG.info(ip + ">" + request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+Constants.SYS_NAME);
+		LOG.info(ip + ">" + request.getRequestURI()+">"+(System.currentTimeMillis()-now)+">"+para.getSysname());
 		return result;
 	}
 
@@ -82,48 +87,65 @@ public class UserVisitInterceptor implements Interceptor {
 	}
 	
 	
-	private void getDomain(HttpServletRequest request) {
-		Constants.CURRENT_DOMAIN = request.getHeader("x-host");
-
-		if (Constants.CURRENT_DOMAIN == null || Constants.CURRENT_DOMAIN.length() == 0
-				|| "unknown".equalsIgnoreCase(Constants.CURRENT_DOMAIN)) {
-			Constants.CURRENT_DOMAIN = request.getHeader("X-Host");
+	private void getDomain(HttpServletRequest request,WebPara para) {
+		
+//		Constants.CURRENT_DOMAIN = request.getHeader("x-host");
+String s= request.getHeader("x-host");
+		
+		
+		if (s== null || s.length() == 0
+				|| "unknown".equalsIgnoreCase(s)) {
+			s = request.getHeader("X-Host");
 		}
+		para.setCurrentdomain(s);
 
-		SysUnionparams params = CommonDatas.SysUnionparams.get(Constants.CURRENT_DOMAIN);
+		SysUnionparams params = CommonDatas.SysUnionparams.get(s);
 		if (params != null) {
 			
-//			System.out.println(" params.getLogopath():"+ params.getLogopath());
-			
 			if (params.getIndexpic() != null && !"".equals(params.getIndexpic())) {
-				Constants.INDEX_PIC = params.getIndexpic();
+//				Constants.INDEX_PIC = params.getIndexpic();
+				para.setIndexpic(params.getIndexpic());
 			} else {
-				Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+//				Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+				para.setIndexpic(Constants.DEFAULT_SYS_NAME);
 			}
 			if (params.getLogopath() != null && !"".equals(params.getLogopath())) {
-				Constants.LOGO_PATH = params.getLogopath();
+//				Constants.LOGO_PATH = params.getLogopath();
+				para.setLogopath(params.getLogopath());
 			} else {
-				Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+//				Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+				para.setLogopath(Constants.DEFAULT_LOGO_PATH);
 			}
 			if (params.getSysname() != null && !"".equals(params.getSysname())) {
-				Constants.SYS_NAME = params.getSysname();
+//				Constants.SYS_NAME = params.getSysname();
+				para.setSysname(Constants.DEFAULT_TOP_BAR_PIC);
 			} else {
-				Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+//				Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+				para.setSysname(Constants.DEFAULT_TOP_BAR_PIC);
 			}
 			if (params.getTopbarpic() != null && !"".equals(params.getTopbarpic())) {
-				Constants.TOP_BAR_PIC = params.getTopbarpic();
+//				Constants.TOP_BAR_PIC = params.getTopbarpic();
+				para.setTopbarpic(params.getTopbarpic());
 			} else {
-				Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+//				Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+				para.setTopbarpic(Constants.DEFAULT_TOP_BAR_PIC);
 			}
 
-			Constants.HAVELOCAL = params.getHavelocal();
-
+//			Constants.HAVELOCAL = params.getHavelocal();
+			para.setHavelocal(params.getHavelocal());
 		}else{
-			Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
-			Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
-			Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
-			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
-			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
+			
+			para.setTopbarpic(Constants.DEFAULT_TOP_BAR_PIC);
+			para.setSysname(Constants.DEFAULT_TOP_BAR_PIC);
+			para.setIndexpic(Constants.DEFAULT_SYS_NAME);
+			para.setLogopath(Constants.DEFAULT_LOGO_PATH);
+			para.setHavelocal(Constants.DEFAULT_HAVELOCAL);
+			
+//			Constants.TOP_BAR_PIC = Constants.DEFAULT_TOP_BAR_PIC;
+//			Constants.SYS_NAME = Constants.DEFAULT_SYS_NAME;
+//			Constants.INDEX_PIC = Constants.DEFAULT_INDEX_PIC;
+//			Constants.LOGO_PATH = Constants.DEFAULT_LOGO_PATH;
+//			Constants.HAVELOCAL =Constants.DEFAULT_HAVELOCAL;
 		}
 //		LOG.debug("Constants.SYS_NAME:" + Constants.SYS_NAME);
 	}

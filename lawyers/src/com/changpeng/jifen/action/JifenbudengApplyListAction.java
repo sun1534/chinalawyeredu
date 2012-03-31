@@ -24,7 +24,7 @@ public class JifenbudengApplyListAction extends AbstractListAction {
 		return lawyer;
 	}
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	/* (non-Javadoc)
 	 * @see com.changpeng.common.action.AbstractAction#go()

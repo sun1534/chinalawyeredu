@@ -17,7 +17,7 @@ public class LessonsViewAction extends AbstractListAction {
 	private Lessons lesson;
 	private int lessonid;
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	private List<String> filelist;
 	private boolean hasattach;

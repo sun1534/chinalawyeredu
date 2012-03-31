@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="shopping" extends="default" namespace="/shopping">
+    
+
+    <default-interceptor-ref name="adminStack"/>  
+    
+   	 	<!-- 购物车 -->
+       <action name="shopcartCreate" class="com.changpeng.shopping.action.ShopCartCreateAction">
+			<result name="success" type="redirect">/shopping/shopcartList.pl</result>
+			<result name="cart" type="redirect">/shopping/shopcartList.pl</result>
+			<result name="paid" type="redirect">/shopping/shoppaidList.pl</result>
+       </action>
+  
+       <action name="shopcartList" class="com.changpeng.shopping.action.ShopCartListAction">	
+       			
+			<result name="success" type="dispatcher">/shopping/shopcartList.jsp</result>
+       </action>
+      
+       <action name="shopcartDelete" class="com.changpeng.shopping.action.ShopCartDeleteAction">	       			
+			<result name="success" type="redirect">shopcartList.pl</result>
+       </action>
+ 
+ 
+ 		<!-- 收藏夹 -->
+ 		<action name="shopfavoritesCreate" class="com.changpeng.shopping.action.ShopFavoritesCreateAction">
+			<result name="success" type="redirect">/shopping/shopfavoritesList.pl</result>
+       </action>
+ 		
+        <action name="shopfavoritesList" class="com.changpeng.shopping.action.ShopFavoritesListAction">	       			
+			<result name="success" type="dispatcher">/shopping/shopFavoritesList.jsp</result>
+       </action>
+       <action name="shopfavoritesDelete" class="com.changpeng.shopping.action.ShopFavoritesDeleteAction">	       			
+			<result name="success" type="redirect">shopfavoritesList.pl</result>
+       </action>
+       
+       
+       <!--订单 -->
+		<action name="shoporderCreate" class="com.changpeng.shopping.action.ShopOrderCreateAction">	
+       			
+			<result name="success" type="redirect">/shopping/shopOrderCartList.pl?orderno=${orderno}</result>
+       </action>
+       
+       <action name="shopOrderCartList" class="com.changpeng.shopping.action.ShopOrderCartListAction">	       			
+			<result name="success" type="dispatcher">/shopping/paymentcommit.jsp</result>
+       </action>
+       <!--删除订单 -->
+       <action name="shopOrderDelete" class="com.changpeng.shopping.action.ShopOrderDeleteAction">	       			
+			<result name="success" type="redirect">/shopping/shopOrderList.pl</result>
+       </action>
+       
+       <action name="shopOrderList" class="com.changpeng.shopping.action.ShopOrderListAction">	
+       			
+			<result name="success" type="dispatcher">/shopping/shoporderList.jsp</result>
+       </action>
+ 		<action name="shoppaidList" class="com.changpeng.shopping.action.ShopPaidListAction">	
+       			
+			<result name="success" type="dispatcher">/shopping/shoppaidList.jsp</result>
+       </action>
+       <!-- 付款后返回 -->
+       <action name="shopOrderReturn" class="com.changpeng.shopping.action.ShopOrderReturnAction">	
+       			
+			<result name="success" type="redirect">/shopping/shopOrderList.pl</result>
+       </action>
+       
+   </package>
+	
+
+</struts>

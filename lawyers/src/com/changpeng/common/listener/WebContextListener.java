@@ -124,28 +124,29 @@ public class WebContextListener implements ServletContextListener {
 			LOG.info("URL:" + CommonDatas.SysUnionparams.keySet());
 
 			if (CommonDatas.SysParameter.containsKey("sysname")) {
-				Constants.SYS_NAME = CommonDatas.SysParameter.get("sysname").toString();
-				Constants.DEFAULT_SYS_NAME=	Constants.SYS_NAME ;
+//				Constants.SYS_NAME = CommonDatas.SysParameter.get("sysname").toString();
+				Constants.DEFAULT_SYS_NAME=	CommonDatas.SysParameter.get("sysname").toString() ;
 			}
+			
 
 			if (CommonDatas.SysParameter.containsKey("location")) {
-				Constants.LOCATION = CommonDatas.SysParameter.get("location").toString();
+//				Constants.LOCATION = CommonDatas.SysParameter.get("location").toString();
 			}
 			if (CommonDatas.SysParameter.containsKey("logopath")) {
-				Constants.LOGO_PATH = CommonDatas.SysParameter.get("logopath").toString();
-				Constants.DEFAULT_LOGO_PATH=	Constants.LOGO_PATH ;
+//				Constants.LOGO_PATH = CommonDatas.SysParameter.get("logopath").toString();
+				Constants.DEFAULT_LOGO_PATH=	CommonDatas.SysParameter.get("logopath").toString() ;
 			}
 			if (CommonDatas.SysParameter.containsKey("resourcepath")) {
 				Constants.RESOURCE_PATH = CommonDatas.SysParameter.get("resourcepath").toString();
 			}
 			
 			if (CommonDatas.SysParameter.containsKey("indexpic")) {
-				Constants.INDEX_PIC = CommonDatas.SysParameter.get("indexpic").toString();
-				Constants.DEFAULT_INDEX_PIC=Constants.INDEX_PIC;
+//				Constants.INDEX_PIC = CommonDatas.SysParameter.get("indexpic").toString();
+				Constants.DEFAULT_INDEX_PIC=CommonDatas.SysParameter.get("indexpic").toString();
 			}
 			if (CommonDatas.SysParameter.containsKey("topbarpic")) {
-				Constants.TOP_BAR_PIC = CommonDatas.SysParameter.get("topbarpic").toString();
-				Constants.DEFAULT_TOP_BAR_PIC=Constants.TOP_BAR_PIC;
+//				Constants.TOP_BAR_PIC = CommonDatas.SysParameter.get("topbarpic").toString();
+				Constants.DEFAULT_TOP_BAR_PIC=CommonDatas.SysParameter.get("topbarpic").toString();
 			}
 
 			if (CommonDatas.SysParameter.containsKey("startyear")) {
@@ -159,10 +160,10 @@ public class WebContextListener implements ServletContextListener {
 			if (CommonDatas.SysParameter.containsKey("havelocal")) {
 				if (CommonDatas.SysParameter.get("havelocal").toString().equals("true")
 						|| CommonDatas.SysParameter.get("havelocal").toString().equals("false"))
-					Constants.HAVELOCAL = Boolean.parseBoolean(CommonDatas.SysParameter.get("havelocal").toString());
+					Constants.DEFAULT_HAVELOCAL = Boolean.parseBoolean(CommonDatas.SysParameter.get("havelocal").toString());
 				else
-					Constants.HAVELOCAL = false;
-				Constants.DEFAULT_HAVELOCAL=Constants.HAVELOCAL;
+					Constants.DEFAULT_HAVELOCAL = false;
+//				Constants.DEFAULT_HAVELOCAL=Constants.HAVELOCAL;
 			}
 
 		} catch (ServiceException e) {

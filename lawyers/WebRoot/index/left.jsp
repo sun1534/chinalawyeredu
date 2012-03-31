@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%=com.changpeng.common.Constants.SYS_NAME%></title>
+<title>${webpara.sysname}</title>
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <link href="../css/dtree.css" rel="stylesheet" type="text/css">
 <script language="javascript" src="../js/dtreerightmenu.js"></script>

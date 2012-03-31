@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>中国律师培训网-首页</title>
+<title>${webpara.sysname}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="../css/css_new.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/common.js"></script>
@@ -36,7 +36,7 @@ function fanye(str){
 
 <div class="header">
   <form name="form1" method="post" action="../common/logout.pl">	
-  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="logo left"><a href="index.html"><img src="${resourcePath}${webpara.topbarpic}" width="234" height="51" /></a></div>
   <div class="denglu right">
   	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
   	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;
@@ -90,7 +90,11 @@ function fanye(str){
 			<s:iterator value="page.items" status="stat">
 			<tr class="alt1">
 			    <td align="center"><img src="../images/message_read.gif" class="icon" /></td>
-			    <td><a href="articlesView.pl?type=${type}&articleid=${articleid}">&nbsp;${title}</a></td>
+			    <td><a href="articlesView.pl?type=${type}&articleid=${articleid}">&nbsp;${title}</a>
+			    	<s:if test="createtime>lastday">
+			    		<img src="../images/new.gif" class="icon" />
+			    	</s:if>
+			    </td>
 			    <td>&nbsp;${createuser}</td>
 			    <td>&nbsp;<s:date name="createtime" format="yyyy-MM-dd HH:mm:ss"/></td>			    
 			</tr>

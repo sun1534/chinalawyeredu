@@ -7,7 +7,9 @@ package com.changpeng.lessons.service;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -180,8 +182,9 @@ public class LessonsService extends BasicService {
 
 	
 	private static final DateFormat df=new java.text.SimpleDateFormat("yyyy-MM-dd");
+	
 	public com.changpeng.common.PaginationSupport getPages(SysGroup mygroup, int groupid,int audioQuality,int videoQuality,int onlinetype,int lessonstyle,
-			int lessontype, String title, String teachers, int pageSize, int pageNo,Timestamp start,Timestamp end,int viewstyle) {
+			int lessontype, String title, String teachers, int pageSize, int pageNo,Timestamp start,Timestamp end,int viewstyle,int pxname,int pxtype) {
 
 		// 现场课程的话，如果我是admin或者group>3，则显示所有的现场课程，否则的话，
 		// 我是省的话，显示本省的所有，市的话，只显示市的
@@ -280,6 +283,9 @@ public class LessonsService extends BasicService {
 //				hql += " and a.lessons.title like '%" + title + "%'";
 			}
 			if (teachers != null && !"".equals(teachers)) {
+				System.out.println("teachers::"+teachers);
+				teachers=teachers.replaceAll(" ","");
+				System.out.println("teachers::"+teachers);
 				dc.add(Restrictions.like("teachers", teachers, MatchMode.ANYWHERE));
 //				hql += " and a.lessons.teachers like '%" + teachers + "%'";
 			}
@@ -309,7 +315,28 @@ public class LessonsService extends BasicService {
 			if(start!=null&&end!=null){
 //				String startStr=df.format(start)+" 00:00:00";
 //				String endStr=df.format(end)+" 23:59:59";
+				//这是按照课件的考核年度
+				//dc.add(Restrictions.between("lessondate", start, end));
+				//2012037 修改 按照授课时间的自然年
+				System.out.println(start);
+				System.out.println(end);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+				
+				
+			     String auditdate = sdf.format(start);
+			     String auditdate1=auditdate+"-12-30 23:59:59.0";
+			     auditdate=auditdate+"-01-01 00:00:00.0";
+			    
+			     System.out.println(auditdate);
+			     System.out.println(auditdate1);
+			     start=Timestamp.valueOf(auditdate);
+			     end=Timestamp.valueOf(auditdate1);
+			     System.out.println(start);
+					System.out.println(end);
+			     //dc.add(Restrictions.like("lessondate", start+"%"));
 				dc.add(Restrictions.between("lessondate", start, end));
+				System.out.println(start);
+				System.out.println(end);
 //				dc.add(Restrictions.between("lessons.lessondate", start, end));
 //				hql += " and a.lessons.lessondate between '"+startStr+"'and '"+endStr+"'";
 			}
@@ -321,8 +348,26 @@ public class LessonsService extends BasicService {
 				System.out.println("viewstyle 2222::::"+viewstyle);
 				dc.add(Restrictions.not(Restrictions.eq("price",Float.valueOf(0))));
 			}
-			dc.addOrder(Order.desc("lessondate"));
+			
+			if(pxtype==0 ){//降序
+				if(pxname==0){//按授课时间
+					dc.addOrder(Order.desc("lessondate"));
+				}else{
+					dc.addOrder(Order.desc("xuefen"));
+					dc.addOrder(Order.desc("lessondate"));
+				}				
+			}else{//升序
+				if(pxname==0){//按授课时间
+					dc.addOrder(Order.asc("lessondate"));
+				}else{
+					dc.addOrder(Order.asc("xuefen"));
+					dc.addOrder(Order.desc("lessondate"));
+				}					
+			}
+			
 			dc.addOrder(Order.desc("lessonid"));
+			//dc.addOrder(Order.desc("lessondate"));
+			//dc.addOrder(Order.desc("lessonid"));
 			return lessonsDAO.findPageByCriteria(dc, pageSize, pageNo);
 //			hql += " order by a.lessons.lessondate desc,a.lessons.lessonid desc";
 		

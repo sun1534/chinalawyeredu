@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="resource" default="deploy" basedir=".">
+
+  <property name="dst.dir"	value="${basedir}/classes"/>
+  <property name="src.dir"	value="../../src"/>
+
+  <target name="clear">
+    <delete>
+      <fileset dir="${dst.dir}" includes="res/**/*.properties.txt"/>
+    </delete>
+  </target>
+
+  <target name="deploy" depends="clear">
+    <native2ascii
+      src="${src.dir}/res"
+      dest="${dst.dir}/res" 
+      encoding="UTF-8"
+      includes="**/*.properties.txt" ext=""
+    />
+  </target>
+
+</project>

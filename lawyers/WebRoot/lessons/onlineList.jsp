@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>中国律师培训网-首页</title>
+<title>${webpara.sysname}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <link href="../css/css_new.css" rel="stylesheet" type="text/css" />
@@ -100,7 +100,7 @@ function LoadshowFLT(){
 <body onload="LoadshowFLT();">
 <div class="header">
   <form name="form1" method="post" action="../common/logout.pl">	
-  <div class="logo left"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  <div class="logo left"><img src="${resourcePath}${webpara.topbarpic}" width="234" height="51" /></div>
   <div class="denglu right">
   	${lawyer.lawyername}律师 您好，欢迎您登录培训平台！&nbsp;&nbsp; 
   	<a href="../index/index.pl">首页</a>&nbsp;&nbsp;
@@ -123,8 +123,19 @@ function LoadshowFLT(){
   <li><a href="../lawyers/officeChangeApplyList.pl" >转所申请</a></li>
   <li><a href="../lawyers/lawyersEditSelf!input.pl" >个人信息</a></li>
   <li><a href="../articles/notifyList.pl?type=1" >系统消息</a></li>
-</ul></div>
-<div class="gml">当前位置：<a href="../index/index.pl">首页</a>----<strong>选课中心</strong></div>
+</ul>
+</div>
+<s:form name="form2" action="lessonsList" method="post">
+<div class="gml">
+	<div class="position">当前位置：<a href="../index/index.pl">首页</a>----<strong>选课中心</strong></div>
+	<div class="searchBar">主讲人:<s:textfield name="teachers" size="12"/>
+     课程名称:<s:textfield name="title" size="15"/>
+   	课程年份:<s:select name="nianshenyear" list="jifentime.years" headerKey="0" headerValue="全部" onchange="document.form2.submit()"/>
+   	<s:submit value=" 查 询 " cssClass="button" />
+	</div>
+   	
+</div>
+
 <div class="con">
   <div class="con_left2 left">
 	<div class="con_left2_title">选课中心</div>        
@@ -382,53 +393,61 @@ function LoadshowFLT(){
     </table>
   </div>
   <div class="con_right2 left">
-    <s:form name="form2" action="lessonsList" method="post">
+    
     <div class="con_right2_title"><h2>分类：<s:if test="lessontype==-1">全部</s:if>
     	 <s:else><s:property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]"/></s:else>
     	 
-    </h2>
+    	</h2>
     	<span>
     	<a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${lessontype }&viewtype=1">详细显示</a>&nbsp;&nbsp;
     	<a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${lessontype }&viewtype=2">列表显示</a>
     	</span>
     </div>
     <div class="star">
-	    <div class="startitle">
+	    <div class="startitle">	    	
 			<!-- 显示：
 			<a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${lessontype }&viewtype=1&viewstyle=0">全部</a>&nbsp;
 			<a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${lessontype }&viewtype=1&viewstyle=1">免费</a>&nbsp; 
 			<a href="../lessons/lessonsList.pl?lessonstyle=2&lessontype=${lessontype }&viewtype=1&viewstyle=2">收费</a> -->
+			<span>
+				课程排序:<s:select name="pxname" list="#{'0':'授课时间','1':'学分'}"  onchange="document.form2.submit()"/>
+				<s:select name="pxtype" list="#{'0':'降序','1':'升序'}"  onchange="document.form2.submit()"/>    		
+    		</span>
 		</div>
 		<s:iterator value="lessonlist" status="stat">
 		<div class="t_n">			
 				<s:if test="pic!=null && !pic.equals(\"\")">
-					<a title="${title }"  href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","")>
+					<a title="${title }"  href="../lessons/lessonsView.pl?lessonid=${lessonid }" target="_blank">
 					<img src="http://localhost:8080/saaspxxt/lessonphoto/${pic }" width="150" height="135" /></a>	
 				</s:if>
 				<s:else>
-					<a title="${title }" href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","")>
+					<a title="${title }" href="../lessons/lessonsView.pl?lessonid=${lessonid }" target="_blank">
 					<img src="../imagesa/none.jpg" width="150" height="135" /></a>
 				</s:else>			
  			<div class="list3_ul_ul">
  	       		<ul>
-           			<h3><a title="${title }" href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}","律协在线培训","") ><strong>${titleTrim1}</strong></a></h3>           			
-					<li>主讲人：<span>
-							<s:if test="teacherid!=0">
-							<!--  <a href="teacherView.pl?userId=${teacherid }">${teachers}</a>-->${teachers}
+           			<h3><a title="${title }" href="../lessons/lessonsView.pl?lessonid=${lessonid }" target="_blank" ><strong>${titleTrim1}</strong></a></h3>           			
+					<li>主讲人：<span>${teachers}
+							<!-- <s:if test="teacherid!=0">
+							 <a href="teacherView.pl?userId=${teacherid }">${teachers}</a>
 							</s:if>
 							<s:else>
 							${teachers}
-							</s:else></span></li>
+							</s:else>--></span></li>
                 	
                 	<li>提供者：<span><s:property value="@com.changpeng.common.CommonDatas@groups[groupid]"/></span></li>
-                	<li>时间：<span><s:date name="lessondate" format="yyyy"/>年</span></li>	
-                	<li>类型：<span><s:property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]"/></span></li>		
-                	<li><a href="../lessons/lessonsView.pl?lessonid=${lessonid }" target="_blank">课评</a>&nbsp;<a href="../shopping/shopfavoritesCreate.pl?lessonid=${lessonid }">收藏</a>&nbsp;
-                		<s:if test="price!=0">
-                			<a href="../shopping/shopcartCreate.pl?lessonid=${lessonid }">选购（￥${price}）</a>
-                		</s:if>      
-                		      		
+              		<li>授课时间：<span><s:date name="lessondate" format="yyyy-MM-dd"/></span></li>	
+                	<li>类型：<span><s:property value="@com.changpeng.lessons.util.CommonDatas@LessonType[lessontype]"/></span></li>	
+                	<li>学分：<span>${xuefen}</span>&nbsp;&nbsp;&nbsp;&nbsp;已获学分：<span>${yihuoxuefen.pxxf}</span></li>	
+                	<li>
+                			<a href="../lessons/lessonsView.pl?lessonid=${lessonid }" target="_blank">课评</a>&nbsp;
+                		<a href="../shopping/shopfavoritesCreate.pl?lessonid=${lessonid }">收藏</a>&nbsp;						
+                		<s:if test="onlinefile!=null && onlinefile!=''"><a  href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}&filetype=1","律协在线培训","") >观看</a>&nbsp;</s:if>
+                		<s:if test="soundfile!=null && soundfile!=''"><a  href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}&filetype=2","律协在线培训","") >收听</a> </s:if>     	    		
                 	</li>
+                	<s:if test="price!=0">
+                			<li>售价：<span>￥${price}</span>&nbsp; <a href="../shopping/shopcartCreate.pl?lessonid=${lessonid }" style="color: red">选购（￥${price}）</a></li></font>
+                	</s:if> 
                 	<li>&nbsp;</li>						
 		  		</ul>
 			</div>        	
@@ -448,9 +467,10 @@ function LoadshowFLT(){
 		<s:hidden name="viewstyle"/>
 		<s:hidden name="pageNo" value="1"/>
 		
-    </s:form>	  
+    	  
   	</div>
 </div>
+</s:form>
 <div class="blank15px"></div>
 <div class="copy3">CopyRight(C)  中国律师培训网  版权所有    设计制作：<a href="http://www.cpsoft.cn/" target="_blank">长鹏软件</a></br>
 备案序号：粤ICP备05082150号

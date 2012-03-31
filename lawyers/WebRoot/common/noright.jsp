@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title><%=com.changpeng.common.Constants.SYS_NAME%>-没有权限</title>
+<title>${webpara.sysname}-没有权限</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 
@@ -15,7 +15,7 @@
 <body>
 <table width="99%" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
-    <td height="23" background="../imagesa/top-bg3.gif" class="font"><img src="images/b_02.gif" width="4" height="7"> 当前位置：<%=com.changpeng.common.Constants.SYS_NAME%>&gt;&gt;没有权限</td>
+    <td height="23" background="../imagesa/top-bg3.gif" class="font"><img src="images/b_02.gif" width="4" height="7"> 当前位置：${webpara.sysname}&gt;&gt;没有权限</td>
   </tr>
 </table>
 <table width="99%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#C2D6F0" >

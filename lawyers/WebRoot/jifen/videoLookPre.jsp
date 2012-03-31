@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 	<head>
-		<title>中国律师培训网-在线培训</title>
+		<title>${webpara.sysname}-在线培训</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="GENERATOR" content="Microsoft SharePoint" />
 		<meta name="progid" content="SharePoint.WebPartPage.Document" />
@@ -17,17 +17,20 @@
 	<body scroll="yes" onunload="exitform()">
 		<form name="form1" method="post" action="" onSubmit="" id="form1">
 		<div class="header">
-  			<div class="logo"><a href="index.html"><img src="${resourcePath}${topbarpic}" width="234" height="51" /></a></div>
+  			<div class="logo"><img src="${resourcePath}${webpara.topbarpic}" width="234" height="51" /></div>
 		</div>
 		<div class="blank15px"></div>
 		<div class="con">
   			<div class="con_left left">
     			<div class="con_sp">
       				<div class="con_sptitle">
-      					<ul>
-	  						<li><a href="#">宽带</a></li>
-	  						<li><a href="#">窄带</a></li>
-	  						<li><a href="#">音频</a></li>
+      					<ul>	  						
+	  						<s:if test="lessons.onlinefile!=null && lessons.onlinefile!=''"><li>
+	  							<a  href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}&filetype=1","律协在线培训","") >视频</a></li>
+	  						</s:if>
+	  						<s:if test="lessons.soundfile!=null && lessons.soundfile!=''"><li>
+	  							<a  href=# onclick=javascript:window.open("../jifen/videoLookPre.pl?lessonid=${lessonid}&filetype=2","律协在线培训","") >音频</a></li>
+	  						</s:if>
 	 					</ul>         
      				</div>
      				<div class="sptu">
@@ -48,7 +51,7 @@
 						%>
 						
      					<OBJECT id="Player" height="250px;" width="315px;" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6">
-							<PARAM NAME="URL" VALUE="${lessons.onlinefile}?sessionId=<%=sessionId %>">
+							<PARAM NAME="URL" VALUE="${playfile}?sessionId=<%=sessionId %>">
 							<PARAM NAME="rate" VALUE="1">
 							<PARAM NAME="balance" VALUE="0">
 							<PARAM NAME="currentPosition" VALUE="0">

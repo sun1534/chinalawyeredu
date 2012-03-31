@@ -59,6 +59,18 @@ private int isshare;
 	private String tuijianContent;
 	
 	private String pic;
+	
+	
+	//音频文件
+	private String soundfile;
+
+	public String getSoundfile() {
+		return soundfile;
+	}
+
+	public void setSoundfile(String soundfile) {
+		this.soundfile = soundfile;
+	}
 
 	public String getPic() {
 		return pic;

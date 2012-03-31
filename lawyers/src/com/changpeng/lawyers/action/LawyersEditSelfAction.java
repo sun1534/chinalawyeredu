@@ -10,9 +10,7 @@ import java.util.Date;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts2.ServletActionContext;
 
-import com.changpeng.common.BasicService;
 import com.changpeng.common.Constants;
 import com.changpeng.common.action.AbstractAction;
 import com.changpeng.models.Lawyers;
@@ -32,7 +30,7 @@ public class LawyersEditSelfAction extends AbstractAction {
 
 	}
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	/*
 	 * (non-Javadoc)

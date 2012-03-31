@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title><%=com.changpeng.common.Constants.SYS_NAME%>-登录</title>
+<title>${webpara.sysname}-登录</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -78,7 +78,7 @@ function selectRole(roleid){
 		<td>
 			<img src="../imagesa/login_01.gif" width="226" height="139" alt=""></td>
 		<td>
-			<img src="${resourcePath }${indexpic }" width="568" height="139" alt=""></td>
+			<img src="${resourcePath }${webpara.indexpic}" width="568" height="139" alt=""></td>
 		<td>
 			<img src="../imagesa/login_03.gif" width="230" height="139" alt=""></td>
 	</tr>

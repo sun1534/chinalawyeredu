@@ -27,7 +27,7 @@ import com.changpeng.models.SysUnionparams;
  */
 public class JifenQueryAction extends AbstractListAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	public JifenQueryAction() {
 

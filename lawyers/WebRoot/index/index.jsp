@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=utf-8" language="java" %>
 <html>
 <head>
-<title><%=com.changpeng.common.Constants.SYS_NAME%></title>
+<title>${webpara.sysname}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <frameset rows="52,*,20" cols="*" frameborder="NO" border="0" framespacing="0">

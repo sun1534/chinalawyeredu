@@ -9,8 +9,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -19,8 +22,10 @@ import org.hibernate.criterion.Restrictions;
 import sun.util.logging.resources.logging;
 
 import com.changpeng.common.BasicService;
+import com.changpeng.common.Constants;
 import com.changpeng.common.PaginationSupport;
 import com.changpeng.common.action.AbstractAction;
+import com.changpeng.common.context.Globals;
 import com.changpeng.jifen.service.LawyerlessonxfService;
 import com.changpeng.jifen.util.CommonDatas;
 import com.changpeng.jifen.util.JifenTime;
@@ -33,6 +38,7 @@ import com.changpeng.models.Lawyers;
 import com.changpeng.models.Lessons;
 import com.changpeng.models.SysGroup;
 import com.changpeng.models.SysUnionparams;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * 
@@ -49,11 +55,11 @@ public class IndexPageAction extends AbstractAction {
 	public JifenTime getJifentime() {
 		return jifentime;
 	}
+	
+	
 	public String getTopbarpic(){
-		String aa=com.changpeng.common.Constants.TOP_BAR_PIC;
-		System.out.println("aaa:"+aa);
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
 		
+		return super.webpara.getTopbarpic();
 	}
 	
 	
@@ -70,18 +76,21 @@ public class IndexPageAction extends AbstractAction {
 	protected String go() throws Exception {
 		basicService = (BasicService) this.getBean("basicService");
 		
-		
-		this.lawyer = this.getLoginUser();
+		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
+		this.lawyer = (Lawyers)basicService.get(Lawyers.class, this.getLoginUser().getLawyerid());
+		//this.lawyer = this.getLoginUser();
 		LOG.info(lawyer.getLawyerenname()+ "进入首页成功......");
 		com.changpeng.lessons.util.CommonDatas.getAlllessons();
 		com.changpeng.common.CommonDatas.getGroups();
 
-		LawyerlessonxfService xfservice = (LawyerlessonxfService) this.getBean("lawyerlessonxfService");
-		//this.lawyer = (Lawyers)basicService.get(Lawyers.class, this.getLoginUser().getLawyerid());
+
 		// 根据查询的年来查,默认为当前时间所在的积分年
 
 		SysUnionparams params = (SysUnionparams) basicService.get(SysUnionparams.class, lawyer.getDirectunion());
+		//需要的总达标分
 		needfen = params.getDabiaofen();
+		//需要的现场达标分
+		needxcfen=params.getLocalfen();
 		jifentime = CommonDatas.getJifenTime(0, params.getNianshen());
 
 		debug("起始时间:::" + jifentime.getStartstr() + ",终止时间::::" + jifentime.getEndstr());
@@ -89,9 +98,13 @@ public class IndexPageAction extends AbstractAction {
 		DetachedCriteria detachedCriteria = null;
 
 //		nowxuefen = xfservice.getLawyerZongjifen(this.lawyers.getLawyerid(), jifentime.getStart(), jifentime.getEnd());
-
+		
+		//当前总积分
 		nowxuefen = xfservice.getLawyerZongjifen(this.lawyer.getLawyerid(), jifentime.getNianshenyear());
-
+		//当前现场分
+		nowxcxuefen=xfservice.getLawyerXianchangJifen(this.lawyer.getLawyerid(), jifentime.getNianshenyear());
+		
+		
 		
 
 
@@ -198,60 +211,79 @@ public class IndexPageAction extends AbstractAction {
 		
 		
 		// this.goodlessonList = page.getItems();
-		System.out.println("其他的");
-		toppic="/syspic/cntop.gif";
-		System.out.println("la: Provinceunion:::"+lawyer.getProvinceunion());
-		System.out.println("la: Districtid:::"+lawyer.getDirectunion());
-		if(lawyer.getProvinceunion()==22){//广西全省
-			toppic="/syspic/gxtop.gif";
-			System.out.println("广西全省");
-		}
-		if(lawyer.getProvinceunion()==18){//河南全省
-			toppic="/syspic/hentop.gif";
-			System.out.println("河南全省");
-		}
-		
-		 if(lawyer.getProvinceunion()==23){//海南全省
-			toppic="/syspic/hntop.gif";
-			System.out.println("海南全省");
-		}
-		 if(lawyer.getProvinceunion()==42 && lawyer.getDirectunion()==24){//重庆省重庆市
-			toppic="/syspic/cqtop.gif";
-			System.out.println("重庆省重庆市");
-		}
-		 if(lawyer.getProvinceunion()==21 && lawyer.getDirectunion()==37){//广东省东莞市
-			toppic="/syspic/dgtop.jpg";
-			System.out.println("广东省东莞市");
-		}
-		 if(lawyer.getProvinceunion()==19){//湖北全省
-			toppic="/syspic/hubtop.gif";
-			System.out.println("湖北全省");
-		}
-		 if(lawyer.getDirectunion()==8078){//浙江省杭州市
+//		System.out.println("其他的");
+//		toppic="/syspic/cntop.gif";
+//		System.out.println("la: Provinceunion:::"+lawyer.getProvinceunion());
+//		System.out.println("la: Districtid:::"+lawyer.getDirectunion());
+//		if(lawyer.getProvinceunion()==22){//广西全省
+//			toppic="/syspic/gxtop.gif";
+//			System.out.println("广西全省");
+//		}
+//		if(lawyer.getProvinceunion()==18){//河南全省
+//			toppic="/syspic/hentop.gif";
+//			System.out.println("河南全省");
+//		}
+//		
+//		 if(lawyer.getProvinceunion()==23){//海南全省
+//			toppic="/syspic/hntop.gif";
+//			System.out.println("海南全省");
+//		}
+//		 if(lawyer.getProvinceunion()==42 && lawyer.getDirectunion()==24){//重庆省重庆市
+//			toppic="/syspic/cqtop.gif";
+//			System.out.println("重庆省重庆市");
+//		}
+//		 if(lawyer.getProvinceunion()==21 && lawyer.getDirectunion()==37){//广东省东莞市
+//			toppic="/syspic/dgtop.jpg";
+//			System.out.println("广东省东莞市");
+//		}
+//		 if(lawyer.getProvinceunion()==19){//湖北全省
+//			toppic="/syspic/hubtop.gif";
+//			System.out.println("湖北全省");
+//		}
+//		 if(lawyer.getDirectunion()==8078){//浙江省杭州市
+//
+//			toppic="/syspic/hztop.jpg";
+//			System.out.println("浙江省杭州市");
+//		}
+//		 if(lawyer.getDirectunion()==11002221){//浙江省温州市
+//			toppic="/syspic/wztop.gif";
+//			System.out.println("浙江省温州市");
+//		}
+//		
+//		 System.out.println(lawyer.getDirectunion());
+//		if(lawyer.getDirectunion()==8079){//吉林省长春市
+//			
+//			toppic="/syspic/cctop.jpg";
+//			System.out.println("吉林省长春市");
+//		}
+//		 
+//		if(lawyer.getProvinceunion()==12 && lawyer.getDirectunion()==10325){//江苏省南京市
+//			toppic="/syspic/njtop.gif";
+//			System.out.println("江苏省南京市");
+//		}
+//		
+//		
+//		
+//		//toppic=com.changpeng.common.Constants.TOP_BAR_PIC;
+//		System.out.println("bbb:"+toppic);
+//		LOG.info("toppic::::"+toppic);
+//		
+//		
+//		
+//
+//		LOG.info("toppic::::"+toppic);
+//		LOG.info("参数:" + com.changpeng.common.CommonDatas.SysParameter);
+//		LOG.info("URL:" + com.changpeng.common.CommonDatas.SysUnionparams.keySet());
+//		if (com.changpeng.common.CommonDatas.SysParameter.containsKey("topbarpic")) {
+//			System.out.println(Constants.TOP_BAR_PIC);
+//			Constants.TOP_BAR_PIC = com.changpeng.common.CommonDatas.SysParameter.get("topbarpic").toString();
+//			System.out.println(Constants.TOP_BAR_PIC);
+//			Constants.DEFAULT_TOP_BAR_PIC=Constants.TOP_BAR_PIC;
+//			System.out.println(Constants.TOP_BAR_PIC);
+//		}
 
-			toppic="/syspic/hztop.jpg";
-			System.out.println("浙江省杭州市");
-		}
-		 if(lawyer.getDirectunion()==11002221){//浙江省温州市
-			toppic="/syspic/wztop.gif";
-			System.out.println("浙江省温州市");
-		}
 		
-		 System.out.println(lawyer.getDirectunion());
-		if(lawyer.getDirectunion()==8079){//吉林省长春市
-			
-			toppic="/syspic/cctop.jpg";
-			System.out.println("吉林省长春市");
-		}
-		 
-		if(lawyer.getProvinceunion()==12 && lawyer.getDirectunion()==10325){//江苏省南京市
-			toppic="/syspic/njtop.gif";
-			System.out.println("江苏省南京市");
-		}
 		
-		//toppic=com.changpeng.common.Constants.TOP_BAR_PIC;
-		System.out.println("bbb:"+toppic);
-		LOG.info("toppic::::"+toppic);
 		
 		return SUCCESS;
 	}
@@ -278,15 +310,25 @@ public class IndexPageAction extends AbstractAction {
 	public float getNowxuefen() {
 		return Float.parseFloat(NumberUtil.toMoney(nowxuefen + ""));
 	}
-
+	
+	//现在的现场学分
+	private float nowxcxuefen;
+	public float getNowxcxuefen() {
+		return nowxcxuefen;
+	}
+	
 	private float needfen;
 
 	public float getNeedfen() {
 		return this.needfen;
 	}
-
-
-
+	
+	private float needxcfen;
+	public float getNeedxcfen() {
+		return needxcfen;
+	}
+	
+	
 	private List forumList;
 	private List lessonList;
 	private List lessonTuijianList;
@@ -410,5 +452,7 @@ public class IndexPageAction extends AbstractAction {
 	public void setToppic(String toppic) {
 		this.toppic = toppic;
 	}
+	
+
 	
 }

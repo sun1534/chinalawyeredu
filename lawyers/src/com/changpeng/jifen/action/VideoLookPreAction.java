@@ -48,7 +48,7 @@ public class VideoLookPreAction extends AbstractAction {
 	private float videotimeout = 0;
 	private int visitid;
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	//评论回复
 	List replylist=null;
@@ -122,6 +122,27 @@ public class VideoLookPreAction extends AbstractAction {
 
 	public int mingnian;
 
+	
+	public int filetype;
+	
+	public int getFiletype() {
+		return filetype;
+	}
+
+	public void setFiletype(int filetype) {
+		this.filetype = filetype;
+	}
+	
+	private String playfile;
+
+	public String getPlayfile() {
+		return playfile;
+	}
+
+	public void setPlayfile(String playfile) {
+		this.playfile = playfile;
+	}
+
 	private int loglook(int lawyerid, int provinceid, int cityid, int officeid) {
 		try {
 
@@ -177,10 +198,16 @@ public class VideoLookPreAction extends AbstractAction {
 			this.message = "系统有误,请在在线课程里,选择课程点击观看";
 			this.nextPage = "javascript:window.close()";
 			return "message";
-		} else if (this.lessons.getOnlinefile() == null || this.lessons.getOnlinefile().equals("")) {
-			this.message = "该课程视频文件为空,请返回";
-			this.nextPage = "javascript:window.close()";
-			return "message";
+		} else {
+			if(filetype==1 && (this.lessons.getOnlinefile() == null || this.lessons.getOnlinefile().equals("")) ){
+				this.message = "该课程视频文件为空,请返回";
+				this.nextPage = "javascript:window.close()";
+				return "message";
+			}else if(filetype==2 && (this.lessons.getSoundfile() == null || this.lessons.getSoundfile().equals(""))){
+				this.message = "该课程音频文件为空,请返回";
+				this.nextPage = "javascript:window.close()";
+				return "message";
+			}			
 		}
 		
 			
@@ -205,7 +232,9 @@ public class VideoLookPreAction extends AbstractAction {
 		
 		
 		String url=lessons.getOnlinefile();
-		
+		if(filetype==2){
+			url=lessons.getSoundfile();
+		}
 		System.out.println("00000："+this.getLoginUser().getProvinceunion());
 		
 		//东莞市、律师 观看时 都去 7号服务器 mms://videos.lawyeredu.com/uc1.lawyeredu.com/ 观看
@@ -248,7 +277,7 @@ public class VideoLookPreAction extends AbstractAction {
 			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
 		}//广西全区、杭州 律师 观看时 都去 7 号服务器 mms://uc4.lawyeredu.net/uc4_lawyeredu/ 观看	
 		else if(this.getLoginUser().getProvinceunion()==22 || this.getLoginUser().getDirectunion()==8078){
-			System.out.println("这是广西的律师："+this.getLoginUser().getProvinceunion());			
+				
 			url=url.replace("mms://videos.lawyeredu.com/uc1.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");			
 			url=url.replace("mms://uc2.lawyeredu.com/uc2_lawyeredu/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
 			url=url.replace("mms://uc3.lawyeredu.com/uc3.lawyeredu.com/", "mms://uc4.lawyeredu.net/uc4_lawyeredu/");	
@@ -261,7 +290,9 @@ public class VideoLookPreAction extends AbstractAction {
 			url=url.replace("mms://uc5.lawyeredu.net/uc5_lawyeredu/", "mms://uc3.lawyeredu.com/uc3.lawyeredu.com/");	
 			
 		}
-		lessons.setOnlinefile(url);
+		//将播放的文件
+		playfile=url;
+		//lessons.setOnlinefile(url);
 		
 //		else{
 //			//取出2个服务器返回是值
@@ -311,19 +342,25 @@ public class VideoLookPreAction extends AbstractAction {
 			localelesson = true;
 		}
 
+		System.out.println("xuefen::::"+xuefen);
+		System.out.println("yearfen::::"+yearfen);
 		if (xuefen != null) {
 			jifenyear = xuefen.getTheyear();
 			islastyear = xuefen.getIslastyear() == 1 ? true : false;
+			System.out.println("xuefen !=null");
 		} else if (!isloglast) {
 			shouldselect = false;
 			jifenyear = nowyear;
+			System.out.println("!isloglast");
 		} else {
 			// 如果所获得的分数小于达标分，则提示是否需要设置学分到去年
 			if (yearfen < totalfen) {
 				shouldselect = true;
+				System.out.println("yearfen < totalfen");
 			} else {
 				shouldselect = false;
 				jifenyear = nowyear;
+				System.out.println("yearfen >= totalfen");
 			}
 		}
 

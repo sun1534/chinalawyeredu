@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 <head>
-<title>%=com.changpeng.common.Constants.SYS_NAME%>-论坛</title>
+<title>${webpara.sysname}-论坛</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="../css/css.css" rel="stylesheet" type="text/css">
 <style type="text/css">

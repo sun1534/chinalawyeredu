@@ -270,6 +270,22 @@ public class LawyerlessonxfService extends BasicService {
 		}
 		return 0;
 	}
+	
+	public float getLawyerXianchangJifen(int lawyerid, int year) {
+		String sql = "select FORMAT(sum(pxxf),2) as pxxf from lawyerlessonxf where learnmode=1 and theyear=" + year + " and lawyerid="
+				+ lawyerid;
+		
+		System.out.println("====sql"+sql);
+		List list = lawyersDAO.findBySqlQuery(sql);
+//		System.out.println(list);
+		if (list != null && list.size() != 0) {
+			Object obj = list.get(0);
+			if (obj == null)
+				return 0;
+			return Float.parseFloat(obj.toString());
+		}
+		return 0;
+	}
 
 	public LearnmodeStatics getFiledLearnmode(Timestamp _from, Timestamp _end, String field, int fieldvalue)
 			throws ServiceException {

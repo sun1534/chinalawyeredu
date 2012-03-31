@@ -4,6 +4,11 @@
 
 package com.changpeng.articles.action;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
@@ -28,7 +33,7 @@ public class ArticlesListAction extends AbstractListAction {
 		return lawyer;
 	}
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	/*
 	 * (non-Javadoc)
@@ -72,6 +77,19 @@ public class ArticlesListAction extends AbstractListAction {
 		detachedCriteria.addOrder(Order.desc("createtime"));
 
 		this.page = basic.findPageByCriteria(detachedCriteria, pageSize, pageNo);
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal=Calendar.getInstance();
+		cal.add(Calendar.DATE, -1);    //得到前一天 
+		cal.add(Calendar.MONTH, -1);    //得到前一个月 
+		long date = cal.getTimeInMillis();
+		System.out.println(date);
+		//long lastdaya=df.format(new java.util.Date(date));
+		//System.out.println(lastdaya);
+		lastday=new Timestamp(date);
+		System.out.println(lastday);
+
+
 		// TODO Auto-generated method stub
 		return SUCCESS;
 	}
@@ -92,5 +110,14 @@ public class ArticlesListAction extends AbstractListAction {
 	public void setType(int type) {
 		this.type = type;
 	}
+	
+	private Timestamp lastday;
+	public Timestamp getLastday() {
+		return lastday;
+	}
+	public void setLastday(Timestamp lastday) {
+		this.lastday = lastday;
+	}
+
 
 }

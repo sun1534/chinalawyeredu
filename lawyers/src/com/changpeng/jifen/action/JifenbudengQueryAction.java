@@ -20,7 +20,7 @@ import com.changpeng.models.Lawyers;
  */
 public class JifenbudengQueryAction extends AbstractListAction {
 	public String getTopbarpic(){
-		return com.changpeng.common.Constants.TOP_BAR_PIC;
+		return super.webpara.getTopbarpic();
 	}
 	public JifenbudengQueryAction() {
 
